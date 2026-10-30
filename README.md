@@ -107,3 +107,7 @@ Then go to <http://localhost:4174/reference/introduction.html>.
 - [Getting started](reference/getting-started.html)
 - [Components](reference/components.html)
 - [Themes](reference/themes.html)
+
+## License
+
+Canon is released under the [MIT License](LICENSE). The icons and fonts it includes keep their own licenses: see [Third-party notices](THIRD-PARTY-NOTICES.md).
