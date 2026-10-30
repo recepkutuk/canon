@@ -47,12 +47,12 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-brand { grid-area: 1 / 1; justify-self: start; }
 .ref-top-tools { grid-area: 1 / -2; justify-self: end; display: flex; align-items: center; gap: 0.25rem; }
 .ref-top-menu { display: none; }
-.ref-theme-select { inline-size: 7rem; margin-inline-end: 0.25rem; }
+.ref-theme-select { inline-size: 10.5rem; margin-inline-end: 0.25rem; }
 .ref-search { margin-inline-end: 0.25rem; }
 .ref-search > .canon-button-label { min-inline-size: 7rem; text-align: start; }
 /* A phone's bar has room for the theme or Search's words: Search is its icon. */
 @media (width < 40rem) {
-  .ref-theme-select { inline-size: 6.5rem; }
+  .ref-theme-select { inline-size: 8rem; }
   .ref-search { min-inline-size: 2rem; padding-inline: 0.5rem; }
   .ref-search > :is(.canon-button-label, .canon-kbd) { display: none; }
 }

@@ -206,7 +206,7 @@
   /* The content's theme: the URL's, else the one chosen last (this browser),
      else Canon's. Each is a folder in css/, named for it, holding its
      stylesheet. The top bar and the navigation are always in Canon's. */
-  const themes = { canon: "Canon", carbon: "Carbon", material: "Material", fluent: "Fluent", ant: "Ant Design", bootstrap: "Bootstrap" };
+  const themes = { canon: "Canon", carbon: "Carbon-inspired", material: "Material-inspired", fluent: "Fluent-inspired", ant: "Ant Design-inspired", bootstrap: "Bootstrap-inspired" };
   const storedTheme = (() => {
     try { return localStorage.getItem("canon-docs-theme"); } catch { return null; }
   })();
