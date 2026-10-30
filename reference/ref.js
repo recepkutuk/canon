@@ -223,7 +223,7 @@
     const walk = (rules) => {
       for (const rule of rules) {
         if (rule instanceof CSSImportRule) {
-          /* Only canon.core.css: a font service's sheet can't be read. */
+          /* canon.core.css is the only sheet to walk. */
           if (rule.href.endsWith("canon.core.css")) walk(rule.styleSheet.cssRules);
         }
         else if (rule instanceof CSSLayerBlockRule) walk(rule.cssRules);

@@ -15,7 +15,7 @@ Canon includes or draws on the work below. Each keeps its own license, and Canon
 | Ant Design Icons | `css/ant/` | MIT | Ant UED | [css/ant/LICENSE](css/ant/LICENSE) |
 | Bootstrap Icons | `css/bootstrap/` | MIT | The Bootstrap Authors | [css/bootstrap/LICENSE](css/bootstrap/LICENSE) |
 
-The Canon theme loads Inter and JetBrains Mono from font services and doesn't include their files. Both use the SIL Open Font License. The Fluent-inspired theme names Segoe UI where it's installed and doesn't include it.
+The Canon theme loads Inter and JetBrains Mono from font services when a page uses them, and doesn't include their files. Both use the SIL Open Font License. The Fluent-inspired theme names Segoe UI where it's installed and doesn't include it.
 
 ## Trademarks
 
