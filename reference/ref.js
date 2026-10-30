@@ -318,8 +318,9 @@
       </button>
       <a class="ref-brand" href="${introduction}" data-page="${introduction}">${LOGO}<span>Canon</span></a>
       <div class="ref-top-tools">
+        <label class="ref-theme-label" for="ref-theme-picker">Theme:</label>
         <div class="canon-select ref-theme-select" data-size="sm">
-          <select aria-label="Theme">
+          <select id="ref-theme-picker">
             ${Object.entries(themes).map(([value, name]) => `<option value="${value}"${value === chosenTheme ? " selected" : ""}>${name}</option>`).join("")}
           </select>
         </div>
