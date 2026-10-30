@@ -20,8 +20,8 @@
       <label class="canon-choice-label" for="updates">Email me product updates</label>
     </div>
     <div class="sample-row">
-      <span class="canon-tag" data-intent="success">Paid</span>
-      <span class="canon-tag" data-intent="warning">Pending</span>
+      <span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span>
+      <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Pending</span></span>
     </div>
     <div class="sample-row">
       <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
