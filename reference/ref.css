@@ -52,9 +52,13 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-search { margin-inline-end: 0.25rem; }
 .ref-search > .canon-button-label { min-inline-size: 7rem; text-align: start; }
 /* A phone's bar has room for the theme or Search's words: Search is its
-   icon, and the theme's label is for screen readers only. */
+   icon, and Canon's name and the theme's label are for screen readers
+   only (the smallest phones get a narrower theme menu too). */
+@media (width < 24rem) {
+  .ref-top .ref-theme-select { inline-size: 6rem; }
+}
 @media (width < 40rem) {
-  .ref-theme-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .ref-theme-label, .ref-brand > span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
   .ref-theme-select { inline-size: 8rem; }
   .ref-search { min-inline-size: 2rem; padding-inline: 0.5rem; }
   .ref-search > :is(.canon-button-label, .canon-kbd) { display: none; }
@@ -110,6 +114,7 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-principle-title { margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 0.9375rem; font-weight: 600; line-height: 1.5rem; }
 .ref-principle-icon { display: inline-grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 0.5rem; background-color: var(--ref-hover); color: var(--ref-fg); }
 /* The scheme toggle says it with its icon (a sun in dark, a moon in light), not a pressed fill. */
+.ref-github > .canon-icon { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z'/></svg>"); }
 .ref-top .ref-scheme-toggle[aria-pressed="true"]:not(:hover, :active) { background-color: transparent; }
 .ref-brand:focus-visible, .ref-nav a:focus-visible, .ref-toc a:focus-visible { outline: 2px solid light-dark(#2563eb, #60a5fa); outline-offset: 2px; border-radius: 4px; }
 

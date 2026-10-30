@@ -327,6 +327,9 @@
         <button type="button" class="canon-button ref-search" data-emphasis="low" data-intent="neutral" data-size="sm" commandfor="ref-palette" command="show-modal" aria-label="Search" aria-keyshortcuts="Meta+K Control+K">
           <span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
         </button>
+        <a class="canon-button ref-github" href="https://github.com/recepkutuk/canon" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm">
+          <span class="canon-icon" aria-hidden="true"></span><span class="canon-button-label">Canon on GitHub</span>
+        </a>
         <button type="button" class="canon-button ref-scheme-toggle" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" aria-pressed="false">
           <span class="canon-icon" data-icon="moon" aria-hidden="true"></span><span class="canon-button-label">Dark mode</span>
         </button>
