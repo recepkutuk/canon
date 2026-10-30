@@ -1,0 +1,87 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                               */
+  /*                                                                    */
+  /* A strip the full width of its place, its tabs as wide as their     */
+  /* text from its start (data-fill: sharing it equally). In-page:      */
+  /* .canon-tabs holds a role="tablist" strip and its tab panels; the   */
+  /* More button canon.js adds when tabs fold sits over the strip's end */
+  /* (a tablist may only hold tabs), which keeps room for it            */
+  /* (--canon-tabs-more-size). Links: a <nav> strip, More inside it.    */
+  /* Without JavaScript in-page tabs can't switch, so every panel shows */
+  /* and the strip doesn't.                                             */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-tabs) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  :where(.canon-tabs) > :where(.canon-tabs-list, .canon-tabs-more) {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  :where(.canon-tabs) > :where(.canon-tabs-more) {
+    z-index: 1;
+    justify-self: end;
+    align-self: center;
+  }
+  :where(.canon-tabs-list) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    min-inline-size: 0;
+    overflow: clip;
+    overflow-clip-margin: 0.25rem;
+  }
+  :where(.canon-tab, .canon-tabs-more) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    min-inline-size: 0;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  :where(.canon-tabs-list) > :where(.canon-tabs-more) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-tab, .canon-tabs-more) > :where(.canon-icon) {
+    flex: none;
+  }
+  :where(.canon-tab-label) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-tabs-list[data-fill]) > :where(.canon-tab) {
+    flex: 1 1 0;
+  }
+  :where(.canon-tab[aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+  /* A panel hidden until found keeps its box (only its content is
+     skipped): nothing of it may take room, whatever the theme gives a
+     panel. */
+  :where(.canon-tabs-panel[hidden="until-found"]) {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  @media (scripting: none) {
+    :where(.canon-tabs) > :where([role="tablist"]) {
+      display: none;
+    }
+    :where(.canon-tabs-panel[hidden]) {
+      display: block;
+    }
+  }
+}

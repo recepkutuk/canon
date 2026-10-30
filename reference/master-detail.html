@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Master–Detail pattern</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Master–Detail</h1>
+  <p class="ref-note">Going through many records, one after another: the list on one side, the one you're on beside it. For triage (a queue to clear, an inbox, approvals); to work on one record for a while, see <a href="list-detail-edit.html">List → Detail → Edit</a>. Pick an invoice, then use <kbd class="canon-kbd">↑</kbd> <kbd class="canon-kbd">↓</kbd>; mark one as paid and the next unpaid one opens. Drag the frame's corner narrower for one pane at a time.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pattern">
+    <h2>The pattern</h2>
+    <p class="ref-note">An App Shell whose page is a <a href="split-pane.html">Split Pane</a>: the list, the handle, the record.</p>
+    <div class="ref-shell-frame ref-pattern-frame ref-resize" style="inline-size: 100%">
+      <div class="canon-app-shell">
+        <div class="canon-sidebar" id="md-sidebar">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#md-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Billing</span></a>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#md-dashboard" interestfor="md-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="md-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+                <li><a class="canon-nav-list-item" href="#md-invoices" aria-current="page" interestfor="md-tip-invoices"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span></a><div class="canon-tooltip" id="md-tip-invoices" data-placement="inline-end" popover="hint" role="tooltip">Invoices</div></li>
+                <li><a class="canon-nav-list-item" href="#md-customers" interestfor="md-tip-customers"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Customers</span></a><div class="canon-tooltip" id="md-tip-customers" data-placement="inline-end" popover="hint" role="tooltip">Customers</div></li>
+                <li><a class="canon-nav-list-item" href="#md-reports" interestfor="md-tip-reports"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-nav-list-label">Reports</span></a><div class="canon-tooltip" id="md-tip-reports" data-placement="inline-end" popover="hint" role="tooltip">Reports</div></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <header class="canon-top-bar">
+          <div class="canon-top-bar-start">
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="md-sidebar" command="--canon-toggle-sidebar" aria-controls="md-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-top-bar-end">
+            <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span></button>
+          </div>
+        </header>
+        <main class="ref-md-main">
+          <div class="ref-md-wrap" data-bind="wrap">
+            <div class="canon-split-pane">
+              <div class="ref-md-list" id="md-list">
+                <header class="canon-page-header">
+                  <div class="canon-page-header-title"><h1>Invoices</h1></div>
+                  <p class="canon-page-header-description" id="md-count">10 invoices</p>
+                </header>
+                <div class="canon-segmented" role="radiogroup" aria-label="Show" data-fill data-size="sm">
+                  <label class="canon-segmented-option"><input type="radio" name="md-show" value="all" checked><span class="canon-segmented-label">All</span></label>
+                  <label class="canon-segmented-option"><input type="radio" name="md-show" value="unpaid"><span class="canon-segmented-label">Unpaid</span></label>
+                </div>
+                <nav class="canon-nav-list" aria-label="Invoices" aria-describedby="md-keys">
+                  <ul>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2041" data-invoice="2041" data-customer="Globex Corporation" data-due="3 Oct 2026" data-amount="€12,400.00" data-status="overdue"><span class="canon-nav-list-label">INV-2041 · Globex Corporation</span><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2040" data-invoice="2040" data-customer="Initech" data-due="28 Oct 2026" data-amount="€6,900.00" data-status="soon"><span class="canon-nav-list-label">INV-2040 · Initech</span><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Due soon</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2039" data-invoice="2039" data-customer="Umbrella" data-due="12 Oct 2026" data-amount="€3,150.00" data-status="paid"><span class="canon-nav-list-label">INV-2039 · Umbrella</span><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2038" data-invoice="2038" data-customer="Soylent" data-due="30 Oct 2026" data-amount="€980.00" data-status="sent"><span class="canon-nav-list-label">INV-2038 · Soylent</span><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Sent</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2037" data-invoice="2037" data-customer="Hooli" data-due="—" data-amount="€15,000.00" data-status="draft"><span class="canon-nav-list-label">INV-2037 · Hooli</span><span class="canon-tag"><span class="canon-tag-label">Draft</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2036" data-invoice="2036" data-customer="Vandelay Industries" data-due="20 Sep 2026" data-amount="€2,200.00" data-status="paid"><span class="canon-nav-list-label">INV-2036 · Vandelay Industries</span><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2035" data-invoice="2035" data-customer="Stark Industries" data-due="28 Sep 2026" data-amount="€45,000.00" data-status="overdue"><span class="canon-nav-list-label">INV-2035 · Stark Industries</span><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2034" data-invoice="2034" data-customer="Wayne Enterprises" data-due="4 Nov 2026" data-amount="€7,300.00" data-status="sent"><span class="canon-nav-list-label">INV-2034 · Wayne Enterprises</span><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Sent</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2033" data-invoice="2033" data-customer="Acme Corp" data-due="15 Sep 2026" data-amount="€640.00" data-status="paid"><span class="canon-nav-list-label">INV-2033 · Acme Corp</span><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span></a></li>
+                    <li><a class="canon-nav-list-item" href="#md-inv-2032" data-invoice="2032" data-customer="Cyberdyne" data-due="10 Nov 2026" data-amount="€12,000.00" data-status="draft"><span class="canon-nav-list-label">INV-2032 · Cyberdyne</span><span class="canon-tag"><span class="canon-tag-label">Draft</span></span></a></li>
+                  </ul>
+                </nav>
+                <p class="canon-visually-hidden" id="md-keys">Up and Down open the previous and next invoice.</p>
+              </div>
+              <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the list" aria-controls="md-list" aria-orientation="vertical" aria-valuenow="38" aria-valuemin="25" aria-valuemax="55"></div>
+              <section class="ref-md-detail" id="md-detail" aria-label="Invoice">
+                <div class="canon-empty-state" data-bind="empty">
+                  <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span></span>
+                  <h2 class="canon-empty-state-title">Select an invoice</h2>
+                  <p class="canon-empty-state-description">Pick one from the list, or use <kbd class="canon-kbd">↑</kbd> <kbd class="canon-kbd">↓</kbd> to go through them.</p>
+                </div>
+                <div data-bind="record" hidden>
+                  <header class="canon-page-header">
+                    <a class="canon-page-header-back ref-md-back" href="#md-invoices" data-back><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+                    <div class="canon-page-header-title">
+                      <h2 tabindex="-1" data-bind="title">INV-2041</h2>
+                      <span class="canon-tag" data-bind="tag"><span class="canon-tag-label"></span></span>
+                    </div>
+                    <p class="canon-page-header-description" data-bind="summary"></p>
+                    <div class="canon-page-header-actions">
+                      <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-remind><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+                      <button type="button" class="canon-button" data-emphasis="high" data-paid><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-button-label">Mark as paid</span></button>
+                    </div>
+                  </header>
+                  <section class="canon-card">
+                    <header class="canon-card-header"><h3 class="canon-card-title">Details</h3></header>
+                    <div class="canon-card-body">
+                      <dl class="canon-description-list" data-label="start">
+                        <div><dt>Customer</dt><dd data-bind="customer"></dd></div>
+                        <div><dt>Due</dt><dd data-bind="due"></dd></div>
+                        <div><dt>Amount</dt><dd data-bind="amount"></dd></div>
+                        <div><dt>Status</dt><dd data-bind="status"></dd></div>
+                      </dl>
+                    </div>
+                  </section>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      /* The demo app. A real one gives each invoice its address
+         (/invoices/2041) and loads it; here the list's data stands in. */
+      {
+        const wrap = document.querySelector("[data-bind='wrap']");
+        const list = wrap.querySelector("#md-list nav");
+        const detail = document.getElementById("md-detail");
+        const bind = (name) => detail.querySelector(`[data-bind="${name}"]`);
+        const STATUS = { overdue: ["danger", "Overdue"], soon: ["warning", "Due soon"], paid: ["success", "Paid"], sent: ["info", "Sent"], draft: ["", "Draft"] };
+        const links = () => [...list.querySelectorAll("a[data-invoice]")].filter((link) => !link.closest("li").hidden);
+        const paint = (element, status) => {
+          const [intent, label] = STATUS[status];
+          if (intent) element.dataset.intent = intent;
+          else element.removeAttribute("data-intent");
+          element.querySelector(".canon-tag-label").textContent = label;
+        };
+        let open = null;
+
+        const show = (link, { focusDetail = false } = {}) => {
+          open = link;
+          for (const each of list.querySelectorAll("a[data-invoice]")) {
+            if (each === link) each.setAttribute("aria-current", "page");
+            else each.removeAttribute("aria-current");
+          }
+          bind("empty").hidden = Boolean(link);
+          bind("record").hidden = !link;
+          wrap.toggleAttribute("data-open", Boolean(link));
+          if (!link) return;
+          const { invoice, customer, due, amount, status } = link.dataset;
+          bind("title").textContent = `INV-${invoice}`;
+          paint(bind("tag"), status);
+          bind("summary").textContent = [customer, due === "—" ? "No due date" : `Due ${due}`, amount].join(" · ");
+          bind("customer").textContent = customer;
+          bind("due").textContent = due;
+          bind("amount").textContent = amount;
+          bind("status").textContent = STATUS[status][1];
+          detail.querySelector("[data-paid]").hidden = status === "paid" || status === "draft";
+          if (focusDetail) bind("title").focus({ preventScroll: true });
+        };
+        /* One pane at a time (narrow): the detail takes focus when it opens. */
+        const narrow = () => !list.closest(".canon-split-pane").querySelector(".canon-split-pane-handle").checkVisibility();
+
+        list.addEventListener("click", (event) => {
+          const link = event.target.closest("a[data-invoice]");
+          if (!link) return;
+          event.preventDefault();
+          show(link, { focusDetail: narrow() });
+        });
+        /* Up and Down (and J, K, Home, End) open the next one; focus stays in
+           the list, so people can go through them. */
+        list.addEventListener("keydown", (event) => {
+          const all = links();
+          const at = all.indexOf(event.target.closest("a"));
+          if (at < 0) return;
+          const keys = { ArrowDown: at + 1, j: at + 1, ArrowUp: at - 1, k: at - 1, Home: 0, End: all.length - 1 };
+          if (!(event.key in keys) || event.altKey || event.ctrlKey || event.metaKey) return;
+          const next = all[Math.max(0, Math.min(all.length - 1, keys[event.key]))];
+          event.preventDefault();
+          next.focus();
+          if (!narrow()) show(next);
+        });
+        detail.querySelector("[data-back]").addEventListener("click", (event) => {
+          event.preventDefault();
+          const link = open;
+          show(null);
+          link?.focus();
+        });
+        detail.querySelector("[data-remind]").addEventListener("click", () => {
+          document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Reminder sent", description: `${bind("title").textContent} is in their inbox.` } }));
+        });
+        /* Acting on one moves on to the next that needs it. */
+        detail.querySelector("[data-paid]").addEventListener("click", () => {
+          const link = open;
+          link.dataset.status = "paid";
+          paint(link.querySelector(".canon-tag"), "paid");
+          document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: `${bind("title").textContent} marked as paid` } }));
+          const all = links();
+          const after = [...all.slice(all.indexOf(link) + 1), ...all.slice(0, all.indexOf(link))].find((each) => ["overdue", "soon", "sent"].includes(each.dataset.status));
+          if (unpaidOnly()) filter();
+          if (after) {
+            show(after);
+            (narrow() ? bind("title") : after).focus({ preventScroll: true });
+          } else show(link);
+        });
+        const unpaidOnly = () => wrap.querySelector("input[name='md-show']:checked").value === "unpaid";
+        const filter = () => {
+          let shown = 0;
+          for (const link of list.querySelectorAll("a[data-invoice]")) {
+            const hide = unpaidOnly() && !["overdue", "soon", "sent"].includes(link.dataset.status);
+            link.closest("li").hidden = hide;
+            if (!hide) shown++;
+          }
+          document.getElementById("md-count").textContent = `${shown} ${unpaidOnly() ? "unpaid " : ""}invoice${shown === 1 ? "" : "s"}`;
+          if (open?.closest("li").hidden) show(null);
+        };
+        wrap.addEventListener("change", (event) => { if (event.target.name === "md-show") filter(); });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="list">
+    <h2>The list</h2>
+    <p class="ref-note">Records as links, in a <a href="nav-list.html">Nav List</a> named for what it lists: each has its own address, opens in a new tab, and the open one is <code>aria-current="page"</code>. Its status is a <a href="tag.html">Tag</a> on the row.</p>
+    <p class="ref-note"><kbd class="canon-kbd">↑</kbd> and <kbd class="canon-kbd">↓</kbd> (and <kbd class="canon-kbd">J</kbd> <kbd class="canon-kbd">K</kbd>, <kbd class="canon-kbd">Home</kbd> <kbd class="canon-kbd">End</kbd>) open the previous and next record while focus stays in the list, so going through twenty is twenty key presses. The list says so to screen readers (<code>aria-describedby</code>).</p>
+    <p class="ref-note">Above it, what narrows it: here a <a href="segmented-control.html">Segmented Control</a> (All, Unpaid), sharing the pane's width (<code>data-fill</code>).</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="detail">
+    <h2>The record</h2>
+    <p class="ref-note">Before anything is picked, an <a href="empty-state.html">Empty State</a> says what to do. Then the record's <a href="page-header.html">Page Header</a> (its title a level under the page's: <code>h2</code>) and its parts in <a href="card.html">Cards</a>.</p>
+    <p class="ref-note">Acting on a record (Mark as paid) updates it in both panes, says so in a <a href="toast.html">Toast</a>, and opens the next one that needs it: the queue clears itself.</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">Under 40rem one pane shows at a time: the list, then the record with a back link (shown only then) that returns to the list and to the row you came from. This is a container query on the pattern's own wrapper, today; a Split Pane hint for it may come.</p>
+
+  </section>
+
+</main>
+</body>
+</html>

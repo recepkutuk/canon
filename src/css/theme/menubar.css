@@ -1,0 +1,47 @@
+/* ==================================================================== */
+/* Menubar                                                              */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A hairline edge around white (dark
+     zinc-900), 4px inside, corners 8 / 12 / 16. Items are the button's
+     size without its frame (32 / 40 / 48, padding 8 / 10 / 12, the label
+     4 / 6 / 8 further in, corners 4 / 8 / 12), medium, zinc-500; the open
+     one zinc-100 (dark zinc-800) with zinc-900 text (dark white). Its
+     menus open 4px under the bar. Hover and keyboard focus
+     look like the open item; a disabled item is zinc-300 (dark zinc-700). */
+  .canon-menubar {
+    padding: calc(0.25rem - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge);
+  }
+  .canon-menubar-item {
+    min-block-size: var(--canon-control-block-size);
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-button-label-inset));
+    border-radius: var(--canon-theme-input-radius);
+    color: var(--canon-theme-zinc-500);
+    font-size: var(--canon-control-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-button-line-height);
+    letter-spacing: var(--canon-theme-button-tracking);
+  }
+  .canon-menubar-item:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"]) {
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-menubar-item:hover:not(:disabled, [aria-disabled="true"]) {
+      background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-menubar-item:is(:disabled, [aria-disabled="true"]) {
+    color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-700));
+  }
+  .canon-menu[data-menubar] {
+    margin-block: 0.5rem;
+  }
+}

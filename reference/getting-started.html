@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Getting started</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Getting started</h1>
+  <p class="ref-note">How to add Canon to a page, how its markup is read, what needs JavaScript and which browsers it supports. For what Canon is and why, start with the <a href="introduction.html">Introduction</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="quick-start">
+    <h2>Quick start</h2>
+    <p class="ref-note">Link Canon's stylesheet (it brings the core with it) and, for behavior, canon.js:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-install" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy index.html</span></button>
+      </div>
+      <pre><code id="intro-install"><span class="tok punctuation">&lt;</span><span class="tok tag_name">link</span> <span class="tok attr_name">rel</span><span class="tok operator">=</span><span class="tok string">&quot;stylesheet&quot;</span> <span class="tok attr_name">href</span><span class="tok operator">=</span><span class="tok string">&quot;css/canon/canon.css&quot;</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;</span><span class="tok tag_name">script</span> <span class="tok attr_name">src</span><span class="tok operator">=</span><span class="tok string">&quot;js/canon.js&quot;</span> <span class="tok attr_name">defer</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">script</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+    <p class="ref-note">Then write the markup each component's page shows. A primary action:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Button</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-button" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Button</span></button>
+      </div>
+      <pre><code id="intro-button"><span class="tok punctuation">&lt;</span><span class="tok tag_name">button</span> <span class="tok attr_name">type</span><span class="tok operator">=</span><span class="tok string">&quot;button&quot;</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-button&quot;</span> <span class="tok attr_name">data-emphasis</span><span class="tok operator">=</span><span class="tok string">&quot;high&quot;</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;</span><span class="tok tag_name">span</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-icon&quot;</span> <span class="tok attr_name">data-icon</span><span class="tok operator">=</span><span class="tok string">&quot;plus&quot;</span> <span class="tok attr_name">aria-hidden</span><span class="tok operator">=</span><span class="tok string">&quot;true&quot;</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">span</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;</span><span class="tok tag_name">span</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-button-label&quot;</span><span class="tok punctuation">&gt;</span>New invoice<span class="tok punctuation">&lt;/</span><span class="tok tag_name">span</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;/</span><span class="tok tag_name">button</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+    </div>
+    <p class="ref-note">A field, its label tied to its input:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Field</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-field" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Field</span></button>
+      </div>
+      <pre><code id="intro-field"><span class="tok punctuation">&lt;</span><span class="tok tag_name">div</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-field&quot;</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;</span><span class="tok tag_name">div</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-label&quot;</span><span class="tok punctuation">&gt;</span>
+    <span class="tok punctuation">&lt;</span><span class="tok tag_name">label</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-label-text&quot;</span> <span class="tok attr_name">for</span><span class="tok operator">=</span><span class="tok string">&quot;email&quot;</span><span class="tok punctuation">&gt;</span>Billing email<span class="tok punctuation">&lt;/</span><span class="tok tag_name">label</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;/</span><span class="tok tag_name">div</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;</span><span class="tok tag_name">div</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;canon-text-input&quot;</span><span class="tok punctuation">&gt;</span>
+    <span class="tok punctuation">&lt;</span><span class="tok tag_name">input</span> <span class="tok attr_name">id</span><span class="tok operator">=</span><span class="tok string">&quot;email&quot;</span> <span class="tok attr_name">type</span><span class="tok operator">=</span><span class="tok string">&quot;email&quot;</span> <span class="tok attr_name">placeholder</span><span class="tok operator">=</span><span class="tok string">&quot;billing@globex.example&quot;</span><span class="tok punctuation">&gt;</span>
+  <span class="tok punctuation">&lt;/</span><span class="tok tag_name">div</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;/</span><span class="tok tag_name">div</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+    <div class="ref-stack">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="intro-email">Billing email</label></div>
+        <div class="canon-text-input"><input id="intro-email" type="email" placeholder="billing@globex.example"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="principles">
+    <h2>Principles</h2>
+    <div class="ref-principles ref-plain">
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="tag" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">HTML first</h3>
+          <p>Native elements wherever they exist: a real <code>&lt;button&gt;</code>, <code>&lt;dialog&gt;</code>, <code>&lt;details&gt;</code>. Meaning lives in attributes, not in wrappers.</p>
+        </div>
+      </article>
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="globe" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">The platform first</h3>
+          <p>Popovers, dialogs, invoker commands and anchor positioning do the work; canon.js fills only the gaps, and steps back as browsers catch up.</p>
+        </div>
+      </article>
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">Accessible by contract</h3>
+          <p>Names, roles, focus and keyboard are part of each component's markup, so a theme can't lose them and an app doesn't have to remember them.</p>
+        </div>
+      </article>
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">The author beats the theme</h3>
+          <p>Hints like <code>data-size</code> and <code>data-density</code> sit above the theme in the cascade. The author is never required to say anything; the theme decides the rest.</p>
+        </div>
+      </article>
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">Every direction, every language</h3>
+          <p>Logical properties throughout, so right-to-left works as well as left-to-right; every word Canon writes comes from CSS, ready to translate.</p>
+        </div>
+      </article>
+      <article class="canon-card ref-principle">
+        <div class="canon-card-body">
+          <span class="ref-principle-icon" aria-hidden="true"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span></span>
+          <h3 class="ref-principle-title">Works without JavaScript</h3>
+          <p>Each component says what it does without canon.js and what it adds with it. Nothing important disappears when a script doesn't load.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="markup">
+    <h2>How the markup speaks</h2>
+    <p class="ref-note">Every attribute has one job. Knowing which channel says what makes any component's page quick to read.</p>
+    <div class="canon-table ref-plain">
+      <table>
+        <caption class="canon-visually-hidden">Markup channels</caption>
+        <thead><tr><th scope="col">Channel</th><th scope="col">Says</th><th scope="col">For example</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>class</code></th><td>What it is, and its parts</td><td><code>canon-button</code>, <code>canon-button-label</code></td></tr>
+          <tr><th scope="row"><code>data-*</code></th><td>What it means: its variant</td><td><code>data-emphasis="high"</code>, <code>data-intent="danger"</code></td></tr>
+          <tr><th scope="row">ARIA and native attributes</th><td>Its state</td><td><code>disabled</code>, <code>aria-pressed</code>, <code>aria-current</code></td></tr>
+          <tr><th scope="row">Hints</th><td>How it's presented, on it or a container</td><td><code>data-size</code>, <code>data-density</code>, <code>data-display</code></td></tr>
+          <tr><th scope="row"><code>data-state</code></th><td>State canon.js keeps (rare)</td><td><code>data-state="changed"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ref-note">Hints are inherited: put one on a container and everything inside follows, unless it says otherwise.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">A hint on a container</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-hint" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy A hint on a container</span></button>
+      </div>
+      <pre><code id="intro-hint"><span class="tok punctuation">&lt;</span><span class="tok tag_name">div</span> <span class="tok attr_name">data-size</span><span class="tok operator">=</span><span class="tok string">&quot;sm&quot;</span><span class="tok punctuation">&gt;</span>
+  …every control in here is small, unless one says otherwise…
+<span class="tok punctuation">&lt;/</span><span class="tok tag_name">div</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="tiers">
+    <h2>What needs JavaScript</h2>
+    <p class="ref-note">Each component's specification gives its tier, so you know what to expect before you build:</p>
+    <dl class="canon-description-list ref-plain" data-label="start">
+      <div><dt>T0</dt><dd>HTML and CSS only. Buttons, tags, tables, cards.</dd></div>
+      <div><dt>T1</dt><dd>The platform's own features: popovers, dialogs, invoker commands, anchor positioning (filled in where a browser lacks them).</dd></div>
+      <div><dt>T2</dt><dd>Works without JavaScript, better with canon.js: tabs, folding top bars, a save bar's change tracking.</dd></div>
+      <div><dt>T3</dt><dd>Needs JavaScript: a command palette's search.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="browsers">
+    <h2>Browser support</h2>
+    <p class="ref-note">Canon supports current versions of Chrome, Edge, Firefox and Safari. It needs cascade layers, <code>:has()</code>, <code>light-dark()</code>, container queries, popovers and dialogs, which every current browser has (Chrome and Edge 123, Firefox 125 and Safari 17.5 onwards). Newer platform features are used where a browser has them; elsewhere canon.js fills them in, or the page does without:</p>
+    <div class="canon-table ref-plain">
+      <table>
+        <caption class="canon-visually-hidden">Newer platform features and what happens without them</caption>
+        <thead><tr><th scope="col">Feature</th><th scope="col">Canon uses it for</th><th scope="col">Without it</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Anchor positioning</th><td>Placing menus, popovers, lists and tooltips next to what opened them</td><td>canon.js places them (in browsers older than Chrome 125, Safari 26 or Firefox 147)</td></tr>
+          <tr><th scope="row">Invoker commands (<code>commandfor</code>)</th><td>Buttons that open dialogs and run Canon's commands</td><td>canon.js fills them in</td></tr>
+          <tr><th scope="row">Interest invokers (<code>interestfor</code>)</th><td>Tooltips that show on hover and focus</td><td>canon.js fills them in</td></tr>
+          <tr><th scope="row"><code>closedby</code> on dialogs</th><td>Closing a dialog with a click beside it</td><td>canon.js fills it in</td></tr>
+          <tr><th scope="row"><code>field-sizing</code></th><td>Fields that grow with what's typed</td><td>canon.js sizes them</td></tr>
+          <tr><th scope="row">Typed <code>attr()</code> and <code>if()</code></th><td>Colors from <code>data-seed</code>, sizes from attributes</td><td>canon.js and the stylesheet cover them</td></tr>
+          <tr><th scope="row">Customizable select</th><td>A Select's list in Canon's look</td><td>The browser's own list, which works the same</td></tr>
+          <tr><th scope="row"><code>hidden="until-found"</code></th><td>Find in page reaching text in a Tab's hidden panel, and choosing its tab</td><td>Find in page only searches the panel that shows</td></tr>
+          <tr><th scope="row">Scroll-state container queries</th><td>A line under a stuck Page Header or over a stuck Save Bar</td><td>No line; they stick the same</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="ref-note">These docs say so at the top of a page when your browser is missing one of them.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="reading">
+    <h2>Reading these docs</h2>
+    <p class="ref-note">Each component has a page in three parts:</p>
+    <dl class="canon-description-list ref-plain" data-label="start">
+      <div><dt>Reference</dt><dd>Every variant, state and edge case, as working markup: what a theme must render, and what you can copy.</dd></div>
+      <div><dt>Playground</dt><dd>The component's options as controls, the result, and its exact HTML to copy or edit in place.</dd></div>
+      <div><dt>Specification</dt><dd>The contract in full (<code>docs/components/…</code>): elements, attributes, behavior, accessibility, and what a theme must do.</dd></div>
+    </dl>
+    <p class="ref-note">Patterns put the components together into whole screens: finding, opening, editing and saving records. Search everything with the top bar's search, or <kbd class="canon-kbd">⌘K</kbd>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="contract-check">
+    <h2>The contract check</h2>
+    <p class="ref-note">For developers and theme authors: <code>css/canon.debug.css</code> outlines, in a dashed amber line, any markup on the page that breaks a component's contract: a missing name, a part in the wrong place, a second primary action. Add <code>js/canon.debug.js</code> and each outlined element gets a warning right below it: the contract it breaks, why, and the exact condition it fails. Load both while you build, never in production.</p>
+    <p class="ref-note">In these docs, turn it on from the search (<kbd class="canon-kbd">⌘K</kbd>, "Turn contract check on") or add <code>?debug</code> to a page's address.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="themes">
+    <h2>Making it yours</h2>
+    <p class="ref-note">Canon's styles sit in cascade layers, so your own unlayered CSS always wins, with no specificity fights. To go further, write a theme: one stylesheet that declares Canon's layers, imports <code>css/canon/canon.core.css</code> and draws every component, in place of <code>css/canon/canon.css</code>. Each component's specification lists what a theme must do. The markup never changes, so pages move to a new theme by changing one line. <a href="themes.html">Themes</a> compares the ones that come with Canon.</p>
+  </section>
+
+</main>
+</body>
+</html>

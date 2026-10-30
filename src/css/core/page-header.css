@@ -1,0 +1,74 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Page Header                                                         */
+  /*                                                                     */
+  /* <header class="canon-page-header"> at the top of a page's <main>:   */
+  /* an optional back link or Breadcrumb, the title (a heading, its      */
+  /* status, a rename button), a description, actions. A grid: the trail */
+  /* over the title, the actions beside it, the description under both;  */
+  /* narrow (under 24rem of its own width) the actions go under it all.  */
+  /* data-sticky: it sticks under what is above the page                 */
+  /* (--canon-sticky-offset), its trail tucked away above it              */
+  /* (--canon-page-header-tuck, canon.js), reaching across the page's    */
+  /* side padding (--canon-page-inset). canon.js folds it when narrow.   */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-page-header) {
+    container: canon-page-header / inline-size;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "trail trail" "title actions" "description description";
+    align-items: center;
+  }
+  :where(.canon-page-header) > :where(.canon-page-header-back, .canon-breadcrumb) {
+    grid-area: trail;
+    justify-self: start;
+    max-inline-size: 100%;
+  }
+  :where(.canon-page-header-back) {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+  :where(.canon-page-header-title) {
+    grid-area: title;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-inline-size: 0;
+  }
+  :where(.canon-page-header-title) > :where(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    overflow-wrap: anywhere;
+  }
+  :where(.canon-page-header-description) {
+    grid-area: description;
+    margin: 0;
+  }
+  :where(.canon-page-header-actions) {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  @container canon-page-header (width < 24rem) {
+    :where(.canon-page-header-actions) {
+      grid-area: auto;
+      grid-row: 4;
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+    }
+  }
+  :where(.canon-page-header[data-sticky]) {
+    container-type: inline-size scroll-state;
+    position: sticky;
+    inset-block-start: calc(var(--canon-sticky-offset, 0px) - var(--canon-page-header-tuck, 0px));
+    z-index: 1;
+    margin-inline: calc(-1 * var(--canon-page-inset, 0px));
+    padding-inline: var(--canon-page-inset, 0px);
+  }
+}

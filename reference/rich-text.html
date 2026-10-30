@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Rich Text reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Rich Text</h1>
+  <p class="ref-note">A textarea for formatted text: headings, emphasis, links, lists. Its value is clean HTML. Specification: <a href="../docs/components/rich-text.md">docs/components/rich-text.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="rich">
+    <h2>Basics</h2>
+    <p class="ref-note"><code>data-rich</code> on a <a href="textarea.html">Textarea</a>'s box: canon.js draws a <a href="toolbar.html">Toolbar</a> on top and an area to write in. The <code>&lt;textarea&gt;</code> keeps the value, clean HTML, which is what the form sends; it stays the label's target and what the browser checks. Without JavaScript the textarea shows the HTML as text.</p>
+
+    <div class="ref-stack" style="max-inline-size: 40rem">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="rt">Release notes</label>
+          <p class="canon-label-description" id="rt-desc">Shown to everyone on the changelog.</p>
+        </div>
+        <div class="canon-textarea" data-rich>
+          <textarea id="rt" name="rt" rows="6" placeholder="Write something…" aria-describedby="rt-desc">&lt;h2&gt;Release notes&lt;/h2&gt;&lt;p&gt;This week we shipped &lt;strong&gt;faster search&lt;/strong&gt; and &lt;em&gt;better&lt;/em&gt; filters. Read the &lt;a href=&quot;https://canon.design/docs&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Search is twice as fast&lt;/li&gt;&lt;li&gt;Filters remember your last choice&lt;/li&gt;&lt;/ul&gt;</textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="tools">
+    <h2>Tools</h2>
+    <p class="ref-note"><code>data-tools</code> picks the toolbar's groups, in this order whatever order they are written in: <code>history</code> (undo, redo), <code>block</code> (paragraph, headings, quote, code), <code>align</code>, <code>marks</code> (bold, italic, underline, strikethrough), <code>link</code>, <code>color</code>, <code>clear</code>, <code>script</code> (sub, super), <code>lists</code>, <code>indent</code>, <code>insert</code> (a line, an image); or <code>all</code>. Without it: <code>history block marks link lists</code>.</p>
+
+    <div class="ref-stack" style="max-inline-size: 40rem">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="all">Article</label>
+        </div>
+        <div class="canon-textarea" data-rich data-tools="all">
+          <textarea id="all" name="all" rows="8" placeholder="Write something…">&lt;h2&gt;Release notes&lt;/h2&gt;&lt;p&gt;This week we shipped &lt;strong&gt;faster search&lt;/strong&gt; and &lt;em&gt;better&lt;/em&gt; filters. Read the &lt;a href=&quot;https://canon.design/docs&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Search is twice as fast&lt;/li&gt;&lt;li&gt;Filters remember your last choice&lt;/li&gt;&lt;/ul&gt;</textarea>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="few">Comment</label>
+        </div>
+        <div class="canon-textarea" data-rich data-tools="marks link">
+          <textarea id="few" name="few" rows="3" placeholder="Write something…">&lt;p&gt;Looks good to me.&lt;/p&gt;</textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="height">
+    <h2>Height</h2>
+    <p class="ref-note">As a Textarea: <code>rows</code> is the height (and the least), <code>data-max-lines</code> lets it grow up to that many lines (<code>none</code>: without limit), then it scrolls.</p>
+
+    <div class="ref-stack" style="max-inline-size: 40rem">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="grow">Grows to 10 lines</label>
+        </div>
+        <div class="canon-textarea" data-rich>
+          <textarea id="grow" name="grow" rows="3" placeholder="Write something…" data-max-lines="10">&lt;p&gt;Type to see it grow.&lt;/p&gt;</textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">The textarea's: <code>required</code> (an empty editor has no value, so the browser's check shows in the field's message), <code>disabled</code> and <code>readonly</code> (the toolbar is unavailable too).</p>
+
+    <div class="ref-stack" style="max-inline-size: 40rem">
+      <form onsubmit="event.preventDefault()" style="display: grid; gap: 1rem">
+        <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="req">Summary</label>
+          <p class="canon-label-description" id="req-desc">Required.</p>
+        </div>
+        <div class="canon-textarea" data-rich>
+          <textarea id="req" name="req" rows="3" placeholder="Write something…" aria-describedby="req-desc req-msg" required></textarea>
+        </div>
+        <p class="canon-field-message" id="req-msg" aria-live="polite"></p>
+      </div>
+        <button type="submit" class="canon-button" style="justify-self: start"><span class="canon-button-label">Check</span></button>
+      </form>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="dis">Disabled</label>
+        </div>
+        <div class="canon-textarea" data-rich>
+          <textarea id="dis" name="dis" rows="3" placeholder="Write something…" disabled>&lt;p&gt;Nothing to change here.&lt;/p&gt;</textarea>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ro">Read-only</label>
+        </div>
+        <div class="canon-textarea" data-rich>
+          <textarea id="ro" name="ro" rows="3" placeholder="Write something…" readonly>&lt;p&gt;You can select but not change this.&lt;/p&gt;</textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the toolbar starts from the right, "Align right" comes first, and the text runs from the right. Pasted content keeps only the HTML listed in the specification.</p>
+
+    <div class="ref-stack" style="max-inline-size: 40rem" dir="rtl" lang="ar">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="rtl">ملاحظات الإصدار</label>
+        </div>
+        <div class="canon-textarea" data-rich data-tools="history block align marks link lists">
+          <textarea id="rtl" name="rtl" rows="4" placeholder="Write something…">&lt;p&gt;شحنا هذا الأسبوع &lt;strong&gt;بحثًا أسرع&lt;/strong&gt;.&lt;/p&gt;</textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

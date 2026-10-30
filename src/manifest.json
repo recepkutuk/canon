@@ -1,0 +1,564 @@
+{
+  "about": "Canon's modules: what each is called, what it covers, and what it needs. tools/build.mjs builds any set of them with what they need; base (tokens, icons, Button, Visually hidden, the size and display hints; in canon.js the shared helpers, commands and set-up) is always in. Optional companions (a Count in a Tab, a Tooltip on a Label, a Breadcrumb in a Page Header) are listed by the one building, not needed here. Bundles group modules the way apps use them; the Build page offers bundles, the command line takes bundles and modules alike.",
+  "modules": {
+    "accordion": {
+      "title": "Accordion",
+      "group": "Data display"
+    },
+    "alert": {
+      "title": "Alert",
+      "needs": [
+        "room"
+      ],
+      "group": "Feedback"
+    },
+    "app-shell": {
+      "title": "App Shell, Sidebar, Top Bar",
+      "needs": [
+        "folding"
+      ],
+      "group": "Layout"
+    },
+    "avatar": {
+      "title": "Avatar",
+      "needs": [
+        "seed",
+        "count",
+        "tooltip"
+      ],
+      "group": "Data display"
+    },
+    "avatar-group": {
+      "title": "Avatar Group",
+      "needs": [
+        "avatar"
+      ],
+      "group": "Data display"
+    },
+    "banner": {
+      "title": "Banner",
+      "needs": [
+        "room"
+      ],
+      "group": "Feedback"
+    },
+    "breadcrumb": {
+      "title": "Breadcrumb",
+      "needs": [
+        "menu"
+      ],
+      "group": "Navigation"
+    },
+    "button-group": {
+      "title": "Button Group",
+      "group": "Actions"
+    },
+    "card": {
+      "title": "Card, Section",
+      "group": "Layout"
+    },
+    "choice": {
+      "title": "Checkbox, Radio, Switch, Fieldset",
+      "aliases": [
+        "checkbox",
+        "radio",
+        "switch",
+        "fieldset"
+      ],
+      "group": "Forms"
+    },
+    "code-block": {
+      "title": "Code Block",
+      "group": "Data display"
+    },
+    "color-picker": {
+      "title": "Color Picker",
+      "needs": [
+        "text-input",
+        "select",
+        "swatches",
+        "popups"
+      ],
+      "group": "Forms"
+    },
+    "combobox": {
+      "title": "Combobox",
+      "needs": [
+        "select",
+        "tag",
+        "popups"
+      ],
+      "group": "Forms"
+    },
+    "command-palette": {
+      "title": "Command Palette",
+      "needs": [
+        "kbd"
+      ],
+      "group": "Navigation"
+    },
+    "count": {
+      "title": "Count",
+      "group": "Data display"
+    },
+    "data-table": {
+      "title": "Data Table",
+      "needs": [
+        "table",
+        "choice",
+        "menu",
+        "popover",
+        "pagination",
+        "text-input",
+        "select",
+        "spinner",
+        "tooltip"
+      ],
+      "group": "Data display"
+    },
+    "date": {
+      "title": "Date, Calendar, Day strip",
+      "needs": [
+        "text-input",
+        "select",
+        "popups"
+      ],
+      "aliases": [
+        "calendar",
+        "date-range"
+      ],
+      "group": "Forms"
+    },
+    "description-list": {
+      "title": "Description List",
+      "group": "Data display"
+    },
+    "stat": {
+      "title": "Stat",
+      "aliases": [
+        "kpi",
+        "stats"
+      ],
+      "group": "Data display"
+    },
+    "dialog": {
+      "title": "Dialog, Drawer",
+      "aliases": [
+        "drawer"
+      ],
+      "group": "Overlays"
+    },
+    "empty-state": {
+      "title": "Empty State",
+      "group": "Data display"
+    },
+    "field": {
+      "title": "Field",
+      "needs": [
+        "label"
+      ],
+      "group": "Forms"
+    },
+    "filter-bar": {
+      "title": "Filter Bar",
+      "needs": [
+        "popover",
+        "choice"
+      ],
+      "group": "Data display"
+    },
+    "form-layout": {
+      "title": "Form Layout",
+      "needs": [
+        "field"
+      ],
+      "group": "Forms"
+    },
+    "form-repeater": {
+      "title": "Form Repeater",
+      "needs": [
+        "room"
+      ],
+      "group": "Forms"
+    },
+    "kbd": {
+      "title": "Kbd",
+      "group": "Data display"
+    },
+    "label": {
+      "title": "Label",
+      "group": "Forms"
+    },
+    "link": {
+      "title": "Link",
+      "group": "Actions"
+    },
+    "menu": {
+      "title": "Menu",
+      "needs": [
+        "separator",
+        "popups"
+      ],
+      "group": "Overlays"
+    },
+    "menubar": {
+      "title": "Menubar",
+      "needs": [
+        "menu"
+      ],
+      "group": "Navigation"
+    },
+    "nav-list": {
+      "title": "Nav List",
+      "needs": [
+        "tooltip"
+      ],
+      "group": "Navigation"
+    },
+    "number": {
+      "title": "Number Input",
+      "aliases": [
+        "number-input"
+      ],
+      "group": "Forms"
+    },
+    "otp": {
+      "title": "Input OTP",
+      "aliases": [
+        "input-otp"
+      ],
+      "group": "Forms"
+    },
+    "page-header": {
+      "title": "Page Header",
+      "needs": [
+        "folding"
+      ],
+      "group": "Layout"
+    },
+    "pagination": {
+      "title": "Pagination, Load more",
+      "group": "Navigation"
+    },
+    "password": {
+      "title": "Password",
+      "needs": [
+        "text-input"
+      ],
+      "group": "Forms"
+    },
+    "popover": {
+      "title": "Popover",
+      "needs": [
+        "popups"
+      ],
+      "group": "Overlays"
+    },
+    "rich-text": {
+      "title": "Rich Text",
+      "needs": [
+        "text-input",
+        "toolbar",
+        "button-group",
+        "select",
+        "popover",
+        "menu"
+      ],
+      "group": "Forms"
+    },
+    "save-bar": {
+      "title": "Save Bar",
+      "needs": [
+        "status"
+      ],
+      "group": "Forms"
+    },
+    "segmented": {
+      "title": "Segmented Control",
+      "needs": [
+        "track-mark"
+      ],
+      "aliases": [
+        "segmented-control"
+      ],
+      "group": "Actions"
+    },
+    "select": {
+      "title": "Select",
+      "needs": [
+        "text-input",
+        "popups"
+      ],
+      "group": "Forms"
+    },
+    "separator": {
+      "title": "Separator",
+      "group": "Layout"
+    },
+    "skeleton": {
+      "title": "Skeleton",
+      "needs": [
+        "room"
+      ],
+      "group": "Feedback"
+    },
+    "slider": {
+      "title": "Slider, Range Slider",
+      "aliases": [
+        "range-slider"
+      ],
+      "group": "Forms"
+    },
+    "spinner": {
+      "title": "Spinner",
+      "group": "Feedback"
+    },
+    "split-button": {
+      "title": "Split Button",
+      "needs": [
+        "menu"
+      ],
+      "group": "Actions"
+    },
+    "split-pane": {
+      "title": "Split Pane",
+      "group": "Layout"
+    },
+    "stack": {
+      "title": "Stack, Cluster, Grid",
+      "aliases": [
+        "cluster",
+        "grid"
+      ],
+      "group": "Layout"
+    },
+    "status": {
+      "title": "Status Indicator",
+      "aliases": [
+        "status-indicator"
+      ],
+      "group": "Data display"
+    },
+    "swatches": {
+      "title": "Swatches",
+      "group": "Forms"
+    },
+    "table": {
+      "title": "Table",
+      "group": "Data display"
+    },
+    "tabs": {
+      "title": "Tabs",
+      "needs": [
+        "track-mark",
+        "menu",
+        "folding"
+      ],
+      "group": "Navigation"
+    },
+    "tag": {
+      "title": "Tag",
+      "needs": [
+        "seed"
+      ],
+      "group": "Data display"
+    },
+    "text-input": {
+      "title": "Text Input, Textarea",
+      "aliases": [
+        "textarea"
+      ],
+      "group": "Forms"
+    },
+    "time": {
+      "title": "Time",
+      "group": "Forms",
+      "needs": [
+        "text-input"
+      ]
+    },
+    "toast": {
+      "title": "Toast",
+      "needs": [
+        "room"
+      ],
+      "group": "Feedback"
+    },
+    "toggle-chip": {
+      "title": "Toggle Chip",
+      "group": "Actions"
+    },
+    "toolbar": {
+      "title": "Toolbar",
+      "group": "Layout"
+    },
+    "tooltip": {
+      "title": "Tooltip",
+      "group": "Overlays"
+    },
+    "popups": {
+      "internal": true,
+      "title": "Popups opening and closing (Menu, Popover, Select and Combobox lists, popup calendars and color pickers)"
+    },
+    "room": {
+      "internal": true,
+      "title": "Making and giving back room (Alert, Banner, Toast, Form Repeater)"
+    },
+    "seed": {
+      "internal": true,
+      "title": "Seed colors (Avatar, Tag)"
+    },
+    "track-mark": {
+      "internal": true,
+      "title": "The gliding card (Segmented Control, Tabs)"
+    },
+    "folding": {
+      "internal": true,
+      "title": "Folding what doesn't fit into a menu (Top Bar, Page Header, Tabs)",
+      "needs": [
+        "menu"
+      ]
+    }
+  },
+  "groups": [
+    "Layout",
+    "Actions",
+    "Forms",
+    "Data display",
+    "Navigation",
+    "Overlays",
+    "Feedback"
+  ],
+  "bundles": [
+    {
+      "id": "core",
+      "title": "Core",
+      "always": true,
+      "description": "Buttons, forms, cards, tables, menus, dialogs and messages: what most pages use.",
+      "modules": [
+        "button-group",
+        "split-button",
+        "toggle-chip",
+        "segmented",
+        "link",
+        "label",
+        "field",
+        "choice",
+        "text-input",
+        "select",
+        "number",
+        "password",
+        "form-layout",
+        "card",
+        "table",
+        "description-list",
+        "stat",
+        "tabs",
+        "toolbar",
+        "menu",
+        "popover",
+        "dialog",
+        "tooltip",
+        "alert",
+        "toast",
+        "tag",
+        "count",
+        "kbd",
+        "status",
+        "spinner",
+        "skeleton",
+        "empty-state",
+        "separator",
+        "stack",
+        "accordion"
+      ]
+    },
+    {
+      "id": "shell",
+      "title": "App shell and navigation",
+      "description": "The frame around an app and the ways around it.",
+      "modules": [
+        "app-shell",
+        "nav-list",
+        "page-header",
+        "breadcrumb",
+        "menubar",
+        "command-palette",
+        "banner",
+        "split-pane"
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data Table",
+      "description": "Sorting, filtering, selecting and editing rows; pages of them.",
+      "modules": [
+        "data-table",
+        "filter-bar",
+        "pagination"
+      ]
+    },
+    {
+      "id": "date",
+      "title": "Date picker",
+      "description": "Dates, ranges and weeks, with a calendar; the day strip.",
+      "modules": [
+        "date"
+      ]
+    },
+    {
+      "id": "combobox",
+      "title": "Combobox",
+      "description": "A select you can search, with tags for several values.",
+      "modules": [
+        "combobox"
+      ]
+    },
+    {
+      "id": "rich-text",
+      "title": "Rich Text",
+      "description": "A textarea with formatting.",
+      "modules": [
+        "rich-text"
+      ]
+    },
+    {
+      "id": "color",
+      "title": "Color picker",
+      "description": "Colors from a picker or from a set.",
+      "modules": [
+        "color-picker",
+        "swatches"
+      ]
+    },
+    {
+      "id": "avatars",
+      "title": "Avatars",
+      "description": "People, teams and bots, alone or in groups.",
+      "modules": [
+        "avatar",
+        "avatar-group"
+      ]
+    },
+    {
+      "id": "more-forms",
+      "title": "More form controls",
+      "description": "Sliders, one-time codes, a time of day, repeating items, saving a form's changes.",
+      "modules": [
+        "slider",
+        "otp",
+        "form-repeater",
+        "save-bar",
+        "time"
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Code Block",
+      "description": "Code with its title and a copy button.",
+      "modules": [
+        "code-block"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+/* ==================================================================== */
+/* Toolbar                                                              */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Items 8px apart, wrapping
+     onto more rows 8px apart. A button on its own is a low neutral Button
+     (a zinc frame and icons), held while its menu or popover is
+     open; Selects and Button Groups are their own. */
+  .canon-toolbar {
+    gap: 0.5rem;
+  }
+  .canon-toolbar > .canon-button[aria-expanded="true"]:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-bg-active);
+  }
+}

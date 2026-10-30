@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Spinner reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Spinner</h1>
+  <p class="ref-note">Something is working, and how long it will take isn't known. The browser's own <code>&lt;progress&gt;</code>, with no value. Specification: <a href="../docs/components/spinner.md">docs/components/spinner.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="spinner">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;progress class="canon-spinner"&gt;</code> without a <code>value</code>, named by what's loading (<code>aria-label</code>). It takes the size of the text around it, and appears only after 0.4s, so a quick answer never flashes it.</p>
+
+    <div class="ref-row">
+      <progress class="canon-spinner" aria-label="Loading"></progress>
+      <span class="ref-spinner-text" style="font-size: 1.25rem">Totals <progress class="canon-spinner" aria-label="Loading totals"></progress></span>
+      <span class="ref-spinner-text" style="font-size: 0.8125rem">Last synced <progress class="canon-spinner" aria-label="Syncing"></progress></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="words">
+    <h2>With words</h2>
+    <p class="ref-note">A <code>&lt;label class="canon-spinner-label"&gt;</code> around it: the spinner, then the words, which show and name it. Use words where the spinner stands alone in a space, like a panel or a row; beside text that already says it, the spinner alone does.</p>
+
+    <div class="ref-stack">
+      <label class="canon-spinner-label"><progress class="canon-spinner"></progress>Loading invoices…</label>
+      <label class="canon-spinner-label"><progress class="canon-spinner"></progress>Checking availability…</label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> sets it when the text around doesn't: <code>sm</code> 16px, <code>md</code> 20px, <code>lg</code> 32px for an empty panel.</p>
+
+    <div class="ref-row">
+      <progress class="canon-spinner" data-size="sm" aria-label="Loading"></progress>
+      <progress class="canon-spinner" data-size="md" aria-label="Loading"></progress>
+      <progress class="canon-spinner" data-size="lg" aria-label="Loading"></progress>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="in-context">
+    <h2>In context</h2>
+    <p class="ref-note">The region that's loading says so with <code>aria-busy="true"</code>; the spinner goes when the content comes. In a panel waiting for an answer, a large spinner with words, centered. In a field, beside the answer that's coming.</p>
+
+    <div class="ref-spinner-demos">
+      <article class="canon-card" aria-busy="true" aria-labelledby="sp-card-title">
+        <div class="canon-card-header"><h3 class="canon-card-title" id="sp-card-title">Revenue this quarter</h3></div>
+        <div class="canon-card-body ref-spinner-panel">
+          <label class="canon-spinner-label" data-size="lg"><progress class="canon-spinner"></progress>Adding up 1,284 invoices…</label>
+        </div>
+      </article>
+
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="sp-domain">Subdomain</label></div>
+        <div class="canon-text-input"><input id="sp-domain" name="domain" type="text" value="acme-internal" placeholder="" aria-describedby="sp-domain-status"></div>
+        <p class="canon-field-message" id="sp-domain-status" aria-live="polite"><label class="canon-spinner-label"><progress class="canon-spinner"></progress>Checking availability…</label></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="delay">
+    <h2>Delay</h2>
+    <p class="ref-note">A spinner appears 0.4s after it's put in the page or shown: most waits end sooner, and one that flashes for an instant is noise. <code>data-delay="none"</code>, on it or a container, shows it at once, for a wait known to be long. Open each to compare.</p>
+
+    <div class="ref-stack">
+      <details class="ref-spinner-try">
+        <summary>Show a spinner (after 0.4s)</summary>
+        <label class="canon-spinner-label"><progress class="canon-spinner"></progress>Loading invoices…</label>
+      </details>
+      <details class="ref-spinner-try">
+        <summary>Show a spinner with <code>data-delay="none"</code></summary>
+        <label class="canon-spinner-label" data-delay="none"><progress class="canon-spinner"></progress>Loading invoices…</label>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the spinner comes first on the right. In a Button, the Button's own <code>aria-busy="true"</code> draws the same ring in place of its icon: no spinner inside it.</p>
+
+    <div class="ref-row">
+      <label class="canon-spinner-label" dir="rtl" lang="ar"><progress class="canon-spinner"></progress>جارٍ تحميل الفواتير…</label>
+      <button type="button" class="canon-button" aria-busy="true" aria-disabled="true"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Exporting…</span></button>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

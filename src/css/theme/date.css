@@ -1,0 +1,400 @@
+/* ==================================================================== */
+/* Date and calendar                                                    */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The box is Text Input's: the calendar button at
+     its end with a zinc-400 icon (dark zinc-500), the placeholder in the
+     placeholder color; open, it shows focus. */
+  .canon-date-button {
+    --canon-theme-fg: var(--_muted);
+  }
+  .canon-date-placeholder {
+    color: var(--_muted);
+  }
+  /* The drawn field: Text Input's type; an empty part in the
+     placeholder color; the part being typed on zinc-200 (dark
+     zinc-700), Text Input's inner corners. Focus in it shows on the box. */
+  .canon-date-segment {
+    padding-inline: 0.0625rem;
+    border-radius: 0.125rem;
+  }
+  .canon-date-segment[data-empty] {
+    color: var(--_muted);
+  }
+  .canon-date-segment:focus {
+    background-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    color: inherit;
+  }
+  .canon-date-literal {
+    color: var(--_muted);
+  }
+  /* A range: the dates at the box's two ends, a
+     zinc-400 arrow (dark zinc-500) the icon size, the text inset from it. */
+  .canon-date-arrow {
+    margin-inline: var(--canon-theme-input-inset);
+    color: var(--_muted);
+  }
+  .canon-date:has(> .canon-date-segments:focus-within),
+  .canon-date:has(> .canon-calendar:popover-open) {
+    border-color: var(--_border-focus);
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+
+  /* The calendar: padding and corners
+     8 / 12 / 16 (the icon - 8), 16 between header, weekdays and days;
+     white (dark zinc-900); as a popover a hairline edge and the floating
+     shadow, in the page a zinc-300 line (dark zinc-800, and a 1px black
+     50% shadow); 4px from the box. Header: Button's minimal icon buttons
+     and a low title, zinc-900 (dark white). Weekdays in the control's
+     type, zinc-500 (dark zinc-400); days medium, square at the control
+     height, Text Input's corners, rows 8 apart. Outside the month
+     zinc-400 (dark zinc-500); can't be chosen zinc-300 (dark zinc-700),
+     weekday headers too; hover zinc-100 (dark zinc-800); chosen zinc-900,
+     white (dark the reverse); today a 4px dot (4 / 6 / 8 above the cell's bottom). A range:
+     two months the icon size from a hairline rule between
+     them, plain titles; its ends chosen, the days between a zinc-200 band (dark
+     zinc-700), rounded at its ends and each week's; other months' days in
+     it the band at 40%, and the days a range in the making would take
+     the band, both in zinc-400 (dark zinc-500). Presets: a
+     column past another line, Button's minimal ones in zinc-500 (dark
+     zinc-400), the matching one on zinc-200 (dark zinc-700). Focus (the choices' ring), dark range colors. */
+  .canon-calendar {
+    --_pad: calc(var(--canon-icon-size) - 0.5rem);
+    --_split: var(--canon-icon-size);
+    --canon-popup-offset: 0.25rem;
+    gap: var(--_split);
+    padding: calc(var(--_pad) - 1px);
+    border: 1px solid light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-700));
+    border-radius: var(--_pad);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 1px light-dark(transparent, rgb(0 0 0 / 0.5));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }  /* As a popup: a hairline edge and the floating shadow, no frame. */
+  .canon-calendar[popover] {
+    border-color: transparent; /* shows in forced colors */
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+  }
+
+  /* In the page, a line: zinc-300 (dark zinc-800). */
+  .canon-calendar:not([popover]) {
+    border-color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-800));
+  }
+  .canon-calendar[aria-disabled="true"] {
+    opacity: 0.45;
+  }
+  /* data-header="select": two Selects
+     4 apart, the month 68 / 84 / 100 wide, the year 76 / 92 / 108. */
+  .canon-calendar-selects {
+    gap: 0.25rem;
+  }
+  .canon-calendar-selects > .canon-select:first-child {
+    inline-size: calc(2 * var(--canon-control-block-size) + 0.25rem);
+  }
+  .canon-calendar-selects > .canon-select:last-child {
+    inline-size: calc(2 * var(--canon-control-block-size) + 0.75rem);
+  }
+  /* Their lists show five options at most (and the padding), then scroll. */
+  .canon-calendar-selects > .canon-select > select::picker(select) {
+    max-block-size: calc(5 * var(--canon-control-block-size) + 0.5rem);
+    overflow-y: auto;
+  }
+  .canon-calendar-month {
+    gap: 1rem;
+  }
+  .canon-calendar-month + .canon-calendar-month,
+  .canon-calendar-presets {
+    padding-inline-start: calc(var(--_split) - 1px);
+    border-inline-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* A plain title (several months): the control's type, regular. */
+  .canon-calendar-title:not(.canon-button) {
+    font-weight: 400;
+  }
+  .canon-calendar-header .canon-button {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  /* Rows 8 apart, the weekdays 16 above the days: padding on the cells,
+     so nothing reaches past the grid. */
+  .canon-calendar :is(.canon-calendar-grid, .canon-calendar-weeks) tr + tr > td {
+    padding-block-start: 0.5rem;
+  }
+  .canon-calendar :is(.canon-calendar-grid, .canon-calendar-weeks) th {
+    padding-block-end: 1rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-weight: 400;
+  }
+  .canon-calendar-grid th[data-unavailable] {
+    color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-700));
+  }
+  /* Neutral, as a neutral high Button: what's chosen zinc-900 with white
+     (dark the reverse); what lies between, a zinc-200 band (dark zinc-700)
+     in the text's color; hover a step lighter, so it never looks chosen.
+     Focus stays blue. */
+  .canon-calendar,
+  .canon-date-strip {
+    --_chosen: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_on-chosen: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    --_band: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_band-muted: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-calendar-cell {
+    position: relative;
+    border-radius: var(--canon-theme-input-radius);
+    font-weight: 500;
+    transition: background-color 0.12s, color 0.12s;
+  }
+  .canon-calendar-cell[data-outside] {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-calendar-cell[aria-disabled="true"] {
+    color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-700));
+  }
+  @media (hover: hover) {
+    .canon-calendar-cell:hover:not([aria-disabled="true"]) {
+      background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    }
+  }
+  .canon-calendar-grid [aria-selected="true"] > .canon-calendar-cell {
+    background-color: var(--_chosen);
+    color: var(--_on-chosen);
+  }
+  .canon-calendar-grid [data-in-range] > .canon-calendar-cell {
+    border-radius: 0;
+    background-color: var(--_band);
+    color: inherit;
+  }
+  /* A range's two ends: chosen, the band running between them. */
+  .canon-calendar-grid [data-in-range]:is([data-range-start], [data-range-end]) > .canon-calendar-cell {
+    background-color: var(--_chosen);
+    color: var(--_on-chosen);
+  }
+  .canon-calendar-grid :is([data-range-start], td:first-child)[data-in-range] > .canon-calendar-cell {
+    border-start-start-radius: var(--canon-theme-input-radius);
+    border-end-start-radius: var(--canon-theme-input-radius);
+  }
+  .canon-calendar-grid :is([data-range-end], td:last-child)[data-in-range] > .canon-calendar-cell {
+    border-start-end-radius: var(--canon-theme-input-radius);
+    border-end-end-radius: var(--canon-theme-input-radius);
+  }
+  .canon-calendar-grid [data-preview] > .canon-calendar-cell {
+    background-color: var(--_band);
+    color: var(--_band-muted);
+  }
+  /* Days of another month in the range: the band at 40%, so the range
+     reads in its own month's pane (beside it, the same days are in). */
+  .canon-calendar-grid [data-in-range] > .canon-calendar-cell[data-outside] {
+    background-color: color-mix(in srgb, var(--_band) 40%, transparent);
+    color: var(--_band-muted);
+  }
+  .canon-calendar-cell:focus-visible {
+    z-index: 1;
+    outline: 2px solid transparent;
+    box-shadow:
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  .canon-calendar-cell[aria-current="date"]::after {
+    content: "";
+    position: absolute;
+    inset-block-end: calc((var(--canon-control-block-size) - 1lh) / 2 - 0.25rem);
+    inline-size: 0.25rem;
+    block-size: 0.25rem;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  /* Weeks: the numbers' column, a line the icon
+     size from it on each side; the chosen week's number chosen (zinc-900,
+     white), its days the band, rounded at the row's ends. */
+  .canon-calendar-weeks {
+    inline-size: calc(var(--canon-control-block-size) + var(--_split) + 1px); /* a table's width holds its padding */
+    margin-inline-end: calc(var(--_split) - 1px);
+    padding-inline-end: var(--_split);
+    border-inline-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-calendar-weeks [data-selected] > .canon-calendar-cell {
+    background-color: var(--_chosen);
+    color: var(--_on-chosen);
+  }
+  .canon-calendar-grid [data-in-week] > .canon-calendar-cell {
+    border-radius: 0;
+    background-color: var(--_band);
+    color: inherit;
+  }
+  .canon-calendar-grid [data-in-week]:first-child > .canon-calendar-cell {
+    border-start-start-radius: var(--canon-theme-input-radius);
+    border-end-start-radius: var(--canon-theme-input-radius);
+  }
+  .canon-calendar-grid [data-in-week]:last-child > .canon-calendar-cell {
+    border-start-end-radius: var(--canon-theme-input-radius);
+    border-end-end-radius: var(--canon-theme-input-radius);
+  }
+  /* The day strip: the calendar's frame,
+     padding 8 / 12 / 16 across and 4 down, its parts that far apart;
+     days 48 / 64 / 80 wide (the cell and the padding twice), 4 above and
+     below, Text Input's corners; weekday zinc-500 and month zinc-400
+     (dark zinc-400, zinc-500) a step smaller than the number, medium.
+     Chosen: zinc-900 (dark white), the number white (dark zinc-900),
+     weekday at 75%, month at 60%. Hover zinc-100 (dark zinc-800), focus (the
+     choices' ring), can't be chosen zinc-300 (dark zinc-700). */
+  .canon-date-strip {
+    --_pad: calc(var(--canon-icon-size) - 0.5rem);
+    gap: var(--_pad);
+    padding: calc(0.25rem - 1px) calc(var(--_pad) - 1px);
+    border: 1px solid light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-800));
+    border-radius: var(--_pad);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 1px light-dark(transparent, rgb(0 0 0 / 0.5));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-date-strip[aria-disabled="true"] {
+    opacity: 0.45;
+  }
+  .canon-date-strip > .canon-button {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-date-strip-day {
+    inline-size: calc(var(--canon-control-block-size) + 2 * var(--_pad));
+    padding-block: 0.25rem;
+    border-radius: var(--canon-theme-input-radius);
+    transition: background-color 0.12s, color 0.12s;
+  }
+  .canon-date-strip-weekday,
+  .canon-date-strip-month {
+    font-size: calc(var(--canon-control-font-size) - 0.125rem);
+    font-weight: 400;
+    line-height: calc(var(--canon-theme-input-line-height) - 0.25rem);
+  }
+  .canon-date-strip-weekday {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-date-strip-month {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-date-strip-number {
+    font-weight: 500;
+  }
+  @media (hover: hover) {
+    .canon-date-strip-day:hover:not([aria-disabled="true"], [aria-pressed="true"]) {
+      background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    }
+  }
+  .canon-date-strip-day[aria-disabled="true"],
+  .canon-date-strip-day[aria-disabled="true"] > * {
+    color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-700));
+  }
+  .canon-date-strip-day[aria-pressed="true"] {
+    background-color: var(--_chosen);
+    color: var(--_on-chosen);
+  }
+  .canon-date-strip-day[aria-pressed="true"] > .canon-date-strip-weekday {
+    color: color-mix(in srgb, var(--_on-chosen) 75%, transparent);
+  }
+  .canon-date-strip-day[aria-pressed="true"] > .canon-date-strip-month {
+    color: color-mix(in srgb, var(--_on-chosen) 60%, transparent);
+  }
+  .canon-date-strip-day:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow:
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  /* The chosen day's fill, drawn once by the days and anchored to the
+     chosen one, so it glides to the next one picked (0.3s, fast then
+     settling; none with reduced motion). Where anchor positioning is
+     missing, and in forced colors, each day draws its own (above). */
+  @supports (anchor-scope: --a) {
+    @media not (forced-colors: active) {
+      .canon-date-strip-days {
+        position: relative;
+        isolation: isolate;
+        anchor-scope: --canon-strip-chosen;
+      }
+      .canon-date-strip-day[aria-pressed="true"] {
+        anchor-name: --canon-strip-chosen;
+        background-color: transparent;
+      }
+      .canon-date-strip-days::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        position-anchor: --canon-strip-chosen;
+        position-visibility: anchors-valid;
+        top: anchor(top);
+        right: anchor(right);
+        bottom: anchor(bottom);
+        left: anchor(left);
+        border-radius: var(--canon-theme-input-radius);
+        background-color: var(--_chosen);
+        pointer-events: none;
+        transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+        transition-timing-function: cubic-bezier(0.3, 0.7, 0.1, 1);
+      }
+      /* Turning to other days, it moves with them, not across. */
+      .canon-date-strip[data-turning] .canon-date-strip-days::before {
+        transition: none;
+      }
+    }
+  }
+  /* Other days (previous, next, the keys past either end; data-turning,
+     canon.js): they slide in 12px from the side they come from and fade
+     in (0.2s), as the calendar's month does; with reduced motion they
+     only fade. */
+  .canon-date-strip[data-turning] > .canon-date-strip-days {
+    animation: canon-turn-next 0.2s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .canon-date-strip[data-turning="previous"] > .canon-date-strip-days {
+    animation-name: canon-turn-previous;
+  }
+  .canon-date-strip[data-turning]:dir(rtl) > .canon-date-strip-days {
+    animation-name: canon-turn-previous;
+  }
+  .canon-date-strip[data-turning="previous"]:dir(rtl) > .canon-date-strip-days {
+    animation-name: canon-turn-next;
+  }
+
+  .canon-calendar-presets .canon-button {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    --canon-theme-bg-active: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+  }
+
+  /* Turning to another month (year, decade; data-turning, canon.js):
+     the days slide in 12px from the side it turns to and fade in
+     (0.2s); the header and weekdays stay. With reduced motion they only
+     fade. */
+  .canon-calendar[data-turning] :is(.canon-calendar-grid, .canon-calendar-weeks) > tbody {
+    animation: canon-turn-next 0.2s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .canon-calendar[data-turning="previous"] :is(.canon-calendar-grid, .canon-calendar-weeks) > tbody {
+    animation-name: canon-turn-previous;
+  }
+  .canon-calendar[data-turning]:dir(rtl) :is(.canon-calendar-grid, .canon-calendar-weeks) > tbody {
+    animation-name: canon-turn-previous;
+  }
+  .canon-calendar[data-turning="previous"]:dir(rtl) :is(.canon-calendar-grid, .canon-calendar-weeks) > tbody {
+    animation-name: canon-turn-next;
+  }
+  @keyframes canon-turn-next {
+    from { opacity: 0; translate: 0.75rem 0; }
+  }
+  @keyframes canon-turn-previous {
+    from { opacity: 0; translate: -0.75rem 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-calendar-cell,
+    .canon-date-strip-day { transition: none; }
+    .canon-calendar[data-turning] :is(.canon-calendar-grid, .canon-calendar-weeks) > tbody,
+    .canon-date-strip[data-turning] > .canon-date-strip-days {
+      animation-name: canon-fade-in;
+    }
+    .canon-date-strip-days::before { transition: none; }
+  }
+}

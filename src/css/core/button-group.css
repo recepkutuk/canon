@@ -1,0 +1,22 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Button Group                                                       */
+  /*                                                                    */
+  /* Related buttons in one row, drawn by the theme as one piece        */
+  /* (role="group" with a name). The buttons stay Buttons: each does    */
+  /* its own thing, or toggles (aria-pressed).                          */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-button-group) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: stretch;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+  :where(.canon-button-group) > :where(.canon-button) {
+    flex: none;
+  }
+}

@@ -1,0 +1,23 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Split Button                                                       */
+  /*                                                                    */
+  /* Two Buttons joined: the action, and an icon-only button that opens */
+  /* a Menu of related actions. canon.js marks its menu                 */
+  /* data-split-button: it opens under the arrow, its end at the split  */
+  /* button's end.                                                      */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-split-button) {
+    display: inline-flex;
+    align-items: stretch;
+    vertical-align: middle;
+  }
+  :where(.canon-split-button) > :where(.canon-button) {
+    flex: none;
+  }
+  :where(.canon-menu[data-split-button]) {
+    position-area: self-block-end span-self-inline-start;
+  }
+}

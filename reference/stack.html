@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Stack, Cluster and Grid reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Stack, Cluster and Grid</h1>
+  <p class="ref-note">The space between components: one under another, in a row that wraps, or in columns. Canon's components never set the space around themselves; these containers do, so an app writes no spacing CSS. Specification: <a href="../docs/components/stack.md">docs/components/stack.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="stack">
+    <h2>Stack</h2>
+    <p class="ref-note">A <code>.canon-stack</code>: its children one under another, a steady gap apart, each as wide as the stack. A page's sections, cards in a column, a form above a table.</p>
+
+    <div class="canon-stack">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+        </header>
+      </section>
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Payment method</h3>
+          <p class="canon-card-description">Visa ending in 4242</p>
+        </header>
+      </section>
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Tax</h3>
+          <p class="canon-card-description">VAT number and exemptions</p>
+        </header>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="cluster">
+    <h2>Cluster</h2>
+    <p class="ref-note">A <code>.canon-cluster</code>: its children in a row at their own widths, centered on each other, wrapping onto more lines when there isn't room. Tags, a few buttons, a record's facts. <code>data-align="end"</code> on a child sends it, and what follows it, to the row's end. Drag the frame's corner to see it wrap.</p>
+
+    <div class="ref-resizable">
+      <div class="canon-stack">
+        <ul class="canon-cluster" data-gap="sm" aria-label="Skills">
+          <li><span class="canon-tag" data-seed="1"><span class="canon-tag-label">Design</span></span></li>
+          <li><span class="canon-tag" data-seed="4"><span class="canon-tag-label">Research</span></span></li>
+          <li><span class="canon-tag" data-seed="7"><span class="canon-tag-label">Accessibility</span></span></li>
+          <li><span class="canon-tag" data-seed="10"><span class="canon-tag-label">Prototyping</span></span></li>
+          <li><span class="canon-tag" data-seed="13"><span class="canon-tag-label">Writing</span></span></li>
+        </ul>
+
+        <div class="canon-cluster">
+          <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Duplicate</span></button>
+          <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Archive</span></button>
+          <button type="button" class="canon-button" data-emphasis="high" data-align="end"><span class="canon-button-label">Send invoice</span></button>
+        </div>
+
+        <div class="canon-cluster" data-gap="sm">
+          <span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span>
+          <span>Edited 2 hours ago</span>
+          <span>by Ada Lovelace</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="grid">
+    <h2>Grid</h2>
+    <p class="ref-note">A <code>.canon-grid</code>: equal columns, as many as fit at <code>--canon-grid-min</code> (16rem) each, its children filling them in order. <code>data-columns</code> (2 to 6) caps how many. No breakpoints: the grid fits the room it has, in a page, a Card or a Drawer. Here at most three; drag the corner.</p>
+
+    <div class="ref-resizable" style="inline-size: 56rem">
+      <div class="canon-grid" data-columns="3">
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Invoices</h3>
+            <p class="canon-card-description">Send, track and chase payment</p>
+          </header>
+        </section>
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Customers</h3>
+            <p class="canon-card-description">Contacts, terms and history</p>
+          </header>
+        </section>
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Products</h3>
+            <p class="canon-card-description">Prices, taxes and units</p>
+          </header>
+        </section>
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Reports</h3>
+            <p class="canon-card-description">Revenue, aging and tax returns</p>
+          </header>
+        </section>
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Integrations</h3>
+            <p class="canon-card-description">Banks, accounting and payroll</p>
+          </header>
+        </section>
+      </div>
+    </div>
+
+    <h3>Narrower columns</h3>
+    <p class="ref-note"><code>style="--canon-grid-min: 10rem"</code> sets the narrowest a column may be, for smaller things like settings tiles.</p>
+
+    <div class="canon-grid" data-gap="sm" style="--canon-grid-min: 10rem">
+      <a class="canon-button" href="#grid" data-intent="neutral"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-button-label">Profile</span></a>
+      <a class="canon-button" href="#grid" data-intent="neutral"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-button-label">Members</span></a>
+      <a class="canon-button" href="#grid" data-intent="neutral"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-button-label">Billing</span></a>
+      <a class="canon-button" href="#grid" data-intent="neutral"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span></a>
+      <a class="canon-button" href="#grid" data-intent="neutral"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-button-label">General</span></a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="gap">
+    <h2>Gap</h2>
+    <p class="ref-note"><code>data-gap</code>: <code>sm</code>, <code>md</code> (the default), <code>lg</code>, <code>xl</code> or <code>none</code>, steps of Canon's spacing, never lengths. Things that belong together sit close; a page's sections sit far apart. It isn't inherited: each stack, cluster or grid has its own.</p>
+
+    <div class="canon-stack" data-gap="lg">
+      <div class="canon-cluster" data-gap="sm">
+        <span class="canon-tag"><span class="canon-tag-label">sm</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Design</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Research</span></span>
+      </div>
+      <div class="canon-cluster" data-gap="md">
+        <span class="canon-tag"><span class="canon-tag-label">md</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Design</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Research</span></span>
+      </div>
+      <div class="canon-cluster" data-gap="lg">
+        <span class="canon-tag"><span class="canon-tag-label">lg</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Design</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Research</span></span>
+      </div>
+      <div class="canon-cluster" data-gap="xl">
+        <span class="canon-tag"><span class="canon-tag-label">xl</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Design</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Research</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="page">
+    <h2>A page</h2>
+    <p class="ref-note">They nest: a page is a Stack of Sections (<code>data-gap="xl"</code>), each holding a Grid of stats or a Cluster of actions.</p>
+
+    <div class="canon-stack" data-gap="xl">
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h3 class="canon-section-title">This month</h3>
+        </header>
+        <div class="canon-grid" data-columns="3">
+          <div class="canon-stat">
+            <p class="canon-stat-label">Revenue</p>
+            <p class="canon-stat-value">$48,210</p>
+          </div>
+          <div class="canon-stat">
+            <p class="canon-stat-label">New customers</p>
+            <p class="canon-stat-value">126</p>
+          </div>
+          <div class="canon-stat">
+            <p class="canon-stat-label">Overdue invoices</p>
+            <p class="canon-stat-value">8</p>
+          </div>
+        </div>
+      </section>
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h3 class="canon-section-title">Quick actions</h3>
+        </header>
+        <div class="canon-cluster">
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+          <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Add customer</span></button>
+          <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Import</span></button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note">The gaps follow <code>data-size</code> on the container or one above it: the same step is tighter at <code>sm</code> and roomier at <code>lg</code>.</p>
+
+    <div class="canon-stack" data-gap="lg">
+      <div class="canon-cluster" data-size="sm">
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">sm</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Archive</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Delete</span></button>
+      </div>
+      <div class="canon-cluster" data-size="md">
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">md</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Archive</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Delete</span></button>
+      </div>
+      <div class="canon-cluster" data-size="lg">
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">lg</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Archive</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">Delete</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, rows and columns run from the right, and <code>end</code> is the left. A long word wraps inside its column instead of widening the grid.</p>
+
+    <div class="canon-stack">
+      <div class="canon-cluster" dir="rtl" lang="ar">
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">نسخ</span></button>
+        <button type="button" class="canon-button" data-intent="neutral"><span class="canon-button-label">أرشفة</span></button>
+        <button type="button" class="canon-button" data-emphasis="high" data-align="end"><span class="canon-button-label">إرسال الفاتورة</span></button>
+      </div>
+      <div class="canon-grid" data-columns="2">
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">Webhooks</h3>
+            <p class="canon-card-description">https://hooks.example.com/billing/invoices/events/payment-succeeded-and-refunded</p>
+          </header>
+        </section>
+        <section class="canon-card">
+          <header class="canon-card-header">
+            <h3 class="canon-card-title">API keys</h3>
+            <p class="canon-card-description">2 active keys</p>
+          </header>
+        </section>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

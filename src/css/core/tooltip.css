@@ -1,0 +1,28 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Tooltip                                                             */
+  /*                                                                     */
+  /* A hint popover anchored to the button or link that points at it     */
+  /* with interestfor (the browser makes the trigger its implicit        */
+  /* anchor). Placement is anchor positioning: above the trigger by      */
+  /* default, flipping when it doesn't fit. The tooltip is an anchored   */
+  /* container, so themes can follow a flip with                         */
+  /* @container anchored(fallback: flip-block) (e.g. to turn an arrow).  */
+  /* canon.js names the trigger when the tooltip opens and puts the name  */
+  /* in --canon-tooltip-anchor, so an arrow can aim at it with anchor(). */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-tooltip) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: none;
+    color: inherit;
+    position-area: self-block-start span-all;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    container-type: anchored;
+  }
+}

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Checkbox reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Checkbox</h1>
+  <p class="ref-note">A choice that is on or off, alone or among independent options. Specification: <a href="../docs/components/checkbox.md">docs/components/checkbox.md</a> · shared anatomy: <a href="../docs/components/choice.md">docs/components/choice.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Indeterminate has no HTML attribute: set the <code>indeterminate</code> property in JavaScript (this page does it on load).</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" id="st-off" name="st-off">
+        <label class="canon-choice-label" for="st-off">Unchecked</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="st-on" name="st-on" checked>
+        <label class="canon-choice-label" for="st-on">Checked</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="st-mixed" name="st-mixed" data-ref-indeterminate>
+        <label class="canon-choice-label" for="st-mixed">Indeterminate</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="st-dis" name="st-dis" disabled>
+        <label class="canon-choice-label" for="st-dis">Disabled</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="st-dis-on" name="st-dis-on" disabled checked>
+        <label class="canon-choice-label" for="st-dis-on">Disabled, checked</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="st-dis-mixed" name="st-dis-mixed" disabled data-ref-indeterminate>
+        <label class="canon-choice-label" for="st-dis-mixed">Disabled, indeterminate</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="hint-message">
+    <h2>Hint and message</h2>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" id="hm-hint" name="hm-hint" aria-describedby="hm-hint-hint">
+        <label class="canon-choice-label" for="hm-hint">Email me product updates</label>
+        <p class="canon-choice-hint" id="hm-hint-hint">About once a month. Unsubscribe any time.</p>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" id="hm-terms" name="terms" required aria-invalid="true" aria-describedby="hm-terms-message">
+        <label class="canon-choice-label" for="hm-terms">I accept the terms of service</label>
+        <p class="canon-choice-message" id="hm-terms-message" data-intent="danger">Accept the terms to continue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="group">
+    <h2>Group</h2>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" aria-describedby="gr-notify-hint">
+        <legend class="canon-fieldset-legend">Notify me about</legend>
+        <p class="canon-fieldset-hint" id="gr-notify-hint">Select all that apply.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-notify-deploys" name="notify" value="deploys" checked>
+          <label class="canon-choice-label" for="gr-notify-deploys">Deployments</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-notify-incidents" name="notify" value="incidents" checked>
+          <label class="canon-choice-label" for="gr-notify-incidents">Incidents</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-notify-billing" name="notify" value="billing" aria-describedby="gr-notify-billing-hint">
+          <label class="canon-choice-label" for="gr-notify-billing">Billing</label>
+          <p class="canon-choice-hint" id="gr-notify-billing-hint">Invoices and failed payments.</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" aria-describedby="gr-err-hint gr-err-message">
+        <legend class="canon-fieldset-legend">Regions</legend>
+        <p class="canon-fieldset-hint" id="gr-err-hint">Where the service runs.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-err-eu" name="regions" value="eu">
+          <label class="canon-choice-label" for="gr-err-eu">Europe</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-err-us" name="regions" value="us">
+          <label class="canon-choice-label" for="gr-err-us">United States</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-err-ap" name="regions" value="ap">
+          <label class="canon-choice-label" for="gr-err-ap">Asia Pacific</label>
+        </div>
+        <p class="canon-fieldset-message" id="gr-err-message" data-intent="danger">Select at least one region.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset">
+        <legend class="canon-fieldset-legend">Select all</legend>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-all" name="gr-all" data-ref-indeterminate>
+          <label class="canon-choice-label" for="gr-all">All environments</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-all-dev" name="gr-env" value="dev" checked>
+          <label class="canon-choice-label" for="gr-all-dev">Development</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="gr-all-prd" name="gr-env" value="prd">
+          <label class="canon-choice-label" for="gr-all-prd">Production</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <h3>Horizontal</h3>
+    <fieldset class="canon-fieldset" data-orientation="horizontal">
+      <legend class="canon-fieldset-legend">Columns</legend>
+      <div class="canon-choice">
+        <input type="checkbox" id="hz-name" name="hz-col" value="name" checked>
+        <label class="canon-choice-label" for="hz-name">Name</label>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" id="hz-owner" name="hz-col" value="owner" checked>
+        <label class="canon-choice-label" for="hz-owner">Owner</label>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" id="hz-status" name="hz-col" value="status">
+        <label class="canon-choice-label" for="hz-status">Status</label>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" id="hz-updated" name="hz-col" value="updated">
+        <label class="canon-choice-label" for="hz-updated">Last updated</label>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the item or a container: a 16 / 20 / 24px box.</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice" data-size="sm">
+        <input type="checkbox" id="sz-sm" name="sz-sm" checked>
+        <label class="canon-choice-label" for="sz-sm">Small</label>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" id="sz-md" name="sz-md" checked>
+        <label class="canon-choice-label" for="sz-md">Theme decides</label>
+      </div>
+      <div class="canon-choice" data-size="lg">
+        <input type="checkbox" id="sz-lg" name="sz-lg" checked>
+        <label class="canon-choice-label" for="sz-lg">Large</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" id="sx-long" name="sx-long" aria-describedby="sx-long-hint">
+        <label class="canon-choice-label" for="sx-long">Share aggregated, anonymised usage statistics collected from all workspaces in the organisation</label>
+        <p class="canon-choice-hint" id="sx-long-hint">Includes page views, feature usage counts and session lengths, but never content or identifiers.</p>
+      </div>
+
+      <fieldset class="canon-fieldset" dir="rtl" lang="ar" aria-describedby="sx-rtl-hint">
+        <legend class="canon-fieldset-legend">الإشعارات</legend>
+        <p class="canon-fieldset-hint" id="sx-rtl-hint">اختر كل ما ينطبق.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-rtl-a" name="sx-rtl" checked>
+          <label class="canon-choice-label" for="sx-rtl-a">عمليات النشر</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-rtl-b" name="sx-rtl" data-ref-indeterminate>
+          <label class="canon-choice-label" for="sx-rtl-b">الحوادث</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+</main>
+<script>
+  /* Page chrome: indeterminate has no HTML attribute. */
+  for (const input of document.querySelectorAll("[data-ref-indeterminate]")) input.indeterminate = true;
+</script>
+</body>
+</html>

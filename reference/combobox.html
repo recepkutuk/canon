@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Combobox reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Combobox</h1>
+  <p class="ref-note">Pick one or several options from a list you can search. You write a <code>&lt;select&gt;</code>, as for a Select; canon.js turns it into a box that opens a list, shows several values as tags, and, if you ask for it, lets people search. The select keeps the value, so forms, <code>required</code> and validation work as usual, and without canon.js it is a plain Select. Specification: <a href="../docs/components/combobox.md">docs/components/combobox.md</a>.</p>
+  <p class="ref-note">The comboboxes on this page stand alone, so each is named with <code>aria-label</code>. With a visible label, a combobox is part of a <a href="field.html">Field</a>.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the box or any container. Each row: the placeholder, a chosen option with groups in its list and a search field (<code>data-search="list"</code>), and several values. Click a box to open its list.</p>
+
+    <h3>sm</h3>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-size="sm">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-size="sm" data-search="list">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+    <div class="ref-combobox-wide">
+      <div class="canon-combobox" data-size="sm">
+        <select name="labels" aria-label="Labels" multiple>
+          <option value="" hidden>Please select</option>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option data-seed="5" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option>Option 2</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>md</h3>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-size="md">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-size="md" data-search="list">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+    <div class="ref-combobox-wide">
+      <div class="canon-combobox" data-size="md">
+        <select name="labels" aria-label="Labels" multiple>
+          <option value="" hidden>Please select</option>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option data-seed="5" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option>Option 2</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>lg</h3>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-size="lg">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-size="lg" data-search="list">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+    <div class="ref-combobox-wide">
+      <div class="canon-combobox" data-size="lg">
+        <select name="labels" aria-label="Labels" multiple>
+          <option value="" hidden>Please select</option>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option data-seed="5" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option>Option 2</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Without data-size</h3>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="labels" aria-label="Labels" multiple>
+          <option value="" hidden>Please select</option>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option>Option 2</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="search">
+    <h2>Search</h2>
+    <p class="ref-note">Search is optional. Without it, the list works like a Select's: typing jumps to the option that starts with what was typed. With <code>data-search="list"</code> on the box, the list has a search field on top. Typing narrows the list to the options whose label or description contains what was typed, ignoring case and accents, and marks the match. Groups and separators with nothing left go too; with nothing at all, the list says so. Typing on the closed box opens the list and starts the search. Up and Down move through the options, Enter picks, Escape closes. Try "o", then "xyz".</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-search="list">
+        <select name="country" aria-label="Country" required>
+          <option value="" hidden>Choose a country</option>
+          <optgroup label="Europe">
+            <option value="at">Austria</option>
+            <option value="be">Belgium</option>
+            <option value="de">Germany</option>
+            <option value="ie">Ireland</option>
+            <option value="is">Iceland</option>
+            <option value="pt">Portugal</option>
+            <option value="es">Spain</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Asia">
+            <option value="jp">Japan</option>
+            <option value="kr">South Korea</option>
+            <option value="tr">Türkiye</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Americas">
+            <option value="br">Brazil</option>
+            <option value="ca">Canada</option>
+            <option value="mx">México</option>
+            <option value="us">United States</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="inline">
+    <h2>Typing in the box</h2>
+    <p class="ref-note"><code>data-search="inline"</code> on the box: people type in the box itself and the list opens under it, without a search field. With one value, the box shows its label and Escape undoes typing; with several, the field follows the tags and Backspace in an empty field removes the last one.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-search="inline">
+        <select name="country-inline" aria-label="Country">
+          <option value="" hidden>Type a country</option>
+          <option value="at">Austria</option>
+          <option value="be">Belgium</option>
+          <option value="de">Germany</option>
+          <option value="ie">Ireland</option>
+          <option value="jp">Japan</option>
+          <option value="mx">México</option>
+          <option value="tr">Türkiye</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-search="inline">
+        <select name="topics-inline" aria-label="Topics" multiple>
+          <option value="" hidden>Type a topic</option>
+          <option value="design" data-seed="15" selected>Design</option>
+          <option value="research" data-seed="3">Research</option>
+          <option value="writing" data-seed="11">Writing</option>
+          <option value="engineering" data-seed="0">Engineering</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="create">
+    <h2>New values</h2>
+    <p class="ref-note"><code>data-creatable</code> on the box (with a search): when no option has the name that was typed, the list offers to add it. The new value becomes an option of the select, chosen, and is submitted like the others; once it isn't chosen, it is gone.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-search="inline" data-creatable>
+        <select name="labels-new" aria-label="Labels" multiple>
+          <option value="" hidden>Add labels</option>
+          <option value="bug" data-seed="10">Bug</option>
+          <option value="feature" data-seed="0" selected>Feature</option>
+          <option value="docs" data-seed="6">Docs</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-search="list" data-creatable>
+        <select name="team-new" aria-label="Team">
+          <option value="" hidden>Choose or add a team</option>
+          <option>Design</option>
+          <option>Engineering</option>
+          <option>Research</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="free">
+    <h2>Free values</h2>
+    <p class="ref-note">Several values, typed in the box and new values allowed, but no options to choose from: a tag input. Only a placeholder and the values to start with are in the select. There is no list: Enter or a comma adds what was typed, and so does leaving the box; a pasted list with commas or line breaks adds each part. Backspace in the empty field removes the last value. Each value is an option of the select, so the form submits them all under its name. If your app adds options later, they appear as suggestions.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-search="inline" data-creatable>
+        <select name="recipients" aria-label="Recipients" multiple>
+          <option value="" hidden>Add email addresses</option>
+          <option selected>ada@example.com</option>
+          <option selected>grace@example.com</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-search="inline" data-creatable>
+        <select id="free-keywords" name="keywords" aria-label="Keywords" multiple data-max="5">
+          <option value="" hidden>Up to 5 keywords</option>
+        </select>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" commandfor="free-keywords" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="from-your-app">
+    <h2>Options from your app</h2>
+    <p class="ref-note"><code>data-filter="none"</code> on the box (with a search): canon.js doesn't filter. Instead it fires a <code>canon-search</code> event on the select (<code>event.detail.query</code>) when the list opens and as people type. Your app sets <code>aria-busy="true"</code> on the select while it loads (the list shows that it is loading), replaces the options, and removes <code>aria-busy</code>. Keep the chosen options in the select, or their values are lost.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-search="inline" data-filter="none">
+        <select name="city" aria-label="City">
+          <option value="" hidden>Search cities</option>
+        </select>
+      </div>
+    </div>
+    <script>
+      /* Example: an app that loads cities as people type (here, from a
+         list after a short wait). */
+      const cities = ["Amsterdam", "Ankara", "Athens", "Barcelona", "Berlin", "Bogotá", "Cairo", "Dublin", "İstanbul", "Kyoto", "Lisbon", "Madrid", "Montréal", "Oslo", "Paris", "Prague", "São Paulo", "Seoul", "Tokyo", "Zürich"];
+      let request = 0;
+      document.addEventListener("canon-search", (event) => {
+        const select = event.target;
+        if (select.name !== "city") return;
+        const query = event.detail.query.toLocaleLowerCase();
+        const mine = ++request;
+        select.setAttribute("aria-busy", "true");
+        setTimeout(() => {
+          if (mine !== request) return;
+          const chosen = [...select.selectedOptions].filter((option) => option.value);
+          const found = cities.filter((city) => city.toLocaleLowerCase().normalize("NFD").replace(/\p{M}/gu, "").includes(query.normalize("NFD").replace(/\p{M}/gu, ""))).slice(0, 8);
+          const options = found.filter((city) => !chosen.some((option) => option.value === city)).map((city) => new Option(city, city));
+          select.replaceChildren(select.options[0], ...chosen, ...options);
+          select.removeAttribute("aria-busy");
+        }, 600);
+      });
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="multiple">
+    <h2>Several values</h2>
+    <p class="ref-note"><code>multiple</code> on the select. Chosen options show as tags in the box; picking in the list adds or removes one, and the list stays open. Each tag has a remove button. A <code>data-seed</code> on an option colors its tag, as it would color a <a href="tag.html">Tag</a>; an icon or avatar comes along.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="assignees" aria-label="Assignees" multiple>
+          <option value="" hidden>Add people</option>
+          <option value="ada"><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option value="grace"><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" aria-hidden="true">GH</span></span> <span class="canon-option-label">Grace Hopper</span></option>
+          <option value="alan"><span class="canon-avatar" data-seed="4"><span class="canon-avatar-fallback" aria-hidden="true">AT</span></span> <span class="canon-option-label">Alan Turing</span></option>
+          <option value="katherine"><span class="canon-avatar" data-seed="9"><span class="canon-avatar-fallback" aria-hidden="true">KJ</span></span> <span class="canon-option-label">Katherine Johnson</span></option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="topics" aria-label="Topics" multiple>
+          <option value="" hidden>Add topics</option>
+          <option value="design" data-seed="15" selected>Design</option>
+          <option value="research" data-seed="3" selected>Research</option>
+          <option value="writing" data-seed="11">Writing</option>
+          <option value="engineering" data-seed="0">Engineering</option>
+          <option value="legal" data-seed="9" disabled>Legal</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Statuses</h3>
+    <p class="ref-note">With <code>multiple</code>, <code>data-intent</code> on an option makes it a status (<code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>): shown as a status tag in the list and in the box, as in a filter on a table. A status may start with a <code>.canon-tag-dot</code> or an icon.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="status" aria-label="Status" multiple>
+          <option value="" hidden>Any status</option>
+          <option value="waiting" data-intent="warning" selected><span class="canon-tag-dot"></span> <span class="canon-option-label">Waiting</span></option>
+          <option value="review" data-intent="info"><span class="canon-tag-dot"></span> <span class="canon-option-label">In review</span></option>
+          <option value="done" data-intent="success" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option value="failed" data-intent="danger"><span class="canon-tag-dot"></span> <span class="canon-option-label">Failed</span></option>
+        </select>
+      </div>
+    </div>
+
+    <h3>A limit</h3>
+    <p class="ref-note"><code>data-max</code> on the select: once that many are chosen, the other options can't be picked until one is removed.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="reviewers" aria-label="Reviewers, up to 2" multiple data-max="2">
+          <option value="" hidden>Up to 2 reviewers</option>
+          <option value="ada" selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option value="grace" selected><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" aria-hidden="true">GH</span></span> <span class="canon-option-label">Grace Hopper</span></option>
+          <option value="alan"><span class="canon-avatar" data-seed="4"><span class="canon-avatar-fallback" aria-hidden="true">AT</span></span> <span class="canon-option-label">Alan Turing</span></option>
+          <option value="katherine"><span class="canon-avatar" data-seed="9"><span class="canon-avatar-fallback" aria-hidden="true">KJ</span></span> <span class="canon-option-label">Katherine Johnson</span></option>
+        </select>
+      </div>
+    </div>
+
+    <h3>One row</h3>
+    <p class="ref-note"><code>data-tags="collapse"</code> on the box keeps the tags on one row: those that don't fit become "+N". The list and screen readers still have every value.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-tags="collapse">
+        <select name="topics-row" aria-label="Topics" multiple>
+          <option value="design" data-seed="15" selected>Design</option>
+          <option value="research" data-seed="3" selected>Research</option>
+          <option value="writing" data-seed="11" selected>Writing</option>
+          <option value="engineering" data-seed="0" selected>Engineering</option>
+          <option value="legal" data-seed="9" selected>Legal</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-tags="collapse" data-search="inline">
+        <select name="topics-row-inline" aria-label="Topics" multiple>
+          <option value="design" data-seed="15" selected>Design</option>
+          <option value="research" data-seed="3" selected>Research</option>
+          <option value="writing" data-seed="11" selected>Writing</option>
+          <option value="engineering" data-seed="0">Engineering</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Wrapping</h3>
+    <p class="ref-note">Tags wrap onto new rows and the box grows; the arrow stays on the last row.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox" data-size="sm">
+        <select name="labels" aria-label="Labels" multiple>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option data-seed="5" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="labels" aria-label="Labels" multiple>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+          <option data-seed="5" selected><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span> <span class="canon-option-label">Done</span></option>
+          <option selected><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="options">
+    <h2>Options</h2>
+    <p class="ref-note">The same options as a <a href="select.html">Select</a>: an icon or an avatar before the label, a description after it (searched too, shown only in the list), and disabled options. The box shows the chosen option's icon or avatar.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="assignee" aria-label="Assignee">
+          <option value="ada"><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option value="grace" selected><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" aria-hidden="true">GH</span></span> <span class="canon-option-label">Grace Hopper</span></option>
+          <option value="alan"><span class="canon-avatar" data-seed="4"><span class="canon-avatar-fallback" aria-hidden="true">AT</span></span> <span class="canon-option-label">Alan Turing</span></option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="instance-type" aria-label="Instance type">
+          <optgroup label="General purpose">
+            <option value="t3.micro"><span class="canon-option-label">t3.micro</span> <span class="canon-option-description">2 vCPU · 1 GiB</span></option>
+            <option value="t3.large" selected><span class="canon-option-label">t3.large</span> <span class="canon-option-description">2 vCPU · 8 GiB</span></option>
+          </optgroup>
+          <optgroup label="Compute optimized">
+            <option value="c6i.xlarge"><span class="canon-option-label">c6i.xlarge</span> <span class="canon-option-description">4 vCPU · 8 GiB</span></option>
+            <option value="c6i.4xlarge" disabled><span class="canon-option-label">c6i.4xlarge</span> <span class="canon-option-description">Quota exceeded</span></option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="view" aria-label="View">
+          <option value="list" selected><span class="canon-icon" data-icon="tag" aria-hidden="true"></span> <span class="canon-option-label">List</span></option>
+          <option value="board"><span class="canon-icon" data-icon="star" aria-hidden="true"></span> <span class="canon-option-label">Board</span></option>
+          <option value="settings"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span> <span class="canon-option-label">Settings</span></option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="box">
+    <h2>Box</h2>
+
+    <h3>Leading icon</h3>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+        <select name="region" aria-label="Region">
+          <option>eu-west-1</option>
+          <option selected>eu-central-1</option>
+          <option>us-east-1</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Clear button</h3>
+    <p class="ref-note">A <code>canon-button</code> with <code>command="--canon-clear"</code> and <code>commandfor</code> the select, after the select, clears every value (or goes back to the placeholder). It hides while there is nothing to clear; this theme also shows it only while the box is hovered or focused (always on touch screens), keeping its space so nothing moves. Point at a box below, or tab to it, to see the button appear before the arrow.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select id="clear-one" name="clear-one" aria-label="Region">
+          <option value="" hidden>Please select</option>
+          <option selected>eu-central-1</option>
+          <option>us-east-1</option>
+        </select>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" commandfor="clear-one" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+      <div class="canon-combobox">
+        <select id="clear-many" name="clear-many" aria-label="Topics" multiple>
+          <option value="" hidden>Add topics</option>
+          <option data-seed="15" selected>Design</option>
+          <option data-seed="3" selected>Research</option>
+          <option data-seed="11">Writing</option>
+        </select>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" commandfor="clear-many" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+    </div>
+
+    <h3>States</h3>
+    <p class="ref-note">Error is <code>aria-invalid="true"</code> on the select; warning and success are <code>data-intent</code> on the box (in a <a href="field.html">Field</a>, its message sets them). Disabled is the select's <code>disabled</code>.</p>
+    <div class="ref-input-grid">
+      <div class="canon-combobox">
+        <select name="error" aria-label="Error" aria-invalid="true">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-intent="warning">
+        <select name="warning" aria-label="Warning">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+        </select>
+      </div>
+      <div class="canon-combobox" data-intent="success">
+        <select name="success" aria-label="Success">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="disabled" aria-label="Disabled" disabled>
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="disabled-values" aria-label="Disabled, several values" multiple disabled>
+          <option selected>Option 1</option>
+          <option data-seed="8" selected>Waiting</option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="error-values" aria-label="Error, several values" multiple aria-invalid="true">
+          <option selected>Option 1</option>
+          <option data-seed="5" selected>Done</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <div class="ref-input-grid" dir="rtl" lang="ar">
+      <div class="canon-combobox">
+        <select name="المنطقة" aria-label="المنطقة">
+          <optgroup label="أوروبا">
+            <option selected>أيرلندا</option>
+            <option>ألمانيا</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="آسيا">
+            <option>اليابان</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="الوسوم" aria-label="الوسوم" multiple>
+          <option data-seed="15" selected>تصميم</option>
+          <option data-seed="3" selected>بحث</option>
+          <option>كتابة</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Long values in a narrow box</h3>
+    <p class="ref-note">The box cuts a long value short, and so does a long tag; the list grows to fit its options, up to the window.</p>
+    <div class="ref-narrow">
+      <div class="canon-combobox">
+        <select name="plan" aria-label="Plan">
+          <option selected>Enterprise with priority support and a dedicated account manager</option>
+          <option>Team</option>
+          <option>Free</option>
+        </select>
+      </div>
+      <div class="canon-combobox">
+        <select name="plans" aria-label="Plans" multiple>
+          <option selected>Enterprise with priority support and a dedicated account manager</option>
+          <option selected>Team</option>
+          <option>Free</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

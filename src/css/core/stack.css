@@ -1,0 +1,63 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Stack · Cluster · Grid                                              */
+  /*                                                                     */
+  /* The space between components. A Stack: children one under another,  */
+  /* as wide as it. A Cluster: a row at their own widths, wrapping. A    */
+  /* Grid: equal columns at least --canon-grid-min wide, as many as fit  */
+  /* (data-columns: at most that many). Each one's gap is its own        */
+  /* (--_layout-gap): the theme's md step, or its data-gap (hints).      */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-stack, .canon-cluster, .canon-grid) {
+    --_layout-gap: var(--canon-gap-md, 1rem);
+    gap: var(--_layout-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  :where(.canon-stack) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-stack) > :where(*) {
+    margin-block: 0;
+  }
+  :where(.canon-cluster) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  :where(.canon-grid) {
+    --_grid-columns: 100;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max(min(var(--canon-grid-min, 16rem), 100%), (100% - (var(--_grid-columns) - 1) * var(--_layout-gap)) / var(--_grid-columns)), 1fr));
+  }
+  :where(.canon-grid) > :where(*) {
+    min-inline-size: 0;
+  }
+}
+/* @canon-part */
+@layer canon.hints {
+
+  /* data-gap on a Stack, Cluster or Grid: its own gap, a step of the
+     theme's spacing (--canon-gap-*). Not inherited: each sets its own. */
+  :where(.canon-stack, .canon-cluster, .canon-grid):where([data-gap="none"]) { --_layout-gap: 0px; }
+  :where(.canon-stack, .canon-cluster, .canon-grid):where([data-gap="sm"]) { --_layout-gap: var(--canon-gap-sm, 0.5rem); }
+  :where(.canon-stack, .canon-cluster, .canon-grid):where([data-gap="md"]) { --_layout-gap: var(--canon-gap-md, 1rem); }
+  :where(.canon-stack, .canon-cluster, .canon-grid):where([data-gap="lg"]) { --_layout-gap: var(--canon-gap-lg, 1.5rem); }
+  :where(.canon-stack, .canon-cluster, .canon-grid):where([data-gap="xl"]) { --_layout-gap: var(--canon-gap-xl, 2rem); }
+
+  /* data-columns on a Grid: at most that many. */
+  :where(.canon-grid[data-columns="2"]) { --_grid-columns: 2; }
+  :where(.canon-grid[data-columns="3"]) { --_grid-columns: 3; }
+  :where(.canon-grid[data-columns="4"]) { --_grid-columns: 4; }
+  :where(.canon-grid[data-columns="5"]) { --_grid-columns: 5; }
+  :where(.canon-grid[data-columns="6"]) { --_grid-columns: 6; }
+
+  /* data-align="end" on a Cluster's child: it, and what follows, at the
+     row's end. */
+  :where(.canon-cluster) > :where([data-align="end"]) {
+    margin-inline-start: auto;
+  }
+}

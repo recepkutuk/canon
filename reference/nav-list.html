@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Nav List reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Nav List</h1>
+  <p class="ref-note">The links of a sidebar: the main way around an app (Inbox, Projects, Settings), or a settings page's sections (Profile, Account, Billing). It is navigation: links in lists, the keyboard of any page (Tab), no menu or tree roles. Specification: <a href="../docs/components/nav-list.md">docs/components/nav-list.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="nav-list">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;nav class="canon-nav-list"&gt;</code>, named, holding lists of <code>.canon-nav-list-item</code> links: an icon, a <code>.canon-nav-list-label</code>, an optional <a href="tag.html">Tag</a> right after it ("New", "Beta": one word, for a page that is new or changing, removed once it isn't) and an optional <a href="count.html">Count</a> at the end. A <code>.canon-nav-list-heading</code> before a list names its group. <code>aria-current="page"</code> marks where people are.</p>
+
+    <div class="ref-sidebar">
+      <nav class="canon-nav-list" aria-label="Workspace">
+        <ul>
+          <li><a class="canon-nav-list-item" href="#inbox" aria-current="page"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-nav-list-label">Inbox</span><span class="canon-count">12</span></a></li>
+          <li><a class="canon-nav-list-item" href="#my-issues"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-nav-list-label">My issues</span></a></li>
+          <li><a class="canon-nav-list-item" href="#calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a></li>
+          <li><a class="canon-nav-list-item" href="#reports"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Reports</span><span class="canon-tag" data-intent="info"><span class="canon-tag-label">New</span></span></a></li>
+          <li><a class="canon-nav-list-item" href="#automations"><span class="canon-icon" data-icon="sparkles" aria-hidden="true"></span><span class="canon-nav-list-label">Automations</span><span class="canon-tag"><span class="canon-tag-label">Beta</span></span><span class="canon-count">2</span></a></li>
+        </ul>
+        <p class="canon-nav-list-heading">Teams</p>
+        <ul>
+          <li><a class="canon-nav-list-item" href="#design"><span class="canon-icon" data-icon="sparkles" aria-hidden="true"></span><span class="canon-nav-list-label">Design</span><span class="canon-count">3</span></a></li>
+          <li><a class="canon-nav-list-item" href="#engineering"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Engineering</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sections">
+    <h2>Sections</h2>
+    <p class="ref-note">An item with sub-pages is a <code>&lt;details class="canon-nav-list-section"&gt;</code>: its <code>&lt;summary class="canon-nav-list-item"&gt;</code> opens and closes the list of sub-pages under it, without JavaScript. canon.js opens the section holding the current page, and marks its summary while it's closed, so people still see where they are. One level deep: deeper trees are a Tree View.</p>
+
+    <div class="ref-sidebar">
+      <nav class="canon-nav-list" aria-label="Projects">
+        <ul>
+          <li>
+            <details class="canon-nav-list-section">
+              <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="table" aria-hidden="true"></span><span class="canon-nav-list-label">Projects</span></summary>
+              <ul>
+                <li><a class="canon-nav-list-item" href="#website"><span class="canon-nav-list-label">Website</span></a></li>
+                <li><a class="canon-nav-list-item" href="#mobile" aria-current="page"><span class="canon-nav-list-label">Mobile app</span><span class="canon-count">5</span></a></li>
+                <li><a class="canon-nav-list-item" href="#billing-revamp"><span class="canon-nav-list-label">Billing revamp</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="canon-nav-list-section">
+              <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></summary>
+              <ul>
+                <li><a class="canon-nav-list-item" href="#profile"><span class="canon-nav-list-label">Profile</span></a></li>
+                <li><a class="canon-nav-list-item" href="#members"><span class="canon-nav-list-label">Members</span></a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="actions">
+    <h2>Row actions</h2>
+    <p class="ref-note">A <a href="button.html">Button</a> after a link is that row's action ("New project"): minimal, neutral, icon only and small, at the row's end. It shows while the pointer is on the row or focus is in it (always on touch screens), and it is a stop of its own for Tab.</p>
+
+    <div class="ref-sidebar">
+      <nav class="canon-nav-list" aria-label="Teams">
+        <ul>
+          <li>
+            <a class="canon-nav-list-item" href="#design-team"><span class="canon-icon" data-icon="sparkles" aria-hidden="true"></span><span class="canon-nav-list-label">Design</span><span class="canon-count">3</span></a>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New project in Design</span></button>
+          </li>
+          <li>
+            <a class="canon-nav-list-item" href="#engineering-team"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Engineering</span></a>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New project in Engineering</span></button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="rail">
+    <h2>Rail</h2>
+    <p class="ref-note"><code>data-display="icon"</code> on the list or a container (a collapsed <a href="sidebar.html">Sidebar</a>): square items, icons only. Labels, headings and counts stay as names for screen readers; give each link a <a href="tooltip.html">Tooltip</a> (<code>interestfor</code>, <code>data-placement="inline-end"</code>, beside the icon) so sighted people can read them too (they show only in a rail). A section's sub-pages open beside it, labels and all: click Projects. They close when you choose one, press <kbd class="canon-kbd">Esc</kbd>, or click or Tab elsewhere.</p>
+
+    <div class="ref-sidebar ref-sidebar-rail">
+      <nav class="canon-nav-list" aria-label="Workspace, collapsed" data-display="icon">
+        <ul>
+          <li><a class="canon-nav-list-item" href="#rail-inbox" aria-current="page" interestfor="rail-tip-inbox"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-nav-list-label">Inbox</span><span class="canon-count">12</span></a><div class="canon-tooltip" id="rail-tip-inbox" data-placement="inline-end" popover="hint" role="tooltip">Inbox</div></li>
+          <li><a class="canon-nav-list-item" href="#rail-issues" interestfor="rail-tip-issues"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-nav-list-label">My issues</span></a><div class="canon-tooltip" id="rail-tip-issues" data-placement="inline-end" popover="hint" role="tooltip">My issues</div></li>
+          <li><a class="canon-nav-list-item" href="#rail-calendar" interestfor="rail-tip-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a><div class="canon-tooltip" id="rail-tip-calendar" data-placement="inline-end" popover="hint" role="tooltip">Calendar</div></li>
+          <li>
+            <details class="canon-nav-list-section">
+              <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="table" aria-hidden="true"></span><span class="canon-nav-list-label">Projects</span></summary>
+              <ul>
+                <li><a class="canon-nav-list-item" href="#rail-website"><span class="canon-nav-list-label">Website</span></a></li>
+                <li><a class="canon-nav-list-item" href="#rail-mobile"><span class="canon-nav-list-label">Mobile app</span><span class="canon-count">5</span></a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the list or a container: rows a control's height, a quarter of it apart. A sidebar uses the default; small suits a dense one.</p>
+
+    <div class="ref-row" style="align-items: start">
+      <div class="ref-sidebar">
+        <nav class="canon-nav-list" aria-label="Settings, small" data-size="sm">
+          <ul>
+            <li><a class="canon-nav-list-item" href="#s-profile" aria-current="page"><span class="canon-nav-list-label">Profile</span></a></li>
+            <li><a class="canon-nav-list-item" href="#s-account"><span class="canon-nav-list-label">Account</span></a></li>
+            <li><a class="canon-nav-list-item" href="#s-billing"><span class="canon-nav-list-label">Billing</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="ref-sidebar">
+        <nav class="canon-nav-list" aria-label="Settings, large" data-size="lg">
+          <ul>
+            <li><a class="canon-nav-list-item" href="#l-profile" aria-current="page"><span class="canon-nav-list-label">Profile</span></a></li>
+            <li><a class="canon-nav-list-item" href="#l-account"><span class="canon-nav-list-label">Account</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long label is cut (…) and keeps its full name. Right to left, icons are on the right and a closed section's chevron points left.</p>
+
+    <div class="ref-row" style="align-items: start">
+      <div class="ref-sidebar">
+        <nav class="canon-nav-list" aria-label="Long labels">
+          <ul>
+            <li><a class="canon-nav-list-item" href="#long"><span class="canon-icon" data-icon="table" aria-hidden="true"></span><span class="canon-nav-list-label">Quarterly planning for the platform reliability team</span><span class="canon-count">128</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="ref-sidebar" dir="rtl" lang="ar">
+        <nav class="canon-nav-list" aria-label="مساحة العمل">
+          <ul>
+            <li><a class="canon-nav-list-item" href="#ar-inbox" aria-current="page"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-nav-list-label">البريد الوارد</span><span class="canon-count">١٢</span></a></li>
+            <li>
+              <details class="canon-nav-list-section">
+                <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="table" aria-hidden="true"></span><span class="canon-nav-list-label">المشاريع</span></summary>
+                <ul>
+                  <li><a class="canon-nav-list-item" href="#ar-site"><span class="canon-nav-list-label">الموقع</span></a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

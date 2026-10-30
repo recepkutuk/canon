@@ -1,0 +1,64 @@
+/* ==================================================================== */
+/* Segmented Control · Tabs: the current one's mark                     */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The chosen option's (or current tab's) card, drawn once by the track
+     (the strip) and anchored to the chosen one, so it glides to the next
+     one chosen: 0.3s, fast then settling; none with reduced motion.
+     Where anchor positioning is missing, and in forced colors, each
+     option or tab draws its own (the rules above). A focus ring stays
+     the option's own. */
+  @supports (anchor-scope: --a) {
+    @media not (forced-colors: active) {
+      .canon-segmented,
+      .canon-tabs-list {
+        position: relative;
+        isolation: isolate;
+        anchor-scope: --canon-current;
+      }
+      .canon-segmented-option:has(> input:checked),
+      .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+        anchor-name: --canon-current;
+      }
+      .canon-segmented-option:has(> input:checked),
+      .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+        --_bg: transparent;
+      }
+      .canon-segmented-option:has(> input:checked):not(:has(> input:focus-visible)),
+      .canon-tab:is([aria-selected="true"], [aria-current="page"]):not(:focus-visible) {
+        box-shadow: none;
+      }
+      .canon-segmented::before,
+      .canon-tabs-list::before {
+        content: "";
+        position: absolute;
+        position-anchor: --canon-current;
+        position-visibility: anchors-valid;
+        right: anchor(right);
+        left: anchor(left);
+        pointer-events: none;
+        transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+        transition-timing-function: cubic-bezier(0.3, 0.7, 0.1, 1);
+      }
+      .canon-segmented::before,
+      .canon-tabs-list::before {
+        z-index: -1;
+        top: anchor(top);
+        bottom: anchor(bottom);
+        border-radius: max(0px, calc(var(--canon-theme-button-radius) - 1px));
+        background-color: var(--_card-bg);
+        box-shadow: var(--_card-shadow);
+      }
+      /* Chosen and disabled: a flat card. */
+      .canon-segmented:has(> .canon-segmented-option > input:checked:disabled)::before {
+        box-shadow: var(--_card-ring);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .canon-segmented::before,
+        .canon-tabs-list::before { transition: none; }
+      }
+    }
+  }
+}

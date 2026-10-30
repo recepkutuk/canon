@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Command Palette reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Command Palette</h1>
+  <p class="ref-note">A search box for the whole app: press <kbd class="canon-kbd">⌘K</kbd> (<kbd class="canon-kbd">Ctrl K</kbd>), type a few letters, and go to a page or run an action without looking through menus. Every command must also be reachable another way: the palette is a shortcut, not the only door. Specification: <a href="../docs/components/command-palette.md">docs/components/command-palette.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="command-palette">
+    <h2>Basics</h2>
+    <p class="ref-note">A modal <code>&lt;dialog class="canon-command-palette"&gt;</code> opened by a button with <code>command="show-modal"</code>; its <code>aria-keyshortcuts</code> (<code>Meta+K Control+K</code>) opens it from anywhere on the page. Inside: a <code>.canon-command-search</code> row (an icon and a search input), then a <code>.canon-command-list</code> of <code>.canon-command-group</code>s, each with a heading and its items. An item is a link (it goes) or a button (it does): an icon, a <code>.canon-command-label</code>, an optional <code>.canon-command-hint</code> and a <a href="kbd.html">Kbd</a> for its own shortcut. Type to narrow the list (words in any order, accents ignored; <code>data-keywords</code> adds words to match), <kbd class="canon-kbd">↑</kbd> <kbd class="canon-kbd">↓</kbd> to move, <kbd class="canon-kbd">Enter</kbd> to run; it closes, as it does with <kbd class="canon-kbd">Esc</kbd> or a click beside it. Try "inv", "dark" or "ada".</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="palette" command="show-modal" aria-keyshortcuts="Meta+K Control+K">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <span class="canon-button-label">Search</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
+      </button>
+      <output class="ref-note" id="palette-ran"></output>
+    </div>
+
+    <dialog class="canon-command-palette" id="palette" aria-label="Command palette">
+      <div class="canon-command-search">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search commands and pages" placeholder="Search commands and pages">
+      </div>
+      <div class="canon-command-list">
+        <div class="canon-command-group" aria-labelledby="palette-pages">
+          <p class="canon-command-heading" id="palette-pages">Pages</p>
+          <a class="canon-command-item" href="#invoices">
+            <span class="canon-icon" data-icon="receipt" aria-hidden="true"></span>
+            <span class="canon-command-label">Invoices</span>
+            <span class="canon-command-hint">Billing</span>
+          </a>
+          <a class="canon-command-item" href="#calendar">
+            <span class="canon-icon" data-icon="calendar" aria-hidden="true"></span>
+            <span class="canon-command-label">Calendar</span>
+          </a>
+          <a class="canon-command-item" href="#settings" data-keywords="preferences account">
+            <span class="canon-icon" data-icon="settings" aria-hidden="true"></span>
+            <span class="canon-command-label">Settings</span>
+          </a>
+        </div>
+        <div class="canon-command-group" aria-labelledby="palette-actions">
+          <p class="canon-command-heading" id="palette-actions">Actions</p>
+          <button type="button" class="canon-command-item" data-run="Create invoice">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-command-label">Create invoice</span>
+            <kbd class="canon-kbd" aria-hidden="true">N</kbd>
+          </button>
+          <button type="button" class="canon-command-item" data-run="Download report">
+            <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+            <span class="canon-command-label">Download this month's report</span>
+          </button>
+          <button type="button" class="canon-command-item" data-run="Dark theme" data-keywords="appearance night">
+            <span class="canon-icon" data-icon="sparkles" aria-hidden="true"></span>
+            <span class="canon-command-label">Switch to the dark theme</span>
+          </button>
+        </div>
+        <div class="canon-command-group" aria-labelledby="palette-people" data-remote id="palette-people-group">
+          <p class="canon-command-heading" id="palette-people">People</p>
+        </div>
+      </div>
+      <footer class="canon-command-footer">
+        <span><kbd class="canon-kbd">↑</kbd> <kbd class="canon-kbd">↓</kbd> to move</span>
+        <span><kbd class="canon-kbd">Enter</kbd> to run</span>
+        <span><kbd class="canon-kbd">Esc</kbd> to close</span>
+      </footer>
+    </dialog>
+
+    <script>
+      /* The app's part: run the actions, and look people up as you type. */
+      const palette = document.getElementById("palette");
+      palette.addEventListener("click", (event) => {
+        const item = event.target.closest("[data-run]");
+        if (item) document.getElementById("palette-ran").textContent = `Ran: ${item.dataset.run}`;
+      });
+      const people = ["Ada Lovelace", "Grace Hopper", "Katherine Johnson", "Edwin Mueller"];
+      palette.addEventListener("canon-search", (event) => {
+        const group = document.getElementById("palette-people-group");
+        const query = event.detail.query.toLowerCase();
+        const found = query.length < 2 ? [] : people.filter((name) => name.toLowerCase().includes(query));
+        group.querySelectorAll(".canon-command-item").forEach((item) => item.remove());
+        for (const name of found) {
+          const item = document.createElement("a");
+          item.className = "canon-command-item";
+          item.href = `#person-${name.split(" ")[0].toLowerCase()}`;
+          item.innerHTML = `<span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-command-label"></span><span class="canon-command-hint">Person</span>`;
+          item.querySelector(".canon-command-label").textContent = name;
+          group.append(item);
+        }
+      });
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="results">
+    <h2>The app's results</h2>
+    <p class="ref-note">Items written in the page are filtered by canon.js. For results only the app knows (people, records), it listens to <code>canon-search</code> (<code>detail: { query }</code>, a quarter second after typing stops) and puts items in a group with <code>data-remote</code>: canon.js shows them as they are, marks their words and keeps the keyboard working. Above, the People group works this way.</p>
+    <p class="ref-note">An item runs as a click: a link goes, a button fires its listeners; the palette then closes, unless a listener cancels the click or the item has <code>data-keep-open</code>. The dialog's <code>returnValue</code> is the item's <code>data-value</code>, else its text.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Nothing matches: the empty message says so, with what was typed. Right to left, everything runs from the right.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="palette-rtl" command="show-modal">
+        <span class="canon-button-label">Right to left</span>
+      </button>
+    </div>
+
+    <dialog class="canon-command-palette" id="palette-rtl" dir="rtl" lang="ar" aria-label="لوحة الأوامر">
+      <div class="canon-command-search">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="ابحث في الأوامر" placeholder="ابحث في الأوامر">
+      </div>
+      <div class="canon-command-list">
+        <div class="canon-command-group" aria-labelledby="palette-rtl-pages">
+          <p class="canon-command-heading" id="palette-rtl-pages">الصفحات</p>
+          <a class="canon-command-item" href="#ar-invoices"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-command-label">الفواتير</span><span class="canon-command-hint">الفوترة</span></a>
+          <a class="canon-command-item" href="#ar-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-command-label">التقويم</span></a>
+        </div>
+      </div>
+    </dialog>
+  </section>
+
+</main>
+</body>
+</html>

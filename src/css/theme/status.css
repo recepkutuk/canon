@@ -1,0 +1,80 @@
+/* ==================================================================== */
+/* Status Indicator                                                     */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A dot before the label, the size of the sidebar's dots
+     (6 / 8 / 10px at sm / md / lg), 6 / 6 / 8px before it; the
+     label in the control's type, zinc-700 (dark zinc-300). The dot's
+     color says the intent: info blue-500, success green-600, warning
+     amber-500, danger red-600 (dark: the 400s). No intent is a hollow
+     zinc-400 ring (dark zinc-500), as an avatar's offline: nothing is
+     happening, which the shape says as well as the color. data-pulse:
+     a ring grows from the dot and fades, every 1.6s (none with reduced
+     motion). */
+  :root,
+  [data-size="md"] {
+    --canon-theme-status-dot: 0.5rem;
+    --canon-theme-status-gap: 0.375rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-status-dot: 0.375rem;
+    --canon-theme-status-gap: 0.375rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-status-dot: 0.625rem;
+    --canon-theme-status-gap: 0.5rem;
+  }
+
+  .canon-status {
+    --_dot: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    gap: var(--canon-theme-status-gap);
+    color: light-dark(var(--canon-theme-zinc-700), var(--canon-theme-zinc-300));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-status::before {
+    inline-size: var(--canon-theme-status-dot);
+    block-size: var(--canon-theme-status-dot);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 max(1.5px, calc(var(--canon-theme-status-dot) * 0.25)) var(--_dot);
+  }
+  .canon-status[data-intent]::before {
+    background-color: var(--_dot);
+    box-shadow: none;
+  }
+  .canon-status[data-intent="info"]    { --_dot: light-dark(var(--canon-theme-blue-500), var(--canon-theme-blue-400)); }
+  .canon-status[data-intent="success"] { --_dot: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400)); }
+  .canon-status[data-intent="warning"] { --_dot: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400)); }
+  .canon-status[data-intent="danger"]  { --_dot: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400)); }
+
+  .canon-status[data-pulse]::before {
+    animation: canon-status-pulse 1.6s ease-out infinite;
+  }
+  @keyframes canon-status-pulse {
+    from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--_dot) 55%, transparent); }
+    to   { box-shadow: 0 0 0 calc(var(--canon-theme-status-dot) * 0.9) transparent; }
+  }
+  .canon-status:not([data-intent])[data-pulse]::before {
+    animation-name: canon-status-pulse-ring;
+  }
+  @keyframes canon-status-pulse-ring {
+    from { box-shadow: inset 0 0 0 max(1.5px, calc(var(--canon-theme-status-dot) * 0.25)) var(--_dot), 0 0 0 0 color-mix(in srgb, var(--_dot) 55%, transparent); }
+    to   { box-shadow: inset 0 0 0 max(1.5px, calc(var(--canon-theme-status-dot) * 0.25)) var(--_dot), 0 0 0 calc(var(--canon-theme-status-dot) * 0.9) transparent; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-status[data-pulse]::before { animation: none; }
+  }
+  @media (forced-colors: active) {
+    .canon-status::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+    .canon-status:not([data-intent])::before {
+      background-color: transparent;
+      box-shadow: inset 0 0 0 1.5px CanvasText;
+    }
+  }
+}

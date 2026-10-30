@@ -1,0 +1,54 @@
+/* ==================================================================== */
+/* Save Bar                                                             */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A Card's footer that stays. The status (a Status
+     Indicator) at the start, Discard and Save at the end, 8px apart;
+     the shell's inset above and below. In a card: the card's padding,
+     a line above, the card's white. On a page: the page's color, and
+     the shell's line above once it is stuck to the window's bottom (a
+     scroll-state query; without one, no line). */
+  .canon-save-bar {
+    gap: 0.5rem;
+    padding-block: var(--canon-theme-shell-inset);
+    background-color: var(--canon-theme-page-bg);
+  }
+  .canon-save-bar::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule-faint);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  @container scroll-state(stuck: bottom) {
+    .canon-save-bar::before {
+      opacity: 1;
+    }
+  }
+  .canon-card > .canon-save-bar {
+    padding: var(--_pad);
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+  }
+  .canon-card > .canon-save-bar::before {
+    content: none;
+  }
+  /* A new status (changed, saving, saved, failed; data-updated,
+     canon.js) rises 4px into place and fades in (0.2s); a count changing
+     within one doesn't. With reduced motion it only fades. */
+  .canon-save-bar-status[data-updated] > .canon-status {
+    animation: canon-status-rise 0.2s ease-out;
+  }
+  @keyframes canon-status-rise {
+    from { opacity: 0; translate: 0 0.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-save-bar-status[data-updated] > .canon-status {
+      animation-name: canon-fade-in;
+    }
+  }
+}

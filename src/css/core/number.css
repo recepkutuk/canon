@@ -1,0 +1,78 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Number Input                                                       */
+  /*                                                                    */
+  /* A native <input type="number"> between two Buttons that step it    */
+  /* (command="--canon-step-down" / "--canon-step-up", canon.js). The   */
+  /* value is centered and the field grows with it (field-sizing); the  */
+  /* browser's own spin buttons are hidden. Without canon.js the        */
+  /* buttons are hidden (every Canon command is) and the arrow keys     */
+  /* still step.                                                        */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-number) {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    max-inline-size: 100%;
+    vertical-align: middle;
+    font-size: var(--canon-control-font-size);
+  }
+  :where(.canon-number) > :where(input) {
+    box-sizing: border-box;
+    min-inline-size: 0;
+    margin: 0;
+    font: inherit;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    field-sizing: content;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  :where(.canon-number) > :where(input)::-webkit-inner-spin-button,
+  :where(.canon-number) > :where(input)::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+  :where(.canon-number) > :where(input):focus {
+    outline: none;
+  }
+  :where(.canon-number) > :where(.canon-button) {
+    flex: none;
+  }
+  /* Both buttons after the input (up, then down): a number typed as    */
+  /* often as nudged, lined up with the fields around it. The box fills */
+  /* its place like a text input; the value starts at its start; the    */
+  /* two buttons stack at its end.                                      */
+  :where(.canon-number:has(> input:first-child ~ .canon-button)) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  :where(.canon-number:has(> input:first-child ~ .canon-button)) > :where(input) {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    inline-size: auto;
+    text-align: start;
+    field-sizing: fixed;
+  }
+  :where(.canon-number:has(> input:first-child ~ .canon-button)) > :where(.canon-button) {
+    grid-column: 2;
+  }
+  /* A step's roll (canon.js): the old value and the new one, one over  */
+  /* the other, over the input's text (placed by canon.js), clipped to  */
+  /* it. The theme moves them and hides the input's own text meanwhile. */
+  :where(.canon-number-ticker) {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    overflow: clip;
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+    white-space: pre;
+  }
+  :where(.canon-number-ticker) > * {
+    grid-area: 1 / 1;
+  }
+}

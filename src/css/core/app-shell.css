@@ -1,0 +1,142 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* App Shell · Sidebar · Top Bar                                       */
+  /*                                                                     */
+  /* .canon-app-shell lays out a Sidebar (the full height at the start), */
+  /* a Top Bar (a <header> over the content) and the <main>, as a grid.  */
+  /* The sidebar and the bar stay put while the page scrolls; the        */
+  /* sidebar's body scrolls on its own. A Sidebar is a column: a header  */
+  /* (brand, then its toggle), a body of Nav Lists, a footer.            */
+  /* data-display="icon" on it is the rail. One --canon-toggle-sidebar */
+  /* Button collapses and opens                                          */
+  /* it, in the same place in both states (the bar's start, or the       */
+  /* sidebar's header when there is no bar). canon.js folds a bar that   */
+  /* doesn't fit (data-fold) and, on a narrow shell, makes the sidebar a */
+  /* drawer (data-drawer) the toggle opens over the page.                */
+  /* ------------------------------------------------------------------ */
+
+  /* Under Banners (--canon-banners-height, canon.js): the sidebar and  */
+  /* the bar stick under them, the shell as tall as the room they leave. */
+  :where(.canon-app-shell) {
+    --canon-sticky-offset: var(--canon-banners-height, 0px);
+    container: canon-app-shell / inline-size;
+    display: grid;
+    grid-template-areas: "sidebar bar" "sidebar main";
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    min-block-size: calc(var(--canon-app-shell-height, 100dvh) - var(--canon-banners-height, 0px));
+  }
+  :where(.canon-app-shell) > :where(.canon-sidebar) {
+    grid-area: sidebar;
+    position: sticky;
+    inset-block-start: var(--canon-banners-height, 0px);
+    z-index: 3;
+    block-size: calc(var(--canon-app-shell-height, 100dvh) - var(--canon-banners-height, 0px));
+  }
+  :where(.canon-app-shell) > :where(.canon-top-bar) {
+    grid-area: bar;
+    position: sticky;
+    inset-block-start: var(--canon-banners-height, 0px);
+    z-index: 2;
+  }
+  :where(.canon-app-shell) > :where(main) {
+    grid-area: main;
+    min-inline-size: 0;
+  }
+
+  :where(.canon-sidebar) {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    inline-size: var(--canon-sidebar-width, 16rem);
+    overflow: hidden;
+  }
+  /* Only the body scrolls: the header and the footer stay. */
+  :where(.canon-sidebar-body) {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  :where(.canon-sidebar[data-display="icon"]) {
+    inline-size: auto;
+  }
+  /* A drawer (canon.js, on a narrow App Shell): it keeps its place and
+     its width but takes no room, lying over the page at the shell's
+     start, above the bar. */
+  :where(.canon-app-shell) > :where(.canon-sidebar[data-drawer]) {
+    z-index: 4;
+    margin-inline-end: calc(-1 * var(--canon-sidebar-width, 16rem));
+  }
+  /* A drawer slid away is cut at the shell's side, never scrolled to
+     (clip, so the sidebar and the bar still stick). */
+  :where(.canon-app-shell:has(> .canon-sidebar[data-drawer])) {
+    overflow-x: clip;
+  }
+  :where(.canon-sidebar-header) {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    min-inline-size: 0;
+  }
+  :where(.canon-sidebar-brand) {
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  :where(.canon-sidebar-brand) > :where(img, svg) {
+    flex: none;
+  }
+  :where(.canon-sidebar-brand-name) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :where(.canon-sidebar-header) > :where(.canon-button) {
+    flex: none;
+  }
+  :where(.canon-sidebar-footer) {
+    flex: none;
+    margin-block-start: auto;
+  }
+
+  :where(.canon-top-bar) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+  }
+  :where(.canon-top-bar-start, .canon-top-bar-end) {
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+  }
+  /* What doesn't fit is cut at the start's end, never drawn under the
+     end (the margin keeps focus rings). Folding (canon.js) makes room
+     first; while it measures, the start's things keep their width. */
+  :where(.canon-top-bar-start) {
+    overflow: clip;
+    overflow-clip-margin: 0.25rem;
+  }
+  :where(.canon-top-bar-start) > * {
+    min-inline-size: 0;
+  }
+  :where(.canon-top-bar[data-folding]) :where(.canon-top-bar-start) > * {
+    flex: none;
+  }
+  :where(.canon-top-bar-start) > :where(.canon-button) > :where(.canon-button-label) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-top-bar-end) {
+    flex: none;
+    margin-inline-start: auto;
+  }
+}

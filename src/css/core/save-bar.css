@@ -1,0 +1,31 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Save Bar                                                            */
+  /*                                                                     */
+  /* A form's last thing: its status (a Status Indicator canon.js keeps),*/
+  /* then Discard and Save at the end. It sticks to the bottom of the    */
+  /* window while the form goes on below (--canon-sticky-offset-end      */
+  /* from it), reaching across the page's side padding                   */
+  /* (--canon-page-inset); a scroll-state container, for a line once     */
+  /* stuck.                                                              */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-save-bar) {
+    container-type: scroll-state;
+    position: sticky;
+    inset-block-end: var(--canon-sticky-offset-end, 0px);
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  :where(:not(.canon-card) > .canon-save-bar) {
+    margin-inline: calc(-1 * var(--canon-page-inset, 0px));
+    padding-inline: var(--canon-page-inset, 0px);
+  }
+  :where(.canon-save-bar-status) {
+    min-inline-size: 0;
+    margin: 0;
+    margin-inline-end: auto;
+  }
+}

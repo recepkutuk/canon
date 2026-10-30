@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Components</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Components</h1>
+  <p class="ref-note">The 68 components, each one running: try them here. Open one for its reference, its playground and its specification.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="layout">
+    <h2>Layout</h2>
+    <p class="ref-note">The frame of an app and the parts of its pages.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-catalog-frame" style="--canon-app-shell-height: 22rem; inline-size: 34rem; block-size: 22rem">
+<div class="canon-app-shell">
+<div class="canon-sidebar" id="cx-shell-sidebar">
+<div class="canon-sidebar-header"><a class="canon-sidebar-brand" href="#cx"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex</span></a></div>
+<div class="canon-sidebar-body"><nav class="canon-nav-list" aria-label="Main (app shell)"><ul><li><a class="canon-nav-list-item" href="#cx" aria-current="page"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span><span class="canon-count">3</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a></li></ul></nav></div>
+</div>
+<header class="canon-top-bar">
+<div class="canon-top-bar-start"><button type="button" class="canon-button" data-emphasis="low" data-intent="neutral"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span></button></div>
+<div class="canon-top-bar-end"><span class="canon-avatar" data-seed="1"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span></span></div>
+</header>
+<main class="ref-shell-content"><h1>Dashboard</h1><div class="ref-shell-box"></div><div class="ref-shell-box"></div></main>
+</div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="app-shell.html"><span class="ref-catalog-name">App Shell</span><span class="ref-catalog-text">The frame of an app's pages: a sidebar, a top bar and the page.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-catalog-frame" style="inline-size: 26rem; padding: 1.25rem">
+<header class="canon-page-header">
+<div class="canon-page-header-title"><h1>Invoices</h1></div>
+<p class="canon-page-header-description">128 invoices · €340,200 outstanding</p>
+<div class="canon-page-header-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Export</span></button><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button></div>
+</header>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="page-header.html"><span class="ref-catalog-name">Page Header</span><span class="ref-catalog-text">The top of a page: what it is, where it stands, what can be done here.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<section class="canon-section" style="inline-size: 22rem">
+<header class="canon-section-header">
+<h2 class="canon-section-title">Billing details</h2>
+<p class="canon-section-description">Where invoices go, and when they're due</p>
+<div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+</header>
+<dl class="canon-description-list" data-label="start">
+<div><dt>Company</dt><dd>Globex Corporation</dd></div>
+<div><dt>Payment terms</dt><dd>Net 30</dd></div>
+</dl>
+</section>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="section.html"><span class="ref-catalog-name">Section</span><span class="ref-catalog-text">A titled part of a page, with its own description and actions.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 13rem; font-size: 0.875rem"><p style="margin: 0">Signed in as Ada Lovelace.</p><hr class="canon-separator"><p style="margin: 0">Last active 2 minutes ago.</p></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="separator.html"><span class="ref-catalog-name">Separator</span><span class="ref-catalog-text">A line between things, optionally with a word in it.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-catalog-frame" style="display: flex; block-size: 24rem">
+<div class="canon-sidebar" id="cx-sidebar">
+<div class="canon-sidebar-header"><a class="canon-sidebar-brand" href="#cx"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Corporation</span></a></div>
+<div class="canon-sidebar-body"><nav class="canon-nav-list" aria-label="Main (sidebar)"><ul><li><a class="canon-nav-list-item" href="#cx" aria-current="page"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span><span class="canon-count">3</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a></li></ul></nav></div>
+</div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="sidebar.html"><span class="ref-catalog-name">Sidebar</span><span class="ref-catalog-text">The column beside the pages: the app's name, its main links, what belongs at the bottom.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-split-frame" style="inline-size: 28rem; block-size: 16rem">
+<div class="canon-split-pane">
+<div class="ref-pane" id="cx-split-first"><nav class="canon-nav-list" aria-label="Invoices (split pane)"><ul><li><a class="canon-nav-list-item" href="#cx" aria-current="page"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">INV-2041 · Globex</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">INV-2040 · Initech</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">INV-2039 · Umbrella</span></a></li></ul></nav></div>
+<div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the list" aria-controls="cx-split-first" aria-orientation="vertical" aria-valuenow="40" aria-valuemin="20" aria-valuemax="60"></div>
+<section class="ref-pane canon-section"><header class="canon-section-header"><h2 class="canon-section-title">INV-2041</h2><p class="canon-section-description">Globex · Due 3 Oct · €12,400</p></header></section>
+</div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="split-pane.html"><span class="ref-catalog-name">Split Pane</span><span class="ref-catalog-text">Two panes and a handle to share the room between them.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-stack" data-gap="sm" style="inline-size: 16rem">
+<div class="canon-grid" data-gap="sm" data-columns="3" style="--canon-grid-min: 4rem">
+<span class="canon-skeleton" data-shape="block" aria-hidden="true" style="inline-size: auto"></span>
+<span class="canon-skeleton" data-shape="block" aria-hidden="true" style="inline-size: auto"></span>
+<span class="canon-skeleton" data-shape="block" aria-hidden="true" style="inline-size: auto"></span>
+</div>
+<div class="canon-cluster" data-gap="sm">
+<span class="canon-tag" data-size="sm"><span class="canon-tag-label">Design</span></span>
+<span class="canon-tag" data-size="sm"><span class="canon-tag-label">Research</span></span>
+<span class="canon-tag" data-size="sm"><span class="canon-tag-label">Writing</span></span>
+</div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="stack.html"><span class="ref-catalog-name">Stack, Cluster and Grid</span><span class="ref-catalog-text">The space between components: one under another, in a row, or in columns.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-toolbar" role="toolbar" aria-label="Formatting" data-size="sm">
+<div class="canon-button-group" role="group" aria-label="History" data-display="icon"><button type="button" class="canon-button"><span class="canon-icon" data-icon="undo" aria-hidden="true"></span><span class="canon-button-label">Undo</span></button><button type="button" class="canon-button"><span class="canon-icon" data-icon="redo" aria-hidden="true"></span><span class="canon-button-label">Redo</span></button></div>
+<div class="canon-button-group" role="group" aria-label="Text style" data-display="icon"><button type="button" class="canon-button" aria-pressed="true"><span class="canon-icon" data-icon="bold" aria-hidden="true"></span><span class="canon-button-label">Bold</span></button><button type="button" class="canon-button" aria-pressed="false"><span class="canon-icon" data-icon="italic" aria-hidden="true"></span><span class="canon-button-label">Italic</span></button><button type="button" class="canon-button" aria-pressed="false"><span class="canon-icon" data-icon="underline" aria-hidden="true"></span><span class="canon-button-label">Underline</span></button></div>
+<div class="canon-button-group" role="group" aria-label="Alignment" data-display="icon" data-select="one"><button type="button" class="canon-button" aria-pressed="true"><span class="canon-icon" data-icon="align-start" aria-hidden="true"></span><span class="canon-button-label">Align left</span></button><button type="button" class="canon-button" aria-pressed="false"><span class="canon-icon" data-icon="align-center" aria-hidden="true"></span><span class="canon-button-label">Align center</span></button></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="toolbar.html"><span class="ref-catalog-name">Toolbar</span><span class="ref-catalog-text">A row of controls acting on one thing; one Tab stop, arrow keys between them.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-catalog-frame" style="inline-size: 24rem">
+<header class="canon-top-bar">
+<div class="canon-top-bar-start"><button type="button" class="canon-button" data-emphasis="low" data-intent="neutral"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span></button></div>
+<div class="canon-top-bar-end">
+<button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+<span class="canon-avatar" data-seed="1"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span></span>
+</div>
+</header>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="top-bar.html"><span class="ref-catalog-name">Top Bar</span><span class="ref-catalog-text">The bar over the pages: search at the start, the app's actions and the account at the end.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="actions">
+    <h2>Actions</h2>
+    <p class="ref-note">The things a screen can be told to do, and the controls that ask.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-row" style="justify-content: center"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-button-label">Preview</span></button><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="upload" aria-hidden="true"></span><span class="canon-button-label">Publish</span></button></div>
+<div class="ref-row" style="justify-content: center; margin-block-start: 0.5rem"><button type="button" class="canon-button" data-emphasis="low" data-intent="neutral"><span class="canon-button-label">Save draft</span></button><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral"><span class="canon-button-label">Cancel</span></button></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="button.html"><span class="ref-catalog-name">Button</span><span class="ref-catalog-text">An action, in the weight it deserves, with a spinner while it works.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-button-group" role="group" aria-label="Period" data-select="one">
+<button type="button" class="canon-button" aria-pressed="false"><span class="canon-button-label">Day</span></button>
+<button type="button" class="canon-button" aria-pressed="true"><span class="canon-button-label">Week</span></button>
+<button type="button" class="canon-button" aria-pressed="false"><span class="canon-button-label">Month</span></button>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="button-group.html"><span class="ref-catalog-name">Button Group</span><span class="ref-catalog-text">Related buttons joined in one row, or one choice among them.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<p style="margin: 0; max-inline-size: 14rem; font-size: 0.875rem">Payments arrive within two days. See <a class="canon-link" href="#cx">how payouts work</a> or change your <a class="canon-link" href="#cx">bank details</a>.</p>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="link.html"><span class="ref-catalog-name">Link</span><span class="ref-catalog-text">Text that goes somewhere, in a sentence or on its own.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-segmented" role="radiogroup" aria-label="Calendar view">
+<label class="canon-segmented-option"><input type="radio" name="cx-view" value="day"><span class="canon-segmented-label">Day</span></label>
+<label class="canon-segmented-option"><input type="radio" name="cx-view" value="week" checked><span class="canon-segmented-label">Week</span></label>
+<label class="canon-segmented-option"><input type="radio" name="cx-view" value="month"><span class="canon-segmented-label">Month</span></label>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="segmented-control.html"><span class="ref-catalog-name">Segmented Control</span><span class="ref-catalog-text">One value from a few, as joined segments.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-split-button">
+<button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Add</span></button>
+<button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="cx-split-menu" aria-haspopup="menu" aria-expanded="false"><span class="canon-button-label">More ways to add</span></button>
+</div>
+<div class="canon-menu" id="cx-split-menu" popover role="menu" aria-label="More ways to add">
+<button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-menu-label">Add from a copy</span></button>
+<button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-menu-label">Import</span></button>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="split-button.html"><span class="ref-catalog-name">Split Button</span><span class="ref-catalog-text">The usual action one click away, its variations in a menu beside it.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="max-inline-size: 14rem"><div class="canon-toggle-chips" role="group" aria-label="Job type"><label class="canon-toggle-chip"><input type="checkbox" name="cx-chip" value="remote" checked><span class="canon-toggle-chip-label">Remote</span></label><label class="canon-toggle-chip"><input type="checkbox" name="cx-chip" value="full-time" checked><span class="canon-toggle-chip-label">Full-time</span></label><label class="canon-toggle-chip"><input type="checkbox" name="cx-chip" value="part-time"><span class="canon-toggle-chip-label">Part-time</span></label><label class="canon-toggle-chip"><input type="checkbox" name="cx-chip" value="contract"><span class="canon-toggle-chip-label">Contract</span></label></div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="toggle-chip.html"><span class="ref-catalog-name">Toggle Chip</span><span class="ref-catalog-text">Options turned on and off as chips: quick filters, interests.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="forms">
+    <h2>Forms</h2>
+    <p class="ref-note">Everything that takes a value from someone, and how a form is put together.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="display: grid; gap: 0.5rem">
+<div class="canon-choice"><input type="checkbox" id="cx-cb-1" checked><label class="canon-choice-label" for="cx-cb-1">Email me receipts</label></div>
+<div class="canon-choice"><input type="checkbox" id="cx-cb-2"><label class="canon-choice-label" for="cx-cb-2">Weekly summary</label></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="checkbox.html"><span class="ref-catalog-name">Checkbox</span><span class="ref-catalog-text">A choice that is on or off, alone or among independent options.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 13rem"><div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-color">Brand color</label></div><div class="canon-color"><input type="color" id="cx-color" value="#3b82f6"></div></div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="color-picker.html"><span class="ref-catalog-name">Color Picker</span><span class="ref-catalog-text">Any color, from an area, sliders, fields or swatches.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-combobox" data-search="list" style="inline-size: 16rem"><select aria-label="Labels" multiple>
+<option value="" hidden>Add labels</option>
+<option selected data-seed="3">Design</option><option selected data-seed="8">Research</option><option>Engineering</option><option>Finance</option><option>Sales</option>
+</select></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="combobox.html"><span class="ref-catalog-name">Combobox</span><span class="ref-catalog-text">One or several options from a list you can search, shown as tags.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 13rem"><div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-date">Due</label></div><div class="canon-date"><input type="date" id="cx-date" value="2026-11-30"></div></div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="date.html"><span class="ref-catalog-name">Date family</span><span class="ref-catalog-text">A date, a range, a week or a day, typed or picked from a calendar.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 14rem"><div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-email">Work email</label><p class="canon-label-description" id="cx-email-desc">We'll send a link to confirm it.</p></div><div class="canon-text-input"><input type="email" id="cx-email" value="rosa@globex" aria-invalid="true" aria-describedby="cx-email-desc cx-email-msg" placeholder></div><p class="canon-field-message" data-intent="danger" id="cx-email-msg">Enter an email like name@company.com</p></div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="field.html"><span class="ref-catalog-name">Field</span><span class="ref-catalog-text">A control with its label, description and messages.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<fieldset class="canon-fieldset" style="inline-size: 13rem">
+<legend class="canon-fieldset-legend">Notify me about</legend>
+<div class="canon-choice"><input type="checkbox" id="cx-fs-1" checked><label class="canon-choice-label" for="cx-fs-1">Deployments</label></div>
+<div class="canon-choice"><input type="checkbox" id="cx-fs-2"><label class="canon-choice-label" for="cx-fs-2">Incidents</label></div>
+</fieldset>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="fieldset.html"><span class="ref-catalog-name">Fieldset</span><span class="ref-catalog-text">A group of related choices or fields under a legend.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<form class="canon-form" style="inline-size: 20rem" onsubmit="event.preventDefault()">
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-fl-name">Full name</label></div><div class="canon-text-input"><input type="text" id="cx-fl-name" value="Rosa Okafor" placeholder></div></div>
+<div class="canon-form-row" style="--canon-form-columns: minmax(0, 2fr) minmax(0, 1fr)">
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-fl-city">City</label></div><div class="canon-text-input"><input type="text" id="cx-fl-city" value="Lisbon" placeholder></div></div>
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-fl-post">Postcode</label></div><div class="canon-text-input"><input type="text" id="cx-fl-post" value="1100" placeholder></div></div>
+</div>
+</form>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="form-layout.html"><span class="ref-catalog-name">Form Layout</span><span class="ref-catalog-text">How a form is arranged: spacing, sections, fields side by side.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-repeater" id="cx-repeater" style="inline-size: 22rem">
+<div class="canon-repeater-item">
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-rp-0-name">Name</label></div><div class="canon-text-input"><input type="text" id="cx-rp-0-name" name="links[0][name]" value="Docs" placeholder></div></div>
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-rp-0-url">Address</label></div><div class="canon-text-input"><input type="url" id="cx-rp-0-url" name="links[0][url]" value="https://globex.example/docs" placeholder></div></div>
+<button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="cx-repeater" command="--canon-remove"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Remove</span></button>
+</div>
+<button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="cx-repeater" command="--canon-add"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Add a link</span></button>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="form-repeater.html"><span class="ref-catalog-name">Form Repeater</span><span class="ref-catalog-text">A list of rows of fields people add to and remove.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-otp" data-groups="3 3"><input type="text" aria-label="Sign-in code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279"></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="input-otp.html"><span class="ref-catalog-name">Input OTP</span><span class="ref-catalog-text">A one-time code, typed or pasted, in cells.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 14rem"><div class="canon-label">
+<label class="canon-label-text" for="cx-label">Company <span class="canon-label-optional">(optional)</span></label>
+<button type="button" class="canon-label-info" interestfor="cx-label-info" aria-describedby="cx-label-info"><span class="canon-visually-hidden">About company</span></button>
+<div class="canon-tooltip" id="cx-label-info" popover="hint" role="tooltip">Shown on invoices</div>
+<p class="canon-label-description" id="cx-label-desc">As it should appear to customers.</p>
+</div><input id="cx-label" aria-describedby="cx-label-desc" hidden></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="label.html"><span class="ref-catalog-name">Label</span><span class="ref-catalog-text">What a control is called, with its required or optional mark, a hint and a description.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-number">
+<button type="button" class="canon-button" data-display="icon" commandfor="cx-guests" command="--canon-step-down"><span class="canon-icon" data-icon="minus" aria-hidden="true"></span><span class="canon-button-label">Fewer guests</span></button>
+<input type="number" id="cx-guests" aria-label="Guests" value="2" min="1" max="8">
+<button type="button" class="canon-button" data-display="icon" commandfor="cx-guests" command="--canon-step-up"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">More guests</span></button>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="number-input.html"><span class="ref-catalog-name">Number Input</span><span class="ref-catalog-text">A count with buttons to step it down and up.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-password" style="inline-size: 14rem">
+<input id="cx-password" type="password" aria-label="Password" autocomplete="new-password" value="correct-horse-battery">
+<button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="cx-password" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="password.html"><span class="ref-catalog-name">Password</span><span class="ref-catalog-text">A password box with show and hide, a strength meter and rules.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<fieldset class="canon-fieldset" style="inline-size: 12rem">
+<legend class="canon-fieldset-legend">Billing</legend>
+<div class="canon-choice"><input type="radio" id="cx-r-1" name="cx-billing" checked><label class="canon-choice-label" for="cx-r-1">Monthly</label></div>
+<div class="canon-choice"><input type="radio" id="cx-r-2" name="cx-billing"><label class="canon-choice-label" for="cx-r-2">Yearly</label></div>
+</fieldset>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="radio.html"><span class="ref-catalog-name">Radio</span><span class="ref-catalog-text">One choice from a short list.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-field" role="group" aria-labelledby="cx-price-label" style="inline-size: 14rem">
+<div class="canon-label"><span class="canon-label-text" id="cx-price-label">Price</span></div>
+<div class="canon-control">
+<output class="canon-control-value" for="cx-price-min" aria-hidden="true">200</output>
+<input type="range" id="cx-price-min" min="0" max="1000" step="10" value="200" aria-label="Minimum">
+<input type="range" id="cx-price-max" min="0" max="1000" step="10" value="800" aria-label="Maximum">
+<output class="canon-control-value" for="cx-price-max" aria-hidden="true">800</output>
+</div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="range-slider.html"><span class="ref-catalog-name">Range Slider</span><span class="ref-catalog-text">A from–to range picked on one track.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-textarea" data-rich data-tools="block marks lists" style="inline-size: 20rem"><textarea aria-label="Release notes" rows="3">&lt;p&gt;This week we shipped &lt;strong&gt;faster search&lt;/strong&gt; and &lt;em&gt;better&lt;/em&gt; filters.&lt;/p&gt;</textarea></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="rich-text.html"><span class="ref-catalog-name">Rich Text</span><span class="ref-catalog-text">A textarea for formatted text whose value is clean HTML.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<form class="canon-card" style="inline-size: 20rem" action="#" method="post" onsubmit="event.preventDefault()">
+<div class="canon-card-body"><div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-sb-customer">Customer</label></div><div class="canon-text-input"><input type="text" id="cx-sb-customer" name="customer" value="Globex Corporation" placeholder></div></div></div>
+<footer class="canon-save-bar">
+<p class="canon-save-bar-status"></p>
+<button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+<button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+</footer>
+</form>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="save-bar.html"><span class="ref-catalog-name">Save Bar</span><span class="ref-catalog-text">Save and Discard in reach while editing, and whether there's anything to save.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-select" style="inline-size: 13rem"><select aria-label="Team"><option>Design</option><option selected>Engineering</option><option>Finance</option><option>Sales</option></select></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="select.html"><span class="ref-catalog-name">Select</span><span class="ref-catalog-text">One option from a list: the browser's select, styled.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 14rem"><div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-slider">Opacity</label></div><div class="canon-control"><input type="range" id="cx-slider" min="0" max="100" value="75"><output class="canon-control-value" for="cx-slider" aria-hidden="true">75</output></div></div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="slider.html"><span class="ref-catalog-name">Slider</span><span class="ref-catalog-text">A value picked from a range.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-swatches" role="radiogroup" aria-label="Label color"><input type="radio" name="cx-swatch" value="#3b82f6" aria-label="Blue" checked><input type="radio" name="cx-swatch" value="#22c55e" aria-label="Green"><input type="radio" name="cx-swatch" value="#f97316" aria-label="Orange"><input type="radio" name="cx-swatch" value="#ef4444" aria-label="Red"><input type="radio" name="cx-swatch" value="#a855f7" aria-label="Purple"><input type="radio" name="cx-swatch" value="#64748b" aria-label="Slate"></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="swatches.html"><span class="ref-catalog-name">Swatches</span><span class="ref-catalog-text">One color from a few, as colored circles.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-choice"><input type="checkbox" role="switch" id="cx-switch" checked><label class="canon-choice-label" for="cx-switch">Two-step sign-in</label></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="switch.html"><span class="ref-catalog-name">Switch</span><span class="ref-catalog-text">A setting that is on or off and takes effect right away.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 14rem; display: grid; gap: 0.5rem">
+<div class="canon-text-input"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><input type="search" aria-label="Search the handbook" placeholder="Search the handbook"><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd></div>
+<div class="canon-text-input"><input type="text" aria-label="Full name" value="Rosa Okafor"></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="text-input.html"><span class="ref-catalog-name">Text Input</span><span class="ref-catalog-text">A one-line box, with icons, affixes and actions inside it.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-textarea" style="inline-size: 14rem"><textarea aria-label="Notes" rows="3">Net 30, reminders weekly. Call before sending the second one.</textarea></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="textarea.html"><span class="ref-catalog-name">Textarea</span><span class="ref-catalog-text">Text over several lines, growing with what's typed.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-time"><input type="time" name="catalog-time" value="08:00" aria-label="Starts at"></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="time.html"><span class="ref-catalog-name">Time</span><span class="ref-catalog-text">A time of day, typed or stepped, a cell per part.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="data-display">
+    <h2>Data display</h2>
+    <p class="ref-note">Records, tables and the small pieces that describe them.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-accordion" style="inline-size: 17rem">
+<details class="canon-accordion-item" open><summary class="canon-accordion-summary"><span class="canon-accordion-title">Invoice numbering</span></summary><div class="canon-accordion-content"><p>New invoices start at INV-2042.</p></div></details>
+<details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Payment terms</span></summary><div class="canon-accordion-content"><p>Net 30 for every customer.</p></div></details>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="accordion.html"><span class="ref-catalog-name">Accordion</span><span class="ref-catalog-text">Parts of a page that open one by one, under rows that name them.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-row" style="justify-content: center">
+<span class="canon-avatar" data-seed="0" data-size="lg"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span><span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span></span>
+<span class="canon-avatar" data-seed="5" data-size="lg"><span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></span>
+<span class="canon-avatar" data-kind="team" data-seed="9" data-size="lg"><span class="canon-avatar-fallback" role="img" aria-label="Design team"></span></span>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="avatar.html"><span class="ref-catalog-name">Avatar</span><span class="ref-catalog-text">A person, team or bot as a photo, initials or an icon.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md" data-spotlight><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span></span><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span></span><span class="canon-avatar" data-seed="2"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span></span><span class="canon-avatar" data-seed="3"><span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span></span><span class="canon-avatar"><span class="canon-avatar-fallback" role="img" aria-label="4 more">4+</span></span></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="avatar-group.html"><span class="ref-catalog-name">Avatar Group</span><span class="ref-catalog-text">Several avatars in a row; point at one to bring it forward.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<article class="canon-card" style="inline-size: 18rem">
+<header class="canon-card-header"><h3 class="canon-card-title">Starter plan</h3><p class="canon-card-description">Up to 5 people</p></header>
+<div class="canon-card-body"><p style="margin: 0">Everything a small team needs to send and track invoices.</p></div>
+<footer class="canon-card-footer"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Upgrade</span></button></footer>
+</article>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="card.html"><span class="ref-catalog-name">Card</span><span class="ref-catalog-text">A framed box: one thing, or one part of a page, set apart.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-code-block" style="inline-size: 18rem">
+<div class="canon-code-block-header"><span class="canon-code-block-title">invoice.paid.json</span><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="cx-code" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy invoice.paid.json</span></button></div>
+<pre><code id="cx-code"><span class="tok punctuation">{</span>
+  <span class="tok string">"type"</span><span class="tok punctuation">:</span> <span class="tok string">"invoice.paid"</span><span class="tok punctuation">,</span>
+  <span class="tok string">"amount"</span><span class="tok punctuation">:</span> <span class="tok number">12400</span>
+<span class="tok punctuation">}</span></code></pre>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="code-block.html"><span class="ref-catalog-name">Code Block</span><span class="ref-catalog-text">Code people read or copy, highlighted.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-data-table" data-local style="inline-size: 26rem">
+<div class="canon-data-table-toolbar"><div class="canon-text-input"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><input type="search" aria-label="Search invoices" placeholder="Search"></div><button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-panel="filters"><span class="canon-icon" data-icon="list-filter" aria-hidden="true"></span><span class="canon-button-label">Filter</span></button></div>
+<div class="canon-table"><table>
+<caption class="canon-visually-hidden">Invoices</caption>
+<thead><tr><th scope="col" data-column="select"><div class="canon-choice"><input type="checkbox" id="cx-dt-all"><label class="canon-choice-label canon-visually-hidden" for="cx-dt-all">Select all rows</label></div></th><th scope="col" aria-sort="none" data-type="text">Customer</th><th scope="col" aria-sort="none" data-type="number" data-align="end">Amount</th><th scope="col" data-type="choice">Status</th></tr></thead>
+<tbody>
+<tr><td><div class="canon-choice"><input type="checkbox" id="cx-dt-1"><label class="canon-choice-label canon-visually-hidden" for="cx-dt-1">Select Globex</label></div></td><th scope="row">Globex</th><td data-value="12400">$12,400.00</td><td data-value="Paid"><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span></td></tr>
+<tr><td><div class="canon-choice"><input type="checkbox" id="cx-dt-2"><label class="canon-choice-label canon-visually-hidden" for="cx-dt-2">Select Initech</label></div></td><th scope="row">Initech</th><td data-value="3210.5">$3,210.50</td><td data-value="Waiting"><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+<tr><td><div class="canon-choice"><input type="checkbox" id="cx-dt-3"><label class="canon-choice-label canon-visually-hidden" for="cx-dt-3">Select Umbrella</label></div></td><th scope="row">Umbrella</th><td data-value="880">$880.00</td><td data-value="Overdue"><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></td></tr>
+</tbody></table></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="data-table.html"><span class="ref-catalog-name">Data Table</span><span class="ref-catalog-text">A table people search, filter, sort, select, edit and page through.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<dl class="canon-description-list" style="inline-size: 14rem">
+<div><dt>Invoice</dt><dd>INV-2041</dd></div>
+<div><dt>Customer</dt><dd>Globex Corporation</dd></div>
+<div><dt>Due</dt><dd><time datetime="2026-11-01">Nov 1, 2026</time></dd></div>
+</dl>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="description-list.html"><span class="ref-catalog-name">Description List</span><span class="ref-catalog-text">Facts about one thing, as terms and their values.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-empty-state" style="inline-size: 18rem">
+<span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="table" aria-hidden="true"></span></span>
+<h3 class="canon-empty-state-title">No users yet</h3>
+<p class="canon-empty-state-description">People you invite will show up here.</p>
+<div class="canon-empty-state-actions"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Invite people</span></button></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="empty-state.html"><span class="ref-catalog-name">Empty State</span><span class="ref-catalog-text">What a view shows with no content, and what to do next.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<form class="canon-filter-bar" role="search" aria-label="Filter jobs" style="inline-size: 22rem">
+<div class="canon-text-input"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><input type="search" name="q" aria-label="Search jobs" placeholder="Search jobs"></div>
+<div class="canon-filter-bar-facet">
+<button type="button" class="canon-filter-bar-button" popovertarget="cx-fb-team" aria-haspopup="dialog" aria-expanded="false"><span class="canon-filter-bar-label">Team</span></button>
+<div class="canon-popover" id="cx-fb-team" popover role="dialog" aria-label="Team">
+<fieldset class="canon-fieldset"><legend class="canon-fieldset-legend canon-visually-hidden">Team</legend>
+<div class="canon-choice"><input type="checkbox" id="cx-fb-design" name="team" value="design" checked><label class="canon-choice-label" for="cx-fb-design">Design</label></div>
+<div class="canon-choice"><input type="checkbox" id="cx-fb-eng" name="team" value="engineering"><label class="canon-choice-label" for="cx-fb-eng">Engineering</label></div>
+</fieldset>
+</div>
+</div>
+<label class="canon-toggle-chip"><input type="checkbox" name="remote" value="1"><span class="canon-toggle-chip-label">Remote</span></label>
+</form>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="filter-bar.html"><span class="ref-catalog-name">Filter Bar</span><span class="ref-catalog-text">Narrows a list: a search field, facets and quick chips.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<p style="margin: 0; font-size: 0.875rem">Press <kbd class="canon-kbd">⌘</kbd> <kbd class="canon-kbd">K</kbd> to search</p>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="kbd.html"><span class="ref-catalog-name">Kbd</span><span class="ref-catalog-text">A keyboard key or shortcut, in text, a tooltip or a button.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-stat" data-size="sm">
+<p class="canon-stat-label">Revenue this month</p>
+<p class="canon-stat-value">$48,210</p>
+<p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="stat.html"><span class="ref-catalog-name">Stat</span><span class="ref-catalog-text">One number that matters, and how it moved.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="display: grid; gap: 0.5rem">
+<span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span>
+<span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span>
+<span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="status.html"><span class="ref-catalog-name">Status Indicator</span><span class="ref-catalog-text">Where something stands, in a word and a dot.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-table" style="inline-size: 20rem"><table>
+<caption class="canon-visually-hidden">Team</caption>
+<thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rosa Okafor</th><td>Design lead</td><td><span class="canon-status" data-intent="success"><span class="canon-status-label">Active</span></span></td></tr>
+<tr><th scope="row">Dev Patel</th><td>Engineer</td><td><span class="canon-status" data-intent="warning"><span class="canon-status-label">Away</span></span></td></tr>
+<tr><th scope="row">Mia Chen</th><td>Finance</td><td><span class="canon-status"><span class="canon-status-label">Invited</span></span></td></tr>
+</tbody></table></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="table.html"><span class="ref-catalog-name">Table</span><span class="ref-catalog-text">Rows and columns of data, read across and down.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-row" style="justify-content: center; max-inline-size: 14rem"><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Due soon</span></span><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span><span class="canon-tag"><span class="canon-tag-label">Draft</span></span><span class="canon-tag" data-intent="info" data-emphasis="high"><span class="canon-tag-label">Beta</span></span></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="tag.html"><span class="ref-catalog-name">Tag</span><span class="ref-catalog-text">A short label in a chip: a status, a category, a person.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="navigation">
+    <h2>Navigation</h2>
+    <p class="ref-note">Getting around: between pages, within a page, through a long list.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<nav class="canon-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#cx">Settings</a></li><li><a href="#cx">Members</a></li><li><a href="#cx" aria-current="page">Ada Lovelace</a></li></ol></nav>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="breadcrumb.html"><span class="ref-catalog-name">Breadcrumb</span><span class="ref-catalog-text">The trail of pages above this one, each a link back up.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="cx-palette" command="show-modal" aria-keyshortcuts="Meta+K Control+K"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd></button>
+<dialog class="canon-command-palette" id="cx-palette" aria-label="Command palette">
+<div class="canon-command-search"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><input type="search" aria-label="Search commands and pages" placeholder="Search commands and pages"></div>
+<div class="canon-command-list">
+<div class="canon-command-group" aria-labelledby="cx-palette-pages"><p class="canon-command-heading" id="cx-palette-pages">Pages</p>
+<a class="canon-command-item" href="#cx"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-command-label">Invoices</span></a>
+<a class="canon-command-item" href="#cx"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-command-label">Contacts</span></a>
+<a class="canon-command-item" href="#cx"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-command-label">Settings</span></a>
+</div>
+</div>
+</dialog>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="command-palette.html"><span class="ref-catalog-name">Command Palette</span><span class="ref-catalog-text">A search box for the whole app: pages and actions by name.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-menubar" role="menubar" aria-label="Main">
+<button type="button" class="canon-menubar-item" id="cx-mb-file-item" role="menuitem" popovertarget="cx-mb-file" aria-haspopup="menu" aria-expanded="false">File</button>
+<button type="button" class="canon-menubar-item" id="cx-mb-edit-item" role="menuitem" popovertarget="cx-mb-edit" aria-haspopup="menu" aria-expanded="false">Edit</button>
+<button type="button" class="canon-menubar-item" id="cx-mb-view-item" role="menuitem" popovertarget="cx-mb-view" aria-haspopup="menu" aria-expanded="false">View</button>
+</div>
+<div class="canon-menu" id="cx-mb-file" popover role="menu" aria-labelledby="cx-mb-file-item"><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">New invoice</span><kbd class="canon-kbd" aria-hidden="true">⌘N</kbd></button><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Open…</span><kbd class="canon-kbd" aria-hidden="true">⌘O</kbd></button></div>
+<div class="canon-menu" id="cx-mb-edit" popover role="menu" aria-labelledby="cx-mb-edit-item"><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Undo</span><kbd class="canon-kbd" aria-hidden="true">⌘Z</kbd></button><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Redo</span><kbd class="canon-kbd" aria-hidden="true">⇧⌘Z</kbd></button></div>
+<div class="canon-menu" id="cx-mb-view" popover role="menu" aria-labelledby="cx-mb-view-item"><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Show sidebar</span></button><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Zoom in</span><kbd class="canon-kbd" aria-hidden="true">⌘+</kbd></button></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="menubar.html"><span class="ref-catalog-name">Menubar</span><span class="ref-catalog-text">A row of menus for apps with many commands.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 14rem"><nav class="canon-nav-list" aria-label="Workspace"><ul><li><a class="canon-nav-list-item" href="#cx" aria-current="page"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-nav-list-label">Inbox</span><span class="canon-count">12</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-nav-list-label">My issues</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a></li><li><a class="canon-nav-list-item" href="#cx"><span class="canon-icon" data-icon="sparkles" aria-hidden="true"></span><span class="canon-nav-list-label">Automations</span><span class="canon-tag"><span class="canon-tag-label">Beta</span></span></a></li></ul></nav></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="nav-list.html"><span class="ref-catalog-name">Nav List</span><span class="ref-catalog-text">The links of a sidebar: the main way around an app.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<nav class="canon-pagination" aria-label="Pagination"><ol>
+<li><a class="canon-pagination-prev" href="#cx" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+<li><a href="#cx" aria-label="Page 1">1</a></li><li><a href="#cx" aria-label="Page 2" aria-current="page">2</a></li><li><a href="#cx" aria-label="Page 3">3</a></li>
+<li class="canon-pagination-gap">…</li><li><a href="#cx" aria-label="Page 30">30</a></li>
+<li><a class="canon-pagination-next" href="#cx" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+</ol></nav>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="pagination.html"><span class="ref-catalog-name">Pagination</span><span class="ref-catalog-text">Moving through a long list a page at a time.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-tabs" style="inline-size: 20rem">
+<div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+<button type="button" class="canon-tab" role="tab" id="cx-tab-1" aria-controls="cx-panel-1" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+<button type="button" class="canon-tab" role="tab" id="cx-tab-2" aria-controls="cx-panel-2" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+<button type="button" class="canon-tab" role="tab" id="cx-tab-3" aria-controls="cx-panel-3" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+</div>
+<div class="canon-tabs-panel" role="tabpanel" id="cx-panel-1" aria-labelledby="cx-tab-1" tabindex="0"><p style="margin: 0">Overview of INV-2041.</p></div>
+<div class="canon-tabs-panel" role="tabpanel" id="cx-panel-2" aria-labelledby="cx-tab-2" tabindex="0" hidden><p style="margin: 0">Two payments so far.</p></div>
+<div class="canon-tabs-panel" role="tabpanel" id="cx-panel-3" aria-labelledby="cx-tab-3" tabindex="0" hidden><p style="margin: 0">Sent on 3 October.</p></div>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="tabs.html"><span class="ref-catalog-name">Tabs</span><span class="ref-catalog-text">The parts of one page or record, one shown at a time.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="overlays">
+    <h2>Overlays</h2>
+    <p class="ref-note">What opens over the page for a moment: a task, a panel, a menu, a hint.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-emphasis="medium" data-intent="danger" commandfor="cx-dialog" command="show-modal"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Delete invoice</span></button>
+<dialog class="canon-dialog" id="cx-dialog" data-size="sm" aria-labelledby="cx-dialog-title">
+<form method="dialog">
+<header class="canon-dialog-header"><h2 class="canon-dialog-title" id="cx-dialog-title">Delete INV-2041?</h2></header>
+<div class="canon-dialog-body"><p style="margin: 0">It's gone for good, payments and notes too.</p></div>
+<footer class="canon-dialog-footer"><button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="cx-dialog" command="close"><span class="canon-button-label">Cancel</span></button><button type="submit" class="canon-button" data-emphasis="high" data-intent="danger"><span class="canon-button-label">Delete</span></button></footer>
+</form>
+</dialog>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="dialog.html"><span class="ref-catalog-name">Dialog</span><span class="ref-catalog-text">A task over the page, finished or dismissed before going on.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-intent="neutral" commandfor="cx-drawer" command="show-modal"><span class="canon-icon" data-icon="list-filter" aria-hidden="true"></span><span class="canon-button-label">Filters</span></button>
+<dialog class="canon-dialog" id="cx-drawer" data-side="end" aria-labelledby="cx-drawer-title">
+<form method="dialog">
+<header class="canon-dialog-header"><h2 class="canon-dialog-title" id="cx-drawer-title">Filters</h2><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="cx-drawer" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button></header>
+<div class="canon-dialog-body"><div class="canon-dialog-section"><fieldset class="canon-fieldset">
+<legend class="canon-fieldset-legend">Notify me about</legend>
+<div class="canon-choice"><input type="checkbox" id="cx-dr-1" checked><label class="canon-choice-label" for="cx-dr-1">Deployments</label></div>
+<div class="canon-choice"><input type="checkbox" id="cx-dr-2"><label class="canon-choice-label" for="cx-dr-2">Incidents</label></div>
+</fieldset></div></div>
+<footer class="canon-dialog-footer"><button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Show results</span></button></footer>
+</form>
+</dialog>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="drawer.html"><span class="ref-catalog-name">Drawer</span><span class="ref-catalog-text">A dialog at the side of the window, for longer work beside the page.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" id="cx-menu-trigger" popovertarget="cx-menu" aria-haspopup="menu" aria-expanded="false"><span class="canon-button-label">Options</span></button>
+<div class="canon-menu" id="cx-menu" popover role="menu" aria-labelledby="cx-menu-trigger"><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-menu-label">Rename</span><kbd class="canon-kbd" aria-hidden="true">⌘R</kbd></button><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-menu-label">Duplicate</span><kbd class="canon-kbd" aria-hidden="true">⌘D</kbd></button><button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-menu-label">Delete</span></button></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="menu.html"><span class="ref-catalog-name">Menu</span><span class="ref-catalog-text">Actions that open from a button or a right-click.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" popovertarget="cx-popover" aria-expanded="false"><span class="canon-icon" data-icon="link" aria-hidden="true"></span><span class="canon-button-label">Link</span></button>
+<div class="canon-popover" id="cx-popover" popover role="dialog" aria-labelledby="cx-popover-title">
+<h3 class="canon-popover-title" id="cx-popover-title">Edit link</h3>
+<form class="canon-form" onsubmit="event.preventDefault()">
+<div class="canon-field"><div class="canon-label"><label class="canon-label-text" for="cx-popover-url">Link</label></div><div class="canon-text-input"><input type="url" id="cx-popover-url" value="https://globex.example" size="28" placeholder></div></div>
+<div class="canon-form-actions"><button type="submit" class="canon-button" data-emphasis="high" data-size="sm"><span class="canon-button-label">Save</span></button></div>
+</form>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="popover.html"><span class="ref-catalog-name">Popover</span><span class="ref-catalog-text">A panel a button opens over the page, for a short task beside it.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<button type="button" class="canon-button" data-intent="neutral" data-emphasis="medium" data-display="icon" interestfor="cx-tip"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Archive</span></button>
+<div class="canon-tooltip" id="cx-tip" popover="hint" role="tooltip">Archive</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="tooltip.html"><span class="ref-catalog-name">Tooltip</span><span class="ref-catalog-text">A short text shown while a button or link is hovered or focused.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="feedback">
+    <h2>Feedback</h2>
+    <p class="ref-note">What the app says back: news, warnings, and that it's still working.</p>
+    <div class="ref-catalog ref-plain">
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="canon-alert" data-intent="warning" style="inline-size: 18rem">
+<p class="canon-alert-title">This invoice is overdue</p>
+<p class="canon-alert-description">It was due on 3 October. Globex hasn't paid yet.</p>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="alert.html"><span class="ref-catalog-name">Alert</span><span class="ref-catalog-text">A message in the page that stays while it's true.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div style="inline-size: 22rem; border-radius: 0.5rem; overflow: hidden"><div class="canon-banner" data-intent="warning">
+<p class="canon-banner-title">Maintenance tonight</p>
+<p class="canon-banner-description">Invoices can't be sent 22:00–23:00.</p>
+<button type="button" class="canon-banner-close"></button>
+</div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="banner.html"><span class="ref-catalog-name">Banner</span><span class="ref-catalog-text">A message about the whole app, across the top of every page.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-skeleton-stack" aria-busy="true" aria-label="Profile, loading" style="inline-size: 14rem; margin: 0">
+<div class="ref-person"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" aria-hidden="true" style="inline-size: 7rem"></span></div>
+<span class="canon-skeleton" aria-hidden="true"></span>
+<span class="canon-skeleton" aria-hidden="true" style="inline-size: 70%"></span>
+</div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="skeleton.html"><span class="ref-catalog-name">Skeleton</span><span class="ref-catalog-text">Shapes that stand in for content while it loads.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<label class="canon-spinner-label" data-delay="none"><progress class="canon-spinner"></progress>Loading invoices…</label>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="spinner.html"><span class="ref-catalog-name">Spinner</span><span class="ref-catalog-text">Something is working, and how long isn't known.</span></a>
+    </article>
+    <article class="ref-catalog-card">
+      <div class="ref-catalog-preview">
+        <div class="ref-catalog-stage">
+<div class="ref-toast-static" style="inline-size: 17rem"><div class="canon-toast" data-intent="success">
+<p class="canon-toast-title">Invoice saved</p>
+<p class="canon-toast-description">INV-2041 is up to date.</p>
+<button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+</div></div>
+        </div>
+      </div>
+      <a class="ref-catalog-foot" href="toast.html"><span class="ref-catalog-name">Toast</span><span class="ref-catalog-text">Short news about what just happened, in a corner, for a few seconds.</span></a>
+    </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="patterns">
+    <h2>Patterns</h2>
+    <p class="ref-note">Whole screens made only of the components above.</p>
+    <div class="ref-catalog ref-catalog-patterns ref-plain">
+      <a class="ref-catalog-pattern" href="list-detail-edit.html"><span class="ref-catalog-name">List → Detail → Edit</span><span class="ref-catalog-text">Find a record in a list, open it, change it, save.</span></a>
+      <a class="ref-catalog-pattern" href="master-detail.html"><span class="ref-catalog-name">Master–Detail</span><span class="ref-catalog-text">Going through many records: the list on one side, the one you're on beside it.</span></a>
+      <a class="ref-catalog-pattern" href="settings-page.html"><span class="ref-catalog-name">Settings Page</span><span class="ref-catalog-text">An app's settings: their parts beside the one that's open, saved together.</span></a>
+      <a class="ref-catalog-pattern" href="sign-in-page.html"><span class="ref-catalog-name">Sign-in Page</span><span class="ref-catalog-text">Getting into an app, and back in when something goes wrong.</span></a>
+    </div>
+  </section>
+
+</main>
+<script>
+  /* Each preview fits its card: drawn smaller (never larger) when it needs
+     more room than the card has, again when it grows (a row added). Its
+     popovers and dialogs are drawn at full size (ref.css). */
+  const fit = (preview) => {
+    const stage = preview.firstElementChild;
+    const zoom = Number(stage.style.getPropertyValue("--ref-z")) || 1;
+    const box = stage.getBoundingClientRect();
+    const style = getComputedStyle(preview);
+    const roomWidth = preview.clientWidth - parseFloat(style.paddingInlineStart) - parseFloat(style.paddingInlineEnd);
+    const roomHeight = preview.clientHeight - parseFloat(style.paddingBlockStart) - parseFloat(style.paddingBlockEnd);
+    const next = Math.floor(Math.min(1, roomWidth / (box.width / zoom), roomHeight / (box.height / zoom)) * 100) / 100;
+    if (next !== zoom) stage.style.setProperty("--ref-z", String(next));
+  };
+  const sizes = new ResizeObserver((entries) => {
+    for (const entry of entries) fit(entry.target.closest(".ref-catalog-preview"));
+  });
+  for (const preview of document.querySelectorAll(".ref-catalog-preview")) {
+    sizes.observe(preview);
+    sizes.observe(preview.firstElementChild);
+  }
+</script>
+</body>
+</html>

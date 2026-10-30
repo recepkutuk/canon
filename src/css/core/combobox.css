@@ -1,0 +1,255 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Combobox                                                            */
+  /*                                                                     */
+  /* A <select> in the box, so without canon.js it is a Select. canon.js */
+  /* keeps the select (value, form, validation) and adds:                */
+  /*   .canon-combobox-trigger  a button in the select's place, or      */
+  /*   .canon-combobox-input    a text field (data-search="inline")      */
+  /*   .canon-combobox-tags     the chosen values, with multiple         */
+  /*   .canon-combobox-popup    a popover: .canon-combobox-search (not    */
+  /*                            inline), .canon-combobox-list            */
+  /*                            (role="listbox"), -loading and -empty    */
+  /* ------------------------------------------------------------------ */
+
+  /* The select stays for the form, out of sight and out of the tab order. */
+  :where(.canon-combobox:has(> .canon-combobox-popup)) > :where(select) {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    inline-size: 1px;
+    min-inline-size: 0;
+    block-size: 1px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    pointer-events: none;
+  }
+
+  /* The trigger owns the whole box, as the select does. */
+  :where(.canon-combobox) > :where(.canon-combobox-trigger) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    align-self: stretch;
+    min-inline-size: 4rem;
+    margin-block: 0;
+    margin-inline: calc(-1 * var(--canon-select-start, 0px)) calc(-1 * var(--canon-select-end, 0px));
+    padding-block: 0;
+    padding-inline: var(--canon-select-start, 0px) var(--canon-select-end, 0px);
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: start;
+    outline: none;
+    cursor: pointer;
+  }
+  :where(.canon-combobox) > :where(.canon-combobox-trigger):disabled {
+    cursor: not-allowed;
+  }
+
+  /* The value: the chosen option's icon or avatar and label (not its
+     description), or the placeholder. One line, cut short. */
+  :where(.canon-combobox-value) {
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+    white-space: nowrap;
+  }
+  :where(.canon-combobox-value) > :where(*) {
+    flex: none;
+  }
+  :where(.canon-combobox-value) > :where(.canon-option-label, .canon-combobox-placeholder) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-combobox-value) :where(.canon-option-description) {
+    display: none;
+  }
+
+  /* Several values: tags in a wrapping row. The trigger then lies under
+     the whole box (still a click anywhere) and its text, the values, is
+     for screen readers only. Tags let clicks through, except their remove
+     buttons. */
+  :where(.canon-combobox-tags) {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+  :where(.canon-combobox-tags) > :where(li) {
+    display: flex;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+  :where(.canon-combobox-tags) > :where(li[hidden]) {
+    display: none;
+  }
+  :where(.canon-combobox-more) {
+    flex: none;
+  }
+  :where(.canon-combobox-more-button) {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  :where(.canon-combobox-tags) :where(.canon-tag-remove) {
+    pointer-events: auto;
+  }
+  :where(.canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag)) > :where(.canon-combobox-trigger) {
+    position: absolute;
+    inset: 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+  }
+  :where(.canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag)) > :where(.canon-combobox-trigger) > :where(.canon-combobox-value),
+  :where(.canon-combobox) > :where(.canon-combobox-value) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* The popup: a popover in the top layer, anchored to the box (canon.js
+     names the anchor), at least as wide, below it, flipping above when
+     there's no room. The search field stays put; the list scrolls. */
+  :where(.canon-combobox-popup) {
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block;
+    inset: auto;
+    box-sizing: border-box;
+    flex-direction: column;
+    min-inline-size: anchor-size(inline);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background: none;
+    color: inherit;
+    cursor: default;
+  }
+  :where(.canon-combobox-popup):popover-open {
+    display: flex;
+  }
+  :where(.canon-combobox-search) {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+  :where(.canon-combobox-search) > :where(input) {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    outline: none;
+  }
+  :where(.canon-combobox-list) {
+    flex: 0 1 auto;
+    min-block-size: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  :where(.canon-combobox-option) {
+    cursor: pointer;
+    user-select: none;
+  }
+  :where(.canon-combobox-option[aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+  /* Typing in the box (data-search="inline"). With several values the
+     field follows the tags, at least 4rem wide; the tags row lets it
+     take clicks. */
+  :where(.canon-combobox-input-item) {
+    flex: 1 1 4rem;
+    min-inline-size: 4rem;
+  }
+  :where(.canon-combobox-input-item) > :where(input) {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    outline: none;
+    pointer-events: auto;
+  }
+
+  /* Tags on one row (data-tags="collapse"): canon.js hides what doesn't
+     fit and shows "+N". */
+  :where(.canon-combobox[data-tags="collapse"]) > :where(.canon-combobox-tags) {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  /* A clear button (an author's canon-button with --canon-clear) hides
+     while nothing is chosen, and sits above the select or trigger. */
+  :where(.canon-select, .canon-combobox) > :where(.canon-button) {
+    position: relative;
+    z-index: 2;
+  }
+  :where(.canon-select, .canon-combobox):not(:has(> select option:checked:not([value=""]))) > :where(button[command="--canon-clear"]) {
+    visibility: hidden;
+  }
+
+  /* In a text input, a Select or Combobox box keeps the width of its
+     widest option (canon.js measures a select; a combobox's trigger
+     stacks every option, unseen, in .canon-combobox-sizer). */
+  :where(.canon-text-input) > :where(.canon-select) {
+    min-inline-size: var(--canon-select-min-inline-size, 0);
+  }
+  :where(.canon-combobox-sizer) {
+    display: none;
+  }
+  :where(.canon-text-input > .canon-combobox) > :where(.canon-combobox-trigger) {
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+  }
+  :where(.canon-text-input > .canon-combobox > .canon-combobox-trigger) > :where(*) {
+    grid-area: 1 / 1;
+  }
+  :where(.canon-text-input > .canon-combobox) :where(.canon-combobox-sizer) {
+    display: grid;
+    block-size: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+  :where(.canon-combobox-sizer) > :where(*) {
+    grid-area: 1 / 1;
+  }
+
+  /* Filtered out: hidden whatever display the theme gives the row. */
+  :where(.canon-combobox-popup) :where([hidden]) {
+    display: none !important;
+  }
+}

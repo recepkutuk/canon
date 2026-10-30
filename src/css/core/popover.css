@@ -1,0 +1,35 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Popover                                                            */
+  /*                                                                    */
+  /* A panel of anything (a short form, a few choices, some text) that  */
+  /* a button opens with popovertarget: role="dialog", non-modal. It    */
+  /* opens under its button, from its start, and flips to fit; at most  */
+  /* as tall as its room, then it scrolls.                              */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-popover) {
+    position-area: self-block-end span-self-inline-end;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    inset: auto;
+    box-sizing: border-box;
+    max-block-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    background: none;
+    color: inherit;
+  }
+  :where(.canon-popover-title) {
+    margin: 0;
+    font: inherit;
+  }
+  /* A form in a popover sizes the popover: not a size container (which
+     would give it no width of its own), so its rows stay rows. */
+  :where(.canon-popover) :where(.canon-form) {
+    container-type: normal;
+  }
+}

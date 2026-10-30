@@ -1,0 +1,26 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Status Indicator                                                    */
+  /*                                                                     */
+  /* <span class="canon-status" data-intent> around its label: a status  */
+  /* in text, the theme drawing its dot (::before). One line; cut (…)    */
+  /* where there is no room.                                             */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-status) {
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  :where(.canon-status)::before {
+    content: "";
+    flex: none;
+  }
+  :where(.canon-status-label) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Input OTP reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Input OTP</h1>
+  <p class="ref-note">A one-time code: one native text input in a <code>.canon-otp</code> box, its <code>maxlength</code> the code's length. canon.js draws a cell per character and keeps the input over them, so typing, pasting, the browser filling a code it received (<code>autocomplete="one-time-code"</code>) and the label all work as on any input. Without JavaScript it is one plain field. Specification: <a href="../docs/components/input-otp.md">docs/components/input-otp.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field or a container: cells are square at a text input's height.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="sz-sm">Small</label></div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="sz-sm" name="sz-sm" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279279">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="sz-md">Theme decides</label></div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="sz-md" name="sz-md" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279279">
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="sz-lg">Large</label></div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="sz-lg" name="sz-lg" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279279">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="groups">
+    <h2>Groups</h2>
+    <p class="ref-note"><code>data-groups</code> on the box: the group sizes, adding up to <code>maxlength</code>, with a line between groups. Without it, the cells are one group. The value is the characters alone, with no separators.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="gr-none">One group</label></div>
+        <div class="canon-otp">
+          <input type="text" id="gr-none" name="gr-none" inputmode="numeric" autocomplete="one-time-code" maxlength="4">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="gr-222">Three groups of two</label></div>
+        <div class="canon-otp" data-groups="2 2 2">
+          <input type="text" id="gr-222" name="gr-222" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="characters">
+    <h2>Characters</h2>
+    <p class="ref-note"><code>inputmode="numeric"</code> keeps digits only and brings up a number pad on phones. Without it, letters and digits are kept. Anything else typed is ignored, and a pasted code is cleaned (<code>123-456</code> becomes <code>123456</code>). Add <code>pattern</code> for the browser's own check on submit.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="ch-alnum">Recovery code</label></div>
+      <div class="canon-otp" data-groups="4 4">
+        <input type="text" id="ch-alnum" name="recovery" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" maxlength="8" pattern="[A-Za-z0-9]{8}">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="placeholder">
+    <h2>Placeholder</h2>
+    <p class="ref-note">Each empty cell shows its character of the input's <code>placeholder</code>.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="ph-code">Verification code</label></div>
+      <div class="canon-otp" data-groups="3 3">
+        <input type="text" id="ph-code" name="ph-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="hidden">
+    <h2>Hidden characters</h2>
+    <p class="ref-note"><code>type="password"</code> shows a dot in each filled cell, for a PIN.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="pw-pin">PIN</label></div>
+      <div class="canon-otp">
+        <input type="password" id="pw-pin" name="pin" inputmode="numeric" autocomplete="one-time-code" maxlength="4" value="2709">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Text Input's states. The cell at the caret shows focus, with a blinking caret while it's empty. <code>disabled</code> on the input; an error with <code>aria-invalid="true"</code> and a danger message.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-dis">Disabled</label></div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="st-dis" name="st-dis" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279" disabled>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-err">Code</label></div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="st-err" name="st-err" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279270" aria-invalid="true" aria-describedby="st-err-message">
+        </div>
+        <p class="canon-field-message" id="st-err-message" data-intent="danger">That code didn't work. Check it or send a new one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">Codes read left to right in every language: the cells keep their order.</p>
+    <div class="canon-field" dir="rtl" lang="ar">
+      <div class="canon-label"><label class="canon-label-text" for="ex-rtl">رمز التحقق</label></div>
+      <div class="canon-otp" data-groups="3 3">
+        <input type="text" id="ex-rtl" name="ex-rtl" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="279">
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

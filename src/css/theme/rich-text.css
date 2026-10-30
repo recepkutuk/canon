@@ -1,0 +1,113 @@
+/* ==================================================================== */
+/* Rich text                                                            */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The Toolbar (small, sm in
+     a md box and md in a lg one) inside the box on top, 8px inside it,
+     a hairline rule under it; the text under that where a textarea's
+     sits. The box's frame and states are Textarea's; focus in the text
+     rings the whole editor. The text: paragraphs 0.75em apart, headings
+     semibold (1.375 / 1.2 / 1em), lists 1.5em in, quotes after a 2px
+     zinc-300 line (dark zinc-600) in zinc-600 (dark zinc-400), code on
+     zinc-100 (dark zinc-800), links blue-600 (dark blue-400) and
+     underlined, lines hairline rules. */
+  .canon-textarea[data-rich]:has(> .canon-rich-area) {
+    align-items: stretch;
+    padding: 0;
+    cursor: auto;
+  }
+  .canon-textarea[data-rich]:has(> .canon-rich-area:focus) {
+    border-color: var(--_border-focus);
+    outline: 2px solid transparent; /* shows in forced colors, where shadows don't */
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+  .canon-rich-toolbar {
+    padding: 0.5rem;
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-rich-area {
+    padding-block: var(--_inset-block);
+    padding-inline: var(--_inset-inline);
+    cursor: text;
+  }
+  .canon-rich-area[data-empty]::before {
+    color: var(--_muted);
+  }
+  .canon-rich-area > * {
+    margin: 0;
+  }
+  .canon-rich-area > * + * {
+    margin-block-start: 0.75em;
+  }
+  .canon-rich-area :is(h2, h3, h4) {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .canon-rich-area h2 { font-size: 1.375em; }
+  .canon-rich-area h3 { font-size: 1.2em; }
+  .canon-rich-area h4 { font-size: 1em; }
+  .canon-rich-area :is(ul, ol) {
+    padding-inline-start: 1.5em;
+  }
+  .canon-rich-area li > :is(ul, ol) {
+    margin: 0;
+  }
+  .canon-rich-area blockquote {
+    margin-inline: 0;
+    padding-inline-start: 0.75em;
+    border-inline-start: 2px solid light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    color: light-dark(var(--canon-theme-zinc-600), var(--canon-theme-zinc-400));
+  }
+  .canon-rich-area pre {
+    padding: 0.5em 0.75em;
+    border-radius: 0.25rem;
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    font-family: var(--canon-theme-font-mono);
+    font-size: 0.875em;
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    white-space: pre-wrap;
+  }
+  .canon-rich-area pre code {
+    font: inherit;
+  }
+  /* Code in the text: a zinc chip (zinc-100 behind zinc-700; dark
+     zinc-700 behind zinc-100), 4px either side, 2px corners. In a heading
+     it grows with the heading; in a link it takes Link's blue; struck
+     through (<del>) it keeps the line. */
+  .canon-rich-area :not(pre) > code {
+    padding: 0 0.25rem;
+    border-radius: 0.125rem;
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    color: light-dark(var(--canon-theme-zinc-700), var(--canon-theme-zinc-100));
+    font-family: var(--canon-theme-font-mono);
+    font-size: 0.875em;
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .canon-rich-area :is(h1, h2, h3) > code {
+    padding: 0.0625em 0.3em;
+    border-radius: 0.2em;
+    font-size: 0.8em;
+  }
+  .canon-rich-area a > code {
+    background-color: light-dark(var(--canon-theme-blue-50), var(--canon-theme-blue-950));
+    color: inherit;
+  }
+  /* Links in the text: Link's look (its markup stays clean). */
+  .canon-rich-area a {
+    color: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    text-underline-offset: 0.2em;
+  }
+  .canon-rich-area hr {
+    border: 0;
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+}

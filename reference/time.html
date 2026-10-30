@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Time reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Time</h1>
+  <p class="ref-note">A time of day: when a meeting starts, a shift ends, a report runs. A native <code>&lt;input type="time"&gt;</code> in a <code>.canon-time</code> box; canon.js draws a cell for each part, typed into, stepped with the arrow keys, or nudged with the arrows the focused cell shows. Without JavaScript it is the browser's time field. Specification: <a href="../docs/components/time.md">docs/components/time.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="time">
+    <h2>Basics</h2>
+    <p class="ref-note">Click a cell, then type (two digits move on), press Up and Down, or use the arrows the cell shows when it grows. Hold an arrow to keep stepping. The value the form submits is always 24-hour (<code>08:00</code>).</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="starts">Starts at</label></div>
+        <div class="canon-time">
+          <input type="time" id="starts" name="starts" value="08:00">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="reminder">Daily reminder</label></div>
+        <div class="canon-time">
+          <input type="time" id="reminder" name="reminder">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="step">
+    <h2>Step</h2>
+    <p class="ref-note"><code>step</code>, in seconds, sets how far the arrows and keys go: <code>900</code> moves minutes by 15. Under a minute (<code>step="1"</code>) adds seconds.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="slot">Slot (15 minutes)</label></div>
+        <div class="canon-time">
+          <input type="time" id="slot" name="slot" value="09:30" step="900">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="lap">Lap time</label></div>
+        <div class="canon-time">
+          <input type="time" id="lap" name="lap" value="00:04:37" step="1">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="range">
+    <h2>Range</h2>
+    <p class="ref-note">Two time inputs in one box, a start and an end, each with its own <code>name</code> and <code>aria-label</code>; the field's label is a <code>&lt;span id&gt;</code> naming the pair. An end before the start is invalid, unless the box is <code>data-overnight</code> (a night shift).</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="shift-label">
+        <div class="canon-label"><span class="canon-label-text" id="shift-label">Shift</span></div>
+        <div class="canon-time">
+          <input type="time" id="shift-from" name="from" aria-label="Start" value="08:00">
+          <input type="time" id="shift-to" name="to" aria-label="End" value="16:30">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="night-label">
+        <div class="canon-label"><span class="canon-label-text" id="night-label">Night shift</span></div>
+        <div class="canon-time" data-overnight>
+          <input type="time" id="night-from" name="night-from" aria-label="Start" value="22:00">
+          <input type="time" id="night-to" name="night-to" aria-label="End" value="06:00">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="clock">
+    <h2>12 or 24 hours</h2>
+    <p class="ref-note">The reader's language decides: in US English the hours run 1 to 12 with an AM/PM cell (type A or P, or step it). The value stays 24-hour.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" lang="en-US">
+        <div class="canon-label"><label class="canon-label-text" for="us">Pickup</label></div>
+        <div class="canon-time">
+          <input type="time" id="us" name="us" value="14:30">
+        </div>
+      </div>
+      <div class="canon-field" lang="en-GB">
+        <div class="canon-label"><label class="canon-label-text" for="gb">Pickup</label></div>
+        <div class="canon-time">
+          <input type="time" id="gb" name="gb" value="14:30">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field, the box or a container: cells a control's height, square.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="size-sm">sm</label></div>
+        <div class="canon-time"><input type="time" id="size-sm" name="size-sm" value="08:00"></div>
+      </div>
+      <div class="canon-field" data-size="md">
+        <div class="canon-label"><label class="canon-label-text" for="size-md">md</label></div>
+        <div class="canon-time"><input type="time" id="size-md" name="size-md" value="08:00"></div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="size-lg">lg</label></div>
+        <div class="canon-time"><input type="time" id="size-lg" name="size-lg" value="08:00"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">An error marks every cell, with one message. Disabled and read-only cells show no arrows; read-only lines are dashed.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-error">Departure</label></div>
+        <div class="canon-time"><input type="time" id="st-error" name="st-error" value="03:15" aria-invalid="true" aria-describedby="st-error-message"></div>
+        <p class="canon-field-message" id="st-error-message" data-intent="danger">Departures run from 05:00.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-disabled">Disabled</label></div>
+        <div class="canon-time"><input type="time" id="st-disabled" name="st-disabled" value="08:00" disabled></div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-readonly">Read-only</label></div>
+        <div class="canon-time"><input type="time" id="st-readonly" name="st-readonly" value="08:00" readonly></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A growing cell never moves what's around it: it grows over the label and the next field, raised above them. Right to left, the cells follow the direction and a time's digits keep their order.</p>
+
+    <div class="ref-grid">
+      <div class="canon-stack" data-gap="sm">
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="ec-a">Opens</label></div>
+          <div class="canon-time"><input type="time" id="ec-a" name="ec-a" value="09:00"></div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="ec-b">Closes</label></div>
+          <div class="canon-time"><input type="time" id="ec-b" name="ec-b" value="17:30"></div>
+        </div>
+      </div>
+      <div class="canon-field" dir="rtl" lang="ar">
+        <div class="canon-label"><label class="canon-label-text" for="ec-rtl">يبدأ في</label></div>
+        <div class="canon-time"><input type="time" id="ec-rtl" name="ec-rtl" value="08:00"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

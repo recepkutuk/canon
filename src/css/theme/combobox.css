@@ -1,0 +1,252 @@
+/* ==================================================================== */
+/* Combobox                                                             */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The box is Select's (above): same frame, sizes, arrow and value. The
+     list is Select's list with a search field on top. Several values (multiselect): tags of the box's size
+     (24 / 32 / 40px in a 32 / 40 / 48px box), 4px from its border and 4 /
+     8 / 12px apart; the arrow 4 / 4 / 8px past them, on the last row. */
+  /* The search field's line counts as a separator: options under it
+     start as they do after one (Separator's space). */
+  :root,
+  [data-size="md"] {
+    --canon-theme-combobox-tag-gap: 0.5rem;
+    --canon-theme-combobox-arrow-gap: 0.25rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-combobox-tag-gap: 0.25rem;
+    --canon-theme-combobox-arrow-gap: 0.25rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-combobox-tag-gap: 0.75rem;
+    --canon-theme-combobox-arrow-gap: 0.5rem;
+  }
+
+  /* Open, or the trigger or field focused: Select's focus look. */
+  .canon-combobox:has(> .canon-combobox-trigger:focus, .canon-combobox-input:focus, > .canon-combobox-popup:popover-open) {
+    border-color: var(--_border-focus);
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+  .canon-combobox:has(> .canon-combobox-popup:popover-open)::after {
+    rotate: 180deg;
+  }
+  .canon-combobox-placeholder {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-combobox:has(> :disabled) .canon-combobox-placeholder {
+    color: inherit;
+  }
+  .canon-combobox-tags .canon-combobox-input::placeholder {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    opacity: 1;
+  }
+  .canon-combobox > .canon-combobox-input::placeholder {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    opacity: 1;
+  }
+
+  /* Several values: the tags fill the box, 4px from its border; the arrow
+     sits on the last row. */
+  .canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag) {
+    align-items: flex-end;
+    gap: var(--canon-theme-combobox-arrow-gap);
+    padding-block: calc(0.25rem - 1px);
+    padding-inline-start: calc(0.25rem - 1px);
+  }
+  .canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag)::after {
+    margin-block-end: calc((var(--canon-control-block-size) - 0.5rem - var(--canon-icon-size)) / 2);
+  }
+  .canon-combobox-tags {
+    flex: 1 1 0;
+    gap: var(--canon-theme-combobox-tag-gap);
+  }
+  .canon-combobox-tags:not(:has(> li:not([hidden]))) {
+    display: none;
+  }
+  /* Typing after the tags: the field's text a label's inset past the
+     last tag, on the tags' row height. */
+  .canon-combobox-input-item {
+    min-block-size: calc(var(--canon-control-block-size) - 0.5rem);
+    align-items: center;
+  }
+  .canon-combobox-tags > li:not([hidden]):has(> .canon-tag) ~ .canon-combobox-input-item > .canon-combobox-input {
+    padding-inline-start: var(--canon-theme-tag-label-inset);
+  }
+
+  /* Disabled: tags lose their color (the box's disabled text, like a
+     neutral tag) and their remove buttons. */
+  .canon-combobox:has(> select:disabled) .canon-tag {
+    --_solid: var(--_z-solid);
+    --_on-solid: var(--_z-on-solid);
+    --_tint: var(--_z-tint);
+    --_on-tint: var(--_z-on-tint);
+    --_line: var(--_z-line);
+  }
+  .canon-combobox:has(> select:disabled) .canon-tag-remove {
+    display: none;
+  }
+
+  /* A clear button (Text Input's box button) before the
+     arrow: the value's text stops a gap before it. With tags it sits on
+     the last row, like the arrow. */
+  :is(.canon-select, .canon-combobox):has(> .canon-button) {
+    --canon-select-end: calc(var(--_pad) + 2 * var(--canon-icon-size) + 0.5rem + 2 * var(--_gap));
+  }
+  /* It shows while the box is hovered or has focus (open included), and
+     always on touch screens. Hidden, it keeps its space: nothing moves. */
+  @media (hover: hover) {
+    :is(.canon-select, .canon-combobox):not(:hover, :focus-within) > .canon-button[command="--canon-clear"] {
+      visibility: hidden;
+    }
+  }
+  /* With tags: centered on the last row like the arrow (the row's height
+     is read on the box, as the button redefines the control height), and
+     the same gap from the arrow as in a one-value box. */
+  .canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag) {
+    --_tag-row: calc(var(--canon-control-block-size) - 0.5rem);
+  }
+  .canon-combobox:has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag) > .canon-button {
+    align-self: flex-end;
+    margin-block-end: calc((var(--_tag-row) - var(--canon-icon-size) - 0.5rem) / 2);
+    margin-inline-end: calc(var(--_gap) - var(--canon-theme-combobox-arrow-gap));
+  }
+
+  /* Free values (a tag input): nothing to pick, so no list and no arrow.
+     The box ends as a text input does (a clear button keeps its place). */
+  .canon-combobox[data-search="inline"][data-creatable]:not([data-filter="none"]):has(> select[multiple]):not(:has(> select option:not(:checked, [hidden]))) {
+    --canon-select-end: var(--_pad);
+  }
+  .canon-combobox[data-search="inline"][data-creatable]:not([data-filter="none"]):has(> select[multiple]):not(:has(> select option:not(:checked, [hidden])))::after {
+    content: none;
+  }
+  .canon-combobox[data-search="inline"][data-creatable]:not([data-filter="none"]):has(> select[multiple]):not(:has(> select option:not(:checked, [hidden]))):has(> .canon-button) {
+    --canon-select-end: calc(var(--_pad) + var(--canon-icon-size) + 0.5rem + var(--_gap));
+  }
+  .canon-combobox[data-search="inline"][data-creatable]:not([data-filter="none"]):has(> select[multiple]):not(:has(> select option:not(:checked, [hidden]))):has(> .canon-combobox-tags > li:not(.canon-combobox-more) > .canon-tag) > .canon-button {
+    margin-inline-end: 0;
+  }
+
+  /* The list: Select's (4px under the box and 8px wider, corners 4px
+     rounder, white, dark zinc-900; a hairline edge and the floating
+     shadow). The options scroll under the search field
+     after 8.5 rows of the box's height (272 / 340 / 408px; the half row
+     shows there is more). */
+  .canon-combobox-popup {
+    min-inline-size: calc(anchor-size(inline) + 0.5rem);
+    max-block-size: calc(100dvh - 1rem);
+    margin: 0.25rem 0 0.25rem -0.25rem;
+    padding: calc(0.25rem - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+
+  /* The search field: the box's height and
+     spacing, a search icon in the icon color, a hairline rule under it, placeholder zinc-500 (dark zinc-400). */
+  .canon-combobox-search {
+    gap: calc(var(--canon-theme-input-icon-gap) + var(--canon-theme-input-inset));
+    padding-block: calc((var(--canon-control-block-size) - var(--canon-theme-input-line-height)) / 2) calc((var(--canon-control-block-size) - var(--canon-theme-input-line-height)) / 2 - 1px);
+    padding-inline: var(--canon-control-padding-inline) calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-combobox-search::before {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: var(--_muted);
+    mask: var(--canon-theme-icon-search) center / contain no-repeat;
+  }
+  .canon-combobox-search > input::placeholder {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    opacity: 1;
+  }
+
+  /* Options: Select's (above). Under the search field, a list that starts
+     with options keeps a separator's space from its line;
+     a caption keeps its own row. */
+  .canon-combobox-list {
+    max-block-size: calc(var(--canon-control-block-size) * 8.5);
+    scroll-padding-block: 0.25rem;
+  }
+  .canon-combobox-search + .canon-combobox-list:has(> [role="option"]:first-child) {
+    padding-block-start: var(--canon-theme-separator-space);
+  }
+  .canon-combobox-option[aria-selected="true"]::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    margin-inline-start: auto;
+    padding-inline-start: var(--_gap, 0.375rem);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-tick) right center / var(--canon-icon-size) no-repeat;
+    box-sizing: content-box;
+  }
+  .canon-combobox-option[aria-selected="true"]:dir(rtl)::after {
+    mask-position: left center;
+  }
+
+  /* Captions: Select's group captions, 10px semibold capitals in a 32px
+     row, zinc-500 (dark zinc-400). */
+  .canon-combobox-caption {
+    padding-block: 0.5rem;
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset)) var(--canon-control-padding-inline);
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  /* Built from the option row: "No results for …" and
+     "Loading…" are rows with an icon (search-x, a turning loader) in the
+     icon color and text in the caption's zinc-500 (dark zinc-400); "Add …"
+     is an option with a plus. Under the search field they keep a
+     separator's space from its line. */
+  :is(.canon-combobox-empty, .canon-combobox-loading) {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--canon-control-block-size);
+    padding-inline: var(--canon-control-padding-inline);
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  :is(.canon-combobox-empty, .canon-combobox-loading) > .canon-icon {
+    margin-inline-end: calc(var(--canon-theme-input-icon-gap) + var(--canon-theme-input-inset));
+    color: var(--_muted);
+  }
+  .canon-combobox-search ~ :is(.canon-combobox-empty, .canon-combobox-loading) {
+    margin-block-start: var(--canon-theme-separator-space);
+  }
+  .canon-combobox-loading > .canon-icon {
+    animation: canon-combobox-turn 0.8s linear infinite;
+  }
+  @keyframes canon-combobox-turn {
+    to { rotate: 1turn; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-combobox-loading > .canon-icon {
+      animation-duration: 2.4s;
+    }
+  }
+
+  /* The matched text: a tint of the text color behind it (as Kbd's), so it
+     shows on a highlighted, chosen or destructive row alike. */
+  .canon-combobox-match {
+    border-radius: 0.125rem;
+    background-color: light-dark(
+      color-mix(in srgb, currentColor 14%, transparent),
+      color-mix(in srgb, currentColor 24%, transparent));
+    color: inherit;
+  }
+}

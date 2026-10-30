@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Settings Page pattern</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Settings Page</h1>
+  <p class="ref-note">Where an app's settings live: a list of their parts beside the one that's open, fields that save together, switches that take effect at once, and what can't be undone kept apart at the end. Made only of Canon's components. Change a field and try to leave, save, flip a switch, or try to delete the workspace.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pattern">
+    <h2>The pattern</h2>
+    <p class="ref-note">An App Shell whose page is the settings (its sidebar a rail, for the room): a <a href="page-header.html">Page Header</a>, then the settings' own <a href="nav-list.html">Nav List</a> beside the part that's open (above it, in a row, when there isn't room for both). In an app, each part is its own address: <code>/settings/general</code>, <code>/settings/notifications</code>.</p>
+    <div class="ref-shell-frame ref-pattern-frame">
+      <div class="canon-app-shell" id="st-app">
+        <div class="canon-sidebar" id="st-sidebar" data-display="icon">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#st-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Billing</span></a>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#st-dashboard" interestfor="st-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="st-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+                <li><a class="canon-nav-list-item" href="#st-invoices" interestfor="st-tip-invoices"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span></a><div class="canon-tooltip" id="st-tip-invoices" data-placement="inline-end" popover="hint" role="tooltip">Invoices</div></li>
+                <li><a class="canon-nav-list-item" href="#st-customers" interestfor="st-tip-customers"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Customers</span></a><div class="canon-tooltip" id="st-tip-customers" data-placement="inline-end" popover="hint" role="tooltip">Customers</div></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="canon-sidebar-footer">
+            <nav class="canon-nav-list" aria-label="Help and settings">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#st-settings" aria-current="page" interestfor="st-tip-settings"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a><div class="canon-tooltip" id="st-tip-settings" data-placement="inline-end" popover="hint" role="tooltip">Settings</div></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <header class="canon-top-bar">
+          <div class="canon-top-bar-start">
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="st-sidebar" command="--canon-toggle-sidebar" aria-controls="st-sidebar" aria-expanded="false"><span class="canon-icon" data-icon="panel-left-open" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-top-bar-end">
+            <button type="button" class="canon-avatar" id="st-account" popovertarget="st-account-menu" aria-haspopup="menu" aria-expanded="false" data-seed="1">
+              <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+              <span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span>
+            </button>
+            <div class="canon-menu" id="st-account-menu" popover role="menu" aria-labelledby="st-account">
+              <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-menu-label">Profile</span></button>
+              <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="log-out" aria-hidden="true"></span><span class="canon-menu-label">Sign out</span></button>
+            </div>
+          </div>
+        </header>
+        <main class="ref-settings-main">
+          <header class="canon-page-header">
+            <div class="canon-page-header-title"><h1>Settings</h1></div>
+            <p class="canon-page-header-description">The Globex Billing workspace, for everyone in it.</p>
+          </header>
+
+          <div class="ref-settings">
+            <nav class="canon-nav-list ref-settings-nav" aria-label="Settings">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#st-general" data-go="general" aria-current="page"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">General</span></a></li>
+                <li><a class="canon-nav-list-item" href="#st-notifications" data-go="notifications"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-nav-list-label">Notifications</span></a></li>
+                <li><a class="canon-nav-list-item" href="#st-members" data-go="members"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-nav-list-label">Members</span></a></li>
+                <li><a class="canon-nav-list-item" href="#st-billing" data-go="billing"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Billing</span></a></li>
+              </ul>
+            </nav>
+
+            <!-- General: fields that save together -->
+            <section class="canon-section ref-view" data-view="general" aria-labelledby="st-general-title">
+              <header class="canon-section-header">
+                <h2 class="canon-section-title" id="st-general-title" tabindex="-1">General</h2>
+                <p class="canon-section-description">The workspace's name, where it is, and how its invoices look.</p>
+              </header>
+              <form class="canon-form" id="st-form" data-layout="aside" action="#" method="post">
+                <section class="canon-form-section" aria-labelledby="st-workspace-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-workspace-title">Workspace</h3>
+                    <p class="canon-form-section-description">Shown to everyone in it, and on invoices.</p>
+                  </header>
+                  <div class="canon-field">
+                    <div class="canon-label"><label class="canon-label-text" for="st-name">Name</label></div>
+                    <div class="canon-text-input"><input id="st-name" name="name" type="text" value="Globex Billing" placeholder required></div>
+                  </div>
+                  <div class="canon-field">
+                    <div class="canon-label">
+                      <label class="canon-label-text" for="st-subdomain">Address</label>
+                      <p class="canon-label-description" id="st-subdomain-description">Links to the workspace stop working when it changes.</p>
+                    </div>
+                    <div class="canon-text-input">
+                      <input id="st-subdomain" name="subdomain" type="text" value="globex" placeholder required aria-describedby="st-subdomain-description">
+                      <span class="canon-text-input-suffix" aria-hidden="true">.canon.app</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="canon-form-section" aria-labelledby="st-region-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-region-title">Region</h3>
+                    <p class="canon-form-section-description">Dates and amounts, for everyone in the workspace.</p>
+                  </header>
+                  <div class="canon-field">
+                    <div class="canon-label"><label class="canon-label-text" for="st-timezone">Time zone</label></div>
+                    <div class="canon-select">
+                      <select id="st-timezone" name="timezone">
+                        <option value="Europe/London" selected>London (GMT+1)</option>
+                        <option value="Europe/Istanbul">Istanbul (GMT+3)</option>
+                        <option value="America/New_York">New York (GMT−4)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="canon-form-row">
+                    <div class="canon-field">
+                      <div class="canon-label"><label class="canon-label-text" for="st-currency">Currency</label></div>
+                      <div class="canon-select">
+                        <select id="st-currency" name="currency">
+                          <option value="EUR" selected>Euro (€)</option>
+                          <option value="GBP">Pound (£)</option>
+                          <option value="USD">Dollar ($)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="canon-field">
+                      <div class="canon-label"><label class="canon-label-text" for="st-week">Weeks start on</label></div>
+                      <div class="canon-select">
+                        <select id="st-week" name="week">
+                          <option value="1" selected>Monday</option>
+                          <option value="7">Sunday</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="canon-form-section" aria-labelledby="st-invoices-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-invoices-title">Invoices</h3>
+                    <p class="canon-form-section-description">For new invoices; the ones sent keep theirs.</p>
+                  </header>
+                  <div class="canon-form-row">
+                    <div class="canon-field">
+                      <div class="canon-label"><label class="canon-label-text" for="st-prefix">Number prefix</label></div>
+                      <div class="canon-text-input"><input id="st-prefix" name="prefix" type="text" value="INV-" placeholder size="8"></div>
+                    </div>
+                    <div class="canon-field">
+                      <div class="canon-label"><label class="canon-label-text" for="st-terms">Payment terms</label></div>
+                      <div class="canon-select">
+                        <select id="st-terms" name="terms">
+                          <option value="14">Net 14</option>
+                          <option value="30" selected>Net 30</option>
+                          <option value="60">Net 60</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="canon-choice">
+                    <input type="checkbox" id="st-late" name="late" aria-describedby="st-late-hint">
+                    <label class="canon-choice-label" for="st-late">Add late fees</label>
+                    <p class="canon-choice-hint" id="st-late-hint">1.5% a month on invoices past their due date.</p>
+                  </div>
+                </section>
+
+                <footer class="canon-save-bar">
+                  <p class="canon-save-bar-status"></p>
+                  <button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+                  <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+                </footer>
+              </form>
+
+              <div class="canon-form ref-settings-danger" data-layout="aside">
+                <section class="canon-form-section" aria-labelledby="st-danger-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-danger-title">Danger zone</h3>
+                    <p class="canon-form-section-description">Changes that can't be undone.</p>
+                  </header>
+                  <dl class="canon-description-list">
+                    <div>
+                      <dt>Export all data</dt><dd>Every invoice, customer and payment, as CSV files.</dd>
+                      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-export><span class="canon-button-label">Export</span></button>
+                    </div>
+                    <div>
+                      <dt>Delete this workspace</dt><dd>Removes it for everyone, with its invoices and customers.</dd>
+                      <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" commandfor="st-delete" command="show-modal"><span class="canon-button-label">Delete workspace</span></button>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </section>
+
+            <!-- Notifications: switches that take effect at once -->
+            <section class="canon-section ref-view" data-view="notifications" aria-labelledby="st-notifications-title" hidden>
+              <header class="canon-section-header">
+                <h2 class="canon-section-title" id="st-notifications-title" tabindex="-1">Notifications</h2>
+                <p class="canon-section-description">Yours alone. Each switch takes effect as soon as it's flipped.</p>
+              </header>
+              <div class="canon-form" data-layout="aside">
+                <section class="canon-form-section" aria-labelledby="st-email-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-email-title">Email</h3>
+                    <p class="canon-form-section-description">Sent to ada@globex.example.</p>
+                  </header>
+                  <div class="canon-choice">
+                    <input type="checkbox" role="switch" id="st-paid" name="paid" checked aria-describedby="st-paid-hint" data-notify="an email when an invoice is paid">
+                    <label class="canon-choice-label" for="st-paid">An invoice is paid</label>
+                    <p class="canon-choice-hint" id="st-paid-hint">With the amount and how it was paid.</p>
+                  </div>
+                  <div class="canon-choice">
+                    <input type="checkbox" role="switch" id="st-overdue" name="overdue" checked data-notify="an email when an invoice is overdue">
+                    <label class="canon-choice-label" for="st-overdue">An invoice is overdue</label>
+                  </div>
+                  <div class="canon-choice">
+                    <input type="checkbox" role="switch" id="st-summary" name="summary" aria-describedby="st-summary-hint" data-notify="a summary every Monday">
+                    <label class="canon-choice-label" for="st-summary">A summary every week</label>
+                    <p class="canon-choice-hint" id="st-summary-hint">Monday morning: what was sent, paid and still owed.</p>
+                  </div>
+                </section>
+                <section class="canon-form-section" aria-labelledby="st-inapp-title">
+                  <header class="canon-form-section-header">
+                    <h3 class="canon-form-section-title" id="st-inapp-title">In the app</h3>
+                  </header>
+                  <div class="canon-choice">
+                    <input type="checkbox" role="switch" id="st-mentions" name="mentions" checked data-notify="a notification when someone mentions you">
+                    <label class="canon-choice-label" for="st-mentions">Someone mentions me</label>
+                  </div>
+                  <div class="canon-choice">
+                    <input type="checkbox" role="switch" id="st-comments" name="comments" data-notify="a notification for every comment">
+                    <label class="canon-choice-label" for="st-comments">Every comment on my invoices</label>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <!-- Not in this demo -->
+            <section class="canon-section ref-view" data-view="members" aria-labelledby="st-members-title" hidden>
+              <header class="canon-section-header">
+                <h2 class="canon-section-title" id="st-members-title" tabindex="-1">Members</h2>
+                <p class="canon-section-description">Who's in the workspace, and what they can do.</p>
+              </header>
+              <div class="canon-empty-state">
+                <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="user" aria-hidden="true"></span></span>
+                <p class="canon-empty-state-title">Not in this demo</p>
+                <p class="canon-empty-state-description">A Data Table of members, with roles, would go here.</p>
+              </div>
+            </section>
+            <section class="canon-section ref-view" data-view="billing" aria-labelledby="st-billing-title" hidden>
+              <header class="canon-section-header">
+                <h2 class="canon-section-title" id="st-billing-title" tabindex="-1">Billing</h2>
+                <p class="canon-section-description">The plan, the card on file, past receipts.</p>
+              </header>
+              <div class="canon-empty-state">
+                <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span></span>
+                <p class="canon-empty-state-title">Not in this demo</p>
+                <p class="canon-empty-state-description">Cards for the plan and the payment method would go here.</p>
+              </div>
+            </section>
+          </div>
+        </main>
+
+        <dialog class="canon-dialog" id="st-leave" role="alertdialog" data-width="sm" aria-labelledby="st-leave-title" aria-describedby="st-leave-description">
+          <header class="canon-dialog-header">
+            <h2 class="canon-dialog-title" id="st-leave-title">Discard your changes?</h2>
+          </header>
+          <div class="canon-dialog-body">
+            <p id="st-leave-description">Your changes to the general settings haven't been saved.</p>
+          </div>
+          <footer class="canon-dialog-footer">
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="st-leave" command="close" autofocus><span class="canon-button-label">Keep editing</span></button>
+            <button type="button" class="canon-button" data-emphasis="high" data-intent="danger" data-align="end" commandfor="st-leave" command="close" data-discard><span class="canon-button-label">Discard changes</span></button>
+          </footer>
+        </dialog>
+
+        <dialog class="canon-dialog" id="st-delete" role="alertdialog" data-width="sm" aria-labelledby="st-delete-title" aria-describedby="st-delete-description">
+          <form method="dialog" id="st-delete-form">
+            <header class="canon-dialog-header">
+              <h2 class="canon-dialog-title" id="st-delete-title">Delete Globex Billing?</h2>
+            </header>
+            <div class="canon-dialog-body">
+              <p id="st-delete-description">The workspace, its 1,284 invoices and 312 customers are removed for everyone. This can't be undone.</p>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="st-confirm">Type <strong>Globex Billing</strong> to confirm</label></div>
+                <div class="canon-text-input"><input id="st-confirm" name="confirm" type="text" placeholder autocomplete="off" spellcheck="false"></div>
+              </div>
+            </div>
+            <footer class="canon-dialog-footer">
+              <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="st-delete" command="close" autofocus><span class="canon-button-label">Cancel</span></button>
+              <button type="submit" class="canon-button" data-emphasis="high" data-intent="danger" data-align="end" value="delete" aria-disabled="true"><span class="canon-button-label">Delete workspace</span></button>
+            </footer>
+          </form>
+        </dialog>
+      </div>
+    </div>
+    <script>
+      /* The demo: the settings' parts as views of one page, switched by
+         data-go. A real app has an address for each. */
+      {
+        const app = document.getElementById("st-app");
+        const frame = app.closest(".ref-shell-frame");
+        const views = Object.fromEntries([...app.querySelectorAll(".ref-view")].map((view) => [view.dataset.view, view]));
+        const links = [...app.querySelectorAll(".ref-settings-nav [data-go]")];
+        const form = document.getElementById("st-form");
+        const bar = form.querySelector(".canon-save-bar");
+        const leave = document.getElementById("st-leave");
+        const toast = (detail) => document.dispatchEvent(new CustomEvent("canon-toast", { detail }));
+        let pending = null;
+
+        const show = (name) => {
+          for (const [key, view] of Object.entries(views)) view.hidden = key !== name;
+          for (const link of links) {
+            if (link.dataset.go === name) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+          }
+          frame.scrollTop = 0;
+          /* Focus goes to the part's title, as a new page's would. */
+          views[name].querySelector("h2").focus({ preventScroll: true });
+        };
+
+        /* Leaving General with unsaved changes asks first. */
+        app.addEventListener("click", (event) => {
+          const link = event.target.closest("[data-go]");
+          if (!link) return;
+          event.preventDefault();
+          const name = link.dataset.go;
+          if (!views.general.hidden && name !== "general" && bar.dataset.state === "changed") {
+            pending = name;
+            leave.showModal();
+            return;
+          }
+          show(name);
+        });
+        leave.addEventListener("click", (event) => {
+          if (!event.target.closest("[data-discard]") || !pending) return;
+          form.reset();
+          setTimeout(() => show(pending));
+        });
+
+        /* Saving: a short wait stands in for the server. */
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          setTimeout(() => {
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            toast({ intent: "success", title: "Settings saved", description: "Everyone in the workspace sees them now." });
+          }, 600);
+        });
+
+        /* Switches take effect at once; a Toast says what changed. */
+        views.notifications.addEventListener("change", (event) => {
+          const input = event.target.closest("[data-notify]");
+          if (!input) return;
+          toast({ intent: "success", title: input.checked ? "Turned on" : "Turned off", description: `You'll ${input.checked ? "" : "no longer "}get ${input.dataset.notify}.` });
+        });
+
+        app.querySelector("[data-export]").addEventListener("click", () => {
+          toast({ intent: "info", title: "Export started", description: "We'll email you the files when they're ready." });
+        });
+
+        /* Deleting: only once the workspace's name is typed. */
+        const remove = document.getElementById("st-delete");
+        const confirm = document.getElementById("st-confirm");
+        const go = remove.querySelector("button[value='delete']");
+        const ready = () => confirm.value.trim() === "Globex Billing";
+        confirm.addEventListener("input", () => go.setAttribute("aria-disabled", String(!ready())));
+        document.getElementById("st-delete-form").addEventListener("submit", (event) => {
+          if (!ready()) {
+            event.preventDefault();
+            confirm.focus();
+            return;
+          }
+          toast({ intent: "info", title: "Nothing was deleted", description: "This is a demo." });
+        });
+        remove.addEventListener("close", () => {
+          confirm.value = "";
+          go.setAttribute("aria-disabled", "true");
+        });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="navigation">
+    <h2>The settings' parts</h2>
+    <p class="ref-note">A <a href="nav-list.html">Nav List</a> named "Settings", beside the part that's open: links, because each part is its own address that people share, bookmark and come back to. Not <a href="tabs.html">Tabs</a> (those switch views of one thing in place), and not one long page (people come for one setting). The open part is <code>aria-current="page"</code>, and opening one moves focus to its title, as a new page would.</p>
+    <p class="ref-note">The page's <a href="page-header.html">Page Header</a> says whose settings these are; each part is a <a href="section.html">Section</a>, its title one level under the page's (<code>h2</code>).</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="saving">
+    <h2>Two ways to save</h2>
+    <p class="ref-note"><strong>Fields that belong together save together.</strong> General is a <a href="form-layout.html">Form Layout</a> with <code>data-layout="aside"</code> (each section's title in a side column, its fields beside it) that ends in a <a href="save-bar.html">Save Bar</a>: it counts the changes, keeps Save unavailable until there are some, saves with <kbd class="canon-kbd">⌘S</kbd>, and asks before the changes are lost, here when leaving for another part.</p>
+    <p class="ref-note"><strong>A setting on its own takes effect at once.</strong> Notifications are <a href="switch.html">Switches</a>: flipping one is the change, and a <a href="toast.html">Toast</a> says so. No Save button, no "unsaved changes".</p>
+    <p class="ref-note">Never both in one part: a switch beside fields that wait for Save leaves people unsure what's saved. Within a form that saves, a yes-or-no is a <a href="checkbox.html">Checkbox</a> (Add late fees), not a Switch.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="danger">
+    <h2>The danger zone</h2>
+    <p class="ref-note">What can't be undone goes last, apart from the form, in a section that says so: a <a href="description-list.html">Description List</a> whose items each say what happens and end with their Button. Deleting asks in an alert <a href="dialog.html">Dialog</a> that names what goes (the workspace, its invoices, its customers), and only deletes once the workspace's name is typed: the button stays unavailable (<code>aria-disabled</code>) until then.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">Without room for both, the settings' Nav List goes above the part, its links in a row, so the form keeps its width. Narrower still, the aside layout puts each section's title over its fields (Form Layout does that by itself below 40rem).</p>
+  </section>
+
+</main>
+</body>
+</html>

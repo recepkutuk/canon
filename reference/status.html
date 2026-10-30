@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Status Indicator reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Status Indicator</h1>
+  <p class="ref-note">Where something stands, in a word and a dot. Specification: <a href="../docs/components/status.md">docs/components/status.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="status">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;span class="canon-status"&gt;</code> around its <code>.canon-status-label</code>; the theme draws the dot. <code>data-intent</code> says what the status means, in the same words as a Button's or a Tag's: <code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>. With none it is neutral: a hollow ring, nothing happening yet.</p>
+
+    <div class="ref-row">
+      <span class="canon-status"><span class="canon-status-label">Draft</span></span>
+      <span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span>
+      <span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span>
+      <span class="canon-status" data-intent="warning"><span class="canon-status-label">Due soon</span></span>
+      <span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="table">
+    <h2>In a list</h2>
+    <p class="ref-note">Its place: a column of a <a href="table.html">Table</a> or a <a href="data-table.html">Data Table</a>, where many rows need a status each and a chip per row would be loud.</p>
+
+    <div class="canon-table">
+      <table>
+        <caption class="canon-visually-hidden">Invoices</caption>
+        <thead><tr><th scope="col">Invoice</th><th scope="col">Customer</th><th scope="col">Due</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">INV-2041</th><td>Globex Corporation</td><td>3 Oct 2026</td><td data-align="end">€12,400.00</td><td><span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span></td></tr>
+          <tr><th scope="row">INV-2040</th><td>Initech</td><td>28 Oct 2026</td><td data-align="end">€6,900.00</td><td><span class="canon-status" data-intent="warning"><span class="canon-status-label">Due soon</span></span></td></tr>
+          <tr><th scope="row">INV-2039</th><td>Umbrella</td><td>12 Oct 2026</td><td data-align="end">€3,150.00</td><td><span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span></td></tr>
+          <tr><th scope="row">INV-2038</th><td>Soylent</td><td>30 Oct 2026</td><td data-align="end">€980.00</td><td><span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span></td></tr>
+          <tr><th scope="row">INV-2037</th><td>Hooli</td><td>—</td><td data-align="end">€15,000.00</td><td><span class="canon-status"><span class="canon-status-label">Draft</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pulse">
+    <h2>In progress</h2>
+    <p class="ref-note"><code>data-pulse</code>: something is happening right now. Use it for the few states that change by themselves (syncing, deploying), not for "pending".</p>
+
+    <div class="ref-row">
+      <span class="canon-status" data-intent="info" data-pulse><span class="canon-status-label">Syncing</span></span>
+      <span class="canon-status" data-intent="warning" data-pulse><span class="canon-status-label">Deploying</span></span>
+      <span class="canon-status" data-pulse><span class="canon-status-label">Queued</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="status-or-tag">
+    <h2>Status or Tag?</h2>
+    <p class="ref-note">The same words, two weights. A Status in text and lists; a <a href="tag.html">Tag</a> where the status is the point (beside a record's title in its <a href="page-header.html">Page Header</a>).</p>
+
+    <div class="ref-row">
+      <span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span>
+      <span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="dot">
+    <h2>The dot only</h2>
+    <p class="ref-note"><code>data-display="icon"</code>: the label is hidden, still read. Only where something else says what the colors mean (a legend, a column header, a tooltip on what it sits beside): on its own, a dot is a color.</p>
+
+    <div class="ref-row">
+      <span class="canon-status" data-display="icon"><span class="canon-status-label">Draft</span></span>
+      <span class="canon-status" data-intent="info" data-display="icon"><span class="canon-status-label">Sent</span></span>
+      <span class="canon-status" data-intent="success" data-display="icon"><span class="canon-status-label">Paid</span></span>
+      <span class="canon-status" data-intent="warning" data-display="icon"><span class="canon-status-label">Due soon</span></span>
+      <span class="canon-status" data-intent="danger" data-display="icon"><span class="canon-status-label">Overdue</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the status or a container: sm, md, lg.</p>
+
+    <div class="ref-row">
+      <span class="canon-status" data-intent="info" data-size="sm"><span class="canon-status-label">Sent</span></span>
+      <span class="canon-status" data-intent="success" data-size="sm"><span class="canon-status-label">Paid</span></span>
+      <span class="canon-status" data-intent="warning" data-size="sm"><span class="canon-status-label">Due soon</span></span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-status" data-intent="info" data-size="md"><span class="canon-status-label">Sent</span></span>
+      <span class="canon-status" data-intent="success" data-size="md"><span class="canon-status-label">Paid</span></span>
+      <span class="canon-status" data-intent="warning" data-size="md"><span class="canon-status-label">Due soon</span></span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-status" data-intent="info" data-size="lg"><span class="canon-status-label">Sent</span></span>
+      <span class="canon-status" data-intent="success" data-size="lg"><span class="canon-status-label">Paid</span></span>
+      <span class="canon-status" data-intent="warning" data-size="lg"><span class="canon-status-label">Due soon</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the dot comes first on the right. A long label in a narrow place is cut, keeping its whole text as its name.</p>
+
+    <div class="ref-row" dir="rtl" lang="ar">
+      <span class="canon-status" data-intent="success"><span class="canon-status-label">مدفوعة</span></span>
+      <span class="canon-status" data-intent="danger"><span class="canon-status-label">متأخرة</span></span>
+    </div>
+    <div class="ref-row" style="max-inline-size: 8rem">
+      <span class="canon-status" data-intent="warning"><span class="canon-status-label">Waiting for the customer's approval</span></span>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

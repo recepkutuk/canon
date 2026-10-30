@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Split Pane reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Split Pane</h1>
+  <p class="ref-note">Two panes side by side, or one over the other, and a handle to share the room between them. Specification: <a href="../docs/components/split-pane.md">docs/components/split-pane.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="split-pane">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-split-pane</code>: a pane, a handle and a pane. The handle is a separator people can move: <code>role="separator"</code>, <code>tabindex="0"</code>, named, <code>aria-controls</code> the first pane, its size in percent (<code>aria-valuenow</code>) between <code>aria-valuemin</code> and <code>aria-valuemax</code>. Drag it, or focus it and use the arrows (<kbd class="canon-kbd">Shift</kbd> for bigger steps), <kbd class="canon-kbd">Home</kbd> and <kbd class="canon-kbd">End</kbd> for the limits, <kbd class="canon-kbd">Enter</kbd> to fold the first pane to its minimum and back. A double click goes back to where it started. Each pane scrolls on its own.</p>
+
+    <div class="ref-split-frame">
+      <div class="canon-split-pane">
+        <div class="ref-pane" id="sa-first">
+          <nav class="canon-nav-list" aria-label="Invoices">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sa-2041" aria-current="page"><span class="canon-nav-list-label">INV-2041 · Globex</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sa-2040"><span class="canon-nav-list-label">INV-2040 · Initech</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sa-2039"><span class="canon-nav-list-label">INV-2039 · Umbrella</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sa-2038"><span class="canon-nav-list-label">INV-2038 · Soylent</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sa-2037"><span class="canon-nav-list-label">INV-2037 · Hooli</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sa-2036"><span class="canon-nav-list-label">INV-2036 · Vandelay</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the list" aria-controls="sa-first" aria-orientation="vertical" aria-valuenow="35" aria-valuemin="20" aria-valuemax="60"></div>
+        <section class="ref-pane canon-section">
+          <header class="canon-section-header">
+            <h2 class="canon-section-title">INV-2041</h2>
+            <p class="canon-section-description">Globex Corporation · Due 3 Oct 2026 · €12,400.00</p>
+          </header>
+          <p>The detail of what's chosen on the other side.</p>
+        </section>
+      </div>
+    </div>
+    <p class="ref-note" id="sa-log" aria-live="polite">Resize it to see <code>canon-resize</code>.</p>
+    <script>
+      document.querySelector("#split-pane .canon-split-pane").addEventListener("canon-resize", (event) => {
+        document.getElementById("sa-log").textContent = `canon-resize: ${Math.round(event.detail.size)}% (an app would remember it)`;
+      });
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="stacked">
+    <h2>One over the other</h2>
+    <p class="ref-note">A horizontal handle (<code>aria-orientation="horizontal"</code>) stacks the panes: a query over its results. The arrows are Up and Down.</p>
+
+    <div class="ref-split-frame">
+      <div class="canon-split-pane">
+        <div class="ref-pane" id="ss-first">
+          <pre class="ref-split-code"><code>SELECT number, customer, due, amount&#10;FROM invoices&#10;WHERE status = 'overdue'&#10;ORDER BY due;</code></pre>
+        </div>
+        <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the query" aria-controls="ss-first" aria-orientation="horizontal" aria-valuenow="45" aria-valuemin="20" aria-valuemax="80"></div>
+        <div class="ref-pane">
+          <p class="ref-split-console">2 rows · 14 ms<br>INV-2041 · Globex Corporation · 3 Oct 2026 · €12,400.00<br>INV-2035 · Stark Industries · 28 Sep 2026 · €45,000.00</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="nested">
+    <h2>Three panes</h2>
+    <p class="ref-note">A pane can be a Split Pane itself: a list beside a record with its activity under it.</p>
+
+    <div class="ref-split-frame">
+      <div class="canon-split-pane">
+        <div class="ref-pane" id="sn-first">
+          <nav class="canon-nav-list" aria-label="Invoices">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sn-2041" aria-current="page"><span class="canon-nav-list-label">INV-2041 · Globex</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sn-2040"><span class="canon-nav-list-label">INV-2040 · Initech</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sn-2039"><span class="canon-nav-list-label">INV-2039 · Umbrella</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sn-2038"><span class="canon-nav-list-label">INV-2038 · Soylent</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sn-2037"><span class="canon-nav-list-label">INV-2037 · Hooli</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sn-2036"><span class="canon-nav-list-label">INV-2036 · Vandelay</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the list" aria-controls="sn-first" aria-orientation="vertical" aria-valuenow="30" aria-valuemin="20" aria-valuemax="60"></div>
+        <section class="ref-pane canon-section">
+          <div class="canon-split-pane">
+            <div class="ref-pane" id="sn-in-first">
+              <p>The record.</p>
+            </div>
+            <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="Resize the detail" aria-controls="sn-in-first" aria-orientation="horizontal" aria-valuenow="60" aria-valuemin="25" aria-valuemax="85"></div>
+            <div class="ref-pane">
+              <p>Its activity, under it.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the first pane is on the right and Left grows it. The limits keep each pane usable: here the list is between 20% and 60%.</p>
+
+    <div class="ref-split-frame" dir="rtl" lang="ar">
+      <div class="canon-split-pane">
+        <div class="ref-pane" id="sr-first">
+          <nav class="canon-nav-list" aria-label="Invoices">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sr-2041" aria-current="page"><span class="canon-nav-list-label">INV-2041 · Globex</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sr-2040"><span class="canon-nav-list-label">INV-2040 · Initech</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sr-2039"><span class="canon-nav-list-label">INV-2039 · Umbrella</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sr-2038"><span class="canon-nav-list-label">INV-2038 · Soylent</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sr-2037"><span class="canon-nav-list-label">INV-2037 · Hooli</span></a></li>
+              <li><a class="canon-nav-list-item" href="#sr-2036"><span class="canon-nav-list-label">INV-2036 · Vandelay</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="canon-split-pane-handle" role="separator" tabindex="0" aria-label="تغيير حجم القائمة" aria-controls="sr-first" aria-orientation="vertical" aria-valuenow="35" aria-valuemin="20" aria-valuemax="60"></div>
+        <section class="ref-pane canon-section">
+          <header class="canon-section-header">
+            <h2 class="canon-section-title">INV-2041</h2>
+            <p class="canon-section-description">Globex Corporation · Due 3 Oct 2026 · €12,400.00</p>
+          </header>
+          <p>The detail of what's chosen on the other side.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

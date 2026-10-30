@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Slider reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Slider</h1>
+  <p class="ref-note">A value picked from a range. Specification: <a href="../docs/components/slider.md">docs/components/slider.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="basics">
+    <h2>Basics</h2>
+    <p class="ref-note">A Field around a native range input. canon.js fills the track up to the thumb and keeps the shown value in step; without JavaScript the slider still works, unfilled, and the value is hidden. The value appears over the thumb while you hover, focus or drag the slider (try the second one).</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ba-plain">Volume</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="ba-plain" name="volume" value="40">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ba-value">Opacity</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="ba-value" name="opacity" min="0" max="100" value="75">
+          <output class="canon-control-value" for="ba-value" aria-hidden="true">75</output>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ba-labels">CPU limit</label>
+          <p class="canon-label-description" id="ba-labels-hint">Per instance.</p>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">0</span>
+          <input type="range" id="ba-labels" name="cpu" min="0" max="16" step="1" value="4" aria-describedby="ba-labels-hint">
+          <span class="canon-control-suffix" aria-hidden="true">16 vCPU</span>
+          <output class="canon-control-value" for="ba-labels" aria-hidden="true">4</output>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ba-step">Sample rate</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="ba-step" name="sample" min="0" max="1" step="0.05" value="0.25">
+          <output class="canon-control-value" for="ba-step" aria-hidden="true">0.25</output>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="marks">
+    <h2>Named marks</h2>
+    <p class="ref-note">A <code>&lt;datalist&gt;</code> in the box, linked with the input's <code>list</code>. The shown value uses the mark's name. Unevenly spaced marks are placed by canon.js.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="mk-even">Priority</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="mk-even" name="priority" min="0" max="2" step="1" value="1" list="mk-even-marks">
+          <output class="canon-control-value" for="mk-even" aria-hidden="true">Medium</output>
+          <datalist id="mk-even-marks">
+            <option value="0">Low</option>
+            <option value="1">Medium</option>
+            <option value="2">High</option>
+          </datalist>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="mk-uneven">Retention</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="mk-uneven" name="retention" min="30" max="365" step="1" value="180" list="mk-uneven-marks">
+          <output class="canon-control-value" for="mk-uneven" aria-hidden="true">6 months</output>
+          <datalist id="mk-uneven-marks">
+            <option value="30">1 month</option>
+            <option value="180">6 months</option>
+            <option value="365">1 year</option>
+          </datalist>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-dis">Disabled</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="st-dis" name="st-dis" value="60" disabled>
+          <output class="canon-control-value" for="st-dis" aria-hidden="true">60</output>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-err">Memory</label>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">1 GB</span>
+          <input type="range" id="st-err" name="memory" min="1" max="64" value="48" aria-invalid="true" aria-describedby="st-err-message">
+          <span class="canon-control-suffix" aria-hidden="true">64 GB</span>
+          <output class="canon-control-value" for="st-err" aria-hidden="true">48</output>
+        </div>
+        <p class="canon-field-message" id="st-err-message" data-intent="danger">Your plan allows up to 32 GB.</p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-min">At the minimum</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="st-min" name="st-min" value="0">
+          <output class="canon-control-value" for="st-min" aria-hidden="true">0</output>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-max">At the maximum</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="st-max" name="st-max" value="100">
+          <output class="canon-control-value" for="st-max" aria-hidden="true">100</output>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="vertical">
+    <h2>Vertical</h2>
+    <p class="ref-note"><code>data-orientation="vertical"</code> on the field. The minimum is at the bottom.</p>
+
+    <div class="ref-row">
+      <div class="canon-field" data-orientation="vertical">
+        <div class="canon-label">
+          <label class="canon-label-text" for="vt-gain">Gain</label>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">0</span>
+          <input type="range" id="vt-gain" name="gain" value="70">
+          <span class="canon-control-suffix" aria-hidden="true">100</span>
+          <output class="canon-control-value" for="vt-gain" aria-hidden="true">70</output>
+        </div>
+      </div>
+
+      <div class="canon-field" data-orientation="vertical">
+        <div class="canon-label">
+          <label class="canon-label-text" for="vt-marks">Priority</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="vt-marks" name="vt-priority" min="0" max="2" value="2" list="vt-marks-list">
+          <datalist id="vt-marks-list">
+            <option value="0">Low</option>
+            <option value="1">Medium</option>
+            <option value="2">High</option>
+          </datalist>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field or a container: a 4 / 5 / 6px track.</p>
+
+    <div class="ref-stack">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm">Small</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-sm" name="sz-sm" value="30">
+          <output class="canon-control-value" for="sz-sm" aria-hidden="true">30</output>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md">Theme decides</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-md" name="sz-md" value="50">
+          <output class="canon-control-value" for="sz-md" aria-hidden="true">50</output>
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg">Large</label>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-lg" name="sz-lg" value="70">
+          <output class="canon-control-value" for="sz-lg" aria-hidden="true">70</output>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-long">Maximum number of concurrent background jobs per workspace before new jobs are queued</label>
+          <p class="canon-label-description" id="sx-long-hint">Higher limits finish batches sooner but can slow down interactive requests for everyone in the workspace.</p>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">1 job</span>
+          <input type="range" id="sx-long" name="sx-long" min="1" max="10000" value="2500" aria-describedby="sx-long-hint">
+          <span class="canon-control-suffix" aria-hidden="true">10,000 jobs</span>
+          <output class="canon-control-value" for="sx-long" aria-hidden="true">2500</output>
+        </div>
+      </div>
+
+      <div class="canon-field" dir="rtl" lang="ar">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-rtl">مستوى الصوت</label>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">٠</span>
+          <input type="range" id="sx-rtl" name="sx-rtl" value="30" list="sx-rtl-marks">
+          <span class="canon-control-suffix" aria-hidden="true">١٠٠</span>
+          <output class="canon-control-value" for="sx-rtl" aria-hidden="true">30</output>
+          <datalist id="sx-rtl-marks">
+            <option value="0">منخفض</option>
+            <option value="50">متوسط</option>
+            <option value="100">مرتفع</option>
+          </datalist>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

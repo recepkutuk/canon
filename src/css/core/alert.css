@@ -1,0 +1,79 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Alert                                                               */
+  /*                                                                     */
+  /* A message in the page that stays while it's true. The theme's icon  */
+  /* (::before, from data-intent) is named for screen readers with the   */
+  /* intent's word (--canon-text-intent-*); then the title with the      */
+  /* description under it, the actions after them, a close button at    */
+  /* the end; under 20rem the actions go under the text. A part that     */
+  /* isn't there leaves its column empty: themes space parts with        */
+  /* margins, not column-gap. Dismissed, it's hidden, after the          */
+  /* theme's closing animations (data-state="closing"); shown while the  */
+  /* page is open, its opening ones run ("opening").                     */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-alert) {
+    box-sizing: border-box;
+    display: grid;
+    container: canon-alert / inline-size;
+    overflow-wrap: break-word;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "icon title actions close" "icon description actions close";
+    align-items: start;
+  }
+  :where(.canon-alert[hidden]) {
+    display: none;
+  }
+  :where(.canon-alert[data-intent])::before {
+    grid-area: icon;
+  }
+  :where(.canon-alert[data-intent="info"])::before { content: "" / var(--canon-text-intent-info); }
+  :where(.canon-alert[data-intent="success"])::before { content: "" / var(--canon-text-intent-success); }
+  :where(.canon-alert[data-intent="warning"])::before { content: "" / var(--canon-text-intent-warning); }
+  :where(.canon-alert[data-intent="danger"])::before { content: "" / var(--canon-text-intent-danger); }
+  /* A heading title (an error summary's) reads as the alert's title, not
+     the browser's heading. */
+  :where(.canon-alert-title) {
+    grid-area: title;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+  :where(.canon-alert-description) {
+    grid-area: description;
+    margin: 0;
+  }
+  :where(.canon-alert-description) > :where(p, ul, ol) {
+    margin: 0;
+  }
+  :where(.canon-alert-actions) {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-self: center;
+  }
+  :where(.canon-alert-close) {
+    grid-area: close;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  @container canon-alert (width < 20rem) {
+    :where(.canon-alert-title) { grid-area: 1 / 2; }
+    :where(.canon-alert-description) { grid-area: 2 / 2; }
+    :where(.canon-alert-actions) { grid-area: 3 / 2; align-self: start; }
+    :where(.canon-alert-close) { grid-area: 1 / 4 / span 3; }
+  }
+  /* Without scripting the close button can't work: not shown. */
+  @media (scripting: none) {
+    :where(.canon-alert-close) {
+      display: none;
+    }
+  }
+}

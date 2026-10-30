@@ -1,0 +1,243 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Date                                                               */
+  /*                                                                    */
+  /* An <input type="date"> in .canon-date (two for a range): Text      */
+  /* Input's box. canon.js draws a field per input                      */
+  /* (.canon-date-segments, with its placeholder while empty:           */
+  /* .canon-date-placeholder, [data-empty] on the field) over the       */
+  /* hidden inputs, an arrow between a range's two                      */
+  /* (.canon-date-arrow), and a button (.canon-date-button) that opens  */
+  /* a calendar (.canon-calendar, a popover dialog). With data-inline   */
+  /* the calendar is in the page and the box is hidden.                 */
+  /* ------------------------------------------------------------------ */
+
+  /* canon.js draws the field (.canon-date-segments: spinbuttons, the
+     language's separators); the input stays underneath, invisible. */
+  /* Separators keep their spaces ("Week 42, 2025"): as flex items they
+     would lose them at their edges. */
+  :where(.canon-date-literal) {
+    white-space: pre;
+  }
+  :where(.canon-date:has(> .canon-date-segments)) > :where(input) {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  :where(.canon-date-segments) {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-inline-size: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    cursor: text;
+  }
+  :where(.canon-date-segment) {
+    outline: none;
+    caret-color: transparent;
+  }
+  /* A range's end sits at the box's end. */
+  :where(.canon-date-segments[data-part="end"]) {
+    justify-content: flex-end;
+  }
+  :where(.canon-date-placeholder) {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  :where(.canon-date-segments[data-part="end"]) > :where(.canon-date-placeholder) {
+    inset-inline: auto 0;
+  }
+  :where(.canon-date-segments:not([data-empty]), .canon-date-segments:focus-within) > :where(.canon-date-placeholder) {
+    display: none;
+  }
+  :where(.canon-date-segments[data-empty]:not(:focus-within)) > :where(:not(.canon-date-placeholder)) {
+    opacity: 0;
+  }
+  :where(.canon-date-arrow) {
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+  }
+  :where(.canon-date-arrow):dir(rtl) {
+    scale: -1 1;
+  }
+  :where(.canon-date[data-inline]):has(+ .canon-calendar) {
+    display: none;
+  }
+  :where(.canon-date[data-strip]):has(+ .canon-date-strip) {
+    display: none;
+  }
+  :where(.canon-field) > :where(.canon-calendar, .canon-date-strip) { grid-area: control; justify-self: start; }
+
+  /* The day strip (data-strip): previous, seven days, next. A day is a
+     column of its weekday, number (a square at the control height) and
+     month; [aria-pressed="true"] is the value, aria-disabled can't be
+     chosen, aria-current="date" is today. */
+  :where(.canon-date-strip) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    font-size: var(--canon-control-font-size);
+  }
+  /* As many days as fit (canon.js): a week at most. */
+  :where(.canon-date-strip-days) {
+    display: flex;
+    min-inline-size: 0;
+  }
+  :where(.canon-date-strip-day) {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  :where(.canon-date-strip-day[aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+  :where(.canon-date-strip-number) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    block-size: var(--canon-control-block-size);
+  }
+  :where(.canon-date-strip) :where(.canon-icon):dir(rtl) {
+    scale: -1 1;
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Calendar                                                           */
+  /*                                                                    */
+  /* What canon.js draws for a date: a month (.canon-calendar-month),  */
+  /* two side by side for a range, each a header (previous on the       */
+  /* first, next on the last, a .canon-calendar-spacer in their place   */
+  /* elsewhere; one month's title zooms out: days, months, years) and a */
+  /* grid (a table, role grid) of buttons; a range may add a column of  */
+  /* presets (.canon-calendar-presets, aria-pressed on the matching     */
+  /* one). The view is [data-view]: days, months or years. A day        */
+  /* button: [data-outside] (another month), aria-disabled (can't be    */
+  /* chosen), aria-current="date" (today); its cell aria-selected (the  */
+  /* value, or every day of the range), [data-in-range] with            */
+  /* [data-range-start] / [data-range-end], [data-preview] while a      */
+  /* range is being made. Weekday headers of days that can't be chosen  */
+  /* are [data-unavailable]. Cells are square at the control height     */
+  /* (months and years share the width).                                */
+  /* ------------------------------------------------------------------ */
+
+  /* It never scrolls (a popover would by default). */
+  :where(.canon-calendar) {
+    box-sizing: border-box;
+    overflow: visible;
+    inline-size: max-content;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: var(--canon-control-font-size);
+  }
+  :where(.canon-calendar:not([popover]), .canon-calendar:popover-open) {
+    display: flex;
+  }
+  :where(.canon-calendar[popover]) {
+    position-area: self-block-end span-self-inline-end;
+    position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, --canon-popup-side, --canon-popup-side flip-inline;
+    inset: auto;
+    margin: var(--canon-popup-offset, 0px) 0;
+  }
+  :where(.canon-calendar-month) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-calendar-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  :where(.canon-calendar-selects) {
+    display: flex;
+    align-items: center;
+  }
+  :where(.canon-calendar-spacer) {
+    flex: none;
+    inline-size: var(--canon-control-block-size);
+  }
+  :where(.canon-calendar-presets) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  :where(.canon-calendar-grid) {
+    border-collapse: separate;
+    border-spacing: 0;
+    inline-size: calc(7 * var(--canon-control-block-size));
+    table-layout: fixed;
+  }
+  /* Previous and next point the way they go. */
+  :where(.canon-calendar-header) :where(.canon-icon):dir(rtl) {
+    scale: -1 1;
+  }
+  /* Weeks: the week numbers' column beside the grid. */
+  :where(.canon-calendar-body) {
+    display: flex;
+    align-items: flex-start;
+  }
+  :where(.canon-calendar-weeks) {
+    flex: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    inline-size: var(--canon-control-block-size);
+    table-layout: fixed;
+  }
+  :where(.canon-calendar-weeks) :where(th, td),
+  :where(.canon-calendar-grid) :where(th, td) {
+    padding: 0;
+    text-align: center;
+  }
+  :where(.canon-calendar-grid, .canon-calendar-weeks) :where(th) {
+    font-weight: inherit;
+  }
+  :where(.canon-calendar-cell) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: var(--canon-control-block-size);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  :where(.canon-calendar-cell[aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Tag reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Tag</h1>
+  <p class="ref-note">A short label in a chip: a status, a category or a person. Specification: <a href="../docs/components/tag.md">docs/components/tag.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Emphasis × size</h2>
+    <p class="ref-note"><code>data-emphasis</code> high, medium and low, then without it, at each <code>data-size</code>.</p>
+
+    <div class="ref-row" data-size="sm">
+      <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="medium"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+    </div>
+    <div class="ref-row" data-size="md">
+      <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="medium"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+    </div>
+    <div class="ref-row" data-size="lg">
+      <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="medium"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="medium"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+    </div>
+
+    <h3>Every size</h3>
+    <p class="ref-note">xs to 2xl. Canon has three tag sizes: xs shows as sm, and xl and 2xl as lg.</p>
+    <div class="ref-row">
+      <span class="canon-tag" data-size="xs" data-seed="0"><span class="canon-tag-label">xs</span></span>
+      <span class="canon-tag" data-size="sm" data-seed="0"><span class="canon-tag-label">sm</span></span>
+      <span class="canon-tag" data-size="md" data-seed="0"><span class="canon-tag-label">md</span></span>
+      <span class="canon-tag" data-size="lg" data-seed="0"><span class="canon-tag-label">lg</span></span>
+      <span class="canon-tag" data-size="xl" data-seed="0"><span class="canon-tag-label">xl</span></span>
+      <span class="canon-tag" data-size="2xl" data-seed="0"><span class="canon-tag-label">2xl</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="intent">
+    <h2>Meaning: data-intent</h2>
+    <p class="ref-note">Use <code>data-intent</code> when the color means something: a status. Statuses can look different from categories (here, rounder and in capitals), so the two are never confused. High, medium and low emphasis, then with a dot.</p>
+    <table class="ref-table">
+      <tbody>
+      <tr><th scope="row">info</th><td><span class="canon-tag" data-emphasis="high" data-intent="info"><span class="canon-tag-label">Beta</span></span></td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Beta</span></span></td><td><span class="canon-tag" data-emphasis="low" data-intent="info"><span class="canon-tag-label">Beta</span></span></td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-dot"></span><span class="canon-tag-label">Beta</span></span></td></tr>
+      <tr><th scope="row">success</th><td><span class="canon-tag" data-emphasis="high" data-intent="success"><span class="canon-tag-label">Approved</span></span></td><td><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Approved</span></span></td><td><span class="canon-tag" data-emphasis="low" data-intent="success"><span class="canon-tag-label">Approved</span></span></td><td><span class="canon-tag" data-intent="success"><span class="canon-tag-dot"></span><span class="canon-tag-label">Approved</span></span></td></tr>
+      <tr><th scope="row">warning</th><td><span class="canon-tag" data-emphasis="high" data-intent="warning"><span class="canon-tag-label">Pending</span></span></td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Pending</span></span></td><td><span class="canon-tag" data-emphasis="low" data-intent="warning"><span class="canon-tag-label">Pending</span></span></td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-dot"></span><span class="canon-tag-label">Pending</span></span></td></tr>
+      <tr><th scope="row">danger</th><td><span class="canon-tag" data-emphasis="high" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></td><td><span class="canon-tag" data-emphasis="low" data-intent="danger"><span class="canon-tag-label">Overdue</span></span></td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-dot"></span><span class="canon-tag-label">Overdue</span></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="seed">
+    <h2>Identity: data-seed</h2>
+    <p class="ref-note">Use <code>data-seed</code> when the color only tells tags apart: categories, labels, people. Pass a stable number (an id); it always picks the same color, the same one an avatar with that seed gets. High, medium and low emphasis.</p>
+    <table class="ref-table">
+      <tbody>
+      <tr><th scope="row">No seed</th><td><span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">0 <span class="ref-note">(blue)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="0"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="0"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="0"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">1 <span class="ref-note">(sky)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="1"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="1"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="1"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">2 <span class="ref-note">(cyan)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="2"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="2"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="2"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">3 <span class="ref-note">(teal)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="3"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="3"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="3"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">4 <span class="ref-note">(emerald)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="4"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="4"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="4"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">5 <span class="ref-note">(green)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="5"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="5"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="5"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">6 <span class="ref-note">(lime)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="6"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="6"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="6"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">7 <span class="ref-note">(yellow)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="7"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="7"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="7"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">8 <span class="ref-note">(amber)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="8"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="8"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="8"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">9 <span class="ref-note">(orange)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="9"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="9"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="9"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">10 <span class="ref-note">(red)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="10"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="10"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="10"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">11 <span class="ref-note">(rose)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="11"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="11"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="11"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">12 <span class="ref-note">(pink)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="12"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="12"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="12"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">13 <span class="ref-note">(fuchsia)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="13"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="13"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="13"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">14 <span class="ref-note">(purple)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="14"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="14"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="14"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">15 <span class="ref-note">(violet)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="15"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="15"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="15"><span class="canon-tag-label">Label</span></span></td></tr>
+      <tr><th scope="row">16 <span class="ref-note">(indigo)</span></th><td><span class="canon-tag" data-emphasis="high" data-seed="16"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-seed="16"><span class="canon-tag-label">Label</span></span></td><td><span class="canon-tag" data-emphasis="low" data-seed="16"><span class="canon-tag-label">Label</span></span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Same seed, avatar and tag</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="sm" data-seed="11"><span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span></span>
+      <span class="canon-tag" data-seed="11"><span class="canon-tag-label">Grace Hopper</span></span>
+      <span class="canon-avatar" data-size="sm" data-seed="4"><span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span></span>
+      <span class="canon-tag" data-seed="4"><span class="canon-tag-label">Alan Turing</span></span>
+    </div>
+
+    <h3>Not an integer</h3>
+    <p class="ref-note">Seeds are integers. Anything else, like <code>data-seed="abc"</code>, gives the neutral color.</p>
+    <div class="ref-row">
+      <span class="canon-tag" data-emphasis="high" data-seed="abc"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-seed="abc"><span class="canon-tag-label">Label</span></span>
+      <span class="canon-tag" data-emphasis="low" data-seed="abc"><span class="canon-tag-label">Label</span></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="content">
+    <h2>Content</h2>
+
+    <h3>Everything at once</h3>
+    <p class="ref-note">Avatar, leading icon, dot, label, trailing icon and key, in that order. High, medium and low emphasis.</p>
+    <div class="ref-row" data-size="md">
+      <span class="canon-tag" data-emphasis="high" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-emphasis="low" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+    </div>
+    <div class="ref-row" data-size="sm">
+      <span class="canon-tag" data-emphasis="high" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-emphasis="low" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+    </div>
+    <div class="ref-row" data-size="lg">
+      <span class="canon-tag" data-emphasis="high" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-emphasis="low" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+    </div>
+
+    <h3>One at a time</h3>
+    <div class="ref-row" data-size="md">
+      <span class="canon-tag" data-intent="success"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-tag-label">Approved</span></span>
+      <span class="canon-tag" data-seed="9"><span class="canon-tag-label">Design</span><span class="canon-icon" data-icon="tag" aria-hidden="true"></span></span>
+      <span class="canon-tag" data-intent="success"><span class="canon-tag-dot"></span><span class="canon-tag-label">Active</span></span>
+      <span class="canon-tag"><span class="canon-tag-dot"></span><span class="canon-tag-label">Draft</span></span>
+      <span class="canon-tag"><span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span><span class="canon-tag-label">Ada Lovelace</span></span>
+      <span class="canon-tag" data-seed="1"><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" aria-hidden="true">GH</span></span><span class="canon-tag-label">Grace Hopper</span></span>
+      <span class="canon-tag"><span class="canon-tag-label">Search</span><kbd class="canon-kbd">⌘K</kbd></span>
+    </div>
+
+    <h3>Icon only</h3>
+    <p class="ref-note">With <code>data-display="icon"</code> the label is hidden but still read by screen readers, and the tag becomes square.</p>
+    <div class="ref-row">
+      <span class="canon-tag" data-display="icon" data-size="sm" data-seed="0"><span class="canon-icon" data-icon="star" aria-hidden="true"></span><span class="canon-tag-label">Starred</span></span>
+      <span class="canon-tag" data-display="icon" data-size="md" data-seed="0"><span class="canon-icon" data-icon="star" aria-hidden="true"></span><span class="canon-tag-label">Starred</span></span>
+      <span class="canon-tag" data-display="icon" data-size="lg" data-seed="0"><span class="canon-icon" data-icon="star" aria-hidden="true"></span><span class="canon-tag-label">Starred</span></span>
+      <span class="canon-tag" data-display="icon" data-size="md" data-emphasis="high" data-intent="info"><span class="canon-icon" data-icon="pin" aria-hidden="true"></span><span class="canon-tag-label">Pinned</span></span>
+      <span class="canon-tag" data-display="icon" data-size="md"><span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span><span class="canon-tag-label">Ada Lovelace</span></span>
+    </div>
+
+    <h3>Removable</h3>
+    <p class="ref-note">A <code>&lt;button type="button" class="canon-tag-remove"&gt;</code> last, named after the tag ("Remove Design"). Removing the tag is up to your app; a <a href="combobox.html">Combobox</a> with several values makes these for you.</p>
+    <div class="ref-row">
+      <span class="canon-tag" data-size="sm"><span class="canon-tag-label">Option 1</span><button type="button" class="canon-tag-remove" aria-label="Remove Option 1"></button></span>
+      <span class="canon-tag" data-size="sm" data-seed="15"><span class="canon-tag-label">Design</span><button type="button" class="canon-tag-remove" aria-label="Remove Design"></button></span>
+      <span class="canon-tag" data-size="sm" data-seed="5"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-tag-label">Done</span><button type="button" class="canon-tag-remove" aria-label="Remove Done"></button></span>
+      <span class="canon-tag" data-size="sm"><span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span><span class="canon-tag-label">Ada Lovelace</span><button type="button" class="canon-tag-remove" aria-label="Remove Ada Lovelace"></button></span>
+    </div>
+    <div class="ref-row" data-size="md">
+      <span class="canon-tag"><span class="canon-tag-label">Option 1</span><button type="button" class="canon-tag-remove" aria-label="Remove Option 1"></button></span>
+      <span class="canon-tag" data-seed="15"><span class="canon-tag-label">Design</span><button type="button" class="canon-tag-remove" aria-label="Remove Design"></button></span>
+      <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Outlined</span><button type="button" class="canon-tag-remove" aria-label="Remove Outlined"></button></span>
+      <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Solid</span><button type="button" class="canon-tag-remove" aria-label="Remove Solid"></button></span>
+    </div>
+    <div class="ref-row" data-size="lg">
+      <span class="canon-tag"><span class="canon-tag-label">Option 1</span><button type="button" class="canon-tag-remove" aria-label="Remove Option 1"></button></span>
+      <span class="canon-tag" data-seed="15"><span class="canon-tag-label">Design</span><button type="button" class="canon-tag-remove" aria-label="Remove Design"></button></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="context">
+    <h2>In context</h2>
+
+    <h3>A list of tags</h3>
+    <p class="ref-note">Several tags are a <code>&lt;ul&gt;</code>, one per <code>&lt;li&gt;</code>.</p>
+    <ul class="ref-tag-list" aria-label="Topics">
+      <li><span class="canon-tag" data-seed="2"><span class="canon-tag-label">Accessibility</span></span></li>
+      <li><span class="canon-tag" data-seed="5"><span class="canon-tag-label">CSS</span></span></li>
+      <li><span class="canon-tag" data-seed="13"><span class="canon-tag-label">Design systems</span></span></li>
+      <li><span class="canon-tag" data-seed="7"><span class="canon-tag-label">Forms</span></span></li>
+    </ul>
+
+    <h3>In running text</h3>
+    <p>The request is <span class="canon-tag" data-intent="warning"><span class="canon-tag-dot"></span><span class="canon-tag-label">Pending</span></span> until a reviewer from <span class="canon-tag" data-seed="9"><span class="canon-tag-label">Design</span></span> approves it.</p>
+    <p data-size="md">Larger text, larger tags: <span class="canon-tag" data-intent="success"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-tag-label">Approved</span></span> by <span class="canon-tag"><span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span><span class="canon-tag-label">Ada Lovelace</span></span></p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="surfaces">
+    <h2>On other surfaces</h2>
+    <p class="ref-note">Neutral tags take their colors from the text around them, so they stay visible on gray and dark panels.</p>
+    <div class="ref-surface">
+      <div class="ref-row">
+        <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag" data-seed="0"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag" data-emphasis="high" data-seed="0"><span class="canon-tag-label">Search</span><kbd class="canon-kbd">⌘K</kbd></span>
+        <span class="canon-tag" data-seed="0"><span class="canon-tag-label">Search</span><kbd class="canon-kbd">⌘K</kbd></span>
+      </div>
+    </div>
+    <div class="ref-surface ref-surface-dark">
+      <div class="ref-row">
+        <span class="canon-tag" data-emphasis="high"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag" data-emphasis="low"><span class="canon-tag-label">Label</span></span>
+        <span class="canon-tag" data-emphasis="high"><span class="canon-tag-dot"></span><span class="canon-tag-label">Search</span><kbd class="canon-kbd">⌘K</kbd></span>
+        <span class="canon-tag"><span class="canon-icon" data-icon="tag" aria-hidden="true"></span><span class="canon-tag-label">Search</span><kbd class="canon-kbd">⌘K</kbd></span>
+        <span class="canon-tag" data-seed="0"><span class="canon-tag-label">Label</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">In right-to-left text the avatar and leading icon move to the right; the key still reads left to right.</p>
+    <div class="ref-row" dir="rtl" lang="ar" data-size="md">
+      <span class="canon-tag" data-seed="0">
+        <span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span>
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-tag-dot"></span><span class="canon-tag-label">Label</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+        <kbd class="canon-kbd">⌘K</kbd>
+      </span>
+      <span class="canon-tag" data-intent="success"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-tag-label">تمت الموافقة</span></span>
+      <span class="canon-tag" data-intent="warning"><span class="canon-tag-dot"></span><span class="canon-tag-label">قيد الانتظار</span></span>
+    </div>
+
+    <h3>Long labels in a narrow container</h3>
+    <p class="ref-note">When space runs out the label is cut short with an ellipsis; icons, dot, avatar and key stay whole.</p>
+    <div class="ref-narrow">
+      <div class="ref-row">
+        <span class="canon-tag" data-seed="3"><span class="canon-icon" data-icon="tag" aria-hidden="true"></span><span class="canon-tag-label">An exceptionally long category name</span></span>
+        <span class="canon-tag" data-intent="danger"><span class="canon-tag-dot"></span><span class="canon-tag-label">Overdue since last Tuesday afternoon</span></span>
+        <span class="canon-tag" data-seed="6"><span class="canon-tag-label">Open the command palette</span><kbd class="canon-kbd">⇧⌘P</kbd></span>
+        <span class="canon-tag"><span class="canon-avatar"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span><span class="canon-tag-label">Ada Augusta King, Countess of Lovelace</span></span>
+      </div>
+    </div>
+
+    <h3>Rows that wrap</h3>
+    <div class="ref-narrow">
+      <ul class="ref-tag-list" aria-label="Topics">
+        <li><span class="canon-tag" data-seed="0"><span class="canon-tag-label">One</span></span></li>
+        <li><span class="canon-tag" data-seed="1"><span class="canon-tag-label">Two</span></span></li>
+        <li><span class="canon-tag" data-seed="2"><span class="canon-tag-label">Three</span></span></li>
+        <li><span class="canon-tag" data-seed="3"><span class="canon-tag-label">Four</span></span></li>
+        <li><span class="canon-tag" data-seed="4"><span class="canon-tag-label">Five</span></span></li>
+        <li><span class="canon-tag" data-seed="5"><span class="canon-tag-label">Six</span></span></li>
+        <li><span class="canon-tag" data-seed="6"><span class="canon-tag-label">Seven</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

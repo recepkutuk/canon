@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Table reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Table</h1>
+  <p class="ref-note">Rows and columns of data, read across and down. A native <code>&lt;table&gt;</code> in a frame. Specification: <a href="../docs/components/table.md">docs/components/table.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="table">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;div class="canon-table"&gt;</code> around a <code>&lt;table&gt;</code> named by its <code>&lt;caption&gt;</code>: a header row of <code>&lt;th scope="col"&gt;</code>, then the rows. Here the caption is visually hidden; the page's heading says the same.</p>
+
+    <div class="canon-table">
+      <table>
+        <caption class="canon-visually-hidden">Orders</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+          <tr><th scope="row">Shari Feeney PhD</th><td>cecelia_erdman@yahoo.com</td><td><time datetime="2026-01-15">15.01.2026</time></td><td data-align="end">$436.68</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Mrs. Jo Emard</th><td>jovany66@hotmail.com</td><td><time datetime="2024-05-09">09.05.2024</time></td><td data-align="end">$984.24</td><td><span class="canon-tag" data-intent="success"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-tag-label">Delivered</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="caption">
+    <h2>Caption, row headers and footer</h2>
+    <p class="ref-note">A visible <code>&lt;caption&gt;</code> is the table's title row. The first cell of a row can be its header (<code>&lt;th scope="row"&gt;</code>), read with every cell of the row. A <code>&lt;tfoot&gt;</code> holds totals.</p>
+
+    <div class="canon-table">
+      <table>
+        <caption>Invoices this quarter</caption>
+        <thead>
+          <tr><th scope="col">Month</th><th scope="col" data-align="end">Invoices</th><th scope="col" data-align="end">Paid</th><th scope="col" data-align="end">Amount</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">July</th><td data-align="end">42</td><td data-align="end">40</td><td data-align="end">$18,240.00</td></tr>
+          <tr><th scope="row">August</th><td data-align="end">37</td><td data-align="end">37</td><td data-align="end">$15,915.50</td></tr>
+          <tr><th scope="row">September</th><td data-align="end">51</td><td data-align="end">44</td><td data-align="end">$22,780.25</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><th scope="row">Total</th><td data-align="end">130</td><td data-align="end">121</td><td data-align="end">$56,935.75</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="align">
+    <h2>Alignment</h2>
+    <p class="ref-note">Cells start-aligned. <code>data-align="end"</code> (or <code>center</code>) on a cell, its header included, lines up numbers. Figures are tabular, so digits line up anyway.</p>
+
+    <div class="canon-table">
+      <table>
+        <caption class="canon-visually-hidden">Orders</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="content">
+    <h2>Rich content</h2>
+    <p class="ref-note">Cells hold more than text: links, <code>&lt;time&gt;</code>, an <a href="avatar.html">Avatar</a> before a name (its fallback <code>aria-hidden</code>, since the name is written beside it), a status <a href="tag.html">Tag</a>. Selecting rows and a row's actions are <a href="data-table.html">Data Table</a>'s.</p>
+
+    <div class="canon-table">
+      <table>
+        <caption class="canon-visually-hidden">Members</caption>
+        <thead>
+          <tr><th scope="col">Member</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Last seen</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span class="canon-avatar" data-seed="4821"><span class="canon-avatar-fallback" aria-hidden="true">EM</span></span><a href="#">Edwin Mueller</a></th><td>Owner</td><td><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Active</span></span></td><td>2 hours ago</td></tr>
+          <tr><th scope="row"><span class="canon-avatar" data-seed="15"><span class="canon-avatar-fallback" aria-hidden="true">SJ</span></span><a href="#">Suzanne Jacobi</a></th><td>Editor</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Invited</span></span></td><td>—</td></tr>
+          <tr><th scope="row"><span class="canon-avatar" data-seed="302"><span class="canon-avatar-fallback" aria-hidden="true">KS</span></span><a href="#">Kellie Schoen</a></th><td>Viewer</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Suspended</span></span></td><td>3 weeks ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="options">
+    <h2>Lines, stripes, hover, frame</h2>
+    <p class="ref-note">On the frame: <code>data-lines="grid"</code> adds lines between columns (<code>"none"</code> drops the ones between rows); <code>data-striped</code> fills every other row; <code>data-hover</code> highlights the row under the pointer; <code>data-frame="none"</code> drops the frame, so the table sits on the page. They combine.</p>
+
+    <div class="canon-table" data-lines="grid">
+      <table>
+        <caption class="canon-visually-hidden">Orders, with column lines</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-striped>
+      <table>
+        <caption class="canon-visually-hidden">Orders, striped</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-hover>
+      <table>
+        <caption class="canon-visually-hidden">Orders, row under the pointer highlighted</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-frame="none">
+      <table>
+        <caption class="canon-visually-hidden">Orders, without a frame</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-frame="none" data-lines="none" data-striped data-hover>
+      <table>
+        <caption class="canon-visually-hidden">Orders, striped without a frame or lines</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="density">
+    <h2>Density</h2>
+    <p class="ref-note"><code>data-density</code> on the table or a container: <code>compact</code> rows the button's height, <code>comfortable</code> (the default) 16px taller, <code>spacious</code> 32px taller.</p>
+
+    <div class="canon-table" data-density="compact">
+      <table>
+        <caption class="canon-visually-hidden">Orders, compact</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-density="comfortable">
+      <table>
+        <caption class="canon-visually-hidden">Orders, comfortable</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-density="spacious">
+      <table>
+        <caption class="canon-visually-hidden">Orders, spacious</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the table or a container: header rows 32 / 40 / 48, text 12 / 14 / 16px, corners 8 / 12 / 16.</p>
+
+    <div class="canon-table" data-size="sm">
+      <table>
+        <caption class="canon-visually-hidden">Orders, small</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-size="md">
+      <table>
+        <caption class="canon-visually-hidden">Orders, medium</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="canon-table" data-size="lg">
+      <table>
+        <caption class="canon-visually-hidden">Orders, large</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="wide">
+    <h2>Wide tables</h2>
+    <p class="ref-note">A table wider than its room scrolls sideways inside its frame. Then the frame is a region named after the table, which the keyboard can reach and scroll. Drag the frame's corner.</p>
+
+    <div class="ref-resizable ref-resizable-narrow">
+    <div class="canon-table">
+      <table>
+        <caption class="canon-visually-hidden">Orders</caption>
+        <thead>
+          <tr><th scope="col">User</th><th scope="col">Email</th><th scope="col">Date</th><th scope="col" data-align="end">Amount</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Edwin Mueller</th><td>tyrese_nicolas@gmail.com</td><td><time datetime="2024-08-16">16.08.2024</time></td><td data-align="end">$495.90</td><td><span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Waiting</span></span></td></tr>
+          <tr><th scope="row">Suzanne Jacobi</th><td>cindy_murphy41@yahoo.com</td><td><time datetime="2025-12-03">03.12.2025</time></td><td data-align="end">$662.02</td><td><span class="canon-tag" data-intent="info"><span class="canon-tag-label">Ready</span></span></td></tr>
+          <tr><th scope="row">Kellie Schoen</th><td>troy.lubowitz@gmail.com</td><td><time datetime="2023-07-21">21.07.2023</time></td><td data-align="end">$235.71</td><td><span class="canon-tag" data-intent="danger"><span class="canon-tag-label">Cancelled</span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Long text wraps in its cell; header cells stay on one line, and so does a cell with <code>data-wrap="none"</code> (the Title column here), widening the table if it must. An empty cell stays empty. Right to left, the columns read from the right and "end" is the left.</p>
+
+    <div class="canon-table">
+      <table aria-label="Notes">
+        <thead>
+          <tr><th scope="col" data-wrap="none">Title</th><th scope="col">Note</th><th scope="col" data-align="end">Words</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row" data-wrap="none">Kickoff meeting with the design team</th><td>Scope agreed for the first release: the contract, the stylesheet and the reference pages, with checks for every component that ships.</td><td data-align="end">25</td></tr>
+          <tr><th scope="row" data-wrap="none">Review</th><td></td><td data-align="end">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="canon-table" dir="rtl" lang="ar">
+      <table aria-label="الطلبات">
+        <thead>
+          <tr><th scope="col">المستخدم</th><th scope="col">التاريخ</th><th scope="col" data-align="end">المبلغ</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">سارة أحمد</th><td>16.08.2024</td><td data-align="end">495.90 $</td></tr>
+          <tr><th scope="row">علي حسن</th><td>03.12.2025</td><td data-align="end">662.02 $</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Nav List                                                           */
+  /*                                                                    */
+  /* The links of a sidebar: a named <nav> of lists (each optionally    */
+  /* after a heading), items that are links (an icon, a label, a       */
+  /* Count) or sections (<details>: a summary item and a list of        */
+  /* sub-pages). A button after a link is its action, at the row's end. */
+  /* data-display="icon": a rail of icons, labels kept as names.        */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-nav-list) :where(ul) {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  :where(.canon-nav-list) :where(li) {
+    display: grid;
+    grid-template-areas: "row";
+    min-inline-size: 0;
+  }
+  :where(.canon-nav-list) :where(li) > :where(*) {
+    grid-area: row;
+  }
+  :where(.canon-nav-list-heading) {
+    margin: 0;
+  }
+  :where(.canon-nav-list-item) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  :where(summary.canon-nav-list-item) {
+    list-style: none;
+  }
+  :where(summary.canon-nav-list-item)::-webkit-details-marker {
+    display: none;
+  }
+  :where(.canon-nav-list-item) > :where(.canon-icon, .canon-avatar, .canon-count, .canon-tag) {
+    flex: none;
+  }
+  /* The label as long as its text (a tag follows it), cut when the row
+     runs out; a count keeps to the end. */
+  :where(.canon-nav-list-label) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :where(.canon-nav-list-item) > :where(.canon-count) {
+    margin-inline-start: auto;
+  }
+  /* A row's action: at its end, over the link (a separate stop for Tab). */
+  :where(.canon-nav-list) :where(li) > :where(.canon-button) {
+    align-self: center;
+    justify-self: end;
+    z-index: 1;
+  }
+  /* In a rail there is no room for sub-pages: an open section shows them
+     beside its icon, over the page, labels and all. canon.js closes it
+     when focus or a click goes elsewhere, on Escape, and on choosing. */
+  :where([data-display="icon"]) :where(.canon-nav-list-section) {
+    anchor-scope: --canon-nav-list-section;
+  }
+  :where([data-display="icon"]) :where(.canon-nav-list-section) > :where(summary) {
+    anchor-name: --canon-nav-list-section;
+  }
+  :where([data-display="icon"]) :where(.canon-nav-list-section) > :where(ul) {
+    position: fixed;
+    position-anchor: --canon-nav-list-section;
+    position-area: inline-end span-block-end;
+    position-try-fallbacks: flip-block;
+    inset: auto;
+    z-index: 10;
+    inline-size: max-content;
+    max-inline-size: 20rem;
+  }
+}

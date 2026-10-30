@@ -1,0 +1,1720 @@
+/*
+ * bootstrap.css
+ *
+ * A Bootstrap-inspired look for Canon, in one file: link it instead of
+ * canon.css. The markup and canon.js stay exactly the same. Not affiliated
+ * with or endorsed by the Bootstrap project.
+ *
+ * It builds on canon.css: the color tokens and the shape tokens restyle every
+ * component at once, then rules redraw each one.
+ *
+ * Covers every component. Fields are 38px with 16px text and take a wide pale
+ * ring on focus; buttons fill or outline; tabs are folders; pagination is joined.
+ *
+ * Supports: light, dark.
+ *
+ * This folder is the theme: this stylesheet and its icons. It names the system
+ * font stack and bundles no font.
+ * Serve the page over HTTP; browsers don't draw mask images from file://.
+ *
+ * Credits: Bootstrap Icons (MIT License, see LICENSE).
+ */
+
+@import url("../canon/canon.css");
+
+@layer canon.theme {
+
+  /* ------------------------------------------------------------------ */
+  /* Color tokens, then Canon's scales holding the same tones            */
+  /* ------------------------------------------------------------------ */
+
+  :root {
+    --bs-body-bg: light-dark(#fff, #212529);
+    --bs-body-color: light-dark(#212529, #dee2e6);
+    --bs-emphasis: light-dark(#000, #fff);
+    --bs-secondary-color: light-dark(rgb(33 37 41 / 0.75), rgb(222 226 230 / 0.75));
+    --bs-tertiary-color: light-dark(rgb(33 37 41 / 0.5), rgb(222 226 230 / 0.5));
+    --bs-secondary-bg: light-dark(#e9ecef, #343a40);
+    --bs-tertiary-bg: light-dark(#f8f9fa, #2b3035);
+    --bs-border: light-dark(#dee2e6, #495057);
+    --bs-border-translucent: light-dark(rgb(0 0 0 / 0.175), rgb(255 255 255 / 0.15));
+    /* The boxes people type in need a line they can find; Bootstrap's is paler. */
+    --bs-field-border: light-dark(#adb5bd, #6c757d);
+
+    --bs-primary: #0d6efd;
+    --bs-primary-hover: #0b5ed7;
+    --bs-primary-active: #0a58ca;
+    --bs-primary-ring: rgb(13 110 253 / 0.25);
+    --bs-primary-focus: light-dark(#86b7fe, #86b7fe);
+    --bs-primary-text: light-dark(#0d6efd, #6ea8fe);
+    --bs-primary-emphasis: light-dark(#052c65, #6ea8fe);
+    --bs-primary-subtle: light-dark(#cfe2ff, #031633);
+    --bs-primary-border: light-dark(#9ec5fe, #084298);
+    --bs-link: light-dark(#0d6efd, #6ea8fe);
+    --bs-link-hover: light-dark(#0a58ca, #8bb9fe);
+
+    --bs-gray: #6c757d;
+    --bs-gray-hover: #5c636a;
+    --bs-gray-active: #565e64;
+    --bs-gray-text: light-dark(#6c757d, #adb5bd);
+    --bs-gray-subtle: light-dark(#e2e3e5, #161719);
+    --bs-gray-border: light-dark(#c4c8cb, #41464b);
+    --bs-gray-emphasis: light-dark(#2b2f32, #a7acb1);
+
+    --bs-success: #198754;
+    --bs-success-hover: #157347;
+    --bs-success-active: #146c43;
+    --bs-success-text: light-dark(#198754, #75b798);
+    --bs-success-emphasis: light-dark(#0a3622, #75b798);
+    --bs-success-subtle: light-dark(#d1e7dd, #051b11);
+    --bs-success-border: light-dark(#a3cfbb, #0f5132);
+    --bs-success-ring: rgb(25 135 84 / 0.25);
+
+    --bs-warning: #ffc107;
+    --bs-warning-hover: #ffca2c;
+    --bs-warning-active: #ffcd39;
+    /* Yellow on white can't be read: as text it takes the next shade down. */
+    --bs-warning-text: light-dark(#997404, #ffda6a);
+    --bs-warning-emphasis: light-dark(#664d03, #ffda6a);
+    --bs-warning-subtle: light-dark(#fff3cd, #332701);
+    --bs-warning-border: light-dark(#ffe69c, #997404);
+    --bs-warning-ring: rgb(255 193 7 / 0.25);
+
+    --bs-danger: #dc3545;
+    --bs-danger-hover: #bb2d3b;
+    --bs-danger-active: #b02a37;
+    --bs-danger-text: light-dark(#dc3545, #ea868f);
+    --bs-danger-emphasis: light-dark(#58151c, #ea868f);
+    --bs-danger-subtle: light-dark(#f8d7da, #2c0b0e);
+    --bs-danger-border: light-dark(#f1aeb5, #842029);
+    --bs-danger-ring: rgb(220 53 69 / 0.25);
+
+    --bs-shadow-sm: 0 0.125rem 0.25rem light-dark(rgb(0 0 0 / 0.075), rgb(0 0 0 / 0.3));
+    --bs-shadow: 0 0.5rem 1rem light-dark(rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.45));
+    --bs-shadow-lg: 0 1rem 3rem light-dark(rgb(0 0 0 / 0.175), rgb(0 0 0 / 0.5));
+
+    --canon-theme-zinc-50: #f8f9fa;
+    --canon-theme-zinc-100: #e9ecef;
+    --canon-theme-zinc-200: #dee2e6;
+    --canon-theme-zinc-300: #ced4da;
+    --canon-theme-zinc-400: #adb5bd;
+    --canon-theme-zinc-500: #6c757d;
+    --canon-theme-zinc-600: #5c636a;
+    --canon-theme-zinc-700: #495057;
+    --canon-theme-zinc-800: #343a40;
+    --canon-theme-zinc-900: #2b3035;
+    --canon-theme-zinc-950: #212529;
+
+    --canon-theme-blue-50: #e7f1ff;
+    --canon-theme-blue-100: #cfe2ff;
+    --canon-theme-blue-200: #9ec5fe;
+    --canon-theme-blue-300: #6ea8fe;
+    --canon-theme-blue-400: #3d8bfd;
+    --canon-theme-blue-500: #0d6efd;
+    --canon-theme-blue-600: #0d6efd;
+    --canon-theme-blue-700: #0a58ca;
+    --canon-theme-blue-800: #084298;
+    --canon-theme-blue-900: #052c65;
+    --canon-theme-blue-950: #031633;
+
+    --canon-theme-green-50: #e8f3ee;
+    --canon-theme-green-100: #d1e7dd;
+    --canon-theme-green-200: #a3cfbb;
+    --canon-theme-green-300: #75b798;
+    --canon-theme-green-400: #479f76;
+    --canon-theme-green-500: #198754;
+    --canon-theme-green-600: #146c43;
+    --canon-theme-green-700: #0f5132;
+    --canon-theme-green-800: #0a3622;
+    --canon-theme-green-900: #051b11;
+    --canon-theme-green-950: #030e09;
+
+    --canon-theme-amber-50: #fff9e6;
+    --canon-theme-amber-100: #fff3cd;
+    --canon-theme-amber-200: #ffe69c;
+    --canon-theme-amber-300: #ffda6a;
+    --canon-theme-amber-400: #ffcd39;
+    --canon-theme-amber-500: #ffc107;
+    --canon-theme-amber-600: #cc9a06;
+    --canon-theme-amber-700: #997404;
+    --canon-theme-amber-800: #664d03;
+    --canon-theme-amber-900: #332701;
+    --canon-theme-amber-950: #1a1401;
+
+    --canon-theme-red-50: #fcebec;
+    --canon-theme-red-100: #f8d7da;
+    --canon-theme-red-200: #f1aeb5;
+    --canon-theme-red-300: #ea868f;
+    --canon-theme-red-400: #e35d6a;
+    --canon-theme-red-500: #dc3545;
+    --canon-theme-red-600: #b02a37;
+    --canon-theme-red-700: #842029;
+    --canon-theme-red-800: #58151c;
+    --canon-theme-red-900: #2c0b0e;
+    --canon-theme-red-950: #160607;
+
+    /* ---------------------------------------------------------------- */
+    /* Lines, depth, type, sizes                                         */
+    /* ---------------------------------------------------------------- */
+
+    --canon-theme-paper: var(--bs-body-bg);
+    --canon-theme-ink: var(--bs-body-color);
+    --canon-theme-focus: var(--bs-primary-focus);
+    --canon-theme-ring-offset: var(--bs-body-bg);
+    --canon-theme-hairline: 1px;
+    --canon-theme-edge: transparent;
+    --canon-theme-rule: var(--bs-border);
+    --canon-theme-rule-faint: var(--bs-border);
+
+    --canon-theme-shadow-control: 0 0 transparent;
+    --canon-theme-shadow-raised: var(--bs-shadow-sm);
+    --canon-theme-shadow-floating: var(--bs-shadow);
+    --canon-theme-shadow-overlay: var(--bs-shadow-lg);
+
+    --canon-theme-font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-feature-settings: normal;
+
+    /* 31, 38, 48, with type at 14, 16, 20. */
+    --canon-control-block-size-sm: 1.9375rem;
+    --canon-control-block-size-md: 2.375rem;
+    --canon-control-block-size-lg: 3rem;
+    --canon-control-padding-inline-sm: 0.5rem;
+    --canon-control-padding-inline-md: 0.75rem;
+    --canon-control-padding-inline-lg: 1rem;
+    --canon-control-font-size-sm: 0.875rem;
+    --canon-control-font-size-md: 1rem;
+    --canon-control-font-size-lg: 1.25rem;
+    --canon-choice-control-size: 1rem;
+  }
+
+  /* 6px at the base size, 4px small, 8px large; no tracking. */
+  :root,
+  [data-size] {
+    --canon-theme-button-radius: 0.375rem;
+    --canon-theme-button-kbd-radius: 0.25rem;
+    --canon-theme-button-label-inset: 0.125rem;
+    --canon-theme-button-tracking: 0;
+    --canon-theme-button-line-height: 1.5rem;
+    --canon-theme-input-radius: 0.375rem;
+    --canon-theme-input-inset: 0px;
+    --canon-theme-input-icon-gap: 0.25rem;
+    --canon-theme-input-tracking: 0;
+    --canon-theme-input-line-height: 1.5rem;
+    --canon-theme-table-radius: 0.375rem;
+    --canon-theme-tag-radius: 0.375rem;
+    --canon-theme-tooltip-radius: 0.375rem;
+    --canon-theme-kbd-radius: 0.25rem;
+    --canon-theme-label-font-size: 1rem;
+    --canon-theme-label-line-height: 1.5rem;
+    --canon-theme-label-tracking: 0;
+    --canon-theme-label-description-font-size: 0.875rem;
+    --canon-theme-label-description-line-height: 1.3125rem;
+    --canon-theme-label-description-tracking: 0;
+  }
+  [data-size="sm"],
+  [data-size="xs"] {
+    --canon-theme-button-radius: 0.25rem;
+    --canon-theme-button-line-height: 1.3125rem;
+    --canon-theme-input-radius: 0.25rem;
+    --canon-theme-input-line-height: 1.3125rem;
+    --canon-theme-label-font-size: 0.875rem;
+    --canon-theme-label-line-height: 1.3125rem;
+    --canon-theme-label-description-font-size: 0.75rem;
+    --canon-theme-label-description-line-height: 1.125rem;
+  }
+  [data-size="lg"] {
+    --canon-theme-button-radius: 0.5rem;
+    --canon-theme-button-line-height: 1.875rem;
+    --canon-theme-input-radius: 0.5rem;
+    --canon-theme-input-line-height: 1.875rem;
+    --canon-theme-label-font-size: 1.25rem;
+    --canon-theme-label-line-height: 1.875rem;
+    --canon-theme-label-description-font-size: 1rem;
+    --canon-theme-label-description-line-height: 1.5rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Each intent's tones: solid, outline, subtle. */
+  .canon-button {
+    --_fill: var(--bs-primary);
+    --_fill-hover: var(--bs-primary-hover);
+    --_fill-press: var(--bs-primary-active);
+    --_on-fill: #fff;
+    --_ring: rgb(49 132 253 / 0.5);
+    --_text: var(--bs-primary-text);
+    --_edge: var(--bs-primary-text);
+    --_subtle: var(--bs-primary-subtle);
+    --_on-subtle: var(--bs-primary-emphasis);
+    --_quiet: var(--bs-primary-text);
+    font-weight: 400;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .canon-button[data-intent="neutral"] {
+    --_fill: var(--bs-gray);
+    --_fill-hover: var(--bs-gray-hover);
+    --_fill-press: var(--bs-gray-active);
+    --_ring: rgb(130 138 145 / 0.5);
+    --_text: var(--bs-gray-text);
+    --_edge: var(--bs-gray-text);
+    --_subtle: var(--bs-secondary-bg);
+    --_on-subtle: var(--bs-body-color);
+    --_quiet: var(--bs-body-color);
+  }
+  .canon-button[data-intent="success"] {
+    --_fill: var(--bs-success);
+    --_fill-hover: var(--bs-success-hover);
+    --_fill-press: var(--bs-success-active);
+    --_ring: rgb(60 153 110 / 0.5);
+    --_text: var(--bs-success-text);
+    --_edge: var(--bs-success-text);
+    --_subtle: var(--bs-success-subtle);
+    --_on-subtle: var(--bs-success-emphasis);
+    --_quiet: var(--bs-success-text);
+  }
+  .canon-button[data-intent="warning"] {
+    --_fill: var(--bs-warning);
+    --_fill-hover: var(--bs-warning-hover);
+    --_fill-press: var(--bs-warning-active);
+    --_on-fill: #000;
+    --_ring: rgb(217 164 6 / 0.5);
+    --_text: var(--bs-warning-text);
+    --_edge: var(--bs-warning);
+    --_subtle: var(--bs-warning-subtle);
+    --_on-subtle: var(--bs-warning-emphasis);
+    --_quiet: var(--bs-warning-text);
+  }
+  .canon-button[data-intent="danger"] {
+    --_fill: var(--bs-danger);
+    --_fill-hover: var(--bs-danger-hover);
+    --_fill-press: var(--bs-danger-active);
+    --_ring: rgb(225 83 97 / 0.5);
+    --_text: var(--bs-danger-text);
+    --_edge: var(--bs-danger-text);
+    --_subtle: var(--bs-danger-subtle);
+    --_on-subtle: var(--bs-danger-emphasis);
+    --_quiet: var(--bs-danger-text);
+  }
+
+  /* High: solid. Medium: an outline that fills under the pointer. Low: a soft
+     tint. Minimal: bare, gray under the pointer. */
+  .canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_text);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--_fill);
+    --canon-theme-bg-active: var(--_fill);
+    --canon-theme-border: var(--_edge);
+    box-shadow: none;
+  }
+  @media (hover: hover) {
+    .canon-button.canon-button.canon-button:hover:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), [data-emphasis="high"], [data-emphasis="low"], [data-emphasis="minimal"], .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+      --canon-theme-fg: var(--_on-fill);
+      --canon-theme-border: var(--_fill);
+    }
+  }
+  .canon-button.canon-button.canon-button:active:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), [data-emphasis="high"], [data-emphasis="low"], [data-emphasis="minimal"], .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-fill);
+    --canon-theme-border: var(--_fill);
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="high"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-fill);
+    --canon-theme-bg: var(--_fill);
+    --canon-theme-bg-hover: var(--_fill-hover);
+    --canon-theme-bg-active: var(--_fill-press);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="low"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-subtle);
+    --canon-theme-bg: var(--_subtle);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_subtle), var(--_fill) 15%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--_subtle), var(--_fill) 25%);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="minimal"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_quiet);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--bs-tertiary-bg);
+    --canon-theme-bg-active: var(--bs-secondary-bg);
+    --canon-theme-border: transparent;
+  }
+  .canon-button:not(:disabled, [aria-disabled="true"], .canon-button-group > *) > .canon-icon {
+    color: inherit;
+  }
+
+  /* An icon alone, without emphasis, is bare. */
+  .canon-button.canon-button.canon-button:where([data-display="icon"], [data-display="icon"] *):is(:not([data-emphasis]), [data-emphasis="medium"])[data-intent="neutral"]:not(:disabled, [aria-disabled="true"], .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--bs-body-color);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--bs-tertiary-bg);
+    --canon-theme-bg-active: var(--bs-secondary-bg);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button.canon-button:active {
+    scale: none;
+  }
+
+  /* A group: joined gray outlines; a pressed part fills gray. */
+  .canon-button-group > .canon-button {
+    --_line: var(--bs-gray-text);
+    --_icon: var(--bs-gray-text);
+    --canon-theme-fg: var(--bs-gray-text);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--bs-gray);
+    --canon-theme-bg-active: var(--bs-gray);
+  }
+  @media (hover: hover) {
+    .canon-button-group > .canon-button:hover:not(:disabled, [aria-disabled="true"]) {
+      --_icon: #fff;
+      --canon-theme-fg: #fff;
+    }
+  }
+  .canon-button-group > .canon-button[aria-pressed="true"] {
+    --_pressed: 0 0 transparent;
+    --_icon: #fff;
+    --canon-theme-fg: #fff;
+    --canon-theme-bg: var(--bs-gray);
+    --canon-theme-bg-hover: var(--bs-gray-hover);
+    --canon-theme-bg-active: var(--bs-gray-active);
+  }
+
+  /* Disabled: its own colors, at 65%. */
+  .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--_text);
+    --canon-theme-bg: transparent;
+    --canon-theme-border: var(--_edge);
+    box-shadow: none;
+    opacity: 0.65;
+  }
+  .canon-button.canon-button[data-emphasis="high"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--_on-fill);
+    --canon-theme-bg: var(--_fill);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button[data-emphasis="low"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--_on-subtle);
+    --canon-theme-bg: var(--_subtle);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button[data-emphasis="minimal"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--_quiet);
+    --canon-theme-bg: transparent;
+    --canon-theme-border: transparent;
+  }
+
+  /* Focus: a wide 4px ring in the button's own color. */
+  .canon-button:focus-visible,
+  .canon-button-group > .canon-button:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--_ring);
+  }
+  .canon-button-group > .canon-button:focus-visible {
+    z-index: 1;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Field and its boxes                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .canon-label-text {
+    color: var(--bs-body-color);
+    font-weight: 400;
+  }
+  .canon-label-description,
+  .canon-field-counter {
+    color: var(--bs-secondary-color);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="danger"] {
+    color: var(--bs-danger-text);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="success"] {
+    color: var(--bs-success-text);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="warning"] {
+    color: var(--bs-warning-text);
+  }
+
+  /* Outlined, the same under the pointer. On focus: a pale blue line and ring. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))) {
+    --_edge: var(--bs-field-border);
+    --_edge-focus: var(--bs-primary-focus);
+    --_halo: var(--bs-primary-ring);
+    border-color: var(--_edge);
+    background-color: var(--bs-body-bg);
+    box-shadow: none;
+    color: var(--bs-body-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):where([data-intent="success"], [data-state="match"], .canon-field:has(> .canon-field-message[data-intent="success"]) > *) {
+    --_edge: var(--bs-success-text);
+    --_edge-focus: var(--bs-success-text);
+    --_halo: var(--bs-success-ring);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):where([data-intent="warning"], .canon-field:has(> .canon-field-message[data-intent="warning"]) > *) {
+    --_edge: var(--bs-warning);
+    --_edge-focus: var(--bs-warning);
+    --_halo: var(--bs-warning-ring);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> [aria-invalid="true"], > :user-invalid) {
+    --_edge: var(--bs-danger-text);
+    --_edge-focus: var(--bs-danger-text);
+    --_halo: var(--bs-danger-ring);
+  }
+  @media (hover: hover) {
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):hover:not(:focus-within, :has(select:open), :has(> :disabled)) {
+      border-color: var(--_edge);
+      background-color: var(--bs-body-bg);
+    }
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> :is(input, textarea, select):focus),
+  :is(.canon-select, .canon-combobox):has(> select:open),
+  .canon-combobox:focus-within {
+    border-color: var(--_edge-focus);
+    outline: none;
+    box-shadow: 0 0 0 0.25rem var(--_halo);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> :disabled) {
+    --_edge: var(--bs-border);
+    border-color: var(--_edge);
+    background-color: var(--bs-secondary-bg);
+    color: var(--bs-secondary-color);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control) > :is(input, textarea)::placeholder {
+    color: var(--bs-secondary-color);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control) > .canon-icon {
+    color: var(--bs-secondary-color);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > .canon-button {
+    --_muted: var(--bs-secondary-color);
+    --canon-theme-fg: var(--bs-secondary-color);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--bs-tertiary-bg);
+    --canon-theme-bg-active: var(--bs-secondary-bg);
+  }
+  /* Addons: Bootstrap's input group text, a tinted cell at the box's end. */
+  .canon-text-input.canon-text-input > :is(.canon-text-input-prefix, .canon-text-input-suffix) {
+    flex: none;
+    background-color: var(--bs-tertiary-bg);
+    box-shadow: none;
+    color: var(--bs-body-color);
+  }
+  .canon-number > input,
+  .canon-number:has(> input:first-child ~ .canon-button) > input {
+    background-color: transparent;
+  }
+  .canon-number > .canon-button.canon-button.canon-button {
+    --canon-theme-fg: var(--bs-secondary-color);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--bs-tertiary-bg);
+    --canon-theme-bg-active: var(--bs-secondary-bg);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+
+  /* Each digit, each time cell: its own small field. */
+  .canon-otp {
+    --_bg: var(--bs-body-bg);
+  }
+  .canon-otp > input,
+  .canon-otp-cell,
+  .canon-time-cell,
+  .canon-time:not(:has(> .canon-time-segments)) > input {
+    border-color: var(--bs-field-border);
+    border-radius: 0.375rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: none;
+    color: var(--bs-body-color);
+  }
+  .canon-otp > input:focus,
+  .canon-otp-cell[data-active],
+  .canon-time-cell[data-active] {
+    border-color: var(--bs-primary-focus);
+    outline: none;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-otp-separator {
+    background-color: var(--bs-field-border);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Lists that float: Menu, Select's list, Popover                      */
+  /* ------------------------------------------------------------------ */
+
+  /* A translucent line, a soft shadow, rows edge to edge. The chosen row is
+     solid blue. */
+  :is(.canon-menu, .canon-combobox-popup) {
+    padding: 0.5rem 0;
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.375rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+  }
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    min-inline-size: anchor-size(inline);
+    margin-block: 0.125rem;
+    padding: 0.5rem 0;
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.375rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+  }
+  .canon-menu-item.canon-menu-item {
+    --_fill: var(--bs-tertiary-bg);
+    border-radius: 0;
+  }
+  :is(.canon-select, .canon-combobox) > select option,
+  .canon-combobox-option {
+    --_fill: var(--bs-tertiary-bg);
+    border-radius: 0;
+  }
+  :is(.canon-select, .canon-combobox) > select option:checked,
+  .canon-combobox-option[aria-selected="true"] {
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  :is(.canon-popover, .canon-color-popup, .canon-calendar[popover]) {
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.5rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Choice                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* 16px, a thin line, 4px corners; chosen, solid blue. No change under the
+     pointer; focus is the pale line and ring. */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_line: var(--bs-field-border);
+    --_fill: var(--bs-body-bg);
+    transition: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::before {
+    inset: 0;
+    border-width: 1px;
+    box-shadow: none;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"])::before {
+    border-radius: 0.25em;
+  }
+  .canon-choice > input[type="radio"]::after {
+    inset: 25%;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):active:not(:disabled) {
+    scale: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: var(--bs-primary);
+    --_fill: var(--bs-primary);
+    --_mark: #fff;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is([aria-invalid="true"], :user-invalid) {
+    --_line: var(--bs-danger-text);
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):is([aria-invalid="true"], :user-invalid):is(:checked, :indeterminate) {
+    --_fill: var(--bs-danger);
+    --_mark: #fff;
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: var(--bs-field-border);
+    }
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled):is(:checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: var(--bs-primary);
+      --_fill: var(--bs-primary);
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled {
+    opacity: 0.5;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled:is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: var(--bs-primary);
+    --_fill: var(--bs-primary);
+    --_mark: #fff;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):focus-visible {
+    --_line: var(--bs-primary-focus);
+    outline: 0;
+    border-radius: 0.25em;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-choice > input[type="radio"]:focus-visible {
+    border-radius: 50%;
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input:focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input:focus-visible ~ .canon-choice-state::before {
+    content: none;
+  }
+
+  /* Switch: 32 x 16, an outline with a gray dot; on, solid blue with a white
+     dot. The line is the track's own edge, so it never leaves the box. */
+  .canon-choice:has(> input[role="switch"]) {
+    --canon-theme-choice-bleed: 0px;
+    --canon-choice-control-size: 1rem;
+    --canon-choice-control-inline-size: 2rem;
+  }
+  .canon-choice:has(> input[role="switch"]):where([data-size="lg"], [data-size="lg"] *) {
+    --canon-choice-control-size: 1.25rem;
+    --canon-choice-control-inline-size: 2.5rem;
+  }
+  .canon-choice > input[role="switch"] {
+    --_track: var(--bs-body-bg);
+    --_thumb: var(--bs-field-border);
+    box-shadow: inset 0 0 0 1px var(--bs-field-border);
+    transition: background-color 0.15s ease-in-out;
+  }
+  .canon-choice > input[role="switch"]::after {
+    box-shadow: none;
+    scale: 0.75;
+    transition: inset-inline-start 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  }
+  .canon-choice > input[role="switch"]:checked {
+    --_track: var(--bs-primary);
+    --_thumb: #fff;
+    box-shadow: none;
+  }
+  .canon-choice > input[role="switch"]:active:not(:disabled) {
+    scale: none;
+  }
+  .canon-choice > input[role="switch"]:is([aria-invalid="true"], :user-invalid):not(:checked) {
+    --_track: var(--bs-body-bg);
+    --_thumb: var(--bs-danger-text);
+    box-shadow: inset 0 0 0 1px var(--bs-danger-text);
+  }
+  .canon-choice > input[role="switch"]:disabled,
+  .canon-choice > input[role="switch"]:disabled:checked {
+    opacity: 0.5;
+  }
+  .canon-choice > input[role="switch"]:disabled {
+    --_track: var(--bs-body-bg);
+    --_thumb: var(--bs-field-border);
+  }
+  .canon-choice > input[role="switch"]:disabled:checked {
+    --_track: var(--bs-primary);
+    --_thumb: #fff;
+  }
+  .canon-choice > input[role="switch"]:focus-visible {
+    --_thumb: var(--bs-primary-focus);
+    outline: 0;
+    box-shadow: inset 0 0 0 1px var(--bs-primary-focus), 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-choice > input[role="switch"]:checked:focus-visible {
+    --_thumb: #fff;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Slider                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* A pill rail with a solid blue dot. Bootstrap's range draws no fill; a range
+     of two thumbs would say nothing without one, so the blue stays. */
+  .canon-control:has(> input[type="range"]) {
+    --_line: var(--bs-primary);
+    --_middle: var(--bs-primary);
+    --canon-slider-track: var(--bs-secondary-bg);
+    --canon-slider-track-size: 0.5rem;
+    --canon-slider-thumb: var(--bs-primary);
+    --canon-slider-thumb-border: 0 solid transparent;
+    --canon-slider-thumb-inline-size: 1rem;
+    --canon-slider-thumb-shadow: none;
+  }
+  .canon-control:has(> input[type="range"]:is([aria-invalid="true"], :user-invalid)) {
+    --_line: var(--bs-danger);
+    --_middle: var(--bs-danger);
+    --canon-slider-thumb: var(--bs-danger);
+  }
+  .canon-control:has(> input[type="range"]:disabled) {
+    --_line: var(--bs-gray);
+    --_middle: var(--bs-gray);
+    --canon-slider-thumb: var(--bs-gray);
+  }
+  .canon-control > input[type="range"]:focus-visible {
+    --canon-slider-thumb-shadow: 0 0 0 1px var(--bs-body-bg), 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-control > input[type="range"]:active:not(:disabled) {
+    --canon-slider-thumb: light-dark(#b6d4fe, #9ec5fe);
+  }
+  .canon-control:has(> input[type="range"]) > output {
+    border-color: transparent;
+    background-color: var(--bs-emphasis);
+    box-shadow: none;
+    color: var(--bs-body-bg);
+  }
+  .canon-control:has(> input[type="range"]) > output::before,
+  .canon-control:has(> input[type="range"]) > output::after {
+    background-color: var(--bs-emphasis);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                                */
+  /* ------------------------------------------------------------------ */
+
+  /* Folders: one line under the strip, blue links; the current tab has three
+     sides of a frame and the page's color, so it opens into the panel. */
+  .canon-tabs-list {
+    --_card-bg: var(--bs-body-bg);
+    --_card-ring: 0 0 transparent;
+    --_card-shadow: inset 1px 0 0 var(--bs-border), inset -1px 0 0 var(--bs-border), inset 0 1px 0 var(--bs-border);
+    inline-size: auto;
+    gap: 0;
+    padding: 0;
+    padding-inline-end: var(--canon-tabs-more-size, 0px);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 var(--bs-border);
+  }
+  .canon-tabs-list::before {
+    border-radius: 0.375rem 0.375rem 0 0;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--_card-shadow);
+  }
+  .canon-tab,
+  .canon-tabs-more {
+    --_fg: var(--bs-link);
+    block-size: var(--_track);
+    padding-inline: 1rem;
+    border-radius: 0.375rem 0.375rem 0 0;
+    font-weight: 400;
+  }
+  .canon-tab:where([data-display="icon"] *) {
+    inline-size: var(--_track);
+    padding-inline: 0;
+  }
+  .canon-tabs > .canon-tabs-more {
+    margin-inline-end: 0;
+  }
+  @media (hover: hover) {
+    .canon-tab:hover:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+    .canon-tabs-more:hover {
+      --_fg: var(--bs-link-hover);
+      --_bg: transparent;
+      box-shadow: inset 1px 0 0 var(--bs-secondary-bg), inset -1px 0 0 var(--bs-secondary-bg), inset 0 1px 0 var(--bs-secondary-bg);
+    }
+  }
+  .canon-tab:active:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+  .canon-tabs-more:active {
+    --_fg: var(--bs-link-hover);
+    --_bg: var(--bs-tertiary-bg);
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+    --_fg: var(--bs-emphasis);
+    font-weight: 400;
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) > .canon-icon {
+    color: inherit;
+  }
+  .canon-tab > .canon-icon {
+    color: inherit;
+  }
+  .canon-tab[aria-disabled="true"] {
+    --_fg: var(--bs-secondary-color);
+  }
+  .canon-tab:focus-visible,
+  .canon-tabs-more:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-tabs-panel {
+    border-radius: 0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Segmented Control                                                   */
+  /* ------------------------------------------------------------------ */
+
+  /* Radio buttons in a joined group: a blue outline; the chosen part fills. */
+  .canon-segmented {
+    --_card-bg: var(--bs-primary);
+    --_card-ring: 0 0 transparent;
+    --_card-shadow: none;
+    gap: 0;
+    padding: 0;
+    border: 1px solid var(--bs-primary-text);
+    border-radius: 0.375rem;
+    background-color: transparent;
+  }
+  .canon-segmented::before {
+    border-radius: 0;
+    background-color: var(--bs-primary);
+    box-shadow: none;
+  }
+  .canon-segmented-option {
+    --_fg: var(--bs-primary-text);
+    block-size: calc(var(--_track) - 2px);
+    padding-inline: var(--canon-control-padding-inline);
+    border: 0;
+    border-radius: 0;
+    font-weight: 400;
+  }
+  .canon-segmented-option:where([data-display="icon"] *) {
+    inline-size: calc(var(--_track) - 2px);
+  }
+  .canon-segmented-option:first-of-type {
+    border-start-start-radius: 0.3125rem;
+    border-end-start-radius: 0.3125rem;
+  }
+  .canon-segmented-option:last-of-type {
+    border-start-end-radius: 0.3125rem;
+    border-end-end-radius: 0.3125rem;
+  }
+  @media (hover: hover) {
+    .canon-segmented-option:hover:not(:has(> input:is(:checked, :disabled))) {
+      --_fg: #fff;
+      --_bg: var(--bs-primary);
+    }
+  }
+  .canon-segmented-option:active:not(:has(> input:is(:checked, :disabled))) {
+    --_fg: #fff;
+    --_bg: var(--bs-primary);
+  }
+  .canon-segmented-option:has(> input:checked) {
+    --_fg: #fff;
+    --_bg: var(--bs-primary);
+    box-shadow: none;
+  }
+  .canon-segmented-option:has(> input:disabled) {
+    --_fg: var(--bs-primary-text);
+    opacity: 0.65;
+  }
+  .canon-segmented-option:has(> input:checked:disabled) {
+    --_fg: #fff;
+    box-shadow: none;
+  }
+  .canon-segmented-option:has(> input:focus-visible) {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Chips and Tag                                                       */
+  /* ------------------------------------------------------------------ */
+
+  .canon-toggle-chip {
+    --_fg: var(--bs-gray-text);
+    --_icon: #fff;
+    --_line: var(--bs-gray-text);
+    border-radius: 0.375rem;
+  }
+  @media (hover: hover) {
+    .canon-toggle-chip:hover:not(:has(> input:disabled)) {
+      --_fg: #fff;
+      --_bg: var(--bs-gray);
+      --_line: var(--bs-gray);
+    }
+    .canon-toggle-chip:has(> input:checked):hover:not(:has(> input:disabled)) {
+      --_fg: #fff;
+      --_bg: var(--bs-primary-hover);
+      --_line: transparent;
+    }
+  }
+  .canon-toggle-chip:active:not(:has(> input:disabled)) {
+    --_fg: #fff;
+    --_bg: var(--bs-gray-active);
+  }
+  .canon-toggle-chip:has(> input:checked) {
+    --_fg: #fff;
+    --_bg: var(--bs-primary);
+    --_line: transparent;
+  }
+  .canon-toggle-chip:has(> input:checked):active:not(:has(> input:disabled)) {
+    --_fg: #fff;
+    --_bg: var(--bs-primary-active);
+  }
+
+  /* A badge: bold and 6px round. Solid at high emphasis; otherwise the subtle
+     recipe, a tint, a line and dark text. No capitals. */
+  .canon-tag {
+    --_z-tint: var(--bs-gray-subtle);
+    --_z-on-tint: var(--bs-gray-emphasis);
+    border-radius: 0.375rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .canon-tag:not([data-emphasis="high"]) {
+    box-shadow: inset 0 0 0 1px var(--_tag-line, var(--bs-gray-border));
+  }
+  .canon-tag[data-intent] {
+    border-radius: 0.375rem;
+    font-size: var(--canon-theme-tag-font-size);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .canon-tag[data-intent="info"] { --_h-tint: var(--bs-primary-subtle); --_h-on-tint: var(--bs-primary-emphasis); --_tag-line: var(--bs-primary-border); }
+  .canon-tag[data-intent="success"] { --_h-tint: var(--bs-success-subtle); --_h-on-tint: var(--bs-success-emphasis); --_tag-line: var(--bs-success-border); }
+  .canon-tag[data-intent="warning"] { --_h-tint: var(--bs-warning-subtle); --_h-on-tint: var(--bs-warning-emphasis); --_tag-line: var(--bs-warning-border); }
+  .canon-tag[data-intent="danger"] { --_h-tint: var(--bs-danger-subtle); --_h-on-tint: var(--bs-danger-emphasis); --_tag-line: var(--bs-danger-border); }
+
+  /* ------------------------------------------------------------------ */
+  /* Card, Table, Dialog                                                 */
+  /* ------------------------------------------------------------------ */
+
+  /* A translucent line, 6px corners, no shadow. Header and footer: faint caps
+     with a line between them and the body. */
+  .canon-card {
+    --_line: var(--bs-border-translucent);
+    border-radius: 0.375rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: inset 0 0 0 1px var(--bs-border-translucent);
+    color: var(--bs-body-color);
+  }
+  .canon-card-title {
+    font-weight: 500;
+  }
+  .canon-card-description {
+    color: var(--bs-secondary-color);
+  }
+
+  /* Rows with one line under each, a bold header, strong text. */
+  .canon-table {
+    --_bg: transparent;
+    --_stripe: light-dark(rgb(0 0 0 / 0.05), rgb(255 255 255 / 0.05));
+    --_hover: light-dark(rgb(0 0 0 / 0.075), rgb(255 255 255 / 0.075));
+    --_selected: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+    box-shadow: none;
+    color: var(--bs-emphasis);
+  }
+  .canon-table thead th,
+  .canon-table thead td {
+    border-block-end-color: var(--bs-border);
+    background-color: transparent;
+    color: var(--bs-emphasis);
+    font-weight: 700;
+  }
+  .canon-data-table thead :is(th, td),
+  .canon-data-table thead :is(th, td)[data-pinned] {
+    background-color: var(--bs-body-bg);
+  }
+
+  /* 8px corners, a translucent line, a line under the header and over the
+     footer, half-black behind it. */
+  .canon-dialog {
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.5rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow-sm);
+    color: var(--bs-body-color);
+  }
+  .canon-dialog::backdrop {
+    background-color: rgb(0 0 0 / 0.5);
+    backdrop-filter: none;
+  }
+  .canon-dialog[data-side] {
+    --canon-drawer-inset: 0px;
+    border-radius: 0;
+  }
+  .canon-dialog-header {
+    padding: 1rem;
+    border-block-end: 1px solid var(--bs-border);
+  }
+  .canon-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  .canon-dialog-body,
+  .canon-dialog-section {
+    padding: 1rem;
+  }
+  .canon-dialog-section + .canon-dialog-section {
+    border-block-start: 1px solid var(--bs-border);
+  }
+  .canon-dialog-footer {
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-block-start: 1px solid var(--bs-border);
+    background-color: transparent;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Alert, Toast, Tooltip                                               */
+  /* ------------------------------------------------------------------ */
+
+  /* A tint, a line one shade on, dark text of the same color. */
+  .canon-alert {
+    --_bar: transparent;
+    padding: 1rem;
+    border: 1px solid var(--_edge, var(--bs-gray-border));
+    border-radius: 0.375rem;
+    box-shadow: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  .canon-alert:not([data-intent], [data-emphasis="high"]) {
+    background-color: var(--bs-gray-subtle);
+    color: var(--bs-gray-emphasis);
+  }
+  .canon-alert[data-intent]:not([data-emphasis="high"]) {
+    background-color: var(--_tint);
+    color: var(--_tone);
+  }
+  .canon-alert[data-intent="info"]    { --_tint: var(--bs-primary-subtle); --_edge: var(--bs-primary-border); --_tone: var(--bs-primary-emphasis); --_bar: transparent; }
+  .canon-alert[data-intent="success"] { --_tint: var(--bs-success-subtle); --_edge: var(--bs-success-border); --_tone: var(--bs-success-emphasis); --_bar: transparent; }
+  .canon-alert[data-intent="warning"] { --_tint: var(--bs-warning-subtle); --_edge: var(--bs-warning-border); --_tone: var(--bs-warning-emphasis); --_bar: transparent; }
+  .canon-alert[data-intent="danger"]  { --_tint: var(--bs-danger-subtle); --_edge: var(--bs-danger-border); --_tone: var(--bs-danger-emphasis); --_bar: transparent; }
+  .canon-alert[data-emphasis="high"] {
+    border-color: transparent;
+  }
+  .canon-alert-title {
+    font-weight: 700;
+  }
+  .canon-alert-description {
+    color: inherit;
+  }
+
+  /* The page's color at 85%, a translucent line and a soft shadow. */
+  .canon-toast:not([data-emphasis="high"]),
+  .canon-toast[data-intent]:not([data-emphasis="high"]) {
+    --_bar: transparent;
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.375rem;
+    background-color: light-dark(rgb(255 255 255 / 0.85), rgb(33 37 41 / 0.85));
+    backdrop-filter: blur(8px);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+  }
+  .canon-toast[data-intent="info"]:not([data-emphasis="high"])    { --_bar: transparent; --_tone: var(--bs-primary-text); }
+  .canon-toast[data-intent="success"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: var(--bs-success-text); }
+  .canon-toast[data-intent="warning"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: var(--bs-warning-text); }
+  .canon-toast[data-intent="danger"]:not([data-emphasis="high"])  { --_bar: transparent; --_tone: var(--bs-danger-text); }
+  .canon-toast-title {
+    font-weight: 500;
+  }
+
+  /* The inverse of the page, its small arrow included. */
+  .canon-tooltip {
+    --canon-theme-tooltip-bg: var(--bs-emphasis);
+    --canon-theme-tooltip-border: transparent;
+    color: var(--bs-body-bg);
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Calendar                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* Bootstrap has no calendar: its pills do the work. Blue when chosen, a range
+     on a pale band. */
+  .canon-calendar,
+  .canon-date-strip {
+    --_chosen: var(--bs-primary);
+    --_on-chosen: #fff;
+    --_band: var(--bs-primary-subtle);
+    --_band-muted: var(--bs-secondary-color);
+    border-radius: 0.5rem;
+  }
+  .canon-calendar-cell {
+    font-weight: 400;
+  }
+  .canon-calendar-cell:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Navigation                                                          */
+  /* ------------------------------------------------------------------ */
+
+  /* Pills: the current page solid blue with white text. */
+  .canon-nav-list {
+    --canon-control-block-size: 2.5rem;
+    color: var(--bs-body-color);
+  }
+  .canon-nav-list-item {
+    position: relative;
+    border-radius: 0.375rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  }
+  .canon-nav-list-item > .canon-icon {
+    color: inherit;
+  }
+  @media (hover: hover) {
+    .canon-nav-list-item:hover {
+      background-color: var(--bs-tertiary-bg);
+      color: var(--bs-emphasis);
+    }
+  }
+  .canon-nav-list-item:active {
+    background-color: var(--bs-secondary-bg);
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) {
+    background-color: var(--bs-primary);
+    color: #fff;
+    font-weight: 400;
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > .canon-icon {
+    color: inherit;
+  }
+  /* An open section shows its current page below, so its own row stays plain. */
+  .canon-nav-list-section[open] > summary.canon-nav-list-item[data-current] {
+    background-color: transparent;
+    color: var(--bs-body-color);
+  }
+  .canon-nav-list-item:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  /* The shell: a tinted rail with a line, on a white navbar. */
+  .canon-sidebar {
+    border-color: var(--bs-border);
+    background-color: var(--bs-tertiary-bg);
+    box-shadow: none;
+    color: var(--bs-body-color);
+  }
+  .canon-sidebar[data-drawer] {
+    box-shadow: var(--bs-shadow-lg);
+  }
+  .canon-top-bar {
+    border-color: var(--bs-border);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+  }
+  .canon-page-header {
+    color: var(--bs-body-color);
+  }
+  .canon-page-header-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  .canon-page-header-description {
+    color: var(--bs-secondary-color);
+  }
+  .canon-page-header-back {
+    color: var(--bs-link);
+  }
+
+  /* Blue underlined links; the current page plain gray. */
+  .canon-breadcrumb {
+    --_link: var(--bs-link);
+    --_quiet: var(--bs-secondary-color);
+    --_strong: var(--bs-link-hover);
+  }
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more) {
+    color: var(--bs-link);
+    text-decoration-line: underline;
+  }
+  .canon-breadcrumb a > .canon-icon {
+    color: inherit;
+  }
+  .canon-breadcrumb [aria-current="page"] {
+    color: var(--bs-secondary-color);
+  }
+
+  /* Joined squares: one line between them, rounded only at the row's ends. Blue
+     links; the current page solid. */
+  .canon-pagination > ol {
+    gap: 0;
+  }
+  .canon-pagination > ol > li:not(:first-child) {
+    margin-inline-start: -1px;
+  }
+  .canon-pagination > ol > li > :is(a, button) {
+    border: 1px solid var(--bs-border);
+    border-radius: 0;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-link);
+    font-weight: 400;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  }
+  .canon-pagination > ol > li:first-child > :is(a, button) {
+    border-start-start-radius: 0.375rem;
+    border-end-start-radius: 0.375rem;
+  }
+  .canon-pagination > ol > li:last-child > :is(a, button) {
+    border-start-end-radius: 0.375rem;
+    border-end-end-radius: 0.375rem;
+  }
+  .canon-pagination :is(.canon-pagination-first, .canon-pagination-prev, .canon-pagination-next, .canon-pagination-last) > .canon-icon {
+    color: inherit;
+  }
+  .canon-pagination > ol > li > :is(a, button)[aria-current="page"] {
+    position: relative;
+    z-index: 1;
+    border-color: var(--bs-primary);
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  @media (hover: hover) {
+    .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):hover {
+      background-color: var(--bs-tertiary-bg);
+      color: var(--bs-link-hover);
+    }
+    .canon-pagination > ol > li > :is(a[href], button:enabled):hover > .canon-icon {
+      color: inherit;
+    }
+  }
+  .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):active {
+    background-color: var(--bs-secondary-bg);
+  }
+  .canon-pagination > ol > li > :is(a:not([href]), button:disabled) {
+    background-color: var(--bs-secondary-bg);
+    color: var(--bs-secondary-color);
+  }
+  .canon-pagination > ol > li > :is(a:not([href]), button:disabled) > .canon-icon {
+    color: inherit;
+  }
+  /* Where pages are left out: a cell like the others, not to be pressed. */
+  .canon-pagination > ol > .canon-pagination-gap {
+    align-self: stretch;
+    padding-inline: 0.5rem;
+    border: 1px solid var(--bs-border);
+    background-color: var(--bs-body-bg);
+  }
+  .canon-pagination > ol > .canon-pagination-gap::before {
+    background-color: var(--bs-secondary-color);
+  }
+  .canon-pagination > ol > li > :is(a, button):focus-visible {
+    position: relative;
+    z-index: 2;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-pagination :is(.canon-pagination-summary, .canon-pagination-size > label, .canon-pagination-jump > label) {
+    color: var(--bs-secondary-color);
+  }
+
+  .canon-menubar {
+    border-radius: 0.375rem;
+    background-color: var(--bs-tertiary-bg);
+    box-shadow: inset 0 0 0 1px var(--bs-border);
+  }
+  .canon-menubar-item {
+    border-radius: 0.25rem;
+    color: var(--bs-body-color);
+  }
+  .canon-menubar-item:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  @media (hover: hover) {
+    .canon-menubar-item:hover:not(:disabled, [aria-disabled="true"], [aria-expanded="true"]) {
+      background-color: var(--bs-secondary-bg);
+      color: var(--bs-emphasis);
+    }
+  }
+
+  .canon-command-palette {
+    --_line: var(--bs-border);
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.5rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow-lg);
+    color: var(--bs-body-color);
+  }
+  .canon-command-item {
+    border-radius: 0;
+  }
+  .canon-command-item[aria-selected="true"] {
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  .canon-command-search > input::placeholder {
+    color: var(--bs-secondary-color);
+  }
+
+  /* Filters are small gray outlines; one in use is solid gray. */
+  .canon-filter-bar-button {
+    --_fg: var(--bs-gray-text);
+    --_line: var(--bs-gray-text);
+    border-radius: 0.25rem;
+  }
+  @media (hover: hover) {
+    .canon-filter-bar-button:hover {
+      --_fg: #fff;
+      --_bg: var(--bs-gray);
+      --_line: var(--bs-gray);
+    }
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:hover {
+      --_bg: var(--bs-gray-hover);
+    }
+  }
+  .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_fg: #fff;
+    --_bg: var(--bs-gray-active);
+    --_line: var(--bs-gray-active);
+  }
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button,
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_fg: #fff;
+    --_bg: var(--bs-gray);
+    --_line: var(--bs-gray);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Data                                                                */
+  /* ------------------------------------------------------------------ */
+
+  .canon-data-table-sort:hover,
+  .canon-data-table-sort:focus-visible {
+    color: var(--bs-link);
+  }
+  .canon-data-table-sort:focus-visible,
+  .canon-data-table-edit:focus-visible {
+    outline: 0;
+    box-shadow: inset 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+  .canon-data-table-bulk.canon-data-table-bulk {
+    border: 1px solid var(--bs-border-translucent);
+    border-radius: 0.375rem;
+    background-color: var(--bs-body-bg);
+    box-shadow: var(--bs-shadow);
+    color: var(--bs-body-color);
+  }
+
+  /* A framed stack: a line round the whole and between rows; an open row's
+     header takes the pale blue, its text and chevron the dark blue. */
+  .canon-accordion {
+    --_line: var(--bs-border);
+    --_muted: var(--bs-secondary-color);
+    border: 1px solid var(--bs-border);
+    border-radius: 0.375rem;
+    color: var(--bs-body-color);
+  }
+  .canon-accordion-summary {
+    padding: 1rem 1.25rem;
+    border-radius: 0;
+    font-weight: 400;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  }
+  .canon-accordion-item:first-child > .canon-accordion-summary {
+    border-start-start-radius: 0.3125rem;
+    border-start-end-radius: 0.3125rem;
+  }
+  .canon-accordion-item:last-child:not([open]) > .canon-accordion-summary {
+    border-end-start-radius: 0.3125rem;
+    border-end-end-radius: 0.3125rem;
+  }
+  .canon-accordion-item[open] > .canon-accordion-summary {
+    box-shadow: inset 0 -1px 0 var(--bs-border);
+    background-color: var(--bs-primary-subtle);
+    color: var(--bs-primary-emphasis);
+  }
+  .canon-accordion-item[open] > .canon-accordion-summary::after {
+    background-color: currentColor;
+  }
+  .canon-accordion-title {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .canon-accordion-content {
+    padding: 1rem 1.25rem;
+    color: var(--bs-body-color);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .canon-accordion-summary:focus-visible {
+    z-index: 1;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  .canon-description-list {
+    --_line: var(--bs-border);
+    color: var(--bs-body-color);
+  }
+  .canon-description-list > div > dt {
+    color: var(--bs-secondary-color);
+    font-weight: 700;
+  }
+
+  .canon-stat-label,
+  .canon-stat-description {
+    color: var(--bs-secondary-color);
+  }
+  .canon-stat-value {
+    font-weight: 500;
+  }
+
+  .canon-avatar {
+    --_bg: var(--bs-gray);
+    --_fg: #fff;
+  }
+  .canon-avatar[data-seed-slot] {
+    --_rim: transparent;
+  }
+
+  /* A counter: a red pill, bold. Quiet gray inside a tab or a nav row. */
+  .canon-count {
+    padding-inline: 0.4375rem;
+    border-radius: 50rem;
+    background-color: var(--bs-danger);
+    color: #fff;
+    font-weight: 700;
+  }
+  :is(.canon-tab, .canon-nav-list-item) > .canon-count {
+    min-inline-size: 1.25rem;
+    padding-inline: 0.4375rem;
+    background-color: var(--bs-gray);
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) > .canon-count {
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > .canon-count {
+    background-color: #fff;
+    color: var(--bs-primary);
+  }
+
+  .canon-code-block {
+    --_line: var(--bs-border);
+    --_code-bg: var(--bs-tertiary-bg);
+    border-radius: 0.375rem;
+    background-color: var(--bs-tertiary-bg);
+  }
+  .canon-code-block-title {
+    color: var(--bs-secondary-color);
+  }
+  .canon-code-block > pre {
+    color: var(--bs-body-color);
+  }
+
+  /* A key: the page turned inside out, except where a button already has a
+     color of its own to take from. */
+  .canon-kbd:not(.canon-button > *, .canon-tooltip > *) {
+    background-color: var(--bs-body-color);
+    box-shadow: none;
+    color: var(--bs-body-bg);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* Blue and underlined, a darker blue under the pointer. */
+  .canon-link {
+    --_fg: var(--bs-link);
+    text-decoration-line: underline;
+  }
+  @media (hover: hover) {
+    .canon-link:hover:not(:disabled, [aria-disabled="true"]) {
+      --_fg: var(--bs-link-hover);
+      text-decoration-line: underline;
+    }
+  }
+  .canon-link:active:not(:disabled, [aria-disabled="true"]) {
+    --_fg: var(--bs-link-hover);
+  }
+  .canon-link:is(:disabled, [aria-disabled="true"]) {
+    --_fg: var(--bs-secondary-color);
+  }
+  .canon-fieldset-legend {
+    color: var(--bs-body-color);
+    font-weight: 500;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Feedback                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* An alert across the top. */
+  .canon-banner:not([data-emphasis="high"]) {
+    --_bg: var(--bs-gray-subtle);
+    --_line: var(--bs-gray-border);
+    color: var(--bs-gray-emphasis);
+  }
+  .canon-banner[data-intent="info"]:not([data-emphasis="high"])    { --_bg: var(--bs-primary-subtle); --_line: var(--bs-primary-border); color: var(--bs-primary-emphasis); }
+  .canon-banner[data-intent="success"]:not([data-emphasis="high"]) { --_bg: var(--bs-success-subtle); --_line: var(--bs-success-border); color: var(--bs-success-emphasis); }
+  .canon-banner[data-intent="warning"]:not([data-emphasis="high"]) { --_bg: var(--bs-warning-subtle); --_line: var(--bs-warning-border); color: var(--bs-warning-emphasis); }
+  .canon-banner[data-intent="danger"]:not([data-emphasis="high"])  { --_bg: var(--bs-danger-subtle); --_line: var(--bs-danger-border); color: var(--bs-danger-emphasis); }
+  .canon-banner-description {
+    color: inherit;
+  }
+
+  .canon-empty-state-icon {
+    background: transparent;
+    color: var(--bs-tertiary-color);
+  }
+  .canon-empty-state[data-intent="danger"] .canon-empty-state-icon {
+    background: transparent;
+    color: var(--bs-danger-text);
+  }
+  .canon-empty-state-title {
+    color: var(--bs-body-color);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .canon-empty-state-description {
+    color: var(--bs-secondary-color);
+  }
+
+  .canon-spinner {
+    color: var(--bs-primary-text);
+  }
+  .canon-skeleton {
+    background-color: var(--bs-secondary-bg);
+  }
+
+  .canon-save-bar,
+  .canon-card > .canon-save-bar {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Split Pane, and everything else                                     */
+  /* ------------------------------------------------------------------ */
+
+  .canon-split-pane-handle {
+    background-color: var(--bs-border);
+  }
+  .canon-split-pane-handle::after {
+    border-radius: 999px;
+    background-color: var(--bs-field-border);
+  }
+
+  .canon-swatches {
+    background-color: transparent;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--bs-primary) 28%, transparent);
+  }
+  :is(.canon-toast-close, .canon-banner-close, .canon-alert-close, .canon-menu-item):focus-visible {
+    outline: 0;
+    box-shadow: inset 0 0 0 0.25rem var(--bs-primary-ring);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Icons: one SVG per file, drawn as masks. The path names this folder, */
+  /* since a variable's url() can resolve from where it is used.        */
+  /* ------------------------------------------------------------------ */
+
+  [data-icon="align-center"] { --canon-theme-icon: url("../bootstrap/text-center.svg"); }
+  [data-icon="align-end"] { --canon-theme-icon: url("../bootstrap/text-right.svg"); }
+  [data-icon="align-justify"] { --canon-theme-icon: url("../bootstrap/justify.svg"); }
+  [data-icon="align-start"] { --canon-theme-icon: url("../bootstrap/text-left.svg"); }
+  [data-icon="arrow-back"] { --canon-theme-icon: url("../bootstrap/arrow-left.svg"); }
+  [data-icon="arrow-forward"] { --canon-theme-icon: url("../bootstrap/arrow-right.svg"); }
+  [data-icon="baseline"] { --canon-theme-icon: url("../bootstrap/fonts.svg"); }
+  [data-icon="bell"] { --canon-theme-icon: url("../bootstrap/bell.svg"); }
+  [data-icon="bold"] { --canon-theme-icon: url("../bootstrap/type-bold.svg"); }
+  [data-icon="book-user"] { --canon-theme-icon: url("../bootstrap/person-rolodex.svg"); }
+  [data-icon="building"] { --canon-theme-icon: url("../bootstrap/building.svg"); }
+  [data-icon="calendar"] { --canon-theme-icon: url("../bootstrap/calendar.svg"); }
+  [data-icon="chevron-down"] { --canon-theme-icon: url("../bootstrap/chevron-down.svg"); }
+  [data-icon="chevron-left"] { --canon-theme-icon: url("../bootstrap/chevron-left.svg"); }
+  [data-icon="chevron-right"] { --canon-theme-icon: url("../bootstrap/chevron-right.svg"); }
+  [data-icon="chevron-up"] { --canon-theme-icon: url("../bootstrap/chevron-up.svg"); }
+  [data-icon="chevrons-left"] { --canon-theme-icon: url("../bootstrap/chevron-double-left.svg"); }
+  [data-icon="chevrons-right"] { --canon-theme-icon: url("../bootstrap/chevron-double-right.svg"); }
+  [data-icon="circle-alert"] { --canon-theme-icon: url("../bootstrap/exclamation-circle.svg"); }
+  [data-icon="circle-check"] { --canon-theme-icon: url("../bootstrap/check-circle.svg"); }
+  [data-icon="circle-help"] { --canon-theme-icon: url("../bootstrap/question-circle.svg"); }
+  [data-icon="close"] { --canon-theme-icon: url("../bootstrap/x-lg.svg"); }
+  [data-icon="copy"] { --canon-theme-icon: url("../bootstrap/copy.svg"); }
+  [data-icon="crown"] { --canon-theme-icon: url("../bootstrap/award.svg"); }
+  [data-icon="download"] { --canon-theme-icon: url("../bootstrap/download.svg"); }
+  [data-icon="eraser"] { --canon-theme-icon: url("../bootstrap/eraser.svg"); }
+  [data-icon="external"] { --canon-theme-icon: url("../bootstrap/box-arrow-up-right.svg"); }
+  [data-icon="eye"] { --canon-theme-icon: url("../bootstrap/eye.svg"); }
+  [data-icon="filter"] { --canon-theme-icon: url("../bootstrap/funnel.svg"); }
+  [data-icon="gauge"] { --canon-theme-icon: url("../bootstrap/speedometer2.svg"); }
+  [data-icon="globe"] { --canon-theme-icon: url("../bootstrap/globe.svg"); }
+  [data-icon="grip-vertical"] { --canon-theme-icon: url("../bootstrap/grip-vertical.svg"); }
+  [data-icon="house"] { --canon-theme-icon: url("../bootstrap/house.svg"); }
+  [data-icon="inbox"] { --canon-theme-icon: url("../bootstrap/inbox.svg"); }
+  [data-icon="indent-decrease"] { --canon-theme-icon: url("../bootstrap/text-indent-right.svg"); }
+  [data-icon="indent-increase"] { --canon-theme-icon: url("../bootstrap/text-indent-left.svg"); }
+  [data-icon="info"] { --canon-theme-icon: url("../bootstrap/info-circle.svg"); }
+  [data-icon="italic"] { --canon-theme-icon: url("../bootstrap/type-italic.svg"); }
+  [data-icon="link"] { --canon-theme-icon: url("../bootstrap/link-45deg.svg"); }
+  [data-icon="list"] { --canon-theme-icon: url("../bootstrap/list-ul.svg"); }
+  [data-icon="list-filter"] { --canon-theme-icon: url("../bootstrap/funnel.svg"); }
+  [data-icon="list-ordered"] { --canon-theme-icon: url("../bootstrap/list-ol.svg"); }
+  [data-icon="log-out"] { --canon-theme-icon: url("../bootstrap/box-arrow-right.svg"); }
+  [data-icon="mail"] { --canon-theme-icon: url("../bootstrap/envelope.svg"); }
+  [data-icon="minus"] { --canon-theme-icon: url("../bootstrap/dash-lg.svg"); }
+  [data-icon="moon"] { --canon-theme-icon: url("../bootstrap/moon.svg"); }
+  [data-icon="more"] { --canon-theme-icon: url("../bootstrap/three-dots-vertical.svg"); }
+  [data-icon="panel-left-close"] { --canon-theme-icon: url("../bootstrap/layout-sidebar-inset.svg"); }
+  [data-icon="panel-left-open"] { --canon-theme-icon: url("../bootstrap/layout-sidebar.svg"); }
+  [data-icon="pencil"] { --canon-theme-icon: url("../bootstrap/pencil.svg"); }
+  [data-icon="pin"] { --canon-theme-icon: url("../bootstrap/pin-angle.svg"); }
+  [data-icon="plus"] { --canon-theme-icon: url("../bootstrap/plus-lg.svg"); }
+  [data-icon="receipt"] { --canon-theme-icon: url("../bootstrap/receipt.svg"); }
+  [data-icon="redo"] { --canon-theme-icon: url("../bootstrap/arrow-90deg-right.svg"); }
+  [data-icon="refresh"] { --canon-theme-icon: url("../bootstrap/arrow-clockwise.svg"); }
+  [data-icon="search"] { --canon-theme-icon: url("../bootstrap/search.svg"); }
+  [data-icon="search-x"] { --canon-theme-icon: url("../bootstrap/file-earmark-x.svg"); }
+  [data-icon="settings"] { --canon-theme-icon: url("../bootstrap/gear.svg"); }
+  [data-icon="sparkles"] { --canon-theme-icon: url("../bootstrap/stars.svg"); }
+  [data-icon="square-chevron-left"] { --canon-theme-icon: url("../bootstrap/caret-left-square.svg"); }
+  [data-icon="square-chevron-right"] { --canon-theme-icon: url("../bootstrap/caret-right-square.svg"); }
+  [data-icon="square-kanban"] { --canon-theme-icon: url("../bootstrap/kanban.svg"); }
+  [data-icon="star"] { --canon-theme-icon: url("../bootstrap/star.svg"); }
+  [data-icon="strikethrough"] { --canon-theme-icon: url("../bootstrap/type-strikethrough.svg"); }
+  [data-icon="subscript"] { --canon-theme-icon: url("../bootstrap/subscript.svg"); }
+  [data-icon="sun"] { --canon-theme-icon: url("../bootstrap/sun.svg"); }
+  [data-icon="superscript"] { --canon-theme-icon: url("../bootstrap/superscript.svg"); }
+  [data-icon="table"] { --canon-theme-icon: url("../bootstrap/table.svg"); }
+  [data-icon="tag"] { --canon-theme-icon: url("../bootstrap/tag.svg"); }
+  [data-icon="text-cursor"] { --canon-theme-icon: url("../bootstrap/cursor-text.svg"); }
+  [data-icon="text-wrap"] { --canon-theme-icon: url("../bootstrap/text-wrap.svg"); }
+  [data-icon="trash"] { --canon-theme-icon: url("../bootstrap/trash.svg"); }
+  [data-icon="underline"] { --canon-theme-icon: url("../bootstrap/type-underline.svg"); }
+  [data-icon="undo"] { --canon-theme-icon: url("../bootstrap/arrow-90deg-left.svg"); }
+  [data-icon="upload"] { --canon-theme-icon: url("../bootstrap/upload.svg"); }
+  [data-icon="user"] { --canon-theme-icon: url("../bootstrap/person.svg"); }
+
+  :root {
+    --canon-theme-icon-arrow-down: url("../bootstrap/arrow-down.svg");
+    --canon-theme-icon-arrow-down-up: url("../bootstrap/arrow-down-up.svg");
+    --canon-theme-icon-arrow-up: url("../bootstrap/arrow-up.svg");
+    --canon-theme-icon-bot: url("../bootstrap/robot.svg");
+    --canon-theme-icon-caps-lock: url("../bootstrap/capslock.svg");
+    --canon-theme-icon-check: url("../bootstrap/check-lg.svg");
+    --canon-theme-icon-chevron: url("../bootstrap/chevron-down.svg");
+    --canon-theme-icon-chevron-right: url("../bootstrap/chevron-right.svg");
+    --canon-theme-icon-circle-alert: url("../bootstrap/exclamation-circle.svg");
+    --canon-theme-icon-circle-check: url("../bootstrap/check-circle.svg");
+    --canon-theme-icon-ellipsis: url("../bootstrap/three-dots.svg");
+    --canon-theme-icon-external: url("../bootstrap/box-arrow-up-right.svg");
+    --canon-theme-icon-info: url("../bootstrap/info-circle.svg");
+    --canon-theme-icon-list-filter: url("../bootstrap/funnel.svg");
+    --canon-theme-icon-move-right: url("../bootstrap/arrow-right.svg");
+    --canon-theme-icon-pin: url("../bootstrap/pin-angle.svg");
+    --canon-theme-icon-pipette: url("../bootstrap/eyedropper.svg");
+    --canon-theme-icon-search: url("../bootstrap/search.svg");
+    --canon-theme-icon-tick: url("../bootstrap/check-lg.svg");
+    --canon-theme-icon-trending-down: url("../bootstrap/graph-down-arrow.svg");
+    --canon-theme-icon-trending-up: url("../bootstrap/graph-up-arrow.svg");
+    --canon-theme-icon-triangle-alert: url("../bootstrap/exclamation-triangle.svg");
+    --canon-theme-icon-user-round: url("../bootstrap/person.svg");
+    --canon-theme-icon-users-round: url("../bootstrap/people.svg");
+    --canon-theme-icon-x: url("../bootstrap/x-lg.svg");
+    --canon-theme-rule-check: url("../bootstrap/check-circle.svg");
+    --canon-theme-rule-alert: url("../bootstrap/exclamation-circle.svg");
+  }
+
+  .canon-button[data-state="copied"] [data-icon="copy"] { --canon-theme-icon: url("../bootstrap/check-lg.svg"); }
+  .canon-button[aria-pressed="true"] [data-icon="eye"] { --canon-theme-icon: url("../bootstrap/eye-slash.svg"); }
+
+  /* Messages carry the filled icon. */
+  .canon-toast[data-intent="info"] { --_icon: url("../bootstrap/info-circle-fill.svg"); }
+  .canon-alert[data-intent="info"], .canon-banner[data-intent="info"] { --_icon: url("../bootstrap/info-circle-fill.svg"); }
+  .canon-toast[data-intent="success"] { --_icon: url("../bootstrap/check-circle-fill.svg"); }
+  .canon-alert[data-intent="success"], .canon-banner[data-intent="success"] { --_icon: url("../bootstrap/check-circle-fill.svg"); }
+  .canon-toast[data-intent="warning"] { --_icon: url("../bootstrap/exclamation-triangle-fill.svg"); }
+  .canon-alert[data-intent="warning"], .canon-banner[data-intent="warning"] { --_icon: url("../bootstrap/exclamation-triangle-fill.svg"); }
+  .canon-toast[data-intent="danger"] { --_icon: url("../bootstrap/x-circle-fill.svg"); }
+  .canon-alert[data-intent="danger"], .canon-banner[data-intent="danger"] { --_icon: url("../bootstrap/x-circle-fill.svg"); }
+  .canon-toast-close::before {
+    mask: url("../bootstrap/x-lg.svg") center / contain no-repeat;
+  }
+}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Save Bar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Save Bar</h1>
+  <p class="ref-note">Save and Discard in reach while you edit, and whether there's anything to save. Specification: <a href="../docs/components/save-bar.md">docs/components/save-bar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="save-bar">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-save-bar</code> at the end of a <code>&lt;form&gt;</code>: its status, Discard (<code>type="reset"</code>) and Save (<code>type="submit"</code>). Change something: the status counts the changes; Discard brings the form back; Save saves (<kbd class="canon-kbd">⌘S</kbd> too). The form's default values are what's saved, so nothing else needs tracking. This app saves on its own and answers with <code>canon-saved</code>, then a <a href="toast.html">Toast</a>.</p>
+
+    <div class="ref-card-demo">
+      <form class="canon-card" id="sb" action="#" method="post">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Edit invoice</h3>
+          <p class="canon-card-description">INV-2041</p>
+        </header>
+        <div class="canon-card-body">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sb-customer">Customer</label></div>
+            <div class="canon-text-input"><input id="sb-customer" name="customer" type="text" value="Globex Corporation" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sb-amount">Amount</label></div>
+            <div class="canon-text-input"><input id="sb-amount" name="amount" type="text" inputmode="decimal" value="12,400.00" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sb-notes">Notes</label></div>
+            <div class="canon-textarea"><textarea id="sb-notes" name="notes" rows="3" placeholder>Net 30, reminders weekly.</textarea></div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" role="switch" id="sb-remind" name="remind" checked>
+            <label class="canon-choice-label" for="sb-remind">Send reminders when it's overdue</label>
+          </div>
+        </div>
+        <footer class="canon-save-bar">
+          <p class="canon-save-bar-status"></p>
+          <button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+          <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+        </footer>
+      </form>
+    </div>
+    <div class="ref-row"><label class="ref-check"><input type="checkbox" id="sb-fail"> Make the next save fail (<code>canon-save-failed</code>)</label></div>
+    <script>
+      /* Example: an app that saves with fetch (here, a short wait). */
+      {
+        const form = document.getElementById("sb");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const fail = document.getElementById("sb-fail")?.checked;
+          setTimeout(() => {
+            if (fail) {
+              form.dispatchEvent(new CustomEvent("canon-save-failed", { detail: { message: "Couldn't save: the connection dropped" } }));
+              return;
+            }
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Invoice saved", description: "INV-2041 is up to date." } }));
+          }, 900);
+        });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="page">
+    <h2>On a long page</h2>
+    <p class="ref-note">On a page, the bar sticks to the bottom of the window while the form goes on below it, and takes a line once it's stuck. Scroll inside the frame; leave with changes and the page asks first.</p>
+
+    <div class="ref-shell-frame ref-shell-frame-short">
+      <div class="canon-app-shell">
+        <main class="ref-shell-content ref-shell-form">
+          <header class="canon-page-header">
+            <a class="canon-page-header-back" href="#sp-ph-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+            <div class="canon-page-header-title">
+              <h1 id="sp-ph-title">Edit INV-2041</h1>
+              <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+            </div>
+          </header>
+          <form id="sp-form" class="ref-form-stack" action="#" method="post">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp-customer">Customer</label></div>
+              <div class="canon-text-input"><input id="sp-customer" name="customer" type="text" value="Globex Corporation" placeholder></div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp-amount">Amount</label></div>
+              <div class="canon-text-input"><input id="sp-amount" name="amount" type="text" inputmode="decimal" value="12,400.00" placeholder></div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp-notes">Notes</label></div>
+              <div class="canon-textarea"><textarea id="sp-notes" name="notes" rows="3" placeholder>Net 30, reminders weekly.</textarea></div>
+            </div>
+            <div class="canon-choice">
+              <input type="checkbox" role="switch" id="sp-remind" name="remind" checked>
+              <label class="canon-choice-label" for="sp-remind">Send reminders when it's overdue</label>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp2-customer">Billing contact</label></div>
+              <div class="canon-text-input"><input id="sp2-customer" name="billing-customer" type="text" value="Hank Scorpio" placeholder></div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp2-amount">Purchase order</label></div>
+              <div class="canon-text-input"><input id="sp2-amount" name="billing-amount" type="text" inputmode="decimal" value="PO-88231" placeholder></div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="sp2-notes">Billing address</label></div>
+              <div class="canon-textarea"><textarea id="sp2-notes" name="billing-notes" rows="3" placeholder>1 Globex Way, Cypress Creek</textarea></div>
+            </div>
+            <div class="canon-choice">
+              <input type="checkbox" role="switch" id="sp2-remind" name="billing-remind" checked>
+              <label class="canon-choice-label" for="sp2-remind">Email invoices as PDF</label>
+            </div>
+            <footer class="canon-save-bar">
+              <p class="canon-save-bar-status"></p>
+              <button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+              <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+            </footer>
+          </form>
+        </main>
+      </div>
+    </div>
+    <script>
+      /* Example: an app that saves with fetch (here, a short wait). */
+      {
+        const form = document.getElementById("sp-form");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const fail = document.getElementById("")?.checked;
+          setTimeout(() => {
+            if (fail) {
+              form.dispatchEvent(new CustomEvent("canon-save-failed", { detail: { message: "Couldn't save: the connection dropped" } }));
+              return;
+            }
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Invoice saved", description: "INV-2041 is up to date." } }));
+          }, 900);
+        });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the status sits on the right and the buttons on the left. Without Discard: Save alone.</p>
+
+    <div class="ref-card-demo" dir="rtl" lang="ar">
+      <form class="canon-card" id="sr" action="#" method="post">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Edit invoice</h3>
+          <p class="canon-card-description">INV-2041</p>
+        </header>
+        <div class="canon-card-body">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sr-customer">Customer</label></div>
+            <div class="canon-text-input"><input id="sr-customer" name="customer" type="text" value="Globex Corporation" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sr-amount">Amount</label></div>
+            <div class="canon-text-input"><input id="sr-amount" name="amount" type="text" inputmode="decimal" value="12,400.00" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sr-notes">Notes</label></div>
+            <div class="canon-textarea"><textarea id="sr-notes" name="notes" rows="3" placeholder>Net 30, reminders weekly.</textarea></div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" role="switch" id="sr-remind" name="remind" checked>
+            <label class="canon-choice-label" for="sr-remind">Send reminders when it's overdue</label>
+          </div>
+        </div>
+        <footer class="canon-save-bar">
+          <p class="canon-save-bar-status"></p>
+          <button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+          <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+        </footer>
+      </form>
+    </div>
+    <div class="ref-card-demo">
+      <form class="canon-card" id="sd" action="#" method="post">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Edit invoice</h3>
+          <p class="canon-card-description">INV-2041</p>
+        </header>
+        <div class="canon-card-body">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sd-customer">Customer</label></div>
+            <div class="canon-text-input"><input id="sd-customer" name="customer" type="text" value="Globex Corporation" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sd-amount">Amount</label></div>
+            <div class="canon-text-input"><input id="sd-amount" name="amount" type="text" inputmode="decimal" value="12,400.00" placeholder></div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sd-notes">Notes</label></div>
+            <div class="canon-textarea"><textarea id="sd-notes" name="notes" rows="3" placeholder>Net 30, reminders weekly.</textarea></div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" role="switch" id="sd-remind" name="remind" checked>
+            <label class="canon-choice-label" for="sd-remind">Send reminders when it's overdue</label>
+          </div>
+        </div>
+        <footer class="canon-save-bar">
+          <p class="canon-save-bar-status"></p>
+          <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+        </footer>
+      </form>
+    </div>
+    <script>
+      /* Example: an app that saves with fetch (here, a short wait). */
+      {
+        const form = document.getElementById("sr");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const fail = document.getElementById("")?.checked;
+          setTimeout(() => {
+            if (fail) {
+              form.dispatchEvent(new CustomEvent("canon-save-failed", { detail: { message: "Couldn't save: the connection dropped" } }));
+              return;
+            }
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "تم حفظ الفاتورة", description: "" } }));
+          }, 900);
+        });
+      }
+    </script>
+    <script>
+      /* Example: an app that saves with fetch (here, a short wait). */
+      {
+        const form = document.getElementById("sd");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const fail = document.getElementById("")?.checked;
+          setTimeout(() => {
+            if (fail) {
+              form.dispatchEvent(new CustomEvent("canon-save-failed", { detail: { message: "Couldn't save: the connection dropped" } }));
+              return;
+            }
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Invoice saved", description: "INV-2041 is up to date." } }));
+          }, 900);
+        });
+      }
+    </script>
+  </section>
+
+</main>
+</body>
+</html>

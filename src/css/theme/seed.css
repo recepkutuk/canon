@@ -1,0 +1,67 @@
+/* The seed's slot (avatars and tags). Not inherited: an avatar inside a
+   tag works out its own. */
+@property --canon-theme-seed-slot {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: -1;
+}
+
+@layer canon.theme {
+
+  /* data-seed (avatars and tags): a stable number from the app (a user
+     id, a label id). It picks one of the 17 hues, the same one every time. The light recipe is the
+     medium button's (tone-400 at 15%, tone-700 text); dark is tone-500
+     at 20% with tone-300 text. This path is pure CSS (typed attr() and
+     if()); canon.js covers the other browsers below. */
+  @supports (color: if(else: red)) and (inline-size: calc(attr(data-x type(<integer>), 1) * 1px)) {
+    :is(.canon-avatar, .canon-tag)[data-seed] {
+      /* Not an integer: the slot stays -1 (its initial value) and the
+         avatar or tag stays neutral, as canon.js does. */
+      --canon-theme-seed-slot: mod(attr(data-seed type(<integer>), none), 17);
+      --_t300: if(style(--canon-theme-seed-slot: 0): var(--canon-theme-blue-300); style(--canon-theme-seed-slot: 1): var(--canon-theme-sky-300); style(--canon-theme-seed-slot: 2): var(--canon-theme-cyan-300); style(--canon-theme-seed-slot: 3): var(--canon-theme-teal-300); style(--canon-theme-seed-slot: 4): var(--canon-theme-emerald-300); style(--canon-theme-seed-slot: 5): var(--canon-theme-green-300); style(--canon-theme-seed-slot: 6): var(--canon-theme-lime-300); style(--canon-theme-seed-slot: 7): var(--canon-theme-yellow-300); style(--canon-theme-seed-slot: 8): var(--canon-theme-amber-300); style(--canon-theme-seed-slot: 9): var(--canon-theme-orange-300); style(--canon-theme-seed-slot: 10): var(--canon-theme-red-300); style(--canon-theme-seed-slot: 11): var(--canon-theme-rose-300); style(--canon-theme-seed-slot: 12): var(--canon-theme-pink-300); style(--canon-theme-seed-slot: 13): var(--canon-theme-fuchsia-300); style(--canon-theme-seed-slot: 14): var(--canon-theme-purple-300); style(--canon-theme-seed-slot: 15): var(--canon-theme-violet-300); style(--canon-theme-seed-slot: 16): var(--canon-theme-indigo-300); else: var(--canon-theme-zinc-300));
+      --_t400: if(style(--canon-theme-seed-slot: 0): var(--canon-theme-blue-400); style(--canon-theme-seed-slot: 1): var(--canon-theme-sky-400); style(--canon-theme-seed-slot: 2): var(--canon-theme-cyan-400); style(--canon-theme-seed-slot: 3): var(--canon-theme-teal-400); style(--canon-theme-seed-slot: 4): var(--canon-theme-emerald-400); style(--canon-theme-seed-slot: 5): var(--canon-theme-green-400); style(--canon-theme-seed-slot: 6): var(--canon-theme-lime-400); style(--canon-theme-seed-slot: 7): var(--canon-theme-yellow-400); style(--canon-theme-seed-slot: 8): var(--canon-theme-amber-400); style(--canon-theme-seed-slot: 9): var(--canon-theme-orange-400); style(--canon-theme-seed-slot: 10): var(--canon-theme-red-400); style(--canon-theme-seed-slot: 11): var(--canon-theme-rose-400); style(--canon-theme-seed-slot: 12): var(--canon-theme-pink-400); style(--canon-theme-seed-slot: 13): var(--canon-theme-fuchsia-400); style(--canon-theme-seed-slot: 14): var(--canon-theme-purple-400); style(--canon-theme-seed-slot: 15): var(--canon-theme-violet-400); style(--canon-theme-seed-slot: 16): var(--canon-theme-indigo-400); else: var(--canon-theme-zinc-400));
+      --_t500: if(style(--canon-theme-seed-slot: 0): var(--canon-theme-blue-500); style(--canon-theme-seed-slot: 1): var(--canon-theme-sky-500); style(--canon-theme-seed-slot: 2): var(--canon-theme-cyan-500); style(--canon-theme-seed-slot: 3): var(--canon-theme-teal-500); style(--canon-theme-seed-slot: 4): var(--canon-theme-emerald-500); style(--canon-theme-seed-slot: 5): var(--canon-theme-green-500); style(--canon-theme-seed-slot: 6): var(--canon-theme-lime-500); style(--canon-theme-seed-slot: 7): var(--canon-theme-yellow-500); style(--canon-theme-seed-slot: 8): var(--canon-theme-amber-500); style(--canon-theme-seed-slot: 9): var(--canon-theme-orange-500); style(--canon-theme-seed-slot: 10): var(--canon-theme-red-500); style(--canon-theme-seed-slot: 11): var(--canon-theme-rose-500); style(--canon-theme-seed-slot: 12): var(--canon-theme-pink-500); style(--canon-theme-seed-slot: 13): var(--canon-theme-fuchsia-500); style(--canon-theme-seed-slot: 14): var(--canon-theme-purple-500); style(--canon-theme-seed-slot: 15): var(--canon-theme-violet-500); style(--canon-theme-seed-slot: 16): var(--canon-theme-indigo-500); else: var(--canon-theme-zinc-500));
+      --_t600: if(style(--canon-theme-seed-slot: 0): var(--canon-theme-blue-600); style(--canon-theme-seed-slot: 1): var(--canon-theme-sky-600); style(--canon-theme-seed-slot: 2): var(--canon-theme-cyan-600); style(--canon-theme-seed-slot: 3): var(--canon-theme-teal-600); style(--canon-theme-seed-slot: 4): var(--canon-theme-emerald-600); style(--canon-theme-seed-slot: 5): var(--canon-theme-green-600); style(--canon-theme-seed-slot: 6): var(--canon-theme-lime-600); style(--canon-theme-seed-slot: 7): var(--canon-theme-yellow-600); style(--canon-theme-seed-slot: 8): var(--canon-theme-amber-600); style(--canon-theme-seed-slot: 9): var(--canon-theme-orange-600); style(--canon-theme-seed-slot: 10): var(--canon-theme-red-600); style(--canon-theme-seed-slot: 11): var(--canon-theme-rose-600); style(--canon-theme-seed-slot: 12): var(--canon-theme-pink-600); style(--canon-theme-seed-slot: 13): var(--canon-theme-fuchsia-600); style(--canon-theme-seed-slot: 14): var(--canon-theme-purple-600); style(--canon-theme-seed-slot: 15): var(--canon-theme-violet-600); style(--canon-theme-seed-slot: 16): var(--canon-theme-indigo-600); else: var(--canon-theme-zinc-600));
+      --_t700: if(style(--canon-theme-seed-slot: 0): var(--canon-theme-blue-700); style(--canon-theme-seed-slot: 1): var(--canon-theme-sky-700); style(--canon-theme-seed-slot: 2): var(--canon-theme-cyan-700); style(--canon-theme-seed-slot: 3): var(--canon-theme-teal-700); style(--canon-theme-seed-slot: 4): var(--canon-theme-emerald-700); style(--canon-theme-seed-slot: 5): var(--canon-theme-green-700); style(--canon-theme-seed-slot: 6): var(--canon-theme-lime-700); style(--canon-theme-seed-slot: 7): var(--canon-theme-yellow-700); style(--canon-theme-seed-slot: 8): var(--canon-theme-amber-700); style(--canon-theme-seed-slot: 9): var(--canon-theme-orange-700); style(--canon-theme-seed-slot: 10): var(--canon-theme-red-700); style(--canon-theme-seed-slot: 11): var(--canon-theme-rose-700); style(--canon-theme-seed-slot: 12): var(--canon-theme-pink-700); style(--canon-theme-seed-slot: 13): var(--canon-theme-fuchsia-700); style(--canon-theme-seed-slot: 14): var(--canon-theme-purple-700); style(--canon-theme-seed-slot: 15): var(--canon-theme-violet-700); style(--canon-theme-seed-slot: 16): var(--canon-theme-indigo-700); else: var(--canon-theme-zinc-700));
+    }
+    .canon-avatar[data-seed] {
+      --_bg: if(style(--canon-theme-seed-slot: -1): light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+        else: light-dark(
+          color-mix(in srgb, var(--_t400) 15%, transparent),
+          color-mix(in srgb, var(--_t500) 20%, transparent)));
+      --_fg: if(style(--canon-theme-seed-slot: -1): light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-300));
+        else: light-dark(var(--_t700), var(--_t300)));
+    }
+  }
+
+  /* Every browser: canon.js reads --canon-seed-colors and writes the
+     same slot as data-seed-slot. It comes after the CSS-only path, so the
+     two always agree. */
+  :root {
+    --canon-seed-colors: 17;
+  }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="0"] { --_t300: var(--canon-theme-blue-300); --_t400: var(--canon-theme-blue-400); --_t500: var(--canon-theme-blue-500); --_t600: var(--canon-theme-blue-600); --_t700: var(--canon-theme-blue-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="1"] { --_t300: var(--canon-theme-sky-300); --_t400: var(--canon-theme-sky-400); --_t500: var(--canon-theme-sky-500); --_t600: var(--canon-theme-sky-600); --_t700: var(--canon-theme-sky-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="2"] { --_t300: var(--canon-theme-cyan-300); --_t400: var(--canon-theme-cyan-400); --_t500: var(--canon-theme-cyan-500); --_t600: var(--canon-theme-cyan-600); --_t700: var(--canon-theme-cyan-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="3"] { --_t300: var(--canon-theme-teal-300); --_t400: var(--canon-theme-teal-400); --_t500: var(--canon-theme-teal-500); --_t600: var(--canon-theme-teal-600); --_t700: var(--canon-theme-teal-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="4"] { --_t300: var(--canon-theme-emerald-300); --_t400: var(--canon-theme-emerald-400); --_t500: var(--canon-theme-emerald-500); --_t600: var(--canon-theme-emerald-600); --_t700: var(--canon-theme-emerald-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="5"] { --_t300: var(--canon-theme-green-300); --_t400: var(--canon-theme-green-400); --_t500: var(--canon-theme-green-500); --_t600: var(--canon-theme-green-600); --_t700: var(--canon-theme-green-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="6"] { --_t300: var(--canon-theme-lime-300); --_t400: var(--canon-theme-lime-400); --_t500: var(--canon-theme-lime-500); --_t600: var(--canon-theme-lime-600); --_t700: var(--canon-theme-lime-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="7"] { --_t300: var(--canon-theme-yellow-300); --_t400: var(--canon-theme-yellow-400); --_t500: var(--canon-theme-yellow-500); --_t600: var(--canon-theme-yellow-600); --_t700: var(--canon-theme-yellow-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="8"] { --_t300: var(--canon-theme-amber-300); --_t400: var(--canon-theme-amber-400); --_t500: var(--canon-theme-amber-500); --_t600: var(--canon-theme-amber-600); --_t700: var(--canon-theme-amber-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="9"] { --_t300: var(--canon-theme-orange-300); --_t400: var(--canon-theme-orange-400); --_t500: var(--canon-theme-orange-500); --_t600: var(--canon-theme-orange-600); --_t700: var(--canon-theme-orange-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="10"] { --_t300: var(--canon-theme-red-300); --_t400: var(--canon-theme-red-400); --_t500: var(--canon-theme-red-500); --_t600: var(--canon-theme-red-600); --_t700: var(--canon-theme-red-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="11"] { --_t300: var(--canon-theme-rose-300); --_t400: var(--canon-theme-rose-400); --_t500: var(--canon-theme-rose-500); --_t600: var(--canon-theme-rose-600); --_t700: var(--canon-theme-rose-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="12"] { --_t300: var(--canon-theme-pink-300); --_t400: var(--canon-theme-pink-400); --_t500: var(--canon-theme-pink-500); --_t600: var(--canon-theme-pink-600); --_t700: var(--canon-theme-pink-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="13"] { --_t300: var(--canon-theme-fuchsia-300); --_t400: var(--canon-theme-fuchsia-400); --_t500: var(--canon-theme-fuchsia-500); --_t600: var(--canon-theme-fuchsia-600); --_t700: var(--canon-theme-fuchsia-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="14"] { --_t300: var(--canon-theme-purple-300); --_t400: var(--canon-theme-purple-400); --_t500: var(--canon-theme-purple-500); --_t600: var(--canon-theme-purple-600); --_t700: var(--canon-theme-purple-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="15"] { --_t300: var(--canon-theme-violet-300); --_t400: var(--canon-theme-violet-400); --_t500: var(--canon-theme-violet-500); --_t600: var(--canon-theme-violet-600); --_t700: var(--canon-theme-violet-700); }
+  :is(.canon-avatar, .canon-tag)[data-seed-slot="16"] { --_t300: var(--canon-theme-indigo-300); --_t400: var(--canon-theme-indigo-400); --_t500: var(--canon-theme-indigo-500); --_t600: var(--canon-theme-indigo-600); --_t700: var(--canon-theme-indigo-700); }
+  .canon-avatar[data-seed-slot] {
+    --_bg: light-dark(
+      color-mix(in srgb, var(--_t400) 15%, transparent),
+      color-mix(in srgb, var(--_t500) 20%, transparent));
+    --_fg: light-dark(var(--_t700), var(--_t300));
+  }
+
+}

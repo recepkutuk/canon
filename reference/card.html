@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Card reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Card</h1>
+  <p class="ref-note">A framed box: one thing, or one part of a page, set apart. Specification: <a href="../docs/components/card.md">docs/components/card.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="card">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-card</code>: a header (a heading as its title, a description, actions) and a body. A <code>&lt;section&gt;</code> when it is a part of the page, an <code>&lt;article&gt;</code> when it stands on its own (one of many, in a list or a grid).</p>
+
+    <div class="ref-card-demo">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="ca-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <dl class="canon-description-list" data-label="start">
+            <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+            <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+            <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="footer">
+    <h2>With a footer</h2>
+    <p class="ref-note">A footer under a line: actions about the whole card. <code>data-align="end"</code> on an item sends it and what follows to the far end, as in a Dialog. A card can be the form itself.</p>
+
+    <div class="ref-card-demo">
+      <form class="canon-card" action="#" onsubmit="return false">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Profile</h3>
+          <p class="canon-card-description">Shown to everyone in the workspace</p>
+        </header>
+        <div class="canon-card-body">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="cp-name">Full name</label>
+            </div>
+            <div class="canon-text-input">
+              <input id="cp-name" name="name" type="text" value="Ada Lovelace" placeholder>
+            </div>
+          </div>
+        </div>
+        <footer class="canon-card-footer">
+          <button type="reset" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-button-label">Cancel</span></button>
+          <button type="submit" class="canon-button" data-emphasis="high" data-align="end"><span class="canon-button-label">Save</span></button>
+        </footer>
+      </form>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="table">
+    <h2>Edge to edge</h2>
+    <p class="ref-note">Anything directly in the card, not in its body, runs edge to edge: a <a href="table.html">Table</a> drops its own frame for the card's.</p>
+
+    <div class="ref-card-demo">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="ct-title">Recent payments</h3>
+          <p class="canon-card-description">The last two payments on this invoice</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-button-label">View all</span></button></div>
+        </header>
+        <div class="canon-table">
+          <table aria-labelledby="ct-title">
+            <thead><tr><th scope="col">Date</th><th scope="col">Method</th><th scope="col" data-align="end">Amount</th></tr></thead>
+            <tbody>
+              <tr><td><time datetime="2026-09-03">3 Sep 2026</time></td><td>Bank transfer</td><td data-align="end">€4,000.00</td></tr>
+              <tr><td><time datetime="2026-08-02">2 Aug 2026</time></td><td>Card ending 4242</td><td data-align="end">€2,400.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sections">
+    <h2>Parts</h2>
+    <p class="ref-note"><a href="section.html">Sections</a> directly in a card are its parts: padded like a body, a line between them.</p>
+
+    <div class="ref-card-demo">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">Notifications</h3>
+          <p class="canon-card-description">What reaches you, and how</p>
+        </header>
+        <section class="canon-section">
+          <header class="canon-section-header">
+            <h4 class="canon-section-title">Email</h4>
+            <p class="canon-section-description">Sent to ada@example.com</p>
+          </header>
+          <div class="canon-choice">
+            <input type="checkbox" role="switch" id="cs-overdue" checked>
+            <label class="canon-choice-label" for="cs-overdue">An invoice becomes overdue</label>
+          </div>
+        </section>
+        <section class="canon-section">
+          <header class="canon-section-header">
+            <h4 class="canon-section-title">Weekly summary</h4>
+            <p class="canon-section-description">Every Monday morning</p>
+            <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-button-label">Preview</span></button></div>
+          </header>
+          <div class="canon-choice">
+            <input type="checkbox" role="switch" id="cs-weekly">
+            <label class="canon-choice-label" for="cs-weekly">Send me the summary</label>
+          </div>
+        </section>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="link">
+    <h2>A link</h2>
+    <p class="ref-note">A <code>.canon-card-link</code> in the title makes the whole card its link: a click anywhere opens it, while its other buttons stay buttons. Screen readers hear one link, named by the title.</p>
+
+    <div class="ref-card-grid">
+      <article class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cl1-title"><a class="canon-card-link" href="#cl1-company">Globex Corporation</a></h3>
+          <p class="canon-card-description">12 open invoices · €48,200 due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label">More actions</span></button></div>
+        </header>
+      </article>
+      <article class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cl2-title"><a class="canon-card-link" href="#cl2-company">Initech</a></h3>
+          <p class="canon-card-description">3 open invoices · €6,900 due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label">More actions</span></button></div>
+        </header>
+      </article>
+      <article class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cl3-title"><a class="canon-card-link" href="#cl3-company">Umbrella</a></h3>
+          <p class="canon-card-description">No open invoices</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label">More actions</span></button></div>
+        </header>
+      </article>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the card or a container: sm, md, lg.</p>
+
+    <div class="ref-card-demo">
+      <section class="canon-card" data-size="sm">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cz-sm-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <p>Invoices are sent on the first working day of each month, and payment is due 30 days later.</p>
+        </div>
+      </section>
+    </div>
+    <div class="ref-card-demo">
+      <section class="canon-card" data-size="md">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cz-md-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <p>Invoices are sent on the first working day of each month, and payment is due 30 days later.</p>
+        </div>
+      </section>
+    </div>
+    <div class="ref-card-demo">
+      <section class="canon-card" data-size="lg">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cz-lg-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <p>Invoices are sent on the first working day of each month, and payment is due 30 days later.</p>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left. A card with no header, only a body. Narrow, the header's actions go under its title.</p>
+
+    <div class="ref-card-demo" dir="rtl" lang="ar">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cr-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <dl class="canon-description-list" data-label="start">
+            <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+            <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+            <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+    <div class="ref-card-demo">
+      <section class="canon-card">
+        <div class="canon-card-body">
+          <p>Invoices are sent on the first working day of each month, and payment is due 30 days later.</p>
+        </div>
+      </section>
+    </div>
+    <div class="ref-card-demo" style="max-inline-size: 18rem">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title" id="cn-title">Billing details</h3>
+          <p class="canon-card-description">Where invoices go, and when they're due</p>
+          <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <div class="canon-card-body">
+          <dl class="canon-description-list" data-label="start">
+            <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+            <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+            <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+</body>
+</html>

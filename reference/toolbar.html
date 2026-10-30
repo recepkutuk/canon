@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Toolbar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Toolbar</h1>
+  <p class="ref-note">A row of controls that act on one thing, such as a text editor's formatting. One stop for Tab; the arrow keys move inside. Specification: <a href="../docs/components/toolbar.md">docs/components/toolbar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="toolbar">
+    <h2>Basics</h2>
+    <p class="ref-note">A row of controls for one thing, here formatting text: <code>role="toolbar"</code>, named by <code>aria-label</code>, holding <a href="button.html">Buttons</a>, <a href="button-group.html">Button Groups</a>, <a href="select.html">Selects</a> and menu buttons. It wraps onto more rows when narrow. It is one stop for Tab: Left and Right move from control to control, through the groups too, and Home and End go to its ends. Icon-only buttons say so (<code>data-display="icon"</code>, on a group or the button); a button that keeps its words, Insert, opens a <a href="menu.html">Menu</a>.</p>
+
+    <div data-size="sm">
+    <div class="canon-toolbar" role="toolbar" aria-label="Formatting">
+      <div class="canon-button-group" role="group" aria-label="History" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="undo" aria-hidden="true"></span>
+          <span class="canon-button-label">Undo</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="redo" aria-hidden="true"></span>
+          <span class="canon-button-label">Redo</span>
+        </button>
+      </div>
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="text-cursor" aria-hidden="true"></span>
+        <select name="tb-block" aria-label="Text style">
+          <option selected>Paragraph</option>
+          <option>Heading 1</option>
+          <option>Heading 2</option>
+          <option>Heading 3</option>
+          <option>Quote</option>
+          <option>Code</option>
+        </select>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Alignment" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">Align left</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">Center</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">Align right</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">Justify</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="baseline" aria-hidden="true"></span>
+        <span class="canon-button-label">Text color</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="eraser" aria-hidden="true"></span>
+        <span class="canon-button-label">Clear formatting</span>
+      </button>
+      <div class="canon-button-group" role="group" aria-label="Script" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="subscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Subscript</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="superscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Superscript</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Lists" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list-ordered" aria-hidden="true"></span>
+          <span class="canon-button-label">Numbered list</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list" aria-hidden="true"></span>
+          <span class="canon-button-label">Bulleted list</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Indent" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-decrease" aria-hidden="true"></span>
+          <span class="canon-button-label">Outdent</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-increase" aria-hidden="true"></span>
+          <span class="canon-button-label">Indent</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" popovertarget="tb-insert" aria-haspopup="menu" aria-expanded="false">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert</span>
+      </button>
+      <div class="canon-menu" id="tb-insert" popover role="menu" aria-label="Insert">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Image…</span></button>
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Table…</span></button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Horizontal line</span></button>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">In less room the toolbar wraps; the order and the Tab stop stay the same.</p>
+
+    <div data-size="sm" style="max-inline-size: 22rem">
+    <div class="canon-toolbar" role="toolbar" aria-label="Formatting">
+      <div class="canon-button-group" role="group" aria-label="History" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="undo" aria-hidden="true"></span>
+          <span class="canon-button-label">Undo</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="redo" aria-hidden="true"></span>
+          <span class="canon-button-label">Redo</span>
+        </button>
+      </div>
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="text-cursor" aria-hidden="true"></span>
+        <select name="nr-block" aria-label="Text style">
+          <option selected>Paragraph</option>
+          <option>Heading 1</option>
+          <option>Heading 2</option>
+          <option>Heading 3</option>
+          <option>Quote</option>
+          <option>Code</option>
+        </select>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Alignment" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">Align left</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">Center</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">Align right</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">Justify</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="baseline" aria-hidden="true"></span>
+        <span class="canon-button-label">Text color</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="eraser" aria-hidden="true"></span>
+        <span class="canon-button-label">Clear formatting</span>
+      </button>
+      <div class="canon-button-group" role="group" aria-label="Script" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="subscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Subscript</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="superscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Superscript</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Lists" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list-ordered" aria-hidden="true"></span>
+          <span class="canon-button-label">Numbered list</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list" aria-hidden="true"></span>
+          <span class="canon-button-label">Bulleted list</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Indent" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-decrease" aria-hidden="true"></span>
+          <span class="canon-button-label">Outdent</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-increase" aria-hidden="true"></span>
+          <span class="canon-button-label">Indent</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" popovertarget="nr-insert" aria-haspopup="menu" aria-expanded="false">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert</span>
+      </button>
+      <div class="canon-menu" id="nr-insert" popover role="menu" aria-label="Insert">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Image…</span></button>
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Table…</span></button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Horizontal line</span></button>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the toolbar or a container sizes every control in it. A text editor's toolbar is usually small.</p>
+
+    <div data-size="md">
+    <div class="canon-toolbar" role="toolbar" aria-label="Formatting">
+      <div class="canon-button-group" role="group" aria-label="History" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="undo" aria-hidden="true"></span>
+          <span class="canon-button-label">Undo</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="redo" aria-hidden="true"></span>
+          <span class="canon-button-label">Redo</span>
+        </button>
+      </div>
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="text-cursor" aria-hidden="true"></span>
+        <select name="md-block" aria-label="Text style">
+          <option selected>Paragraph</option>
+          <option>Heading 1</option>
+          <option>Heading 2</option>
+          <option>Heading 3</option>
+          <option>Quote</option>
+          <option>Code</option>
+        </select>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Alignment" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">Align left</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">Center</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">Align right</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">Justify</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="baseline" aria-hidden="true"></span>
+        <span class="canon-button-label">Text color</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="eraser" aria-hidden="true"></span>
+        <span class="canon-button-label">Clear formatting</span>
+      </button>
+      <div class="canon-button-group" role="group" aria-label="Script" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="subscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Subscript</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="superscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Superscript</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Lists" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list-ordered" aria-hidden="true"></span>
+          <span class="canon-button-label">Numbered list</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list" aria-hidden="true"></span>
+          <span class="canon-button-label">Bulleted list</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Indent" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-decrease" aria-hidden="true"></span>
+          <span class="canon-button-label">Outdent</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-increase" aria-hidden="true"></span>
+          <span class="canon-button-label">Indent</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" popovertarget="md-insert" aria-haspopup="menu" aria-expanded="false">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert</span>
+      </button>
+      <div class="canon-menu" id="md-insert" popover role="menu" aria-label="Insert">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Image…</span></button>
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Table…</span></button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Horizontal line</span></button>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the toolbar starts from the right, Left moves forward, and the undo, redo and indent icons mirror.</p>
+
+    <div data-size="sm" dir="rtl" lang="ar">
+    <div class="canon-toolbar" role="toolbar" aria-label="التنسيق">
+      <div class="canon-button-group" role="group" aria-label="History" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="undo" aria-hidden="true"></span>
+          <span class="canon-button-label">Undo</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="redo" aria-hidden="true"></span>
+          <span class="canon-button-label">Redo</span>
+        </button>
+      </div>
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="text-cursor" aria-hidden="true"></span>
+        <select name="rtl-block" aria-label="Text style">
+          <option selected>Paragraph</option>
+          <option>Heading 1</option>
+          <option>Heading 2</option>
+          <option>Heading 3</option>
+          <option>Quote</option>
+          <option>Code</option>
+        </select>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Alignment" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">Align left</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">Center</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">Align right</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">Justify</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="baseline" aria-hidden="true"></span>
+        <span class="canon-button-label">Text color</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-display="icon">
+        <span class="canon-icon" data-icon="eraser" aria-hidden="true"></span>
+        <span class="canon-button-label">Clear formatting</span>
+      </button>
+      <div class="canon-button-group" role="group" aria-label="Script" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="subscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Subscript</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="superscript" aria-hidden="true"></span>
+          <span class="canon-button-label">Superscript</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Lists" data-display="icon">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list-ordered" aria-hidden="true"></span>
+          <span class="canon-button-label">Numbered list</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="list" aria-hidden="true"></span>
+          <span class="canon-button-label">Bulleted list</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Indent" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-decrease" aria-hidden="true"></span>
+          <span class="canon-button-label">Outdent</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="indent-increase" aria-hidden="true"></span>
+          <span class="canon-button-label">Indent</span>
+        </button>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" popovertarget="rtl-insert" aria-haspopup="menu" aria-expanded="false">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert</span>
+      </button>
+      <div class="canon-menu" id="rtl-insert" popover role="menu" aria-label="Insert">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Image…</span></button>
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Table…</span></button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Horizontal line</span></button>
+      </div>
+    </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Skeleton reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Skeleton</h1>
+  <p class="ref-note">Shapes that stand in for content while it loads, in its layout, so the page doesn't jump when it arrives. Specification: <a href="../docs/components/skeleton.md">docs/components/skeleton.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="skeleton">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-skeleton</code> is a line of text by default, as long as its container (set its width to vary it). <code>data-shape="block"</code> stands for a control or a tag, <code>"circle"</code> for an avatar or a round button, <code>"square"</code> for a checkbox. Skeletons are still, and show only after 0.3s, so a quick load never flashes them. Always <code>aria-hidden="true"</code>: the region that loads says so with <code>aria-busy="true"</code>.</p>
+
+    <div class="ref-skeleton-stack" aria-busy="true" aria-label="Profile, loading">
+      <div class="ref-person"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" aria-hidden="true" style="inline-size: 8rem"></span></div>
+      <span class="canon-skeleton" aria-hidden="true"></span>
+      <span class="canon-skeleton" aria-hidden="true" style="inline-size: 80%"></span>
+      <span class="canon-skeleton" aria-hidden="true" style="inline-size: 60%"></span>
+      <div class="ref-row"><span class="canon-skeleton" data-shape="square" aria-hidden="true"></span><span class="canon-skeleton" data-shape="block" aria-hidden="true"></span></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the skeleton or a container: blocks, circles and squares take the control's and icon's sizes.</p>
+
+    <div class="ref-row" data-size="sm"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" data-shape="block" aria-hidden="true"></span><span class="canon-skeleton" data-shape="square" aria-hidden="true"></span></div>
+    <div class="ref-row" data-size="md"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" data-shape="block" aria-hidden="true"></span><span class="canon-skeleton" data-shape="square" aria-hidden="true"></span></div>
+    <div class="ref-row" data-size="lg"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" data-shape="block" aria-hidden="true"></span><span class="canon-skeleton" data-shape="square" aria-hidden="true"></span></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sweep">
+    <h2>Sweep</h2>
+    <p class="ref-note"><code>data-motion="sweep"</code> on the skeleton or a container adds a lighter sweep passing across, for loads that can take a while. It stops with reduced motion.</p>
+
+    <div class="ref-skeleton-stack" data-motion="sweep" aria-busy="true" aria-label="Profile, loading">
+      <div class="ref-person"><span class="canon-skeleton" data-shape="circle" aria-hidden="true"></span><span class="canon-skeleton" aria-hidden="true" style="inline-size: 8rem"></span></div>
+      <span class="canon-skeleton" aria-hidden="true"></span>
+      <span class="canon-skeleton" aria-hidden="true" style="inline-size: 80%"></span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="in-components">
+    <h2>In components</h2>
+    <p class="ref-note">A <a href="data-table.html">Data Table</a> draws its own skeleton rows while it is <code>aria-busy</code>.</p>
+  </section>
+
+</main>
+</body>
+</html>

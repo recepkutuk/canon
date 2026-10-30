@@ -1,0 +1,210 @@
+/* ==================================================================== */
+/* App Shell · Sidebar · Top Bar                                        */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The shell: its own lines and page color. Sizes
+     follow the size scale (sm / md / lg) through one inset, 8 / 12 / 16px:
+     - Sidebar: 264px at every size, white (dark zinc-900), a line at its
+       end; the inset above and below, 4px more at the sides; the row's
+       height less 8px between its header and its links (24 / 32 / 40).
+       A rail: the inset all round, so it is as wide as the bar is tall
+       (48 / 64 / 80) and the corner where they meet is square.
+     - Header: a row tall, so it lines up with the bar; the brand a mark
+       8px smaller than a row (24 / 32 / 40), 10 / 12 / 16px before its
+       name (Button's type, semibold), 4px in.
+     - Top Bar: a row and the inset above and below (48 / 64 / 80), 8px
+       more at the sides (16 / 20 / 24), 4px more between things
+       (12 / 16 / 20); white (dark zinc-900), a line under it; the search
+       the Command Palette's button as it is.
+     A Count on an icon button hangs 4px past its top-end corner. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-shell-inset: 0.75rem;
+    --canon-theme-shell-brand-gap: 0.75rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-shell-inset: 0.5rem;
+    --canon-theme-shell-brand-gap: 0.625rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-shell-inset: 1rem;
+    --canon-theme-shell-brand-gap: 1rem;
+  }
+  /* The shell's own lines are a step lighter than other lines (the faint
+     rule, hairlines): they frame the app without
+     competing with what's in it. The page behind is zinc-50 (dark
+     zinc-950), so white panels and cards stand out. */
+  :root {
+    --canon-sidebar-width: 16.5rem;
+    --canon-theme-page-bg: var(--canon-theme-paper);
+  }
+  /* What sticks over the page (a sticky Page Header) starts under the
+     bar, and takes the page's color. */
+  .canon-app-shell {
+    --canon-theme-page-bg: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-950));
+    background-color: var(--canon-theme-page-bg);
+  }
+  .canon-app-shell:has(> .canon-top-bar) {
+    --canon-sticky-offset: calc(var(--canon-banners-height, 0px) + var(--canon-control-block-size) + 2 * var(--canon-theme-shell-inset));
+  }
+  /* Collapsing to a rail and opening again animate the width (and the
+     side padding, so icons glide the 4px between them). The side padding
+     is the header's, body's and footer's, so the body's scrollbar sits at
+     the sidebar's edge, beside the links only. */
+  .canon-sidebar {
+    interpolate-size: allow-keywords;
+    transition: inline-size 0.2s ease, padding 0.2s ease;
+    gap: calc(var(--canon-control-block-size) - 0.5rem);
+    padding-block: var(--canon-theme-shell-inset);
+    border-inline-end: var(--canon-theme-hairline) solid var(--canon-theme-rule-faint);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-sidebar > * {
+    transition: padding 0.2s ease;
+    padding-inline: calc(var(--canon-theme-shell-inset) + 0.25rem);
+    padding-inline-end: calc(var(--canon-theme-shell-inset) + 0.25rem - 1px); /* its line takes 1px of the room */
+  }
+  /* Room for the links' focus rings at the body's ends. */
+  .canon-sidebar-body {
+    scrollbar-width: thin;
+    margin-block: -0.25rem;
+    padding-block: 0.25rem;
+  }
+  /* A rail: one item wide, the inset all round (48 / 64 / 80px with its
+     line, the bar's height). An explicit width, not auto, so opening
+     animates from it: auto would be measured with the labels already
+     back. */
+  .canon-sidebar[data-display="icon"] {
+    inline-size: calc(var(--canon-control-block-size) + 2 * var(--canon-theme-shell-inset));
+  }
+  .canon-sidebar[data-display="icon"] > * {
+    padding-inline: var(--canon-theme-shell-inset);
+    padding-inline-end: calc(var(--canon-theme-shell-inset) - 1px);
+  }
+  /* No scrollbar in a rail (it still scrolls by wheel, touch and focus):
+     one would take its width from the one-square column. */
+  .canon-sidebar[data-display="icon"] .canon-sidebar-body {
+    scrollbar-width: none;
+  }
+  .canon-sidebar-header {
+    gap: 0.5rem;
+    min-block-size: var(--canon-control-block-size);
+  }
+  /* A rail's header: the mark, and its toggle under it when the toggle
+     stays here (no top bar to take it). */
+  .canon-sidebar[data-display="icon"] .canon-sidebar-header {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .canon-sidebar-brand {
+    gap: var(--canon-theme-shell-brand-gap);
+    padding-inline: 0.25rem;
+    border-radius: var(--canon-theme-button-radius);
+    font-size: var(--canon-control-font-size);
+    font-weight: 600;
+    line-height: var(--canon-theme-button-line-height);
+    letter-spacing: var(--canon-theme-button-tracking);
+  }
+  .canon-sidebar-brand > :is(img, svg) {
+    inline-size: calc(var(--canon-control-block-size) - 0.5rem);
+    block-size: calc(var(--canon-control-block-size) - 0.5rem);
+  }
+  a.canon-sidebar-brand:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  .canon-top-bar {
+    gap: calc(var(--canon-theme-shell-inset) + 0.25rem);
+    min-block-size: calc(var(--canon-control-block-size) + 2 * var(--canon-theme-shell-inset));
+    padding: var(--canon-theme-shell-inset) calc(var(--canon-theme-shell-inset) + 0.5rem) calc(var(--canon-theme-shell-inset) - 1px);
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule-faint);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-top-bar-start,
+  .canon-top-bar-end {
+    gap: calc(var(--canon-theme-shell-inset) + 0.25rem);
+  }
+
+  /* The toggle's icon: a panel and a chevron saying what it will do, drawn
+     as two layers so the chevron alone turns (pointing in to close the
+     sidebar, out to open it). */
+  [command="--canon-toggle-sidebar"] > .canon-icon {
+    position: relative;
+    background: none;
+    mask: none;
+  }
+  [command="--canon-toggle-sidebar"] > .canon-icon::before,
+  [command="--canon-toggle-sidebar"] > .canon-icon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+  }
+  [command="--canon-toggle-sidebar"] > .canon-icon::before {
+    mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='M9 3v18'/></svg>") center / contain no-repeat;
+  }
+  [command="--canon-toggle-sidebar"] > .canon-icon::after {
+    mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m16 15-3-3 3-3'/></svg>") center / contain no-repeat;
+    transform-origin: 60.4167% 50%; /* the chevron's own middle (x 14.5 of 24) */
+    transition: rotate 0.2s ease;
+  }
+  [command="--canon-toggle-sidebar"][aria-expanded="false"] > .canon-icon::after {
+    rotate: 180deg;
+  }
+  /* In right-to-left the panel opens from the right: the icons mirror. */
+  :is([data-icon="panel-left-close"], [data-icon="panel-left-open"]):dir(rtl) {
+    scale: -1 1;
+  }
+
+  /* Narrow (an App Shell under 640px: a phone, or a small window): the
+     sidebar is a drawer over the page (canon.js), sliding in from the
+     shell's start over a scrim on the shell, with a shadow at its edge. */
+  @container canon-app-shell (width < 40rem) {
+    .canon-app-shell > .canon-sidebar {
+      --canon-sidebar-drawer: 1;
+    }
+  }
+  .canon-sidebar[data-drawer] {
+    box-shadow: var(--canon-theme-shadow-overlay);
+    transition: translate 0.2s ease, visibility 0.2s;
+  }
+  .canon-sidebar[data-drawer="closed"] {
+    translate: -100% 0;
+  }
+  .canon-sidebar[data-drawer="closed"]:dir(rtl) {
+    translate: 100% 0;
+  }
+  /* The scrim: over the shell (bar and page), under the drawer. */
+  .canon-app-shell:has(> .canon-sidebar[data-drawer])::after {
+    content: "";
+    grid-area: 1 / 1 / -1 / -1;
+    z-index: 3;
+    background-color: rgb(0 0 0 / 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+  }
+  .canon-app-shell:has(> .canon-sidebar[data-drawer="open"])::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-sidebar,
+    .canon-sidebar > *,
+    .canon-sidebar[data-drawer],
+    .canon-app-shell::after,
+    [command="--canon-toggle-sidebar"] > .canon-icon::after { transition: none; }
+  }
+
+  /* A Count on an icon-only button: its top-end corner, 4px past it. */
+  :is(.canon-button[data-display="icon"], [data-display="icon"] .canon-button) > .canon-count {
+    inset-block-start: calc(-0.25rem - 1px); /* measured from the button's border box */
+    inset-inline-end: calc(-0.25rem - 1px);
+  }
+}

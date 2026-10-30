@@ -1,0 +1,151 @@
+/* ==================================================================== */
+/* Swatches                                                             */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A
+     swatch is the radio's circle, 90% of the control, in its color; the
+     chosen one gets the radio's white dot, a quarter of the control.
+     Hover: a 3px blue-100 halo (dark blue-900). Focus: the
+     choices' ring (2px out, 1px blue-600, dark blue-300). The box: the
+     control's height, swatches of the icon size, (height - icon) / 2 apart
+     and from the edges (8 / 10 / 12px), Text Input's corners; a zinc-100
+     line (dark zinc-800). A 1px edge inside every swatch
+     (10% black, dark 15% white), so white and black ones still show.
+     Expanding (data-collapse): Text Input's frame
+     and focus look, with a chevron after the swatches pointing right
+     while closed and left while open. */
+  .canon-swatches {
+    --canon-swatches-gap: calc((var(--canon-control-block-size) - var(--canon-icon-size)) / 2);
+    padding: calc(var(--canon-swatches-gap) - 1px);
+    border: 1px solid light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    border-radius: var(--canon-theme-input-radius);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+  }
+  .canon-swatches > input[type="radio"] {
+    --_halo: transparent;
+    --_edge: inset 0 0 0 var(--canon-theme-hairline) light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.15));
+    outline: none;
+  }
+  .canon-swatches > input[type="radio"]::before {
+    content: "";
+    position: absolute;
+    inset: 5%;
+    border-radius: 50%;
+    background: linear-gradient(var(--canon-swatch-color), var(--canon-swatch-color)), var(--canon-theme-color-checker);
+    box-shadow: var(--_edge), 0 0 0 3px var(--_halo);
+    transition: box-shadow 0.12s;
+  }
+  .canon-swatches > input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    inset: 37.5%;
+    border-radius: 50%;
+    background-color: var(--canon-theme-white);
+  }
+  @media (hover: hover) {
+    .canon-swatches > input[type="radio"]:not(:disabled):hover {
+      --_halo: light-dark(var(--canon-theme-blue-100), var(--canon-theme-blue-900));
+    }
+  }
+  .canon-swatches > input[type="radio"]:focus-visible::before {
+    box-shadow:
+      var(--_edge),
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  .canon-swatches > input[type="radio"]:disabled {
+    opacity: 0.45;
+  }
+
+  /* Expanding: Text Input's frame; open, the box shows focus (the chosen
+     swatch's dot is the keyboard's place, so swatches lose their ring). */
+  .canon-swatches:has(> .canon-swatches-toggle) {
+    border-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    transition: border-color 0.12s, box-shadow 0.12s;
+  }
+  @media (hover: hover) {
+    .canon-swatches:has(> .canon-swatches-toggle):hover {
+      border-color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    }
+  }
+  .canon-swatches:has(> .canon-swatches-toggle[aria-expanded="true"]),
+  .canon-swatches:has(> .canon-swatches-toggle):has(> input:focus-visible) {
+    border-color: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    box-shadow: 0 0 0 3px light-dark(var(--canon-theme-blue-100), var(--canon-theme-blue-900));
+  }
+  .canon-swatches:has(> .canon-swatches-toggle) > input[type="radio"]:focus-visible::before {
+    box-shadow: var(--_edge), 0 0 0 3px var(--_halo);
+  }
+  /* The toggle: the chevron, and its target. Closed, the whole box opens
+     it; open, everything after the last swatch (the gap before the chevron
+     to the box's edge, its full height) closes it. */
+  .canon-swatches:has(> .canon-swatches-toggle) {
+    --_pad: calc(var(--canon-swatches-gap) - 1px);
+    position: relative;
+  }
+  .canon-swatches-toggle {
+    box-sizing: content-box;
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    inline-size: var(--canon-icon-size);
+    margin-block: calc(-1 * var(--_pad));
+    margin-inline: calc(-1 * var(--canon-swatches-gap)) calc(-1 * var(--_pad));
+    padding-inline: var(--canon-swatches-gap) var(--_pad);
+    outline: none;
+  }
+  .canon-swatches-toggle::after {
+    content: "";
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    mask: var(--canon-theme-icon-chevron) center / contain no-repeat;
+    rotate: -90deg;
+    transition: rotate 0.2s ease;
+  }
+  .canon-swatches-toggle[aria-expanded="false"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .canon-swatches-toggle[aria-expanded="true"]::after {
+    rotate: 90deg;
+  }
+  .canon-swatches-toggle:dir(rtl)::after {
+    rotate: 90deg;
+  }
+  .canon-swatches-toggle[aria-expanded="true"]:dir(rtl)::after {
+    rotate: -90deg;
+  }
+
+  /* Opening, the other swatches grow in from the chosen one and fade in
+     (0.2s); closing, they shrink back into it. Not while canon.js sets
+     the group up (data-state="ready" after the first paint). */
+  .canon-swatches:has(> .canon-swatches-toggle[data-state="ready"]) > input[type="radio"] {
+    transition: inline-size 0.2s ease, margin-inline-start 0.2s ease, opacity 0.15s ease, scale 0.2s ease, display 0.2s allow-discrete;
+  }
+  .canon-swatches:has(> .canon-swatches-toggle[aria-expanded="false"]) > input[type="radio"]:not(:checked):not(.canon-swatches:not(:has(> input:checked)) > input:first-of-type) {
+    inline-size: 0;
+    margin-inline-start: calc(-1 * var(--canon-swatches-gap));
+    opacity: 0;
+    scale: 0.6;
+  }
+  @starting-style {
+    .canon-swatches:has(> .canon-swatches-toggle[aria-expanded="true"]) > input[type="radio"] {
+      inline-size: 0;
+      margin-inline-start: calc(-1 * var(--canon-swatches-gap));
+      opacity: 0;
+      scale: 0.6;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-swatches,
+    .canon-swatches > input[type="radio"]::before,
+    .canon-swatches:has(> .canon-swatches-toggle[data-state="ready"]) > input[type="radio"],
+    .canon-swatches-toggle::after { transition: none; }
+  }
+}

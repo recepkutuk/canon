@@ -1,0 +1,1031 @@
+/*
+ * carbon.css
+ *
+ * A Carbon-inspired look for Canon, in one file: link it instead of
+ * canon.css. The markup and canon.js stay exactly the same. Not affiliated
+ * with or endorsed by IBM.
+ *
+ * It builds on canon.css, in three steps: the palette and the shape tokens
+ * restyle every component at once, then a few rules redraw what makes the
+ * look recognizable. Components without rules here take the palette, the
+ * font and the tokens' corners.
+ *
+ * Covers in full: Button, Field and its boxes, Select, Choice, Tabs, Table,
+ * Dialog, Alert, Tag, Avatar, Avatar Group.
+ *
+ * Supports: light, dark.
+ *
+ * This folder is the theme: this stylesheet, its icons and its fonts.
+ * Serve the page over HTTP; browsers don't draw mask images from file://.
+ *
+ * Credits: IBM Plex Sans and IBM Plex Mono (SIL Open Font License, see the
+ * OFL files here), Carbon icons (Apache License 2.0, see LICENSE).
+ */
+
+@import url("../canon/canon.css");
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-sans-cyrillic-400-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-sans-greek-400-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-sans-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-sans-cyrillic-600-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-sans-greek-600-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-sans-latin-ext-600-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-sans-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-mono-cyrillic-400-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-mono-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-mono-cyrillic-600-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-mono-latin-ext-600-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@layer canon.theme {
+
+  /* ------------------------------------------------------------------ */
+  /* Palette: Canon's scales, holding this look's colors                 */
+  /* ------------------------------------------------------------------ */
+
+  :root {
+    --canon-theme-zinc-50: #f4f4f4;
+    --canon-theme-zinc-100: #e8e8e8;
+    --canon-theme-zinc-200: #e0e0e0;
+    --canon-theme-zinc-300: #c6c6c6;
+    --canon-theme-zinc-400: #a8a8a8;
+    --canon-theme-zinc-500: #6f6f6f;
+    --canon-theme-zinc-600: #525252;
+    --canon-theme-zinc-700: #393939;
+    --canon-theme-zinc-800: #262626;
+    --canon-theme-zinc-900: #161616;
+    --canon-theme-zinc-950: #161616;
+
+    --canon-theme-blue-50: #edf5ff;
+    --canon-theme-blue-100: #d0e2ff;
+    --canon-theme-blue-200: #a6c8ff;
+    --canon-theme-blue-300: #78a9ff;
+    --canon-theme-blue-400: #4589ff;
+    --canon-theme-blue-500: #0050e6;
+    --canon-theme-blue-600: #0f62fe;
+    --canon-theme-blue-700: #002d9c;
+    --canon-theme-blue-800: #001d6c;
+    --canon-theme-blue-900: #001141;
+    --canon-theme-blue-950: #001141;
+
+    --canon-theme-green-50: #defbe6;
+    --canon-theme-green-100: #a7f0ba;
+    --canon-theme-green-200: #6fdc8c;
+    --canon-theme-green-300: #42be65;
+    --canon-theme-green-400: #24a148;
+    --canon-theme-green-500: #0e6027;
+    --canon-theme-green-600: #198038;
+    --canon-theme-green-700: #044317;
+    --canon-theme-green-800: #022d0d;
+    --canon-theme-green-900: #071908;
+    --canon-theme-green-950: #071908;
+
+    --canon-theme-amber-50: #fcf4d6;
+    --canon-theme-amber-100: #fddc69;
+    --canon-theme-amber-200: #f1c21b;
+    --canon-theme-amber-300: #f1c21b;
+    --canon-theme-amber-400: #f1c21b;
+    --canon-theme-amber-500: #d2a106;
+    --canon-theme-amber-600: #b28600;
+    --canon-theme-amber-700: #684e00;
+    --canon-theme-amber-800: #483700;
+    --canon-theme-amber-900: #302400;
+    --canon-theme-amber-950: #1c1500;
+
+    --canon-theme-red-50: #fff1f1;
+    --canon-theme-red-100: #ffd7d9;
+    --canon-theme-red-200: #ffb3b8;
+    --canon-theme-red-300: #ff8389;
+    --canon-theme-red-400: #fa4d56;
+    --canon-theme-red-500: #b81921;
+    --canon-theme-red-600: #da1e28;
+    --canon-theme-red-700: #750e13;
+    --canon-theme-red-800: #520408;
+    --canon-theme-red-900: #2d0709;
+    --canon-theme-red-950: #2d0709;
+
+    /* ---------------------------------------------------------------- */
+    /* Lines, depth, type, sizes                                         */
+    /* ---------------------------------------------------------------- */
+
+    --canon-theme-focus: light-dark(#0f62fe, #fff);
+    --canon-theme-hairline: 1px;
+    --canon-theme-edge: light-dark(#e0e0e0, #393939);
+    --canon-theme-rule: light-dark(#e0e0e0, #393939);
+    --canon-theme-rule-faint: light-dark(#e0e0e0, #393939);
+
+    /* Flat at rest; one shadow for whatever floats. */
+    --canon-theme-shadow-raised: 0 0 transparent;
+    --canon-theme-shadow-control: 0 0 transparent;
+    --canon-theme-shadow-floating: 0 2px 6px light-dark(rgb(0 0 0 / 0.3), rgb(0 0 0 / 0.8));
+    --canon-theme-shadow-overlay: 0 2px 6px light-dark(rgb(0 0 0 / 0.3), rgb(0 0 0 / 0.8));
+
+    --canon-theme-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: normal;
+
+    --canon-control-padding-inline-sm: 1rem;
+    --canon-control-padding-inline-md: 1rem;
+    --canon-control-padding-inline-lg: 1rem;
+    --canon-control-font-size-sm: 0.875rem;
+    --canon-control-font-size-md: 0.875rem;
+    --canon-control-font-size-lg: 0.875rem;
+    --canon-control-gap-sm: 0.5rem;
+    --canon-control-gap-md: 0.5rem;
+    --canon-control-gap-lg: 0.5rem;
+    --canon-icon-size-sm: 1rem;
+    --canon-icon-size-md: 1rem;
+    --canon-icon-size-lg: 1rem;
+  }
+
+  /* Square at every size; one type size for every control. */
+  :root,
+  [data-size] {
+    --canon-theme-button-radius: 0px;
+    --canon-theme-button-kbd-radius: 0px;
+    --canon-theme-button-label-inset: 0.25rem;
+    --canon-theme-tooltip-radius: 0px;
+    --canon-theme-kbd-radius: 0px;
+    --canon-theme-button-line-height: 1.125rem;
+    --canon-theme-button-tracking: 0.01em;
+    --canon-theme-input-radius: 0px;
+    --canon-theme-input-inset: 0px;
+    --canon-theme-input-gap: 0.25rem;
+    --canon-theme-input-icon-gap: 0.5rem;
+    --canon-theme-input-line-height: 1.125rem;
+    --canon-theme-input-tracking: 0.01em;
+    --canon-theme-table-radius: 0px;
+    --canon-theme-label-font-size: 0.75rem;
+    --canon-theme-label-line-height: 1rem;
+    --canon-theme-label-tracking: 0.02em;
+    --canon-theme-label-description-font-size: 0.75rem;
+    --canon-theme-label-description-line-height: 1rem;
+    --canon-theme-label-description-tracking: 0.02em;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* The label at the start, any icon pushed to the end, whatever the
+     markup's order, and room kept at the end of the filled and outlined
+     buttons. */
+  .canon-button {
+    font-weight: 400;
+    transition: background-color 0.07s, border-color 0.07s, color 0.07s;
+  }
+  .canon-button-label {
+    padding-inline: 0;
+  }
+  .canon-button:not([data-display="icon"], [data-display="icon"] *, .canon-button-group > *) {
+    justify-content: space-between;
+  }
+  .canon-button:not([data-display="icon"], [data-display="icon"] *, .canon-button-group > *) > .canon-icon {
+    order: 1;
+    margin-inline-start: 1rem;
+  }
+  .canon-button:not([data-emphasis="minimal"], [data-display="icon"], [data-display="icon"] *, .canon-button-group > *) {
+    padding-inline-end: 1rem;
+    min-inline-size: 8rem;
+  }
+  /* A group's buttons keep the icon before the label, a little apart. */
+  .canon-button-group > .canon-button:not([data-display="icon"], [data-display="icon"] *) {
+    gap: 0.25rem;
+  }
+  .canon-button.canon-button.canon-button:active {
+    scale: none;
+  }
+
+  /* Medium without a hue, with words: a dark gray fill. Icon buttons and
+     a group's buttons sit in bars, where a row of dark blocks would shout:
+     icon buttons take the gray wash below instead. */
+  .canon-button.canon-button.canon-button:not([data-emphasis]):is(:not([data-intent]), [data-intent="neutral"]):not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), [data-display="icon"], [data-display="icon"] *, .canon-button-group > *),
+  .canon-button.canon-button.canon-button[data-emphasis="medium"]:is(:not([data-intent]), [data-intent="neutral"]):not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), [data-display="icon"], [data-display="icon"] *, .canon-button-group > *),
+  .canon-dialog-footer > .canon-button.canon-button.canon-button[data-emphasis="low"][data-intent="neutral"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: #fff;
+    --canon-theme-bg: light-dark(#393939, #6f6f6f);
+    --canon-theme-bg-hover: light-dark(#474747, #5e5e5e);
+    --canon-theme-bg-active: light-dark(#6f6f6f, #393939);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button.canon-button:not([data-emphasis])[data-intent="neutral"]:not(:disabled, [aria-disabled="true"], [data-display="icon"], [data-display="icon"] *, .canon-button-group > *) > .canon-icon,
+  .canon-button.canon-button.canon-button[data-emphasis="medium"][data-intent="neutral"]:not(:disabled, [aria-disabled="true"], [data-display="icon"], [data-display="icon"] *, .canon-button-group > *) > .canon-icon,
+  .canon-dialog-footer > .canon-button.canon-button.canon-button[data-emphasis="low"][data-intent="neutral"]:not(:disabled, [aria-disabled="true"]) > .canon-icon {
+    color: inherit;
+  }
+  .canon-button:where([data-display="icon"], [data-display="icon"] *):is(:not([data-emphasis]), [data-emphasis="medium"]):is(:not([data-intent]), [data-intent="neutral"]):not(:disabled, [aria-disabled="true"], .canon-button-group > *) {
+    --canon-theme-fg: light-dark(#161616, #f4f4f4);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: light-dark(rgb(141 141 141 / 0.12), rgb(141 141 141 / 0.16));
+    --canon-theme-bg-active: light-dark(rgb(141 141 141 / 0.5), rgb(141 141 141 / 0.4));
+  }
+
+  /* High, warning: dark text on yellow. */
+  .canon-button.canon-button[data-emphasis="high"][data-intent="warning"]:not(:disabled, [aria-disabled="true"]) {
+    --canon-theme-fg: #161616;
+    --canon-theme-bg: #f1c21b;
+    --canon-theme-bg-hover: #d2a106;
+    --canon-theme-bg-active: #b28600;
+  }
+
+  /* Low: an outline in the hue that fills in under the pointer. Neutral
+     stays a gray outline with a gray fill. */
+  .canon-button[data-emphasis="low"]:not([data-intent="neutral"]) {
+    --canon-theme-fg: light-dark(var(--canon-theme-tone-600), var(--canon-theme-tone-300));
+    --canon-theme-border: light-dark(var(--canon-theme-tone-600), var(--canon-theme-tone-300));
+    --canon-theme-bg-hover: var(--canon-theme-tone-500);
+    --canon-theme-bg-active: var(--canon-theme-tone-700);
+  }
+  @media (hover: hover) {
+    .canon-button[data-emphasis="low"]:not([data-intent="neutral"], :disabled, [aria-disabled="true"]):hover {
+      --canon-theme-fg: #fff;
+      --canon-theme-border: transparent;
+    }
+  }
+  .canon-button[data-emphasis="low"]:not([data-intent="neutral"], :disabled, [aria-disabled="true"]):active {
+    --canon-theme-fg: #fff;
+    --canon-theme-border: transparent;
+  }
+  .canon-button[data-emphasis="low"][data-intent="neutral"] {
+    --canon-theme-border-low: light-dark(#8d8d8d, #6f6f6f);
+    --canon-theme-bg-hover: light-dark(rgb(141 141 141 / 0.12), rgb(141 141 141 / 0.16));
+    --canon-theme-bg-active: light-dark(rgb(141 141 141 / 0.5), rgb(141 141 141 / 0.4));
+  }
+
+  /* Minimal: no frame; a gray wash under the pointer, whatever the hue. */
+  .canon-button[data-emphasis="minimal"] {
+    --canon-theme-bg-hover: light-dark(rgb(141 141 141 / 0.12), rgb(141 141 141 / 0.16));
+    --canon-theme-bg-active: light-dark(rgb(141 141 141 / 0.5), rgb(141 141 141 / 0.4));
+  }
+
+  /* Disabled: flat gray, or only gray text when it had no fill. */
+  .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: light-dark(#8d8d8d, rgb(255 255 255 / 0.25));
+    --canon-theme-bg: light-dark(#c6c6c6, rgb(141 141 141 / 0.3));
+  }
+
+  /* Focus: inside the button, a blue line and a thin line of the page. */
+  .canon-button:focus-visible {
+    border-color: var(--canon-theme-focus);
+    box-shadow: inset 0 0 0 1px var(--canon-theme-focus), inset 0 0 0 2px light-dark(#fff, #161616);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Field and its boxes                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .canon-label-text {
+    color: light-dark(#525252, #c6c6c6);
+    font-weight: 400;
+  }
+  .canon-field > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-swatches, .canon-segmented, .canon-toggle-chips, .canon-color-popup:not([popover]), .canon-otp, .canon-number, .canon-time, .canon-calendar:not([popover]), .canon-date-strip) {
+    margin-block-start: 0.5rem;
+  }
+  .canon-field > :is(.canon-field-message, .canon-field-counter) {
+    margin-block-start: 0.25rem;
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="danger"] {
+    color: light-dark(#da1e28, #ff8389);
+  }
+
+  /* A filled box with one line under it. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))) {
+    --_line: light-dark(#8d8d8d, #6f6f6f);
+    border-color: transparent;
+    border-block-end-color: var(--_line);
+    background-color: light-dark(#f4f4f4, #262626);
+    color: light-dark(#161616, #f4f4f4);
+    transition: background-color 0.07s;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):where([data-intent="success"], [data-state="match"], .canon-field:has(> .canon-field-message[data-intent="success"]) > *) {
+    --_line: var(--canon-theme-green-600);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):where(:has(> :disabled)) {
+    --_line: transparent;
+    background-color: light-dark(#f4f4f4, #262626);
+    color: light-dark(#a8a8a8, #6f6f6f);
+  }
+  @media (hover: hover) {
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):hover:not(:focus-within, :has(select:open), :has(> :disabled)) {
+      border-color: transparent;
+      border-block-end-color: var(--_line);
+      background-color: light-dark(#e8e8e8, #333);
+    }
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):hover:has(> :disabled) {
+      border-color: transparent;
+    }
+  }
+
+  /* A warning keeps its line in yellow; an error and focus draw 2px inside
+     the whole box. Focus wins, so people can see where they are. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):where([data-intent="warning"], .canon-field:has(> .canon-field-message[data-intent="warning"]) > *) {
+    --_line: #f1c21b;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> [aria-invalid="true"], > :user-invalid) {
+    outline: 2px solid light-dark(#da1e28, #ff8389);
+    outline-offset: -2px;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> :is(input, textarea, select):focus),
+  :is(.canon-select, .canon-combobox):has(> select:open) {
+    border-color: transparent;
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > :is(input, textarea)::placeholder {
+    color: light-dark(#6f6f6f, #8d8d8d);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > .canon-button {
+    --canon-theme-button-radius: 0px;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Select's list                                                       */
+  /* ------------------------------------------------------------------ */
+
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    min-inline-size: anchor-size(inline);
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background-color: light-dark(#f4f4f4, #262626);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: light-dark(#161616, #f4f4f4);
+  }
+  :is(.canon-select, .canon-combobox) > select option,
+  .canon-combobox-option {
+    --_fill: light-dark(#e8e8e8, #333);
+    color: light-dark(#525252, #c6c6c6);
+  }
+  :is(.canon-select, .canon-combobox) > select option:checked,
+  .canon-combobox-option[aria-selected="true"] {
+    background-color: light-dark(#e0e0e0, #393939);
+    color: light-dark(#161616, #f4f4f4);
+    font-weight: 400;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Choice                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Near-square boxes in the text's color; no halo, no squeeze. */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_line: light-dark(#161616, #f4f4f4);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::before {
+    border-radius: 1px;
+    box-shadow: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):active:not(:disabled) {
+    scale: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(#161616, #f4f4f4);
+  }
+  /* A chosen radio is a ring around a dot, not a filled circle. */
+  .canon-choice > input[type="radio"]:checked:not(:disabled) {
+    --_fill: transparent;
+    --_mark: light-dark(#161616, #f4f4f4);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is([aria-invalid="true"], :user-invalid):not(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(#da1e28, #ff8389);
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: light-dark(#161616, #f4f4f4);
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled {
+    --_line: light-dark(#c6c6c6, #525252);
+    --_fill: transparent;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled:is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(#c6c6c6, #525252);
+    --_fill: var(--_line);
+    --_mark: light-dark(#fff, #8d8d8d);
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input:where([type="checkbox"], [type="radio"]):focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input:where([type="checkbox"], [type="radio"]):focus-visible ~ .canon-choice-state::before {
+    border-radius: 0;
+    box-shadow: 0 0 0 2px var(--canon-theme-focus);
+  }
+
+  /* Switch: gray off, green on, a white thumb, no spring. */
+  .canon-choice > input[role="switch"] {
+    --_track: #8d8d8d;
+    --_thumb: #fff;
+  }
+  .canon-choice > input[role="switch"]:checked {
+    --_track: light-dark(#198038, #24a148);
+    --_thumb: #fff;
+  }
+  .canon-choice > input[role="switch"]:disabled,
+  .canon-choice > input[role="switch"]:disabled:checked {
+    --_track: light-dark(#c6c6c6, #525252);
+    --_thumb: light-dark(#fff, #8d8d8d);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .canon-choice > input[role="switch"]::after {
+      transition: inset-inline-start 0.11s cubic-bezier(0.2, 0, 0.38, 0.9), background-color 0.11s;
+    }
+  }
+  .canon-choice > input[role="switch"]::after {
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                                */
+  /* ------------------------------------------------------------------ */
+
+  /* No track: every tab stands on a line, the current one's blue. */
+  .canon-tabs-list {
+    --_card-bg: transparent;
+    --_card-shadow: inset 0 -2px 0 var(--canon-theme-focus);
+    gap: 0;
+    padding: 0;
+    padding-inline-end: var(--canon-tabs-more-size, 0px);
+    border-radius: 0;
+    background-color: transparent;
+  }
+  .canon-tab,
+  .canon-tabs-more {
+    --_fg: light-dark(#525252, #c6c6c6);
+    block-size: var(--_track);
+    border-radius: 0;
+    box-shadow: inset 0 -2px 0 light-dark(#e0e0e0, #393939);
+    font-weight: 400;
+  }
+  .canon-tab:where([data-display="icon"] *) {
+    inline-size: var(--_track);
+  }
+  @media (hover: hover) {
+    .canon-tab:hover:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+    .canon-tabs-more:hover {
+      --_fg: light-dark(#161616, #f4f4f4);
+      box-shadow: inset 0 -2px 0 #8d8d8d;
+    }
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+    --_fg: light-dark(#161616, #f4f4f4);
+    font-weight: 600;
+  }
+  .canon-tab[aria-disabled="true"] {
+    --_fg: light-dark(#a8a8a8, #6f6f6f);
+  }
+  .canon-tab:focus-visible,
+  .canon-tabs-more:focus-visible {
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+  .canon-tabs-panel {
+    border-radius: 0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Table                                                               */
+  /* ------------------------------------------------------------------ */
+
+  /* A filled sheet with a darker header; rows 48px at the default size. */
+  .canon-table {
+    --_row-extra: calc((var(--canon-density, 0) + 1) * 0.5rem);
+    --_bg: light-dark(#f4f4f4, #262626);
+    --_stripe: light-dark(#e8e8e8, #333);
+    --_hover: light-dark(#e0e0e0, #393939);
+    --_selected: light-dark(#e0e0e0, #393939);
+    box-shadow: none;
+  }
+  .canon-table[data-striped] {
+    --_selected: light-dark(#c6c6c6, #525252);
+  }
+  .canon-table thead th,
+  .canon-table thead td {
+    block-size: calc(var(--canon-control-block-size) + 0.5rem);
+    border-block-end: 0;
+    background-color: light-dark(#e0e0e0, #393939);
+    color: light-dark(#161616, #f4f4f4);
+    font-weight: 600;
+  }
+  .canon-table caption {
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  .canon-table:focus-visible {
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Dialog                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Square, no lines between its parts, the buttons filling the footer
+     edge to edge. */
+  .canon-dialog {
+    border-radius: 0;
+    background-color: light-dark(#f4f4f4, #262626);
+    box-shadow: var(--canon-theme-shadow-overlay);
+    color: light-dark(#161616, #f4f4f4);
+  }
+  .canon-dialog::backdrop {
+    background-color: light-dark(rgb(22 22 22 / 0.5), rgb(0 0 0 / 0.65));
+    backdrop-filter: none;
+  }
+  .canon-dialog[data-side] {
+    --canon-drawer-inset: 0px;
+  }
+  .canon-dialog-header {
+    padding-block: 1rem 0.5rem;
+    padding-inline: 1rem 0;
+    border-block-end: 0;
+    align-items: start;
+  }
+  .canon-dialog-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+    letter-spacing: 0;
+  }
+  .canon-dialog-body,
+  .canon-dialog-section {
+    gap: 1rem;
+    padding: 0.5rem 1rem 1.5rem;
+  }
+  .canon-dialog-section + .canon-dialog-section {
+    border-block-start: 0;
+  }
+  .canon-dialog-footer {
+    flex-wrap: nowrap;
+    gap: 1px;
+    padding: 0;
+    border-block-start: 0;
+  }
+  .canon-dialog-footer > .canon-button {
+    flex: 1 1 0;
+    min-block-size: 4rem;
+    margin: 0;
+    padding-block-start: 1rem;
+    padding-block-end: 2rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Alert                                                               */
+  /* ------------------------------------------------------------------ */
+
+  /* A pale tint of the intent with its bar inside, at the start. */
+  .canon-alert {
+    padding: 0.875rem 1rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .canon-alert:not([data-intent]) {
+    background-color: light-dark(#f4f4f4, #262626);
+  }
+  .canon-alert[data-intent]:not([data-emphasis="high"]) {
+    border-inline-start: 3px solid var(--_bar);
+    background-color: var(--_tint);
+    color: light-dark(#161616, #f4f4f4);
+  }
+  .canon-alert[data-intent="info"]    { --_tint: light-dark(#edf5ff, #262626); --_bar: light-dark(#0043ce, #4589ff); --_tone: light-dark(#0043ce, #4589ff); }
+  .canon-alert[data-intent="success"] { --_tint: light-dark(#defbe6, #262626); --_bar: light-dark(#198038, #42be65); --_tone: light-dark(#198038, #42be65); }
+  .canon-alert[data-intent="warning"] { --_tint: light-dark(#fcf4d6, #262626); --_bar: #f1c21b; --_tone: light-dark(#b28600, #f1c21b); }
+  .canon-alert[data-intent="danger"]  { --_tint: light-dark(#fff1f1, #262626); --_bar: light-dark(#da1e28, #fa4d56); --_tone: light-dark(#da1e28, #fa4d56); }
+  .canon-alert-title {
+    font-weight: 600;
+  }
+  .canon-alert-description {
+    color: inherit;
+  }
+  .canon-alert-close {
+    border-radius: 0;
+  }
+  .canon-alert-close:focus-visible {
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Tag                                                                 */
+  /* ------------------------------------------------------------------ */
+
+  /* Pills in pale fills. A status reads as a tag too: no capitals. */
+  .canon-tag {
+    --_z-tint: light-dark(#e0e0e0, #525252);
+    --_z-on-tint: light-dark(#161616, #f4f4f4);
+    border-radius: 999px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .canon-tag[data-intent] {
+    font-size: var(--canon-theme-tag-font-size);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+  .canon-tag[data-intent="info"]    { --_h-tint: light-dark(#d0e2ff, #0043ce); --_h-on-tint: light-dark(#002d9c, #d0e2ff); }
+  .canon-tag[data-intent="success"] { --_h-tint: light-dark(#a7f0ba, #0e6027); --_h-on-tint: light-dark(#044317, #a7f0ba); }
+  .canon-tag[data-intent="warning"] { --_h-tint: light-dark(#fddc69, #684e00); --_h-on-tint: light-dark(#483700, #fddc69); }
+  .canon-tag[data-intent="danger"]  { --_h-tint: light-dark(#ffd7d9, #a2191f); --_h-on-tint: light-dark(#750e13, #ffd7d9); }
+  .canon-tag-remove:focus-visible {
+    outline-color: var(--canon-theme-focus);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Everything else: its fixed corners, and what it shares with the     */
+  /* families above                                                      */
+  /* ------------------------------------------------------------------ */
+
+  /* Square. Circles and pills that mean something stay: avatars, tags,
+     counts, chips, a color's thumb. */
+  :is(.canon-menu, .canon-menu-item, .canon-menubar, .canon-menubar-item, .canon-popover, .canon-combobox-popup, .canon-calendar, .canon-date-strip, .canon-date-segment, .canon-color-popup, .canon-color-area, .canon-color-eyedropper, .canon-command-palette, .canon-data-table-bulk, .canon-data-table-sort, .canon-data-table-filter, .canon-segmented, .canon-time-step, .canon-control-value, .canon-kbd, .canon-link, .canon-limit-excess, .canon-page-header-back, .canon-breadcrumb-more, .canon-password-strength, .canon-accordion-summary, .canon-banner-close, .canon-toast, .canon-toast-close, .canon-card) {
+    border-radius: 0;
+  }
+
+  /* These set their corners more specifically, or by size. */
+  .canon-tooltip.canon-tooltip,
+  .canon-control-value.canon-control-value,
+  .canon-time-step.canon-time-step,
+  .canon-kbd.canon-kbd,
+  .canon-data-table-bulk.canon-data-table-bulk,
+  .canon-breadcrumb-more.canon-breadcrumb-more,
+  .canon-menu-item.canon-menu-item,
+  .canon-number .canon-button.canon-button {
+    border-radius: 0;
+  }
+
+  /* Plex loads at 400 and 600: titles that were medium go semibold, rather
+     than falling back to regular. */
+  :is(.canon-toast-title, .canon-banner-title, .canon-empty-state-title, .canon-code-block-title, .canon-password-rules-title) {
+    font-weight: 600;
+  }
+  .canon-fieldset-legend {
+    color: light-dark(#525252, #c6c6c6);
+    font-weight: 400;
+  }
+
+  /* Narrow fields pad less: the padding, for fields that inherit it, and the
+     size tokens, for fields whose own data-size hint resolves it again. */
+  .canon-color-fields,
+  .canon-calendar-selects {
+    --canon-control-padding-inline: 0.5rem;
+    --canon-control-padding-inline-sm: 0.5rem;
+    --canon-control-padding-inline-md: 0.5rem;
+    --canon-control-padding-inline-lg: 0.5rem;
+  }
+  .canon-color-values:not([data-count="1"]) {
+    --canon-control-padding-inline-sm: 0.25rem;
+    --canon-control-padding-inline-md: 0.25rem;
+    --canon-control-padding-inline-lg: 0.25rem;
+  }
+  .canon-color-values {
+    flex-basis: 5.5rem;
+  }
+
+  /* Data Table: the header's fill, pinned cells too. */
+  .canon-data-table thead :is(th, td),
+  .canon-data-table thead :is(th, td)[data-pinned] {
+    background-color: light-dark(#e0e0e0, #393939);
+  }
+
+  /* Toast: an Alert that floats. Its bar inside, at the start. */
+  .canon-toast[data-intent]:not([data-emphasis="high"]) {
+    border-inline-start: 3px solid var(--_bar);
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+  }
+  .canon-toast[data-intent="info"]    { --_bar: light-dark(#0043ce, #4589ff); }
+  .canon-toast[data-intent="success"] { --_bar: light-dark(#198038, #42be65); }
+  .canon-toast[data-intent="warning"] { --_bar: #f1c21b; }
+  .canon-toast[data-intent="danger"]  { --_bar: light-dark(#da1e28, #fa4d56); }
+
+  /* Focus inside, as on the families above. */
+  :is(.canon-toast-close, .canon-banner-close, .canon-menu-item, .canon-accordion-summary):focus-visible {
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Avatar and Avatar Group                                             */
+  /* ------------------------------------------------------------------ */
+
+  /* A person is the one round thing here; a team or a bot is square. Flat:
+     no rim, shadow or lift. Sizes keep Canon's scale, on the 8px grid. */
+  :root,
+  [data-size] {
+    --canon-theme-avatar-tracking: 0;
+    --canon-theme-avatar-status: 0.75rem;
+    --canon-theme-avatar-status-at: calc(var(--canon-theme-avatar-size) - 0.75rem);
+    --canon-theme-avatar-ring: 0.125rem;
+    --canon-theme-avatar-overlap: 0.5rem;
+  }
+  [data-size="xs"] {
+    --canon-theme-avatar-font-size: 0.75rem;
+    --canon-theme-avatar-line-height: 1rem;
+    --canon-theme-avatar-status: 0.625rem;
+    --canon-theme-avatar-status-at: calc(var(--canon-theme-avatar-size) - 0.625rem);
+    --canon-theme-avatar-overlap: 0.125rem;
+  }
+  /* Small groups overlap less, so the cut never reaches a count's digits. */
+  [data-size="sm"] {
+    --canon-theme-avatar-overlap: 0.25rem;
+  }
+  .canon-avatar {
+    --_bg: light-dark(#e0e0e0, #525252);
+    --_fg: light-dark(#525252, #e0e0e0);
+  }
+  .canon-avatar::after,
+  .canon-avatar:has(> .canon-avatar-image):not([data-state="error"], [data-state="loading"])::after {
+    --_rim: transparent;
+  }
+  .canon-avatar:is([data-kind="team"], [data-kind="bot"]) {
+    --_radius: 0px;
+    --_face-radius: 0px;
+  }
+
+  /* A seed's color: Canon's slots, shared out among six hues, a pale fill
+     with dark text (dark: the reverse). No red, green or yellow: those
+     mean a status here. */
+  .canon-avatar:is([data-seed-slot="0"], [data-seed-slot="6"], [data-seed-slot="12"]) { --_bg: light-dark(#d0e2ff, #0043ce); --_fg: light-dark(#0043ce, #d0e2ff); }
+  .canon-avatar:is([data-seed-slot="1"], [data-seed-slot="7"], [data-seed-slot="13"]) { --_bg: light-dark(#bae6ff, #00539a); --_fg: light-dark(#00539a, #bae6ff); }
+  .canon-avatar:is([data-seed-slot="2"], [data-seed-slot="8"], [data-seed-slot="14"]) { --_bg: light-dark(#9ef0f0, #005d5d); --_fg: light-dark(#005d5d, #9ef0f0); }
+  .canon-avatar:is([data-seed-slot="3"], [data-seed-slot="9"], [data-seed-slot="15"]) { --_bg: light-dark(#e8daff, #6929c4); --_fg: light-dark(#6929c4, #e8daff); }
+  .canon-avatar:is([data-seed-slot="4"], [data-seed-slot="10"], [data-seed-slot="16"]) { --_bg: light-dark(#ffd6e8, #9f1853); --_fg: light-dark(#9f1853, #ffd6e8); }
+  .canon-avatar:is([data-seed-slot="5"], [data-seed-slot="11"]) { --_bg: light-dark(#e0e0e0, #525252); --_fg: light-dark(#525252, #e0e0e0); }
+
+  /* Status: a small icon, so it doesn't rest on color alone. */
+  .canon-avatar-status {
+    border-radius: 0;
+    background-color: light-dark(#198038, #42be65);
+    mask: url("../carbon/checkmark--filled.svg") center / contain no-repeat;
+  }
+  .canon-avatar-status[data-status="away"] {
+    background-color: light-dark(#b28600, #f1c21b);
+    mask-image: url("../carbon/time.svg");
+  }
+  .canon-avatar-status[data-status="busy"] {
+    background-color: light-dark(#da1e28, #fa4d56);
+    mask-image: url("../carbon/subtract--alt.svg");
+  }
+  .canon-avatar-status[data-status="offline"] {
+    background-color: light-dark(#6f6f6f, #8d8d8d);
+    box-shadow: none;
+    mask-image: url("../carbon/radio-button.svg");
+  }
+
+  /* Clickable: the square around the face takes the states, as any other
+     action does. The face stays round (its mask draws it). */
+  :is(a, button).canon-avatar {
+    border-radius: 0;
+    transition: background-color 0.07s;
+  }
+  @media (hover: hover) {
+    :is(a, button).canon-avatar:hover {
+      background-color: light-dark(rgb(141 141 141 / 0.12), rgb(141 141 141 / 0.16));
+    }
+  }
+  :is(a, button).canon-avatar:active {
+    background-color: light-dark(rgb(141 141 141 / 0.5), rgb(141 141 141 / 0.4));
+  }
+  :is(a, button).canon-avatar:focus-visible,
+  :is(.canon-avatar-group[data-spotlight] > span.canon-avatar, span.canon-avatar[data-spotlight]):focus-visible {
+    border-radius: 0;
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+
+  /* A group's spotlight: forward, not bigger, and the others stay as they are. */
+  .canon-avatar-group[data-spotlight] > .canon-avatar,
+  .canon-avatar[data-spotlight] {
+    --_lift: 1;
+  }
+  .canon-avatar-group[data-spotlight]:has(> .canon-avatar:is(:hover, :focus-visible)) > .canon-avatar:not(:hover, :focus-visible) {
+    opacity: 1;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Icons: one SVG per file, drawn as masks. The path names this folder, */
+  /* since a variable's url() can resolve from where it is used.        */
+  /* ------------------------------------------------------------------ */
+
+  [data-icon="align-center"] { --canon-theme-icon: url("../carbon/text--align--center.svg"); }
+  [data-icon="align-end"] { --canon-theme-icon: url("../carbon/text--align--right.svg"); }
+  [data-icon="align-justify"] { --canon-theme-icon: url("../carbon/text--align--justify.svg"); }
+  [data-icon="align-start"] { --canon-theme-icon: url("../carbon/text--align--left.svg"); }
+  [data-icon="arrow-back"] { --canon-theme-icon: url("../carbon/arrow--left.svg"); }
+  [data-icon="arrow-forward"] { --canon-theme-icon: url("../carbon/arrow--right.svg"); }
+  [data-icon="baseline"] { --canon-theme-icon: url("../carbon/text--color.svg"); }
+  [data-icon="bell"] { --canon-theme-icon: url("../carbon/notification.svg"); }
+  [data-icon="bold"] { --canon-theme-icon: url("../carbon/text--bold.svg"); }
+  [data-icon="book-user"] { --canon-theme-icon: url("../carbon/notebook.svg"); }
+  [data-icon="building"] { --canon-theme-icon: url("../carbon/building.svg"); }
+  [data-icon="calendar"] { --canon-theme-icon: url("../carbon/calendar.svg"); }
+  [data-icon="chevron-down"] { --canon-theme-icon: url("../carbon/chevron--down.svg"); }
+  [data-icon="chevron-left"] { --canon-theme-icon: url("../carbon/chevron--left.svg"); }
+  [data-icon="chevron-right"] { --canon-theme-icon: url("../carbon/chevron--right.svg"); }
+  [data-icon="chevron-up"] { --canon-theme-icon: url("../carbon/chevron--up.svg"); }
+  [data-icon="chevrons-left"] { --canon-theme-icon: url("../carbon/page--first.svg"); }
+  [data-icon="chevrons-right"] { --canon-theme-icon: url("../carbon/page--last.svg"); }
+  [data-icon="circle-alert"] { --canon-theme-icon: url("../carbon/warning.svg"); }
+  [data-icon="circle-check"] { --canon-theme-icon: url("../carbon/checkmark--outline.svg"); }
+  [data-icon="circle-help"] { --canon-theme-icon: url("../carbon/help.svg"); }
+  [data-icon="close"] { --canon-theme-icon: url("../carbon/close.svg"); }
+  [data-icon="copy"] { --canon-theme-icon: url("../carbon/copy.svg"); }
+  [data-icon="crown"] { --canon-theme-icon: url("../carbon/badge.svg"); }
+  [data-icon="download"] { --canon-theme-icon: url("../carbon/download.svg"); }
+  [data-icon="eraser"] { --canon-theme-icon: url("../carbon/erase.svg"); }
+  [data-icon="external"] { --canon-theme-icon: url("../carbon/launch.svg"); }
+  [data-icon="eye"] { --canon-theme-icon: url("../carbon/view.svg"); }
+  [data-icon="filter"] { --canon-theme-icon: url("../carbon/filter.svg"); }
+  [data-icon="gauge"] { --canon-theme-icon: url("../carbon/dashboard.svg"); }
+  [data-icon="globe"] { --canon-theme-icon: url("../carbon/earth.svg"); }
+  [data-icon="grip-vertical"] { --canon-theme-icon: url("../carbon/draggable.svg"); }
+  [data-icon="house"] { --canon-theme-icon: url("../carbon/home.svg"); }
+  [data-icon="inbox"] { --canon-theme-icon: url("../carbon/email.svg"); }
+  [data-icon="indent-decrease"] { --canon-theme-icon: url("../carbon/text--indent--less.svg"); }
+  [data-icon="indent-increase"] { --canon-theme-icon: url("../carbon/text--indent--more.svg"); }
+  [data-icon="info"] { --canon-theme-icon: url("../carbon/information.svg"); }
+  [data-icon="italic"] { --canon-theme-icon: url("../carbon/text--italic.svg"); }
+  [data-icon="link"] { --canon-theme-icon: url("../carbon/link.svg"); }
+  [data-icon="list"] { --canon-theme-icon: url("../carbon/list--bulleted.svg"); }
+  [data-icon="list-filter"] { --canon-theme-icon: url("../carbon/filter.svg"); }
+  [data-icon="list-ordered"] { --canon-theme-icon: url("../carbon/list--numbered.svg"); }
+  [data-icon="log-out"] { --canon-theme-icon: url("../carbon/logout.svg"); }
+  [data-icon="mail"] { --canon-theme-icon: url("../carbon/email.svg"); }
+  [data-icon="minus"] { --canon-theme-icon: url("../carbon/subtract.svg"); }
+  [data-icon="moon"] { --canon-theme-icon: url("../carbon/moon.svg"); }
+  [data-icon="more"] { --canon-theme-icon: url("../carbon/overflow-menu--vertical.svg"); }
+  [data-icon="panel-left-close"] { --canon-theme-icon: url("../carbon/side-panel--close.svg"); }
+  [data-icon="panel-left-open"] { --canon-theme-icon: url("../carbon/side-panel--open.svg"); }
+  [data-icon="pencil"] { --canon-theme-icon: url("../carbon/edit.svg"); }
+  [data-icon="pin"] { --canon-theme-icon: url("../carbon/pin.svg"); }
+  [data-icon="plus"] { --canon-theme-icon: url("../carbon/add.svg"); }
+  [data-icon="receipt"] { --canon-theme-icon: url("../carbon/receipt.svg"); }
+  [data-icon="redo"] { --canon-theme-icon: url("../carbon/redo.svg"); }
+  [data-icon="refresh"] { --canon-theme-icon: url("../carbon/renew.svg"); }
+  [data-icon="search"] { --canon-theme-icon: url("../carbon/search.svg"); }
+  [data-icon="search-x"] { --canon-theme-icon: url("../carbon/search.svg"); }
+  [data-icon="settings"] { --canon-theme-icon: url("../carbon/settings.svg"); }
+  [data-icon="sparkles"] { --canon-theme-icon: url("../carbon/magic-wand.svg"); }
+  [data-icon="square-chevron-left"] { --canon-theme-icon: url("../carbon/open-panel--left.svg"); }
+  [data-icon="square-chevron-right"] { --canon-theme-icon: url("../carbon/open-panel--right.svg"); }
+  [data-icon="square-kanban"] { --canon-theme-icon: url("../carbon/column.svg"); }
+  [data-icon="star"] { --canon-theme-icon: url("../carbon/star.svg"); }
+  [data-icon="strikethrough"] { --canon-theme-icon: url("../carbon/text--strikethrough.svg"); }
+  [data-icon="subscript"] { --canon-theme-icon: url("../carbon/text--subscript.svg"); }
+  [data-icon="sun"] { --canon-theme-icon: url("../carbon/light.svg"); }
+  [data-icon="superscript"] { --canon-theme-icon: url("../carbon/text--superscript.svg"); }
+  [data-icon="table"] { --canon-theme-icon: url("../carbon/table.svg"); }
+  [data-icon="tag"] { --canon-theme-icon: url("../carbon/tag.svg"); }
+  [data-icon="text-cursor"] { --canon-theme-icon: url("../carbon/string-text.svg"); }
+  [data-icon="text-wrap"] { --canon-theme-icon: url("../carbon/text--wrap.svg"); }
+  [data-icon="trash"] { --canon-theme-icon: url("../carbon/trash-can.svg"); }
+  [data-icon="underline"] { --canon-theme-icon: url("../carbon/text--underline.svg"); }
+  [data-icon="undo"] { --canon-theme-icon: url("../carbon/undo.svg"); }
+  [data-icon="upload"] { --canon-theme-icon: url("../carbon/upload.svg"); }
+  [data-icon="user"] { --canon-theme-icon: url("../carbon/user.svg"); }
+
+  :root {
+    --canon-theme-icon-arrow-down: url("../carbon/arrow--down.svg");
+    --canon-theme-icon-arrow-down-up: url("../carbon/arrows--vertical.svg");
+    --canon-theme-icon-arrow-up: url("../carbon/arrow--up.svg");
+    --canon-theme-icon-bot: url("../carbon/bot.svg");
+    --canon-theme-icon-caps-lock: url("../carbon/up-to-top.svg");
+    --canon-theme-icon-check: url("../carbon/checkmark.svg");
+    --canon-theme-icon-chevron: url("../carbon/chevron--down.svg");
+    --canon-theme-icon-chevron-right: url("../carbon/chevron--right.svg");
+    --canon-theme-icon-circle-alert: url("../carbon/warning.svg");
+    --canon-theme-icon-circle-check: url("../carbon/checkmark--outline.svg");
+    --canon-theme-icon-ellipsis: url("../carbon/overflow-menu--horizontal.svg");
+    --canon-theme-icon-external: url("../carbon/launch.svg");
+    --canon-theme-icon-info: url("../carbon/information.svg");
+    --canon-theme-icon-list-filter: url("../carbon/filter.svg");
+    --canon-theme-icon-move-right: url("../carbon/arrow--right.svg");
+    --canon-theme-icon-pin: url("../carbon/pin.svg");
+    --canon-theme-icon-pipette: url("../carbon/eyedropper.svg");
+    --canon-theme-icon-search: url("../carbon/search.svg");
+    --canon-theme-icon-tick: url("../carbon/checkmark.svg");
+    --canon-theme-icon-trending-down: url("../carbon/arrow--down-right.svg");
+    --canon-theme-icon-trending-up: url("../carbon/arrow--up-right.svg");
+    --canon-theme-icon-triangle-alert: url("../carbon/warning--alt.svg");
+    --canon-theme-icon-user-round: url("../carbon/user.svg");
+    --canon-theme-icon-users-round: url("../carbon/group.svg");
+    --canon-theme-icon-x: url("../carbon/close.svg");
+    --canon-theme-rule-check: url("../carbon/checkmark--outline.svg");
+    --canon-theme-rule-alert: url("../carbon/warning.svg");
+  }
+
+  .canon-button[data-state="copied"] [data-icon="copy"] { --canon-theme-icon: url("../carbon/checkmark.svg"); }
+  .canon-button[aria-pressed="true"] [data-icon="eye"] { --canon-theme-icon: url("../carbon/view--off.svg"); }
+
+  .canon-toast[data-intent="info"]    { --_icon: url("../carbon/information.svg"); }
+  .canon-toast[data-intent="success"] { --_icon: url("../carbon/checkmark--outline.svg"); }
+  .canon-toast[data-intent="warning"] { --_icon: url("../carbon/warning--alt.svg"); }
+  .canon-toast[data-intent="danger"]  { --_icon: url("../carbon/warning.svg"); }
+  .canon-toast-close::before {
+    mask: url("../carbon/close.svg") center / contain no-repeat;
+  }
+}

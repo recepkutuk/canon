@@ -1,0 +1,101 @@
+/* ==================================================================== */
+/* Split Pane                                                           */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A line between the panes, zinc-200 (dark zinc-800),
+     8px wide to grab (its ::before) though 1px to see, with a grip on its
+     middle so it reads as something to drag: a 4 × 24px pill, zinc-300
+     (dark zinc-600), across the line for a horizontal handle. Hover,
+     focus and dragging keep that shape and color it: the line and the
+     grip blue-500 (dark blue-400), the grip 32px long, after a short
+     pause on hover so passing over it doesn't flash. */
+  .canon-split-pane-handle {
+    --_active: light-dark(var(--canon-theme-blue-500), var(--canon-theme-blue-400));
+    inline-size: 1px;
+    background-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+    outline: none;
+    transition: background-color 0.12s;
+  }
+  .canon-split-pane-handle[aria-orientation="horizontal"] {
+    inline-size: auto;
+    block-size: 1px;
+  }
+  .canon-split-pane-handle::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline: -4px;
+  }
+  .canon-split-pane-handle[aria-orientation="horizontal"]::before {
+    inset-inline: 0;
+    inset-block: -4px;
+  }
+  .canon-split-pane-handle::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: 4px;
+    block-size: 24px;
+    border-radius: 2px;
+    background-color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    translate: -50% -50%;
+    transition: background-color 0.12s, block-size 0.15s cubic-bezier(0.2, 0, 0, 1), inline-size 0.15s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .canon-split-pane-handle:dir(rtl)::after {
+    translate: 50% -50%;
+  }
+  .canon-split-pane-handle[aria-orientation="horizontal"]::after {
+    inline-size: 24px;
+    block-size: 4px;
+  }
+  @media (hover: hover) {
+    .canon-split-pane-handle:hover,
+    .canon-split-pane-handle:hover::after {
+      transition-delay: 0.15s;
+    }
+  }
+  .canon-split-pane[data-state="resizing"] > .canon-split-pane-handle,
+  .canon-split-pane-handle:focus-visible {
+    background-color: var(--_active);
+  }
+  @media (hover: hover) {
+    .canon-split-pane-handle:hover {
+      background-color: var(--_active);
+    }
+  }
+  .canon-split-pane[data-state="resizing"] > .canon-split-pane-handle::after,
+  .canon-split-pane-handle:focus-visible::after {
+    block-size: 32px;
+    background-color: var(--_active);
+  }
+  @media (hover: hover) {
+    .canon-split-pane-handle:hover::after {
+      block-size: 32px;
+      background-color: var(--_active);
+    }
+  }
+  .canon-split-pane[data-state="resizing"] > .canon-split-pane-handle[aria-orientation="horizontal"]::after,
+  .canon-split-pane-handle[aria-orientation="horizontal"]:focus-visible::after {
+    inline-size: 32px;
+    block-size: 4px;
+  }
+  @media (hover: hover) {
+    .canon-split-pane-handle[aria-orientation="horizontal"]:hover::after {
+      inline-size: 32px;
+      block-size: 4px;
+    }
+  }
+  @media (forced-colors: active) {
+    .canon-split-pane-handle,
+    .canon-split-pane-handle::after { forced-color-adjust: none; background-color: CanvasText; }
+    .canon-split-pane-handle:focus-visible,
+    .canon-split-pane-handle:focus-visible::after { background-color: Highlight; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-split-pane-handle,
+    .canon-split-pane-handle::after { transition: none; }
+  }
+}

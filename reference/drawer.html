@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Drawer reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Drawer</h1>
+  <p class="ref-note">A <a href="dialog.html">Dialog</a> that slides in from an edge of the window: filters or details from the side, the app's navigation on a phone (what some systems call a sheet or a side sheet). It is modal, like a dialog: the page behind waits. A panel that stays beside the content while people keep working is a sidebar, not a drawer. Specification: <a href="../docs/components/drawer.md">docs/components/drawer.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="drawer">
+    <h2>Basics</h2>
+    <p class="ref-note">A Dialog with <code>data-side</code>: the same <code>&lt;dialog class="canon-dialog"&gt;</code>, header, body and footer, opened with <code>command="show-modal"</code>; it closes the same ways and gives focus back. <code>data-side="end"</code> (here, on the right) for content beside what it's about: filters, a record's details, a form. It floats just inside the window's edge, with the dialog's corners.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="filters-drawer" command="show-modal">
+        <span class="canon-icon" data-icon="list-filter" aria-hidden="true"></span>
+        <span class="canon-button-label">Filters</span>
+      </button>
+    </div>
+
+    <dialog class="canon-dialog" id="filters-drawer" data-side="end" aria-labelledby="filters-drawer-title">
+      <form method="dialog">
+        <header class="canon-dialog-header">
+          <h2 class="canon-dialog-title" id="filters-drawer-title">Filters</h2>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="filters-drawer" command="close">
+            <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+            <span class="canon-button-label">Close</span>
+          </button>
+        </header>
+        <div class="canon-dialog-body">
+          <div class="canon-dialog-section">
+            <fieldset class="canon-fieldset">
+              <legend class="canon-fieldset-legend">Team</legend>
+              <div class="canon-choice"><input type="checkbox" id="fd-design" name="team" value="design" checked><label class="canon-choice-label" for="fd-design">Design</label></div>
+              <div class="canon-choice"><input type="checkbox" id="fd-engineering" name="team" value="engineering"><label class="canon-choice-label" for="fd-engineering">Engineering</label></div>
+              <div class="canon-choice"><input type="checkbox" id="fd-research" name="team" value="research"><label class="canon-choice-label" for="fd-research">Research</label></div>
+            </fieldset>
+          </div>
+          <div class="canon-dialog-section">
+            <fieldset class="canon-fieldset">
+              <legend class="canon-fieldset-legend">Date posted</legend>
+              <div class="canon-choice"><input type="radio" id="fd-any" name="posted" value="" checked><label class="canon-choice-label" for="fd-any">Any time</label></div>
+              <div class="canon-choice"><input type="radio" id="fd-week" name="posted" value="7"><label class="canon-choice-label" for="fd-week">Past week</label></div>
+              <div class="canon-choice"><input type="radio" id="fd-month" name="posted" value="30"><label class="canon-choice-label" for="fd-month">Past month</label></div>
+            </fieldset>
+          </div>
+        </div>
+        <footer class="canon-dialog-footer">
+          <button type="reset" class="canon-button" data-emphasis="low" data-intent="neutral">
+            <span class="canon-button-label">Reset</span>
+          </button>
+          <button type="submit" class="canon-button" data-emphasis="high" data-align="end" value="apply">
+            <span class="canon-button-label">Show 24 jobs</span>
+          </button>
+        </footer>
+      </form>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="start">
+    <h2>From the start</h2>
+    <p class="ref-note"><code>data-side="start"</code> (on the left in left-to-right text): the app's navigation on a small screen, opened by a menu button. A drawer of links needs no footer.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" data-display="icon" commandfor="nav-drawer" command="show-modal">
+        <span class="canon-icon" data-icon="list" aria-hidden="true"></span>
+        <span class="canon-button-label">Menu</span>
+      </button>
+    </div>
+
+    <dialog class="canon-dialog" id="nav-drawer" data-side="start" data-width="sm" aria-labelledby="nav-drawer-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="nav-drawer-title">Acme</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="nav-drawer" command="close">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Close</span>
+        </button>
+      </header>
+      <nav class="canon-dialog-body" aria-label="Main">
+        <a class="canon-link" href="#home" data-standalone>Home</a>
+        <a class="canon-link" href="#calendar" data-standalone>Calendar</a>
+        <a class="canon-link" href="#people" data-standalone>People</a>
+        <a class="canon-link" href="#settings" data-standalone>Settings</a>
+      </nav>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="width">
+    <h2>Width</h2>
+    <p class="ref-note">On the side, <code>data-width</code>: <code>sm</code> for navigation, the default for filters and forms, <code>lg</code> for a record's details. Always narrower than the window by 3rem, so the page shows beside it and a click there can close it.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="drawer-lg" command="show-modal"><span class="canon-button-label">Large</span></button>
+    </div>
+
+    <dialog class="canon-dialog" id="drawer-lg" data-side="end" data-width="lg" closedby="any" aria-labelledby="drawer-lg-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="drawer-lg-title">Invoice INV-2041</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="drawer-lg" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button>
+      </header>
+      <div class="canon-dialog-body">
+        <p>Edwin Mueller · $495.90 · Waiting since 16.08.2024.</p>
+        <p>Click beside the drawer to close it (<code>closedby="any"</code>).</p>
+      </div>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, <code>end</code> is the left edge and <code>start</code> the right; the drawer slides in from there.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="rtl-drawer" command="show-modal"><span class="canon-button-label">Right to left</span></button>
+    </div>
+
+    <dialog class="canon-dialog" id="rtl-drawer" data-side="end" dir="rtl" lang="ar" aria-labelledby="rtl-drawer-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="rtl-drawer-title">عوامل التصفية</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="rtl-drawer" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">إغلاق</span></button>
+      </header>
+      <div class="canon-dialog-body">
+        <p>تنزلق اللوحة من الحافة اليسرى في النص من اليمين إلى اليسار.</p>
+      </div>
+      <footer class="canon-dialog-footer">
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="rtl-drawer" command="close"><span class="canon-button-label">إلغاء</span></button>
+        <button type="button" class="canon-button" data-emphasis="high" data-align="end" commandfor="rtl-drawer" command="close"><span class="canon-button-label">تطبيق</span></button>
+      </footer>
+    </dialog>
+  </section>
+
+</main>
+</body>
+</html>

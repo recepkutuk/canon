@@ -1,0 +1,26 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Kbd                                                                 */
+  /*                                                                     */
+  /* A keyboard key or shortcut. Starts from the surrounding text (the   */
+  /* browser makes <kbd> monospace), never wraps, and reads left to      */
+  /* right even in right-to-left text: shortcuts are written that way,   */
+  /* and "⌘K" would otherwise turn into "K⌘".                            */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-kbd) {
+    display: inline-block;
+    font: inherit;
+    white-space: nowrap;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  /* As an accessory (after a button's or tag's label and trailing icon), it sits
+     on the line's center whatever the box aligns. */
+  :where(.canon-button, .canon-tooltip, .canon-tag) > :where(.canon-kbd) {
+    flex: none;
+    align-self: center;
+  }
+}

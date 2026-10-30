@@ -1,0 +1,49 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Tag                                                                 */
+  /* A short label in a chip: a category, a status, a person. One line:  */
+  /* the label shrinks with an ellipsis before anything else does.       */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-tag) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  :where(.canon-tag) > :where(*) {
+    flex: none;
+  }
+  :where(.canon-tag) > :where(.canon-tag-label) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-tag) > :where(.canon-tag-dot) {
+    display: inline-block;
+  }
+
+  /* A remove button, last: user-agent styles reset, the size of an icon.
+     The theme draws the icon. */
+  :where(.canon-tag-remove) {
+    box-sizing: content-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  :where(.canon-tag-remove):disabled {
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Link reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Link</h1>
+  <p class="ref-note">Text that goes somewhere: in a sentence, or on its own ("View all invoices"). An <code>&lt;a href&gt;</code>; a <code>&lt;button&gt;</code> can look like one when it does something from inside text. It takes the text's font and size. Specification: <a href="../docs/components/link.md">docs/components/link.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="link">
+    <h2>Basics</h2>
+    <p class="ref-note"><code>class="canon-link"</code> on an <code>&lt;a href&gt;</code>. In a sentence it is underlined, so it shows by more than its color.</p>
+
+    <p>Payments arrive within two working days. See <a class="canon-link" href="#payouts">how payouts work</a> or change your <a class="canon-link" href="#bank">bank details</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="standalone">
+    <h2>Standalone</h2>
+    <p class="ref-note"><code>data-standalone</code> on a link that stands on its own, outside a sentence: under a list, in a card, in a table cell. Its place says it's a link, so the theme may drop the underline until hover or focus. An icon (<code>aria-hidden="true"</code>) can go before or after the text.</p>
+
+    <div class="ref-stack">
+      <a class="canon-link" href="#invoices" data-standalone>View all invoices</a>
+      <a class="canon-link" href="#activity" data-standalone>
+        See the full activity
+        <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+      </a>
+      <a class="canon-link" href="#report" data-standalone>
+        <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+        Download the report
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Low emphasis</h2>
+    <p class="ref-note"><code>data-emphasis="low"</code>: the surrounding text's color, always underlined. For links that shouldn't draw the eye: a footer, fine print, a muted description.</p>
+
+    <p class="ref-note">By signing up you agree to the <a class="canon-link" href="#terms" data-emphasis="low">terms of service</a> and the <a class="canon-link" href="#privacy" data-emphasis="low">privacy policy</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="new-tab">
+    <h2>New tab</h2>
+    <p class="ref-note"><code>target="_blank"</code>: the theme draws the external icon after the text, and screen readers hear "(opens in new tab)" (the <code>--canon-text-opens-in-new-tab</code> string, translated by <code>i18n/</code>). Open a new tab only when leaving would lose the person's work.</p>
+
+    <p>Rates follow the <a class="canon-link" href="https://example.com/rates" target="_blank">central bank's published rates</a>.</p>
+    <p><a class="canon-link" href="https://example.com/status" target="_blank" data-standalone>Service status</a></p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="button">
+    <h2>On a button</h2>
+    <p class="ref-note">When it does something rather than going somewhere, from inside text, it is a <code>&lt;button type="button" class="canon-link"&gt;</code>: it looks like a link and behaves as a button (Enter and Space, no address). Anywhere else, use a <a href="button.html">Button</a>.</p>
+
+    <p>Didn't get the code? <button type="button" class="canon-link">Send it again</button>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Hover and keyboard focus are live. A button link is disabled with <code>disabled</code>; a link that can't go anywhere loses its <code>href</code> and gets <code>aria-disabled="true"</code>.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-link" disabled>Send it again</button>
+      <a class="canon-link" aria-disabled="true">Download the report</a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long link wraps with the text, and its focus ring follows each line. A link takes the size of the text it's in. Right to left, icons that point mirror, the new-tab icon too.</p>
+
+    <p style="max-inline-size: 22rem">Before you continue, read <a class="canon-link" href="#guide">the complete guide to moving your workspace between regions</a> once.</p>
+    <h3>Questions? <a class="canon-link" href="#help">Ask the team</a></h3>
+    <p><small>Updated today · <a class="canon-link" href="#history">See history</a></small></p>
+    <p dir="rtl" lang="ar">راجع <a class="canon-link" href="#ar-guide">دليل المدفوعات</a> أو <a class="canon-link" href="https://example.com/ar" target="_blank">صفحة الحالة</a>. <a class="canon-link" href="#ar-all" data-standalone>عرض الكل <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span></a></p>
+  </section>
+
+</main>
+</body>
+</html>

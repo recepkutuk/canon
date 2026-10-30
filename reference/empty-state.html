@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Empty State reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Empty State</h1>
+  <p class="ref-note">What a view shows when it has no content: nothing yet, nothing matching, or an error, and what to do next. Specification: <a href="../docs/components/empty-state.md">docs/components/empty-state.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="empty-state">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-empty-state</code>: an icon (<code>.canon-empty-state-icon</code>, decoration), a title (<code>.canon-empty-state-title</code>, a heading where the page needs one), a description and actions (Buttons). Nothing yet: say what will appear here and how to start.</p>
+
+    <div class="canon-empty-state">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="table" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">No users yet</h3>
+      <p class="canon-empty-state-description">People you invite will show up here.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Invite people</span></button></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="no-results">
+    <h2>No results</h2>
+    <p class="ref-note">Content exists but nothing matches the search or filters: say so, and offer the way back.</p>
+
+    <div class="canon-empty-state">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="search-x" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">No matching users</h3>
+      <p class="canon-empty-state-description">Try other words, or clear the filters to see everyone.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button"><span class="canon-button-label">Clear filters</span></button></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="error">
+    <h2>Error</h2>
+    <p class="ref-note"><code>data-intent="danger"</code> when loading failed: say what happened in plain words and offer to try again.</p>
+
+    <div class="canon-empty-state" data-intent="danger">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="circle-alert" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">Couldn't load users</h3>
+      <p class="canon-empty-state-description">Something went wrong on our side. Try again in a moment.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button"><span class="canon-icon" data-icon="refresh" aria-hidden="true"></span><span class="canon-button-label">Try again</span></button></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the empty state or a container: the icon 5 / 6 / 7rem, the text and buttons to match.</p>
+
+    <div class="ref-grid">
+    <div class="canon-empty-state" data-size="sm">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="table" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">No users yet</h3>
+      <p class="canon-empty-state-description">People you invite will show up here.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Invite people</span></button></div>
+    </div>
+    <div class="canon-empty-state" data-size="lg">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="table" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">No users yet</h3>
+      <p class="canon-empty-state-description">People you invite will show up here.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Invite people</span></button></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Without an icon or actions; a long description wraps at a readable width; right to left.</p>
+
+    <div class="canon-empty-state">
+      <h3 class="canon-empty-state-title">Nothing to review</h3>
+      <p class="canon-empty-state-description">When teammates ask for your review, their requests will collect here so you can work through them in one place, oldest first, without hunting through notifications.</p>
+    </div>
+    <div class="canon-empty-state" dir="rtl" lang="ar">
+      <span class="canon-empty-state-icon" aria-hidden="true"><span class="canon-icon" data-icon="table" aria-hidden="true"></span></span>
+      <h3 class="canon-empty-state-title">لا يوجد مستخدمون بعد</h3>
+      <p class="canon-empty-state-description">سيظهر هنا الأشخاص الذين تدعوهم.</p>
+      <div class="canon-empty-state-actions"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">دعوة أشخاص</span></button></div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

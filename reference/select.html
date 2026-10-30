@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Select reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Select</h1>
+  <p class="ref-note">Pick one option from a list. A native <code>&lt;select&gt;</code>: the list is styled where the browser supports it, and touch devices keep their own picker. Specification: <a href="../docs/components/select.md">docs/components/select.md</a>.</p>
+  <p class="ref-note">The selects on this page stand alone, so each is named with <code>aria-label</code>. With a visible label, a select is part of a <a href="field.html">Field</a>. To search the options, or pick several, use a <a href="combobox.html">Combobox</a>.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the box or any container. Each row: the placeholder, a chosen option, and a list with groups and a separator. Click a box to open its list.</p>
+
+    <h3>sm</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select" data-size="sm">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="sm">
+        <select name="chosen" aria-label="Chosen">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="sm">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <h3>md</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select" data-size="md">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="md">
+        <select name="chosen" aria-label="Chosen">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="md">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <h3>lg</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select" data-size="lg">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="lg">
+        <select name="chosen" aria-label="Chosen">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-size="lg">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <h3>Without data-size</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="empty" aria-label="Empty">
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="chosen" aria-label="Chosen">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="groups" aria-label="Groups">
+          <optgroup label="Caption">
+            <option selected>Option 1</option>
+            <option>Option 2</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="Caption">
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="placeholder">
+    <h2>Placeholder</h2>
+    <p class="ref-note">A first option with an empty value shows as the placeholder. Add <code>hidden</code> to keep it out of the list, and <code>required</code> on the select so it can't be submitted empty.</p>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="country" aria-label="Country" required>
+          <option value="" hidden>Choose a country</option>
+          <option>Ireland</option>
+          <option>Germany</option>
+          <option>Turkey</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="options">
+    <h2>Options</h2>
+    <p class="ref-note">Options can hold an icon or an avatar before the label, and a description after it. Keep a space between the parts: the native picker shows the plain text. <code>&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;</code> as the first child shows the chosen option's icon or avatar in the closed box too.</p>
+
+    <h3>Icons and avatars</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="view" aria-label="View">
+          <button><selectedcontent></selectedcontent></button>
+          <option value="list" selected><span class="canon-icon" data-icon="tag" aria-hidden="true"></span> <span class="canon-option-label">List</span></option>
+          <option value="board"><span class="canon-icon" data-icon="star" aria-hidden="true"></span> <span class="canon-option-label">Board</span></option>
+          <option value="calendar"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span> <span class="canon-option-label">Settings</span></option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="assignee" aria-label="Assignee">
+          <button><selectedcontent></selectedcontent></button>
+          <option value="ada"><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" aria-hidden="true">AL</span></span> <span class="canon-option-label">Ada Lovelace</span></option>
+          <option value="grace" selected><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" aria-hidden="true">GH</span></span> <span class="canon-option-label">Grace Hopper</span></option>
+          <option value="alan"><span class="canon-avatar" data-seed="4"><span class="canon-avatar-fallback" aria-hidden="true">AT</span></span> <span class="canon-option-label">Alan Turing</span></option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Descriptions, groups and a disabled option</h3>
+    <p class="ref-note">Group with <code>&lt;optgroup label&gt;</code>; separate with <code>&lt;hr&gt;</code>. Disabled options stay in the list but can't be picked. The closed box shows only the label.</p>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="instance-type" aria-label="Instance type">
+          <button><selectedcontent></selectedcontent></button>
+          <optgroup label="General purpose">
+            <option value="t3.micro"><span class="canon-option-label">t3.micro</span> <span class="canon-option-description">2 vCPU · 1 GiB</span></option>
+            <option value="t3.large" selected><span class="canon-option-label">t3.large</span> <span class="canon-option-description">2 vCPU · 8 GiB</span></option>
+          </optgroup>
+          <optgroup label="Compute optimized">
+            <option value="c6i.xlarge"><span class="canon-option-label">c6i.xlarge</span> <span class="canon-option-description">4 vCPU · 8 GiB</span></option>
+            <option value="c6i.4xlarge" disabled><span class="canon-option-label">c6i.4xlarge</span> <span class="canon-option-description">Quota exceeded</span></option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <h3>A destructive option</h3>
+    <p class="ref-note"><code>data-intent="danger"</code> on an option that destroys something.</p>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="after-the-trial" aria-label="After the trial">
+          <option selected>Keep the project</option>
+          <option>Archive the project</option>
+          <hr class="canon-separator">
+          <option data-intent="danger">Delete the project</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="box">
+    <h2>Box</h2>
+
+    <h3>Leading icon</h3>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+        <select name="region" aria-label="Region">
+          <option>eu-west-1</option>
+          <option selected>eu-central-1</option>
+          <option>us-east-1</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+        <select name="language" aria-label="Language">
+          <option value="" hidden>Please select</option>
+          <option>English</option>
+          <option>Türkçe</option>
+          <option>العربية</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Clear button</h3>
+    <p class="ref-note">A <code>canon-button</code> with <code>command="--canon-clear"</code> and <code>commandfor</code> the select, after the select, goes back to the placeholder. It hides while there is nothing to clear; this theme also shows it only while the box is hovered or focused (always on touch screens), keeping its space so nothing moves. Point at the box below, or tab to it, to see the button appear before the arrow.</p>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select id="select-clear" name="clear" aria-label="Region">
+          <option value="" hidden>Please select</option>
+          <option selected>eu-central-1</option>
+          <option>us-east-1</option>
+        </select>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" commandfor="select-clear" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+    </div>
+
+    <h3>States</h3>
+    <p class="ref-note">Error is <code>aria-invalid="true"</code> on the select; warning and success are <code>data-intent</code> on the box (in a <a href="field.html">Field</a>, its message sets them). Disabled is native.</p>
+    <div class="ref-input-grid">
+      <div class="canon-select">
+        <select name="error" aria-label="Error" aria-invalid="true">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-intent="warning">
+        <select name="warning" aria-label="Warning">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select" data-intent="success">
+        <select name="success" aria-label="Success">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="disabled" aria-label="Disabled" disabled>
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="disabled,-empty" aria-label="Disabled, empty" disabled>
+          <option value="" hidden>Please select</option>
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+      <div class="canon-select">
+        <select name="disabled-with-an-error" aria-label="Disabled with an error" disabled aria-invalid="true">
+          <option selected>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <div class="ref-input-grid" dir="rtl" lang="ar">
+      <div class="canon-select">
+        <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+        <select name="المنطقة" aria-label="المنطقة">
+          <optgroup label="أوروبا">
+            <option selected>أيرلندا</option>
+            <option>ألمانيا</option>
+          </optgroup>
+          <hr class="canon-separator">
+          <optgroup label="آسيا">
+            <option>اليابان</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <h3>Long options in a narrow box</h3>
+    <p class="ref-note">The closed box cuts the value short; the list grows to fit its options, up to the window.</p>
+    <div class="ref-narrow">
+      <div class="canon-select">
+        <select name="plan" aria-label="Plan">
+          <option selected>Enterprise with priority support and a dedicated account manager</option>
+          <option>Team</option>
+          <option>Free</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

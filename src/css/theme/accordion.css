@@ -1,0 +1,138 @@
+/* ==================================================================== */
+/* Accordion                                                            */
+/* ==================================================================== */
+
+@layer canon.theme {
+  /* Rows divided by hairline rules (black at 10%, dark white at
+     10%), a line above the first and under the last, no box, so it
+     sits the same on a page and in a Card. The title medium in the text's
+     color, its description under it in zinc-500 (dark zinc-400); a leading
+     icon in zinc-500; a Tag, Count or Status at the end; a chevron (16px,
+     zinc-500, dark zinc-400) last, turning over when open, the text's color
+     on hover. The content under the row in zinc-600 (dark zinc-300), lined
+     up with the title. Opening and closing slide (0.2s; none with reduced
+     motion). Focus: the focus color's 2px ring around the row, 6px corners.
+     Sizes: rows 8 / 12 / 16px tall inside; titles 13 / 14 / 16px. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-accordion-pad: 0.75rem;
+    --canon-theme-accordion-title: 0.875rem;
+    --canon-theme-accordion-title-line: 1.25rem;
+    --canon-theme-accordion-description: 0.8125rem;
+    --canon-theme-accordion-description-line: 1.25rem;
+    --canon-theme-accordion-end: 1rem;
+    --canon-theme-accordion-icon: 1rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-accordion-pad: 0.5rem;
+    --canon-theme-accordion-title: 0.8125rem;
+    --canon-theme-accordion-title-line: 1.25rem;
+    --canon-theme-accordion-description: 0.75rem;
+    --canon-theme-accordion-description-line: 1rem;
+    --canon-theme-accordion-end: 0.75rem;
+    --canon-theme-accordion-icon: 1rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-accordion-pad: 1rem;
+    --canon-theme-accordion-title: 1rem;
+    --canon-theme-accordion-title-line: 1.5rem;
+    --canon-theme-accordion-description: 0.875rem;
+    --canon-theme-accordion-description-line: 1.25rem;
+    --canon-theme-accordion-end: 1.25rem;
+    --canon-theme-accordion-icon: 1.25rem;
+  }
+
+  .canon-accordion {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+    --_muted: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    interpolate-size: allow-keywords;
+    border-block: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-accordion-item + .canon-accordion-item {
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* Inside another's content, the outer rows' lines frame it: only the
+     lines between its items. */
+  .canon-accordion-content > .canon-accordion {
+    border-block: 0;
+  }
+  /* Last in a Card's body, the Card's edge closes it: no line of its own. */
+  .canon-card-body > .canon-accordion:last-child {
+    border-block-end: 0;
+  }
+  .canon-accordion-summary {
+    column-gap: 0.75rem;
+    padding-block: var(--canon-theme-accordion-pad);
+    border-radius: 0.375rem;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  .canon-accordion-summary:focus-visible {
+    outline-color: var(--canon-theme-focus);
+  }
+  .canon-accordion-summary > .canon-icon {
+    --canon-icon-size: var(--canon-theme-accordion-icon);
+    color: var(--_muted);
+  }
+  .canon-accordion-title {
+    font-size: var(--canon-theme-accordion-title);
+    font-weight: 500;
+    line-height: var(--canon-theme-accordion-title-line);
+    letter-spacing: -0.006em;
+  }
+  .canon-accordion-description {
+    color: var(--_muted);
+    font-size: var(--canon-theme-accordion-description);
+    line-height: var(--canon-theme-accordion-description-line);
+  }
+  .canon-accordion-summary::after {
+    content: "";
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: var(--_muted);
+    mask: var(--canon-theme-icon-chevron) center / contain no-repeat;
+    transition: rotate 0.2s ease, background-color 0.12s;
+  }
+  @media (hover: hover) {
+    .canon-accordion-summary:hover::after {
+      background-color: currentColor;
+    }
+  }
+  .canon-accordion-item[open] > .canon-accordion-summary::after {
+    rotate: 180deg;
+  }
+  .canon-accordion-content {
+    padding-block-end: var(--canon-theme-accordion-end);
+    color: light-dark(var(--canon-theme-zinc-600), var(--canon-theme-zinc-300));
+    font-size: var(--canon-theme-accordion-title);
+    line-height: var(--canon-theme-accordion-title-line);
+  }
+  .canon-accordion-content > :first-child { margin-block-start: 0; }
+  .canon-accordion-content > :last-child { margin-block-end: 0; }
+  /* Lined up with the title when the rows have icons. */
+  .canon-accordion-item:has(> .canon-accordion-summary > .canon-icon) > .canon-accordion-content {
+    padding-inline-start: calc(var(--canon-theme-accordion-icon) + 0.75rem);
+  }
+  /* Opening and closing slide where the browser can animate to auto. */
+  @supports selector(::details-content) {
+    .canon-accordion-item::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 0.2s ease, content-visibility 0.2s allow-discrete;
+    }
+    .canon-accordion-item[open]::details-content {
+      block-size: auto;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-accordion-summary::after,
+    .canon-accordion-item::details-content { transition: none; }
+  }
+  @media (forced-colors: active) {
+    .canon-accordion-summary::after {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+}

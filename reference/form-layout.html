@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Form Layout reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Form Layout</h1>
+  <p class="ref-note">How a whole form is arranged: the space between fields, sections with a title, fields side by side, a settings layout with the sections' titles beside their fields, questions that appear after a choice, and the buttons at the end. Specification: <a href="../docs/components/form-layout.md">docs/components/form-layout.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="form">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-form</code> (on the <code>&lt;form&gt;</code>) stacks what it holds a step apart: fields, fieldsets, repeaters, rows of fields, and the actions at the end, a larger step under the rest. Fields are as wide as the form; the form is as wide as its place.</p>
+
+    <form class="canon-form" style="max-inline-size: 28rem" onsubmit="event.preventDefault()">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="su-name">Full name</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="su-name" name="su-name" placeholder required>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="su-email">Work email</label>
+          <p class="canon-label-description" id="su-email-desc">We'll send a link to confirm it.</p>
+        </div>
+        <div class="canon-text-input">
+          <input type="email" id="su-email" name="su-email" placeholder aria-describedby="su-email-desc" required>
+        </div>
+      </div>
+      <div class="canon-form-row" style="--canon-form-columns: minmax(0, 2fr) minmax(0, 1fr)">
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="su-city">City</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="su-city" name="su-city" placeholder>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="su-zip">Postcode</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="su-zip" name="su-zip" placeholder>
+          </div>
+        </div>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" id="su-terms" name="terms">
+        <label class="canon-choice-label" for="su-terms">I agree to the terms</label>
+      </div>
+      <div class="canon-form-actions">
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Create account</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Cancel</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sections">
+    <h2>Sections</h2>
+    <p class="ref-note">A <code>.canon-form-section</code> (<code>&lt;section&gt;</code>, named by its title with <code>aria-labelledby</code>) starts with a <code>.canon-form-section-header</code>: a title (a heading at the page's level) and an optional description. Sections are a larger step apart, divided by a line.</p>
+
+    <form class="canon-form" style="max-inline-size: 32rem" onsubmit="event.preventDefault()">
+      <section class="canon-form-section" aria-labelledby="st-profile-title">
+        <header class="canon-form-section-header">
+          <h3 class="canon-form-section-title" id="st-profile-title">Profile</h3>
+          <p class="canon-form-section-description">Shown on your public page.</p>
+        </header>
+        <div class="canon-form-row">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="st-first">First name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="st-first" name="st-first" placeholder required>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="st-last">Last name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="st-last" name="st-last" placeholder required>
+            </div>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="st-bio">Bio</label>
+            <p class="canon-label-description" id="st-bio-desc">A sentence or two about you.</p>
+          </div>
+          <div class="canon-textarea">
+            <textarea id="st-bio" name="st-bio" rows="3" placeholder aria-describedby="st-bio-desc"></textarea>
+          </div>
+        </div>
+        <div class="canon-form-row" style="--canon-form-columns: minmax(0, 2fr) minmax(0, 1fr)">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="st-city">City</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="st-city" name="st-city" placeholder>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="st-zip">Postcode</label>
+              <p class="canon-label-description" id="st-zip-desc">As on your bill.</p>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="st-zip" name="st-zip" placeholder aria-describedby="st-zip-desc">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="canon-form-section" aria-labelledby="st-notif-title">
+        <header class="canon-form-section-header">
+          <h3 class="canon-form-section-title" id="st-notif-title">Notifications</h3>
+          <p class="canon-form-section-description">Where we tell you about activity.</p>
+        </header>
+        <fieldset class="canon-fieldset">
+          <legend class="canon-fieldset-legend">Email me about</legend>
+          <div class="canon-choice">
+            <input type="checkbox" id="st-n1" name="st-notify" checked>
+            <label class="canon-choice-label" for="st-n1">Mentions</label>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="st-n2" name="st-notify">
+            <label class="canon-choice-label" for="st-n2">Weekly summary</label>
+          </div>
+          <fieldset class="canon-form-reveal">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="st-day">Send it on</label></div>
+              <div class="canon-select">
+                <select id="st-day" name="st-day">
+                  <option>Monday</option><option>Friday</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+      </section>
+      <div class="canon-form-actions">
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Discard changes</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="aside">
+    <h2>Settings layout</h2>
+    <p class="ref-note"><code>data-layout="aside"</code> on the form: each section's header in a side column (a third of the form, <code>--canon-form-aside</code>), its fields beside it. For settings pages, read section by section. When the form is narrower than 40rem, the sections stack as above.</p>
+
+    <form class="canon-form" data-layout="aside" onsubmit="event.preventDefault()">
+      <section class="canon-form-section" aria-labelledby="as-profile-title">
+        <header class="canon-form-section-header">
+          <h3 class="canon-form-section-title" id="as-profile-title">Profile</h3>
+          <p class="canon-form-section-description">Shown on your public page.</p>
+        </header>
+        <div class="canon-form-row">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="as-first">First name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="as-first" name="as-first" placeholder required>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="as-last">Last name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="as-last" name="as-last" placeholder required>
+            </div>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="as-bio">Bio</label>
+            <p class="canon-label-description" id="as-bio-desc">A sentence or two about you.</p>
+          </div>
+          <div class="canon-textarea">
+            <textarea id="as-bio" name="as-bio" rows="3" placeholder aria-describedby="as-bio-desc"></textarea>
+          </div>
+        </div>
+        <div class="canon-form-row" style="--canon-form-columns: minmax(0, 2fr) minmax(0, 1fr)">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="as-city">City</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="as-city" name="as-city" placeholder>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="as-zip">Postcode</label>
+              <p class="canon-label-description" id="as-zip-desc">As on your bill.</p>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="as-zip" name="as-zip" placeholder aria-describedby="as-zip-desc">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="canon-form-section" aria-labelledby="as-notif-title">
+        <header class="canon-form-section-header">
+          <h3 class="canon-form-section-title" id="as-notif-title">Notifications</h3>
+          <p class="canon-form-section-description">Where we tell you about activity.</p>
+        </header>
+        <fieldset class="canon-fieldset">
+          <legend class="canon-fieldset-legend">Email me about</legend>
+          <div class="canon-choice">
+            <input type="checkbox" id="as-n1" name="as-notify" checked>
+            <label class="canon-choice-label" for="as-n1">Mentions</label>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="as-n2" name="as-notify">
+            <label class="canon-choice-label" for="as-n2">Weekly summary</label>
+          </div>
+          <fieldset class="canon-form-reveal">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="as-day">Send it on</label></div>
+              <div class="canon-select">
+                <select id="as-day" name="as-day">
+                  <option>Monday</option><option>Friday</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+      </section>
+      <div class="canon-form-actions">
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Discard changes</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="rows">
+    <h2>Rows</h2>
+    <p class="ref-note">A <code>.canon-form-row</code> puts fields side by side, their boxes in line whatever their labels, descriptions and messages. Columns share the width equally; <code>--canon-form-columns</code> sets them like <code>grid-template-columns</code>. When the form is narrower than 24rem, the row stacks.</p>
+
+    <form class="canon-form" style="max-inline-size: 36rem" onsubmit="event.preventDefault()">
+      <div class="canon-form-row">
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="rw-a">Card number</label>
+            <p class="canon-label-description" id="rw-a-desc">The 16 digits on the front.</p>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="rw-a" name="rw-a" placeholder aria-describedby="rw-a-desc">
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="rw-b">Expiry</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="rw-b" name="rw-b" placeholder aria-describedby="rw-b-msg" aria-invalid="true" value="04/24">
+          </div>
+          <p class="canon-field-message" id="rw-b-msg" data-intent="danger">This card has expired.</p>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="rw-c">CVC</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="rw-c" name="rw-c" placeholder>
+          </div>
+        </div>
+      </div>
+    </form>
+    <h3>Narrow</h3>
+    <form class="canon-form" style="max-inline-size: 18rem" onsubmit="event.preventDefault()">
+      <div class="canon-form-row">
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="nr-a">First name</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="nr-a" name="nr-a" placeholder>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="nr-b">Last name</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="nr-b" name="nr-b" placeholder>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="reveal">
+    <h2>Reveal</h2>
+    <p class="ref-note">A <code>&lt;fieldset class="canon-form-reveal"&gt;</code> right after a choice shows its fields while that choice is checked: a radio's follow-up question, a checkbox's details. canon.js disables it while it is hidden, so its fields are neither checked nor sent. Without JavaScript the hidden fields are still sent, so don't make them <code>required</code> unless the server checks which choice was made.</p>
+
+    <form class="canon-form" style="max-inline-size: 28rem" onsubmit="event.preventDefault()">
+      <fieldset class="canon-fieldset">
+        <legend class="canon-fieldset-legend">How should we contact you?</legend>
+        <div class="canon-choice">
+          <input type="radio" id="rv-email" name="contact" value="email" checked>
+          <label class="canon-choice-label" for="rv-email">Email</label>
+        </div>
+        <fieldset class="canon-form-reveal">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="rv-email-address">Email address</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="email" id="rv-email-address" name="rv-email-address" placeholder required>
+            </div>
+          </div>
+        </fieldset>
+        <div class="canon-choice">
+          <input type="radio" id="rv-phone" name="contact" value="phone">
+          <label class="canon-choice-label" for="rv-phone">Phone</label>
+        </div>
+        <fieldset class="canon-form-reveal">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="rv-phone-number">Phone number</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="tel" id="rv-phone-number" name="rv-phone-number" placeholder required>
+            </div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="rv-text" name="texts">
+            <label class="canon-choice-label" for="rv-text">Texts are fine too</label>
+          </div>
+        </fieldset>
+        <div class="canon-choice">
+          <input type="radio" id="rv-none" name="contact" value="none">
+          <label class="canon-choice-label" for="rv-none">Don't contact me</label>
+        </div>
+      </fieldset>
+      <div class="canon-form-actions">
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Continue</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Back</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sticky">
+    <h2>Sticky actions</h2>
+    <p class="ref-note"><code>data-sticky</code> on the actions of a long form: they stay at the bottom of the window (here, of the scrolling box) while the fields scroll under them.</p>
+
+    <div style="max-inline-size: 28rem; max-block-size: 22rem; overflow: auto">
+      <form class="canon-form" onsubmit="event.preventDefault()">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-0">Company</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-0" name="lg-0" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-1">Department</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-1" name="lg-1" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-2">Job title</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-2" name="lg-2" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-3">Manager</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-3" name="lg-3" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-4">Office</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-4" name="lg-4" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-5">Desk</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-5" name="lg-5" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-6">Phone</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-6" name="lg-6" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-7">Mobile</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-7" name="lg-7" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-8">Start date</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-8" name="lg-8" placeholder>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="lg-9">Cost centre</label>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="lg-9" name="lg-9" placeholder>
+        </div>
+      </div>
+      <div class="canon-form-actions" data-sticky>
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Cancel</span></button>
+      </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the form or a container sizes its fields and its steps.</p>
+
+    <div class="ref-grid">
+      <form class="canon-form" data-size="sm" onsubmit="event.preventDefault()">
+        <div class="canon-form-row">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="sm-a">First name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="sm-a" name="sm-a" placeholder>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="sm-b">Last name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="sm-b" name="sm-b" placeholder>
+            </div>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="sm-c">Email</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="email" id="sm-c" name="sm-c" placeholder>
+          </div>
+        </div>
+        <div class="canon-form-actions">
+          <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+          <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Cancel</span></button>
+        </div>
+      </form>
+      <form class="canon-form" data-size="lg" onsubmit="event.preventDefault()">
+        <div class="canon-form-row">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="lg2-a">First name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="lg2-a" name="lg2-a" placeholder>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="lg2-b">Last name</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="lg2-b" name="lg2-b" placeholder>
+            </div>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="lg2-c">Email</label>
+          </div>
+          <div class="canon-text-input">
+            <input type="email" id="lg2-c" name="lg2-c" placeholder>
+          </div>
+        </div>
+        <div class="canon-form-actions">
+          <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+          <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Cancel</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the aside column is on the right, and a reveal hangs from the choice on the right.</p>
+
+    <form class="canon-form" data-layout="aside" dir="rtl" lang="ar" onsubmit="event.preventDefault()">
+      <section class="canon-form-section" aria-labelledby="rtl-title">
+        <header class="canon-form-section-header">
+          <h3 class="canon-form-section-title" id="rtl-title">الملف الشخصي</h3>
+          <p class="canon-form-section-description">يظهر في صفحتك العامة.</p>
+        </header>
+        <div class="canon-form-row">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="rtl-a">الاسم الأول</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="rtl-a" name="rtl-a" placeholder>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="rtl-b">اسم العائلة</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="text" id="rtl-b" name="rtl-b" placeholder>
+            </div>
+          </div>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="rtl-c" name="rtl-c" checked>
+          <label class="canon-choice-label" for="rtl-c">أرسل لي ملخصًا</label>
+        </div>
+        <fieldset class="canon-form-reveal">
+          <div class="canon-field">
+            <div class="canon-label">
+              <label class="canon-label-text" for="rtl-d">البريد الإلكتروني</label>
+            </div>
+            <div class="canon-text-input">
+              <input type="email" id="rtl-d" name="rtl-d" placeholder>
+            </div>
+          </div>
+        </fieldset>
+      </section>
+      <div class="canon-form-actions">
+        <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">حفظ</span></button>
+        <button type="reset" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">إلغاء</span></button>
+      </div>
+    </form>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,1549 @@
+/*
+ * ant.css
+ *
+ * An Ant Design-inspired look for Canon, in one file: link it instead of
+ * canon.css. The markup and canon.js stay exactly the same. Not affiliated
+ * with or endorsed by Ant Group.
+ *
+ * It builds on canon.css: the color tokens and the shape tokens restyle every
+ * component at once, then rules redraw each one.
+ *
+ * Covers every component. Fields are 32px and outlined, turning blue with a
+ * soft halo on focus; default buttons do the same under the pointer.
+ *
+ * Supports: light, dark.
+ *
+ * This folder is the theme: this stylesheet and its icons. It names the system
+ * font stack and bundles no font. Ant's icons have no subscript or superscript,
+ * so those two stay Canon's.
+ * Serve the page over HTTP; browsers don't draw mask images from file://.
+ *
+ * Credits: Ant Design Icons (MIT License, see LICENSE).
+ */
+
+@import url("../canon/canon.css");
+
+@layer canon.theme {
+
+  /* ------------------------------------------------------------------ */
+  /* Color tokens, then Canon's scales holding the same tones            */
+  /* ------------------------------------------------------------------ */
+
+  :root {
+    --ant-bg: light-dark(#fff, #141414);
+    --ant-bg-elevated: light-dark(#fff, #1f1f1f);
+    --ant-bg-layout: light-dark(#f5f5f5, #000);
+    --ant-bg-disabled: light-dark(rgb(0 0 0 / 0.04), rgb(255 255 255 / 0.08));
+    --ant-bg-spotlight: light-dark(rgb(0 0 0 / 0.85), #424242);
+    --ant-fill: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.18));
+    --ant-fill-2: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.12));
+    --ant-fill-3: light-dark(rgb(0 0 0 / 0.04), rgb(255 255 255 / 0.08));
+    --ant-fill-4: light-dark(rgb(0 0 0 / 0.02), rgb(255 255 255 / 0.04));
+    --ant-text: light-dark(rgb(0 0 0 / 0.88), rgb(255 255 255 / 0.85));
+    --ant-text-2: light-dark(rgb(0 0 0 / 0.65), rgb(255 255 255 / 0.65));
+    --ant-text-3: light-dark(rgb(0 0 0 / 0.45), rgb(255 255 255 / 0.45));
+    --ant-text-disabled: light-dark(rgb(0 0 0 / 0.25), rgb(255 255 255 / 0.25));
+    --ant-border: light-dark(#d9d9d9, #424242);
+    --ant-border-2: light-dark(#f0f0f0, #303030);
+
+    --ant-primary: light-dark(#1677ff, #1668dc);
+    --ant-primary-hover: light-dark(#4096ff, #3c89e8);
+    --ant-primary-active: light-dark(#0958d9, #1554ad);
+    --ant-primary-bg: light-dark(#e6f4ff, #15325b);
+    --ant-primary-bg-hover: light-dark(#bae0ff, #15417e);
+    --ant-primary-border: light-dark(#91caff, #15325b);
+    --ant-primary-border-hover: light-dark(#69b1ff, #15417e);
+    /* Blue as text brightens in dark, where the fill's blue is too dim to read. */
+    --ant-primary-text: light-dark(#1677ff, #3c89e8);
+    --ant-link: light-dark(#1677ff, #3c89e8);
+    --ant-link-hover: light-dark(#69b1ff, #65a9f3);
+    --ant-link-active: light-dark(#0958d9, #1668dc);
+    --ant-on-primary: #fff;
+    --ant-outline: light-dark(rgb(5 145 255 / 0.1), rgb(23 117 249 / 0.31));
+    /* The focus line: a pale blue in light; in dark, Ant's would vanish. */
+    --ant-focus: light-dark(#91caff, #3c89e8);
+
+    --ant-success: light-dark(#52c41a, #49aa19);
+    --ant-success-strong: light-dark(#389e0d, #49aa19);
+    --ant-success-strong-hover: light-dark(#52c41a, #6abe39);
+    --ant-success-strong-active: light-dark(#237804, #3c8618);
+    --ant-success-bg: light-dark(#f6ffed, #162312);
+    --ant-success-border: light-dark(#b7eb8f, #274916);
+    --ant-success-text: light-dark(#389e0d, #6abe39);
+    --ant-warning: light-dark(#faad14, #d89614);
+    --ant-warning-hover: light-dark(#ffc53d, #e8b339);
+    --ant-warning-active: light-dark(#d48806, #aa7714);
+    --ant-warning-bg: light-dark(#fffbe6, #2b2111);
+    --ant-warning-border: light-dark(#ffe58f, #594214);
+    --ant-warning-text: light-dark(#ad6800, #e8b339);
+    --ant-on-warning: rgb(0 0 0 / 0.88);
+    --ant-error: light-dark(#ff4d4f, #dc4446);
+    --ant-error-hover: light-dark(#ff7875, #e86e6b);
+    --ant-error-active: light-dark(#d9363e, #ad393a);
+    --ant-error-bg: light-dark(#fff2f0, #2c1618);
+    --ant-error-border: light-dark(#ffccc7, #5b2526);
+    --ant-error-text: light-dark(#cf1322, #e84749);
+    --ant-error-outline: light-dark(rgb(255 38 5 / 0.06), rgb(238 38 56 / 0.2));
+    --ant-warning-outline: light-dark(rgb(255 215 5 / 0.1), rgb(173 107 0 / 0.15));
+
+    --ant-shadow-1: light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.32));
+    --ant-shadow-2: light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.48));
+    --ant-shadow-3: light-dark(rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.2));
+    --ant-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    --canon-theme-zinc-50: #fafafa;
+    --canon-theme-zinc-100: #f5f5f5;
+    --canon-theme-zinc-200: #f0f0f0;
+    --canon-theme-zinc-300: #d9d9d9;
+    --canon-theme-zinc-400: #8c8c8c;
+    --canon-theme-zinc-500: #737373;
+    --canon-theme-zinc-600: #595959;
+    --canon-theme-zinc-700: #434343;
+    --canon-theme-zinc-800: #262626;
+    --canon-theme-zinc-900: #1f1f1f;
+    --canon-theme-zinc-950: #141414;
+
+    --canon-theme-blue-50: #e6f4ff;
+    --canon-theme-blue-100: #bae0ff;
+    --canon-theme-blue-200: #91caff;
+    --canon-theme-blue-300: #69b1ff;
+    --canon-theme-blue-400: #4096ff;
+    --canon-theme-blue-500: #1677ff;
+    --canon-theme-blue-600: #1677ff;
+    --canon-theme-blue-700: #0958d9;
+    --canon-theme-blue-800: #003eb3;
+    --canon-theme-blue-900: #002c8c;
+    --canon-theme-blue-950: #001d66;
+
+    --canon-theme-green-50: #f6ffed;
+    --canon-theme-green-100: #d9f7be;
+    --canon-theme-green-200: #b7eb8f;
+    --canon-theme-green-300: #95de64;
+    --canon-theme-green-400: #73d13d;
+    --canon-theme-green-500: #52c41a;
+    --canon-theme-green-600: #389e0d;
+    --canon-theme-green-700: #237804;
+    --canon-theme-green-800: #135200;
+    --canon-theme-green-900: #092b00;
+    --canon-theme-green-950: #051a00;
+
+    --canon-theme-amber-50: #fffbe6;
+    --canon-theme-amber-100: #fff1b8;
+    --canon-theme-amber-200: #ffe58f;
+    --canon-theme-amber-300: #ffd666;
+    --canon-theme-amber-400: #ffc53d;
+    --canon-theme-amber-500: #faad14;
+    --canon-theme-amber-600: #d48806;
+    --canon-theme-amber-700: #ad6800;
+    --canon-theme-amber-800: #874d00;
+    --canon-theme-amber-900: #613400;
+    --canon-theme-amber-950: #3d2100;
+
+    --canon-theme-red-50: #fff1f0;
+    --canon-theme-red-100: #ffccc7;
+    --canon-theme-red-200: #ffa39e;
+    --canon-theme-red-300: #ff7875;
+    --canon-theme-red-400: #ff4d4f;
+    --canon-theme-red-500: #f5222d;
+    --canon-theme-red-600: #cf1322;
+    --canon-theme-red-700: #a8071a;
+    --canon-theme-red-800: #820014;
+    --canon-theme-red-900: #5c0011;
+    --canon-theme-red-950: #3a000b;
+
+    /* ---------------------------------------------------------------- */
+    /* Lines, depth, type, sizes                                         */
+    /* ---------------------------------------------------------------- */
+
+    --canon-theme-paper: var(--ant-bg);
+    --canon-theme-ink: var(--ant-text);
+    --canon-theme-focus: var(--ant-focus);
+    --canon-theme-ring-offset: var(--ant-bg);
+    --canon-theme-hairline: 1px;
+    --canon-theme-edge: transparent;
+    --canon-theme-rule: var(--ant-border-2);
+    --canon-theme-rule-faint: var(--ant-border-2);
+
+    --canon-theme-shadow-control: 0 0 transparent;
+    --canon-theme-shadow-raised: 0 1px 2px 0 var(--ant-shadow-3), 0 1px 6px -1px var(--ant-shadow-3), 0 2px 4px 0 var(--ant-shadow-3);
+    --canon-theme-shadow-floating: 0 6px 16px 0 var(--ant-shadow-1), 0 3px 6px -4px var(--ant-shadow-2), 0 9px 28px 8px var(--ant-shadow-3);
+    --canon-theme-shadow-overlay: 0 6px 16px 0 var(--ant-shadow-1), 0 3px 6px -4px var(--ant-shadow-2), 0 9px 28px 8px var(--ant-shadow-3);
+
+    --canon-theme-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-feature-settings: normal;
+
+    /* 24, 32, 40. */
+    --canon-control-block-size-sm: 1.5rem;
+    --canon-control-block-size-md: 2rem;
+    --canon-control-block-size-lg: 2.5rem;
+    --canon-control-padding-inline-sm: 0.5rem;
+    --canon-control-padding-inline-md: 0.75rem;
+    --canon-control-padding-inline-lg: 1rem;
+    --canon-choice-control-size: 1rem;
+  }
+
+  /* 6px on what you press and type in, 4px on what's small; no tracking. */
+  :root,
+  [data-size] {
+    --canon-theme-button-radius: 0.375rem;
+    --canon-theme-button-kbd-radius: 0.125rem;
+    --canon-theme-button-label-inset: 0.125rem;
+    --canon-theme-button-tracking: 0;
+    --canon-theme-input-radius: 0.375rem;
+    --canon-theme-input-inset: 0px;
+    --canon-theme-input-icon-gap: 0.25rem;
+    --canon-theme-input-tracking: 0;
+    --canon-theme-table-radius: 0.5rem;
+    --canon-theme-tag-radius: 0.25rem;
+    --canon-theme-tooltip-radius: 0.375rem;
+    --canon-theme-kbd-radius: 0.25rem;
+    --canon-theme-label-tracking: 0;
+    --canon-theme-label-description-tracking: 0;
+  }
+  [data-size="sm"],
+  [data-size="xs"] {
+    --canon-theme-button-radius: 0.25rem;
+    --canon-theme-input-radius: 0.25rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Each intent's tones: filled and plain, at rest, under the pointer, pressed. */
+  .canon-button {
+    --_fill: var(--ant-primary);
+    --_fill-hover: var(--ant-primary-hover);
+    --_fill-press: var(--ant-primary-active);
+    --_on-fill: var(--ant-on-primary);
+    --_glow: var(--ant-outline);
+    --_text: var(--ant-text);
+    --_text-hover: var(--ant-primary-hover);
+    --_text-press: var(--ant-primary-active);
+    --_edge: var(--ant-border);
+    --_edge-hover: var(--ant-primary-hover);
+    --_edge-press: var(--ant-primary-active);
+    --_quiet: var(--ant-text);
+    --_now-text: var(--_text);
+    --_now-edge: var(--_edge);
+    font-weight: 400;
+    transition: background-color 0.2s var(--ant-ease), border-color 0.2s var(--ant-ease), color 0.2s var(--ant-ease);
+  }
+  .canon-button[data-intent="success"] {
+    --_fill: var(--ant-success-strong);
+    --_fill-hover: var(--ant-success-strong-hover);
+    --_fill-press: var(--ant-success-strong-active);
+    --_glow: transparent;
+    --_text: var(--ant-success-text);
+    --_text-hover: var(--ant-success-strong-hover);
+    --_text-press: var(--ant-success-strong-active);
+    --_edge: var(--ant-success-text);
+    --_edge-hover: var(--ant-success-strong-hover);
+    --_edge-press: var(--ant-success-strong-active);
+    --_quiet: var(--ant-success-text);
+  }
+  .canon-button[data-intent="warning"] {
+    --_fill: var(--ant-warning);
+    --_fill-hover: var(--ant-warning-hover);
+    --_fill-press: var(--ant-warning-active);
+    --_on-fill: var(--ant-on-warning);
+    --_glow: transparent;
+    --_text: var(--ant-warning-text);
+    --_text-hover: var(--ant-warning-hover);
+    --_text-press: var(--ant-warning-active);
+    --_edge: var(--ant-warning);
+    --_edge-hover: var(--ant-warning-hover);
+    --_edge-press: var(--ant-warning-active);
+    --_quiet: var(--ant-warning-text);
+  }
+  .canon-button[data-intent="danger"] {
+    --_fill: var(--ant-error);
+    --_fill-hover: var(--ant-error-hover);
+    --_fill-press: var(--ant-error-active);
+    --_glow: var(--ant-error-outline);
+    --_text: var(--ant-error);
+    --_text-hover: var(--ant-error-hover);
+    --_text-press: var(--ant-error-active);
+    --_edge: var(--ant-error);
+    --_edge-hover: var(--ant-error-hover);
+    --_edge-press: var(--ant-error-active);
+    --_quiet: var(--ant-error);
+  }
+  .canon-button[data-intent="neutral"] {
+    --_fill: var(--ant-text);
+    --_fill-hover: light-dark(rgb(0 0 0 / 0.75), rgb(255 255 255 / 0.75));
+    --_fill-press: light-dark(#000, #fff);
+    --_on-fill: var(--ant-bg);
+    --_glow: transparent;
+  }
+  @media (hover: hover) {
+    .canon-button:hover:not(:disabled, [aria-disabled="true"]) {
+      --_now-text: var(--_text-hover);
+      --_now-edge: var(--_edge-hover);
+    }
+  }
+  .canon-button:active:not(:disabled, [aria-disabled="true"]) {
+    --_now-text: var(--_text-press);
+    --_now-edge: var(--_edge-press);
+  }
+
+  /* Medium: the default button, a line that turns blue. High: primary, with its
+     soft drop. Low: filled gray. Minimal: text, gray under the pointer. */
+  .canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_now-text);
+    --canon-theme-bg: var(--ant-bg);
+    --canon-theme-bg-hover: var(--ant-bg);
+    --canon-theme-bg-active: var(--ant-bg);
+    --canon-theme-border: var(--_now-edge);
+    box-shadow: 0 2px 0 light-dark(rgb(0 0 0 / 0.02), rgb(255 255 255 / 0.04));
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="high"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-fill);
+    --canon-theme-bg: var(--_fill);
+    --canon-theme-bg-hover: var(--_fill-hover);
+    --canon-theme-bg-active: var(--_fill-press);
+    --canon-theme-border: transparent;
+    box-shadow: 0 2px 0 var(--_glow);
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="low"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_quiet);
+    --canon-theme-bg: var(--ant-fill-3);
+    --canon-theme-bg-hover: var(--ant-fill-2);
+    --canon-theme-bg-active: var(--ant-fill);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="minimal"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_quiet);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--ant-fill-3);
+    --canon-theme-bg-active: var(--ant-fill-2);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+  .canon-button:not(:disabled, [aria-disabled="true"], .canon-button-group > *) > .canon-icon {
+    color: inherit;
+  }
+
+  /* An icon alone, without emphasis, is a text button. */
+  .canon-button.canon-button.canon-button:where([data-display="icon"], [data-display="icon"] *):is(:not([data-emphasis]), [data-emphasis="medium"])[data-intent="neutral"]:not(:disabled, [aria-disabled="true"], .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--ant-text);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--ant-fill-3);
+    --canon-theme-bg-active: var(--ant-fill-2);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+  .canon-button.canon-button.canon-button:active {
+    scale: none;
+  }
+
+  /* A group: joined default buttons; a pressed part goes blue. */
+  .canon-button-group > .canon-button {
+    --_line: var(--ant-border);
+    --_icon: var(--ant-text);
+    --canon-theme-fg: var(--ant-text);
+    --canon-theme-bg: var(--ant-bg);
+    --canon-theme-bg-hover: var(--ant-bg);
+    --canon-theme-bg-active: var(--ant-bg);
+  }
+  @media (hover: hover) {
+    .canon-button-group > .canon-button:hover:not(:disabled, [aria-disabled="true"]) {
+      --_icon: var(--ant-primary-hover);
+      --canon-theme-fg: var(--ant-primary-hover);
+    }
+  }
+  .canon-button-group > .canon-button[aria-pressed="true"] {
+    --_pressed: 0 0 transparent;
+    --_icon: var(--ant-primary-text);
+    --canon-theme-fg: var(--ant-primary-text);
+    --canon-theme-bg: var(--ant-primary-bg);
+    --canon-theme-bg-hover: var(--ant-primary-bg);
+    --canon-theme-bg-active: var(--ant-primary-bg-hover);
+  }
+
+  /* Disabled: gray on gray, its line still there. */
+  .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--ant-text-disabled);
+    --canon-theme-bg: var(--ant-bg-disabled);
+    --canon-theme-border: var(--ant-border);
+    box-shadow: none;
+  }
+  .canon-button.canon-button[data-emphasis="low"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button[data-emphasis="minimal"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-bg: transparent;
+    --canon-theme-border: transparent;
+  }
+
+  /* Focus: a 3px pale blue line, a pixel off the shape. */
+  .canon-button:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 1px;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Field and its boxes                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .canon-label-text {
+    color: var(--ant-text);
+    font-weight: 400;
+  }
+  .canon-label-description,
+  .canon-field-counter {
+    color: var(--ant-text-3);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="danger"] {
+    color: var(--ant-error-text);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="success"] {
+    color: var(--ant-success-text);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="warning"] {
+    color: var(--ant-warning-text);
+  }
+
+  /* Outlined. Blue under the pointer; on focus, blue with a soft halo. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))) {
+    --_edge: var(--ant-border);
+    --_edge-hover: var(--ant-primary-hover);
+    --_edge-focus: var(--ant-primary);
+    --_halo: var(--ant-outline);
+    border-color: var(--_edge);
+    background-color: var(--ant-bg);
+    box-shadow: none;
+    color: var(--ant-text);
+    transition: border-color 0.2s var(--ant-ease), box-shadow 0.2s var(--ant-ease), background-color 0.2s var(--ant-ease);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):where([data-intent="success"], [data-state="match"], .canon-field:has(> .canon-field-message[data-intent="success"]) > *) {
+    --_edge: var(--ant-success);
+    --_edge-hover: var(--ant-success-strong-hover);
+    --_edge-focus: var(--ant-success);
+    --_halo: light-dark(rgb(82 196 26 / 0.1), rgb(73 170 25 / 0.2));
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):where([data-intent="warning"], .canon-field:has(> .canon-field-message[data-intent="warning"]) > *) {
+    --_edge: var(--ant-warning);
+    --_edge-hover: var(--ant-warning-hover);
+    --_edge-focus: var(--ant-warning);
+    --_halo: var(--ant-warning-outline);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> [aria-invalid="true"], > :user-invalid) {
+    --_edge: var(--ant-error);
+    --_edge-hover: var(--ant-error-hover);
+    --_edge-focus: var(--ant-error);
+    --_halo: var(--ant-error-outline);
+  }
+  @media (hover: hover) {
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):hover:not(:focus-within, :has(select:open), :has(> :disabled)) {
+      border-color: var(--_edge-hover);
+      background-color: var(--ant-bg);
+    }
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> :is(input, textarea, select):focus),
+  :is(.canon-select, .canon-combobox):has(> select:open),
+  .canon-combobox:focus-within {
+    border-color: var(--_edge-focus);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--_halo);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control:not(:has(> input[type="range"]))):has(> :disabled) {
+    --_edge: var(--ant-border);
+    border-color: var(--_edge);
+    background-color: var(--ant-bg-disabled);
+    color: var(--ant-text-disabled);
+  }
+  /* Readable where Ant's own 25% would not be. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control) > :is(input, textarea)::placeholder {
+    color: var(--ant-text-3);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-number, .canon-control) > .canon-icon {
+    color: var(--ant-text-3);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > .canon-button {
+    --_muted: var(--ant-text-3);
+    --canon-theme-fg: var(--ant-text-3);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--ant-fill-3);
+    --canon-theme-bg-active: var(--ant-fill-2);
+  }
+  /* Addons: a gray cell at the box's end. */
+  .canon-text-input.canon-text-input > :is(.canon-text-input-prefix, .canon-text-input-suffix) {
+    flex: none;
+    background-color: var(--ant-fill-4);
+    box-shadow: none;
+    color: var(--ant-text);
+  }
+  .canon-number > input,
+  .canon-number:has(> input:first-child ~ .canon-button) > input {
+    background-color: transparent;
+  }
+  .canon-number > .canon-button.canon-button.canon-button {
+    --canon-theme-fg: var(--ant-text-3);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: transparent;
+    --canon-theme-bg-active: var(--ant-fill-3);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+  @media (hover: hover) {
+    .canon-number > .canon-button.canon-button.canon-button:hover:not(:disabled) {
+      --canon-theme-fg: var(--ant-primary-hover);
+    }
+  }
+
+  /* Each digit, each time cell: its own small field. */
+  .canon-otp {
+    --_bg: var(--ant-bg);
+  }
+  .canon-otp > input,
+  .canon-otp-cell,
+  .canon-time-cell,
+  .canon-time:not(:has(> .canon-time-segments)) > input {
+    border-color: var(--ant-border);
+    border-radius: 0.375rem;
+    background-color: var(--ant-bg);
+    box-shadow: none;
+    color: var(--ant-text);
+  }
+  .canon-otp > input:focus,
+  .canon-otp-cell[data-active],
+  .canon-time-cell[data-active] {
+    border-color: var(--ant-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ant-outline);
+  }
+  .canon-otp-separator {
+    background-color: var(--ant-border);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Lists that float: Menu, Select's list, Popover                      */
+  /* ------------------------------------------------------------------ */
+
+  :is(.canon-menu, .canon-combobox-popup) {
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--ant-text);
+  }
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    min-inline-size: anchor-size(inline);
+    margin-block: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--ant-text);
+  }
+  .canon-menu-item.canon-menu-item {
+    border-radius: 0.25rem;
+  }
+  :is(.canon-select, .canon-combobox) > select option,
+  .canon-combobox-option {
+    --_fill: var(--ant-fill-3);
+    border-radius: 0.25rem;
+  }
+  /* The chosen option: pale blue and semibold, the text still dark. */
+  :is(.canon-select, .canon-combobox) > select option:checked,
+  .canon-combobox-option[aria-selected="true"] {
+    background-color: var(--ant-primary-bg);
+    color: var(--ant-text);
+    font-weight: 600;
+  }
+  :is(.canon-popover, .canon-color-popup, .canon-calendar[popover]) {
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--ant-text);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Choice                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* A 1px gray line on 16px, blue under the pointer; chosen, solid blue. */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_line: var(--ant-border);
+    transition: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::before {
+    inset: 0;
+    border-width: 1px;
+    box-shadow: none;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"])::before {
+    border-radius: 4px;
+  }
+  .canon-choice > input[type="radio"]::after {
+    inset: 25%;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):active:not(:disabled) {
+    scale: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: var(--ant-primary);
+    --_fill: var(--ant-primary);
+    --_mark: var(--ant-on-primary);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is([aria-invalid="true"], :user-invalid) {
+    --_line: var(--ant-error);
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):is([aria-invalid="true"], :user-invalid):is(:checked, :indeterminate) {
+    --_fill: var(--ant-error);
+    --_mark: var(--ant-on-primary);
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: var(--ant-primary);
+    }
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled):is(:checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: var(--ant-primary-hover);
+      --_fill: var(--ant-primary-hover);
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled,
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled:is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: var(--ant-border);
+    --_fill: var(--ant-bg-disabled);
+    --_mark: var(--ant-text-disabled);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):focus-visible,
+  .canon-choice > input[role="switch"]:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 1px;
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input:focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input:focus-visible ~ .canon-choice-state::before {
+    content: none;
+  }
+
+  /* Switch: 44 x 22 with an 18px thumb, gray or blue. 28 x 16 when small. */
+  .canon-choice:has(> input[role="switch"]) {
+    --canon-choice-control-size: 1.375rem;
+    --canon-choice-control-inline-size: 2.75rem;
+  }
+  .canon-choice:has(> input[role="switch"]):where([data-size="xs"], [data-size="sm"], [data-size="xs"] *, [data-size="sm"] *) {
+    --canon-choice-control-size: 1rem;
+    --canon-choice-control-inline-size: 1.75rem;
+  }
+  .canon-choice > input[role="switch"] {
+    --_track: var(--ant-text-disabled);
+    --_ring: transparent;
+    --_thumb: #fff;
+    box-shadow: none;
+    transition: background-color 0.2s var(--ant-ease);
+  }
+  .canon-choice > input[role="switch"]::after {
+    box-shadow: 0 2px 4px 0 rgb(0 35 11 / 0.2);
+    scale: 0.82;
+    transition: inset-inline-start 0.2s var(--ant-ease);
+  }
+  .canon-choice > input[role="switch"]:checked {
+    --_track: var(--ant-primary);
+    --_ring: transparent;
+    --_thumb: #fff;
+  }
+  .canon-choice > input[role="switch"]:active:not(:disabled) {
+    scale: none;
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input[role="switch"]:not(:disabled, :checked)):hover > input {
+      --_track: var(--ant-text-3);
+    }
+    .canon-choice:has(> input[role="switch"]:not(:disabled):checked):hover > input {
+      --_track: var(--ant-primary-hover);
+    }
+  }
+  .canon-choice > input[role="switch"]:is([aria-invalid="true"], :user-invalid):not(:checked) {
+    --_track: var(--ant-error);
+  }
+  .canon-choice > input[role="switch"]:disabled {
+    --_track: var(--ant-text-disabled);
+    --_thumb: #fff;
+    opacity: 0.65;
+  }
+  .canon-choice > input[role="switch"]:disabled:checked {
+    --_track: var(--ant-primary);
+    --_thumb: #fff;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Slider                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* A pale blue track on a faint rail; a white dot in a blue ring that
+     deepens under the pointer. */
+  .canon-control:has(> input[type="range"]) {
+    --_line: var(--ant-primary-border);
+    --_middle: var(--ant-primary-border);
+    --canon-slider-track: var(--ant-fill-3);
+    --canon-slider-track-size: 0.25rem;
+    --canon-slider-thumb: var(--ant-bg);
+    --canon-slider-thumb-border: 2px solid var(--ant-primary-border);
+    --canon-slider-thumb-inline-size: 0.875rem;
+    --canon-slider-thumb-shadow: none;
+  }
+  .canon-control:has(> input[type="range"]:is([aria-invalid="true"], :user-invalid)) {
+    --_line: var(--ant-error);
+    --_middle: var(--ant-error);
+    --canon-slider-thumb-border: 2px solid var(--ant-error);
+  }
+  .canon-control:has(> input[type="range"]:disabled) {
+    --_line: var(--ant-text-disabled);
+    --_middle: var(--ant-text-disabled);
+    --canon-slider-track: var(--ant-fill-3);
+    --canon-slider-thumb-border: 2px solid var(--ant-text-disabled);
+  }
+  @media (hover: hover) {
+    .canon-control:has(> input[type="range"]:not(:disabled)):hover {
+      --_line: var(--ant-primary-border-hover);
+      --_middle: var(--ant-primary-border-hover);
+      --canon-slider-track: var(--ant-fill-2);
+      --canon-slider-thumb-border: 2px solid var(--ant-primary);
+    }
+  }
+  .canon-control > input[type="range"]:focus-visible {
+    --canon-slider-thumb-border: 2px solid var(--ant-primary);
+    --canon-slider-thumb-shadow: 0 0 0 3px var(--ant-outline);
+  }
+  .canon-control:has(> input[type="range"]) > output {
+    border-color: transparent;
+    background-color: var(--ant-bg-spotlight);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: #fff;
+  }
+  .canon-control:has(> input[type="range"]) > output::before,
+  .canon-control:has(> input[type="range"]) > output::after {
+    background-color: var(--ant-bg-spotlight);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                                */
+  /* ------------------------------------------------------------------ */
+
+  /* One thin line under the strip. The current tab is blue with a 2px ink bar
+     across its width, sliding between tabs. */
+  .canon-tabs-list {
+    --_card-bg: transparent;
+    --_card-ring: 0 0 transparent;
+    --_card-shadow: inset 0 -2px 0 var(--ant-primary);
+    inline-size: auto;
+    gap: 2rem;
+    padding: 0;
+    padding-inline-end: var(--canon-tabs-more-size, 0px);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 var(--ant-border-2);
+  }
+  .canon-tabs-list::before {
+    border-radius: 0;
+    background-color: var(--ant-primary);
+    box-shadow: none;
+    clip-path: inset(calc(100% - 2px) 0 0);
+  }
+  .canon-tab,
+  .canon-tabs-more {
+    --_fg: var(--ant-text);
+    block-size: var(--_track);
+    padding-inline: 0;
+    border-radius: 0;
+  }
+  .canon-tab:where([data-display="icon"] *) {
+    inline-size: var(--_track);
+  }
+  .canon-tabs > .canon-tabs-more {
+    margin-inline-end: 0;
+  }
+  @media (hover: hover) {
+    .canon-tab:hover:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+    .canon-tabs-more:hover {
+      --_fg: var(--ant-primary-hover);
+      --_bg: transparent;
+    }
+  }
+  .canon-tab:active:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+  .canon-tabs-more:active {
+    --_fg: var(--ant-primary-active);
+    --_bg: transparent;
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+    --_fg: var(--ant-primary-text);
+    font-weight: 400;
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) > .canon-icon {
+    color: inherit;
+  }
+  .canon-tab[aria-disabled="true"] {
+    --_fg: var(--ant-text-disabled);
+  }
+  .canon-tab:focus-visible,
+  .canon-tabs-more:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+  .canon-tabs-panel {
+    border-radius: 0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Segmented Control                                                   */
+  /* ------------------------------------------------------------------ */
+
+  /* A gray track, the chosen part a white card on it. */
+  .canon-segmented {
+    --_card-bg: var(--ant-bg-elevated);
+    --_card-ring: 0 0 transparent;
+    --_card-shadow: var(--canon-theme-shadow-raised);
+    border-color: transparent;
+    border-radius: 0.375rem;
+    background-color: var(--ant-bg-layout);
+  }
+  .canon-segmented::before {
+    border-radius: 0.25rem;
+  }
+  .canon-segmented-option {
+    --_fg: var(--ant-text-2);
+    border-radius: 0.25rem;
+  }
+  @media (hover: hover) {
+    .canon-segmented-option:hover:not(:has(> input:is(:checked, :disabled))) {
+      --_fg: var(--ant-text);
+      --_bg: var(--ant-fill-2);
+    }
+  }
+  .canon-segmented-option:active:not(:has(> input:is(:checked, :disabled))) {
+    --_bg: var(--ant-fill);
+  }
+  .canon-segmented-option:has(> input:checked) {
+    --_fg: var(--ant-text);
+    font-weight: 400;
+  }
+  .canon-segmented-option:has(> input:disabled) {
+    --_fg: var(--ant-text-disabled);
+  }
+  .canon-segmented-option:has(> input:focus-visible) {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Chips and Tag                                                       */
+  /* ------------------------------------------------------------------ */
+
+  .canon-toggle-chip {
+    --_fg: var(--ant-text);
+    --_icon: var(--ant-on-primary);
+    --_line: var(--ant-border);
+    border-radius: 0.25rem;
+  }
+  @media (hover: hover) {
+    .canon-toggle-chip:hover:not(:has(> input:disabled)) {
+      --_fg: var(--ant-primary-hover);
+      --_line: var(--ant-primary-hover);
+    }
+    .canon-toggle-chip:has(> input:checked):hover:not(:has(> input:disabled)) {
+      --_fg: var(--ant-on-primary);
+      --_bg: var(--ant-primary-hover);
+      --_line: transparent;
+    }
+  }
+  .canon-toggle-chip:active:not(:has(> input:disabled)) {
+    --_fg: var(--ant-primary-active);
+  }
+  .canon-toggle-chip:has(> input:checked) {
+    --_fg: var(--ant-on-primary);
+    --_bg: var(--ant-primary);
+    --_line: transparent;
+  }
+  .canon-toggle-chip:has(> input:checked):active:not(:has(> input:disabled)) {
+    --_fg: var(--ant-on-primary);
+    --_bg: var(--ant-primary-active);
+  }
+
+  /* A tag: small, framed, faintly filled. A status takes its color's tint, line
+     and text; no capitals. */
+  .canon-tag {
+    --_z-tint: var(--ant-fill-4);
+    --_z-on-tint: var(--ant-text);
+    border-radius: 0.25rem;
+    letter-spacing: 0;
+  }
+  .canon-tag:not([data-emphasis="high"]) {
+    box-shadow: inset 0 0 0 1px var(--_tag-line, var(--ant-border));
+  }
+  .canon-tag[data-intent] {
+    border-radius: 0.25rem;
+    font-size: var(--canon-theme-tag-font-size);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .canon-tag[data-intent="info"] { --_h-tint: var(--ant-primary-bg); --_h-on-tint: var(--ant-primary-text); --_tag-line: var(--ant-primary-border); }
+  .canon-tag[data-intent="success"] { --_h-tint: var(--ant-success-bg); --_h-on-tint: var(--ant-success-text); --_tag-line: var(--ant-success-border); }
+  .canon-tag[data-intent="warning"] { --_h-tint: var(--ant-warning-bg); --_h-on-tint: var(--ant-warning-text); --_tag-line: var(--ant-warning-border); }
+  .canon-tag[data-intent="danger"] { --_h-tint: var(--ant-error-bg); --_h-on-tint: var(--ant-error-text); --_tag-line: var(--ant-error-border); }
+
+  /* ------------------------------------------------------------------ */
+  /* Card, Table, Dialog                                                 */
+  /* ------------------------------------------------------------------ */
+
+  /* A faint line, 8px corners, no shadow. */
+  .canon-card {
+    --_line: var(--ant-border-2);
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg);
+    box-shadow: inset 0 0 0 1px var(--ant-border-2);
+    color: var(--ant-text);
+  }
+
+  /* A gray header row in semibold, one faint line under each row. */
+  .canon-table {
+    --_bg: transparent;
+    --_stripe: var(--ant-fill-4);
+    --_hover: var(--ant-fill-4);
+    --_selected: var(--ant-primary-bg);
+    box-shadow: none;
+  }
+  .canon-table thead th,
+  .canon-table thead td {
+    border-block-end-color: var(--ant-border-2);
+    background-color: light-dark(#fafafa, #1d1d1d);
+    color: var(--ant-text);
+    font-weight: 600;
+  }
+  .canon-data-table thead :is(th, td),
+  .canon-data-table thead :is(th, td)[data-pinned] {
+    background-color: light-dark(#fafafa, #1d1d1d);
+  }
+
+  /* 8px corners, a wide soft shadow, no lines between its parts. */
+  .canon-dialog {
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-overlay);
+    color: var(--ant-text);
+  }
+  .canon-dialog::backdrop {
+    background-color: rgb(0 0 0 / 0.45);
+    backdrop-filter: none;
+  }
+  .canon-dialog[data-side] {
+    --canon-drawer-inset: 0px;
+    border-radius: 0;
+  }
+  .canon-dialog-header {
+    padding-block: 1.25rem 0.5rem;
+    padding-inline: 1.5rem 1rem;
+    border-block-end: 0;
+    align-items: start;
+  }
+  .canon-dialog-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  .canon-dialog-body,
+  .canon-dialog-section {
+    padding: 0.5rem 1.5rem;
+  }
+  .canon-dialog-section + .canon-dialog-section {
+    border-block-start: 0;
+  }
+  .canon-dialog-footer {
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem 1.25rem;
+    border-block-start: 0;
+    background-color: transparent;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Alert, Toast, Tooltip                                               */
+  /* ------------------------------------------------------------------ */
+
+  /* A soft tint, a line of the same color, a filled icon. */
+  .canon-alert {
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 0 1px var(--_edge, var(--ant-border));
+  }
+  .canon-alert[data-intent]::before {
+    background-color: var(--_tone);
+  }
+  .canon-alert:not([data-intent], [data-emphasis="high"]) {
+    background-color: var(--ant-fill-4);
+    color: var(--ant-text);
+  }
+  .canon-alert[data-intent]:not([data-emphasis="high"]) {
+    background-color: var(--_tint);
+    color: var(--ant-text);
+  }
+  .canon-alert[data-intent="info"]    { --_tint: var(--ant-primary-bg); --_edge: var(--ant-primary-border); --_tone: var(--ant-primary); --_bar: transparent; }
+  .canon-alert[data-intent="success"] { --_tint: var(--ant-success-bg); --_edge: var(--ant-success-border); --_tone: var(--ant-success); --_bar: transparent; }
+  .canon-alert[data-intent="warning"] { --_tint: var(--ant-warning-bg); --_edge: var(--ant-warning-border); --_tone: var(--ant-warning); --_bar: transparent; }
+  .canon-alert[data-intent="danger"]  { --_tint: var(--ant-error-bg); --_edge: var(--ant-error-border); --_tone: var(--ant-error); --_bar: transparent; }
+  .canon-alert[data-emphasis="high"] {
+    box-shadow: none;
+  }
+  .canon-alert-description {
+    color: inherit;
+  }
+
+  /* A white card whatever the intent; only the icon carries it. */
+  .canon-toast:not([data-emphasis="high"]),
+  .canon-toast[data-intent]:not([data-emphasis="high"]) {
+    --_bar: transparent;
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--ant-text);
+  }
+  .canon-toast[data-intent="info"]:not([data-emphasis="high"])    { --_bar: transparent; --_tone: var(--ant-primary); }
+  .canon-toast[data-intent="success"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: var(--ant-success); }
+  .canon-toast[data-intent="warning"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: var(--ant-warning); }
+  .canon-toast[data-intent="danger"]:not([data-emphasis="high"])  { --_bar: transparent; --_tone: var(--ant-error); }
+  .canon-toast-title {
+    font-weight: 400;
+  }
+
+  /* A dark block with its small arrow. */
+  .canon-tooltip {
+    --canon-theme-tooltip-bg: var(--ant-bg-spotlight);
+    --canon-theme-tooltip-border: transparent;
+    color: #fff;
+    box-shadow: var(--canon-theme-shadow-floating);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Calendar                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* 4px days; the chosen one solid blue, a range on a pale band. */
+  .canon-calendar,
+  .canon-date-strip {
+    --_chosen: var(--ant-primary);
+    --_on-chosen: var(--ant-on-primary);
+    --_band: var(--ant-primary-bg);
+    --_band-muted: var(--ant-text-3);
+    border-radius: 0.5rem;
+  }
+  .canon-calendar-cell {
+    font-weight: 400;
+  }
+  .canon-calendar-cell:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Navigation                                                          */
+  /* ------------------------------------------------------------------ */
+
+  /* The current page in blue on pale blue, 8px corners. */
+  .canon-nav-list {
+    --canon-control-block-size: 2.5rem;
+    color: var(--ant-text);
+  }
+  .canon-nav-list-item {
+    position: relative;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s var(--ant-ease), color 0.2s var(--ant-ease);
+  }
+  .canon-nav-list-item > .canon-icon {
+    color: inherit;
+  }
+  @media (hover: hover) {
+    .canon-nav-list-item:hover {
+      background-color: var(--ant-fill-2);
+      color: var(--ant-text);
+    }
+  }
+  .canon-nav-list-item:active {
+    background-color: var(--ant-fill);
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) {
+    background-color: var(--ant-primary-bg);
+    color: var(--ant-primary-text);
+    font-weight: 400;
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > .canon-icon {
+    color: inherit;
+  }
+  .canon-nav-list-item:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  /* A section's arrow: two short round bars in its row's color, down when
+     closed and up when open. */
+  summary.canon-nav-list-item::after,
+  summary.canon-nav-list-item:dir(rtl)::after {
+    inline-size: 0.625rem;
+    block-size: 0.625rem;
+    background-color: currentColor;
+    mask-image: url("../ant/menu-arrow.svg");
+    rotate: 0deg;
+    transition: rotate 0.3s var(--ant-ease);
+  }
+  .canon-nav-list-section[open] > summary.canon-nav-list-item::after {
+    rotate: 180deg;
+  }
+
+  /* Collapsed: an 80px rail, each row nearly its width with the icon centered. */
+  .canon-sidebar[data-display="icon"] {
+    inline-size: 5rem;
+  }
+  .canon-sidebar[data-display="icon"] > * {
+    padding-inline: 0.25rem;
+  }
+  .canon-nav-list:where([data-display="icon"], [data-display="icon"] *) .canon-nav-list-item:not(.canon-nav-list-section > ul *) {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  /* The shell: a white rail with a faint line, on the same white top bar. */
+  .canon-sidebar {
+    border-color: var(--ant-border-2);
+    background-color: var(--ant-bg);
+    box-shadow: none;
+    color: var(--ant-text);
+  }
+  .canon-sidebar[data-drawer] {
+    box-shadow: var(--canon-theme-shadow-overlay);
+  }
+  .canon-top-bar {
+    border-color: var(--ant-border-2);
+    background-color: var(--ant-bg);
+    color: var(--ant-text);
+  }
+  .canon-page-header {
+    color: var(--ant-text);
+  }
+  .canon-page-header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.75rem;
+    letter-spacing: 0;
+  }
+  .canon-page-header-back,
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more) {
+    color: var(--ant-text-3);
+  }
+
+  /* The current page framed in blue; the rest bare until the pointer's there. */
+  .canon-pagination > ol > li > :is(a, button) {
+    border-radius: 0.375rem;
+    color: var(--ant-text);
+    transition: background-color 0.2s var(--ant-ease);
+  }
+  .canon-pagination > ol > li > :is(a, button)[aria-current="page"] {
+    border: 1px solid var(--ant-primary);
+    background-color: var(--ant-bg);
+    box-shadow: none;
+    color: var(--ant-primary-text);
+    font-weight: 600;
+  }
+  @media (hover: hover) {
+    .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):hover {
+      background-color: var(--ant-fill-3);
+    }
+  }
+  .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):active {
+    background-color: var(--ant-fill-2);
+  }
+  .canon-pagination > ol > li > :is(a, button):focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  .canon-menubar {
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg);
+    box-shadow: inset 0 0 0 1px var(--ant-border-2);
+  }
+  .canon-menubar-item {
+    border-radius: 0.25rem;
+    color: var(--ant-text);
+  }
+  .canon-menubar-item:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--ant-primary-bg);
+    color: var(--ant-primary-text);
+  }
+  @media (hover: hover) {
+    .canon-menubar-item:hover:not(:disabled, [aria-disabled="true"]) {
+      background-color: var(--ant-fill-3);
+      color: var(--ant-text);
+    }
+  }
+
+  .canon-command-palette {
+    --_line: var(--ant-border-2);
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-overlay);
+    color: var(--ant-text);
+  }
+  .canon-command-item {
+    border-radius: 0.25rem;
+  }
+  .canon-command-item[aria-selected="true"] {
+    background-color: var(--ant-fill-3);
+    color: var(--ant-text);
+  }
+  .canon-command-search > input::placeholder {
+    color: var(--ant-text-3);
+  }
+
+  /* Filters are small default buttons; one in use turns pale blue. */
+  .canon-filter-bar-button {
+    --_fg: var(--ant-text);
+    --_line: var(--ant-border);
+    border-radius: 0.25rem;
+  }
+  @media (hover: hover) {
+    .canon-filter-bar-button:hover {
+      --_fg: var(--ant-primary-hover);
+      --_bg: transparent;
+      --_line: var(--ant-primary-hover);
+    }
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:hover {
+      --_bg: var(--ant-primary-bg-hover);
+    }
+  }
+  .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_fg: var(--ant-primary-active);
+    --_bg: transparent;
+    --_line: var(--ant-primary-active);
+  }
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button,
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_fg: var(--ant-primary-text);
+    --_bg: var(--ant-primary-bg);
+    --_line: var(--ant-primary-border);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Data                                                                */
+  /* ------------------------------------------------------------------ */
+
+  .canon-data-table-sort:hover,
+  .canon-data-table-sort:focus-visible {
+    color: var(--ant-primary-text);
+  }
+  .canon-data-table-sort:focus-visible,
+  .canon-data-table-edit:focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+  .canon-data-table-bulk.canon-data-table-bulk {
+    border-radius: 0.5rem;
+    background-color: var(--ant-bg-elevated);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--ant-text);
+  }
+
+  /* A collapse: a faint gray header on each row, the chevron first. */
+  .canon-accordion {
+    --_line: var(--ant-border);
+    color: var(--ant-text);
+  }
+  .canon-accordion-summary {
+    min-block-size: 2.75rem;
+    border-radius: 0;
+    font-weight: 400;
+    transition: none;
+  }
+  .canon-accordion-content {
+    color: var(--ant-text);
+  }
+
+  .canon-description-list {
+    --_line: var(--ant-border-2);
+    color: var(--ant-text);
+  }
+  .canon-description-list > div > dt {
+    color: var(--ant-text-3);
+  }
+
+  .canon-stat-label,
+  .canon-stat-description {
+    color: var(--ant-text-3);
+  }
+  .canon-stat-value {
+    font-weight: 400;
+  }
+
+  .canon-avatar {
+    --_bg: var(--ant-text-disabled);
+    --_fg: #fff;
+  }
+  .canon-avatar[data-seed-slot] {
+    --_rim: transparent;
+  }
+
+  /* A counter badge: red and round. Quieter inside a tab or a nav row. */
+  .canon-count {
+    background-color: var(--ant-error);
+    color: #fff;
+    font-weight: 400;
+  }
+  :is(.canon-tab, .canon-nav-list-item) > .canon-count {
+    background-color: var(--ant-fill-3);
+    color: var(--ant-text-2);
+  }
+
+  .canon-code-block {
+    --_line: var(--ant-border-2);
+    --_code-bg: var(--ant-fill-3);
+    border-radius: 0.5rem;
+    background-color: var(--ant-fill-3);
+  }
+  .canon-code-block-title {
+    color: var(--ant-text-3);
+  }
+  .canon-code-block > pre {
+    color: var(--ant-text);
+  }
+
+  /* A key with a heavier bottom edge. */
+  .canon-kbd.canon-kbd {
+    border: 1px solid rgb(100 100 100 / 0.2);
+    border-block-end-width: 2px;
+    background-color: rgb(150 150 150 / 0.06);
+    box-shadow: none;
+    color: var(--ant-text);
+  }
+
+  /* Blue with no underline, paler under the pointer. */
+  .canon-link {
+    --_fg: var(--ant-link);
+    text-decoration-line: none;
+  }
+  @media (hover: hover) {
+    .canon-link:hover:not(:disabled, [aria-disabled="true"]) {
+      --_fg: var(--ant-link-hover);
+      text-decoration-line: none;
+    }
+  }
+  .canon-link:active:not(:disabled, [aria-disabled="true"]) {
+    --_fg: var(--ant-link-active);
+  }
+  .canon-link:is(:disabled, [aria-disabled="true"]) {
+    --_fg: var(--ant-text-disabled);
+  }
+  .canon-fieldset-legend {
+    color: var(--ant-text);
+    font-weight: 600;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Feedback                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* An alert across the top. */
+  .canon-banner:not([data-emphasis="high"]) {
+    --_bg: var(--ant-fill-4);
+    --_line: var(--ant-border);
+    color: var(--ant-text);
+  }
+  .canon-banner[data-intent="info"]:not([data-emphasis="high"])    { --_bg: var(--ant-primary-bg); --_line: var(--ant-primary-border); }
+  .canon-banner[data-intent="success"]:not([data-emphasis="high"]) { --_bg: var(--ant-success-bg); --_line: var(--ant-success-border); }
+  .canon-banner[data-intent="warning"]:not([data-emphasis="high"]) { --_bg: var(--ant-warning-bg); --_line: var(--ant-warning-border); }
+  .canon-banner[data-intent="danger"]:not([data-emphasis="high"])  { --_bg: var(--ant-error-bg); --_line: var(--ant-error-border); }
+  .canon-banner-description {
+    color: inherit;
+  }
+
+  .canon-empty-state-icon {
+    background: transparent;
+    color: var(--ant-text-disabled);
+  }
+  .canon-empty-state[data-intent="danger"] .canon-empty-state-icon {
+    background: transparent;
+    color: var(--ant-error);
+  }
+  .canon-empty-state-title {
+    color: var(--ant-text);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .canon-empty-state-description {
+    color: var(--ant-text-3);
+  }
+
+  .canon-spinner {
+    color: var(--ant-primary);
+  }
+  .canon-skeleton {
+    background-color: var(--ant-fill-2);
+  }
+
+  .canon-save-bar,
+  .canon-card > .canon-save-bar {
+    background-color: var(--ant-bg-elevated);
+    color: var(--ant-text);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Split Pane, and everything else                                     */
+  /* ------------------------------------------------------------------ */
+
+  .canon-split-pane-handle {
+    background-color: var(--ant-border-2);
+  }
+  .canon-split-pane-handle::after {
+    border-radius: 999px;
+    background-color: var(--ant-border);
+  }
+
+  .canon-swatches {
+    background-color: transparent;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--ant-primary) 28%, transparent);
+  }
+  :is(.canon-toast-close, .canon-banner-close, .canon-alert-close, .canon-menu-item, .canon-accordion-summary):focus-visible {
+    outline: 3px solid var(--ant-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Icons: one SVG per file, drawn as masks. The path names this folder, */
+  /* since a variable's url() can resolve from where it is used.        */
+  /* Ant draws its chevrons edge to edge and shows them small, so their    */
+  /* files carry a margin: they sit at three quarters of an icon's size.   */
+  /* ------------------------------------------------------------------ */
+
+  [data-icon="align-center"] { --canon-theme-icon: url("../ant/align-center.svg"); }
+  [data-icon="align-end"] { --canon-theme-icon: url("../ant/align-right.svg"); }
+  [data-icon="align-justify"] { --canon-theme-icon: url("../ant/menu.svg"); }
+  [data-icon="align-start"] { --canon-theme-icon: url("../ant/align-left.svg"); }
+  [data-icon="arrow-back"] { --canon-theme-icon: url("../ant/arrow-left.svg"); }
+  [data-icon="arrow-forward"] { --canon-theme-icon: url("../ant/arrow-right.svg"); }
+  [data-icon="baseline"] { --canon-theme-icon: url("../ant/font-colors.svg"); }
+  [data-icon="bell"] { --canon-theme-icon: url("../ant/bell.svg"); }
+  [data-icon="bold"] { --canon-theme-icon: url("../ant/bold.svg"); }
+  [data-icon="book-user"] { --canon-theme-icon: url("../ant/contacts.svg"); }
+  [data-icon="building"] { --canon-theme-icon: url("../ant/bank.svg"); }
+  [data-icon="calendar"] { --canon-theme-icon: url("../ant/calendar.svg"); }
+  [data-icon="chevron-down"] { --canon-theme-icon: url("../ant/down.svg"); }
+  [data-icon="chevron-left"] { --canon-theme-icon: url("../ant/left.svg"); }
+  [data-icon="chevron-right"] { --canon-theme-icon: url("../ant/right.svg"); }
+  [data-icon="chevron-up"] { --canon-theme-icon: url("../ant/up.svg"); }
+  [data-icon="chevrons-left"] { --canon-theme-icon: url("../ant/double-left.svg"); }
+  [data-icon="chevrons-right"] { --canon-theme-icon: url("../ant/double-right.svg"); }
+  [data-icon="circle-alert"] { --canon-theme-icon: url("../ant/exclamation-circle.svg"); }
+  [data-icon="circle-check"] { --canon-theme-icon: url("../ant/check-circle.svg"); }
+  [data-icon="circle-help"] { --canon-theme-icon: url("../ant/question-circle.svg"); }
+  [data-icon="close"] { --canon-theme-icon: url("../ant/close.svg"); }
+  [data-icon="copy"] { --canon-theme-icon: url("../ant/copy.svg"); }
+  [data-icon="crown"] { --canon-theme-icon: url("../ant/crown.svg"); }
+  [data-icon="download"] { --canon-theme-icon: url("../ant/download.svg"); }
+  [data-icon="eraser"] { --canon-theme-icon: url("../ant/clear.svg"); }
+  [data-icon="external"] { --canon-theme-icon: url("../ant/export.svg"); }
+  [data-icon="eye"] { --canon-theme-icon: url("../ant/eye.svg"); }
+  [data-icon="filter"] { --canon-theme-icon: url("../ant/filter.svg"); }
+  [data-icon="gauge"] { --canon-theme-icon: url("../ant/dashboard.svg"); }
+  [data-icon="globe"] { --canon-theme-icon: url("../ant/global.svg"); }
+  [data-icon="grip-vertical"] { --canon-theme-icon: url("../ant/holder.svg"); }
+  [data-icon="house"] { --canon-theme-icon: url("../ant/home.svg"); }
+  [data-icon="inbox"] { --canon-theme-icon: url("../ant/inbox.svg"); }
+  [data-icon="indent-decrease"] { --canon-theme-icon: url("../ant/menu-fold.svg"); }
+  [data-icon="indent-increase"] { --canon-theme-icon: url("../ant/menu-unfold.svg"); }
+  [data-icon="info"] { --canon-theme-icon: url("../ant/info-circle.svg"); }
+  [data-icon="italic"] { --canon-theme-icon: url("../ant/italic.svg"); }
+  [data-icon="link"] { --canon-theme-icon: url("../ant/link.svg"); }
+  [data-icon="list"] { --canon-theme-icon: url("../ant/unordered-list.svg"); }
+  [data-icon="list-filter"] { --canon-theme-icon: url("../ant/filter.svg"); }
+  [data-icon="list-ordered"] { --canon-theme-icon: url("../ant/ordered-list.svg"); }
+  [data-icon="log-out"] { --canon-theme-icon: url("../ant/logout.svg"); }
+  [data-icon="mail"] { --canon-theme-icon: url("../ant/mail.svg"); }
+  [data-icon="minus"] { --canon-theme-icon: url("../ant/minus.svg"); }
+  [data-icon="moon"] { --canon-theme-icon: url("../ant/moon.svg"); }
+  [data-icon="more"] { --canon-theme-icon: url("../ant/more.svg"); }
+  [data-icon="panel-left-close"] { --canon-theme-icon: url("../ant/menu-fold.svg"); }
+  [data-icon="panel-left-open"] { --canon-theme-icon: url("../ant/menu-unfold.svg"); }
+  [data-icon="pencil"] { --canon-theme-icon: url("../ant/edit.svg"); }
+  [data-icon="pin"] { --canon-theme-icon: url("../ant/pushpin.svg"); }
+  [data-icon="plus"] { --canon-theme-icon: url("../ant/plus.svg"); }
+  [data-icon="receipt"] { --canon-theme-icon: url("../ant/account-book.svg"); }
+  [data-icon="redo"] { --canon-theme-icon: url("../ant/redo.svg"); }
+  [data-icon="refresh"] { --canon-theme-icon: url("../ant/reload.svg"); }
+  [data-icon="search"] { --canon-theme-icon: url("../ant/search.svg"); }
+  [data-icon="search-x"] { --canon-theme-icon: url("../ant/file-search.svg"); }
+  [data-icon="settings"] { --canon-theme-icon: url("../ant/setting.svg"); }
+  [data-icon="sparkles"] { --canon-theme-icon: url("../ant/thunderbolt.svg"); }
+  [data-icon="square-chevron-left"] { --canon-theme-icon: url("../ant/left-square.svg"); }
+  [data-icon="square-chevron-right"] { --canon-theme-icon: url("../ant/right-square.svg"); }
+  [data-icon="square-kanban"] { --canon-theme-icon: url("../ant/project.svg"); }
+  [data-icon="star"] { --canon-theme-icon: url("../ant/star.svg"); }
+  [data-icon="strikethrough"] { --canon-theme-icon: url("../ant/strikethrough.svg"); }
+  [data-icon="sun"] { --canon-theme-icon: url("../ant/sun.svg"); }
+  [data-icon="table"] { --canon-theme-icon: url("../ant/table.svg"); }
+  [data-icon="tag"] { --canon-theme-icon: url("../ant/tag.svg"); }
+  [data-icon="text-cursor"] { --canon-theme-icon: url("../ant/font-size.svg"); }
+  [data-icon="text-wrap"] { --canon-theme-icon: url("../ant/line-height.svg"); }
+  [data-icon="trash"] { --canon-theme-icon: url("../ant/delete.svg"); }
+  [data-icon="underline"] { --canon-theme-icon: url("../ant/underline.svg"); }
+  [data-icon="undo"] { --canon-theme-icon: url("../ant/undo.svg"); }
+  [data-icon="upload"] { --canon-theme-icon: url("../ant/upload.svg"); }
+  [data-icon="user"] { --canon-theme-icon: url("../ant/user.svg"); }
+
+  :root {
+    --canon-theme-icon-arrow-down: url("../ant/arrow-down.svg");
+    --canon-theme-icon-arrow-down-up: url("../ant/column-height.svg");
+    --canon-theme-icon-arrow-up: url("../ant/arrow-up.svg");
+    --canon-theme-icon-bot: url("../ant/robot.svg");
+    --canon-theme-icon-caps-lock: url("../ant/vertical-align-top.svg");
+    --canon-theme-icon-check: url("../ant/check.svg");
+    --canon-theme-icon-chevron: url("../ant/down.svg");
+    --canon-theme-icon-chevron-right: url("../ant/right.svg");
+    --canon-theme-icon-circle-alert: url("../ant/exclamation-circle.svg");
+    --canon-theme-icon-circle-check: url("../ant/check-circle.svg");
+    --canon-theme-icon-ellipsis: url("../ant/ellipsis.svg");
+    --canon-theme-icon-external: url("../ant/export.svg");
+    --canon-theme-icon-info: url("../ant/info-circle.svg");
+    --canon-theme-icon-list-filter: url("../ant/filter.svg");
+    --canon-theme-icon-move-right: url("../ant/arrow-right.svg");
+    --canon-theme-icon-pin: url("../ant/pushpin.svg");
+    --canon-theme-icon-pipette: url("../ant/bg-colors.svg");
+    --canon-theme-icon-search: url("../ant/search.svg");
+    --canon-theme-icon-tick: url("../ant/check.svg");
+    --canon-theme-icon-trending-down: url("../ant/fall.svg");
+    --canon-theme-icon-trending-up: url("../ant/rise.svg");
+    --canon-theme-icon-triangle-alert: url("../ant/warning.svg");
+    --canon-theme-icon-user-round: url("../ant/user.svg");
+    --canon-theme-icon-users-round: url("../ant/team.svg");
+    --canon-theme-icon-x: url("../ant/close.svg");
+    --canon-theme-rule-check: url("../ant/check-circle.svg");
+    --canon-theme-rule-alert: url("../ant/exclamation-circle.svg");
+  }
+
+  .canon-button[data-state="copied"] [data-icon="copy"] { --canon-theme-icon: url("../ant/check.svg"); }
+  .canon-button[aria-pressed="true"] [data-icon="eye"] { --canon-theme-icon: url("../ant/eye-invisible.svg"); }
+
+  /* Messages carry the filled icon. */
+  .canon-toast[data-intent="info"] { --_icon: url("../ant/info-circle-filled.svg"); }
+  .canon-toast[data-intent="success"] { --_icon: url("../ant/check-circle-filled.svg"); }
+  .canon-toast[data-intent="warning"] { --_icon: url("../ant/warning-filled.svg"); }
+  .canon-toast[data-intent="danger"] { --_icon: url("../ant/close-circle-filled.svg"); }
+  .canon-alert[data-intent="info"], .canon-banner[data-intent="info"] { --_icon: url("../ant/info-circle-filled.svg"); }
+  .canon-alert[data-intent="success"], .canon-banner[data-intent="success"] { --_icon: url("../ant/check-circle-filled.svg"); }
+  .canon-alert[data-intent="warning"], .canon-banner[data-intent="warning"] { --_icon: url("../ant/warning-filled.svg"); }
+  .canon-alert[data-intent="danger"], .canon-banner[data-intent="danger"] { --_icon: url("../ant/close-circle-filled.svg"); }
+  .canon-toast-close::before {
+    mask: url("../ant/close.svg") center / contain no-repeat;
+  }
+}

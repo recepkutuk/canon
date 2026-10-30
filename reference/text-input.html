@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Text Input reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Text Input</h1>
+  <p class="ref-note">A one-line text box, with optional icons, prefix and suffix text, and actions. Specification: <a href="../docs/components/text-input.md">docs/components/text-input.md</a>.</p>
+  <p class="ref-note">The boxes on this page stand alone, so each input is named with <code>aria-label</code>. With a visible label, a text input is part of a <a href="field.html">Field</a>.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size × content</h2>
+    <p class="ref-note"><code>data-size</code> on the box or any container. Each row: a placeholder, a value, icons, prefix and suffix, and all of them together.</p>
+
+    <h3>sm</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-size="sm">
+        <input type="text" aria-label="Empty" placeholder="Placeholder">
+      </div>
+      <div class="canon-text-input" data-size="sm">
+        <input type="text" aria-label="With a value" placeholder value="Text">
+      </div>
+      <div class="canon-text-input" data-size="sm">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <input type="text" aria-label="Icons" placeholder value="Text">
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input" data-size="sm">
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Prefix and suffix" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+      </div>
+      <div class="canon-text-input" data-size="sm">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Everything" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>md</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-size="md">
+        <input type="text" aria-label="Empty" placeholder="Placeholder">
+      </div>
+      <div class="canon-text-input" data-size="md">
+        <input type="text" aria-label="With a value" placeholder value="Text">
+      </div>
+      <div class="canon-text-input" data-size="md">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <input type="text" aria-label="Icons" placeholder value="Text">
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input" data-size="md">
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Prefix and suffix" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+      </div>
+      <div class="canon-text-input" data-size="md">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Everything" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>lg</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-size="lg">
+        <input type="text" aria-label="Empty" placeholder="Placeholder">
+      </div>
+      <div class="canon-text-input" data-size="lg">
+        <input type="text" aria-label="With a value" placeholder value="Text">
+      </div>
+      <div class="canon-text-input" data-size="lg">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <input type="text" aria-label="Icons" placeholder value="Text">
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input" data-size="lg">
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Prefix and suffix" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+      </div>
+      <div class="canon-text-input" data-size="lg">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Everything" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>theme decides</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <input type="text" aria-label="Empty" placeholder="Placeholder">
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="With a value" placeholder value="Text">
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <input type="text" aria-label="Icons" placeholder value="Text">
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Prefix and suffix" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Everything" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Hover and focus are live: point at or click any box. Disabled and read-only are the input's native attributes.</p>
+
+    <h3>Default · disabled · read-only</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Default" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="square-chevron-left" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">Prefix</span>
+        <input type="text" aria-label="Disabled" placeholder value="Text" disabled>
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Disabled, empty" placeholder="Placeholder" disabled>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Read-only" placeholder value="Text" readonly>
+      </div>
+    </div>
+
+    <h3>Browser validation</h3>
+    <p class="ref-note">The browser's own checks (<code>required</code>, <code>type="email"</code>, <code>pattern</code>…) show as an error once you have edited the box and left it. Type something that isn't an email address, then leave.</p>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <input type="email" aria-label="Browser validation" placeholder="name@example.com" required>
+      </div>
+    </div>
+
+    <h2 id="status">Status</h2>
+    <p class="ref-note">Error is <code>aria-invalid="true"</code> on the input. Warning and success are <code>data-intent</code> on the box; in a <a href="field.html">Field</a>, its message sets them for you, and the message says what is wrong. A disabled box keeps its status, softened.</p>
+
+    <h3>Error</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <input type="text" aria-label="Error" placeholder value="Text" aria-invalid="true">
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Error with suffix and icon" placeholder value="Text" aria-invalid="true">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input">
+        <input id="st-error-clear" type="text" aria-label="Error with a clear button" placeholder value="Text" aria-invalid="true">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="st-error-clear" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Error, disabled" placeholder value="Text" aria-invalid="true" disabled>
+      </div>
+    </div>
+
+    <h3>Warning</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-intent="warning">
+        <input type="text" aria-label="Warning" placeholder value="Text">
+      </div>
+      <div class="canon-text-input" data-intent="warning">
+        <input type="text" aria-label="Warning with suffix and icon" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input" data-intent="warning">
+        <input id="st-warning-clear" type="text" aria-label="Warning with a clear button" placeholder value="Text">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="st-warning-clear" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+      <div class="canon-text-input" data-intent="warning">
+        <input type="text" aria-label="Warning, disabled" placeholder value="Text" disabled>
+      </div>
+    </div>
+
+    <h3>Success</h3>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-intent="success">
+        <input type="text" aria-label="Success" placeholder value="Text">
+      </div>
+      <div class="canon-text-input" data-intent="success">
+        <input type="text" aria-label="Success with suffix and icon" placeholder value="Text">
+        <span class="canon-text-input-suffix" aria-hidden="true">Suffix</span>
+        <span class="canon-icon" data-icon="square-chevron-right" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input" data-intent="success">
+        <input id="st-success-clear" type="text" aria-label="Success with a clear button" placeholder value="Text">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="st-success-clear" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear</span>
+        </button>
+      </div>
+      <div class="canon-text-input" data-intent="success">
+        <input type="text" aria-label="Success, disabled" placeholder value="Text" disabled>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Box anatomy</h2>
+    <p class="ref-note">Icon, prefix, input, suffix, icon, in that order in the markup; Canon shows the prefix and suffix at the box's ends, the icons inside them. Prefix and suffix are hidden from screen readers (<code>aria-hidden</code>), so the input's name must say what they would: "Price in USD", not "Price" with "$".</p>
+
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+        <input type="email" aria-label="Email" placeholder>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-text-input-prefix" aria-hidden="true">https://</span>
+        <input type="url" aria-label="Website" placeholder>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Weight in kilograms" placeholder inputmode="decimal">
+        <span class="canon-text-input-suffix" aria-hidden="true">kg</span>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Cost center" placeholder>
+        <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="tag" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">$</span>
+        <input type="text" aria-label="Price in USD" placeholder inputmode="decimal">
+        <span class="canon-text-input-suffix" aria-hidden="true">USD</span>
+        <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>Trailing actions</h3>
+    <p class="ref-note">Buttons after the input, powered by canon.js: clear (hidden while the box is empty) and copy. They point at the input with <code>commandfor</code>. Without JavaScript they aren't shown. For show / hide, use <a href="password.html">Password</a>.</p>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search users" placeholder value="jane" id="act-search">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="act-search" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear search</span>
+        </button>
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="API key" placeholder value="sk_test_4eC39HqLyjWDarjtT1zdp7dc" id="act-copy" readonly>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="act-copy" command="--canon-copy">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-button-label">Copy API key</span>
+        </button>
+      </div>
+    </div>
+    <div class="ref-input-grid">
+      <div class="canon-text-input" data-size="sm">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search users" placeholder value="jane" id="act-search-sm">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="act-search-sm" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear search</span>
+        </button>
+      </div>
+      <div class="canon-text-input" data-size="md">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search users" placeholder value="jane" id="act-search-md">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="act-search-md" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear search</span>
+        </button>
+      </div>
+      <div class="canon-text-input" data-size="lg">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search users" placeholder value="jane" id="act-search-lg">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                commandfor="act-search-lg" command="--canon-clear">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Clear search</span>
+        </button>
+      </div>
+    </div>
+
+    <h3>A select before or after the value</h3>
+    <p class="ref-note">A <a href="select.html">Select</a> or <a href="combobox.html">Combobox</a> box as the first (or last) child of the text input: one frame, with a line between them. It is a control of its own, so it needs its own name. With <code>&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;</code> the box shows only the code while the list also names the country; a combobox with <code>data-search="list"</code> lets people search a long list by country.</p>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <div class="canon-select">
+          <select name="country-code" aria-label="Country code" autocomplete="tel-country-code">
+            <button><selectedcontent></selectedcontent></button>
+          <option value="+44" selected><span class="canon-option-label">+44</span> <span class="canon-option-description">United Kingdom</span></option>
+          <option value="+49"><span class="canon-option-label">+49</span> <span class="canon-option-description">Germany</span></option>
+          <option value="+90"><span class="canon-option-label">+90</span> <span class="canon-option-description">Türkiye</span></option>
+          <option value="+1"><span class="canon-option-label">+1</span> <span class="canon-option-description">United States</span></option>
+          </select>
+        </div>
+        <input type="tel" aria-label="Phone number" placeholder autocomplete="tel-national">
+      </div>
+      <div class="canon-text-input">
+        <div class="canon-combobox" data-search="list">
+          <select name="country-code-search" aria-label="Country code" autocomplete="tel-country-code">
+          <option value="+44"><span class="canon-option-label">+44</span> <span class="canon-option-description">United Kingdom</span></option>
+          <option value="+49"><span class="canon-option-label">+49</span> <span class="canon-option-description">Germany</span></option>
+          <option value="+90"><span class="canon-option-label">+90</span> <span class="canon-option-description">Türkiye</span></option>
+          <option value="+1"><span class="canon-option-label">+1</span> <span class="canon-option-description">United States</span></option>
+            <option value="+81"><span class="canon-option-label">+81</span> <span class="canon-option-description">Japan</span></option>
+            <option value="+52"><span class="canon-option-label">+52</span> <span class="canon-option-description">México</span></option>
+            <option value="+353"><span class="canon-option-label">+353</span> <span class="canon-option-description">Ireland</span></option>
+          </select>
+        </div>
+        <input type="tel" aria-label="Phone number" placeholder autocomplete="tel-national">
+      </div>
+      <div class="canon-text-input">
+        <input type="text" inputmode="decimal" aria-label="Amount" placeholder value="120.00">
+        <div class="canon-select">
+          <select name="currency" aria-label="Currency">
+            <option selected>EUR</option>
+            <option>USD</option>
+            <option>GBP</option>
+            <option>TRY</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="types">
+    <h2>Types</h2>
+    <p class="ref-note">Use the native type: it brings the right on-screen keyboard and autofill. Search boxes have no built-in clear button; add the clear action above. Passwords use <a href="password.html">Password</a>.</p>
+    <div class="ref-input-grid">
+      <div class="canon-text-input">
+        <input type="text" aria-label="Text" placeholder="text">
+      </div>
+      <div class="canon-text-input">
+        <input type="email" aria-label="Email" placeholder="email">
+      </div>
+      <div class="canon-text-input">
+        <input type="search" aria-label="Search" placeholder="search">
+      </div>
+      <div class="canon-text-input">
+        <input type="url" aria-label="URL" placeholder="url">
+      </div>
+      <div class="canon-text-input">
+        <input type="tel" aria-label="Phone" placeholder="tel">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="expected-length">
+    <h2>Expected length</h2>
+    <p class="ref-note">Native <code>size</code> and <code>maxlength</code> say how long the value is expected to be; the box may size itself from them.</p>
+    <div class="ref-row">
+      <div class="canon-text-input">
+        <input type="text" aria-label="Postcode" placeholder size="10" autocomplete="postal-code">
+      </div>
+      <div class="canon-text-input">
+        <input type="text" aria-label="Year" placeholder inputmode="numeric" maxlength="4" size="4">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">In right-to-left text, icons and affixes swap sides; "https://" and "@acme.com" still read left to right.</p>
+    <div class="ref-input-grid" dir="rtl" lang="ar">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+        <input type="email" aria-label="البريد الإلكتروني" placeholder>
+        <span class="canon-text-input-suffix" aria-hidden="true">@acme.com</span>
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-text-input-prefix" aria-hidden="true">https://</span>
+        <input type="url" aria-label="الموقع" placeholder value="acme.com">
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="tag" aria-hidden="true"></span>
+        <span class="canon-text-input-prefix" aria-hidden="true">$</span>
+        <input type="text" aria-label="السعر" placeholder value="120">
+        <span class="canon-text-input-suffix" aria-hidden="true">USD</span>
+        <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>Long values and affixes in a narrow box</h3>
+    <p class="ref-note">When space runs out, prefix and suffix are cut short with an ellipsis; the typing area always keeps at least 4rem.</p>
+    <div class="ref-narrow">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+        <input type="email" aria-label="Long value" placeholder value="a.very.long.address.for.billing@example-company.com">
+      </div>
+      <div class="canon-text-input">
+        <span class="canon-text-input-prefix" aria-hidden="true">https://www.example-company.com/</span>
+        <input type="text" aria-label="Long affixes" placeholder value="page">
+        <span class="canon-text-input-suffix" aria-hidden="true">.html</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

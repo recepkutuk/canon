@@ -1,0 +1,142 @@
+/* ==================================================================== */
+/* Field                                                                */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  .canon-field {
+    column-gap: 0.5rem;
+    align-items: center;
+  }
+  .canon-field > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-swatches, .canon-segmented, .canon-toggle-chips, .canon-color-popup:not([popover]), .canon-otp, .canon-number, .canon-time, .canon-calendar:not([popover]), .canon-date-strip) {
+    margin-block-start: 0.375rem;
+  }
+  .canon-field > :is(.canon-field-message, .canon-field-counter) {
+    margin-block-start: 0.5rem;
+  }
+  /* A Password's strength and rules in a field: 8px apart, as the message. */
+  .canon-field > :is(.canon-password-strength, .canon-password-strength-label, .canon-password-rules) {
+    margin-block-start: 0.5rem;
+  }
+  .canon-field > .canon-password-strength-label {
+    margin-inline-start: 0.75rem;
+  }
+
+  a.canon-field-action {
+    color: var(--canon-theme-focus);
+    font-size: 0.8125rem;
+  }
+  .canon-field-action.canon-button {
+    margin-block: calc((1lh - var(--canon-control-block-size)) / 2);
+  }
+
+  /* Counter: the message's type (the label description's
+     10 / 12 / 14px) and its muted zinc-500 (dark zinc-400), tabular
+     figures; the last tenth of the limit in the warning message's amber,
+     past a soft limit in the error's red. Medium weight once it matters. */
+  .canon-field-counter {
+    align-self: start;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-theme-label-description-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-label-description-line-height);
+    letter-spacing: var(--canon-theme-label-description-tracking);
+  }
+  .canon-field-counter[data-state="near"] {
+    color: light-dark(var(--canon-theme-amber-700), var(--canon-theme-amber-300));
+    font-weight: 500;
+  }
+  /* The characters past a soft limit: the danger button's medium colors,
+     red-700 on red-400 at 15% (dark red-300 on red-500 at 20%). The
+     control's own text is transparent there, so its caret and selection
+     keep the text's colors. */
+  .canon-limit-excess {
+    border-radius: 0.125rem;
+    background-color: light-dark(color-mix(in srgb, var(--canon-theme-red-400) 15%, transparent), color-mix(in srgb, var(--canon-theme-red-500) 20%, transparent));
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+  }
+  :is(input, textarea)[data-state="over"] {
+    caret-color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  :is(input, textarea)[data-state="over"]::selection {
+    background-color: light-dark(color-mix(in srgb, var(--canon-theme-blue-400) 30%, transparent), color-mix(in srgb, var(--canon-theme-blue-500) 40%, transparent));
+    color: transparent;
+  }
+
+  .canon-field-counter[data-state="over"] {
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+    font-weight: 500;
+  }
+
+  /* Message: the label
+     description's type (10 / 12 / 14px), in the intent's 700 (dark 300),
+     after an icon the line's height, 4px apart. Error is triangle-alert; warning circle-alert, success circle-check. */
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message) {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.25rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-theme-label-description-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-label-description-line-height);
+    letter-spacing: var(--canon-theme-label-description-tracking);
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent]::before {
+    content: "";
+    flex: none;
+    inline-size: 1lh;
+    block-size: 1lh;
+    background-color: currentColor;
+    mask: var(--_icon) center / contain no-repeat;
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="danger"] {
+    --_icon: var(--canon-theme-icon-triangle-alert);
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="warning"] {
+    --_icon: var(--canon-theme-icon-circle-alert);
+    color: light-dark(var(--canon-theme-amber-700), var(--canon-theme-amber-300));
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="success"] {
+    --_icon: var(--canon-theme-icon-circle-check);
+    color: light-dark(var(--canon-theme-green-700), var(--canon-theme-green-300));
+  }
+  /* A message filling in (an error after leaving a field, after a
+     submit): it slides down 4px and fades in (0.15s), and where the
+     browser can animate to its height, its room opens with it, so the
+     form under it moves instead of jumping. Cleared, it goes at once (its
+     text is already gone). With reduced motion it appears at once. */
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message) {
+    transition: opacity 0.15s ease-out, translate 0.15s ease-out;
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message):empty {
+    opacity: 0;
+    translate: 0 -0.25rem;
+  }
+  @supports (interpolate-size: allow-keywords) {
+    :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message) {
+      interpolate-size: allow-keywords;
+      transition: opacity 0.15s ease-out, translate 0.15s ease-out, block-size 0.15s ease-out;
+    }
+    :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message):empty {
+      block-size: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message) {
+      transition: none;
+    }
+  }
+
+  /* The box's frame and states: see Text input. */
+
+  :is(.canon-control-prefix) :is(select, input) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+  }
+
+}

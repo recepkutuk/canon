@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Button Group reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Button Group</h1>
+  <p class="ref-note">Related buttons joined in one row: text styles, alignment, actions on one thing. The buttons are ordinary Buttons in a named group. Specification: <a href="../docs/components/button-group.md">docs/components/button-group.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="group">
+    <h2>Basics</h2>
+    <p class="ref-note">Buttons that belong together, joined in one piece: <code>role="group"</code> on the <code>.canon-button-group</code>, named by <code>aria-label</code> (or <code>aria-labelledby</code>). Each button is an ordinary <a href="button.html">Button</a> and does its own thing; Tab moves through them one by one.</p>
+
+    <div class="ref-stack">
+      <div class="canon-button-group" role="group" aria-label="Text style" data-size="sm">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the group or a container: 32 / 40 / 48 tall, the buttons' sizes.</p>
+
+    <div class="ref-stack" style="max-inline-size: none">
+      <div class="canon-button-group" role="group" aria-label="Text style, small" data-size="sm">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style, theme decides">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style, large" data-size="lg">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="icon">
+    <h2>Icon only</h2>
+    <p class="ref-note"><code>data-display="icon"</code> on the group hides every label: square buttons, as in a toolbar. The labels stay as the buttons' names, and a <a href="tooltip.html">Tooltip</a> can show them.</p>
+
+    <div class="ref-stack">
+      <div class="canon-button-group" role="group" aria-label="Text style" data-size="sm" data-display="icon">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="History" data-size="sm" data-display="icon">
+        <button type="button" class="canon-button" interestfor="tip-undo">
+          <span class="canon-icon" data-icon="arrow-back" aria-hidden="true"></span>
+          <span class="canon-button-label">Undo</span>
+        </button>
+        <div class="canon-tooltip" id="tip-undo" popover="hint" role="tooltip">Undo</div>
+        <button type="button" class="canon-button" interestfor="tip-redo">
+          <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+          <span class="canon-button-label">Redo</span>
+        </button>
+        <div class="canon-tooltip" id="tip-redo" popover="hint" role="tooltip">Redo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="toggles">
+    <h2>Toggles</h2>
+    <p class="ref-note">Buttons that switch something on and off carry <code>aria-pressed</code>; a pressed one is held down, and canon.js flips it on click, like a checkbox. <strong>Any number</strong> can be on (bold, underline), or <strong>one at a time</strong> with <code>data-select="one"</code> on the group (the alignment: pressing one releases the others). An app that keeps the state itself, as a text editor does from the selection, cancels the click (<code>preventDefault()</code>) and sets it. A choice that is a form value is a Segmented Control instead.</p>
+
+    <div class="ref-stack">
+      <div class="canon-button-group" role="group" aria-label="Text style" data-size="sm">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Alignment" data-size="sm" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">Align left</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">Center</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">Align right</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">Justify</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Hover, pressed and focus are each button's own: the focus ring shows over the neighbours. <code>disabled</code> on a button greys it out; disable every button to disable the group.</p>
+
+    <div class="ref-stack">
+      <div class="canon-button-group" role="group" aria-label="Text style" data-size="sm">
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="Text style, unavailable" data-size="sm">
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">Bold</span>
+        </button>
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">Italic</span>
+        </button>
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">Underline</span>
+        </button>
+        <button type="button" class="canon-button" disabled>
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">Strikethrough</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="actions">
+    <h2>Actions</h2>
+    <p class="ref-note">A group of actions on one thing. <code>data-intent</code> colors a button's label and icon; in a group every emphasis looks the same.</p>
+
+    <div class="ref-stack">
+      <div class="canon-button-group" role="group" aria-label="Message" data-size="sm">
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-button-label">Copy</span>
+        </button>
+        <button type="button" class="canon-button">
+          <span class="canon-icon" data-icon="pin" aria-hidden="true"></span>
+          <span class="canon-button-label">Pin</span>
+        </button>
+        <button type="button" class="canon-button" data-intent="danger">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-button-label">Delete</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the group runs from the right, and directional icons mirror.</p>
+
+    <div class="ref-stack" dir="rtl" lang="ar">
+      <div class="canon-button-group" role="group" aria-label="نمط النص" data-size="sm">
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+          <span class="canon-button-label">عريض</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+          <span class="canon-button-label">مائل</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="underline" aria-hidden="true"></span>
+          <span class="canon-button-label">تسطير</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="strikethrough" aria-hidden="true"></span>
+          <span class="canon-button-label">يتوسطه خط</span>
+        </button>
+      </div>
+      <div class="canon-button-group" role="group" aria-label="المحاذاة" data-size="sm" data-display="icon" data-select="one">
+        <button type="button" class="canon-button" aria-pressed="true">
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-button-label">محاذاة لليمين</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-button-label">توسيط</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-button-label">محاذاة لليسار</span>
+        </button>
+        <button type="button" class="canon-button" aria-pressed="false">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-button-label">ضبط</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

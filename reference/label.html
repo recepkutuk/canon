@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Label reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Label</h1>
+  <p class="ref-note">What a control is called, with what goes with the name: a required marker, "(optional)", an info tooltip and a description. Specification: <a href="../docs/components/label.md">docs/components/label.md</a>.</p>
+  <p class="ref-note">The labels on this page are shown on their own; each one points at a hidden input. The required marker comes from that input's native <code>required</code>: you never write it.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="parts">
+    <h2>Parts</h2>
+
+    <div class="ref-label-grid">
+      <!-- Label only -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-plain">Label</label>
+        </div>
+        <input id="pt-plain" hidden>
+      </div>
+      <!-- Required -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-req">Label</label>
+        </div>
+        <input id="pt-req" hidden required>
+      </div>
+      <!-- Optional -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-opt">Label <span class="canon-label-optional">(optional)</span></label>
+        </div>
+        <input id="pt-opt" hidden>
+      </div>
+      <!-- Info -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-info">Label</label>
+          <button type="button" class="canon-label-info" interestfor="pt-info-info" aria-describedby="pt-info-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="pt-info-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+        </div>
+        <input id="pt-info" hidden>
+      </div>
+      <!-- Description -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-desc">Label</label>
+          <p class="canon-label-description" id="pt-desc-description">Description</p>
+        </div>
+        <input id="pt-desc" hidden aria-describedby="pt-desc-description">
+      </div>
+      <!-- Required, info and description -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-all">Label</label>
+          <button type="button" class="canon-label-info" interestfor="pt-all-info" aria-describedby="pt-all-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="pt-all-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="pt-all-description">Description</p>
+        </div>
+        <input id="pt-all" hidden required aria-describedby="pt-all-description">
+      </div>
+      <!-- Optional, info and description -->
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="pt-all-opt">Label <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="pt-all-opt-info" aria-describedby="pt-all-opt-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="pt-all-opt-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="pt-all-opt-description">Description</p>
+        </div>
+        <input id="pt-all-opt" hidden aria-describedby="pt-all-opt-description">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the label or any container; in a field, the label follows the field's size.</p>
+
+    <h3>sm</h3>
+    <div class="ref-label-grid">
+      <div class="ref-label-demo" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm-a">Label</label>
+        </div>
+        <input id="sz-sm-a" hidden>
+      </div>
+      <div class="ref-label-demo" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm-b">Label</label>
+          <button type="button" class="canon-label-info" interestfor="sz-sm-b-info" aria-describedby="sz-sm-b-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-sm-b-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-sm-b-description">Description</p>
+        </div>
+        <input id="sz-sm-b" hidden required aria-describedby="sz-sm-b-description">
+      </div>
+      <div class="ref-label-demo" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm-c">Label <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sz-sm-c-info" aria-describedby="sz-sm-c-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-sm-c-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-sm-c-description">Description</p>
+        </div>
+        <input id="sz-sm-c" hidden aria-describedby="sz-sm-c-description">
+      </div>
+    </div>
+    <h3>md</h3>
+    <div class="ref-label-grid">
+      <div class="ref-label-demo" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md-a">Label</label>
+        </div>
+        <input id="sz-md-a" hidden>
+      </div>
+      <div class="ref-label-demo" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md-b">Label</label>
+          <button type="button" class="canon-label-info" interestfor="sz-md-b-info" aria-describedby="sz-md-b-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-md-b-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-md-b-description">Description</p>
+        </div>
+        <input id="sz-md-b" hidden required aria-describedby="sz-md-b-description">
+      </div>
+      <div class="ref-label-demo" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md-c">Label <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sz-md-c-info" aria-describedby="sz-md-c-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-md-c-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-md-c-description">Description</p>
+        </div>
+        <input id="sz-md-c" hidden aria-describedby="sz-md-c-description">
+      </div>
+    </div>
+    <h3>lg</h3>
+    <div class="ref-label-grid">
+      <div class="ref-label-demo" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg-a">Label</label>
+        </div>
+        <input id="sz-lg-a" hidden>
+      </div>
+      <div class="ref-label-demo" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg-b">Label</label>
+          <button type="button" class="canon-label-info" interestfor="sz-lg-b-info" aria-describedby="sz-lg-b-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-lg-b-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-lg-b-description">Description</p>
+        </div>
+        <input id="sz-lg-b" hidden required aria-describedby="sz-lg-b-description">
+      </div>
+      <div class="ref-label-demo" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg-c">Label <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sz-lg-c-info" aria-describedby="sz-lg-c-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-lg-c-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-lg-c-description">Description</p>
+        </div>
+        <input id="sz-lg-c" hidden aria-describedby="sz-lg-c-description">
+      </div>
+    </div>
+    <h3>theme decides</h3>
+    <div class="ref-label-grid">
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-def-a">Label</label>
+        </div>
+        <input id="sz-def-a" hidden>
+      </div>
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-def-b">Label</label>
+          <button type="button" class="canon-label-info" interestfor="sz-def-b-info" aria-describedby="sz-def-b-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-def-b-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-def-b-description">Description</p>
+        </div>
+        <input id="sz-def-b" hidden required aria-describedby="sz-def-b-description">
+      </div>
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-def-c">Label <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sz-def-c-info" aria-describedby="sz-def-c-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="sz-def-c-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Info text</div>
+          <p class="canon-label-description" id="sz-def-c-description">Description</p>
+        </div>
+        <input id="sz-def-c" hidden aria-describedby="sz-def-c-description">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="info">
+    <h2>Info tooltip</h2>
+    <p class="ref-note">Shown open here. The info button opens a <a href="tooltip.html">Tooltip</a>; <code>data-placement="block-end inline-end"</code> puts it below, aligned to the end. Hover or focus any other info button on this page to try it.</p>
+
+    <div class="ref-label-grid ref-label-tip-grid">
+      <div class="ref-label-demo" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="tip-sm">Label</label>
+          <button type="button" class="canon-label-info" interestfor="tip-sm-info" aria-describedby="tip-sm-info" data-ref-opens="tip-sm-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="tip-sm-info" popover="manual" role="tooltip" data-placement="block-end inline-end">Info text</div>
+        </div>
+        <input id="tip-sm" hidden>
+      </div>
+      <div class="ref-label-demo" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="tip-md">Label</label>
+          <button type="button" class="canon-label-info" interestfor="tip-md-info" aria-describedby="tip-md-info" data-ref-opens="tip-md-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="tip-md-info" popover="manual" role="tooltip" data-placement="block-end inline-end">Info text</div>
+        </div>
+        <input id="tip-md" hidden>
+      </div>
+      <div class="ref-label-demo" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="tip-lg">Label</label>
+          <button type="button" class="canon-label-info" interestfor="tip-lg-info" aria-describedby="tip-lg-info" data-ref-opens="tip-lg-info">
+            <span class="canon-visually-hidden">About label</span>
+          </button>
+          <div class="canon-tooltip" id="tip-lg-info" popover="manual" role="tooltip" data-placement="block-end inline-end">Info text</div>
+        </div>
+        <input id="tip-lg" hidden>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Long labels</h3>
+    <p class="ref-note">Long labels wrap. The required marker follows the last word, "(optional)" ends the last line, and the info button stays on the first.</p>
+    <div class="ref-label-grid">
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-long-req">Primary contact email address for billing and invoices</label>
+          <button type="button" class="canon-label-info" interestfor="sx-long-req-info" aria-describedby="sx-long-req-info">
+            <span class="canon-visually-hidden">About primary contact email address for billing and invoices</span>
+          </button>
+          <div class="canon-tooltip" id="sx-long-req-info" popover="hint" role="tooltip" data-placement="block-end inline-end">Every invoice goes here.</div>
+          <p class="canon-label-description" id="sx-long-req-description">Use a shared mailbox rather than a personal one so nothing is lost when people change roles.</p>
+        </div>
+        <input id="sx-long-req" hidden required aria-describedby="sx-long-req-description">
+      </div>
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-long-opt">Secondary contact email address for billing and invoices <span class="canon-label-optional">(optional)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sx-long-opt-info" aria-describedby="sx-long-opt-info">
+            <span class="canon-visually-hidden">About secondary contact email address for billing and invoices</span>
+          </button>
+          <div class="canon-tooltip" id="sx-long-opt-info" popover="hint" role="tooltip" data-placement="block-end inline-end">A copy of every invoice.</div>
+        </div>
+        <input id="sx-long-opt" hidden>
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <div class="ref-label-grid" dir="rtl" lang="ar">
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-rtl-req">البريد الإلكتروني</label>
+          <button type="button" class="canon-label-info" interestfor="sx-rtl-req-info" aria-describedby="sx-rtl-req-info">
+            <span class="canon-visually-hidden">About البريد الإلكتروني</span>
+          </button>
+          <div class="canon-tooltip" id="sx-rtl-req-info" popover="hint" role="tooltip" data-placement="block-end inline-end">نرسل الفواتير هنا.</div>
+          <p class="canon-label-description" id="sx-rtl-req-description">استخدم عنوان شركتك.</p>
+        </div>
+        <input id="sx-rtl-req" hidden required aria-describedby="sx-rtl-req-description">
+      </div>
+      <div class="ref-label-demo">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-rtl-opt">الهاتف <span class="canon-label-optional">(اختياري)</span></label>
+          <button type="button" class="canon-label-info" interestfor="sx-rtl-opt-info" aria-describedby="sx-rtl-opt-info">
+            <span class="canon-visually-hidden">About الهاتف</span>
+          </button>
+          <div class="canon-tooltip" id="sx-rtl-opt-info" popover="hint" role="tooltip" data-placement="block-end inline-end">للتسليم فقط.</div>
+        </div>
+        <input id="sx-rtl-opt" hidden>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

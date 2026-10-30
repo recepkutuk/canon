@@ -1,0 +1,64 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Segmented Control                                                  */
+  /*                                                                    */
+  /* One value from a few, as joined segments: a radio group            */
+  /* (role="radiogroup", named). Each option is a <label> around its    */
+  /* radio, an optional icon and its text. The radio covers the option, */
+  /* invisible, so clicks, the keyboard (Tab to the chosen one, arrows  */
+  /* between) and the form value stay the browser's.                    */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-segmented) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: stretch;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+  /* Too narrow a place: options shrink and cut their text (…). */
+  :where(.canon-segmented-option) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  :where(.canon-segmented-option) > :where(input[type="radio"]) {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    opacity: 0;
+    appearance: none;
+    cursor: inherit;
+  }
+  :where(.canon-segmented-option) > :where(.canon-icon) {
+    flex: none;
+  }
+  :where(.canon-segmented-label) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-segmented-option:has(> input:disabled)) {
+    cursor: not-allowed;
+  }
+  /* data-fill: as wide as its place, the options sharing it equally. */
+  :where(.canon-segmented[data-fill]) {
+    display: flex;
+    inline-size: auto;
+  }
+  :where(.canon-segmented[data-fill]) > :where(.canon-segmented-option) {
+    flex: 1 1 0;
+  }
+}

@@ -1,0 +1,39 @@
+/* ==================================================================== */
+/* Spinner                                                              */
+/* ==================================================================== */
+
+@layer canon.theme {
+  /* Button's loading ring: Lucide's loader-circle (a 300° arc) over the
+     same circle at 20%, turning once every 0.8s (2.4s with reduced
+     motion), in zinc-500 (dark zinc-400); its words beside it in the same
+     color, half the text's size apart. The text's size (1em) unless a
+     data-size sets it: 16 / 20 / 32px, its words 13 / 14 / 16px. */
+  :is([data-size="xs"], [data-size="sm"]) { --canon-theme-spinner-size: 1rem; --canon-theme-spinner-text: 0.8125rem; --canon-theme-spinner-line: 1.25rem; }
+  [data-size="md"] { --canon-theme-spinner-size: 1.25rem; --canon-theme-spinner-text: 0.875rem; --canon-theme-spinner-line: 1.25rem; }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) { --canon-theme-spinner-size: 2rem; --canon-theme-spinner-text: 1rem; --canon-theme-spinner-line: 1.5rem; }
+
+  .canon-spinner {
+    inline-size: var(--canon-theme-spinner-size, 1em);
+    block-size: var(--canon-theme-spinner-size, 1em);
+    background-color: currentColor;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    mask: var(--canon-theme-icon-loader) center / contain no-repeat, var(--canon-theme-icon-loader-track) center / contain no-repeat;
+    animation: canon-spin 0.8s linear infinite;
+  }
+  /* Its words follow the same size: 13 / 14 / 16px (the text's own size
+     without a data-size). */
+  .canon-spinner-label {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-theme-spinner-text, inherit);
+    line-height: var(--canon-theme-spinner-line, inherit);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-spinner { animation-duration: 2.4s; }
+  }
+  @media (forced-colors: active) {
+    .canon-spinner {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+}

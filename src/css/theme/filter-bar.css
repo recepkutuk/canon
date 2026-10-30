@@ -1,0 +1,146 @@
+/* ==================================================================== */
+/* Filter Bar                                                           */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Items 8px apart, rows 8px apart; the search
+     field 16rem wide (at most the row). Chips and facet buttons are as
+     tall as the search field (a control's height) so the row lines up.
+     A facet button is a Toggle Chip with a chevron (zinc-500, dark
+     zinc-400, turning while open): a zinc-200 line (dark zinc-700),
+     labels zinc-700 (dark zinc-200); hover zinc-50 with a zinc-300 line
+     (dark zinc-800, zinc-600); open zinc-100 (dark zinc-700). A facet
+     with a choice takes a chosen chip's look: zinc-900 with a white
+     label and chevron (dark: white with zinc-900), hover zinc-800 (dark
+     zinc-200), open or pressing zinc-700 (dark zinc-300); in forced
+     colors, the system's highlight. The panel lists its choices 8px apart, at least
+     12rem wide. The count is zinc-500 (dark zinc-400). */
+  .canon-filter-bar > .canon-text-input {
+    inline-size: 16rem;
+    max-inline-size: 100%;
+  }
+  .canon-filter-bar .canon-toggle-chip {
+    block-size: var(--canon-control-block-size);
+  }
+  .canon-filter-bar-button {
+    --_fg: light-dark(var(--canon-theme-zinc-700), var(--canon-theme-zinc-200));
+    --_icon: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    --_bg: transparent;
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    gap: var(--canon-theme-button-gap);
+    block-size: var(--canon-control-block-size);
+    padding-inline: calc(var(--canon-control-padding-inline) - 1px + var(--canon-theme-button-label-inset)) calc(var(--canon-control-padding-inline) - 1px);
+    border: 1px solid var(--_line);
+    border-radius: 999px;
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--canon-control-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-button-line-height);
+    letter-spacing: var(--canon-theme-button-tracking);
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  }
+  .canon-filter-bar-button:has(> .canon-icon:first-child) {
+    padding-inline-start: calc(var(--canon-control-padding-inline) - 1px);
+  }
+  .canon-filter-bar-button > .canon-icon {
+    color: var(--_icon);
+  }
+  /* The value follows the label as text ("Team: Design"), no gap. */
+  .canon-filter-bar-label + .canon-filter-bar-value {
+    margin-inline-start: calc(var(--canon-theme-button-gap) * -1);
+  }
+  .canon-filter-bar-button > .canon-filter-bar-label:not(:first-child) {
+    padding-inline-start: var(--canon-theme-button-label-inset);
+  }
+  .canon-filter-bar-button::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    margin-inline-start: var(--canon-theme-button-label-inset);
+    background-color: var(--_icon);
+    mask: var(--canon-theme-icon-chevron) center / contain no-repeat;
+    transition: rotate 0.15s;
+  }
+  .canon-filter-bar-button[aria-expanded="true"]::after {
+    rotate: 180deg;
+  }
+  @media (hover: hover) {
+    .canon-filter-bar-button:hover {
+      --_bg: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+      --_line: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    }
+  }
+  .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_bg: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+  }
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button {
+    --_fg: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    --_icon: var(--_fg);
+    --_bg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_line: var(--_bg);
+  }
+  @media (hover: hover) {
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:hover {
+      --_bg: light-dark(var(--canon-theme-zinc-800), var(--canon-theme-zinc-200));
+      --_line: var(--_bg);
+    }
+  }
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_bg: light-dark(var(--canon-theme-zinc-700), var(--canon-theme-zinc-300));
+    --_line: var(--_bg);
+  }
+  .canon-filter-bar-button:focus-visible {
+    outline: 2px solid transparent; /* shows in forced colors, where shadows don't */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+  .canon-filter-bar-facet > .canon-popover:popover-open {
+    display: grid;
+    gap: 0.5rem;
+    min-inline-size: 12rem;
+  }
+  /* A fieldset of choices in the panel: a column, as wide as its widest
+     choice (a Fieldset's wrapping row would be as wide as all of them). */
+  .canon-filter-bar-facet > .canon-popover > .canon-fieldset {
+    display: grid;
+  }
+  .canon-filter-bar-count {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-control-font-size);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (forced-colors: active) {
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button {
+      forced-color-adjust: none;
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button > .canon-icon,
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button::after {
+      color: HighlightText;
+      background-color: HighlightText;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-filter-bar-button,
+    .canon-filter-bar-button::after { transition: none; }
+  }
+  /* Clear all comes in when something is chosen: a fade (0.15s). */
+  .canon-filter-bar > [command="--canon-clear"] {
+    transition: opacity 0.15s ease-out;
+  }
+  @starting-style {
+    .canon-filter-bar > [command="--canon-clear"] {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-filter-bar > [command="--canon-clear"] {
+      transition: none;
+    }
+  }
+}

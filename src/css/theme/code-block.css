@@ -1,0 +1,99 @@
+/* ==================================================================== */
+/* Code Block                                                           */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Table's frame (its hairline edge and corners)
+     around a header (a hairline rule under it) in Table's header type and the code on a zinc-50
+     fill (dark: halfway from zinc-900 to zinc-800, Table's stripe), in
+     JetBrains Mono. Sizes: code 12 / 13 / 14px, 12 / 16 / 20px
+     inside. Tokens (twinkleplop's names, .tok.<type>) in the
+     palette around zinc and blue: tags and selectors blue, attributes
+     violet, strings emerald, numbers amber, keys sky, keywords rose,
+     punctuation and comments zinc-500. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-code-font-size: 0.8125rem;
+    --canon-theme-code-padding: 1rem;
+    --canon-theme-code-header-size: 2.5rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-code-font-size: 0.75rem;
+    --canon-theme-code-padding: 0.75rem;
+    --canon-theme-code-header-size: 2.5rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-code-font-size: 0.875rem;
+    --canon-theme-code-padding: 1.25rem;
+    --canon-theme-code-header-size: 3rem;
+  }
+
+  .canon-code-block {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_code-bg: light-dark(var(--canon-theme-zinc-50), color-mix(in srgb, var(--canon-theme-zinc-800) 50%, var(--canon-theme-zinc-900)));
+    --_radius: calc(var(--canon-theme-table-radius) - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: var(--canon-theme-table-radius);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge);
+    font-size: var(--canon-theme-code-font-size);
+  }
+
+  .canon-code-block-header {
+    min-block-size: var(--canon-theme-code-header-size);
+    box-sizing: border-box;
+    padding-block: 0.25rem;
+    padding-inline: var(--canon-theme-code-padding) 0.25rem;
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-code-block-title {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+
+  .canon-code-block > pre {
+    padding: var(--canon-theme-code-padding);
+    border-radius: 0 0 var(--_radius) var(--_radius);
+    background-color: var(--_code-bg);
+    color: light-dark(var(--canon-theme-zinc-800), var(--canon-theme-zinc-200));
+    font-family: var(--canon-theme-font-mono);
+    font-size: inherit;
+    font-feature-settings: normal;
+    font-variant-ligatures: none;
+    line-height: 1.6;
+  }
+  .canon-code-block > pre:first-child {
+    border-radius: var(--_radius);
+  }
+  /* Room for the corner copy button on the first line. */
+  .canon-code-block:has(> .canon-button) > pre {
+    padding-right: calc(var(--canon-theme-code-padding) + var(--canon-control-block-size));
+  }
+  /* The corner button sits on the code's fill, so lines scrolling under
+     it stay hidden. */
+  .canon-code-block > .canon-button {
+    --canon-theme-bg: var(--_code-bg);
+    --canon-theme-bg-hover: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    --canon-theme-bg-active: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+  }
+
+  /* A scrolling code box takes focus (canon.js): Button's ring around the
+     whole block. */
+  .canon-code-block > pre:focus-visible {
+    outline: 2px solid transparent;
+  }
+  .canon-code-block:has(> pre:focus-visible) {
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  .canon-code-block .tok:is(.punctuation, .operator, .doctype) { color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400)); }
+  .canon-code-block .tok.comment { color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400)); font-style: italic; }
+  .canon-code-block .tok:is(.tag_name, .selector, .selector_class, .selector_id, .selector_pseudo, .function) { color: light-dark(var(--canon-theme-blue-700), var(--canon-theme-blue-400)); }
+  .canon-code-block .tok:is(.attr_name, .css_variable, .variable) { color: light-dark(var(--canon-theme-violet-700), var(--canon-theme-violet-400)); }
+  .canon-code-block .tok:is(.string, .template) { color: light-dark(var(--canon-theme-emerald-700), var(--canon-theme-emerald-400)); }
+  .canon-code-block .tok:is(.number, .unit, .entity) { color: light-dark(var(--canon-theme-amber-700), var(--canon-theme-amber-400)); }
+  .canon-code-block .tok:is(.property, .attribute) { color: light-dark(var(--canon-theme-sky-700), var(--canon-theme-sky-300)); }
+  .canon-code-block .tok:is(.keyword, .boolean) { color: light-dark(var(--canon-theme-rose-700), var(--canon-theme-rose-400)); }
+}

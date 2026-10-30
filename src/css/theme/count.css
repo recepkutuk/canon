@@ -1,0 +1,27 @@
+@layer canon.theme {
+
+  /* Count: a rose pill, 16px tall, at least round. */
+  .canon-count {
+    min-inline-size: 1rem;
+    padding-inline: 0.25rem;
+    border-radius: 999px;
+    background-color: var(--canon-theme-rose-600);
+    color: var(--canon-theme-white);
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+  }
+  /* Its number changing (data-updated, canon.js): a short pop (to 120%
+     and back, 0.25s). None with reduced motion. */
+  .canon-count[data-updated] {
+    animation: canon-count-pop 0.25s ease-out;
+  }
+  @keyframes canon-count-pop {
+    40% { scale: 1.2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-count[data-updated] { animation: none; }
+  }
+}

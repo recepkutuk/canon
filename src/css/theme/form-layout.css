@@ -1,0 +1,99 @@
+/* ==================================================================== */
+/* Form Layout                                                          */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Built from the system's spacing. Fields 12 / 16 / 20px
+     apart (Fieldset's step between fields), side by side as far apart.
+     Sections 24 / 32 / 40px apart with a hairline rule halfway; the title the label's type 2px larger, semibold (14 / 16 /
+     18px), the description the label description's, under it as under a
+     label; the fields a step under the header. Actions 8px apart, a
+     section's step under the content; sticky ones on white (dark
+     zinc-950) with a hairline rule above. The aside layout: the header in the
+     first third, 32px from the fields. A reveal hangs from its choice: a
+     2px zinc-200 line (dark zinc-700) under the control's middle, its
+     fields where the choice's label starts. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-form-gap: 1rem;
+    --canon-theme-form-section-gap: 2rem;
+    --canon-theme-form-title-size: 1rem;
+    --canon-theme-form-title-line-height: 1.5rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-form-gap: 0.75rem;
+    --canon-theme-form-section-gap: 1.5rem;
+    --canon-theme-form-title-size: 0.875rem;
+    --canon-theme-form-title-line-height: 1.25rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-form-gap: 1.25rem;
+    --canon-theme-form-section-gap: 2.5rem;
+    --canon-theme-form-title-size: 1.125rem;
+    --canon-theme-form-title-line-height: 1.75rem;
+  }
+
+  .canon-form {
+    --canon-form-aside-gap: 2rem;
+  }
+  /* Stacked: a step between the things a form holds. */
+  .canon-form > :not(.canon-form-section, .canon-form-actions) + *,
+  .canon-form-section > :not(.canon-form-section-header) + *,
+  .canon-form-reveal > * + * {
+    margin-block-start: var(--canon-theme-form-gap);
+  }
+  .canon-form > .canon-form-section + .canon-form-section {
+    margin-block-start: var(--canon-theme-form-section-gap);
+    padding-block-start: var(--canon-theme-form-section-gap);
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-form > .canon-form-section + :not(.canon-form-section),
+  .canon-form > * + .canon-form-actions {
+    margin-block-start: var(--canon-theme-form-section-gap);
+  }
+
+  .canon-form-section-header {
+    margin-block-end: var(--canon-theme-form-gap);
+  }
+  .canon-form-section-title {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-theme-form-title-size);
+    font-weight: 600;
+    line-height: var(--canon-theme-form-title-line-height);
+    letter-spacing: var(--canon-theme-label-tracking);
+  }
+  .canon-form-section-description {
+    margin-block-start: var(--canon-theme-label-description-gap);
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-theme-label-description-font-size);
+    line-height: var(--canon-theme-label-description-line-height);
+    letter-spacing: var(--canon-theme-label-description-tracking);
+  }
+
+  .canon-form-row {
+    column-gap: var(--canon-theme-form-gap);
+    row-gap: 0;
+  }
+  @container canon-form (width < 24rem) {
+    .canon-form-row {
+      row-gap: var(--canon-theme-form-gap);
+    }
+  }
+
+  .canon-form-actions {
+    gap: 0.5rem;
+  }
+  .canon-form-actions[data-sticky] {
+    margin-block-end: 0;
+    padding-block: 0.75rem;
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-950));
+  }
+
+  .canon-form-reveal {
+    margin-inline-start: calc(var(--canon-icon-size) / 2 - 1px);
+    padding-inline-start: calc(var(--canon-icon-size) / 2 + var(--canon-theme-choice-gap) - 1px);
+    border-inline-start: 2px solid light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+  }
+}

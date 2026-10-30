@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Fieldset reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Fieldset</h1>
+  <p class="ref-note">A group of related choices or fields under a legend. Specification: <a href="../docs/components/fieldset.md">docs/components/fieldset.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="slots">
+    <h2>Legend, hint and message</h2>
+    <p class="ref-note">The hint and the message are linked to the fieldset with <code>aria-describedby</code>, so they are read when focus enters the group.</p>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset">
+        <legend class="canon-fieldset-legend">Legend only</legend>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-a-1" name="sl-a" checked>
+          <label class="canon-choice-label" for="sl-a-1">First</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-a-2" name="sl-a">
+          <label class="canon-choice-label" for="sl-a-2">Second</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" aria-describedby="sl-b-hint">
+        <legend class="canon-fieldset-legend">With a hint</legend>
+        <p class="canon-fieldset-hint" id="sl-b-hint">Select all that apply.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-b-1" name="sl-b" checked>
+          <label class="canon-choice-label" for="sl-b-1">First</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-b-2" name="sl-b">
+          <label class="canon-choice-label" for="sl-b-2">Second</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" aria-describedby="sl-c-hint sl-c-message">
+        <legend class="canon-fieldset-legend">With an error</legend>
+        <p class="canon-fieldset-hint" id="sl-c-hint">Select all that apply.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-c-1" name="sl-c">
+          <label class="canon-choice-label" for="sl-c-1">First</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-c-2" name="sl-c">
+          <label class="canon-choice-label" for="sl-c-2">Second</label>
+        </div>
+        <p class="canon-fieldset-message" id="sl-c-message" data-intent="danger">Select at least one option.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" aria-describedby="sl-d-message">
+        <legend class="canon-fieldset-legend">With a warning</legend>
+        <div class="canon-choice">
+          <input type="radio" id="sl-d-1" name="sl-d" checked>
+          <label class="canon-choice-label" for="sl-d-1">Keep forever</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sl-d-2" name="sl-d">
+          <label class="canon-choice-label" for="sl-d-2">Delete after 30 days</label>
+        </div>
+        <p class="canon-fieldset-message" id="sl-d-message" data-intent="warning">Keeping everything raises storage costs.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" aria-describedby="sl-e-message">
+        <legend class="canon-fieldset-legend">Empty live region</legend>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-e-1" name="sl-e">
+          <label class="canon-choice-label" for="sl-e-1">First</label>
+        </div>
+        <p class="canon-fieldset-message" id="sl-e-message" aria-live="polite"></p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" disabled>
+        <legend class="canon-fieldset-legend">Disabled</legend>
+        <div class="canon-choice">
+          <input type="checkbox" id="sl-f-1" name="sl-f" checked>
+          <label class="canon-choice-label" for="sl-f-1">First</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="sl-f-2" name="sl-f-2">
+          <label class="canon-choice-label" for="sl-f-2">Second</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="orientation">
+    <h2>Orientation</h2>
+    <p class="ref-note"><code>data-orientation</code>: <code>horizontal</code> wraps onto more rows when space runs out.</p>
+
+    <div class="ref-stack">
+      <fieldset class="canon-fieldset" data-orientation="horizontal">
+        <legend class="canon-fieldset-legend">Horizontal</legend>
+        <div class="canon-choice">
+          <input type="checkbox" id="or-h-1" name="or-h" checked>
+          <label class="canon-choice-label" for="or-h-1">Name</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="or-h-2" name="or-h" checked>
+          <label class="canon-choice-label" for="or-h-2">Owner</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="or-h-3" name="or-h">
+          <label class="canon-choice-label" for="or-h-3">Status</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="or-h-4" name="or-h">
+          <label class="canon-choice-label" for="or-h-4">Last updated</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" data-orientation="vertical">
+        <legend class="canon-fieldset-legend">Vertical</legend>
+        <div class="canon-choice">
+          <input type="radio" id="or-v-1" name="or-v" checked>
+          <label class="canon-choice-label" for="or-v-1">Yes</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="or-v-2" name="or-v">
+          <label class="canon-choice-label" for="or-v-2">No</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="fields">
+    <h2>Fields</h2>
+    <p class="ref-note">A fieldset groups fields too, like the parts of a date.</p>
+
+    <fieldset class="canon-fieldset" data-orientation="horizontal" aria-describedby="fd-dob-hint">
+      <legend class="canon-fieldset-legend">Date of birth</legend>
+      <p class="canon-fieldset-hint" id="fd-dob-hint">For example, 27 3 1985</p>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="fd-dob-day">Day</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="fd-dob-day" name="dob-day" type="text" inputmode="numeric" placeholder size="2" maxlength="2">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="fd-dob-month">Month</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="fd-dob-month" name="dob-month" type="text" inputmode="numeric" placeholder size="2" maxlength="2">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="fd-dob-year">Year</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="fd-dob-year" name="dob-year" type="text" inputmode="numeric" placeholder size="4" maxlength="4">
+        </div>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" aria-describedby="sx-long-hint sx-long-message">
+        <legend class="canon-fieldset-legend">Which of the following data categories may be shared with approved third-party processors under the data processing agreement?</legend>
+        <p class="canon-fieldset-hint" id="sx-long-hint">Your legal team must review every category before it is shared. Changes take effect at the start of the next billing period.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-long-a" name="sx-long" value="a">
+          <label class="canon-choice-label" for="sx-long-a">Aggregated, anonymised usage statistics</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-long-b" name="sx-long" value="b" checked>
+          <label class="canon-choice-label" for="sx-long-b">Crash reports with stack traces</label>
+        </div>
+        <p class="canon-fieldset-message" id="sx-long-message" data-intent="danger">Your legal team has not approved crash reports yet. Remove them or ask legal for a review.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" dir="rtl" lang="ar" aria-describedby="sx-rtl-hint sx-rtl-message">
+        <legend class="canon-fieldset-legend">المناطق</legend>
+        <p class="canon-fieldset-hint" id="sx-rtl-hint">اختر كل ما ينطبق.</p>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-rtl-a" name="sx-rtl">
+          <label class="canon-choice-label" for="sx-rtl-a">أوروبا</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="sx-rtl-b" name="sx-rtl">
+          <label class="canon-choice-label" for="sx-rtl-b">آسيا</label>
+        </div>
+        <p class="canon-fieldset-message" id="sx-rtl-message" data-intent="danger">اختر منطقة واحدة على الأقل.</p>
+      </fieldset>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

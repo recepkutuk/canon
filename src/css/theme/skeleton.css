@@ -1,0 +1,63 @@
+/* ==================================================================== */
+/* Skeleton                                                             */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Flat rounded zinc-100 shapes
+     (dark zinc-800), shown 0.3s after they come (a fade, 0.15s), so a
+     quick load never flashes them; their room is kept meanwhile.
+     data-motion="sweep" (on a skeleton or a container) adds a lighter
+     sweep moving across, 1.5s; still with reduced motion. A line 8px
+     tall, as long as its container; a block the control's height ×
+     0.625 and 4rem wide at Button's corners; a circle the control's
+     height × 0.8; a square the icon's size, 4px corners. */
+  .canon-skeleton {
+    --_base: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    --_sweep: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    inline-size: 100%;
+    block-size: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--_base);
+    animation: canon-fade-in 0.15s ease-out 0.3s both;
+  }
+  :is(.canon-skeleton[data-motion="sweep"], [data-motion="sweep"] .canon-skeleton:not([data-motion])) {
+    background: linear-gradient(90deg, var(--_base) 0%, var(--_sweep) 50%, var(--_base) 100%) 0 0 / 200% 100% var(--_base);
+    animation:
+      canon-fade-in 0.15s ease-out 0.3s both,
+      canon-skeleton 1.5s ease-in-out 0.3s infinite;
+  }
+  .canon-skeleton[data-shape="block"] {
+    inline-size: 4rem;
+    block-size: calc(var(--canon-control-block-size) * 0.625);
+    border-radius: var(--canon-theme-button-radius);
+  }
+  .canon-skeleton[data-shape="circle"] {
+    inline-size: calc(var(--canon-control-block-size) * 0.8);
+    block-size: calc(var(--canon-control-block-size) * 0.8);
+    border-radius: 50%;
+  }
+  .canon-skeleton[data-shape="square"] {
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    border-radius: 0.25rem;
+  }
+  @keyframes canon-skeleton {
+    from { background-position: 100% 0; }
+    to { background-position: -100% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :is(.canon-skeleton[data-motion="sweep"], [data-motion="sweep"] .canon-skeleton:not([data-motion])) {
+      animation: canon-fade-in 0.15s ease-out 0.3s both;
+    }
+  }
+
+  /* Loaded (canon.js marks a region data-loaded when its aria-busy
+     goes): what came fades in (0.2s) where the skeletons were. A Data
+     Table's rows only, its toolbar and header staying. Still with
+     reduced motion: it's a fade. */
+  [data-loaded]:not(.canon-data-table) > *,
+  .canon-data-table[data-loaded] tbody {
+    animation: canon-fade-in 0.2s ease-out;
+  }
+}

@@ -1,0 +1,78 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Stat                                                                */
+  /*                                                                     */
+  /* One number that matters: a column of its label, value, change,     */
+  /* description and the app's chart, each on its own line. Plain: no   */
+  /* frame of its own. The value keeps its digits together and lines    */
+  /* up (tabular figures). A .canon-stat-link in the label makes the    */
+  /* whole stat its link. A row of stats (.canon-stats) is a grid of    */
+  /* columns at least --canon-stats-min wide, as many as fit.           */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-stat) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+  :where(.canon-stat) > :where(.canon-stat-label, .canon-stat-value, .canon-stat-change, .canon-stat-description) {
+    margin: 0;
+  }
+  :where(.canon-stat-value) {
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  /* No value: a dash, heard as "Not set". */
+  :where(.canon-stat-value:empty)::before {
+    content: "—" / var(--canon-text-not-set, "Not set");
+  }
+  :where(.canon-stat-value:has(> .canon-skeleton)) {
+    display: flex;
+    align-items: center;
+    block-size: 1lh;
+  }
+  /* The change: the theme's arrow (::before, from data-direction), then
+     the app's words. */
+  :where(.canon-stat-change) {
+    display: flex;
+    align-items: flex-start;
+  }
+  :where(.canon-stat-change[data-direction])::before {
+    content: "";
+    flex: none;
+  }
+  /* The app's sparkline: stretched to the box the theme sizes, its
+     strokes kept at their drawn width. */
+  :where(.canon-stat-chart) {
+    display: block;
+  }
+  :where(.canon-stat-chart) > :where(svg) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+  :where(.canon-stat-chart) :where(path, polyline, line, circle, ellipse, rect, polygon) {
+    vector-effect: non-scaling-stroke;
+  }
+  /* A linked stat: the label's link reaches over the whole stat. */
+  :where(.canon-stat-link) {
+    color: inherit;
+    text-decoration: none;
+  }
+  :where(.canon-stat-link)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  :where(.canon-stats) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--canon-stats-min, 12rem), 100%), 1fr));
+  }
+  :where(.canon-stats) > :where(.canon-stat) {
+    min-inline-size: 0;
+  }
+}

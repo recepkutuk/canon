@@ -1,0 +1,29 @@
+/*
+ * Canon strings: German
+ *
+ * Include after the theme. :lang(de) matches de, de-DE, de-AT, de-CH, …
+ * A regional file (e.g. de-CH.css with :lang(de-CH)) loaded after this one
+ * overrides only the strings that differ. Keys are listed in
+ * css/canon/canon.core.css.
+ */
+
+:lang(de) {
+  --canon-text-copied: "Kopiert";
+  --canon-text-opens-in-new-tab: "(öffnet in neuem Tab)";
+  --canon-text-on: "Ein";
+  --canon-text-off: "Aus";
+  --canon-text-more: "Mehr";
+  --canon-text-more-pages: "Weitere Seiten";
+  --canon-text-notifications: "Benachrichtigungen";
+  --canon-text-dismiss: "Schließen";
+  --canon-text-intent-info: "Information:";
+  --canon-text-intent-success: "Erfolg:";
+  --canon-text-intent-warning: "Warnung:";
+  --canon-text-intent-danger: "Fehler:";
+  --canon-text-no-changes: "Keine Änderungen";
+  --canon-text-unsaved-changes-one: "{count} ungespeicherte Änderung";
+  --canon-text-unsaved-changes-other: "{count} ungespeicherte Änderungen";
+  --canon-text-saving: "Wird gespeichert…";
+  --canon-text-saved: "Änderungen gespeichert";
+  --canon-text-save-failed: "Speichern fehlgeschlagen";
+}

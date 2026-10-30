@@ -1,0 +1,661 @@
+/*
+ * canon.css
+ *
+ * Canon's look: a calm, neutral theme for internal tools. Declares Canon's
+ * cascade layers, imports canon.core.css and draws every component.
+ * To restyle Canon, replace this file with your own theme; the markup
+ * stays the same.
+ *
+ * Built from src/css by tools/build.mjs: edit the sources, then run it.
+ * A smaller build with only some components: node tools/build.mjs --list.
+ *
+ * Supports: light, dark.
+ *
+ * Credits: Lucide icons (ISC license), the Tailwind CSS v3 color palette
+ * (MIT license), Inter and JetBrains Mono (SIL Open Font License).
+ */
+
+@layer canon.core, canon.theme, canon.hints;
+@import url("canon.core.css");
+/* The official build: Google Fonts strips the cv / ss alternates used below. */
+@import url("https://rsms.me/inter/inter.css");
+/* Code: JetBrains Mono (Code Block, Rich Text code). */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap");
+
+@layer canon.theme {
+
+  /* ------------------------------------------------------------------ */
+  /* Tokens                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* The palette. Full scales for the hues the controls use. */
+  :root {
+    --canon-theme-white: #fff;
+
+    --canon-theme-zinc-50: #fafafa;
+    --canon-theme-zinc-100: #f4f4f5;
+    --canon-theme-zinc-200: #e4e4e7;
+    --canon-theme-zinc-300: #d4d4d8;
+    --canon-theme-zinc-400: #a1a1aa;
+    --canon-theme-zinc-500: #71717a;
+    --canon-theme-zinc-600: #52525b;
+    --canon-theme-zinc-700: #3f3f46;
+    --canon-theme-zinc-800: #27272a;
+    --canon-theme-zinc-900: #18181b;
+    --canon-theme-zinc-950: #09090b;
+
+    --canon-theme-blue-50: #eff6ff;
+    --canon-theme-blue-100: #dbeafe;
+    --canon-theme-blue-200: #bfdbfe;
+    --canon-theme-blue-300: #93c5fd;
+    --canon-theme-blue-400: #60a5fa;
+    --canon-theme-blue-500: #3b82f6;
+    --canon-theme-blue-600: #2563eb;
+    --canon-theme-blue-700: #1d4ed8;
+    --canon-theme-blue-800: #1e40af;
+    --canon-theme-blue-900: #1e3a8a;
+    --canon-theme-blue-950: #172554;
+
+    --canon-theme-green-50: #f0fdf4;
+    --canon-theme-green-100: #dcfce7;
+    --canon-theme-green-200: #bbf7d0;
+    --canon-theme-green-300: #86efac;
+    --canon-theme-green-400: #4ade80;
+    --canon-theme-green-500: #22c55e;
+    --canon-theme-green-600: #16a34a;
+    --canon-theme-green-700: #15803d;
+    --canon-theme-green-800: #166534;
+    --canon-theme-green-900: #14532d;
+    --canon-theme-green-950: #052e16;
+
+    --canon-theme-amber-50: #fffbeb;
+    --canon-theme-amber-100: #fef3c7;
+    --canon-theme-amber-200: #fde68a;
+    --canon-theme-amber-300: #fcd34d;
+    --canon-theme-amber-400: #fbbf24;
+    --canon-theme-amber-500: #f59e0b;
+    --canon-theme-amber-600: #d97706;
+    --canon-theme-amber-700: #b45309;
+    --canon-theme-amber-800: #92400e;
+    --canon-theme-amber-900: #78350f;
+    --canon-theme-amber-950: #451a03;
+
+    --canon-theme-red-50: #fef2f2;
+    --canon-theme-red-100: #fee2e2;
+    --canon-theme-red-200: #fecaca;
+    --canon-theme-red-300: #fca5a5;
+    --canon-theme-red-400: #f87171;
+    --canon-theme-red-500: #ef4444;
+    --canon-theme-red-600: #dc2626;
+    --canon-theme-red-700: #b91c1c;
+    --canon-theme-red-800: #991b1b;
+    --canon-theme-red-900: #7f1d1d;
+    --canon-theme-red-950: #450a0a;
+
+    /* The other hues, steps 300–700 (avatar colors). */
+    --canon-theme-sky-300: #7dd3fc;
+    --canon-theme-sky-400: #38bdf8;
+    --canon-theme-sky-500: #0ea5e9;
+    --canon-theme-sky-600: #0284c7;
+    --canon-theme-sky-700: #0369a1;
+    --canon-theme-cyan-300: #67e8f9;
+    --canon-theme-cyan-400: #22d3ee;
+    --canon-theme-cyan-500: #06b6d4;
+    --canon-theme-cyan-600: #0891b2;
+    --canon-theme-cyan-700: #0e7490;
+    --canon-theme-teal-300: #5eead4;
+    --canon-theme-teal-400: #2dd4bf;
+    --canon-theme-teal-500: #14b8a6;
+    --canon-theme-teal-600: #0d9488;
+    --canon-theme-teal-700: #0f766e;
+    --canon-theme-emerald-300: #6ee7b7;
+    --canon-theme-emerald-400: #34d399;
+    --canon-theme-emerald-500: #10b981;
+    --canon-theme-emerald-600: #059669;
+    --canon-theme-emerald-700: #047857;
+    --canon-theme-lime-300: #bef264;
+    --canon-theme-lime-400: #a3e635;
+    --canon-theme-lime-500: #84cc16;
+    --canon-theme-lime-600: #65a30d;
+    --canon-theme-lime-700: #4d7c0f;
+    --canon-theme-yellow-300: #fde047;
+    --canon-theme-yellow-400: #facc15;
+    --canon-theme-yellow-500: #eab308;
+    --canon-theme-yellow-600: #ca8a04;
+    --canon-theme-yellow-700: #a16207;
+    --canon-theme-orange-300: #fdba74;
+    --canon-theme-orange-400: #fb923c;
+    --canon-theme-orange-500: #f97316;
+    --canon-theme-orange-600: #ea580c;
+    --canon-theme-orange-700: #c2410c;
+    --canon-theme-rose-300: #fda4af;
+    --canon-theme-rose-400: #fb7185;
+    --canon-theme-rose-500: #f43f5e;
+    --canon-theme-rose-600: #e11d48;
+    --canon-theme-rose-700: #be123c;
+    --canon-theme-pink-300: #f9a8d4;
+    --canon-theme-pink-400: #f472b6;
+    --canon-theme-pink-500: #ec4899;
+    --canon-theme-pink-600: #db2777;
+    --canon-theme-pink-700: #be185d;
+    --canon-theme-fuchsia-300: #f0abfc;
+    --canon-theme-fuchsia-400: #e879f9;
+    --canon-theme-fuchsia-500: #d946ef;
+    --canon-theme-fuchsia-600: #c026d3;
+    --canon-theme-fuchsia-700: #a21caf;
+    --canon-theme-purple-300: #d8b4fe;
+    --canon-theme-purple-400: #c084fc;
+    --canon-theme-purple-500: #a855f7;
+    --canon-theme-purple-600: #9333ea;
+    --canon-theme-purple-700: #7e22ce;
+    --canon-theme-violet-300: #c4b5fd;
+    --canon-theme-violet-400: #a78bfa;
+    --canon-theme-violet-500: #8b5cf6;
+    --canon-theme-violet-600: #7c3aed;
+    --canon-theme-violet-700: #6d28d9;
+    --canon-theme-indigo-300: #a5b4fc;
+    --canon-theme-indigo-400: #818cf8;
+    --canon-theme-indigo-500: #6366f1;
+    --canon-theme-indigo-600: #4f46e5;
+    --canon-theme-indigo-700: #4338ca;
+  }
+
+  :root {
+    color-scheme: light dark;
+
+    --canon-theme-ink: light-dark(var(--canon-theme-zinc-950), var(--canon-theme-zinc-50));
+    --canon-theme-paper: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-950));
+    --canon-theme-success: light-dark(var(--canon-theme-green-700), var(--canon-theme-green-400));
+    --canon-theme-warning: light-dark(var(--canon-theme-amber-700), var(--canon-theme-amber-400));
+    --canon-theme-danger: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));
+    --canon-theme-focus: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    /* The gap between a focus ring and what it surrounds. */
+    --canon-theme-ring-offset: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    /* Lines and depth. A hairline is one device pixel on sharp screens
+       (0.5px at 2x and up) and 1px elsewhere. Line colors are see-through,
+       so a line reads the same on white, tints and stripes: the edge of
+       what floats, a rule between parts, a faint rule for the shell. */
+    --canon-theme-hairline: 1px;
+    --canon-theme-edge: light-dark(rgb(0 0 0 / 0.12), rgb(255 255 255 / 0.12));
+    --canon-theme-rule: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+    --canon-theme-rule-faint: light-dark(rgb(0 0 0 / 0.07), rgb(255 255 255 / 0.08));
+    /* Three heights: raised (resting on the page), floating (menus,
+       popovers, lists, toasts), overlay (dialogs, drawers). */
+    --canon-theme-shadow-raised: 0 1px 2px light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.3)), 0 1px 3px light-dark(rgb(0 0 0 / 0.04), rgb(0 0 0 / 0.2));
+    --canon-theme-shadow-floating: 0 8px 24px light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.5)), 0 2px 6px light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.3));
+    /* A control's lift: under framed controls you click or type in (low
+       Buttons, Button Groups, text fields), gone while pressed. */
+    --canon-theme-shadow-control: 0 1px 2px light-dark(rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.3));
+    --canon-theme-shadow-overlay: 0 24px 48px -12px light-dark(rgb(0 0 0 / 0.18), rgb(0 0 0 / 0.6)), 0 4px 12px light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.3));
+    /* Code's face. Characters show as typed: no ligatures, and none of
+       Inter's alternates (they change JetBrains Mono's letters too). */
+    --canon-theme-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    /* sm 32 · md 40 · lg 48 */
+    --canon-control-block-size-sm: 2rem;
+    --canon-control-block-size-md: 2.5rem;
+    --canon-control-block-size-lg: 3rem;
+    --canon-control-padding-inline-sm: 0.5rem;
+    --canon-control-padding-inline-md: 0.625rem;
+    --canon-control-padding-inline-lg: 0.75rem;
+    --canon-control-font-size-sm: 0.75rem;
+    --canon-control-font-size-md: 0.875rem;
+    --canon-control-font-size-lg: 1rem;
+    --canon-control-gap-sm: 0.375rem;
+    --canon-control-gap-md: 0.5rem;
+    --canon-control-gap-lg: 0.625rem;
+    --canon-icon-size-sm: 1rem;
+    --canon-icon-size-md: 1.25rem;
+    --canon-icon-size-lg: 1.5rem;
+
+    background-color: var(--canon-theme-paper);
+    color: var(--canon-theme-ink);
+    font-family: InterVariable, Inter, ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01" on, "cv11" on, "cv04" on, "cv03" on, "cv02" on;
+  }
+  @media (min-resolution: 2dppx) {
+    :root { --canon-theme-hairline: 0.5px; }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Icons: Lucide, drawn as masks filled with currentColor. Stroke 1.5  */
+  /* at every size.                                */
+  /* ------------------------------------------------------------------ */
+
+  .canon-icon {
+    background-color: currentColor;
+    mask: var(--canon-theme-icon) center / contain no-repeat;
+  }
+
+  [data-icon="plus"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/><path d='M12 5v14'/></svg>"); }
+  [data-icon="minus"]         { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/></svg>"); }
+  [data-icon="arrow-forward"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14'/><path d='m12 5 7 7-7 7'/></svg>"); }
+  [data-icon="arrow-back"]    { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m12 19-7-7 7-7'/><path d='M19 12H5'/></svg>"); }
+  [data-icon="download"]      { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 17V3'/><path d='m6 11 6 6 6-6'/><path d='M19 21H5'/></svg>"); }
+  [data-icon="trash"]         { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/><line x1='10' x2='10' y1='11' y2='17'/><line x1='14' x2='14' y1='11' y2='17'/></svg>"); }
+  [data-icon="settings"]      { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z'/><circle cx='12' cy='12' r='3'/></svg>"); }
+  [data-icon="bold"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M14 12a4 4 0 0 0 0-8H6v8'/><path d='M15 20a4 4 0 0 0 0-8H6v8Z'/></svg>"); }
+  [data-icon="italic"]        { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='19' x2='10' y1='4' y2='4'/><line x1='14' x2='5' y1='20' y2='20'/><line x1='15' x2='9' y1='4' y2='20'/></svg>"); }
+  [data-icon="undo"]            { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M9 14 4 9l5-5'/><path d='M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11'/></svg>"); }
+  [data-icon="redo"]            { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m15 14 5-5-5-5'/><path d='M20 9H9.5A5.5 5.5 0 0 0 4 14.5A5.5 5.5 0 0 0 9.5 20H13'/></svg>"); }
+  [data-icon="text-cursor"]     { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1'/><path d='M7 22h1a4 4 0 0 0 4-4v-1'/><path d='M7 2h1a4 4 0 0 1 4 4v1'/></svg>"); }
+  [data-icon="baseline"]        { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20h16'/><path d='m6 16 6-12 6 12'/><path d='M8 12h8'/></svg>"); }
+  [data-icon="eraser"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21'/><path d='M22 21H7'/><path d='m5 11 9 9'/></svg>"); }
+  [data-icon="subscript"]       { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m4 5 8 8'/><path d='m12 5-8 8'/><path d='M20 19h-4c0-1.5.44-2 1.5-2.5S20 15.33 20 14c0-.47-.17-.93-.48-1.29a2.11 2.11 0 0 0-2.62-.44c-.42.24-.74.62-.9 1.07'/></svg>"); }
+  [data-icon="superscript"]     { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m4 19 8-8'/><path d='m12 19-8-8'/><path d='M20 12h-4c0-1.5.442-2 1.5-2.5S20 8.334 20 7.002c0-.472-.17-.93-.484-1.29a2.105 2.105 0 0 0-2.617-.436c-.42.239-.738.614-.899 1.06'/></svg>"); }
+  [data-icon="list-ordered"]    { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 12h11'/><path d='M10 18h11'/><path d='M10 6h11'/><path d='M4 10h2'/><path d='M4 6h1v4'/><path d='M6 18H4c0-1 2-2 2-3s-1-1.5-2-1'/></svg>"); }
+  [data-icon="list"]            { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12h.01'/><path d='M3 18h.01'/><path d='M3 6h.01'/><path d='M8 12h13'/><path d='M8 18h13'/><path d='M8 6h13'/></svg>"); }
+  [data-icon="indent-decrease"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12H11'/><path d='M21 18H11'/><path d='M21 6H11'/><path d='m7 8-4 4 4 4'/></svg>"); }
+  [data-icon="indent-increase"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12H11'/><path d='M21 18H11'/><path d='M21 6H11'/><path d='m3 8 4 4-4 4'/></svg>"); }
+  [data-icon="house"]         { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8'/><path d='M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/></svg>"); }
+  [data-icon="underline"]     { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 4v6a6 6 0 0 0 12 0V4'/><line x1='4' x2='20' y1='20' y2='20'/></svg>"); }
+  [data-icon="strikethrough"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M16 4H9a3 3 0 0 0-2.83 4'/><path d='M14 12a4 4 0 0 1 0 8H6'/><line x1='4' x2='20' y1='12' y2='12'/></svg>"); }
+  [data-icon="align-start"]   { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 12H3'/><path d='M17 18H3'/><path d='M21 6H3'/></svg>"); }
+  [data-icon="align-center"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M17 12H7'/><path d='M19 18H5'/><path d='M21 6H3'/></svg>"); }
+  [data-icon="align-end"]     { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12H9'/><path d='M21 18H7'/><path d='M21 6H3'/></svg>"); }
+  [data-icon="align-justify"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12h18'/><path d='M3 18h18'/><path d='M3 6h18'/></svg>"); }
+  [data-icon="link"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>"); }
+  [data-icon="refresh"]       { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/><path d='M21 3v5h-5'/><path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/><path d='M8 16H3v5'/></svg>"); }
+  [data-icon="star"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>"); }
+  [data-icon="pin"]           { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'/><path d='M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z'/></svg>"); }
+  [data-icon="more"]          { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='1'/><circle cx='19' cy='12' r='1'/><circle cx='5' cy='12' r='1'/></svg>"); }
+  [data-icon="square-chevron-left"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='m14 16-4-4 4-4'/></svg>"); }
+  [data-icon="square-chevron-right"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='m10 8 4 4-4 4'/></svg>"); }
+  [data-icon="chevron-left"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m15 18-6-6 6-6'/></svg>"); }
+  [data-icon="chevron-right"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m9 18 6-6-6-6'/></svg>"); }
+  [data-icon="table"]         { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3v18'/><rect width='18' height='18' x='3' y='3' rx='2'/><path d='M3 9h18'/><path d='M3 15h18'/></svg>"); }
+  [data-icon="circle-alert"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' x2='12' y1='8' y2='12'/><line x1='12' x2='12.01' y1='16' y2='16'/></svg>"); }
+  [data-icon="receipt"]       { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z'/><path d='M16 8h-6'/><path d='M16 12h-6'/><path d='M16 16h-6'/></svg>"); }
+  [data-icon="external"]      { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>"); }
+  [data-icon="grip-vertical"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='12' r='1'/><circle cx='9' cy='5' r='1'/><circle cx='9' cy='19' r='1'/><circle cx='15' cy='12' r='1'/><circle cx='15' cy='5' r='1'/><circle cx='15' cy='19' r='1'/></svg>"); }
+  [data-icon="list-filter"]   { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18'/><path d='M7 12h10'/><path d='M10 18h4'/></svg>"); }
+  [data-icon="chevron-down"]  { --canon-theme-icon: var(--canon-theme-icon-chevron); }
+  [data-icon="chevron-up"]    { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m18 15-6-6-6 6'/></svg>"); }
+  [data-icon="chevrons-left"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m11 17-5-5 5-5'/><path d='m18 17-5-5 5-5'/></svg>"); }
+  [data-icon="chevrons-right"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m6 17 5-5-5-5'/><path d='m13 17 5-5-5-5'/></svg>"); }
+  [data-icon="calendar"]      { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M8 2v4'/><path d='M16 2v4'/><rect width='18' height='18' x='3' y='4' rx='2'/><path d='M3 10h18'/></svg>"); }
+
+  /* Icons components and pages use (each drawn as its mask). */
+  [data-icon="sun"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2'/><path d='M12 20v2'/><path d='m4.93 4.93 1.41 1.41'/><path d='m17.66 17.66 1.41 1.41'/><path d='M2 12h2'/><path d='M20 12h2'/><path d='m6.34 17.66-1.41 1.41'/><path d='m19.07 4.93-1.41 1.41'/></svg>"); }
+  [data-icon="pencil"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z'/><path d='m15 5 4 4'/></svg>"); }
+  [data-icon="circle-help"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><path d='M12 17h.01'/></svg>"); }
+  [data-icon="gauge"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m12 14 4-4'/><path d='M3.34 19a10 10 0 1 1 17.32 0'/></svg>"); }
+  [data-icon="square-kanban"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='M8 7v7'/><path d='M12 7v4'/><path d='M16 7v9'/></svg>"); }
+  [data-icon="building"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z'/><path d='M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2'/><path d='M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2'/><path d='M10 6h4'/><path d='M10 10h4'/><path d='M10 14h4'/><path d='M10 18h4'/></svg>"); }
+  [data-icon="book-user"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 13a3 3 0 1 0-6 0'/><path d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20'/><circle cx='12' cy='8' r='2'/></svg>"); }
+  [data-icon="inbox"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='22 12 16 12 14 15 10 15 8 12 2 12'/><path d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/></svg>"); }
+  [data-icon="crown"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z'/><path d='M5 21h14'/></svg>"); }
+  [data-icon="moon"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'/></svg>"); }
+  [data-icon="bell"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10.268 21a2 2 0 0 0 3.464 0'/><path d='M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326'/></svg>"); }
+  [data-icon="panel-left-close"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='M9 3v18'/><path d='m16 15-3-3 3-3'/></svg>"); }
+  [data-icon="panel-left-open"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2'/><path d='M9 3v18'/><path d='m14 9 3 3-3 3'/></svg>"); }
+  [data-icon="user"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='5'/><path d='M20 21a8 8 0 0 0-16 0'/></svg>"); }
+  [data-icon="log-out"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m16 17 5-5-5-5'/><path d='M21 12H9'/><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'/></svg>"); }
+  [data-icon="circle-check"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m9 12 2 2 4-4'/></svg>"); }
+  [data-icon="text-wrap"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m16 16-3 3 3 3'/><path d='M3 12h14.5a1 1 0 0 1 0 7H13'/><path d='M3 19h6'/><path d='M3 5h18'/></svg>"); }
+  [data-icon="mail"]   { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='20' height='16' x='2' y='4' rx='2'/><path d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/></svg>"); }
+  [data-icon="info"]   { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>"); }
+  [data-icon="tag"]    { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z'/><circle cx='7.5' cy='7.5' r='.5' fill='black'/></svg>"); }
+  [data-icon="search-x"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m13.5 8.5-5 5'/><path d='m8.5 8.5 5 5'/><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>"); }
+  [data-icon="loader"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12a9 9 0 1 1-6.219-8.56'/></svg>"); }
+  [data-icon="search"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>"); }
+  [data-icon="close"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18'/><path d='m6 6 12 12'/></svg>"); }
+  [data-icon="eye"]    { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'/><circle cx='12' cy='12' r='3'/></svg>"); }
+  [data-icon="copy"]   { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect width='14' height='14' x='8' y='8' rx='2' ry='2'/><path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'/></svg>"); }
+  [data-icon="globe"]  { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/><path d='M2 12h20'/></svg>"); }
+  [data-icon="sparkles"] { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z'/><path d='M20 3v4'/><path d='M22 5h-4'/><path d='M4 17v2'/><path d='M5 18H3'/></svg>"); }
+
+  /* Icons components draw themselves (status, checks, close), as
+     --canon-theme-icon-* masks. */
+  :root {
+    --canon-theme-icon-user-round: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='5'/><path d='M20 21a8 8 0 0 0-16 0'/></svg>");
+    --canon-theme-icon-users-round: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 21a8 8 0 0 0-16 0'/><circle cx='10' cy='8' r='5'/><path d='M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3'/></svg>");
+    --canon-theme-icon-bot: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 8V4H8'/><rect width='16' height='12' x='4' y='8' rx='2'/><path d='M2 14h2'/><path d='M20 14h2'/><path d='M15 13v2'/><path d='M9 13v2'/></svg>");
+    /* The checkbox's marks: Lucide square-check's check and a dash, drawn
+       on the 24px frame (stroke 1.5, so 1 / 1.25 / 1.5px at 16 / 20 / 24). */
+    --canon-theme-icon-checkbox-check: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m9 12 2 2 4-4'/></svg>");
+    --canon-theme-icon-checkbox-dash: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'><path d='M9 12h6'/></svg>");
+    --canon-theme-icon-pipette: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m2 22 1-1h3l9-9'/><path d='M3 21v-3l9-9'/><path d='m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z'/></svg>");
+    --canon-theme-icon-search: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><path d='m21 21-4.3-4.3'/></svg>");
+    --canon-theme-icon-info: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
+    --canon-theme-icon-chevron-right: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m9 18 6-6-6-6'/></svg>");
+    --canon-theme-icon-caps-lock: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M9 19h6'/><path d='M9 15v-3H5l7-7 7 7h-4v3H9z'/></svg>");
+    --canon-theme-icon-x: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18'/><path d='m6 6 12 12'/></svg>");
+    --canon-theme-icon-tick: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>");
+    --canon-theme-icon-circle-alert: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' x2='12' y1='8' y2='12'/><line x1='12' x2='12.01' y1='16' y2='16'/></svg>");
+    --canon-theme-icon-triangle-alert: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
+    --canon-theme-icon-circle-check: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m9 12 2 2 4-4'/></svg>");
+    --canon-theme-icon-trending-up: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M16 7h6v6'/><path d='m22 7-8.5 8.5-5-5L2 17'/></svg>");
+    --canon-theme-icon-trending-down: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M16 17h6v-6'/><path d='m22 17-8.5-8.5-5 5L2 7'/></svg>");
+    --canon-theme-icon-move-right: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 8l4 4-4 4'/><path d='M2 12h20'/></svg>");
+  }
+
+  /* System icons used by indicators. Not part of the author vocabulary. */
+  :root {
+    --canon-theme-icon-chevron: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
+    --canon-theme-icon-check: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>");
+    --canon-theme-icon-external: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></svg>");
+    --canon-theme-icon-ellipsis: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='1'/><circle cx='19' cy='12' r='1'/><circle cx='5' cy='12' r='1'/></svg>");
+    --canon-theme-icon-arrow-down-up: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m3 16 4 4 4-4'/><path d='M7 20V4'/><path d='m21 8-4-4-4 4'/><path d='M17 4v16'/></svg>");
+    --canon-theme-icon-arrow-up: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m5 12 7-7 7 7'/><path d='M12 19V5'/></svg>");
+    --canon-theme-icon-arrow-down: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 5v14'/><path d='m19 12-7 7-7-7'/></svg>");
+    --canon-theme-icon-list-filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 6h18'/><path d='M7 12h10'/><path d='M10 18h4'/></svg>");
+    --canon-theme-icon-pin: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='12' x2='12' y1='17' y2='22'/><path d='M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z'/></svg>");
+    --canon-theme-icon-loader: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12a9 9 0 1 1-6.219-8.56'/></svg>");
+    --canon-theme-icon-loader-track: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-opacity='0.2' stroke-width='1.5'><circle cx='12' cy='12' r='9'/></svg>");
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /*                                                                     */
+  /* Intent picks a hue; emphasis decides how much of it is              */
+  /* used. Each variant sets --canon-theme-bg / --canon-theme-fg / --canon-theme-border and its     */
+  /* hover and active backgrounds; the state rules only pick one.        */
+  /* ------------------------------------------------------------------ */
+
+  /* Size scale (sm / md / lg). The nearest data-size wins through
+     inheritance, like the control tokens. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-button-gap: 0.125rem;
+    --canon-theme-button-label-inset: 0.375rem;
+    --canon-theme-button-radius: 0.5rem;
+    --canon-theme-button-line-height: 1.25rem;
+    --canon-theme-button-tracking: -0.006em;
+    --canon-theme-button-kbd-padding-block: 0.125rem;
+    --canon-theme-button-kbd-padding-inline: 0.375rem;
+    --canon-theme-button-kbd-radius: 0.25rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-button-gap: 0.125rem;
+    --canon-theme-button-label-inset: 0.25rem;
+    --canon-theme-button-radius: 0.25rem;
+    --canon-theme-button-line-height: 1rem;
+    --canon-theme-button-tracking: -0.007em;
+    --canon-theme-button-kbd-padding-block: 0;
+    --canon-theme-button-kbd-padding-inline: 0.25rem;
+    --canon-theme-button-kbd-radius: 0.125rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-button-gap: 0px; /* a length: it is used in calc() */
+    --canon-theme-button-label-inset: 0.5rem;
+    --canon-theme-button-radius: 0.75rem;
+    --canon-theme-button-line-height: 1.5rem;
+    --canon-theme-button-tracking: -0.004em;
+    --canon-theme-button-kbd-padding-block: 0.25rem;
+    --canon-theme-button-kbd-padding-inline: 0.5rem;
+    --canon-theme-button-kbd-radius: 0.375rem;
+  }
+
+  /* Hue per intent. Without one, blue (the accent); neutral is zinc. */
+  .canon-button {
+    --canon-theme-tone-200: var(--canon-theme-blue-200);
+    --canon-theme-tone-300: var(--canon-theme-blue-300);
+    --canon-theme-tone-400: var(--canon-theme-blue-400);
+    --canon-theme-tone-500: var(--canon-theme-blue-500);
+    --canon-theme-tone-600: var(--canon-theme-blue-600);
+    --canon-theme-tone-700: var(--canon-theme-blue-700);
+  }
+  .canon-button[data-intent="success"] {
+    --canon-theme-tone-200: var(--canon-theme-green-200);
+    --canon-theme-tone-300: var(--canon-theme-green-300);
+    --canon-theme-tone-400: var(--canon-theme-green-400);
+    --canon-theme-tone-500: var(--canon-theme-green-500);
+    --canon-theme-tone-600: var(--canon-theme-green-600);
+    --canon-theme-tone-700: var(--canon-theme-green-700);
+  }
+  .canon-button[data-intent="warning"] {
+    --canon-theme-tone-200: var(--canon-theme-amber-200);
+    --canon-theme-tone-300: var(--canon-theme-amber-300);
+    --canon-theme-tone-400: var(--canon-theme-amber-400);
+    --canon-theme-tone-500: var(--canon-theme-amber-500);
+    --canon-theme-tone-600: var(--canon-theme-amber-600);
+    --canon-theme-tone-700: var(--canon-theme-amber-700);
+  }
+  .canon-button[data-intent="danger"] {
+    --canon-theme-tone-200: var(--canon-theme-red-200);
+    --canon-theme-tone-300: var(--canon-theme-red-300);
+    --canon-theme-tone-400: var(--canon-theme-red-400);
+    --canon-theme-tone-500: var(--canon-theme-red-500);
+    --canon-theme-tone-600: var(--canon-theme-red-600);
+    --canon-theme-tone-700: var(--canon-theme-red-700);
+  }
+  /* Neutral (data-intent="neutral"): zinc, no accent. Labels zinc-900
+     (dark zinc-100) at every emphasis but high, which is zinc-900 with a
+     white label (dark: white, a zinc-900 label), hover and pressing a
+     step lighter (dark darker). */
+  .canon-button[data-intent="neutral"] {
+    --canon-theme-tone-200: var(--canon-theme-zinc-200);
+    --canon-theme-tone-300: var(--canon-theme-zinc-300);
+    --canon-theme-tone-400: var(--canon-theme-zinc-400);
+    --canon-theme-tone-500: var(--canon-theme-zinc-500);
+    --canon-theme-tone-600: var(--canon-theme-zinc-600);
+    --canon-theme-tone-700: var(--canon-theme-zinc-700);
+    /* The low border is the inputs' line: a zinc tint would read grey on dark. */
+    --canon-theme-border-low: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+  }
+  .canon-button[data-intent="neutral"]:not([data-emphasis="high"], :disabled, [aria-disabled="true"]) {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-zinc-100));
+  }
+  /* Its icons zinc-500 (dark zinc-400); pressed, open or pressing, in the label's color. */
+  .canon-button[data-intent="neutral"]:not([data-emphasis="high"], :disabled, [aria-disabled="true"]) > .canon-icon {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-button[data-intent="neutral"]:is([aria-pressed="true"], [aria-expanded="true"], :active) > .canon-icon {
+    color: inherit;
+  }
+  .canon-button[data-intent="neutral"][data-emphasis="high"]:not(:disabled, [aria-disabled="true"]) {
+    --canon-theme-fg: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    --canon-theme-bg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --canon-theme-bg-hover: light-dark(var(--canon-theme-zinc-800), var(--canon-theme-zinc-200));
+    --canon-theme-bg-active: light-dark(var(--canon-theme-zinc-700), var(--canon-theme-zinc-300));
+  }
+
+  .canon-button {
+    /* Tint ladder: light uses tone-400, dark tone-500, at rising alphas. */
+    --canon-theme-tint-1: light-dark(color-mix(in srgb, var(--canon-theme-tone-400) 8%, transparent), color-mix(in srgb, var(--canon-theme-tone-500) 10%, transparent));
+    --canon-theme-tint-2: light-dark(color-mix(in srgb, var(--canon-theme-tone-400) 15%, transparent), color-mix(in srgb, var(--canon-theme-tone-500) 20%, transparent));
+    --canon-theme-tint-3: light-dark(color-mix(in srgb, var(--canon-theme-tone-400) 20%, transparent), color-mix(in srgb, var(--canon-theme-tone-500) 25%, transparent));
+    --canon-theme-tint-4: light-dark(color-mix(in srgb, var(--canon-theme-tone-400) 25%, transparent), color-mix(in srgb, var(--canon-theme-tone-500) 30%, transparent));
+    --canon-theme-ring: var(--canon-theme-focus); /* always blue, whatever the intent */
+    --canon-theme-ring-offset: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+
+    /* medium (default) */
+    --canon-theme-fg: light-dark(var(--canon-theme-tone-700), var(--canon-theme-tone-300));
+    --canon-theme-bg: var(--canon-theme-tint-2);
+    --canon-theme-bg-hover: var(--canon-theme-tint-3);
+    --canon-theme-bg-active: var(--canon-theme-tint-4);
+    --canon-theme-border: transparent;
+    /* low's border: tone-200 (dark tone-300 at 35%) */
+    --canon-theme-border-low: light-dark(var(--canon-theme-tone-200), color-mix(in srgb, var(--canon-theme-tone-300) 35%, transparent));
+
+    /* The 1px border is always there (transparent when unused), so every
+       emphasis has the same box. Padding is measured from the outer edge. */
+    align-items: flex-start;
+    gap: var(--canon-theme-button-gap);
+    padding-block: max(0px, calc((var(--canon-control-block-size) - 1lh) / 2 - 1px));
+    padding-inline: calc(var(--canon-control-padding-inline) - 1px);
+    border: 1px solid var(--canon-theme-border);
+    border-radius: var(--canon-theme-button-radius);
+    background-color: var(--canon-theme-bg);
+    color: var(--canon-theme-fg);
+    font-weight: 500;
+    line-height: var(--canon-theme-button-line-height);
+    letter-spacing: var(--canon-theme-button-tracking);
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s, scale 0.1s ease-out;
+  }
+
+  .canon-button-label {
+    padding-inline: var(--canon-theme-button-label-inset);
+    text-align: start;
+  }
+
+  .canon-button[data-emphasis="high"] {
+    --canon-theme-fg: var(--canon-theme-white);
+    --canon-theme-bg: var(--canon-theme-tone-600);
+    --canon-theme-bg-hover: var(--canon-theme-tone-500);
+    --canon-theme-bg-active: var(--canon-theme-tone-700);
+  }
+
+  .canon-button[data-emphasis="low"] {
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--canon-theme-tint-1);
+    --canon-theme-bg-active: var(--canon-theme-tint-2);
+    --canon-theme-border: var(--canon-theme-border-low);
+    box-shadow: var(--canon-theme-shadow-control);
+  }
+  .canon-button[data-emphasis="low"]:not(.canon-button-group > *):active:not(:focus-visible) {
+    box-shadow: none;
+  }
+
+  .canon-button[data-emphasis="minimal"] {
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--canon-theme-tint-1);
+    --canon-theme-bg-active: var(--canon-theme-tint-2);
+  }
+
+  /* Focus shows the hover background plus a 1px ring 2px out. */
+  .canon-button:focus-visible:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-bg-hover);
+  }
+  @media (hover: hover) {
+    .canon-button:hover:not(:disabled, [aria-disabled="true"]) {
+      background-color: var(--canon-theme-bg-hover);
+    }
+  }
+  .canon-button:active:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-bg-active);
+  }
+  /* Pressed, a button with words gives a little (98%). Not icon buttons
+     (too small to see it), nor the joined halves of a group or a Split
+     Button, whose edges must meet. */
+  .canon-button:active:not(:disabled, [aria-disabled="true"], [data-display="icon"], [data-display="icon"] *, .canon-button-group > *, .canon-split-button > *) {
+    scale: 0.98;
+  }
+  .canon-button:focus-visible {
+    outline: 2px solid transparent; /* shows in forced colors, where shadows don't */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-ring);
+  }
+
+  /* Icon-only: square. Applies whether the hint is on the button or a container. */
+  .canon-button:where([data-display="icon"], [data-display="icon"] *) {
+    min-inline-size: var(--canon-control-block-size);
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* States                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Disabled: grey whatever the intent. A loading button keeps its
+     colors even though it is aria-disabled. */
+  .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    --canon-theme-bg: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+    --canon-theme-border: transparent;
+  }
+  .canon-button[data-emphasis="low"]:not(.canon-button-group > *):is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+    --canon-theme-bg: transparent;
+    box-shadow: none;
+    --canon-theme-border: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+  }
+  .canon-button[data-emphasis="minimal"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+    --canon-theme-bg: transparent;
+  }
+
+  /* Pressed and current page: held at the active background. */
+  .canon-button:is([aria-pressed="true"], [aria-current="page"]):not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-bg-active);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Indicators (derived from behavior attributes)                       */
+  /* ------------------------------------------------------------------ */
+
+  .canon-button[aria-haspopup]::after,
+  a.canon-button[target="_blank"]::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-indicator) center / contain no-repeat;
+  }
+
+  .canon-button[aria-haspopup] {
+    --canon-theme-indicator: var(--canon-theme-icon-chevron);
+  }
+  .canon-button[aria-haspopup]::after {
+    transition: rotate 0.15s;
+  }
+  .canon-button[aria-haspopup][aria-expanded="true"]::after {
+    rotate: 180deg;
+  }
+
+  /* This theme drops the menu indicator on icon-only buttons. */
+  .canon-button[aria-haspopup]:where([data-display="icon"], [data-display="icon"] *)::after {
+    content: none;
+  }
+
+  a.canon-button[target="_blank"] {
+    --canon-theme-indicator: var(--canon-theme-icon-external);
+  }
+  a.canon-button[target="_blank"]::after {
+    content: "" / var(--canon-text-opens-in-new-tab);
+    scale: 0.8;
+  }
+
+  /* Loading: the Spinner's ring (Lucide's loader-circle over a faint
+     full ring) replaces the leading icon. */
+  .canon-button[aria-busy="true"]::before {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-loader) center / contain no-repeat, var(--canon-theme-icon-loader-track) center / contain no-repeat;
+    animation: canon-spin 0.8s linear infinite;
+  }
+  .canon-button[aria-busy="true"] > .canon-icon:first-child {
+    display: none;
+  }
+
+  @keyframes canon-spin {
+    to { rotate: 1turn; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-button[aria-busy="true"]::before {
+      animation-duration: 2.4s;
+    }
+    .canon-button,
+    .canon-button[aria-haspopup]::after {
+      transition: none;
+    }
+    .canon-button:active {
+      scale: none;
+    }
+  }
+}
+
+@layer canon.theme {
+  /* --canon-copy confirmation and visible-password state. The check pops
+     in (from 50%, faded, 0.2s); the copy icon comes back at once. */
+  .canon-button[data-state="copied"] [data-icon="copy"] {
+    animation: canon-icon-pop 0.2s ease-out;
+    --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>");
+  }
+  @keyframes canon-icon-pop {
+    from { opacity: 0; scale: 0.5; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-button[data-state="copied"] [data-icon="copy"] { animation: none; }
+  }
+  .canon-button[aria-pressed="true"] [data-icon="eye"] {
+    --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49'/><path d='M14.084 14.158a3 3 0 0 1-4.242-4.242'/><path d='M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143'/><path d='m2 2 20 20'/></svg>");
+  }
+}

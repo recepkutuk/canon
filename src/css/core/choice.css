@@ -1,0 +1,127 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Choice: checkbox, radio, switch                                     */
+  /*                                                                     */
+  /* A grid like Field: the input, then the label beside it, hint and    */
+  /* message under the label. The input draws itself (appearance: none); */
+  /* its indicator (check, dash, dot, thumb) is the theme's, from state. */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-choice) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "control label"
+      ".       hint"
+      ".       message";
+    column-gap: var(--canon-choice-gap, 0.5em);
+    row-gap: 0;
+    align-content: start;
+    align-items: start;
+    justify-items: start;
+    min-inline-size: 0;
+  }
+
+  /* Themes size the input with --canon-choice-control-size (and
+     --canon-choice-control-inline-size for a switch track). The input and
+     the label's first line center on each other, whichever is taller:
+     themes put the label's typography on canon-choice so 1lh matches. */
+  :where(.canon-choice) > :where(input) {
+    grid-area: control;
+    position: relative;
+    box-sizing: border-box;
+    inline-size: var(--canon-choice-control-inline-size, var(--canon-choice-control-size, 1em));
+    block-size: var(--canon-choice-control-size, 1em);
+    margin: 0;
+    margin-block-start: max(0px, (1lh - var(--canon-choice-control-size, 1em)) / 2);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    appearance: none;
+    cursor: pointer;
+  }
+  :where(.canon-choice) > :where(input)::before,
+  :where(.canon-choice) > :where(input)::after {
+    pointer-events: none;
+  }
+
+  :where(.canon-choice-label) {
+    grid-area: label;
+    margin: 0;
+    margin-block-start: max(0px, (var(--canon-choice-control-size, 1em) - 1lh) / 2);
+    cursor: pointer;
+  }
+  :where(.canon-choice-hint)    { grid-area: hint; margin: 0; }
+  :where(.canon-choice-message) { grid-area: message; margin: 0; }
+  :where(.canon-choice-message):empty { display: none; }
+
+  /* State text (switch only, optional): the author's words for off and
+     on. The label moves above and stays the switch's name; the words take
+     its place beside the switch, one at a time. They are aria-hidden:
+     assistive tech already hears the state. canon.js makes a click on
+     them toggle the switch, as a label would. */
+  :where(.canon-choice:has(> .canon-choice-state)) {
+    grid-template-areas:
+      "label   label"
+      "hint    hint"
+      "control state"
+      "message message";
+  }
+  :where(.canon-choice:has(> .canon-choice-state)) > :where(.canon-choice-label) {
+    margin-block-start: 0;
+  }
+  :where(.canon-choice-state) {
+    grid-area: state;
+    margin-block-start: max(0px, (var(--canon-choice-control-size, 1em) - 1lh) / 2);
+    cursor: pointer;
+    user-select: none;
+  }
+  :where(.canon-choice:has(> input:checked)) > :where(.canon-choice-state) > :where(.canon-choice-state-off),
+  :where(.canon-choice:not(:has(> input:checked))) > :where(.canon-choice-state) > :where(.canon-choice-state-on) {
+    display: none;
+  }
+
+  :where(.canon-choice):has(> :disabled) :where(input, .canon-choice-label, .canon-choice-state) {
+    cursor: not-allowed;
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Fieldset                                                            */
+  /*                                                                     */
+  /* Groups choices (and fields). A wrapping flex row: legend, hint and  */
+  /* message take a full line each; items too, unless the group is      */
+  /* horizontal. The legend is floated, which makes it an ordinary flex  */
+  /* item instead of a "rendered legend" drawn in the border, so themes  */
+  /* can order and space it like any other slot.                         */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-fieldset) {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    column-gap: var(--canon-fieldset-gap-inline, 1.5rem);
+    row-gap: 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  :where(.canon-fieldset) > * {
+    flex: 1 1 100%;
+    min-inline-size: 0;
+  }
+  :where(.canon-fieldset-legend) {
+    float: inline-start;
+    margin: 0;
+    padding: 0;
+  }
+  :where(.canon-fieldset-hint, .canon-fieldset-message) { margin: 0; }
+  :where(.canon-fieldset-message):empty { display: none; }
+}

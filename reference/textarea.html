@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Textarea reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Textarea</h1>
+  <p class="ref-note">Text that runs over several lines: a native <code>&lt;textarea&gt;</code> in a box that looks like a <a href="text-input.html">Text Input</a>. It can stay at a fixed height, grow as people type, and let them resize it. Specification: <a href="../docs/components/textarea.md">docs/components/textarea.md</a>.</p>
+  <p class="ref-note">The textareas on this page stand alone, so each is named with <code>aria-label</code>. With a visible label, a textarea is part of a <a href="field.html">Field</a>.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the box or any container. One row is exactly as tall as a text input of the same size; the text sits where a text input's does.</p>
+
+    <h3>sm</h3>
+    <div class="ref-input-grid">
+      <div class="canon-textarea" data-size="sm">
+        <textarea name="one-row" aria-label="One row" rows="1" placeholder="One row"></textarea>
+      </div>
+      <div class="canon-textarea" data-size="sm">
+        <textarea name="three-rows" aria-label="Three rows" rows="3" placeholder="Three rows"></textarea>
+      </div>
+    </div>
+
+    <h3>md</h3>
+    <div class="ref-input-grid">
+      <div class="canon-textarea" data-size="md">
+        <textarea name="one-row" aria-label="One row" rows="1" placeholder="One row"></textarea>
+      </div>
+      <div class="canon-textarea" data-size="md">
+        <textarea name="three-rows" aria-label="Three rows" rows="3" placeholder="Three rows"></textarea>
+      </div>
+    </div>
+
+    <h3>lg</h3>
+    <div class="ref-input-grid">
+      <div class="canon-textarea" data-size="lg">
+        <textarea name="one-row" aria-label="One row" rows="1" placeholder="One row"></textarea>
+      </div>
+      <div class="canon-textarea" data-size="lg">
+        <textarea name="three-rows" aria-label="Three rows" rows="3" placeholder="Three rows"></textarea>
+      </div>
+    </div>
+
+    <h3>Without data-size</h3>
+    <div class="ref-input-grid">
+      <div class="canon-textarea">
+        <textarea name="one-row" aria-label="One row" rows="1" placeholder="One row"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="three-rows" aria-label="Three rows" rows="3" placeholder="Three rows"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="height">
+    <h2>Height</h2>
+    <p class="ref-note"><code>rows</code> is the height to start from. Without <code>data-max-lines</code> the textarea stays at that height and scrolls. With it, the textarea grows as people type, up to that many lines (<code>"none"</code>: no limit), then scrolls. Type into each one to see it.</p>
+    <div class="ref-input-grid">
+      <div class="canon-textarea">
+        <textarea name="fixed" aria-label="Fixed at 3 rows" rows="3" placeholder="Fixed at 3 rows"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="grows" aria-label="Grows from 2 to 5 lines" rows="2" data-max-lines="5" placeholder="Grows from 2 to 5 lines"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="unbounded" aria-label="Grows without limit" rows="2" data-max-lines="none" placeholder="Grows without limit"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="one-line" aria-label="Starts at one line" rows="1" data-max-lines="4" placeholder="Starts at one line, grows to 4"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="resize">
+    <h2>Resize</h2>
+    <p class="ref-note"><code>data-resize="vertical"</code> lets people drag the corner to make it taller; <code>"none"</code> doesn't. Without it, the theme decides (this one: no handle). Once someone drags it, their height wins over growing.</p>
+    <div class="ref-input-grid">
+      <div class="canon-textarea">
+        <textarea name="resize" aria-label="Vertical resize" rows="3" data-resize="vertical" placeholder="Drag the corner"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="no-resize" aria-label="No resize" rows="3" data-resize="none" placeholder="No handle"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Text Input's states. Error is <code>aria-invalid="true"</code> on the textarea; warning and success are <code>data-intent</code> on the box (in a <a href="field.html">Field</a>, its message sets them). Disabled and read-only are native.</p>
+    <div class="ref-input-grid">
+      <div class="canon-textarea">
+        <textarea name="default" aria-label="Default" rows="2">Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="error" aria-label="Error" rows="2" aria-invalid="true">Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea" data-intent="warning">
+        <textarea name="warning" aria-label="Warning" rows="2">Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea" data-intent="success">
+        <textarea name="success" aria-label="Success" rows="2">Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="disabled" aria-label="Disabled" rows="2" disabled>Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="read-only" aria-label="Read-only" rows="2" readonly>Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="disabled-error" aria-label="Disabled with an error" rows="2" disabled aria-invalid="true">Text over
+two lines</textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="required" aria-label="Required" rows="2" required placeholder="Required: leave it empty and click outside"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="native">
+    <h2>Native attributes</h2>
+    <p class="ref-note">The browser's own attributes cover the rest: <code>maxlength</code> for a limit, <code>wrap="off"</code> for lines that don't wrap, <code>spellcheck="false"</code>, <code>autocapitalize</code> and <code>enterkeyhint</code>.</p>
+    <div class="ref-input-grid">
+      <div class="canon-textarea">
+        <textarea name="limit" aria-label="Up to 140 characters" rows="3" maxlength="140" placeholder="Up to 140 characters"></textarea>
+      </div>
+      <div class="canon-textarea">
+        <textarea name="code" aria-label="Command" rows="3" wrap="off" spellcheck="false" autocapitalize="off">npm install --save-dev @acme/ui-theme --registry https://registry.example.com</textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <div class="ref-input-grid" dir="rtl" lang="ar">
+      <div class="canon-textarea">
+        <textarea name="ملاحظات" aria-label="ملاحظات" rows="3" data-resize="vertical">ملاحظة قصيرة على سطرين،
+والثاني هنا.</textarea>
+      </div>
+    </div>
+
+    <h3>Long words and a scrolling textarea in a narrow box</h3>
+    <p class="ref-note">A word longer than the box breaks rather than widening it; past its height, the textarea scrolls inside the frame.</p>
+    <div class="ref-narrow">
+      <div class="canon-textarea">
+        <textarea name="narrow" aria-label="Narrow" rows="3">https://example.com/a/very/long/address/that/does/not/fit/on/one/line and then some more text so that it needs to scroll past three lines in this narrow box.</textarea>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

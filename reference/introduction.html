@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Introduction</title>
+  <meta name="description" content="Canon: 68 accessible, plain-HTML components and 4 patterns for internal tools.">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+    <script src="../js/canon.js" defer></script>
+    <script src="landing.js" defer></script>
+</head>
+<body>
+<main class="ref-page ref-landing">
+
+  <!-- The first screen: the name, then a frame of working components around
+       the claim (slots 1 to 10, clockwise from the top left). -->
+  <section class="ref-l-hero" aria-labelledby="l-title">
+    <h1 id="l-title">Canon</h1>
+    <div class="ref-l-frame">
+      <div class="ref-l-cell" inert data-slot="1"><div class="canon-segmented" role="radiogroup" aria-label="Calendar view" data-size="sm"><label class="canon-segmented-option"><input type="radio" name="hb-view" value="week" checked><span class="canon-segmented-label">Week</span></label><label class="canon-segmented-option"><input type="radio" name="hb-view" value="month"><span class="canon-segmented-label">Month</span></label></div></div>
+      <div class="ref-l-cell" inert data-slot="2"><div class="canon-avatar-group" role="group" aria-label="Project members" data-size="sm" data-density="compact"><span class="canon-avatar" data-seed="0"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="" width="32" height="32"><span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span></span><span class="canon-avatar" data-seed="1"><span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span></span><span class="canon-avatar" data-seed="2"><span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span></span><span class="canon-avatar" data-seed="3"><span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span></span></div></div>
+      <div class="ref-l-cell" inert data-slot="3"><div class="canon-choice"><input type="checkbox" role="switch" id="hb-switch" checked><label class="canon-choice-label" for="hb-switch">Alerts</label></div></div>
+      <div class="ref-l-cell" inert data-slot="4"><button type="button" class="canon-button" data-emphasis="high" data-size="sm"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">Add</span></button></div>
+      <div class="ref-l-cell" inert data-slot="10"><div class="canon-number" data-size="sm"><button type="button" class="canon-button" data-display="icon" commandfor="hb-guests" command="--canon-step-down"><span class="canon-icon" data-icon="minus" aria-hidden="true"></span><span class="canon-button-label">Fewer guests</span></button><input type="number" id="hb-guests" aria-label="Guests" value="2" min="0" max="9"><button type="button" class="canon-button" data-display="icon" commandfor="hb-guests" command="--canon-step-up"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">More guests</span></button></div></div>
+      <div class="ref-l-claim">
+        <p>Component library for internal tools: tables, forms, records.</p>
+        <p><strong>The markup is the contract.</strong></p>
+      </div>
+      <div class="ref-l-cell" inert data-slot="5"><div class="canon-otp" data-size="sm"><input type="text" aria-label="Sign-in code" inputmode="numeric" autocomplete="one-time-code" maxlength="4" value="2794"></div></div>
+      <div class="ref-l-cell" inert data-slot="9"><div class="canon-time" data-size="sm" lang="en-GB"><input type="time" id="hb-time" aria-label="Starts at" value="09:30"></div></div>
+      <div class="ref-l-cell" inert data-slot="8"><div class="canon-field ref-l-wide"><div class="canon-control"><input type="range" id="hb-slider" aria-label="Opacity" min="0" max="100" value="64"><output class="canon-control-value" for="hb-slider" aria-hidden="true">64</output></div></div></div>
+      <div class="ref-l-cell" inert data-slot="7"><span class="canon-tag" data-intent="warning" id="hb-tag"><span class="canon-tag-label">Pending</span></span></div>
+      <div class="ref-l-cell" inert data-slot="6"><div class="canon-swatches" role="radiogroup" aria-label="Label color" data-size="sm" data-collapse><input type="radio" name="hb-swatch" value="#3b82f6" aria-label="Blue" checked><input type="radio" name="hb-swatch" value="#22c55e" aria-label="Green"><input type="radio" name="hb-swatch" value="#f97316" aria-label="Orange"><input type="radio" name="hb-swatch" value="#ef4444" aria-label="Red"><input type="radio" name="hb-swatch" value="#a855f7" aria-label="Purple"></div></div>
+    </div>
+  </section>
+
+  <!-- Why Canon: what it believes, in a lead and four lines; untitled, no rule over it. -->
+  <section class="ref-l-row ref-l-why" aria-label="Why Canon">
+    <div>
+      <p class="ref-l-lead">Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both.</p>
+      <ol class="ref-l-beliefs">
+        <li><h3>Write it once, keep it</h3><p>A <code>&lt;button&gt;</code> written today still works in ten years. Canon is unopinionated about your stack and your look: it's markup, so it works with whatever renders it and outlives the framework of the moment.</p></li>
+        <li><h3>Accessible by nature</h3><p>This is where Canon is opinionated: names, roles, focus and keys are part of each component's markup. No one has to remember them, and no theme can lose them.</p></li>
+        <li><h3>Less JavaScript every year</h3><p>Browsers keep doing more on their own. Canon uses what they do, and its script steps back as they catch up.</p></li>
+        <li><h3>Works the way you expect</h3><p>A table should read like a table, a form should never lose what was typed, and the keyboard should always work.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- What the markup gives you: a story in three chapters that plays
+       while it's in view (and pauses while someone is in it); its steps
+       jump to a chapter. Without JavaScript, the chapters read in turn. -->
+  <section class="ref-l-row ref-l-story" aria-labelledby="l-story">
+    <header class="ref-l-label"><h2 id="l-story">What the markup gives you</h2></header>
+    <ol class="ref-l-steps">
+          <li><button type="button" class="ref-l-step" data-chapter="1" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">You write the markup</span></button></li>
+          <li><button type="button" class="ref-l-step" data-chapter="2" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">Names come with it</span></button></li>
+          <li><button type="button" class="ref-l-step" data-chapter="3" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">Keys and state come with it</span></button></li>
+    </ol>
+    <div class="ref-l-story-text">
+          <p data-chapter="1">A radio group: plain HTML, the classes and attributes the Segmented Control page shows.</p>
+          <p data-chapter="2"><code>aria-label</code> names the group and each label names its option, so a screen reader says where you are.</p>
+          <p data-chapter="3">The arrow keys choose, and the indicator slides to the new option. The browser and Canon keep the state; no code of yours.</p>
+    </div>
+    <div class="ref-l-story-work" id="l-story-stage">
+      <pre class="ref-l-source" aria-label="The segmented control's markup"><code><span class="ref-l-line" data-chapters="1 2"><span class="t-p">&lt;</span><span class="t-t">div</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented&quot;</span> <span class="t-a">role</span>=<span class="t-s">&quot;radiogroup&quot;</span></span><span class="ref-l-line" data-chapters="1 2">     <span class="t-a">aria-label</span>=<span class="t-s">&quot;Calendar view&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 3">    <span class="t-p">&lt;</span><span class="t-t">input</span> <span class="t-a">type</span>=<span class="t-s">&quot;radio&quot;</span> <span class="t-a">name</span>=<span class="t-s">&quot;view&quot;</span> <span class="t-a">value</span>=<span class="t-s">&quot;day&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 2">    <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-label&quot;</span><span class="t-p">&gt;</span>Day<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 3">    <span class="t-p">&lt;</span><span class="t-t">input</span> <span class="t-a">type</span>=<span class="t-s">&quot;radio&quot;</span> <span class="t-a">name</span>=<span class="t-s">&quot;view&quot;</span> <span class="t-a">value</span>=<span class="t-s">&quot;week&quot;</span> <span class="t-a">checked</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 2">    <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-label&quot;</span><span class="t-p">&gt;</span>Week<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span>…Month…<span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1"><span class="t-p">&lt;/</span><span class="t-t">div</span><span class="t-p">&gt;</span></span></code></pre>
+      <div class="ref-l-stage">
+        <div class="ref-l-host">
+          <div class="canon-segmented" role="radiogroup" aria-label="Calendar view" id="land-view">
+            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Day"><span class="canon-segmented-label">Day</span></label>
+            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Week" checked><span class="canon-segmented-label">Week</span></label>
+            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Month"><span class="canon-segmented-label">Month</span></label>
+          </div>
+        </div>
+        <p class="ref-l-heard" aria-hidden="true"><span>Heard</span> <span class="ref-l-heard-text">radio button, Week, 2 of 3, Calendar view</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What needs JavaScript: a cell for each component, by tier. -->
+  <section class="ref-l-row ref-l-tiers" aria-labelledby="l-tiers">
+    <header class="ref-l-label"><h2 id="l-tiers">Without JavaScript</h2></header>
+    <div>
+      <p class="ref-l-figure"><span>67</span> of 68 components work without it.</p>
+      <p class="ref-l-text">Each component's specification gives its tier, from T0 to T3: what it does with HTML and CSS alone, and what canon.js adds. When a script doesn't load, the page still works.</p>
+      <div class="ref-l-tally">
+        <div class="ref-l-tally-cells">
+          <div class="ref-l-squares" role="img" aria-label="68 components: 49 HTML and CSS, 7 the browser's own features, 11 better with canon.js, 1 needs JavaScript"></div>
+        </div>
+        <dl class="ref-l-key">
+        <div data-tier="T0"><dt>49</dt><dd><span class="ref-l-tier-code">T0</span> HTML and CSS only</dd></div>
+        <div data-tier="T1"><dt>7</dt><dd><span class="ref-l-tier-code">T1</span> The browser's own popovers and dialogs</dd></div>
+        <div data-tier="T2"><dt>11</dt><dd><span class="ref-l-tier-code">T2</span> Plain controls, more with canon.js</dd></div>
+        <div data-tier="T3"><dt>1</dt><dd><span class="ref-l-tier-code">T3</span> Needs JavaScript: the command palette's search</dd></div>
+      </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Every component; pointing at one shows it running. -->
+  <section class="ref-l-row ref-l-specimen" aria-labelledby="l-specimen">
+    <header class="ref-l-label"><h2 id="l-specimen">Every component</h2></header>
+    <div>
+      <p class="ref-l-text">Point at one to see it running. Open it for its reference, a playground and its full specification.</p>
+      <nav class="ref-l-names" aria-labelledby="l-specimen">
+        <a href="app-shell.html" data-name="App Shell" data-tier="T0">App Shell</a>
+        <a href="page-header.html" data-name="Page Header" data-tier="T0">Page Header</a>
+        <a href="section.html" data-name="Section" data-tier="T0">Section</a>
+        <a href="separator.html" data-name="Separator" data-tier="T0">Separator</a>
+        <a href="sidebar.html" data-name="Sidebar" data-tier="T0">Sidebar</a>
+        <a href="split-pane.html" data-name="Split Pane" data-tier="T0">Split Pane</a>
+        <a href="stack.html" data-name="Stack, Cluster and Grid" data-tier="T0">Stack, Cluster and Grid</a>
+        <a href="toolbar.html" data-name="Toolbar" data-tier="T0">Toolbar</a>
+        <a href="top-bar.html" data-name="Top Bar" data-tier="T0">Top Bar</a>
+        <a href="button.html" data-name="Button" data-tier="T0">Button</a>
+        <a href="button-group.html" data-name="Button Group" data-tier="T0">Button Group</a>
+        <a href="link.html" data-name="Link" data-tier="T0">Link</a>
+        <a href="segmented-control.html" data-name="Segmented Control" data-tier="T0">Segmented Control</a>
+        <a href="split-button.html" data-name="Split Button" data-tier="T1">Split Button</a>
+        <a href="toggle-chip.html" data-name="Toggle Chip" data-tier="T0">Toggle Chip</a>
+        <a href="checkbox.html" data-name="Checkbox" data-tier="T0">Checkbox</a>
+        <a href="color-picker.html" data-name="Color Picker" data-tier="T2">Color Picker</a>
+        <a href="combobox.html" data-name="Combobox" data-tier="T2">Combobox</a>
+        <a href="date.html" data-name="Date family" data-tier="T2">Date family</a>
+        <a href="field.html" data-name="Field" data-tier="T0">Field</a>
+        <a href="fieldset.html" data-name="Fieldset" data-tier="T0">Fieldset</a>
+        <a href="form-layout.html" data-name="Form Layout" data-tier="T0">Form Layout</a>
+        <a href="form-repeater.html" data-name="Form Repeater" data-tier="T2">Form Repeater</a>
+        <a href="input-otp.html" data-name="Input OTP" data-tier="T2">Input OTP</a>
+        <a href="label.html" data-name="Label" data-tier="T0">Label</a>
+        <a href="number-input.html" data-name="Number Input" data-tier="T2">Number Input</a>
+        <a href="password.html" data-name="Password" data-tier="T0">Password</a>
+        <a href="radio.html" data-name="Radio" data-tier="T0">Radio</a>
+        <a href="range-slider.html" data-name="Range Slider" data-tier="T0">Range Slider</a>
+        <a href="rich-text.html" data-name="Rich Text" data-tier="T2">Rich Text</a>
+        <a href="save-bar.html" data-name="Save Bar" data-tier="T0">Save Bar</a>
+        <a href="select.html" data-name="Select" data-tier="T0">Select</a>
+        <a href="slider.html" data-name="Slider" data-tier="T0">Slider</a>
+        <a href="swatches.html" data-name="Swatches" data-tier="T0">Swatches</a>
+        <a href="switch.html" data-name="Switch" data-tier="T0">Switch</a>
+        <a href="text-input.html" data-name="Text Input" data-tier="T0">Text Input</a>
+        <a href="textarea.html" data-name="Textarea" data-tier="T0">Textarea</a>
+        <a href="time.html" data-name="Time" data-tier="T2">Time</a>
+        <a href="accordion.html" data-name="Accordion" data-tier="T0">Accordion</a>
+        <a href="avatar.html" data-name="Avatar" data-tier="T0">Avatar</a>
+        <a href="avatar-group.html" data-name="Avatar Group" data-tier="T0">Avatar Group</a>
+        <a href="card.html" data-name="Card" data-tier="T0">Card</a>
+        <a href="code-block.html" data-name="Code Block" data-tier="T0">Code Block</a>
+        <a href="data-table.html" data-name="Data Table" data-tier="T2">Data Table</a>
+        <a href="description-list.html" data-name="Description List" data-tier="T0">Description List</a>
+        <a href="empty-state.html" data-name="Empty State" data-tier="T0">Empty State</a>
+        <a href="filter-bar.html" data-name="Filter Bar" data-tier="T2">Filter Bar</a>
+        <a href="kbd.html" data-name="Kbd" data-tier="T0">Kbd</a>
+        <a href="stat.html" data-name="Stat" data-tier="T0">Stat</a>
+        <a href="status.html" data-name="Status Indicator" data-tier="T0">Status Indicator</a>
+        <a href="table.html" data-name="Table" data-tier="T0">Table</a>
+        <a href="tag.html" data-name="Tag" data-tier="T0">Tag</a>
+        <a href="breadcrumb.html" data-name="Breadcrumb" data-tier="T0">Breadcrumb</a>
+        <a href="command-palette.html" data-name="Command Palette" data-tier="T3">Command Palette</a>
+        <a href="menubar.html" data-name="Menubar" data-tier="T1">Menubar</a>
+        <a href="nav-list.html" data-name="Nav List" data-tier="T0">Nav List</a>
+        <a href="pagination.html" data-name="Pagination" data-tier="T0">Pagination</a>
+        <a href="tabs.html" data-name="Tabs" data-tier="T0">Tabs</a>
+        <a href="dialog.html" data-name="Dialog" data-tier="T1">Dialog</a>
+        <a href="drawer.html" data-name="Drawer" data-tier="T1">Drawer</a>
+        <a href="menu.html" data-name="Menu" data-tier="T1">Menu</a>
+        <a href="popover.html" data-name="Popover" data-tier="T1">Popover</a>
+        <a href="tooltip.html" data-name="Tooltip" data-tier="T1">Tooltip</a>
+        <a href="alert.html" data-name="Alert" data-tier="T0">Alert</a>
+        <a href="banner.html" data-name="Banner" data-tier="T0">Banner</a>
+        <a href="skeleton.html" data-name="Skeleton" data-tier="T0">Skeleton</a>
+        <a href="spinner.html" data-name="Spinner" data-tier="T0">Spinner</a>
+        <a href="toast.html" data-name="Toast" data-tier="T2">Toast</a>
+      </nav>
+    </div>
+    <div class="ref-l-peek" aria-hidden="true" hidden><div class="ref-l-peek-stage"></div></div>
+  </section>
+
+  <!-- What Canon leaves to others. -->
+  <section class="ref-l-row ref-l-not" aria-labelledby="l-not">
+    <header class="ref-l-label"><h2 id="l-not">Not included</h2></header>
+    <div>
+      <p class="ref-l-text">What Canon leaves to others, on purpose.</p>
+      <dl>
+      <div><dt>A JavaScript component library</dt><dd>There's nothing to import or call, and no build step. Your framework or server renders the HTML.</dd></div>
+      <div><dt>Locked to its look</dt><dd>The look lives in one stylesheet. Change its colors, or replace it with your own theme, and no page changes.</dd></div>
+      <div><dt>Utility classes</dt><dd>Markup says what a thing is (<code>data-intent</code>), never how it looks: no “outline”, “rounded” or “blue”.</dd></div>
+      <div><dt>An app framework</dt><dd>No routing, data loading or state. canon.js keeps the interface honest; saving and fetching are your app's.</dd></div>
+      <div><dt>For marketing sites</dt><dd>Tables, forms, records and dashboards. Hero sections and pricing tables are out of scope.</dd></div>
+      <div><dt>A pile of effects</dt><dd>Motion in the components explains a change, like a tab's indicator sliding across, or it isn't there.</dd></div>
+    </dl>
+    </div>
+  </section>
+
+  <!-- Where the idea comes from. -->
+  <section class="ref-l-row ref-l-origins" aria-labelledby="l-origins">
+    <header class="ref-l-label"><h2 id="l-origins">Origins</h2></header>
+    <div>
+      <p class="ref-l-text">The name comes from fiction, where canon is the body of work officially accepted as authoritative within a story's universe. Here, the markup is canon. Themes can retell it however they like, but what the markup says stays true in all of them.</p>
+      <p class="ref-l-text">In 2003, Dave Shea published CSS Zen Garden: one HTML document, and a gallery of designs that changed nothing but the stylesheet. Each looked like a different site, and the markup never moved.</p>
+      <p class="ref-l-text">Canon is an homage to that page. It asks the same of the things internal tools are made of: write a table, a form or a dialog once, then let a theme redraw all of it without touching a line of HTML.</p>
+      <p class="ref-l-links"><a href="https://csszengarden.com/">CSS Zen Garden</a><a href="themes.html">Canon's themes</a></p>
+    </div>
+  </section>
+
+  <!-- The close: the two lines again. -->
+  <section class="ref-l-row ref-l-close" aria-labelledby="l-close">
+    <header class="ref-l-label"><h2 id="l-close">Start</h2></header>
+    <div>
+      <p class="ref-l-text">Two lines, then the markup each component's page shows.</p>
+      <div class="ref-l-install">
+        <pre><code id="l-install-2">&lt;link rel="stylesheet" href="css/canon/canon.css"&gt;
+&lt;script src="js/canon.js" defer&gt;&lt;/script&gt;</code></pre>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="l-install-2" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy the two lines</span></button>
+      </div>
+      <p class="ref-l-links"><a href="getting-started.html">Getting started</a><a href="components.html">68 components</a></p>
+    </div>
+  </section>
+
+</main>
+<script type="application/json" id="l-components">[{"name": "App Shell", "href": "app-shell.html", "tier": "T0"}, {"name": "Page Header", "href": "page-header.html", "tier": "T0"}, {"name": "Section", "href": "section.html", "tier": "T0"}, {"name": "Separator", "href": "separator.html", "tier": "T0"}, {"name": "Sidebar", "href": "sidebar.html", "tier": "T0"}, {"name": "Split Pane", "href": "split-pane.html", "tier": "T0"}, {"name": "Stack, Cluster and Grid", "href": "stack.html", "tier": "T0"}, {"name": "Toolbar", "href": "toolbar.html", "tier": "T0"}, {"name": "Top Bar", "href": "top-bar.html", "tier": "T0"}, {"name": "Button", "href": "button.html", "tier": "T0"}, {"name": "Button Group", "href": "button-group.html", "tier": "T0"}, {"name": "Link", "href": "link.html", "tier": "T0"}, {"name": "Segmented Control", "href": "segmented-control.html", "tier": "T0"}, {"name": "Split Button", "href": "split-button.html", "tier": "T1"}, {"name": "Toggle Chip", "href": "toggle-chip.html", "tier": "T0"}, {"name": "Checkbox", "href": "checkbox.html", "tier": "T0"}, {"name": "Color Picker", "href": "color-picker.html", "tier": "T2"}, {"name": "Combobox", "href": "combobox.html", "tier": "T2"}, {"name": "Date family", "href": "date.html", "tier": "T2"}, {"name": "Field", "href": "field.html", "tier": "T0"}, {"name": "Fieldset", "href": "fieldset.html", "tier": "T0"}, {"name": "Form Layout", "href": "form-layout.html", "tier": "T0"}, {"name": "Form Repeater", "href": "form-repeater.html", "tier": "T2"}, {"name": "Input OTP", "href": "input-otp.html", "tier": "T2"}, {"name": "Label", "href": "label.html", "tier": "T0"}, {"name": "Number Input", "href": "number-input.html", "tier": "T2"}, {"name": "Password", "href": "password.html", "tier": "T0"}, {"name": "Radio", "href": "radio.html", "tier": "T0"}, {"name": "Range Slider", "href": "range-slider.html", "tier": "T0"}, {"name": "Rich Text", "href": "rich-text.html", "tier": "T2"}, {"name": "Save Bar", "href": "save-bar.html", "tier": "T0"}, {"name": "Select", "href": "select.html", "tier": "T0"}, {"name": "Slider", "href": "slider.html", "tier": "T0"}, {"name": "Swatches", "href": "swatches.html", "tier": "T0"}, {"name": "Switch", "href": "switch.html", "tier": "T0"}, {"name": "Text Input", "href": "text-input.html", "tier": "T0"}, {"name": "Textarea", "href": "textarea.html", "tier": "T0"}, {"name": "Time", "href": "time.html", "tier": "T2"}, {"name": "Accordion", "href": "accordion.html", "tier": "T0"}, {"name": "Avatar", "href": "avatar.html", "tier": "T0"}, {"name": "Avatar Group", "href": "avatar-group.html", "tier": "T0"}, {"name": "Card", "href": "card.html", "tier": "T0"}, {"name": "Code Block", "href": "code-block.html", "tier": "T0"}, {"name": "Data Table", "href": "data-table.html", "tier": "T2"}, {"name": "Description List", "href": "description-list.html", "tier": "T0"}, {"name": "Empty State", "href": "empty-state.html", "tier": "T0"}, {"name": "Filter Bar", "href": "filter-bar.html", "tier": "T2"}, {"name": "Kbd", "href": "kbd.html", "tier": "T0"}, {"name": "Stat", "href": "stat.html", "tier": "T0"}, {"name": "Status Indicator", "href": "status.html", "tier": "T0"}, {"name": "Table", "href": "table.html", "tier": "T0"}, {"name": "Tag", "href": "tag.html", "tier": "T0"}, {"name": "Breadcrumb", "href": "breadcrumb.html", "tier": "T0"}, {"name": "Command Palette", "href": "command-palette.html", "tier": "T3"}, {"name": "Menubar", "href": "menubar.html", "tier": "T1"}, {"name": "Nav List", "href": "nav-list.html", "tier": "T0"}, {"name": "Pagination", "href": "pagination.html", "tier": "T0"}, {"name": "Tabs", "href": "tabs.html", "tier": "T0"}, {"name": "Dialog", "href": "dialog.html", "tier": "T1"}, {"name": "Drawer", "href": "drawer.html", "tier": "T1"}, {"name": "Menu", "href": "menu.html", "tier": "T1"}, {"name": "Popover", "href": "popover.html", "tier": "T1"}, {"name": "Tooltip", "href": "tooltip.html", "tier": "T1"}, {"name": "Alert", "href": "alert.html", "tier": "T0"}, {"name": "Banner", "href": "banner.html", "tier": "T0"}, {"name": "Skeleton", "href": "skeleton.html", "tier": "T0"}, {"name": "Spinner", "href": "spinner.html", "tier": "T0"}, {"name": "Toast", "href": "toast.html", "tier": "T2"}, {"name": "List → Detail → Edit", "href": "list-detail-edit.html", "tier": "pattern"}, {"name": "Master–Detail", "href": "master-detail.html", "tier": "pattern"}, {"name": "Settings Page", "href": "settings-page.html", "tier": "pattern"}, {"name": "Sign-in Page", "href": "sign-in-page.html", "tier": "pattern"}]</script>
+</body>
+</html>

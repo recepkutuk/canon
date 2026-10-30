@@ -1,0 +1,24 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Empty State                                                         */
+  /*                                                                     */
+  /* What stands in for content that isn't there: no data yet, no        */
+  /* results, an error. An icon, a title, a description, actions;        */
+  /* centered.                                                           */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-empty-state) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  :where(.canon-empty-state-title, .canon-empty-state-description) {
+    margin: 0;
+  }
+  :where(.canon-empty-state-actions) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

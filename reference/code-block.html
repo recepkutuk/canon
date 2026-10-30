@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Code Block reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Code Block</h1>
+  <p class="ref-note">Code people read or copy: an API request, a webhook's payload, a config file, a log excerpt, an embed snippet. A <code>&lt;pre&gt;&lt;code&gt;</code> in a frame, with a title and a copy button. Specification: <a href="../docs/components/code-block.md">docs/components/code-block.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="code-block">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-code-block</code> around a <code>&lt;pre&gt;&lt;code&gt;</code>. A <code>.canon-code-block-header</code> first holds a <code>.canon-code-block-title</code> (a file name, or what the code is) and its buttons: usually a <a href="button.html">Button</a> with <code>command="--canon-copy"</code>, whose <code>commandfor</code> names the <code>&lt;code&gt;</code>. It copies the code's text, without the highlighting.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">invoice.paid.json</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-payload" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy invoice.paid.json</span></button>
+        </div>
+        <pre><code id="code-payload"><span class="tok punctuation">{</span>
+  <span class="tok string">&quot;id&quot;</span><span class="tok punctuation">:</span> <span class="tok string">&quot;evt_1Q2w3E&quot;</span><span class="tok punctuation">,</span>
+  <span class="tok string">&quot;type&quot;</span><span class="tok punctuation">:</span> <span class="tok string">&quot;invoice.paid&quot;</span><span class="tok punctuation">,</span>
+  <span class="tok string">&quot;created&quot;</span><span class="tok punctuation">:</span> <span class="tok string">&quot;2026-10-16T09:24:11Z&quot;</span><span class="tok punctuation">,</span>
+  <span class="tok string">&quot;data&quot;</span><span class="tok punctuation">:</span> <span class="tok punctuation">{</span>
+    <span class="tok string">&quot;invoice&quot;</span><span class="tok punctuation">:</span> <span class="tok string">&quot;INV-2041&quot;</span><span class="tok punctuation">,</span>
+    <span class="tok string">&quot;amount&quot;</span><span class="tok punctuation">:</span> <span class="tok number">129000</span><span class="tok punctuation">,</span>
+    <span class="tok string">&quot;currency&quot;</span><span class="tok punctuation">:</span> <span class="tok string">&quot;EUR&quot;</span><span class="tok punctuation">,</span>
+    <span class="tok string">&quot;paid&quot;</span><span class="tok punctuation">:</span> <span class="tok boolean">true</span><span class="tok punctuation">,</span>
+    <span class="tok string">&quot;coupon&quot;</span><span class="tok punctuation">:</span> <span class="tok keyword">null</span>
+  <span class="tok punctuation">}</span>
+<span class="tok punctuation">}</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="without-header">
+    <h2>Without a header</h2>
+    <p class="ref-note">For a short snippet, leave out the header: the copy button goes after the <code>&lt;pre&gt;</code>, and sits in the code's top corner. It is the right corner in every language, where lines end, since code reads left to right.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block">
+        <pre><code id="code-request">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-request" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy command</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="highlighting">
+    <h2>Highlighting</h2>
+    <p class="ref-note">Canon doesn't highlight code; do it before the page is sent (on the server or at build time) and put the result inside the <code>&lt;code&gt;</code>. Themes color tokens by <a href="https://twinkleplop.pngwn.at/docs">twinkleplop</a>'s names: <code>&lt;span class="tok string"&gt;</code>, <code>tok keyword</code>, <code>tok tag_name</code> and so on. Code without tokens is plain text, which suits logs and keys.</p>
+    <p class="ref-note">These docs use <a href="https://twinkleplop.pngwn.at/docs">twinkleplop</a> for their own code: the examples on this page were highlighted ahead of time, and the Playground's HTML and the code in these notes are highlighted in the browser with <code>@twinkleplop/html</code>. Any highlighter works, as long as its tokens get those class names.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Embed code</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-embed" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy embed code</span></button>
+        </div>
+        <pre><code id="code-embed"><span class="tok punctuation">&lt;</span><span class="tok tag_name">script</span> <span class="tok attr_name">src</span><span class="tok operator">=</span><span class="tok string">&quot;https://cdn.example.com/widget.js&quot;</span> <span class="tok attr_name">defer</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">script</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;</span><span class="tok tag_name">div</span> <span class="tok attr_name">class</span><span class="tok operator">=</span><span class="tok string">&quot;support-widget&quot;</span> <span class="tok attr_name">data-team</span><span class="tok operator">=</span><span class="tok string">&quot;billing&quot;</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">div</span><span class="tok punctuation">&gt;</span></code></pre>
+      </div>
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Test API key</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-key" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy test API key</span></button>
+        </div>
+        <pre><code id="code-key">sk_live_51Mx0Lq2eZvKYlo2C8f3Hj7Wn4rTb9QpXa6Yd</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="long-code">
+    <h2>Long code</h2>
+    <p class="ref-note">Code keeps its lines and scrolls in its box, sideways and, with <code>--canon-code-block-max-height</code>, down. A box that scrolls becomes a region named by the title (or "Code"), so keyboards can reach and scroll it.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block" style="--canon-code-block-max-height: 16rem">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">deploy.yaml</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-deploy" command="--canon-wrap" aria-pressed="false"><span class="canon-icon" data-icon="text-wrap" aria-hidden="true"></span><span class="canon-button-label">Wrap lines</span></button>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-deploy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy deploy.yaml</span></button>
+        </div>
+        <pre><code id="code-deploy"><span class="tok comment"># Billing worker, production
+</span><span class="tok property">service</span><span class="tok punctuation">:</span> billing-worker
+<span class="tok property">image</span><span class="tok punctuation">:</span> registry.example.com/billing-worker:2.14.0
+<span class="tok property">replicas</span><span class="tok punctuation">:</span> <span class="tok number">3</span>
+<span class="tok property">resources</span><span class="tok punctuation">:</span>
+  <span class="tok property">cpu</span><span class="tok punctuation">:</span> 500m
+  <span class="tok property">memory</span><span class="tok punctuation">:</span> 512Mi
+<span class="tok property">env</span><span class="tok punctuation">:</span>
+  <span class="tok punctuation">-</span> <span class="tok property">name</span><span class="tok punctuation">:</span> QUEUE_URL
+    <span class="tok property">value</span><span class="tok punctuation">:</span> amqps://queue.internal:5671/billing
+  <span class="tok punctuation">-</span> <span class="tok property">name</span><span class="tok punctuation">:</span> RETRY_LIMIT
+    <span class="tok property">value</span><span class="tok punctuation">:</span> <span class="tok string">&quot;5&quot;</span>
+  <span class="tok punctuation">-</span> <span class="tok property">name</span><span class="tok punctuation">:</span> LOG_LEVEL
+    <span class="tok property">value</span><span class="tok punctuation">:</span> info
+<span class="tok property">healthcheck</span><span class="tok punctuation">:</span>
+  <span class="tok property">path</span><span class="tok punctuation">:</span> /healthz
+  <span class="tok property">interval</span><span class="tok punctuation">:</span> 10s
+  <span class="tok property">timeout</span><span class="tok punctuation">:</span> 2s
+<span class="tok property">schedule</span><span class="tok punctuation">:</span>
+  <span class="tok punctuation">-</span> <span class="tok property">cron</span><span class="tok punctuation">:</span> <span class="tok string">&quot;0 3 * * *&quot;</span>
+    <span class="tok property">task</span><span class="tok punctuation">:</span> reconcile-payouts
+  <span class="tok punctuation">-</span> <span class="tok property">cron</span><span class="tok punctuation">:</span> <span class="tok string">&quot;*/15 * * * *&quot;</span>
+    <span class="tok property">task</span><span class="tok punctuation">:</span> retry-failed-charges</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="wrapping">
+    <h2>Wrapping</h2>
+    <p class="ref-note">Long lines scroll by default, so columns stay aligned. A wrap button in the header, before the copy button, lets people wrap them instead: a <a href="button.html">Button</a> with <code>command="--canon-wrap"</code>, named "Wrap lines", whose <code>aria-pressed</code> is the state. Start it pressed (<code>aria-pressed="true"</code>) where wrapped reads better, as for logs on a narrow screen.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">billing-worker.log</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-log" command="--canon-wrap" aria-pressed="false"><span class="canon-icon" data-icon="text-wrap" aria-hidden="true"></span><span class="canon-button-label">Wrap lines</span></button>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-log" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy billing-worker.log</span></button>
+        </div>
+        <pre><code id="code-log">2026-10-16 09:24:11.482 INFO  [billing-worker-3] invoice.paid INV-2041 amount=1290.00 EUR customer=cus_8XkP2 attempt=1 latency_ms=184 trace=4bf92f3577b34da6a3ce929d0e0e4736
+2026-10-16 09:24:12.007 WARN  [billing-worker-1] charge.retry INV-2038 reason=card_declined decline_code=insufficient_funds attempt=3 next_retry=2026-10-16T09:39:12Z
+2026-10-16 09:24:12.311 INFO  [billing-worker-3] payout.created po_3Ld81 amount=48210.55 EUR destination=acct_1Mx0 arrival=2026-10-18</code></pre>
+      </div>
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">billing-worker.log, starts wrapped</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-log-wrapped" command="--canon-wrap" aria-pressed="true"><span class="canon-icon" data-icon="text-wrap" aria-hidden="true"></span><span class="canon-button-label">Wrap lines</span></button>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-log-wrapped" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy billing-worker.log</span></button>
+        </div>
+        <pre><code id="code-log-wrapped">2026-10-16 09:24:11.482 INFO  [billing-worker-3] invoice.paid INV-2041 amount=1290.00 EUR customer=cus_8XkP2 attempt=1 latency_ms=184 trace=4bf92f3577b34da6a3ce929d0e0e4736
+2026-10-16 09:24:12.007 WARN  [billing-worker-1] charge.retry INV-2038 reason=card_declined decline_code=insufficient_funds attempt=3 next_retry=2026-10-16T09:39:12Z
+2026-10-16 09:24:12.311 INFO  [billing-worker-3] payout.created po_3Ld81 amount=48210.55 EUR destination=acct_1Mx0 arrival=2026-10-18</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the block or a container sets the code's type and spacing. Its buttons take the size they're given.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block" data-size="sm">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Small</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-sm" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy small example</span></button>
+        </div>
+        <pre><code id="code-sm">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+      </div>
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Medium (default)</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-md" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy medium example</span></button>
+        </div>
+        <pre><code id="code-md">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+      </div>
+      <div class="canon-code-block" data-size="lg">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Large</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-lg" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy large example</span></button>
+        </div>
+        <pre><code id="code-lg">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long title is cut (…). In right-to-left pages the header follows the page while the code stays left to right.</p>
+
+    <div class="ref-code-blocks">
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">Fetch one invoice with its line items, payments, refunds, credit notes and the customer it belongs to (sandbox account)</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-long-title" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy command</span></button>
+        </div>
+        <pre><code id="code-long-title">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+      </div>
+      <div dir="rtl" lang="ar">
+      <div class="canon-code-block">
+        <div class="canon-code-block-header">
+          <span class="canon-code-block-title">طلب فاتورة</span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-ar" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">نسخ الأمر</span></button>
+        </div>
+        <pre><code id="code-ar">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+      </div>
+      </div>
+      <div dir="rtl" lang="ar">
+      <div class="canon-code-block">
+        <pre><code id="code-ar-corner">curl https://api.example.com/v1/invoices/INV-2041 \
+  -H <span class="tok string">&quot;Authorization: Bearer </span><span class="tok variable">$API_TOKEN</span><span class="tok string">&quot;</span></code></pre>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="code-ar-corner" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">نسخ الأمر</span></button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

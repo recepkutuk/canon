@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Number Input reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Number Input</h1>
+  <p class="ref-note">A count with buttons to step it down and up. For a free number (a price, a weight with its unit), use a <a href="text-input.html">Text Input</a> with <code>type="number"</code>. Specification: <a href="../docs/components/number-input.md">docs/components/number-input.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="number">
+    <h2>Basics</h2>
+    <p class="ref-note">A count people nudge up and down: guests, seats, retries. A native <code>&lt;input type="number"&gt;</code> with <code>min</code>, <code>max</code> and <code>step</code> in a <code>.canon-number</code>, between two icon-only Buttons that step it (<code>command="--canon-step-down"</code> and <code>"--canon-step-up"</code>, <code>commandfor</code> the input). The value stays the input's: typing, the arrow keys, the form value and the browser's checks. The buttons are left out of the tab order; hold one down to keep stepping. At <code>min</code> or <code>max</code> its button is unavailable.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="guests">Guests</label>
+          <p class="canon-label-description" id="guests-desc">Up to 8.</p>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="guests" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer guests</span>
+          </button>
+          <input type="number" id="guests" name="guests" value="2" min="1" max="8" aria-describedby="guests-desc">
+          <button type="button" class="canon-button" data-display="icon" commandfor="guests" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">More guests</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="retries">Retries</label>
+          <p class="canon-label-description" id="retries-desc">0 to 5.</p>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="retries" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer retries</span>
+          </button>
+          <input type="number" id="retries" name="retries" value="0" min="0" max="5" aria-describedby="retries-desc">
+          <button type="button" class="canon-button" data-display="icon" commandfor="retries" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">More retries</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="end">
+    <h2>Buttons at the end</h2>
+    <p class="ref-note">For a number typed as often as nudged (a port, a year, a quantity in a long form), lined up with the text fields around it: put the input first, then the step-up button and the step-down button, with <code>chevron-up</code> and <code>chevron-down</code> icons. The box fills its place like a <a href="text-input.html">Text Input</a>, the value starts where a text field's does, and the two buttons stack at its end. Everything else is the same: one Tab stop, the arrow keys, holding a button down, the limits.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="port">Port</label>
+          <p class="canon-label-description" id="port-desc">1024 to 65535.</p>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="port" name="port" value="8080" min="1024" max="65535" aria-describedby="port-desc">
+          <button type="button" class="canon-button" data-display="icon" commandfor="port" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">Higher port</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="port" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Lower port</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="year">Founded</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="year" name="year" value="2019" min="1900" max="2026">
+          <button type="button" class="canon-button" data-display="icon" commandfor="year" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">Later year</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="year" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Earlier year</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="timeout">Timeout (seconds)</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="timeout" name="timeout" value="30" min="5" max="300" step="5" readonly>
+          <button type="button" class="canon-button" data-display="icon" commandfor="timeout" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">Longer timeout</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="timeout" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Shorter timeout</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="quantity">Quantity</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="quantity" name="quantity" value="0" min="0" disabled>
+          <button type="button" class="canon-button" data-display="icon" commandfor="quantity" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">More</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="quantity" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Size</h3>
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="end-sm">sm</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="end-sm" name="end-sm" value="12" min="0">
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-sm" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">More</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-sm" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="end-md">md</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="end-md" name="end-md" value="12" min="0">
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-md" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">More</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-md" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="end-lg">lg</label>
+        </div>
+        <div class="canon-number">
+          <input type="number" id="end-lg" name="end-lg" value="12" min="0">
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-lg" command="--canon-step-up">
+            <span class="canon-icon" data-icon="chevron-up" aria-hidden="true"></span>
+            <span class="canon-button-label">More</span>
+          </button>
+          <button type="button" class="canon-button" data-display="icon" commandfor="end-lg" command="--canon-step-down">
+            <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field, the box or a container: a text input's height, the buttons square. The value grows with what is typed.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm">Small</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-sm" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="sz-sm" name="sz-sm" value="1">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-sm" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field" data-size="md">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md">Medium</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-md" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="sz-md" name="sz-md" value="1">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-md" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg">Large</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-lg" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="sz-lg" name="sz-lg" value="1">
+          <button type="button" class="canon-button" data-display="icon" commandfor="sz-lg" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="step">
+    <h2>Step</h2>
+    <p class="ref-note"><code>step</code> sets how far one press goes, and which values are valid.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-5">Minutes</label>
+          <p class="canon-label-description" id="st-5-desc">In steps of 5.</p>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-5" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="st-5" name="st-5" value="15" min="0" max="60" step="5" aria-describedby="st-5-desc">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-5" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-half">Rating</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-half" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="st-half" name="st-half" value="3.5" min="0" max="5" step="0.5">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-half" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Text Input's states, over the whole number: focus, an error (<code>aria-invalid="true"</code> and a danger message), <code>disabled</code>, <code>readonly</code> (the buttons are unavailable too).</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-err">Seats</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-err" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="st-err" name="st-err" value="60" min="1" max="50" aria-describedby="st-err-msg" aria-invalid="true">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-err" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+        <p class="canon-field-message" id="st-err-msg" data-intent="danger">Choose 50 seats or fewer.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-dis">Disabled</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-dis" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="st-dis" name="st-dis" value="3" disabled>
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-dis" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-ro">Read-only</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-ro" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="st-ro" name="st-ro" value="3" readonly>
+          <button type="button" class="canon-button" data-display="icon" commandfor="st-ro" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long number widens the value. Right to left, the minus is on the right and the plus on the left: the start steps down.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="long">Budget</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="long" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Decrease</span>
+          </button>
+          <input type="number" id="long" name="long" value="1250000" min="0" step="1000">
+          <button type="button" class="canon-button" data-display="icon" commandfor="long" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">Increase</span>
+          </button>
+        </div>
+      </div>
+      <div dir="rtl" lang="ar">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="rtl">الضيوف</label>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="rtl" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">أقل</span>
+          </button>
+          <input type="number" id="rtl" name="rtl" value="2" min="1" max="8">
+          <button type="button" class="canon-button" data-display="icon" commandfor="rtl" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">أكثر</span>
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

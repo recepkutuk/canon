@@ -1,0 +1,743 @@
+/*
+ * Canon core
+ *
+ * Contract mechanics with zero visual identity: no colors, borders, radii,
+ * shadows or fonts. Themes may import it or implement the contract themselves.
+ *
+ * Two layers. Themes declare the order:
+ *
+ *   @layer canon.core, canon.theme, canon.hints;
+ *   @import url("../canon/canon.core.css");
+ *
+ *   canon.core   mechanics and defaults; the theme overrides them freely.
+ *   canon.hints  author attributes (data-size, data-display, data-resize,
+ *                data-orientation, …).
+ *                It sits above the theme, so the cascade itself guarantees
+ *                "the author always beats the theme".
+ *
+ * Selectors are wrapped in :where() so they have zero specificity.
+ *
+ * Built from src/css by tools/build.mjs: edit the sources, then run it.
+ */
+
+@layer canon.core, canon.theme, canon.hints;
+
+/* ==================================================================== */
+/* canon.core                                                            */
+/* ==================================================================== */
+
+/* @canon-part */
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Strings                                                             */
+  /* Text Canon produces itself (in theme CSS or canon.js), in English.  */
+  /* Translations live in i18n/<lang>.css and switch by :lang(), so they */
+  /* follow the lang attribute of each element.                          */
+  /* canon.js fills in {count} and {value}. A count has a key per plural */
+  /* form of the language (-zero, -one, -two, -few, -many, -other, as    */
+  /* Intl.PluralRules names them); -other is the fallback.               */
+  /* ------------------------------------------------------------------ */
+
+  :where(:root) {
+    --canon-text-copied: "Copied";
+    --canon-text-opens-in-new-tab: "(opens in new tab)";
+    --canon-text-on: "On";
+    --canon-text-off: "Off";
+    --canon-text-rule-met: "Met: ";
+    --canon-text-rule-not-met: "Not met: ";
+    --canon-text-strength-1: "Weakest";
+    --canon-text-strength-2: "Weak";
+    --canon-text-strength-3: "Medium";
+    --canon-text-strength-4: "Strong";
+    --canon-text-caps-lock: "Caps Lock is on";
+    --canon-text-password-generated: "Password generated";
+    --canon-text-password-rules-unmet: "The password doesn't meet every rule.";
+    --canon-text-passwords-differ: "The passwords don't match.";
+    --canon-text-search: "Search";
+    --canon-text-no-results: "No results";
+    --canon-text-results-one: "{count} result";
+    --canon-text-results-other: "{count} results";
+    --canon-text-remove-value: "Remove {value}";
+    --canon-text-removed-value: "{value} removed";
+    --canon-text-no-results-for: "No results for “{query}”";
+    --canon-text-create-option: "Add “{value}”";
+    --canon-text-loading: "Loading…";
+    --canon-text-more-values: "+{count}";
+    --canon-text-more-colors: "More colors";
+    --canon-text-more: "More";
+    --canon-text-notifications: "Notifications";
+    --canon-text-dismiss: "Dismiss";
+    --canon-text-intent-info: "Information:";
+    --canon-text-intent-success: "Success:";
+    --canon-text-intent-warning: "Warning:";
+    --canon-text-intent-danger: "Error:";
+    --canon-text-no-changes: "No changes";
+    --canon-text-unsaved-changes-one: "{count} unsaved change";
+    --canon-text-unsaved-changes-other: "{count} unsaved changes";
+    --canon-text-saving: "Saving…";
+    --canon-text-saved: "Changes saved";
+    --canon-text-save-failed: "Couldn't save";
+    --canon-text-more-pages: "More pages";
+    --canon-text-color-area: "Saturation and brightness";
+    --canon-text-color-area-value: "Saturation {s}%, brightness {v}%";
+    --canon-text-hue: "Hue";
+    --canon-text-opacity: "Opacity";
+    --canon-text-eyedropper: "Pick a color from the screen";
+    --canon-text-color-format: "Format";
+    --canon-text-hex: "Hex";
+    --canon-text-red: "Red";
+    --canon-text-green: "Green";
+    --canon-text-blue: "Blue";
+    --canon-text-saturation: "Saturation";
+    --canon-text-lightness: "Lightness";
+    --canon-text-brightness: "Brightness";
+    --canon-text-swatches: "Swatches";
+    --canon-text-choose-date: "Choose date";
+    --canon-text-previous-month: "Previous month";
+    --canon-text-next-month: "Next month";
+    --canon-text-previous-year: "Previous year";
+    --canon-text-next-year: "Next year";
+    --canon-text-previous-years: "Earlier years";
+    --canon-text-next-years: "Later years";
+    --canon-text-show-months: "{value}, choose a month";
+    --canon-text-show-years: "{value}, choose a year";
+    --canon-text-show-days: "{value}, back to days";
+    --canon-text-date-unavailable: "This date can't be chosen.";
+    --canon-text-date-incomplete: "Enter a complete date.";
+    --canon-text-date-day: "Day";
+    --canon-text-date-month: "Month";
+    --canon-text-date-year: "Year";
+    --canon-text-date-day-placeholder: "dd";
+    --canon-text-date-month-placeholder: "mm";
+    --canon-text-date-year-placeholder: "yyyy";
+    --canon-text-date-empty: "Empty";
+    --canon-text-choose-dates: "Choose dates";
+    --canon-text-range-start: "{value}, start";
+    --canon-text-range-end: "{value}, end";
+    --canon-text-date-range-order: "The end date is before the start date.";
+    --canon-text-presets: "Presets";
+    --canon-text-preset-all: "All time";
+    --canon-text-preset-today: "Today";
+    --canon-text-preset-yesterday: "Yesterday";
+    --canon-text-preset-this-week: "This week";
+    --canon-text-preset-last-week: "Last week";
+    --canon-text-preset-last-7-days: "Last 7 days";
+    --canon-text-preset-this-month: "This month";
+    --canon-text-preset-last-month: "Last month";
+    --canon-text-preset-last-30-days: "Last 30 days";
+    --canon-text-preset-this-year: "This year";
+    --canon-text-preset-last-year: "Last year";
+    --canon-text-choose-week: "Choose week";
+    --canon-text-previous-week: "Previous week";
+    --canon-text-next-week: "Next week";
+    --canon-text-week-column: "W";
+    --canon-text-week-format: "Week {week}, {year}";
+    --canon-text-date-week: "Week";
+    --canon-text-date-week-placeholder: "ww";
+    --canon-text-week-incomplete: "Enter a complete week.";
+    --canon-text-week-unavailable: "This week can't be chosen.";
+    --canon-text-time-hour: "Hours";
+    --canon-text-time-minute: "Minutes";
+    --canon-text-time-second: "Seconds";
+    --canon-text-time-period: "AM/PM";
+    --canon-text-time-hour-placeholder: "--";
+    --canon-text-time-minute-placeholder: "--";
+    --canon-text-time-second-placeholder: "--";
+    --canon-text-time-period-placeholder: "--";
+    --canon-text-time-step-up-hour: "Later hour";
+    --canon-text-time-step-down-hour: "Earlier hour";
+    --canon-text-time-step-up-minute: "Later minute";
+    --canon-text-time-step-down-minute: "Earlier minute";
+    --canon-text-time-step-up-second: "Later second";
+    --canon-text-time-step-down-second: "Earlier second";
+    --canon-text-time-step-up-period: "Switch AM/PM";
+    --canon-text-time-step-down-period: "Switch AM/PM";
+    --canon-text-time-incomplete: "Enter a complete time.";
+    --canon-text-time-range-order: "The end time is before the start time.";
+    --canon-text-count: "{count} / {max}";
+    --canon-text-characters-left-one: "{count} character left";
+    --canon-text-characters-left-other: "{count} characters left";
+    --canon-text-characters-over-one: "{count} character too many";
+    --canon-text-characters-over-other: "{count} characters too many";
+    --canon-text-too-long-one: "Use {count} character or fewer.";
+    --canon-text-too-long-other: "Use {count} characters or fewer.";
+    --canon-text-rich-toolbar: "Formatting";
+    --canon-text-rich-history: "History";
+    --canon-text-rich-undo: "Undo";
+    --canon-text-rich-redo: "Redo";
+    --canon-text-rich-block: "Text style";
+    --canon-text-rich-paragraph: "Paragraph";
+    --canon-text-rich-heading-1: "Heading 1";
+    --canon-text-rich-heading-2: "Heading 2";
+    --canon-text-rich-heading-3: "Heading 3";
+    --canon-text-rich-quote: "Quote";
+    --canon-text-rich-code: "Code";
+    --canon-text-rich-align: "Alignment";
+    --canon-text-rich-align-start: "Align left";
+    --canon-text-rich-align-center: "Center";
+    --canon-text-rich-align-end: "Align right";
+    --canon-text-rich-align-justify: "Justify";
+    --canon-text-rich-marks: "Character style";
+    --canon-text-rich-bold: "Bold";
+    --canon-text-rich-italic: "Italic";
+    --canon-text-rich-underline: "Underline";
+    --canon-text-rich-strikethrough: "Strikethrough";
+    --canon-text-rich-link: "Link";
+    --canon-text-rich-link-title: "Link";
+    --canon-text-rich-link-url: "Address";
+    --canon-text-rich-link-new-tab: "Open in a new tab";
+    --canon-text-rich-link-remove: "Remove link";
+    --canon-text-rich-apply: "Apply";
+    --canon-text-rich-color: "Text color";
+    --canon-text-rich-color-default: "Default color";
+    --canon-text-rich-color-red: "Red";
+    --canon-text-rich-color-orange: "Orange";
+    --canon-text-rich-color-yellow: "Yellow";
+    --canon-text-rich-color-green: "Green";
+    --canon-text-rich-color-blue: "Blue";
+    --canon-text-rich-color-purple: "Purple";
+    --canon-text-rich-color-gray: "Gray";
+    --canon-text-rich-clear: "Clear formatting";
+    --canon-text-rich-script: "Script";
+    --canon-text-rich-subscript: "Subscript";
+    --canon-text-rich-superscript: "Superscript";
+    --canon-text-rich-lists: "Lists";
+    --canon-text-rich-numbered: "Numbered list";
+    --canon-text-rich-bulleted: "Bulleted list";
+    --canon-text-rich-indentation: "Indentation";
+    --canon-text-rich-outdent: "Decrease indent";
+    --canon-text-rich-indent: "Increase indent";
+    --canon-text-rich-insert: "Insert";
+    --canon-text-rich-insert-hr: "Horizontal line";
+    --canon-text-rich-insert-image: "Image…";
+    --canon-text-rich-image-title: "Image";
+    --canon-text-rich-image-url: "Address";
+    --canon-text-rich-image-alt: "Description";
+    --canon-text-rich-image-alt-hint: "What the image shows, for people who can't see it.";
+    --canon-text-rich-cancel: "Cancel";
+    --canon-text-repeater-item: "Item {index} of {count}";
+    --canon-text-repeater-removed: "Item removed";
+    --canon-text-pagination-first: "First page";
+    --canon-text-pagination-previous: "Previous";
+    --canon-text-pagination-next: "Next";
+    --canon-text-pagination-last: "Last page";
+    --canon-text-pagination-page: "Page {page}";
+    --canon-text-pagination-current: "Page {page} of {pages}";
+    --canon-text-pagination-summary: "{first}–{last} of {total}";
+    --canon-text-load-more-status: "Showing {shown} of {total}";
+    --canon-text-filter-bar-value: ": {value}";
+    --canon-text-not-set: "Not set";
+    --canon-text-code: "Code";
+    --canon-text-command-no-results: "No results for “{query}”";
+    --canon-text-command-results: "{count} results";
+    --canon-text-command-result: "1 result";
+    --canon-text-filter-bar-more: "{value} +{count}";
+    --canon-text-filter-bar-summary: "{facet}: {values}";
+    --canon-text-data-table-loading: "Loading";
+    --canon-text-data-table-selected: "{count} selected";
+    --canon-text-data-table-page-selected: "All {count} on this page selected";
+    --canon-text-data-table-select-all: "Select all {count}";
+    --canon-text-data-table-all-selected: "All {count} selected";
+    --canon-text-data-table-clear-selection: "Clear selection";
+    --canon-text-data-table-no-results: "No results";
+    --canon-text-data-table-no-results-hint: "Nothing matches the search or filters.";
+    --canon-text-data-table-clear-filters: "Clear filters";
+    --canon-text-data-table-clear-all: "Clear all";
+    --canon-text-data-table-filters: "Filters";
+    --canon-text-data-table-filter-for: "Filter {column}";
+    --canon-text-data-table-edit-column-filter: "Edit the {column} filter";
+    --canon-text-data-table-filter-column: "Column";
+    --canon-text-data-table-filter-operator: "Condition";
+    --canon-text-data-table-filter-value: "Value";
+    --canon-text-data-table-apply: "Apply";
+    --canon-text-data-table-apply-filter: "Apply filter";
+    --canon-text-data-table-add-filter: "Add filter";
+    --canon-text-data-table-remove-row: "Remove filter";
+    --canon-text-data-table-edit-filter: "Edit filter: {filter}";
+    --canon-text-data-table-remove-filter: "Remove filter: {filter}";
+    --canon-text-data-table-columns: "Columns";
+    --canon-text-data-table-move-column: "Move {column}";
+    --canon-text-data-table-pin-column: "Pin {column}";
+    --canon-text-data-table-moved: "{column}, position {position} of {count}";
+    --canon-text-data-table-op-contains: "contains";
+    --canon-text-data-table-op-not-contains: "doesn't contain";
+    --canon-text-data-table-op-is: "is";
+    --canon-text-data-table-op-is-not: "is not";
+    --canon-text-data-table-op-starts: "starts with";
+    --canon-text-data-table-op-ends: "ends with";
+    --canon-text-data-table-op-on: "is";
+    --canon-text-data-table-op-before: "is before";
+    --canon-text-data-table-op-after: "is after";
+    --canon-text-data-table-edit: "Edit";
+    --canon-text-data-table-empty: "Empty";
+    --canon-text-data-table-edit-cell: "{column} for {row}";
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Size defaults                                                       */
+  /* Themes provide the -sm / -md / -lg control tokens. Without a        */
+  /* data-size, controls use md.                                         */
+  /* ------------------------------------------------------------------ */
+
+  :where(:root) {
+    --canon-control-block-size: var(--canon-control-block-size-md);
+    --canon-control-padding-inline: var(--canon-control-padding-inline-md);
+    --canon-control-font-size: var(--canon-control-font-size-md);
+    --canon-control-gap: var(--canon-control-gap-md);
+    --canon-icon-size: var(--canon-icon-size-md);
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Icon                                                                */
+  /* A box of the current icon size. How it is drawn is up to the theme. */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-icon) {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--canon-icon-size, 1em);
+    block-size: var(--canon-icon-size, 1em);
+  }
+
+  /* Directional icons mirror in right-to-left contexts. */
+  :where(.canon-icon:is([data-icon="arrow-forward"], [data-icon="arrow-back"], [data-icon="align-start"], [data-icon="align-end"], [data-icon="undo"], [data-icon="redo"], [data-icon="indent-decrease"], [data-icon="indent-increase"])):dir(rtl) {
+    scale: -1 1;
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Neutralize user-agent styles so <button> and <a> start identical. */
+  :where(.canon-button) {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--canon-control-gap);
+    min-block-size: var(--canon-control-block-size);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: var(--canon-control-padding-inline);
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: var(--canon-control-font-size);
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    appearance: none;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :where(.canon-button):where(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+
+  :where(.canon-button) :where(.canon-icon) {
+    flex: none;
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Visually hidden                                                     */
+  /* Text for assistive tech only (an avatar's status, a badge's         */
+  /* meaning). Never display: none.                                      */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-visually-hidden) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* @canon-part */
+/* ==================================================================== */
+
+/* @canon-part */
+/* canon.hints: author attributes. Above the theme in the cascade.       */
+
+/* @canon-part */
+/* ==================================================================== */
+
+/* @canon-part */
+@layer canon.hints {
+
+  /* data-size: the nearest one wins through custom-property inheritance.
+     Six values (xs sm md lg xl 2xl). Components with three sizes (the
+     control tokens) treat xs as sm, and xl and 2xl as lg. */
+
+  :where([data-size="xs"], [data-size="sm"]) {
+    --canon-control-block-size: var(--canon-control-block-size-sm);
+    --canon-control-padding-inline: var(--canon-control-padding-inline-sm);
+    --canon-control-font-size: var(--canon-control-font-size-sm);
+    --canon-control-gap: var(--canon-control-gap-sm);
+    --canon-icon-size: var(--canon-icon-size-sm);
+  }
+
+  :where([data-size="md"]) {
+    --canon-control-block-size: var(--canon-control-block-size-md);
+    --canon-control-padding-inline: var(--canon-control-padding-inline-md);
+    --canon-control-font-size: var(--canon-control-font-size-md);
+    --canon-control-gap: var(--canon-control-gap-md);
+    --canon-icon-size: var(--canon-icon-size-md);
+  }
+
+  :where([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-control-block-size: var(--canon-control-block-size-lg);
+    --canon-control-padding-inline: var(--canon-control-padding-inline-lg);
+    --canon-control-font-size: var(--canon-control-font-size-lg);
+    --canon-control-gap: var(--canon-control-gap-lg);
+    --canon-icon-size: var(--canon-icon-size-lg);
+  }
+
+  /* data-density: how tightly things sit, independent of their size.
+     Resolved to a number themes can calculate with (-1 compact,
+     0 comfortable, 1 spacious); the nearest one wins through inheritance.
+     Absent: the theme decides (var(--canon-density, <its default>)). */
+
+  :where([data-density="compact"])     { --canon-density: -1; }
+  :where([data-density="comfortable"]) { --canon-density: 0; }
+  :where([data-density="spacious"])    { --canon-density: 1; }
+
+  /* data-display="icon": hide the label visually, keep it as the accessible name. */
+
+  :where([data-display="icon"]) :where(.canon-button-label, .canon-tag-label, .canon-status-label, .canon-pagination-label, .canon-segmented-label, .canon-tab-label, .canon-nav-list-heading, .canon-sidebar-brand-name),
+  /* A rail's sub-pages open beside it with their labels (see Nav List). */
+  :where([data-display="icon"]) :where(.canon-nav-list-label, .canon-nav-list-item > .canon-count, .canon-nav-list-item > .canon-tag):not(:where(.canon-nav-list-section > ul *)) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Folded by a Top Bar or a Page Header that doesn't fit (canon.js):
+     in its More menu, or its Breadcrumb's (here, above the theme's
+     display). */
+  :where([data-folded]),
+  /* Text being edited in place, and its button (canon.js). */
+  :where([data-editing]),
+
+  :where(.canon-top-bar[data-fold~="kbd"]) :where(.canon-top-bar-start) > :where(.canon-button) > :where(.canon-kbd) {
+    display: none;
+  }
+  /* While canon.js measures a Page Header (here, above the Breadcrumb's
+     own wrapping): the title one line (its scrollWidth the width it
+     wants), the actions and the trail unwrapped. */
+  :where(.canon-page-header[data-folding]) :where(.canon-page-header-title) {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  :where(.canon-page-header[data-folding]) :where(.canon-page-header-actions, .canon-breadcrumb > ol) {
+    flex-wrap: nowrap;
+  }
+  /* While canon.js measures Tabs: each tab its text's width. */
+  :where(.canon-tabs-list[data-folding]) > :where(.canon-tab) {
+    flex: none;
+  }
+
+  /* A closed drawer (a narrow App Shell's sidebar): out of sight, out of
+     the tab order, whatever the theme draws. */
+  :where(.canon-sidebar[data-drawer="closed"]) {
+    visibility: hidden;
+  }
+
+  /* A Nav List link's Tooltip names it where its label is hidden: in a
+     rail only (here, above the theme's tooltip display). */
+  :where(.canon-nav-list) :where(li) > :where(.canon-tooltip):not(:where([data-display="icon"] *)) {
+    display: none;
+  }
+
+  /* Textarea: rows is the minimum, data-max-lines the maximum.
+     The native element has no padding, so lines map exactly to 1lh. */
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines]) {
+    field-sizing: content;
+    min-block-size: calc(var(--canon-rows, 2) * 1lh);
+    max-block-size: calc(var(--canon-max-lines, 5) * 1lh);
+    overflow-y: auto;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="none"]) {
+    max-block-size: none;
+  }
+
+  @supports (width: calc(attr(data-x type(<number>), 1) * 1px)) {
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(textarea) {
+      --canon-rows: attr(rows type(<number>), 2);
+      --canon-max-lines: attr(data-max-lines type(<number>), 5);
+    }
+  }
+
+  /* Browsers without typed attr(): common values; a polyfill covers the rest. */
+  @supports not (width: calc(attr(data-x type(<number>), 1) * 1px)) {
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="1"]) { --canon-rows: 1; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="2"]) { --canon-rows: 2; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="3"]) { --canon-rows: 3; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="4"]) { --canon-rows: 4; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="5"]) { --canon-rows: 5; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[rows="6"]) { --canon-rows: 6; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="3"])  { --canon-max-lines: 3; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="4"])  { --canon-max-lines: 4; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="5"])  { --canon-max-lines: 5; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="6"])  { --canon-max-lines: 6; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="8"])  { --canon-max-lines: 8; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="10"]) { --canon-max-lines: 10; }
+    :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-max-lines="12"]) { --canon-max-lines: 12; }
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-resize="vertical"]) {
+    resize: vertical;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(textarea[data-resize="none"]) {
+    resize: none;
+  }
+
+  /* data-orientation="vertical" on a slider field: the track stands up,
+     minimum at the bottom. Native writing-mode, so keyboard and
+     accessibility follow. Its length is the theme's (or the app's)
+     --canon-slider-length. Logical sizes on the input now run vertically.
+     Named marks spread evenly beside it (they are not placed by value). */
+
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control:has(> input[type="range"])) {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "value-end   ."
+      "suffix      ."
+      "track       marks"
+      "prefix      ."
+      "value-start .";
+    justify-content: start;
+    justify-items: center;
+  }
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"]) {
+    --canon-slider-direction: to top;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    inline-size: var(--canon-slider-length, 12rem);
+  }
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(.canon-control-prefix, output:has(~ input[type="range"])) {
+    margin: var(--canon-control-gap) 0 0;
+  }
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(.canon-control-suffix, input[type="range"] ~ output) {
+    margin: 0 0 var(--canon-control-gap);
+  }
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist),
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist[data-state="placed"]) {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-self: stretch;
+    padding-block: calc(var(--canon-slider-thumb-inline-size, 1rem) / 2);
+    padding-inline: var(--canon-control-gap) 0;
+  }
+  /* Zero line height: each label is centered on its point in the list. */
+  :where(.canon-field[data-orientation="vertical"]) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist) > :where(option) {
+    margin: 0;
+    translate: none;
+    line-height: 0;
+  }
+
+  /* data-orientation on a fieldset: items in a row (wrapping when the row
+     runs out) or stacked. Absent: the theme decides. Legend, hint and
+     message always keep a line of their own. */
+
+  :where(.canon-fieldset[data-orientation="horizontal"]) > :where(:not(.canon-fieldset-legend, .canon-fieldset-hint, .canon-fieldset-message)) {
+    flex: 0 1 auto;
+  }
+
+  :where(.canon-fieldset[data-orientation="vertical"]) > :where(:not(.canon-fieldset-legend, .canon-fieldset-hint, .canon-fieldset-message)) {
+    flex: 1 1 100%;
+  }
+
+  /* data-placement on a tooltip: which side of the trigger it prefers,
+     and how it aligns there. Logical, so start and end follow the
+     direction: self- keywords, because the tooltip's containing block is
+     the viewport, whose direction may not be the trigger's. Absent: the
+     theme decides. It still flips to fit. */
+
+  :where(.canon-tooltip[data-placement="block-start"])          { position-area: self-block-start span-all; }
+  :where(.canon-tooltip[data-placement="block-start inline-start"])    { position-area: self-block-start span-self-inline-end; }
+  :where(.canon-tooltip[data-placement="block-start inline-end"])      { position-area: self-block-start span-self-inline-start; }
+  :where(.canon-tooltip[data-placement="block-end"])       { position-area: self-block-end span-all; }
+  :where(.canon-tooltip[data-placement="block-end inline-start"]) { position-area: self-block-end span-self-inline-end; }
+  :where(.canon-tooltip[data-placement="block-end inline-end"])   { position-area: self-block-end span-self-inline-start; }
+  :where(.canon-tooltip[data-placement="inline-start"])        { position-area: self-inline-start span-all; }
+  :where(.canon-tooltip[data-placement="inline-end"])          { position-area: self-inline-end span-all; }
+}
+
+/* @canon-part */
+@layer canon.hints {
+
+  /* data-delay="none" on a Spinner (or a container): shown at once. */
+  :where([data-delay="none"]) :where(.canon-spinner, .canon-spinner-label),
+  :where(.canon-spinner, .canon-spinner-label):where([data-delay="none"]) {
+    transition: none;
+  }
+
+  /* data-layout="aside" on a form (a settings page): each section's
+     header in a side column, its fields beside it, once the form is wide
+     enough (40rem); stacked below that. */
+  @container canon-form (width >= 40rem) {
+    :where(.canon-form[data-layout="aside"]) :where(.canon-form-section-header) {
+      float: inline-start;
+      inline-size: var(--canon-form-aside, 33%);
+    }
+    /* What sits beside the header is at most the room left (a full-width
+       part, a Description List, doesn't run past the form). */
+    :where(.canon-form[data-layout="aside"]) :where(.canon-form-section) > :where(:not(.canon-form-section-header)),
+    :where(.canon-form[data-layout="aside"]) > :where(.canon-form-actions) {
+      margin-inline-start: calc(var(--canon-form-aside, 33%) + var(--canon-form-aside-gap, 2rem));
+      max-inline-size: calc(100% - var(--canon-form-aside, 33%) - var(--canon-form-aside-gap, 2rem));
+    }
+  }
+
+  /* data-label="start": the label beside the box, at its inline start,
+     in a column --canon-label-width wide (a third), level with the box's
+     first line; the message and the counter under the box, a field
+     action under the label. On a Field it always applies. On a form or
+     any container it applies to the Fields, Fieldsets (the legend in the
+     label column) and single choices (lined up with the boxes) inside,
+     while the container is at least 32rem wide; narrower, labels go back
+     above. Fields side by side (a Form Layout row, a repeater item) keep
+     their labels above. data-label="above" on a field or container
+     inside puts them back. */
+  :where([data-label="start"]:not(.canon-field, .canon-fieldset, .canon-form)) {
+    container-type: inline-size;
+  }
+  :where(.canon-field[data-label="start"]) {
+    grid-template-columns: minmax(0, var(--canon-label-width, 33%)) minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label  control control"
+      "action message counter";
+    column-gap: var(--canon-label-gap, 1rem);
+  }
+  :where(.canon-field[data-label="start"]) > :where(.canon-label) {
+    align-self: start;
+    margin-block-start: max(0px, calc((var(--canon-control-block-size) - 1lh) / 2));
+  }
+  :where(.canon-field[data-label="start"]) > :where(.canon-field-action) {
+    justify-self: start;
+  }
+  :where(.canon-field[data-label="start"]) > :not(.canon-label, .canon-field-action, .canon-field-message, .canon-field-counter) {
+    align-self: start;
+    margin-block-start: 0;
+  }
+  @container (width >= 32rem) {
+    :where([data-label="start"]:not(.canon-field)) :where(.canon-field):not([data-label="above"], [data-label="above"] .canon-field, .canon-form-row > *, .canon-repeater-item > *) {
+    grid-template-columns: minmax(0, var(--canon-label-width, 33%)) minmax(0, 1fr) auto;
+      grid-template-areas:
+        "label  control control"
+        "action message counter";
+      column-gap: var(--canon-label-gap, 1rem);
+    }
+    :where([data-label="start"]:not(.canon-field)) :where(.canon-field):not([data-label="above"], [data-label="above"] .canon-field, .canon-form-row > *, .canon-repeater-item > *) > :where(.canon-label) {
+      align-self: start;
+      margin-block-start: max(0px, calc((var(--canon-control-block-size) - 1lh) / 2));
+    }
+    :where([data-label="start"]:not(.canon-field)) :where(.canon-field):not([data-label="above"], [data-label="above"] .canon-field, .canon-form-row > *, .canon-repeater-item > *) > :where(.canon-field-action) {
+      justify-self: start;
+    }
+    :where([data-label="start"]:not(.canon-field)) :where(.canon-field):not([data-label="above"], [data-label="above"] .canon-field, .canon-form-row > *, .canon-repeater-item > *) > :not(.canon-label, .canon-field-action, .canon-field-message, .canon-field-counter) {
+      align-self: start;
+      margin-block-start: 0;
+    }
+    /* A vertical fieldset: the legend (and its hint) in the label column,
+       the items beside it. A horizontal one: the legend first, the items
+       after it on the row. */
+    :where([data-label="start"]) :where(.canon-fieldset:not([data-orientation="horizontal"])):not([data-label="above"], [data-label="above"] .canon-fieldset),
+    :where(.canon-fieldset[data-label="start"]:not([data-orientation="horizontal"])) {
+      display: grid;
+      grid-template-columns: minmax(0, var(--canon-label-width, 33%)) minmax(0, 1fr);
+      column-gap: var(--canon-label-gap, 1rem);
+    }
+    :where([data-label="start"]) :where(.canon-fieldset:not([data-orientation="horizontal"])):not([data-label="above"], [data-label="above"] .canon-fieldset) > *,
+    :where(.canon-fieldset[data-label="start"]:not([data-orientation="horizontal"])) > * {
+      grid-column: 2;
+    }
+    :where([data-label="start"]) :where(.canon-fieldset:not([data-orientation="horizontal"])):not([data-label="above"], [data-label="above"] .canon-fieldset) > :where(.canon-fieldset-legend),
+    :where(.canon-fieldset[data-label="start"]:not([data-orientation="horizontal"])) > :where(.canon-fieldset-legend) {
+      grid-column: 1;
+      grid-row: 1;
+      margin-block-end: 0; /* still floated: a floated legend is a grid item */
+    }
+    :where([data-label="start"]) :where(.canon-fieldset:not([data-orientation="horizontal"])):not([data-label="above"], [data-label="above"] .canon-fieldset) > :where(.canon-fieldset-hint),
+    :where(.canon-fieldset[data-label="start"]:not([data-orientation="horizontal"])) > :where(.canon-fieldset-hint) {
+      grid-column: 1;
+      grid-row: 2 / span 20;
+      align-self: start;
+      margin-block-end: 0;
+    }
+    :where([data-label="start"]) :where(.canon-fieldset:not([data-orientation="horizontal"])):not([data-label="above"], [data-label="above"] .canon-fieldset) > :nth-child(1 of :not(.canon-fieldset-legend, .canon-fieldset-hint, .canon-fieldset-message)),
+    :where(.canon-fieldset[data-label="start"]:not([data-orientation="horizontal"])) > :nth-child(1 of :not(.canon-fieldset-legend, .canon-fieldset-hint, .canon-fieldset-message)) {
+      margin-block-start: 0;
+    }
+    :where([data-label="start"]) :where(.canon-fieldset[data-orientation="horizontal"]):not([data-label="above"], [data-label="above"] .canon-fieldset) > :where(.canon-fieldset-legend),
+    :where(.canon-fieldset[data-label="start"][data-orientation="horizontal"]) > :where(.canon-fieldset-legend) {
+      flex: 0 0 var(--canon-label-width, 33%);
+      margin-block-end: 0;
+    }
+    /* A single checkbox or switch lines up with the boxes. */
+    :where([data-label="start"]:not(.canon-field, .canon-fieldset), [data-label="start"] .canon-form-section, [data-label="start"] .canon-form) > :where(.canon-choice) {
+      margin-inline-start: calc(var(--canon-label-width, 33%) + var(--canon-label-gap, 1rem));
+    }
+  }
+
+  /* data-sticky on the actions (a long form): they stay at the bottom of
+     the window while the form scrolls under them. */
+  :where(.canon-form-actions[data-sticky]) {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 1;
+  }
+}
+
+/* @canon-part */
+@layer canon.hints {
+  @container (width >= 32rem) {
+    :where([data-label="start"]) :where(.canon-description-list) > :where(div:not(:has(> dt > .canon-icon))),
+    :where(.canon-description-list[data-label="start"]) > :where(div:not(:has(> dt > .canon-icon))) {
+      grid-template-columns: minmax(0, var(--canon-label-width, 33%)) minmax(0, 1fr) auto;
+      column-gap: var(--canon-label-gap, 1rem);
+    }
+    :where([data-label="start"]) :where(.canon-description-list) > :where(div:not(:has(> dt > .canon-icon))) > :where(dt),
+    :where(.canon-description-list[data-label="start"]) > :where(div:not(:has(> dt > .canon-icon))) > :where(dt) {
+      grid-column: 1;
+      grid-row: 1 / span 20;
+    }
+    :where([data-label="start"]) :where(.canon-description-list) > :where(div:not(:has(> dt > .canon-icon))) > :where(dd),
+    :where(.canon-description-list[data-label="start"]) > :where(div:not(:has(> dt > .canon-icon))) > :where(dd) {
+      grid-column: 2;
+    }
+  }
+}

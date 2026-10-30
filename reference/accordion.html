@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Accordion reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Accordion</h1>
+  <p class="ref-note">Parts of a page that open one by one, under rows that name them. The browser's own <code>&lt;details&gt;</code>: it works without JavaScript. Specification: <a href="../docs/components/accordion.md">docs/components/accordion.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="accordion">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-accordion</code> of <code>&lt;details class="canon-accordion-item"&gt;</code>, each a <code>&lt;summary class="canon-accordion-summary"&gt;</code> naming it and a <code>.canon-accordion-content</code>. Each opens by itself: several can be open at once. <code>open</code> starts one open.</p>
+
+    <div class="ref-accordions">
+      <div class="canon-accordion">
+        <details class="canon-accordion-item" open>
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Invoice numbering</span></summary>
+          <div class="canon-accordion-content"><p>New invoices are numbered INV-2042 onwards. Change the prefix or the next number; past invoices keep theirs.</p></div>
+        </details>
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Payment terms</span></summary>
+          <div class="canon-accordion-content"><p>Net 30 for every customer, unless their record says otherwise.</p></div>
+        </details>
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Late fees</span></summary>
+          <div class="canon-accordion-content"><p>None. Turn them on to add 1.5% a month to invoices past their due date.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="one-at-a-time">
+    <h2>One at a time</h2>
+    <p class="ref-note">The same <code>name</code> on every item: opening one closes the one that was open. For parts read one after the other, like questions; leave it out where several are open together, like settings.</p>
+
+    <div class="ref-accordions">
+      <div class="canon-accordion">
+        <details class="canon-accordion-item" name="faq" open>
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Why was the payment declined?</span></summary>
+          <div class="canon-accordion-content"><p>The bank refused it: usually the card expired or the amount was over its limit. The customer sees the bank's reason in their email.</p></div>
+        </details>
+        <details class="canon-accordion-item" name="faq">
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Can I change an invoice after sending it?</span></summary>
+          <div class="canon-accordion-content"><p>No: issue a credit note for it and send a new invoice. Both stay in the customer's history.</p></div>
+        </details>
+        <details class="canon-accordion-item" name="faq">
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">When does the money arrive?</span></summary>
+          <div class="canon-accordion-content"><p>Two working days after the customer pays, in the account set in Payouts.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="parts">
+    <h2>Parts</h2>
+    <p class="ref-note">A description under the title says what's inside, or its state. An icon leads the row (on every item or none). A <a href="tag.html">Tag</a>, <a href="count.html">Count</a> or <a href="status.html">Status Indicator</a> at the end gives a fact about the part. The whole row is the summary's name, so keep it short.</p>
+
+    <div class="ref-accordions">
+      <div class="canon-accordion">
+        <details class="canon-accordion-item" open>
+          <summary class="canon-accordion-summary">
+            <span class="canon-icon" data-icon="building" aria-hidden="true"></span>
+            <span class="canon-accordion-title">Company</span>
+            <span class="canon-accordion-description">Globex Corporation · Springfield</span>
+          </summary>
+          <div class="canon-accordion-content">
+            <dl class="canon-description-list" data-label="start">
+              <div><dt>Legal name</dt><dd>Globex Corporation Ltd</dd></div>
+              <div><dt>VAT number</dt><dd>GB 123 4567 89</dd></div>
+              <div><dt>Address</dt><dd>1 Globex Way, Springfield</dd></div>
+            </dl>
+          </div>
+        </details>
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary">
+            <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+            <span class="canon-accordion-title">Reminders</span>
+            <span class="canon-accordion-description">Sent 3 and 10 days after the due date</span>
+            <span class="canon-count">3</span>
+          </summary>
+          <div class="canon-accordion-content"><p>Three reminders were sent for invoices due this month.</p></div>
+        </details>
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary">
+            <span class="canon-icon" data-icon="receipt" aria-hidden="true"></span>
+            <span class="canon-accordion-title">Open invoices</span>
+            <span class="canon-status" data-intent="danger"><span class="canon-status-label">1 overdue</span></span>
+          </summary>
+          <div class="canon-accordion-content"><p>INV-2041 is 14 days past its due date.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the accordion or a container: <code>sm</code> for a dense side panel, <code>lg</code> for a help page.</p>
+
+    <div class="ref-accordions">
+      <div class="canon-accordion" data-size="sm">
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Small</span></summary><div class="canon-accordion-content"><p>For a dense side panel.</p></div></details>
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Rows 8px inside</span></summary><div class="canon-accordion-content"><p>Titles 13px.</p></div></details>
+      </div>
+      <div class="canon-accordion">
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Theme decides</span></summary><div class="canon-accordion-content"><p>Rows 12px inside, titles 14px.</p></div></details>
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Medium</span></summary><div class="canon-accordion-content"><p>The usual size.</p></div></details>
+      </div>
+      <div class="canon-accordion" data-size="lg">
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Large</span></summary><div class="canon-accordion-content"><p>For a help page.</p></div></details>
+        <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Rows 16px inside</span></summary><div class="canon-accordion-content"><p>Titles 16px.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="in-context">
+    <h2>In context</h2>
+    <p class="ref-note">In a <a href="card.html">Card</a>, under the fields people always need: the options they rarely do, closed until wanted. One item works alone, as a disclosure. Fields inside a closed item are still sent with the form.</p>
+
+    <div class="ref-accordions">
+      <form class="canon-card" action="#in-context">
+        <div class="canon-card-header"><h3 class="canon-card-title">New webhook</h3></div>
+        <div class="canon-card-body ref-accordion-form">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="ac-url">Endpoint URL</label></div>
+            <div class="canon-text-input"><input id="ac-url" name="url" type="url" placeholder="https://example.com/hooks"></div>
+          </div>
+          <div class="canon-accordion">
+            <details class="canon-accordion-item">
+              <summary class="canon-accordion-summary">
+                <span class="canon-accordion-title">Advanced options</span>
+                <span class="canon-accordion-description">Retries, timeout, signing secret</span>
+              </summary>
+              <div class="canon-accordion-content ref-accordion-form">
+                <div class="canon-field">
+                  <div class="canon-label"><label class="canon-label-text" for="ac-retries">Retries</label></div>
+                  <div class="canon-number">
+                    <button type="button" class="canon-button" data-display="icon" commandfor="ac-retries" command="--canon-step-down"><span class="canon-icon" data-icon="minus" aria-hidden="true"></span><span class="canon-button-label">Fewer retries</span></button>
+                    <input id="ac-retries" name="retries" type="number" value="3" min="0" max="10">
+                    <button type="button" class="canon-button" data-display="icon" commandfor="ac-retries" command="--canon-step-up"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">More retries</span></button>
+                  </div>
+                </div>
+                <div class="canon-field">
+                  <div class="canon-label"><label class="canon-label-text" for="ac-secret">Signing secret</label></div>
+                  <div class="canon-text-input"><input id="ac-secret" name="secret" type="text" placeholder="Generated when empty"></div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the icon is on the right and the chevron on the left. A long title wraps, the chevron and the Tag centered beside it. An accordion can sit in another's content, with only the lines between its own items.</p>
+
+    <div class="ref-accordions">
+      <div class="canon-accordion" dir="rtl" lang="ar">
+        <details class="canon-accordion-item" open>
+          <summary class="canon-accordion-summary"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-accordion-title">الشركة</span><span class="canon-accordion-description">جلوبكس · سبرينغفيلد</span></summary>
+          <div class="canon-accordion-content"><p>الاسم القانوني: شركة جلوبكس المحدودة.</p></div>
+        </details>
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-accordion-title">التذكيرات</span><span class="canon-count">٣</span></summary>
+          <div class="canon-accordion-content"><p>أُرسلت ثلاثة تذكيرات هذا الشهر.</p></div>
+        </details>
+      </div>
+      <div class="canon-accordion" style="max-inline-size: 20rem">
+        <details class="canon-accordion-item">
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">What happens to invoices in a currency the workspace doesn't use?</span><span class="canon-tag" data-size="sm"><span class="canon-tag-label">FX</span></span></summary>
+          <div class="canon-accordion-content"><p>They're converted at the day's rate when paid.</p></div>
+        </details>
+      </div>
+      <div class="canon-accordion">
+        <details class="canon-accordion-item" open>
+          <summary class="canon-accordion-summary"><span class="canon-accordion-title">Integrations</span></summary>
+          <div class="canon-accordion-content">
+            <div class="canon-accordion" data-size="sm">
+              <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Accounting</span><span class="canon-accordion-description">Connected</span></summary><div class="canon-accordion-content"><p>Invoices sync every hour.</p></div></details>
+              <details class="canon-accordion-item"><summary class="canon-accordion-summary"><span class="canon-accordion-title">Payments</span><span class="canon-accordion-description">Not connected</span></summary><div class="canon-accordion-content"><p>Connect a provider to take card payments.</p></div></details>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

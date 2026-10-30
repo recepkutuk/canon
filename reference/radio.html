@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Radio reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Radio</h1>
+  <p class="ref-note">One choice from a short list, always in a group. Specification: <a href="../docs/components/radio.md">docs/components/radio.md</a> · shared anatomy: <a href="../docs/components/choice.md">docs/components/choice.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="group">
+    <h2>Group</h2>
+    <p class="ref-note">Radios are always inside a fieldset.</p>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" aria-describedby="gr-plan-hint">
+        <legend class="canon-fieldset-legend">Plan</legend>
+        <p class="canon-fieldset-hint" id="gr-plan-hint">You can change this later.</p>
+        <div class="canon-choice">
+          <input type="radio" id="gr-plan-free" name="plan" value="free" checked>
+          <label class="canon-choice-label" for="gr-plan-free">Free</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="gr-plan-team" name="plan" value="team" aria-describedby="gr-plan-team-hint">
+          <label class="canon-choice-label" for="gr-plan-team">Team</label>
+          <p class="canon-choice-hint" id="gr-plan-team-hint">Up to 20 members, shared projects.</p>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="gr-plan-ent" name="plan" value="enterprise" disabled>
+          <label class="canon-choice-label" for="gr-plan-ent">Enterprise (contact sales)</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset">
+        <legend class="canon-fieldset-legend">Nothing selected yet</legend>
+        <div class="canon-choice">
+          <input type="radio" id="gr-none-a" name="gr-none" value="a">
+          <label class="canon-choice-label" for="gr-none-a">Weekly</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="gr-none-b" name="gr-none" value="b">
+          <label class="canon-choice-label" for="gr-none-b">Monthly</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>Invalid and disabled</h2>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" aria-describedby="st-err-message">
+        <legend class="canon-fieldset-legend">Environment</legend>
+        <div class="canon-choice">
+          <input type="radio" id="st-err-dev" name="env" value="dev" required>
+          <label class="canon-choice-label" for="st-err-dev">Development</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="st-err-stg" name="env" value="staging" required>
+          <label class="canon-choice-label" for="st-err-stg">Staging</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="st-err-prd" name="env" value="production" required>
+          <label class="canon-choice-label" for="st-err-prd">Production</label>
+        </div>
+        <p class="canon-fieldset-message" id="st-err-message" data-intent="danger">Choose an environment.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" disabled>
+        <legend class="canon-fieldset-legend">Disabled fieldset</legend>
+        <div class="canon-choice">
+          <input type="radio" id="st-dis-a" name="st-dis" value="a" checked>
+          <label class="canon-choice-label" for="st-dis-a">Selected</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="st-dis-b" name="st-dis" value="b">
+          <label class="canon-choice-label" for="st-dis-b">Not selected</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="orientation">
+    <h2>Orientation</h2>
+    <p class="ref-note"><code>data-orientation</code> on the fieldset: <code>horizontal</code> or <code>vertical</code>. Without it, Canon stacks them.</p>
+
+    <div class="ref-stack">
+      <fieldset class="canon-fieldset" data-orientation="horizontal">
+        <legend class="canon-fieldset-legend">Have you changed your name?</legend>
+        <div class="canon-choice">
+          <input type="radio" id="or-yes" name="or-changed" value="yes">
+          <label class="canon-choice-label" for="or-yes">Yes</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="or-no" name="or-changed" value="no">
+          <label class="canon-choice-label" for="or-no">No</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" data-orientation="vertical">
+        <legend class="canon-fieldset-legend">Retention (forced vertical)</legend>
+        <div class="canon-choice">
+          <input type="radio" id="or-ret-7" name="or-ret" value="7" checked>
+          <label class="canon-choice-label" for="or-ret-7">7 days</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="or-ret-30" name="or-ret" value="30">
+          <label class="canon-choice-label" for="or-ret-30">30 days</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="or-ret-90" name="or-ret" value="90">
+          <label class="canon-choice-label" for="or-ret-90">90 days</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the fieldset or a container: a 16 / 20 / 24px circle.</p>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" data-size="sm">
+        <legend class="canon-fieldset-legend">Small</legend>
+        <div class="canon-choice">
+          <input type="radio" id="sz-sm-a" name="sz-sm" checked>
+          <label class="canon-choice-label" for="sz-sm-a">Selected</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sz-sm-b" name="sz-sm">
+          <label class="canon-choice-label" for="sz-sm-b">Not selected</label>
+        </div>
+      </fieldset>
+      <fieldset class="canon-fieldset">
+        <legend class="canon-fieldset-legend">Theme decides</legend>
+        <div class="canon-choice">
+          <input type="radio" id="sz-md-a" name="sz-md" checked>
+          <label class="canon-choice-label" for="sz-md-a">Selected</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sz-md-b" name="sz-md">
+          <label class="canon-choice-label" for="sz-md-b">Not selected</label>
+        </div>
+      </fieldset>
+      <fieldset class="canon-fieldset" data-size="lg">
+        <legend class="canon-fieldset-legend">Large</legend>
+        <div class="canon-choice">
+          <input type="radio" id="sz-lg-a" name="sz-lg" checked>
+          <label class="canon-choice-label" for="sz-lg-a">Selected</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sz-lg-b" name="sz-lg">
+          <label class="canon-choice-label" for="sz-lg-b">Not selected</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <fieldset class="canon-fieldset" aria-describedby="sx-long-hint sx-long-message">
+        <legend class="canon-fieldset-legend">Which processing region should store backups for workspaces created before the 2024 data residency migration?</legend>
+        <p class="canon-fieldset-hint" id="sx-long-hint">Backups move during the next maintenance window. Restores from the old region stay available for 30 days.</p>
+        <div class="canon-choice">
+          <input type="radio" id="sx-long-a" name="sx-long" value="a" aria-describedby="sx-long-a-hint">
+          <label class="canon-choice-label" for="sx-long-a">The region closest to the majority of the workspace's members</label>
+          <p class="canon-choice-hint" id="sx-long-a-hint">Recalculated every quarter from sign-in locations.</p>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sx-long-b" name="sx-long" value="b">
+          <label class="canon-choice-label" for="sx-long-b">The organisation's home region</label>
+        </div>
+        <p class="canon-fieldset-message" id="sx-long-message" data-intent="danger">Choose a region before the migration starts on 1 March.</p>
+      </fieldset>
+
+      <fieldset class="canon-fieldset" dir="rtl" lang="ar">
+        <legend class="canon-fieldset-legend">التكرار</legend>
+        <div class="canon-choice">
+          <input type="radio" id="sx-rtl-a" name="sx-rtl" checked>
+          <label class="canon-choice-label" for="sx-rtl-a">يوميًا</label>
+        </div>
+        <div class="canon-choice">
+          <input type="radio" id="sx-rtl-b" name="sx-rtl">
+          <label class="canon-choice-label" for="sx-rtl-b">أسبوعيًا</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Menubar                                                            */
+  /*                                                                    */
+  /* A row of menu items (role="menubar"), each opening a Menu with     */
+  /* popovertarget. One tab stop; canon.js moves along it with the      */
+  /* arrows and across open menus.                                      */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-menubar) {
+    display: inline-flex;
+    align-items: stretch;
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+  :where(.canon-menubar-item) {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+    cursor: default;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(.canon-menubar-item):focus-visible {
+    outline: none;
+  }
+}

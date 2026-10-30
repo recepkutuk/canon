@@ -1,0 +1,241 @@
+/*
+ * The Introduction page: Canon's landing. Not part of canon.
+ *
+ * Quiet, at the width and in the faces of the other pages: reading sizes,
+ * hairlines, small titles over their content, and the components
+ * themselves as the picture, and a short story of what the markup gives
+ * you that plays while it's in view (landing.js). Complete without
+ * JavaScript. The contract check's amber is the one accent.
+ */
+
+.ref-landing {
+  --l-accent: light-dark(#d97706, #f59e0b);
+  --l-ground: light-dark(#fafafa, #0c0c0e);
+  --l-focus: light-dark(#2563eb, #60a5fa);
+  --l-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.18);
+  --l-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --l-ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ref-landing :is(h1, h2, h3) { text-wrap: balance; }
+.ref-landing p { text-wrap: pretty; }
+.ref-l-text { max-inline-size: 34rem; margin: 0; color: var(--ref-muted); font-size: 0.9375rem; line-height: 1.7; }
+.ref-l-text + .ref-l-text { margin-block-start: 0.75rem; }
+.ref-l-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: 1.5rem 0 0; font-size: 0.875rem; }
+.ref-l-links a { color: var(--ref-fg); text-decoration-line: underline; text-decoration-color: color-mix(in srgb, currentColor 25%, transparent); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color 0.18s; }
+.ref-l-links a:hover { text-decoration-color: currentColor; }
+.ref-l-install { display: inline-flex; align-items: center; gap: 0.5rem; max-inline-size: 100%; box-sizing: border-box; margin-block-start: 1.75rem; padding: 0.5rem 0.5rem 0.5rem 0.875rem; border: 1px solid var(--ref-line); border-radius: 0.625rem; background-color: var(--ref-bg); }
+.ref-l-install pre { min-inline-size: 0; margin: 0; overflow-x: auto; font: 0.75rem/1.65 var(--l-mono); }
+.ref-l-install code { padding: 0; background: none; font-size: inherit; }
+
+/* ---------------------------------------------------------------------- */
+/* The first screen: the name, then working components framing the claim  */
+/* ---------------------------------------------------------------------- */
+.ref-l-hero { container-type: inline-size; }
+.ref-l-hero h1 { margin: 0; font-size: 2rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.03em; }
+/* Four by three hairline cells, the claim across the middle two. */
+.ref-l-frame {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(10rem, auto);
+  gap: 1px;
+  margin-block-start: 2rem;
+  border: 1px solid var(--ref-line);
+  background-color: var(--ref-line);
+}
+/* Cells stretch to their row, so the lines between them stay hairlines. */
+.ref-l-cell, .ref-l-claim { display: grid; place-items: center; min-inline-size: 0; box-sizing: border-box; padding: 1rem; background-color: var(--ref-bg); }
+.ref-l-cell > * { max-inline-size: 100%; }
+/* A search field fills its cell, to a field's width. */
+.ref-l-claim { grid-column: span 2; place-content: center; gap: 0.5rem; text-align: center; }
+.ref-l-claim p { margin: 0; color: var(--ref-muted); font-size: 0.9375rem; line-height: 1.5; }
+.ref-l-claim strong { color: var(--ref-fg); font-weight: 600; }
+/* The frame follows its own width (the sidebar takes a share of the
+   window): two columns with the claim across the top when four would
+   squeeze the components, one on the narrowest. */
+@container (max-width: 50rem) {
+  /* Eight components, shorter: four above the claim, four below. */
+  .ref-l-frame { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(7rem, auto); }
+  .ref-l-cell { order: 3; }
+  .ref-l-cell:is([data-slot="1"], [data-slot="2"], [data-slot="3"], [data-slot="4"]) { order: 1; }
+  .ref-l-claim { order: 2; grid-column: 1 / -1; padding-block: 1.75rem; }
+  .ref-l-cell:is([data-slot="6"], [data-slot="7"]) { display: none; }
+}
+@container (max-width: 28rem) {
+  .ref-l-frame { grid-template-columns: minmax(0, 1fr); }
+  .ref-l-claim { grid-column: auto; }
+}
+.ref-l-wide { inline-size: min(100%, 8rem); }
+/* The components act in turn (landing.js), not for the pointer: the cells
+   are inert, and what a hand would show is drawn while they act: a button
+   held down, the slider's value over its thumb. */
+.ref-l-cell .canon-button[data-pressed] { background-color: var(--canon-theme-bg-active); }
+.ref-l-cell .canon-button[data-pressed]:not([data-display="icon"]) { scale: 0.98; }
+.ref-l-cell .canon-control[data-showing] > output { opacity: 1; visibility: visible; }
+.ref-l-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.375rem; }
+
+/* ---------------------------------------------------------------------- */
+/* Rows: a title over its content                                         */
+/* ---------------------------------------------------------------------- */
+.ref-l-row { display: grid; gap: 1rem; margin-block-start: 5.5rem; padding-block-start: 1.5rem; border-block-start: 1px solid var(--ref-line); }
+.ref-l-label h2 { margin: 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
+
+/* ---------------------------------------------------------------------- */
+/* Why Canon: a lead, then four beliefs                                    */
+/* ---------------------------------------------------------------------- */
+/* The lead at a size between the page's name and its text. */
+.ref-l-why { margin-block-start: 3.5rem; padding-block-start: 0; border-block-start: 0; }
+.ref-l-lead { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 1.375rem; font-weight: 500; line-height: 1.45; letter-spacing: -0.015em; }
+.ref-l-beliefs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: l-belief; }
+.ref-l-beliefs li { counter-increment: l-belief; }
+.ref-l-beliefs li::before { content: counter(l-belief, decimal-leading-zero); display: block; margin-block-end: 0.5rem; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ref-l-beliefs h3 { margin: 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.4; }
+.ref-l-beliefs p { margin: 0.375rem 0 0; color: var(--ref-muted); font-size: 0.875rem; line-height: 1.6; }
+/* The entrance, once, as it comes into view (landing.js): the lead rises
+   line by line (landing.js wraps its words and numbers their lines,
+   --line, and counts them, --lines), then the
+   beliefs follow one by one. Hidden at once; only the way in is animated. */
+.ref-l-word { display: inline-block; }
+.ref-l-why:not([data-waiting]) .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--line, 0) * 140ms); }
+.ref-l-why:not([data-waiting]) .ref-l-beliefs li { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms); }
+.ref-l-beliefs li:nth-child(1) { --i: 0; }
+.ref-l-beliefs li:nth-child(2) { --i: 1; }
+.ref-l-beliefs li:nth-child(3) { --i: 2; }
+.ref-l-beliefs li:nth-child(4) { --i: 3; }
+.ref-l-why[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
+.ref-l-why[data-waiting] .ref-l-beliefs li { opacity: 0; translate: 0 0.75rem; }
+@media (max-width: 40rem) {
+  .ref-l-beliefs { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------------------------------------------------------------------- */
+/* What the markup gives you: a story in three chapters                    */
+/* ---------------------------------------------------------------------- */
+/* The steps: a bar each, filling in the accent while its chapter plays
+   (as long as the chapter), full once it's done. */
+.ref-l-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.ref-l-steps li:nth-child(1) { --l-dwell: 4s; }
+.ref-l-steps li:nth-child(2) { --l-dwell: 5s; }
+.ref-l-steps li:nth-child(3) { --l-dwell: 5.5s; }
+.ref-l-step { display: grid; gap: 0.625rem; inline-size: 100%; padding: 0 0 0.25rem; border: 0; background: none; color: var(--ref-muted); font: inherit; font-size: 0.8125rem; font-weight: 500; line-height: 1.35; text-align: start; cursor: pointer; transition: color 0.2s; }
+.ref-l-step:hover, .ref-l-step[data-now] { color: var(--ref-fg); }
+.ref-l-step:focus-visible { outline: 2px solid var(--l-focus); outline-offset: 4px; border-radius: 2px; }
+.ref-l-step-bar { position: relative; display: block; block-size: 2px; overflow: hidden; border-radius: 1px; background-color: var(--ref-line); }
+.ref-l-step-bar::after { content: ""; position: absolute; inset: 0; background-color: var(--l-accent); transform-origin: left; scale: 0 1; }
+.ref-l-step[data-done] .ref-l-step-bar::after { scale: 1 1; background-color: color-mix(in srgb, var(--ref-fg) 30%, var(--ref-bg)); }
+.ref-l-step[data-now] .ref-l-step-bar::after { animation: ref-l-fill var(--l-dwell) linear forwards; }
+.ref-l-story[data-paused] .ref-l-step-bar::after { animation-play-state: paused; }
+@keyframes ref-l-fill { to { scale: 1 1; } }
+
+/* The chapter's words, one at a time (all of them without JavaScript). */
+.ref-l-story-text { display: grid; margin-block-start: 0.5rem; }
+.ref-l-story-text p { grid-area: 1 / 1; max-inline-size: 36rem; margin: 0; color: var(--ref-muted); font-size: 0.9375rem; line-height: 1.65; }
+.ref-l-story-text code { font-size: 0.875em; }
+.ref-l-story[data-chapter] .ref-l-story-text p { opacity: 0; translate: 0 4px; transition: opacity 0.4s var(--l-ease), translate 0.5s var(--l-ease); }
+.ref-l-story[data-chapter] .ref-l-story-text p[data-now] { opacity: 1; translate: 0; }
+.ref-l-story:not([data-chapter]) .ref-l-story-text { gap: 0.5rem; }
+.ref-l-story:not([data-chapter]) .ref-l-story-text p { grid-area: auto; }
+
+/* The source beside the button it makes. */
+.ref-l-story-work { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; margin-block-start: 1rem; }
+.ref-l-source {
+  --t-text: light-dark(#3f3f46, #d4d4d8);
+  --t-punct: light-dark(#71717a, #a1a1aa);
+  --t-tag: light-dark(#1d4ed8, #60a5fa);
+  --t-attr: light-dark(#6d28d9, #a78bfa);
+  --t-string: light-dark(#047857, #34d399);
+  min-inline-size: 0;
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.875rem 0;
+  border: 1px solid var(--ref-line);
+  border-radius: 0.875rem;
+  background-color: var(--l-ground);
+  color: var(--t-text);
+  font: 0.6875rem/1.75 var(--l-mono);
+}
+.ref-l-source code { display: block; min-inline-size: max-content; }
+.ref-l-line { display: block; padding-inline: 0.875rem; white-space: pre; transition: opacity 0.4s var(--l-ease), background-color 0.4s, box-shadow 0.4s; }
+.ref-l-source .t-p { color: var(--t-punct); }
+.ref-l-source .t-t { color: var(--t-tag); }
+.ref-l-source .t-a { color: var(--t-attr); }
+.ref-l-source .t-s { color: var(--t-string); }
+.ref-l-story[data-chapter] .ref-l-line { opacity: 0.25; }
+.ref-l-story[data-chapter] .ref-l-line[data-lit] { opacity: 1; }
+.ref-l-story[data-chapter]:not([data-chapter="1"]) .ref-l-line[data-lit] { background-color: color-mix(in srgb, var(--l-accent) 9%, transparent); box-shadow: inset 2px 0 var(--l-accent); }
+
+.ref-l-stage { display: grid; gap: 0.75rem; min-inline-size: 0; }
+/* The button alone, centered on the docs' preview ground. */
+.ref-l-host { display: grid; place-items: center; min-block-size: 8rem; padding: 1.5rem; border: 1px solid var(--ref-line); border-radius: 0.875rem; background-color: var(--l-ground); }
+.ref-l-heard { display: flex; gap: 0.625rem; align-items: baseline; margin: 0; padding: 0.625rem 0.875rem; border: 1px solid var(--ref-line); border-radius: 0.625rem; background-color: var(--l-ground); font: 0.6875rem/1.5 var(--l-mono); opacity: 0; translate: 0 4px; transition: opacity 0.4s var(--l-ease), translate 0.5s var(--l-ease); }
+.ref-l-heard > :first-child { flex: none; color: var(--ref-muted); }
+.ref-l-stage[data-named] .ref-l-heard { opacity: 1; translate: 0; }
+.ref-l-story:not([data-chapter]) .ref-l-heard { display: none; }
+
+/* ---------------------------------------------------------------------- */
+/* Without JavaScript: a cell for each component                           */
+/* ---------------------------------------------------------------------- */
+.ref-l-figure { margin: 0 0 0.5rem; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.015em; }
+.ref-l-figure > span { font-variant-numeric: tabular-nums; }
+.ref-landing [data-tier="T0"] { --l-tier: color-mix(in srgb, var(--ref-fg) 70%, var(--ref-bg)); }
+.ref-landing [data-tier="T1"] { --l-tier: color-mix(in srgb, var(--ref-fg) 42%, var(--ref-bg)); }
+.ref-landing [data-tier="T2"] { --l-tier: color-mix(in srgb, var(--ref-fg) 20%, var(--ref-bg)); }
+.ref-landing [data-tier="T3"] { --l-tier: var(--l-accent); }
+/* The cells beside their key; pointing at a line of the key keeps its
+   tier's cells lit. */
+.ref-l-tally { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; margin-block-start: 2rem; }
+.ref-l-squares { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); gap: 3px; }
+.ref-l-squares > span { aspect-ratio: 1 / 2; background-color: var(--l-tier); transform-origin: bottom; transition: opacity 0.5s var(--l-ease) calc(var(--i) * 12ms), scale 0.7s var(--l-ease) calc(var(--i) * 12ms); }
+.ref-l-squares[data-waiting] > span { opacity: 0; scale: 1 0.2; }
+/* After their entrance (landing.js) they change at once, without the stagger. */
+.ref-l-squares[data-settled] > span { transition: opacity 0.2s; }
+.ref-l-tally[data-show="T0"] .ref-l-squares > span:not([data-tier="T0"]),
+.ref-l-tally[data-show="T1"] .ref-l-squares > span:not([data-tier="T1"]),
+.ref-l-tally[data-show="T2"] .ref-l-squares > span:not([data-tier="T2"]),
+.ref-l-tally[data-show="T3"] .ref-l-squares > span:not([data-tier="T3"]) { opacity: 0.15; }
+.ref-l-key { display: grid; margin: 0; }
+.ref-l-key > div { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 0.5rem; align-items: baseline; padding: 0.625rem 0.75rem; border-radius: 0.5rem; cursor: default; transition: background-color 0.15s; }
+.ref-l-key > div:hover { background-color: var(--ref-hover); }
+.ref-l-key dt { display: flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ref-l-key dt::before { content: ""; inline-size: 0.375rem; block-size: 0.75rem; background-color: var(--l-tier); }
+.ref-l-key dd { margin: 0; color: var(--ref-muted); font-size: 0.8125rem; line-height: 1.5; }
+/* The tier's name, as the specifications write it. */
+.ref-l-tier-code { display: block; margin-block-end: 0.125rem; color: var(--ref-fg); font: 500 0.6875rem/1.4 var(--l-mono); }
+
+/* ---------------------------------------------------------------------- */
+/* Every component                                                         */
+/* ---------------------------------------------------------------------- */
+/* The names, large; the one pointed at shows above the pointer. */
+.ref-l-names { margin-block-start: 1.75rem; font-size: clamp(1.5rem, 2.6vw, 2.125rem); font-weight: 700; line-height: 1.25; letter-spacing: -0.03em; }
+/* A name never breaks across lines: it moves to the next one whole. */
+.ref-l-names a { display: inline-block; color: color-mix(in srgb, var(--ref-fg) 32%, var(--ref-bg)); text-decoration: none; white-space: nowrap; transition: color 0.15s, opacity 0.5s var(--l-ease) calc(var(--i, 0) * 22ms), translate 0.6s var(--l-ease) calc(var(--i, 0) * 22ms); }
+/* Before the list is in view (landing.js): each name a little low, unseen. */
+.ref-l-names[data-waiting] a { opacity: 0; translate: 0 0.5rem; }
+.ref-l-names a:not(:last-child)::after { content: "\00a0/ "; color: color-mix(in srgb, var(--ref-fg) 14%, var(--ref-bg)); font-weight: 400; }
+.ref-l-names a:is(:hover, :focus-visible) { color: var(--ref-fg); }
+.ref-l-names a:focus-visible { outline: 2px solid var(--l-focus); outline-offset: 2px; border-radius: 4px; }
+.ref-l-peek { position: fixed; z-index: 50; inline-size: 22rem; overflow: hidden; border: 1px solid var(--ref-line); border-radius: 0.875rem; box-shadow: var(--l-shadow); pointer-events: none; }
+.ref-l-peek[hidden] { display: none; }
+.ref-l-peek-stage { display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; padding: 1.25rem; background-color: var(--l-ground); }
+
+/* ---------------------------------------------------------------------- */
+/* Not included                                                            */
+/* ---------------------------------------------------------------------- */
+.ref-l-not dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.5rem 2rem; margin: 1.75rem 0 0; }
+.ref-l-not dt { font-size: 0.9375rem; font-weight: 600; }
+.ref-l-not dd { margin: 0.375rem 0 0; color: var(--ref-muted); font-size: 0.875rem; line-height: 1.6; }
+
+/* ---------------------------------------------------------------------- */
+/* Narrower windows                                                        */
+/* ---------------------------------------------------------------------- */
+@media (max-width: 64rem) {
+}
+@media (max-width: 48rem) {
+  .ref-l-story-work { grid-template-columns: minmax(0, 1fr); }
+  .ref-l-source { display: none; }
+  .ref-l-squares { grid-template-columns: repeat(17, minmax(0, 1fr)); }
+  .ref-l-tally { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li, .ref-l-line, .ref-l-story-text p, .ref-l-heard { transition: none; }
+  .ref-l-step[data-now] .ref-l-step-bar::after { animation: none; scale: 1 1; }
+}

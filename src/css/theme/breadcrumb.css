@@ -1,0 +1,88 @@
+/* ==================================================================== */
+/* Breadcrumb                                                           */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A row the button's height (32 / 40
+     / 48), no padding at the sides (it starts where the page's text
+     does); the text input's
+     type (12 / 14 / 16px); icons and separators (Lucide chevron-right)
+     the icon size, 6 / 8 / 8px from the words. Links and the "more"
+     button zinc-500 (dark zinc-400); the current page, the separators
+     and a home icon quieter, zinc-400 (dark zinc-500). Hover zinc-900 (dark white), focus the button's ring. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-breadcrumb-gap: 0.5rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-breadcrumb-gap: 0.375rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-breadcrumb-gap: 0.5rem;
+  }
+
+  .canon-breadcrumb {
+    --_link: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    --_quiet: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    --_strong: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    min-block-size: var(--canon-control-block-size);
+    color: var(--_link);
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-breadcrumb > ol,
+  .canon-breadcrumb li {
+    column-gap: var(--canon-theme-breadcrumb-gap);
+  }
+  .canon-breadcrumb li + li::before {
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: var(--_quiet);
+    mask: var(--canon-theme-icon-chevron-right) center / contain no-repeat;
+  }
+  .canon-breadcrumb li + li:dir(rtl)::before {
+    scale: -1 1;
+  }
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more) {
+    border-radius: 0.125rem;
+    transition: color 0.12s;
+  }
+  .canon-breadcrumb a > .canon-icon {
+    color: var(--_quiet);
+    transition: color 0.12s;
+  }
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more):focus-visible,
+  .canon-breadcrumb a:focus-visible > .canon-icon {
+    color: var(--_strong);
+  }
+  @media (hover: hover) {
+    .canon-breadcrumb :is(a, .canon-breadcrumb-more):hover,
+    .canon-breadcrumb a:hover > .canon-icon {
+      color: var(--_strong);
+    }
+  }
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more):focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+  .canon-breadcrumb [aria-current="page"] {
+    color: var(--_quiet);
+  }
+  @media (hover: hover) {
+    .canon-breadcrumb a[aria-current="page"]:hover {
+      color: var(--_quiet);
+    }
+  }
+  .canon-breadcrumb-more[aria-expanded="true"] {
+    color: var(--_strong);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-breadcrumb :is(a, .canon-breadcrumb-more),
+    .canon-breadcrumb a > .canon-icon {
+      transition: none;
+    }
+  }
+}

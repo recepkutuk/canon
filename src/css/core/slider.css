@@ -1,0 +1,197 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Slider and range slider                                             */
+  /*                                                                     */
+  /* A Field whose box holds <input type="range"> (one, or two for a     */
+  /* range slider), with optional min / max labels (prefix, suffix),     */
+  /* <output> values and a <datalist> of named marks. The box is a grid  */
+  /* with named areas, so every slot has a place whatever is present.    */
+  /*                                                                     */
+  /* Themes draw the track and thumb through custom properties; core     */
+  /* maps them onto both engines' pseudo-elements, so a design is        */
+  /* written once. Set them on the box, so marks and values see them:    */
+  /*   --canon-slider-track-size     thickness                           */
+  /*   --canon-slider-track-radius                                       */
+  /*   --canon-slider-track          inactive color                      */
+  /*   --canon-slider-fill           active color                        */
+  /*   --canon-slider-track-image    replaces the fill gradient          */
+  /*   --canon-slider-thumb-inline-size / -block-size / -radius          */
+  /*   --canon-slider-thumb          background                          */
+  /*   --canon-slider-thumb-border   border shorthand                    */
+  /*   --canon-slider-thumb-shadow   box-shadow (halo, focus ring)       */
+  /*   --canon-slider-thumb-scale    grow on hover / press, no reflow    */
+  /*                                                                     */
+  /* The fill follows the live value, which CSS can't read: canon.js     */
+  /* sets --canon-slider-percent (0-100, unitless) on the box, or        */
+  /* --canon-slider-start / --canon-slider-end for a range. Without it  */
+  /* the slider works, unfilled.                                         */
+  /* Core turns them into positions on the track for themes to use in    */
+  /* --canon-slider-track-image: --canon-slider-pos-start / -pos-end     */
+  /* (the thumb's center travels from half a thumb in to half a thumb    */
+  /* before the end), and --canon-slider-direction (to right / to left  */
+  /* / to top). Declare a track image on the input, where they resolve.  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea):has(> input[type="range"]) {
+    display: grid;
+    grid-template-columns: auto auto minmax(4rem, 1fr) auto auto;
+    grid-template-areas:
+      "value-start prefix track suffix value-end"
+      ".           .      marks .      .";
+    align-items: center;
+    /* Absent slots leave empty columns, and gaps would still apply between
+       them: slots are spaced with margins (themes: no gap here either). */
+    gap: 0;
+    min-block-size: 0;
+    padding-inline: 0;
+    cursor: default;
+  }
+
+  :where(.canon-control:has(> input[type="range"])) > :where(input[type="range"]) { grid-area: track; }
+  :where(.canon-control:has(> input[type="range"])) > :where(.canon-control-prefix) { grid-area: prefix; margin-inline-end: var(--canon-control-gap); }
+  :where(.canon-control:has(> input[type="range"])) > :where(.canon-control-suffix) { grid-area: suffix; margin-inline-start: var(--canon-control-gap); }
+  :where(.canon-control:has(> input[type="range"])) > :where(output:has(~ input[type="range"])) { grid-area: value-start; margin-inline-end: var(--canon-control-gap); }
+  :where(.canon-control:has(> input[type="range"])) > :where(input[type="range"] ~ output) { grid-area: value-end; margin-inline-start: var(--canon-control-gap); }
+  :where(.canon-control:has(> input[type="range"])) > :where(datalist) { grid-area: marks; }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"]) {
+    --_thumb-i: var(--canon-slider-thumb-inline-size, 1rem);
+    --_thumb-b: var(--canon-slider-thumb-block-size, var(--_thumb-i));
+    --_track: var(--canon-slider-track-size, 0.25rem);
+    --canon-slider-direction: to right;
+    --canon-slider-pos-start: 0%;
+    --canon-slider-pos-end: calc(var(--_thumb-i) / 2 + (100% - var(--_thumb-i)) * var(--canon-slider-percent, 0) / 100);
+    --_fill-image: linear-gradient(var(--canon-slider-direction),
+      transparent var(--canon-slider-pos-start),
+      var(--canon-slider-fill, currentColor) var(--canon-slider-pos-start) var(--canon-slider-pos-end),
+      transparent var(--canon-slider-pos-end));
+    box-sizing: border-box;
+    align-self: center;
+    block-size: max(var(--_thumb-b), var(--_track));
+    min-inline-size: 4rem;
+    margin: 0;
+    padding: 0;
+    background: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"]):dir(rtl) {
+    --canon-slider-direction: to left;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"]:disabled) {
+    cursor: not-allowed;
+  }
+
+  /* WebKit / Blink */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"])::-webkit-slider-runnable-track {
+    box-sizing: border-box;
+    block-size: var(--_track);
+    border-radius: var(--canon-slider-track-radius, 0);
+    background: var(--canon-slider-track-image, var(--_fill-image)), var(--canon-slider-track, transparent);
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"])::-webkit-slider-thumb {
+    box-sizing: border-box;
+    inline-size: var(--_thumb-i);
+    block-size: var(--_thumb-b);
+    margin-block-start: calc((var(--_track) - var(--_thumb-b)) / 2);
+    border: var(--canon-slider-thumb-border, 0);
+    border-radius: var(--canon-slider-thumb-radius, 50%);
+    background: var(--canon-slider-thumb, currentColor);
+    box-shadow: var(--canon-slider-thumb-shadow, none);
+    scale: var(--canon-slider-thumb-scale, 1);
+    transition: inherit;
+    appearance: none;
+  }
+
+  /* Gecko. Its native progress bar is hidden: the fill comes from the same
+     gradient as everywhere else, so every browser draws the same thing. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"])::-moz-range-track {
+    box-sizing: border-box;
+    block-size: var(--_track);
+    border-radius: var(--canon-slider-track-radius, 0);
+    background: var(--canon-slider-track-image, var(--_fill-image)), var(--canon-slider-track, transparent);
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"])::-moz-range-progress {
+    background: none;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"])::-moz-range-thumb {
+    box-sizing: border-box;
+    inline-size: var(--_thumb-i);
+    block-size: var(--_thumb-b);
+    border: var(--canon-slider-thumb-border, 0);
+    border-radius: var(--canon-slider-thumb-radius, 50%);
+    background: var(--canon-slider-thumb, currentColor);
+    box-shadow: var(--canon-slider-thumb-shadow, none);
+    scale: var(--canon-slider-thumb-scale, 1);
+    transition: inherit;
+  }
+
+  /* Range slider: two inputs on one track. Only the thumbs take the
+     pointer; the first input draws the track and the fill between the
+     thumbs, the second draws only its thumb. When the thumbs meet, canon.js
+     raises the one that can still move (data-state="front"). */
+  :where(.canon-control:has(> input[type="range"] ~ input[type="range"])) > :where(input[type="range"]) {
+    --canon-slider-pos-start: calc(var(--_thumb-i) / 2 + (100% - var(--_thumb-i)) * var(--canon-slider-start, 0) / 100);
+    --canon-slider-pos-end: calc(var(--_thumb-i) / 2 + (100% - var(--_thumb-i)) * var(--canon-slider-end, 100) / 100);
+    pointer-events: none;
+  }
+  :where(.canon-control:has(> input[type="range"] ~ input[type="range"])) > :where(input[type="range"])::-webkit-slider-thumb {
+    pointer-events: auto;
+  }
+  :where(.canon-control:has(> input[type="range"] ~ input[type="range"])) > :where(input[type="range"])::-moz-range-thumb {
+    pointer-events: auto;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"] ~ input[type="range"])::-webkit-slider-runnable-track {
+    background: none;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"] ~ input[type="range"])::-moz-range-track {
+    background: none;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(input[type="range"][data-state="front"]) {
+    z-index: 1;
+  }
+
+  /* Values: canon.js keeps <output> in sync. Without scripting it would go
+     stale, so it isn't shown. */
+  :where(.canon-control-value) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  @media (scripting: none) {
+    :where(.canon-control-value) {
+      display: none;
+    }
+  }
+
+  /* Named marks: a <datalist> under the track. Spread evenly without JS
+     (right when the values are evenly spaced, the first and last labels
+     flush with the ends); canon.js places each option at its value
+     (--canon-mark-percent) and marks the list placed. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist) {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: calc(var(--canon-slider-thumb-inline-size, 1rem) / 2);
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist) > :where(option) {
+    padding: 0;
+    white-space: nowrap;
+    unicode-bidi: plaintext;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist[data-state="placed"]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 0;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist[data-state="placed"]) > :where(option) {
+    grid-area: 1 / 1;
+    justify-self: start;
+    margin-inline-start: calc(var(--canon-slider-thumb-inline-size, 1rem) / 2 + (100% - var(--canon-slider-thumb-inline-size, 1rem)) * var(--canon-mark-percent, 0) / 100);
+    /* Centered on its value in the middle, but start-aligned at the minimum
+       and end-aligned at the maximum, so labels never overhang the track. */
+    translate: calc(-1% * var(--canon-mark-percent, 0)) 0;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea) > :where(datalist[data-state="placed"]) > :where(option):dir(rtl) {
+    translate: calc(1% * var(--canon-mark-percent, 0)) 0;
+  }
+}

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Tabs reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Tabs</h1>
+  <p class="ref-note">The parts of one page or record, one shown at a time. Specification: <a href="../docs/components/tabs.md">docs/components/tabs.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="tabs">
+    <h2>Basics</h2>
+    <p class="ref-note">In-page tabs: a <code>.canon-tabs</code> around a named strip (<code>role="tablist"</code>) of tab buttons and their panels. Click a tab, or use the arrow keys (<kbd class="canon-kbd">Home</kbd> and <kbd class="canon-kbd">End</kbd> to the ends); the strip is one Tab stop, then the panel. The strip is a track as wide as its tabs; a raised card marks the current one and glides to the next. Not a <a href="segmented-control.html">Segmented Control</a>: that sets a value, Tabs show a part.</p>
+
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tt-tab-overview" aria-controls="tt-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tt-tab-payments" aria-controls="tt-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tt-tab-activity" aria-controls="tt-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tt-tab-notes" aria-controls="tt-notes" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Notes</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tt-tab-emails" aria-controls="tt-emails" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Emails</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tt-overview" aria-labelledby="tt-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tt-payments" aria-labelledby="tt-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tt-activity" aria-labelledby="tt-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tt-notes" aria-labelledby="tt-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tt-emails" aria-labelledby="tt-tab-emails" tabindex="0" hidden><p>Emails of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="links">
+    <h2>Links</h2>
+    <p class="ref-note">When each part has its own address (<code>/invoices/2041/payments</code>), the tabs are links: a named <code>&lt;nav class="canon-tabs-list"&gt;</code>, the current one <code>aria-current="page"</code>. No tab roles: they go somewhere. They work without JavaScript.</p>
+
+    <div class="ref-tabs-demo">
+      <nav class="canon-tabs-list" aria-label="Invoice INV-2041">
+        <a class="canon-tab" href="#tl-overview"><span class="canon-tab-label">Overview</span></a>
+        <a class="canon-tab" href="#tl-payments" aria-current="page"><span class="canon-tab-label">Payments</span></a>
+        <a class="canon-tab" href="#tl-activity"><span class="canon-tab-label">Activity</span></a>
+        <a class="canon-tab" href="#tl-notes"><span class="canon-tab-label">Notes</span></a>
+        <a class="canon-tab" href="#tl-emails"><span class="canon-tab-label">Emails</span></a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="fill">
+    <h2>Sharing the width</h2>
+    <p class="ref-note"><code>data-fill</code>: the tabs share the strip equally. Best with few tabs of similar length.</p>
+
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" data-fill role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tf-tab-overview" aria-controls="tf-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tf-tab-payments" aria-controls="tf-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tf-tab-activity" aria-controls="tf-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tf-overview" aria-labelledby="tf-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tf-payments" aria-labelledby="tf-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tf-activity" aria-labelledby="tf-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="icons">
+    <h2>Icons and counts</h2>
+    <p class="ref-note">An icon before a tab's text, and a <a href="count.html">Count</a> after it (with what it counts, visually hidden: "14 new").</p>
+
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="ti-tab-overview" aria-controls="ti-overview" aria-selected="true"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ti-tab-payments" aria-controls="ti-payments" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ti-tab-activity" aria-controls="ti-activity" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-tab-label">Activity</span><span class="canon-count">14<span class="canon-visually-hidden"> new</span></span></button>
+          <button type="button" class="canon-tab" role="tab" id="ti-tab-notes" aria-controls="ti-notes" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-tab-label">Notes</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ti-tab-emails" aria-controls="ti-emails" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-tab-label">Emails</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ti-overview" aria-labelledby="ti-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ti-payments" aria-labelledby="ti-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ti-activity" aria-labelledby="ti-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ti-notes" aria-labelledby="ti-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ti-emails" aria-labelledby="ti-tab-emails" tabindex="0" hidden><p>Emails of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="record">
+    <h2>On a record's page</h2>
+    <p class="ref-note">Under a <a href="page-header.html">Page Header</a>, the record's parts.</p>
+
+    <div class="ref-tabs-demo">
+      <header class="canon-page-header">
+        <a class="canon-page-header-back" href="#tr-ph-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+        <div class="canon-page-header-title">
+          <h1 id="tr-ph-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+        </div>
+        <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+        </div>
+      </header>
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tr-tab-overview" aria-controls="tr-overview" aria-selected="true"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tr-tab-payments" aria-controls="tr-payments" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tr-tab-activity" aria-controls="tr-activity" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-tab-label">Activity</span><span class="canon-count">14<span class="canon-visually-hidden"> new</span></span></button>
+          <button type="button" class="canon-tab" role="tab" id="tr-tab-notes" aria-controls="tr-notes" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-tab-label">Notes</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tr-tab-emails" aria-controls="tr-emails" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-tab-label">Emails</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tr-overview" aria-labelledby="tr-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tr-payments" aria-labelledby="tr-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tr-activity" aria-labelledby="tr-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tr-notes" aria-labelledby="tr-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tr-emails" aria-labelledby="tr-tab-emails" tabindex="0" hidden><p>Emails of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">Tabs that don't fit go into a More menu, from the last, one at a time; the current tab always stays. Choose one from the menu and it takes its place. Drag the frame's corner to try it.</p>
+
+    <div class="ref-tabs-demo ref-resize" style="inline-size: 36rem">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-overview" aria-controls="tn-overview" aria-selected="true"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-payments" aria-controls="tn-payments" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-activity" aria-controls="tn-activity" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-tab-label">Activity</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-notes" aria-controls="tn-notes" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-tab-label">Notes</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-emails" aria-controls="tn-emails" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-tab-label">Emails</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-attachments" aria-controls="tn-attachments" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="link" aria-hidden="true"></span><span class="canon-tab-label">Attachments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tn-tab-settings" aria-controls="tn-settings" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-tab-label">Settings</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-overview" aria-labelledby="tn-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-payments" aria-labelledby="tn-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-activity" aria-labelledby="tn-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-notes" aria-labelledby="tn-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-emails" aria-labelledby="tn-tab-emails" tabindex="0" hidden><p>Emails of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-attachments" aria-labelledby="tn-tab-attachments" tabindex="0" hidden><p>Attachments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tn-settings" aria-labelledby="tn-tab-settings" tabindex="0" hidden><p>Settings of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the strip or a container: sm, md, lg.</p>
+
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" data-size="sm" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tz-sm-tab-overview" aria-controls="tz-sm-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-sm-tab-payments" aria-controls="tz-sm-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-sm-tab-activity" aria-controls="tz-sm-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-sm-overview" aria-labelledby="tz-sm-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-sm-payments" aria-labelledby="tz-sm-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-sm-activity" aria-labelledby="tz-sm-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+      </div>
+    </div>
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" data-size="md" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tz-md-tab-overview" aria-controls="tz-md-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-md-tab-payments" aria-controls="tz-md-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-md-tab-activity" aria-controls="tz-md-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-md-overview" aria-labelledby="tz-md-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-md-payments" aria-labelledby="tz-md-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-md-activity" aria-labelledby="tz-md-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+      </div>
+    </div>
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" data-size="lg" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tz-lg-tab-overview" aria-controls="tz-lg-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-lg-tab-payments" aria-controls="tz-lg-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tz-lg-tab-activity" aria-controls="tz-lg-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-lg-overview" aria-labelledby="tz-lg-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-lg-payments" aria-labelledby="tz-lg-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tz-lg-activity" aria-labelledby="tz-lg-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the tabs run from the right and the arrow keys follow. A tab that can't be chosen yet is <code>aria-disabled="true"</code>: still announced, skipped by the arrows. Icons only (<code>data-display="icon"</code>), each keeps its text as its name.</p>
+
+    <div class="ref-tabs-demo" dir="rtl" lang="ar">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="ta-tab-overview" aria-controls="ta-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ta-tab-payments" aria-controls="ta-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ta-tab-activity" aria-controls="ta-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+          <button type="button" class="canon-tab" role="tab" id="ta-tab-notes" aria-controls="ta-notes" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Notes</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ta-overview" aria-labelledby="ta-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ta-payments" aria-labelledby="ta-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ta-activity" aria-labelledby="ta-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="ta-notes" aria-labelledby="ta-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+      </div>
+    </div>
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="td-tab-overview" aria-controls="td-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="td-tab-payments" aria-controls="td-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="td-tab-activity" aria-controls="td-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span></button>
+          <button type="button" class="canon-tab" role="tab" id="td-tab-notes" aria-controls="td-notes" aria-selected="false" tabindex="-1" aria-disabled="true"><span class="canon-tab-label">Notes</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="td-overview" aria-labelledby="td-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="td-payments" aria-labelledby="td-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="td-activity" aria-labelledby="td-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="td-notes" aria-labelledby="td-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+      </div>
+    </div>
+    <div class="ref-tabs-demo">
+      <div class="canon-tabs">
+        <div class="canon-tabs-list" data-display="icon" aria-label="Invoice INV-2041" role="tablist">
+          <button type="button" class="canon-tab" role="tab" id="tc-tab-overview" aria-controls="tc-overview" aria-selected="true"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-tab-label">Overview</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tc-tab-payments" aria-controls="tc-payments" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-tab-label">Payments</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tc-tab-activity" aria-controls="tc-activity" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-tab-label">Activity</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tc-tab-notes" aria-controls="tc-notes" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-tab-label">Notes</span></button>
+          <button type="button" class="canon-tab" role="tab" id="tc-tab-emails" aria-controls="tc-emails" aria-selected="false" tabindex="-1"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-tab-label">Emails</span></button>
+        </div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tc-overview" aria-labelledby="tc-tab-overview" tabindex="0"><p>Overview of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tc-payments" aria-labelledby="tc-tab-payments" tabindex="0" hidden><p>Payments of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tc-activity" aria-labelledby="tc-tab-activity" tabindex="0" hidden><p>Activity of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tc-notes" aria-labelledby="tc-tab-notes" tabindex="0" hidden><p>Notes of INV-2041.</p></div>
+        <div class="canon-tabs-panel" role="tabpanel" id="tc-emails" aria-labelledby="tc-tab-emails" tabindex="0" hidden><p>Emails of INV-2041.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

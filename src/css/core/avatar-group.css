@@ -1,0 +1,14 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Avatar group                                                        */
+  /* Avatars in a row. How close they sit, and how they overlap, is the  */
+  /* theme's.                                                            */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-avatar-group) {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    isolation: isolate;
+  }
+}

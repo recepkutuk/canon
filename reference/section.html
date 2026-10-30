@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Section reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Section</h1>
+  <p class="ref-note">A titled part of a page. Specification: <a href="../docs/components/section.md">docs/components/section.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="section">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-section</code>: a header (a heading as its title, a description, actions), then its content. No frame: for one, put it in a <a href="card.html">Card</a>.</p>
+
+    <div class="ref-card-demo ref-section-demo">
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sa-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="page">
+    <h2>On a page</h2>
+    <p class="ref-note">Sections one after another, under the page's own title. Their headings carry the page's outline (h2 under its h1).</p>
+
+    <div class="ref-card-demo ref-section-demo ref-section-stack">
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sp1-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sp2-title">Payment terms</h2>
+          <p class="canon-section-description">Applied to new invoices</p>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the section or a container: sm, md, lg.</p>
+
+    <div class="ref-card-demo ref-section-demo">
+      <section class="canon-section" data-size="sm">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sz-sm-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+    <div class="ref-card-demo ref-section-demo">
+      <section class="canon-section" data-size="md">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sz-md-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+    <div class="ref-card-demo ref-section-demo">
+      <section class="canon-section" data-size="lg">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sz-lg-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+  </section>
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left. Narrow, the actions go under the title.</p>
+
+    <div class="ref-card-demo ref-section-demo" dir="rtl" lang="ar">
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sr-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+    <div class="ref-card-demo ref-section-demo" style="max-inline-size: 18rem">
+      <section class="canon-section">
+        <header class="canon-section-header">
+          <h2 class="canon-section-title" id="sn-title">Billing details</h2>
+          <p class="canon-section-description">Where invoices go, and when they're due</p>
+          <div class="canon-section-actions"><button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button></div>
+        </header>
+        <dl class="canon-description-list" data-label="start">
+          <div><dt>Company</dt><dd>Globex Corporation</dd></div>
+          <div><dt>Billing email</dt><dd>billing@globex.example</dd></div>
+          <div><dt>Payment terms</dt><dd>Net 30</dd></div>
+        </dl>
+      </section>
+    </div>
+  </section>
+</main>
+</body>
+</html>

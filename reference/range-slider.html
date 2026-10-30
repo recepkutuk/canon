@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Range Slider reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Range Slider</h1>
+  <p class="ref-note">A from–to range picked on one track. Specification: <a href="../docs/components/range-slider.md">docs/components/range-slider.md</a> · single thumb: <a href="slider.html">Slider</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="basics">
+    <h2>Basics</h2>
+    <p class="ref-note">Two native range inputs on one track, each with its own name. The label names the pair: the field is <code>role="group"</code> with <code>aria-labelledby</code>, and each input names its thumb. canon.js fills between the thumbs, keeps them from crossing and keeps the values in step. Each value appears over its own thumb while you hover, focus or drag that thumb. When both show (one thumb focused, the other hovered) and the thumbs are close, the two values move apart.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="ba-price-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ba-price-label">Price</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="ba-price-min" aria-hidden="true">200</output>
+          <input type="range" id="ba-price-min" name="price-min" min="0" max="1000" step="10" value="200" aria-label="Minimum">
+          <input type="range" id="ba-price-max" name="price-max" min="0" max="1000" step="10" value="800" aria-label="Maximum">
+          <output class="canon-control-value" for="ba-price-max" aria-hidden="true">800</output>
+        </div>
+      </div>
+
+      <div class="canon-field" role="group" aria-labelledby="ba-plain-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ba-plain-label">Without values</span>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="ba-plain-min" name="plain-min" value="25" aria-label="Minimum">
+          <input type="range" id="ba-plain-max" name="plain-max" value="60" aria-label="Maximum">
+        </div>
+      </div>
+
+      <div class="canon-field" role="group" aria-labelledby="ba-hours-label" aria-describedby="ba-hours-hint">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ba-hours-label">Working hours</span>
+          <p class="canon-label-description" id="ba-hours-hint">Alerts outside these hours go to the on-call rotation.</p>
+        </div>
+        <div class="canon-control">
+          <span class="canon-control-prefix" aria-hidden="true">00:00</span>
+          <input type="range" id="ba-hours-min" name="hours-from" min="0" max="24" value="9" aria-label="From">
+          <input type="range" id="ba-hours-max" name="hours-to" min="0" max="24" value="17" aria-label="To">
+          <span class="canon-control-suffix" aria-hidden="true">24:00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="marks">
+    <h2>Named marks</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="mk-sev-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="mk-sev-label">Severity</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="mk-sev-min" aria-hidden="true">Low</output>
+          <input type="range" id="mk-sev-min" name="sev-min" min="0" max="3" value="1" list="mk-sev-marks" aria-label="Lowest">
+          <input type="range" id="mk-sev-max" name="sev-max" min="0" max="3" value="3" list="mk-sev-marks" aria-label="Highest">
+          <output class="canon-control-value" for="mk-sev-max" aria-hidden="true">Critical</output>
+          <datalist id="mk-sev-marks">
+            <option value="0">Info</option>
+            <option value="1">Low</option>
+            <option value="2">High</option>
+            <option value="3">Critical</option>
+          </datalist>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="st-met-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="st-met-label">Thumbs meet at the end</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="st-met-min" aria-hidden="true">100</output>
+          <input type="range" id="st-met-min" name="met-min" value="100" aria-label="Minimum">
+          <input type="range" id="st-met-max" name="met-max" value="100" aria-label="Maximum">
+          <output class="canon-control-value" for="st-met-max" aria-hidden="true">100</output>
+        </div>
+      </div>
+
+      <div class="canon-field" role="group" aria-labelledby="st-dis-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="st-dis-label">Disabled</span>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="st-dis-min" name="dis-min" value="20" disabled aria-label="Minimum">
+          <input type="range" id="st-dis-max" name="dis-max" value="70" disabled aria-label="Maximum">
+        </div>
+      </div>
+
+      <div class="canon-field" role="group" aria-labelledby="st-err-label" aria-describedby="st-err-message">
+        <div class="canon-label">
+          <span class="canon-label-text" id="st-err-label">Replicas</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="st-err-min" aria-hidden="true">2</output>
+          <input type="range" id="st-err-min" name="replicas-min" min="1" max="20" value="2" aria-label="Minimum" aria-invalid="true">
+          <input type="range" id="st-err-max" name="replicas-max" min="1" max="20" value="18" aria-label="Maximum" aria-invalid="true">
+          <output class="canon-control-value" for="st-err-max" aria-hidden="true">18</output>
+        </div>
+        <p class="canon-field-message" id="st-err-message" data-intent="danger">Your quota allows up to 10 replicas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="vertical">
+    <h2>Vertical</h2>
+
+    <div class="canon-field" role="group" aria-labelledby="vt-label" data-orientation="vertical">
+      <div class="canon-label">
+        <span class="canon-label-text" id="vt-label">Band</span>
+      </div>
+      <div class="canon-control">
+        <output class="canon-control-value" for="vt-min" aria-hidden="true">30</output>
+        <input type="range" id="vt-min" name="band-low" value="30" aria-label="Low">
+        <input type="range" id="vt-max" name="band-high" value="80" aria-label="High">
+        <output class="canon-control-value" for="vt-max" aria-hidden="true">80</output>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+
+    <div class="ref-stack">
+      <div class="canon-field" role="group" aria-labelledby="sz-sm-label" data-size="sm">
+        <div class="canon-label">
+          <span class="canon-label-text" id="sz-sm-label">Small</span>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-sm-min" name="sz-sm-min" value="20" aria-label="Minimum">
+          <input type="range" id="sz-sm-max" name="sz-sm-max" value="60" aria-label="Maximum">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="sz-md-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="sz-md-label">Theme decides</span>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-md-min" name="sz-md-min" value="20" aria-label="Minimum">
+          <input type="range" id="sz-md-max" name="sz-md-max" value="60" aria-label="Maximum">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="sz-lg-label" data-size="lg">
+        <div class="canon-label">
+          <span class="canon-label-text" id="sz-lg-label">Large</span>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="sz-lg-min" name="sz-lg-min" value="20" aria-label="Minimum">
+          <input type="range" id="sz-lg-max" name="sz-lg-max" value="60" aria-label="Maximum">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="sx-long-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="sx-long-label">Acceptable response time for the public API before an incident is opened automatically</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="sx-long-min" aria-hidden="true">1,200</output>
+          <input type="range" id="sx-long-min" name="sx-long-min" min="0" max="10000" step="100" value="1200" aria-label="Minimum (ms)">
+          <input type="range" id="sx-long-max" name="sx-long-max" min="0" max="10000" step="100" value="9800" aria-label="Maximum (ms)">
+          <output class="canon-control-value" for="sx-long-max" aria-hidden="true">9,800</output>
+        </div>
+      </div>
+
+      <div class="canon-field" role="group" aria-labelledby="sx-rtl-label" dir="rtl" lang="ar">
+        <div class="canon-label">
+          <span class="canon-label-text" id="sx-rtl-label">السعر</span>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="sx-rtl-min" aria-hidden="true">200</output>
+          <input type="range" id="sx-rtl-min" name="sx-rtl-min" min="0" max="1000" step="10" value="200" aria-label="الحد الأدنى">
+          <input type="range" id="sx-rtl-max" name="sx-rtl-max" min="0" max="1000" step="10" value="800" aria-label="الحد الأقصى">
+          <output class="canon-control-value" for="sx-rtl-max" aria-hidden="true">800</output>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

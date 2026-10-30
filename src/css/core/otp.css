@@ -1,0 +1,78 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Input OTP                                                          */
+  /*                                                                    */
+  /* One text input in .canon-otp: maxlength is the length. canon.js    */
+  /* draws a cell per character (.canon-otp-cells, aria-hidden: groups  */
+  /* from data-groups, a separator between) and lays the input over     */
+  /* them, invisible: typing, paste, autofill and the label stay the    */
+  /* input's. The active cell is [data-active]; an empty cell shows its */
+  /* character of the placeholder (data-placeholder). Codes read left   */
+  /* to right in every direction. Without canon.js it is one field,     */
+  /* about as wide as the code.                                         */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-otp) {
+    position: relative;
+    display: flex;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    font-size: var(--canon-control-font-size);
+    cursor: text;
+  }
+  :where(.canon-otp) > :where(input) {
+    box-sizing: border-box;
+    block-size: var(--canon-control-block-size);
+    inline-size: calc(8 * 1.5ch + 2 * var(--canon-control-padding-inline));
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    margin: 0;
+    padding-inline: var(--canon-control-padding-inline);
+    font: inherit;
+    letter-spacing: 0.5ch;
+    font-variant-numeric: tabular-nums;
+    direction: ltr;
+    cursor: inherit;
+  }
+  @supports (width: calc(attr(data-x type(<number>), 1) * 1px)) {
+    :where(.canon-otp) > :where(input) {
+      inline-size: calc(attr(maxlength type(<number>), 8) * 1.5ch + 2 * var(--canon-control-padding-inline));
+    }
+  }
+  :where(.canon-otp:has(> .canon-otp-cells)) > :where(input) {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    inline-size: 100%;
+    block-size: 100%;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+  }
+  :where(.canon-otp-cells) {
+    display: flex;
+    align-items: center;
+    gap: var(--canon-otp-gap, 0.75rem);
+    direction: ltr;
+  }
+  :where(.canon-otp-group) {
+    display: flex;
+  }
+  :where(.canon-otp-cell) {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--canon-control-block-size);
+    block-size: var(--canon-control-block-size);
+    font-variant-numeric: tabular-nums;
+  }
+  :where(.canon-otp-cell:empty)::before {
+    content: attr(data-placeholder);
+  }
+  :where(.canon-otp-separator) {
+    flex: none;
+  }
+}

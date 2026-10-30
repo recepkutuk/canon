@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Avatar Group reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Avatar Group</h1>
+  <p class="ref-note">Several avatars in a row, usually ending with a count of the rest. Specification: <a href="../docs/components/avatar-group.md">docs/components/avatar-group.md</a> · avatar: <a href="../docs/components/avatar.md">docs/components/avatar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the group sizes every avatar. Where they overlap, each avatar leaves a real gap around the one in front.</p>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="xs">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="sm">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="lg">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="xl">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="2xl">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <p class="ref-note">xs to 2xl, then without <code>data-size</code>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="density">
+    <h2>Density</h2>
+    <p class="ref-note">How tightly avatars sit, independent of their size: <code>data-density</code> <code>compact</code>, <code>comfortable</code> or <code>spacious</code>, on the group or any container.</p>
+    <h3>compact</h3>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="xs" data-density="compact">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md" data-density="compact">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="2xl" data-density="compact">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <h3>comfortable</h3>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="xs" data-density="comfortable">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md" data-density="comfortable">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="2xl" data-density="comfortable">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <h3>spacious</h3>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="xs" data-density="spacious">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md" data-density="spacious">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="2xl" data-density="spacious">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+
+    <h3>From a container, overriding the clickable default</h3>
+    <p class="ref-note">Clickable avatars are spread out by default, so each is easy to hit; a container can still ask for compact.</p>
+    <div class="ref-row" data-density="compact">
+      <div class="canon-avatar-group" role="group" aria-label="Reviewers" data-size="md">
+        <a href="/people/0" class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </a>
+        <a href="/people/1" class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </a>
+        <a href="/people/2" class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </a>
+        <a href="/people/3" class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </a>
+        <a href="/people/4" class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="content">
+    <h2>Mixed content</h2>
+    <p class="ref-note">Photos, initials, icons and the count of the rest in one group. The count is a plain avatar without a seed, so it is neutral.</p>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="lg">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="12 more">12+</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="spotlight">
+    <h2>Spotlight</h2>
+    <p class="ref-note"><code>data-spotlight</code> on the group: the avatar under the pointer comes forward (on top, a little bigger, no longer cut by the one before it) while the others fade, and its name shows in a <a href="tooltip.html">Tooltip</a>. Keyboards reach them too: the group is one Tab stop, and the arrow keys move between its avatars. The name comes from the avatar (its fallback's <code>aria-label</code>); for more, point the avatar at your own Tooltip with <code>interestfor</code>, as the last one does with the rest's names.</p>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="md" data-spotlight>
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="5">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Margaret Hamilton">MH</span>
+        </span>
+        <span class="canon-avatar" interestfor="spot-rest-tip">
+          <span class="canon-avatar-fallback" role="img" aria-label="3 more">3+</span>
+        </span>
+      </div>
+      <div class="canon-tooltip" id="spot-rest-tip" popover="hint" role="tooltip">Linus Torvalds, Barbara Liskov, Dennis Ritchie</div>
+    </div>
+    <h3>Apart, and clickable</h3>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Reviewers" data-size="lg" data-density="spacious" data-spotlight>
+        <a class="canon-avatar" data-seed="0" href="#spotlight"><img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt=""><span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span></a>
+        <a class="canon-avatar" data-seed="1" href="#spotlight"><span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span></a>
+        <a class="canon-avatar" data-seed="2" href="#spotlight"><span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="interactive">
+    <h2>Clickable</h2>
+    <p class="ref-note">Links to profiles, and a button that shows the rest. Tab through them.</p>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Reviewers" data-size="md">
+        <a href="/people/0" class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </a>
+        <a href="/people/1" class="canon-avatar" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </a>
+        <a href="/people/2" class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </a>
+        <a href="/people/3" class="canon-avatar" data-seed="3">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </a>
+        <button type="button" aria-haspopup="dialog" class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="8 more">8+</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="status">
+    <h2>With status</h2>
+    <p class="ref-note">An avatar's own cut-outs still work inside a group.</p>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Online now" data-size="xl">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+          <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+          <span class="canon-avatar-status" data-status="away"><span class="canon-visually-hidden">Away</span></span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+          <span class="canon-avatar-status" data-status="busy"><span class="canon-visually-hidden">Busy</span></span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+          <span class="canon-avatar-status" data-status="offline"><span class="canon-visually-hidden">Offline</span></span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="3 more">3+</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>On other surfaces</h3>
+    <p class="ref-note">The gaps between avatars are real: the surface shows through.</p>
+    <div class="ref-row">
+      <div class="ref-surface">
+        <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="lg">
+          <span class="canon-avatar" data-seed="0">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+          </span>
+          <span class="canon-avatar" data-seed="1">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+          </span>
+          <span class="canon-avatar" data-seed="2">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+          </span>
+          <span class="canon-avatar" data-seed="3">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+          </span>
+          <span class="canon-avatar" data-seed="4">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+          </span>
+          <span class="canon-avatar">
+            <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">The first avatar is on the right, still on top.</p>
+    <div class="ref-row" dir="rtl" lang="ar">
+      <div class="canon-avatar-group" role="group" aria-label="Project members" data-size="lg">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+        <span class="canon-avatar" data-seed="2">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        </span>
+        <span class="canon-avatar" data-seed="3">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+        </span>
+        <span class="canon-avatar" data-seed="4">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+        </span>
+        <span class="canon-avatar">
+          <span class="canon-avatar-fallback" role="img" aria-label="5 more">5+</span>
+        </span>
+      </div>
+    </div>
+
+    <h3>Two</h3>
+    <div class="ref-row">
+      <div class="canon-avatar-group" role="group" aria-label="Pair" data-size="md">
+        <span class="canon-avatar" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        </span>
+        <span class="canon-avatar" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,292 @@
+/* ==================================================================== */
+/* Color picker                                                         */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  :root {
+    --canon-theme-color-checker: repeating-conic-gradient(light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.15)) 0 25%, transparent 0 50%) 0 0 / 8px 8px;
+  }
+
+  /* The box: Text Input's frame, the swatch and the
+     chevron of the icon size, 8px apart, (height - icon) / 2 from the
+     edges (8 / 10 / 12px). The swatch is a swatch's circle (90%), with
+     the checkerboard under a see-through color. Open: Text Input's focus
+     look, the chevron turned. */
+  .canon-color {
+    --_pad: calc((var(--canon-control-block-size) - var(--canon-icon-size)) / 2 - 1px);
+    --canon-select-start: var(--_pad);
+    --canon-select-end: calc(0.5rem + var(--canon-icon-size) + var(--_pad));
+    gap: 0.5rem;
+    padding-inline: var(--_pad);
+  }
+  .canon-color::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: var(--_muted);
+    mask: var(--canon-theme-icon-chevron) center / contain no-repeat;
+    transition: rotate 0.15s;
+  }
+  .canon-color:has(> .canon-color-popup:popover-open) {
+    border-color: var(--_border-focus);
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+  .canon-color:has(> .canon-color-popup:popover-open)::after {
+    rotate: 180deg;
+  }
+  .canon-color > input::-webkit-color-swatch-wrapper {
+    padding: calc(var(--canon-icon-size) * 0.05);
+  }
+  .canon-color > input::-webkit-color-swatch {
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 var(--canon-theme-hairline) light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.15));
+  }
+  .canon-color > input::-moz-color-swatch {
+    border-radius: 50%;
+    scale: 0.9;
+  }
+  .canon-color-swatch {
+    position: relative;
+  }
+
+  .canon-color-swatch::before {
+    content: "";
+    position: absolute;
+    inset: 5%;
+    border-radius: 50%;
+    background: linear-gradient(var(--canon-color), var(--canon-color)), var(--canon-theme-color-checker);
+    box-shadow: inset 0 0 0 var(--canon-theme-hairline) light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.15));
+  }
+
+  /* The popover: 4px under the box, 344px wide,
+     16px padding and gaps, corners 16px; white (dark zinc-900); as a
+     popup a hairline edge and the floating shadow, in the page a zinc-300
+     line (dark zinc-600). */
+  .canon-color-popup {
+    inline-size: 21.5rem;
+    max-inline-size: calc(100vw - 1rem);
+    --canon-popup-offset: 0.25rem;
+    padding: calc(1rem - 1px); /* 16px from the outside */
+    gap: 1rem;
+    border: 1px solid light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    border-radius: 1rem;
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --canon-icon-size: 1.25rem;
+  }  /* As a popup: a hairline edge and the floating shadow, no frame. */
+  .canon-color-popup[popover] {
+    border-color: transparent; /* shows in forced colors */
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+  }
+
+  /* Inline (data-inline): the same panel in the page, no wider
+     than its container. An error turns its line red (dark red-500);
+     disabled, it fades like a disabled swatch. */
+  .canon-color-popup:not([popover]) {
+    max-inline-size: 100%;
+  }
+  .canon-color-popup:not([popover])[aria-invalid="true"] {
+    border-color: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-500));
+  }
+  .canon-color:has(> input:disabled) + .canon-color-popup {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .canon-color:has(> input:disabled) + .canon-color-popup .canon-color-area {
+    cursor: not-allowed;
+  }
+
+  /* The area: corners 4px, a zinc-200 ring (dark zinc-700). Thumbs (area
+     24px, sliders 16px) are the color with a 3px white ring inside and a
+     1px zinc-900 line outside. */
+  .canon-color-area {
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    outline: none;
+  }
+  .canon-color-area:focus-visible {
+    box-shadow:
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  .canon-color-thumb {
+    box-sizing: border-box;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--canon-color-opaque);
+    box-shadow: inset 0 0 0 3px var(--canon-theme-white), 0 0 0 1px var(--canon-theme-zinc-900);
+  }
+
+  /* The eyedropper: a 40px square, corners 8px, zinc-100 (dark zinc-700)
+     with a 20px zinc-500 pipette (dark zinc-400); the sliders 16px from
+     it, 4px apart: 12px tracks with round ends and a 20% line. */
+  .canon-color-tools {
+    gap: 1rem;
+  }
+  .canon-color-eyedropper {
+    flex: none;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0.5rem;
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    cursor: pointer;
+    transition: background-color 0.12s;
+  }
+  .canon-color-eyedropper::before {
+    content: "";
+    display: block;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin: auto;
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-pipette) center / contain no-repeat;
+  }
+  @media (hover: hover) {
+    .canon-color-eyedropper:hover {
+      background-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-600));
+    }
+  }
+  .canon-color-eyedropper:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  .canon-color-sliders {
+    gap: 0.25rem;
+  }
+  .canon-color-hue,
+  .canon-color-opacity {
+    --_line: light-dark(rgb(0 0 0 / 0.2), rgb(255 255 255 / 0.2));
+    block-size: 1rem;
+    outline: none;
+  }
+  .canon-color-opacity {
+    --_under: var(--canon-theme-color-checker);
+  }
+  .canon-color-hue::-webkit-slider-runnable-track,
+  .canon-color-opacity::-webkit-slider-runnable-track {
+    block-size: 0.75rem;
+    border-radius: 0.375rem;
+    background: var(--canon-color-track), var(--_under, transparent);
+    box-shadow: inset 0 0 0 var(--canon-theme-hairline) var(--_line);
+  }
+  .canon-color-hue::-moz-range-track,
+  .canon-color-opacity::-moz-range-track {
+    block-size: 0.75rem;
+    border-radius: 0.375rem;
+    background: var(--canon-color-track), var(--_under, transparent);
+    box-shadow: inset 0 0 0 var(--canon-theme-hairline) var(--_line);
+  }
+  .canon-color-hue::-webkit-slider-thumb,
+  .canon-color-opacity::-webkit-slider-thumb {
+    box-sizing: border-box;
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin-block-start: -0.125rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--canon-color-opaque);
+    box-shadow: inset 0 0 0 3px var(--canon-theme-white), 0 0 0 1px var(--canon-theme-zinc-900);
+    appearance: none;
+  }
+  .canon-color-hue::-moz-range-thumb,
+  .canon-color-opacity::-moz-range-thumb {
+    box-sizing: border-box;
+    inline-size: 1rem;
+    block-size: 1rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--canon-color-opaque);
+    box-shadow: inset 0 0 0 3px var(--canon-theme-white), 0 0 0 1px var(--canon-theme-zinc-900);
+  }
+  .canon-color-hue:focus-visible::-webkit-slider-thumb,
+  .canon-color-opacity:focus-visible::-webkit-slider-thumb {
+    box-shadow: inset 0 0 0 3px var(--canon-theme-white), 0 0 0 1px var(--canon-theme-zinc-900), 0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+  .canon-color-hue:focus-visible::-moz-range-thumb,
+  .canon-color-opacity:focus-visible::-moz-range-thumb {
+    box-shadow: inset 0 0 0 3px var(--canon-theme-white), 0 0 0 1px var(--canon-theme-zinc-900), 0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+  }
+
+  /* Fields (sm): the format select 72px, the hex 80px or three values
+     joined into 156px, the opacity 60px at the end, right-aligned. */
+  .canon-color-fields {
+    gap: 0.5rem;
+  }
+  .canon-color-fields > .canon-select {
+    flex: none;
+    inline-size: 4.5rem;
+  }
+  .canon-color-values {
+    flex: 0 1 5rem;
+  }
+  .canon-color-values:not([data-count="1"]) {
+    flex-basis: 9.75rem;
+  }
+  .canon-color-values > .canon-text-input + .canon-text-input {
+    margin-inline-start: -1px;
+  }
+  .canon-color-values > .canon-text-input:not(:last-child) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .canon-color-values > .canon-text-input:not(:first-child) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+  .canon-color-values > .canon-text-input:focus-within {
+    z-index: 1;
+  }
+  /* The fields' "#" and "%" are marks in narrow fields: plain text in the
+     affix color, not Text Input's segments, so the value keeps its room. */
+  .canon-color-fields .canon-text-input > :is(.canon-text-input-prefix, .canon-text-input-suffix) {
+    order: 0;
+    align-self: auto;
+    margin-inline: 0;
+    padding-inline: 0;
+    border-inline: 0;
+    background-color: transparent;
+    color: var(--_muted);
+  }
+  .canon-color-percent {
+    flex: none;
+    inline-size: 3.75rem;
+    margin-inline-start: auto;
+  }
+  .canon-color-percent > input {
+    text-align: end;
+  }
+
+  /* Swatches: a Separator, the caption (Select's group caption type),
+     then 24px swatches 12px apart, with 16px more space under them. */
+  .canon-color-caption {
+    margin-block-end: -0.5rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .canon-color-popup > .canon-swatches {
+    --canon-swatch-size: 1.5rem;
+    --canon-swatches-gap: 0.75rem;
+    inline-size: auto;
+    margin-block-end: 1rem;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-color::after,
+    .canon-color-eyedropper { transition: none; }
+  }
+}

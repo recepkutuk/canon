@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Popover reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Popover</h1>
+  <p class="ref-note">A panel a button opens over the page, for a short task beside it: editing a link, picking a color, a few words of help. Specification: <a href="../docs/components/popover.md">docs/components/popover.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="popover">
+    <h2>Basics</h2>
+    <p class="ref-note">A panel a button opens over the page, for a short task beside it: a <code>popover</code> with <code>role="dialog"</code>, named by its title (<code>aria-labelledby</code>) or <code>aria-label</code>, opened by the button's <code>popovertarget</code>. It opens under the button and flips to fit. Clicking outside, Escape or moving focus elsewhere closes it, and focus goes back to the button; opening it moves focus to its first field.</p>
+
+    <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" popovertarget="pl" aria-expanded="false">
+      <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+      <span class="canon-button-label">Link</span>
+    </button>
+    <div class="canon-popover" id="pl" popover role="dialog" aria-labelledby="pl-title">
+      <h3 class="canon-popover-title" id="pl-title">Edit link</h3>
+      <form class="canon-form" onsubmit="event.preventDefault()">
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="pl-url">Link</label></div>
+          <div class="canon-text-input">
+            <input type="url" id="pl-url" name="url" placeholder="https://" size="32" value="https://canon.design/docs">
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="pl-text">Text</label></div>
+          <div class="canon-text-input">
+            <input type="text" id="pl-text" name="text" placeholder value="the docs">
+          </div>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" id="pl-new" name="new">
+          <label class="canon-choice-label" for="pl-new">Open in a new tab</label>
+        </div>
+        <div class="canon-form-actions">
+          <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger"><span class="canon-button-label">Remove link</span></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="ref-note">Open: an optional <code>.canon-popover-title</code>, then anything: a <a href="form-layout.html">form</a> with its actions, choices, a few words and a link.</p>
+
+    <div style="block-size: 22rem">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" aria-expanded="true" data-ref-opens="po">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <div class="canon-popover" id="po" popover="manual" style="position-try-fallbacks: none" role="dialog" aria-labelledby="po-title">
+        <h3 class="canon-popover-title" id="po-title">Edit link</h3>
+        <form class="canon-form" onsubmit="event.preventDefault()">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="po-url">Link</label></div>
+            <div class="canon-text-input">
+              <input type="url" id="po-url" name="url" placeholder="https://" size="32" value="https://canon.design/docs">
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="po-text">Text</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="po-text" name="text" placeholder value="the docs">
+            </div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="po-new" name="new">
+            <label class="canon-choice-label" for="po-new">Open in a new tab</label>
+          </div>
+          <div class="canon-form-actions">
+            <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger"><span class="canon-button-label">Remove link</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="choices">
+    <h2>Choices</h2>
+    <p class="ref-note">A few choices that apply at once, such as <a href="swatches.html">Swatches</a> for a text color, need no actions.</p>
+
+    <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" data-display="icon" popovertarget="pc" aria-expanded="false">
+      <span class="canon-icon" data-icon="baseline" aria-hidden="true"></span>
+      <span class="canon-button-label">Text color</span>
+    </button>
+    <div class="canon-popover" id="pc" popover role="dialog" aria-label="Text color">
+      <div class="canon-swatches" role="radiogroup" aria-label="Text color">
+        <input type="radio" name="pc-color" value="#18181b" aria-label="Black" checked>
+        <input type="radio" name="pc-color" value="#ef4444" aria-label="Red">
+        <input type="radio" name="pc-color" value="#f97316" aria-label="Orange">
+        <input type="radio" name="pc-color" value="#22c55e" aria-label="Green">
+        <input type="radio" name="pc-color" value="#3b82f6" aria-label="Blue">
+        <input type="radio" name="pc-color" value="#a855f7" aria-label="Purple">
+      </div>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal"><span class="canon-button-label">Default color</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="text">
+    <h2>Words</h2>
+    <p class="ref-note">A few words and a link, for help beside a control. (A tooltip shows a short name or hint on hover; a popover is opened on purpose and can hold a link.)</p>
+
+    <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" popovertarget="pi" aria-expanded="false">
+      <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+      <span class="canon-button-label">About billing</span>
+    </button>
+    <div class="canon-popover" id="pi" popover role="dialog" aria-labelledby="pi-title">
+      <h3 class="canon-popover-title" id="pi-title">How billing works</h3>
+      <p>You pay for the seats in use on the first of each month. Removing a member frees their seat at once.</p>
+      <a href="#">Read the billing guide</a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the popover or a container sizes what is in it, its padding and its corners.</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" data-size="sm" popovertarget="ps" aria-expanded="false">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <div class="canon-popover" id="ps" popover role="dialog" aria-labelledby="ps-title" data-size="sm">
+        <h3 class="canon-popover-title" id="ps-title">Edit link</h3>
+        <form class="canon-form" onsubmit="event.preventDefault()">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="ps-url">Link</label></div>
+            <div class="canon-text-input">
+              <input type="url" id="ps-url" name="url" placeholder="https://" size="32" value="https://canon.design/docs">
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="ps-text">Text</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="ps-text" name="text" placeholder value="the docs">
+            </div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="ps-new" name="new">
+            <label class="canon-choice-label" for="ps-new">Open in a new tab</label>
+          </div>
+          <div class="canon-form-actions">
+            <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger"><span class="canon-button-label">Remove link</span></button>
+          </div>
+        </form>
+      </div>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" data-size="lg" popovertarget="pg" aria-expanded="false">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Link</span>
+      </button>
+      <div class="canon-popover" id="pg" popover role="dialog" aria-labelledby="pg-title" data-size="lg">
+        <h3 class="canon-popover-title" id="pg-title">Edit link</h3>
+        <form class="canon-form" onsubmit="event.preventDefault()">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="pg-url">Link</label></div>
+            <div class="canon-text-input">
+              <input type="url" id="pg-url" name="url" placeholder="https://" size="32" value="https://canon.design/docs">
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="pg-text">Text</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="pg-text" name="text" placeholder value="the docs">
+            </div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="pg-new" name="new">
+            <label class="canon-choice-label" for="pg-new">Open in a new tab</label>
+          </div>
+          <div class="canon-form-actions">
+            <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger"><span class="canon-button-label">Remove link</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the popover opens from the button's right edge.</p>
+
+    <div dir="rtl" lang="ar">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" popovertarget="pr" aria-expanded="false">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">رابط</span>
+      </button>
+      <div class="canon-popover" id="pr" popover role="dialog" aria-labelledby="pr-title">
+        <h3 class="canon-popover-title" id="pr-title">تعديل الرابط</h3>
+        <form class="canon-form" onsubmit="event.preventDefault()">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="pr-url">الرابط</label></div>
+            <div class="canon-text-input">
+              <input type="url" id="pr-url" name="url" placeholder="https://" size="32" value="https://canon.design/docs">
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="pr-text">النص</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="pr-text" name="text" placeholder value="the docs">
+            </div>
+          </div>
+          <div class="canon-choice">
+            <input type="checkbox" id="pr-new" name="new">
+            <label class="canon-choice-label" for="pr-new">فتح في علامة تبويب جديدة</label>
+          </div>
+          <div class="canon-form-actions">
+            <button type="submit" class="canon-button" data-emphasis="high"><span class="canon-button-label">تطبيق</span></button>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger"><span class="canon-button-label">إزالة الرابط</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

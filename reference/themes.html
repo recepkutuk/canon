@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Themes</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+  <script src="themes.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Themes</h1>
+  <p class="ref-note">A theme is one stylesheet that decides how every component looks. The markup and canon.js don't change, so a page moves to another theme by changing one line.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="compare">
+    <h2>One markup, six themes</h2>
+    <p class="ref-note">Each frame below holds the same HTML, and they all work. Only the linked stylesheet differs. To read these docs in a theme, use its button or the menu in the top bar.</p>
+    <div class="ref-theme-grid ref-plain">
+      <article class="ref-theme-card" data-theme="canon">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Canon</h3>
+            <p>Quiet and compact, the default.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=canon"><span class="canon-button-label">View the docs in Canon</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Canon" loading="lazy"></iframe>
+      </article>
+      <article class="ref-theme-card" data-theme="carbon">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Carbon</h3>
+            <p>Square corners, IBM Plex and filled fields.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=carbon"><span class="canon-button-label">View the docs in Carbon</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Carbon" loading="lazy"></iframe>
+      </article>
+      <article class="ref-theme-card" data-theme="material">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Material</h3>
+            <p>Rounded shapes, Roboto and floating labels.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=material"><span class="canon-button-label">View the docs in Material</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Material" loading="lazy"></iframe>
+      </article>
+      <article class="ref-theme-card" data-theme="fluent">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Fluent</h3>
+            <p>Soft corners, the system font and an underline on focus.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=fluent"><span class="canon-button-label">View the docs in Fluent</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Fluent" loading="lazy"></iframe>
+      </article>
+      <article class="ref-theme-card" data-theme="ant">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Ant Design</h3>
+            <p>Bright blue, the system font and a soft halo on focus.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=ant"><span class="canon-button-label">View the docs in Ant Design</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Ant Design" loading="lazy"></iframe>
+      </article>
+      <article class="ref-theme-card" data-theme="bootstrap">
+        <header class="ref-theme-card-head">
+          <div>
+            <h3>Bootstrap</h3>
+            <p>Roomy 16px controls, the system font and a wide ring on focus.</p>
+          </div>
+          <a class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" href="themes.html?theme=bootstrap"><span class="canon-button-label">View the docs in Bootstrap</span></a>
+        </header>
+        <iframe class="ref-theme-frame" title="The sample in Bootstrap" loading="lazy"></iframe>
+      </article>
+    </div>
+    <p class="ref-note">Carbon, Material, Fluent, Ant Design and Bootstrap are inspired by those design systems. They aren't affiliated with or endorsed by IBM, Google, Microsoft, Ant Group or the Bootstrap project.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="use">
+    <h2>Use a theme</h2>
+    <p class="ref-note">Link the theme's stylesheet in place of <code>css/canon/canon.css</code>. Each theme is a folder in <code>css/</code>, so keep its files together:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="themes-use" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy index.html</span></button>
+      </div>
+      <pre><code id="themes-use"><span class="tok punctuation">&lt;</span><span class="tok tag_name">link</span> <span class="tok attr_name">rel</span><span class="tok operator">=</span><span class="tok string">&quot;stylesheet&quot;</span> <span class="tok attr_name">href</span><span class="tok operator">=</span><span class="tok string">&quot;css/carbon/carbon.css&quot;</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+    <div class="canon-table ref-plain">
+      <table>
+        <caption class="canon-visually-hidden">The themes and what each brings</caption>
+        <thead><tr><th scope="col">Theme</th><th scope="col">Stylesheet</th><th scope="col">Type</th><th scope="col">Icons</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Canon</th><td><code>css/canon/canon.css</code></td><td>Inter, JetBrains Mono</td><td>Lucide</td></tr>
+          <tr><th scope="row">Carbon</th><td><code>css/carbon/carbon.css</code></td><td>IBM Plex Sans and Mono, in the folder</td><td>Carbon icons, in the folder</td></tr>
+          <tr><th scope="row">Material</th><td><code>css/material/material.css</code></td><td>Roboto and Roboto Mono, in the folder</td><td>Material Symbols, in the folder</td></tr>
+          <tr><th scope="row">Fluent</th><td><code>css/fluent/fluent.css</code></td><td>Segoe UI where it's installed, otherwise the system font</td><td>Fluent UI System Icons, in the folder</td></tr>
+          <tr><th scope="row">Ant Design</th><td><code>css/ant/ant.css</code></td><td>The system font</td><td>Ant Design Icons, in the folder</td></tr>
+          <tr><th scope="row">Bootstrap</th><td><code>css/bootstrap/bootstrap.css</code></td><td>The system font</td><td>Bootstrap Icons, in the folder</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="write">
+    <h2>Write your own</h2>
+    <p class="ref-note">The quickest way is to build on <code>canon.css</code>, as Carbon, Material, Fluent, Ant Design and Bootstrap do. Change the tokens first, since they restyle every component at once, then add rules for what makes the look its own:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">acme.css</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="themes-write" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy acme.css</span></button>
+      </div>
+      <pre><code id="themes-write"><span class="tok comment">/* css/acme/acme.css */</span>
+@import url("../canon/canon.css");
+
+@layer canon.theme {
+  :root {
+    <span class="tok comment">/* Tokens restyle every component at once… */</span>
+    --canon-theme-font-mono: "Acme Mono", monospace;
+  }
+
+  <span class="tok comment">/* …then rules redraw what makes the look its own. */</span>
+  .canon-button { border-radius: 0; }
+}</code></pre>
+    </div>
+    <p class="ref-note">To start from nothing, import <code>css/canon/canon.core.css</code> instead and draw every component yourself. Each component's specification lists what a theme must do, and the <a href="getting-started.html#contract-check">contract check</a> shows markup that breaks a component's contract while you build.</p>
+    <p class="ref-note">For a few changes, you don't need a theme. Canon's styles sit in cascade layers, so your own unlayered CSS always wins.</p>
+  </section>
+
+</main>
+</body>
+</html>

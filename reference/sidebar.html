@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Sidebar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Sidebar</h1>
+  <p class="ref-note">The column beside an app's pages: its name, its main links, and what belongs at the bottom. It collapses to a rail of icons. Specification: <a href="../docs/components/sidebar.md">docs/components/sidebar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sidebar">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-sidebar</code>: the column beside an app's pages. A <code>.canon-sidebar-header</code> first (a <code>.canon-sidebar-brand</code>: a mark and a <code>.canon-sidebar-brand-name</code>, as a link home; here also its toggle), one or more <a href="nav-list.html">Nav Lists</a>, and an optional <code>.canon-sidebar-footer</code> at the bottom. It scrolls on its own when its links don't fit. A link can carry a <a href="tag.html">Tag</a> after its label ("New" on Quotes), as in a <a href="nav-list.html">Nav List</a>; in a rail it is hidden visually and stays in the link's name. Try the toggle.</p>
+
+    <div class="ref-shell-frame">
+      <div class="canon-sidebar" id="sb-sidebar">
+        <div class="canon-sidebar-header">
+          <a class="canon-sidebar-brand" href="#sb-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Corporation</span></a>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="sb-sidebar" command="--canon-toggle-sidebar" aria-controls="sb-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+        </div>
+        <div class="canon-sidebar-body">
+          <nav class="canon-nav-list" aria-label="Main">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sb-dashboard" aria-current="page" interestfor="sb-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="sb-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+              <li><a class="canon-nav-list-item" href="#sb-calendar" interestfor="sb-tip-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a><div class="canon-tooltip" id="sb-tip-calendar" data-placement="inline-end" popover="hint" role="tooltip">Calendar</div></li>
+              <li>
+                <details class="canon-nav-list-section">
+                  <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="square-kanban" aria-hidden="true"></span><span class="canon-nav-list-label">Scrumboard</span></summary>
+                  <ul>
+                    <li><a class="canon-nav-list-item" href="#sb-project-kanban"><span class="canon-nav-list-label">Project Kanban</span></a></li>
+                    <li><a class="canon-nav-list-item" href="#sb-sales-pipeline"><span class="canon-nav-list-label">Sales Pipeline</span></a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a class="canon-nav-list-item" href="#sb-companies" interestfor="sb-tip-companies"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Companies</span></a><div class="canon-tooltip" id="sb-tip-companies" data-placement="inline-end" popover="hint" role="tooltip">Companies</div></li>
+              <li><a class="canon-nav-list-item" href="#sb-contacts" interestfor="sb-tip-contacts"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a><div class="canon-tooltip" id="sb-tip-contacts" data-placement="inline-end" popover="hint" role="tooltip">Contacts</div></li>
+              <li><a class="canon-nav-list-item" href="#sb-quotes" interestfor="sb-tip-quotes"><span class="canon-icon" data-icon="inbox" aria-hidden="true"></span><span class="canon-nav-list-label">Quotes</span><span class="canon-tag" data-intent="info"><span class="canon-tag-label">New</span></span></a><div class="canon-tooltip" id="sb-tip-quotes" data-placement="inline-end" popover="hint" role="tooltip">Quotes</div></li>
+              <li>
+                <details class="canon-nav-list-section">
+                  <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="crown" aria-hidden="true"></span><span class="canon-nav-list-label">Administration</span></summary>
+                  <ul>
+                    <li><a class="canon-nav-list-item" href="#sb-members"><span class="canon-nav-list-label">Members</span></a></li>
+                    <li><a class="canon-nav-list-item" href="#sb-billing"><span class="canon-nav-list-label">Billing</span></a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="canon-sidebar-footer">
+          <nav class="canon-nav-list" aria-label="Help and settings">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sb-help" interestfor="sb-tip-help"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-nav-list-label">Help</span></a><div class="canon-tooltip" id="sb-tip-help" data-placement="inline-end" popover="hint" role="tooltip">Help</div></li>
+              <li><a class="canon-nav-list-item" href="#sb-settings" interestfor="sb-tip-settings"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a><div class="canon-tooltip" id="sb-tip-settings" data-placement="inline-end" popover="hint" role="tooltip">Settings</div></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="rail">
+    <h2>Rail</h2>
+    <p class="ref-note">The toggle (a <a href="button.html">Button</a> with <code>command="--canon-toggle-sidebar"</code>, <code>aria-controls</code> and <code>aria-expanded</code>, named "Sidebar") collapses it to a rail: <code>data-display="icon"</code> on the sidebar. One toggle, in the same place either way: in an <a href="app-shell.html">App Shell</a> the bar's start; without a bar, the sidebar's header (in a rail, under the mark). Icons only, the brand's mark only; names stay for screen readers, and each link's <a href="tooltip.html">Tooltip</a> shows them on hover and focus (tooltips in a Nav List show only in a rail). A section's sub-pages open beside it: click Scrumboard. They close when you choose one, press <kbd class="canon-kbd">Esc</kbd>, or click or Tab elsewhere.</p>
+
+    <div class="ref-shell-frame">
+      <div class="canon-sidebar" id="sr-sidebar" data-display="icon">
+        <div class="canon-sidebar-header">
+          <a class="canon-sidebar-brand" href="#sr-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Corporation</span></a>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="sr-sidebar" command="--canon-toggle-sidebar" aria-controls="sr-sidebar" aria-expanded="false"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+        </div>
+        <div class="canon-sidebar-body">
+          <nav class="canon-nav-list" aria-label="Main">
+            <ul>
+              <li><a class="canon-nav-list-item" href="#sr-dashboard" interestfor="sr-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="sr-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+              <li><a class="canon-nav-list-item" href="#sr-calendar" interestfor="sr-tip-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a><div class="canon-tooltip" id="sr-tip-calendar" data-placement="inline-end" popover="hint" role="tooltip">Calendar</div></li>
+              <li>
+                <details class="canon-nav-list-section">
+                  <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="square-kanban" aria-hidden="true"></span><span class="canon-nav-list-label">Scrumboard</span></summary>
+                  <ul>
+                    <li><a class="canon-nav-list-item" href="#sr-project-kanban"><span class="canon-nav-list-label">Project Kanban</span></a></li>
+                    <li><a class="canon-nav-list-item" href="#sr-sales-pipeline" aria-current="page"><span class="canon-nav-list-label">Sales Pipeline</span></a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a class="canon-nav-list-item" href="#sr-companies" interestfor="sr-tip-companies"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Companies</span></a><div class="canon-tooltip" id="sr-tip-companies" data-placement="inline-end" popover="hint" role="tooltip">Companies</div></li>
+              <li><a class="canon-nav-list-item" href="#sr-contacts" interestfor="sr-tip-contacts"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a><div class="canon-tooltip" id="sr-tip-contacts" data-placement="inline-end" popover="hint" role="tooltip">Contacts</div></li>
+              <li><a class="canon-nav-list-item" href="#sr-quotes" interestfor="sr-tip-quotes"><span class="canon-icon" data-icon="inbox" aria-hidden="true"></span><span class="canon-nav-list-label">Quotes</span></a><div class="canon-tooltip" id="sr-tip-quotes" data-placement="inline-end" popover="hint" role="tooltip">Quotes</div></li>
+              <li>
+                <details class="canon-nav-list-section">
+                  <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="crown" aria-hidden="true"></span><span class="canon-nav-list-label">Administration</span></summary>
+                  <ul>
+                    <li><a class="canon-nav-list-item" href="#sr-members"><span class="canon-nav-list-label">Members</span></a></li>
+                    <li><a class="canon-nav-list-item" href="#sr-billing"><span class="canon-nav-list-label">Billing</span></a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the sidebar is on the right, its line on its left, and a rail's sub-pages open to its left. A long brand name is cut (…).</p>
+
+    <div class="ref-row" style="align-items: start">
+      <div class="ref-shell-frame ref-shell-frame-short" dir="rtl" lang="ar">
+        <div class="canon-sidebar" id="sa-sidebar">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#sa-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">شركة غلوبكس</span></a>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="sa-sidebar" command="--canon-toggle-sidebar" aria-controls="sa-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#sa-dashboard" aria-current="page" interestfor="sa-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="sa-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+                <li><a class="canon-nav-list-item" href="#sa-calendar" interestfor="sa-tip-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a><div class="canon-tooltip" id="sa-tip-calendar" data-placement="inline-end" popover="hint" role="tooltip">Calendar</div></li>
+                <li>
+                  <details class="canon-nav-list-section">
+                    <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="square-kanban" aria-hidden="true"></span><span class="canon-nav-list-label">Scrumboard</span></summary>
+                    <ul>
+                      <li><a class="canon-nav-list-item" href="#sa-project-kanban"><span class="canon-nav-list-label">Project Kanban</span></a></li>
+                      <li><a class="canon-nav-list-item" href="#sa-sales-pipeline"><span class="canon-nav-list-label">Sales Pipeline</span></a></li>
+                    </ul>
+                  </details>
+                </li>
+                <li><a class="canon-nav-list-item" href="#sa-companies" interestfor="sa-tip-companies"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Companies</span></a><div class="canon-tooltip" id="sa-tip-companies" data-placement="inline-end" popover="hint" role="tooltip">Companies</div></li>
+                <li><a class="canon-nav-list-item" href="#sa-contacts" interestfor="sa-tip-contacts"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a><div class="canon-tooltip" id="sa-tip-contacts" data-placement="inline-end" popover="hint" role="tooltip">Contacts</div></li>
+                <li><a class="canon-nav-list-item" href="#sa-quotes" interestfor="sa-tip-quotes"><span class="canon-icon" data-icon="inbox" aria-hidden="true"></span><span class="canon-nav-list-label">Quotes</span></a><div class="canon-tooltip" id="sa-tip-quotes" data-placement="inline-end" popover="hint" role="tooltip">Quotes</div></li>
+                <li>
+                  <details class="canon-nav-list-section">
+                    <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="crown" aria-hidden="true"></span><span class="canon-nav-list-label">Administration</span></summary>
+                    <ul>
+                      <li><a class="canon-nav-list-item" href="#sa-members"><span class="canon-nav-list-label">Members</span></a></li>
+                      <li><a class="canon-nav-list-item" href="#sa-billing"><span class="canon-nav-list-label">Billing</span></a></li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="ref-shell-frame ref-shell-frame-short">
+        <div class="canon-sidebar" id="sl-sidebar">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#sl-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Corporation, Northern Europe and the Baltics</span></a>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="sl-sidebar" command="--canon-toggle-sidebar" aria-controls="sl-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#sl-dashboard" interestfor="sl-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="sl-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+                <li><a class="canon-nav-list-item" href="#sl-calendar" aria-current="page" interestfor="sl-tip-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-nav-list-label">Calendar</span></a><div class="canon-tooltip" id="sl-tip-calendar" data-placement="inline-end" popover="hint" role="tooltip">Calendar</div></li>
+                <li>
+                  <details class="canon-nav-list-section">
+                    <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="square-kanban" aria-hidden="true"></span><span class="canon-nav-list-label">Scrumboard</span></summary>
+                    <ul>
+                      <li><a class="canon-nav-list-item" href="#sl-project-kanban"><span class="canon-nav-list-label">Project Kanban</span></a></li>
+                      <li><a class="canon-nav-list-item" href="#sl-sales-pipeline"><span class="canon-nav-list-label">Sales Pipeline</span></a></li>
+                    </ul>
+                  </details>
+                </li>
+                <li><a class="canon-nav-list-item" href="#sl-companies" interestfor="sl-tip-companies"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Companies</span></a><div class="canon-tooltip" id="sl-tip-companies" data-placement="inline-end" popover="hint" role="tooltip">Companies</div></li>
+                <li><a class="canon-nav-list-item" href="#sl-contacts" interestfor="sl-tip-contacts"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-nav-list-label">Contacts</span></a><div class="canon-tooltip" id="sl-tip-contacts" data-placement="inline-end" popover="hint" role="tooltip">Contacts</div></li>
+                <li><a class="canon-nav-list-item" href="#sl-quotes" interestfor="sl-tip-quotes"><span class="canon-icon" data-icon="inbox" aria-hidden="true"></span><span class="canon-nav-list-label">Quotes</span></a><div class="canon-tooltip" id="sl-tip-quotes" data-placement="inline-end" popover="hint" role="tooltip">Quotes</div></li>
+                <li>
+                  <details class="canon-nav-list-section">
+                    <summary class="canon-nav-list-item"><span class="canon-icon" data-icon="crown" aria-hidden="true"></span><span class="canon-nav-list-label">Administration</span></summary>
+                    <ul>
+                      <li><a class="canon-nav-list-item" href="#sl-members"><span class="canon-nav-list-label">Members</span></a></li>
+                      <li><a class="canon-nav-list-item" href="#sl-billing"><span class="canon-nav-list-label">Billing</span></a></li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

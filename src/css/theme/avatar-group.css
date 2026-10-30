@@ -1,0 +1,116 @@
+/* ==================================================================== */
+/* Avatar group                                                         */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Three densities, per size: compact overlaps by
+     2–12px, comfortable (md) touches, spacious (lg) keeps the avatars two
+     rings apart. data-density picks one; without it, compact, and
+     spacious for links and buttons so each is a whole circle to click and
+     its focus ring shows. Worked out on each avatar, so a data-size on the
+     group is the one used. */
+  .canon-avatar-group {
+    --_density: var(--canon-density, -1);
+  }
+  .canon-avatar-group:has(> :is(a, button).canon-avatar) {
+    --_density: var(--canon-density, 1);
+  }
+  .canon-avatar-group > .canon-avatar {
+    --_gap: calc(
+      max(var(--_density), 0) * 2 * var(--canon-theme-avatar-ring)
+      + min(var(--_density), 0) * var(--canon-theme-avatar-overlap));
+  }
+
+  .canon-avatar-group > .canon-avatar + .canon-avatar {
+    margin-inline-start: var(--_gap);
+
+    /* Cut by the avatar before it, plus a ring: the gap is real, so the
+       group works on any surface. The first avatar reads as on top. */
+    --_prev-c: calc(-1 * (var(--_gap) + var(--canon-theme-avatar-size) / 2));
+    --_x-prev: calc(var(--_prev-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_prev-c)));
+    --_hole-stack: radial-gradient(circle at var(--_x-prev) 50%,
+      #000 calc(var(--canon-theme-avatar-size) * var(--_prev-lift, 1) / 2 + var(--canon-theme-avatar-ring)),
+      #0000 calc(var(--canon-theme-avatar-size) * var(--_prev-lift, 1) / 2 + var(--canon-theme-avatar-ring) + 0.5px));
+  }
+
+  /* The previous avatar's status, badge or count can hang over this one:
+     cut around them too (in this avatar's coordinates: one avatar and
+     one gap back). */
+  .canon-avatar-group > .canon-avatar:is(:has(> .canon-avatar-status), :has(> .canon-avatar-badge), :has(> .canon-count)) + .canon-avatar {
+    --_back: calc(var(--canon-theme-avatar-size) + var(--_gap));
+    --_prev-status-c: calc(var(--_status-c) - var(--_back));
+    --_prev-badge-c: calc(var(--_badge-c) - var(--_back));
+    --_x-prev-status: calc(var(--_prev-status-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_prev-status-c)));
+    --_x-prev-badge: calc(var(--_prev-badge-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_prev-badge-c)));
+  }
+  .canon-avatar-group > .canon-avatar:has(> .canon-avatar-status) + .canon-avatar {
+    --_hole-prev-corner: radial-gradient(circle at var(--_x-prev-status) var(--_status-c),
+      #000 calc(var(--canon-theme-avatar-status) / 2 + 2px), #0000 calc(var(--canon-theme-avatar-status) / 2 + 2.5px));
+  }
+  .canon-avatar-group > .canon-avatar:has(> .canon-avatar-badge) + .canon-avatar {
+    --_hole-prev-corner: radial-gradient(circle at var(--_x-prev-badge) var(--_badge-c),
+      #000 0.625rem, #0000 calc(0.625rem + 0.5px));
+  }
+  .canon-avatar-group > .canon-avatar:has(> .canon-count) + .canon-avatar {
+    --_hole-prev-count: radial-gradient(circle at var(--_x-prev-badge) var(--_count-c),
+      #000 0.625rem, #0000 calc(0.625rem + 0.5px));
+  }
+
+  /* Earlier avatars on top, so their status, badge or count isn't
+     covered by the next one. */
+  @supports (z-index: sibling-index()) {
+    .canon-avatar-group > .canon-avatar {
+      z-index: calc(1000 - sibling-index());
+    }
+  }
+
+  /* Spotlight (data-spotlight): the avatar under the pointer or with
+     focus comes forward, on top of the others and 10% bigger; it's no
+     longer cut by the one before it, which is cut around it instead (the
+     same ring); the others fade to 40%. 0.15s; with reduced motion only
+     the fade. Its name shows in a Tooltip (canon.js). */
+  .canon-avatar-group[data-spotlight] > .canon-avatar,
+  .canon-avatar[data-spotlight] {
+    --_lift: 1.1;
+    transition: opacity 0.15s ease-out, scale 0.15s ease-out;
+  }
+  .canon-avatar-group[data-spotlight] > .canon-avatar:is(:hover, :focus-visible),
+  .canon-avatar[data-spotlight]:is(:hover, :focus-visible) {
+    z-index: 1001;
+    scale: var(--_lift);
+  }
+  .canon-avatar-group[data-spotlight] > .canon-avatar:is(:hover, :focus-visible) {
+    --_hole-stack: linear-gradient(#0000 0 0);
+    --_hole-prev-corner: linear-gradient(#0000 0 0);
+    --_hole-prev-count: linear-gradient(#0000 0 0);
+  }
+  .canon-avatar-group[data-spotlight]:has(> .canon-avatar:is(:hover, :focus-visible)) > .canon-avatar:not(:hover, :focus-visible) {
+    opacity: 0.4;
+  }
+  /* The one after it: its cut grows with it. */
+  .canon-avatar-group[data-spotlight] > .canon-avatar:is(:hover, :focus-visible) + .canon-avatar {
+    --_prev-lift: var(--_lift);
+  }
+  /* The one before it: cut around it (one avatar and one gap ahead). */
+  .canon-avatar-group[data-spotlight] > .canon-avatar:has(+ .canon-avatar:is(:hover, :focus-visible)) {
+    --_next-c: calc(var(--canon-theme-avatar-size) * 1.5 + var(--_gap));
+    --_x-next: calc(var(--_next-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_next-c)));
+    --_hole-next: radial-gradient(circle at var(--_x-next) 50%,
+      #000 calc(var(--canon-theme-avatar-size) * var(--_lift) / 2 + var(--canon-theme-avatar-ring)),
+      #0000 calc(var(--canon-theme-avatar-size) * var(--_lift) / 2 + var(--canon-theme-avatar-ring) + 0.5px));
+  }
+  /* Its focus ring, as a clickable avatar's (the face's shape). */
+  :is(.canon-avatar-group[data-spotlight] > span.canon-avatar, span.canon-avatar[data-spotlight]):focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-avatar-group[data-spotlight] > .canon-avatar,
+    .canon-avatar[data-spotlight] {
+      --_lift: 1;
+      transition: opacity 0.15s ease-out;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+/* ==================================================================== */
+/* Table                                                                */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A hairline edge for its frame at
+     8 / 12 / 16 corners, white (dark zinc-900); hairline rules between
+     rows. Header cells the button's height (32 / 40 / 48),
+     Text Input's type in medium zinc-500 (dark zinc-400); body cells 16px
+     taller (48 / 56 / 64), regular zinc-900 (dark white). Cells 12 / 16 / 20px in, where a text field's text sits.
+     Data-density changes the extra height (compact none,
+     spacious 32px); the caption a title row (semibold, zinc-900); the
+     footer medium over a line; a scrolling frame focusable with Button's
+     ring. Options: data-lines="grid" adds lines between columns, "none"
+     drops those between rows; data-striped fills every other row
+     zinc-50 (dark halfway from zinc-900 to zinc-800); data-hover fills
+     the row under the pointer zinc-100 (dark zinc-800); data-frame="none"
+     drops the frame (border, corners and fill: the page shows through). */
+  :root,
+  [data-size="md"] {
+    --canon-theme-table-radius: 0.75rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-table-radius: 0.5rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-table-radius: 1rem;
+  }
+
+  .canon-table {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_row-extra: calc((var(--canon-density, 0) + 1) * 1rem);
+    --_bg: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    --_stripe: light-dark(var(--canon-theme-zinc-50), color-mix(in srgb, var(--canon-theme-zinc-800) 50%, var(--canon-theme-zinc-900)));
+    --_hover: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    --_selected: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: var(--canon-theme-table-radius);
+    background-color: var(--_bg);
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge);
+  }
+  .canon-table[data-frame="none"] {
+    --_bg: Canvas;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /* A row's fill: under the pointer, else selected (Data Table), else
+     striped. Each sets its own property, so they never fight. */
+  .canon-table tbody > tr {
+    background-color: var(--_hovered, var(--_picked, var(--_striped, transparent)));
+    transition: background-color 0.12s;
+  }
+  .canon-table[data-striped] tbody > tr:nth-child(even) {
+    --_striped: var(--_stripe);
+  }
+  @media (hover: hover) {
+    .canon-table[data-hover] tbody > tr:hover {
+      --_hovered: var(--_hover);
+    }
+  }
+  /* A selected row on a striped table is a step darker than a stripe. */
+  .canon-table[data-striped] {
+    --_selected: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+  }
+  .canon-table:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+  .canon-table > table {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  /* 8px above and below, less the line between rows: one-line cells are
+     the row's height exactly. */
+  .canon-table :is(th, td) {
+    padding-block: calc(0.5rem - 1px);
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    font-weight: 400;
+  }
+  .canon-table :is(tbody, tfoot) > tr > :is(th, td) {
+    block-size: calc(var(--canon-control-block-size) + var(--_row-extra));
+  }
+  .canon-table thead th,
+  .canon-table thead td {
+    block-size: var(--canon-control-block-size);
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-weight: 500;
+  }
+  .canon-table tbody > tr + tr > *,
+  .canon-table tbody + tbody > tr:first-child > *,
+  .canon-table tfoot > tr > * {
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-table tfoot > tr > * {
+    font-weight: 500;
+  }
+  .canon-table[data-lines="none"] tbody > tr + tr > *,
+  .canon-table[data-lines="none"] tbody + tbody > tr:first-child > * {
+    border-block-start: 0;
+  }
+  .canon-table[data-lines="grid"] :is(th, td) + :is(th, td) {
+    border-inline-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* An avatar before a name, 8px from it. */
+  .canon-table :is(th, td) > .canon-avatar,
+  .canon-table .canon-data-table-value > .canon-avatar {
+    margin-inline-end: 0.5rem;
+    vertical-align: middle;
+  }
+  .canon-table caption {
+    padding-block: 0.75rem;
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    font-weight: 600;
+  }
+}

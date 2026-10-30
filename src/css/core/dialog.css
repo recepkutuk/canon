@@ -1,0 +1,95 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Dialog                                                             */
+  /*                                                                    */
+  /* A native modal <dialog> (opened with command="show-modal"): a      */
+  /* column of header, body and footer, centered, at most the window    */
+  /* less 1rem each side; the body scrolls, header and footer stay. A   */
+  /* form around them (method="dialog" or the app's) takes no place.    */
+  /* Sections in the body run edge to edge. While one is open the page  */
+  /* doesn't scroll.                                                    */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-dialog) {
+    box-sizing: border-box;
+    inline-size: min(var(--canon-dialog-width, 40rem), 100% - 2rem);
+    max-inline-size: none;
+    max-block-size: calc(100% - 2rem);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    color: inherit;
+  }
+  :where(.canon-dialog[open]) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-dialog[data-width="sm"]) { --canon-dialog-width: 25rem; }
+  :where(.canon-dialog[data-width="lg"]) { --canon-dialog-width: 56rem; }
+  :where(.canon-dialog) > :where(form) {
+    display: contents;
+  }
+  /* Header: the title, the close button at the end, level with it. */
+  :where(.canon-dialog-header, .canon-dialog-body, .canon-dialog-footer) {
+    box-sizing: border-box;
+  }
+  :where(.canon-dialog-header) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    flex: none;
+  }
+  :where(.canon-dialog-header) > :where(:not(.canon-button)) {
+    grid-column: 1;
+  }
+  :where(.canon-dialog-header) > :where(.canon-button) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  :where(.canon-dialog-title) {
+    margin: 0;
+  }
+  :where(.canon-dialog-body) {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  :where(.canon-dialog-footer) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: none;
+  }
+  :where(.canon-dialog-footer) > :where([data-align="end"]) {
+    margin-inline-start: auto;
+  }
+  :where(html:has(.canon-dialog:modal)) {
+    overflow: hidden;
+  }
+
+  /* Drawer: a dialog at the start or the end (data-side), the window's
+     height and --canon-drawer-width wide, at most the window less 3rem,
+     so the page shows beside it; --canon-drawer-inset (the theme's) away
+     from the window's edges. */
+  :where(.canon-dialog[data-side]) {
+    --canon-drawer-width: 30rem;
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    margin: var(--canon-drawer-inset, 0px);
+  }
+  :where(.canon-dialog[data-side][data-width="sm"]) { --canon-drawer-width: 20rem; }
+  :where(.canon-dialog[data-side][data-width="lg"]) { --canon-drawer-width: 40rem; }
+  :where(.canon-dialog[data-side="start"], .canon-dialog[data-side="end"]) {
+    inline-size: min(var(--canon-drawer-width), 100% - 3rem);
+    block-size: calc(100% - 2 * var(--canon-drawer-inset, 0px));
+  }
+  :where(.canon-dialog[data-side="end"]) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-dialog[data-side="start"]) {
+    margin-inline-end: auto;
+  }
+}

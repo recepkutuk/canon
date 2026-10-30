@@ -1,0 +1,55 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Toggle Chip                                                        */
+  /*                                                                    */
+  /* A checkbox (or a radio, one at a time) drawn as a chip: a <label>  */
+  /* around its input, an optional icon and its text. As in Segmented   */
+  /* Control, the input covers the chip, invisible. Chips of one set    */
+  /* sit in .canon-toggle-chips, a named group that wraps.              */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-toggle-chips) {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+  }
+  :where(.canon-toggle-chip) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    max-inline-size: 100%;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  :where(.canon-toggle-chip) > :where(input:is([type="checkbox"], [type="radio"])) {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    opacity: 0;
+    appearance: none;
+    cursor: inherit;
+  }
+  :where(.canon-toggle-chip) > :where(.canon-icon) {
+    flex: none;
+  }
+  :where(.canon-toggle-chip-label) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-toggle-chip:has(> input:disabled)) {
+    cursor: not-allowed;
+  }
+}

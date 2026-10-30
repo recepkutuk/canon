@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Page Header reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Page Header</h1>
+  <p class="ref-note">The top of a page: what it is, what state it's in, what you can do here. Specification: <a href="../docs/components/page-header.md">docs/components/page-header.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="page-header">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;header class="canon-page-header"&gt;</code> at the top of a page's <code>&lt;main&gt;</code>, under the <a href="top-bar.html">Top Bar</a>: what stays the same on every page goes in the bar, what belongs to this page goes here. A collection's page: its name as the title, a line of facts, and its actions, the primary one (<code>data-emphasis="high"</code>) last. At most one primary action, and only when one action is what the page is for.</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <div class="canon-page-header-title">
+          <h1 id="pl-title">Invoices</h1>
+        </div>
+        <p class="canon-page-header-description">128 invoices · €340,200 outstanding</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Import</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Export</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="read-only">
+    <h2>A view to read</h2>
+    <p class="ref-note">A page only for reading (a log, a report) has no primary action: its actions are all neutral, or there are none. The primary action is for when one thing is what the page is for.</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <div class="canon-page-header-title">
+          <h1 id="pv-title">Audit log</h1>
+        </div>
+        <p class="canon-page-header-description">Every change in this workspace, last 90 days</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="refresh" aria-hidden="true"></span><span class="canon-button-label">Refresh</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Export</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="record">
+    <h2>A record</h2>
+    <p class="ref-note">The same header for one record: a back link to its collection above the title, its status (a <a href="tag.html">Tag</a>) beside it, and what you can do to it.</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <a class="canon-page-header-back" href="#pr-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+        <div class="canon-page-header-title">
+          <h1 id="pr-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+        </div>
+        <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Duplicate</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Archive</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="trail">
+    <h2>A trail</h2>
+    <p class="ref-note">Deeper in, a <a href="breadcrumb.html">Breadcrumb</a> instead of the back link. Where people are is the page's, so it lives here, not in the Top Bar.</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <nav class="canon-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="#pt-finance">Finance</a></li>
+            <li><a href="#pt-receivables">Receivables</a></li>
+            <li><a href="#pt-invoices">Invoices</a></li>
+            <li><a href="#pt-inv-2041" aria-current="page">INV-2041</a></li>
+          </ol>
+        </nav>
+        <div class="canon-page-header-title">
+          <h1 id="pt-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+        </div>
+        <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Duplicate</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Archive</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="rename">
+    <h2>Rename in place</h2>
+    <p class="ref-note">A Button with <code>command="--canon-edit"</code> aimed at the title edits it where it is: Enter or clicking away keeps the change, <kbd class="canon-kbd">Esc</kbd> drops it. <code>canon-edit</code> fires on the title first (<code>detail.value</code>, <code>detail.previous</code>); cancel it to keep the old name (when saving fails, say).</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <a class="canon-page-header-back" href="#pe-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+        <div class="canon-page-header-title">
+          <h1 id="pe-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="pe-title" command="--canon-edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Rename</span></button>
+        </div>
+      </header>
+    </div>
+    <p class="ref-note" id="pe-log" aria-live="polite">Rename it to see the event.</p>
+    <script>
+      document.getElementById("pe-title").addEventListener("canon-edit", (event) => {
+        document.getElementById("pe-log").textContent = `canon-edit: “${event.detail.previous}” → “${event.detail.value}”`;
+      });
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sticky">
+    <h2>Sticky</h2>
+    <p class="ref-note"><code>data-sticky</code>: the header stays under the Top Bar while the page scrolls (scroll inside the frame), its back link or trail tucked away above it, so the title and the actions stay in sight. Once stuck it takes a line under it. It reaches across the page's side padding: set <code>--canon-page-inset</code> to it.</p>
+
+    <div class="ref-shell-frame ref-shell-frame-short">
+      <div class="canon-app-shell">
+        <header class="canon-top-bar">
+          <div class="canon-top-bar-start"></div>
+          <div class="canon-top-bar-end">
+            <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon" aria-pressed="false"><span class="canon-icon" data-icon="moon" aria-hidden="true"></span><span class="canon-button-label">Dark mode</span></button>
+            <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+          </div>
+        </header>
+        <main class="ref-shell-content">
+          <header class="canon-page-header" data-sticky>
+            <a class="canon-page-header-back" href="#ps-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+            <div class="canon-page-header-title">
+              <h1 id="ps-title">INV-2041</h1>
+              <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+              <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="ps-title" command="--canon-edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Rename</span></button>
+            </div>
+            <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+            <div class="canon-page-header-actions">
+              <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+              <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Duplicate</span></button>
+              <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+            </div>
+          </header>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box ref-shell-box-wide"></div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">When the actions leave the title less room than it needs, they fold into one More menu, the primary action staying; a trail that doesn't fit its row keeps its last page. Very narrow, the actions go under the title. Drag the frame's corner to try it.</p>
+
+    <div class="ref-page-header-frame ref-resize" style="inline-size: 36rem">
+      <header class="canon-page-header">
+        <nav class="canon-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="#pn-finance">Finance</a></li>
+            <li><a href="#pn-receivables">Receivables</a></li>
+            <li><a href="#pn-invoices">Invoices</a></li>
+            <li><a href="#pn-inv-2041" aria-current="page">INV-2041</a></li>
+          </ol>
+        </nav>
+        <div class="canon-page-header-title">
+          <h1 id="pn-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="pn-title" command="--canon-edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Rename</span></button>
+        </div>
+        <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Duplicate</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Archive</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sizes">
+    <h2>Sizes</h2>
+    <p class="ref-note"><code>data-size</code> on the header or a container (an App Shell): sm, md, lg.</p>
+
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header" data-size="sm">
+        <div class="canon-page-header-title">
+          <h1 id="pz-sm-title">Invoices</h1>
+        </div>
+        <p class="canon-page-header-description">128 invoices · €340,200 outstanding</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Import</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+        </div>
+      </header>
+    </div>
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header" data-size="md">
+        <div class="canon-page-header-title">
+          <h1 id="pz-md-title">Invoices</h1>
+        </div>
+        <p class="canon-page-header-description">128 invoices · €340,200 outstanding</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Import</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+        </div>
+      </header>
+    </div>
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header" data-size="lg">
+        <div class="canon-page-header-title">
+          <h1 id="pz-lg-title">Invoices</h1>
+        </div>
+        <p class="canon-page-header-description">128 invoices · €340,200 outstanding</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Import</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the back link points the other way and the actions sit on the left. A page that needs no visible title (a dashboard named by its sidebar link) keeps one for screen readers, visually hidden.</p>
+
+    <div class="ref-page-header-frame" dir="rtl" lang="ar">
+      <header class="canon-page-header">
+        <a class="canon-page-header-back" href="#pa-invoices"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+        <div class="canon-page-header-title">
+          <h1 id="pa-title">INV-2041</h1>
+          <span class="canon-tag" data-intent="warning"><span class="canon-tag-label">Overdue</span></span>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="pa-title" command="--canon-edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Rename</span></button>
+        </div>
+        <p class="canon-page-header-description">Globex Corporation · Due 3 October · €12,400</p>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Duplicate</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="trash" aria-hidden="true"></span><span class="canon-button-label">Archive</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+        </div>
+      </header>
+    </div>
+    <div class="ref-page-header-frame">
+      <header class="canon-page-header">
+        <div class="canon-page-header-title"><h1 class="canon-visually-hidden">Invoices</h1></div>
+        <div class="canon-page-header-actions">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Import</span></button>
+          <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+        </div>
+      </header>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,68 @@
+/* ==================================================================== */
+/* Link                                                                 */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The rich text area's links made a component.
+     Blue-600 (dark blue-400), hover blue-700 (dark blue-300), underlined
+     1px at 0.2em with the line at 40% of the color, full on hover. A
+     standalone link drops the line until hover or focus; a low link takes
+     the text's color and always keeps its line. Focus: a 1px blue-600 ring
+     2px out (dark blue-400), 2px corners. Disabled zinc-400 (dark
+     zinc-600). A new tab (target="_blank") gets the external icon at
+     0.875em after the text, heard as "(opens in new tab)". No visited
+     color: these are app links. */
+  .canon-link {
+    --_fg: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    --_fg-hover: light-dark(var(--canon-theme-blue-700), var(--canon-theme-blue-300));
+    color: var(--_fg);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    text-underline-offset: 0.2em;
+    border-radius: 2px;
+    transition: color 0.12s, text-decoration-color 0.12s;
+  }
+  .canon-link:focus-visible:not(:disabled, [aria-disabled="true"]) {
+    color: var(--_fg-hover);
+    text-decoration-color: currentColor;
+  }
+  @media (hover: hover) {
+    .canon-link:hover:not(:disabled, [aria-disabled="true"]) {
+      color: var(--_fg-hover);
+      text-decoration-color: currentColor;
+    }
+  }
+  .canon-link[data-standalone]:not(:hover, :focus-visible) {
+    text-decoration-line: none;
+  }
+  .canon-link[data-emphasis="low"] {
+    --_fg: currentColor; /* the text's */
+    --_fg-hover: currentColor;
+    text-decoration-line: underline;
+  }
+  .canon-link:focus-visible {
+    outline: 1px solid var(--canon-theme-focus);
+    outline-offset: 2px;
+  }
+  .canon-link:is(:disabled, [aria-disabled="true"]) {
+    --_fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+  }
+  a.canon-link[target="_blank"]::after {
+    content: "" / var(--canon-text-opens-in-new-tab);
+    display: inline-block;
+    inline-size: 0.875em;
+    block-size: 0.875em;
+    margin-inline-start: 0.2em;
+    vertical-align: -0.0625em;
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-external) center / contain no-repeat;
+  }
+  a.canon-link[target="_blank"]:dir(rtl)::after {
+    scale: -1 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-link { transition: none; }
+  }
+}

@@ -1,0 +1,2054 @@
+/*
+ * Canon debug: the contract check
+ *
+ * Development only. Outlines markup that breaks the Canon contract, in a
+ * dashed amber line (the warning accent). Load it after the theme. It is
+ * unlayered, so it wins over every Canon layer.
+ *
+ * Each rule says which contract (--canon-contract) and why
+ * (--canon-contract-reason). With canon.debug.js on the page too, every
+ * outlined element gets a warning below it saying what it breaks.
+ *
+ * Not checkable in CSS: whether aria-describedby actually points at the hint
+ * and message ids, or interestfor at a tooltip (selectors can't compare
+ * attribute values between elements).
+ */
+
+:root {
+  --canon-debug: light-dark(#f59e0b, #fbbf24);   /* amber-500 / amber-400 */
+}
+
+/* ---------------------------------------------------------------------- */
+/* Button                                                                 */
+/* ---------------------------------------------------------------------- */
+
+button.canon-button:not([type]) {
+  --canon-contract: "Button";
+  --canon-contract-reason: "<button> without type (defaults to submit inside forms).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-button:not(:has(> .canon-button-label)) {
+  --canon-contract: "Button";
+  --canon-contract-reason: "Every button needs canon-button-label, icon-only buttons included.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+a.canon-button:not([href]):not([aria-disabled="true"]) {
+  --canon-contract: "Button";
+  --canon-contract-reason: "A link-button without href must be marked disabled.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+button[command="--canon-copy"]:not([commandfor]) {
+  --canon-contract: "Button";
+  --canon-contract-reason: "Copy needs to know what it copies.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-button[data-emphasis]:not([data-emphasis="high"], [data-emphasis="medium"], [data-emphasis="low"], [data-emphasis="minimal"]),
+.canon-button[data-intent]:not([data-intent="neutral"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+  --canon-contract: "Button";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Link                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-link:not(a, button),
+button.canon-link:not([type]),
+a.canon-link:not([href]):not([aria-disabled="true"]),
+.canon-link.canon-button,
+.canon-link[data-emphasis]:not([data-emphasis="low"]),
+.canon-link[data-intent] {
+  --canon-contract: "Link";
+  --canon-contract-reason: "A link (<a href>) or a <button> with a type; not both Link and Button.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-link > .canon-icon:not([aria-hidden="true"]) {
+  --canon-contract: "Link";
+  --canon-contract-reason: "Icons are decoration: the text names the link.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Button Group                                                           */
+/* ---------------------------------------------------------------------- */
+
+.canon-button-group:not([role="group"]),
+.canon-button-group:not([aria-label], [aria-labelledby]),
+.canon-button-group > :not(.canon-button, .canon-tooltip),
+.canon-button-group[data-select]:not([data-select="one"], [data-select="any"]) {
+  --canon-contract: "Button Group";
+  --canon-contract-reason: "A named group of Buttons.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Menu                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-menu:not([role="menu"]),
+.canon-menu:not([popover]),
+.canon-menu:not([id]),
+.canon-menu:not([aria-label], [aria-labelledby]),
+.canon-menu > :not(.canon-menu-item, .canon-menu-group, hr.canon-separator),
+.canon-menu-group:not([role="group"]),
+.canon-menu-group:not([aria-label], [aria-labelledby]),
+.canon-menu-group > :not(.canon-menu-item, .canon-menu-heading, hr.canon-separator) {
+  --canon-contract: "Menu";
+  --canon-contract-reason: "A named popover menu with an id (its button's popovertarget; CSS can't check that one points at the other).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-menu-item:not([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]),
+.canon-menu-item:not(:has(> .canon-menu-label)),
+button.canon-menu-item:not([type="button"]),
+.canon-menu-item:is([role="menuitemcheckbox"], [role="menuitemradio"]):not([aria-checked]),
+.canon-menu-item[popovertarget]:not([aria-haspopup="menu"]),
+.canon-menu-item > .canon-kbd:not([aria-hidden="true"]) {
+  --canon-contract: "Menu";
+  --canon-contract-reason: "Items: a menu item role, a label, a type; checks have aria-checked; an item that opens a submenu says so; a shortcut is hidden (the item's aria-keyshortcuts says it).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-button[aria-haspopup="menu"]:not([popovertarget], [data-ref-opens]) {
+  --canon-contract: "Menu";
+  --canon-contract-reason: "A button that opens a menu names it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Menubar                                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-menubar:not([role="menubar"]),
+.canon-menubar:not([aria-label], [aria-labelledby]),
+.canon-menubar > :not(.canon-menubar-item),
+.canon-menubar-item:not([role="menuitem"]),
+button.canon-menubar-item:not([type="button"]),
+.canon-menubar-item[popovertarget]:not([aria-haspopup="menu"]) {
+  --canon-contract: "Menubar";
+  --canon-contract-reason: "A named menubar of menu items; an item that opens a menu says so.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Split Button                                                           */
+/* ---------------------------------------------------------------------- */
+
+.canon-split-button > :not(.canon-button),
+.canon-split-button > .canon-button:nth-child(3),
+.canon-split-button:not(:has(> .canon-button + .canon-button:is([popovertarget], [data-ref-opens])[aria-haspopup="menu"][data-display="icon"])),
+.canon-split-button > .canon-button:first-child[aria-haspopup] {
+  --canon-contract: "Split Button";
+  --canon-contract-reason: "Two Buttons: the action, then an icon-only button opening a menu.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-split-button:has(> .canon-button[data-emphasis="high"]):has(> .canon-button:not([data-emphasis="high"])),
+.canon-split-button:has(> .canon-button[data-emphasis="medium"]):has(> .canon-button:not([data-emphasis="medium"], :not([data-emphasis]))),
+.canon-split-button:has(> .canon-button[data-emphasis="low"]):has(> .canon-button:not([data-emphasis="low"])),
+.canon-split-button:has(> .canon-button[data-emphasis="minimal"]):has(> .canon-button:not([data-emphasis="minimal"])),
+.canon-split-button:has(> .canon-button[data-intent="danger"]):has(> .canon-button:not([data-intent="danger"])),
+.canon-split-button:has(> .canon-button[data-intent="warning"]):has(> .canon-button:not([data-intent="warning"])),
+.canon-split-button:has(> .canon-button[data-intent="success"]):has(> .canon-button:not([data-intent="success"])) {
+  --canon-contract: "Split Button";
+  --canon-contract-reason: "One look: both halves share emphasis and intent.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Form Layout                                                            */
+/* ---------------------------------------------------------------------- */
+
+.canon-form-section:not([aria-labelledby], [aria-label]),
+.canon-form-section-header > :not(.canon-form-section-title, .canon-form-section-description),
+.canon-form-section-title:not(h1, h2, h3, h4, h5, h6, legend) {
+  --canon-contract: "Form Layout";
+  --canon-contract-reason: "A section is named by its title; the header holds only the title and its description.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-form-row > :not(.canon-field) {
+  --canon-contract: "Form Layout";
+  --canon-contract-reason: "A row holds fields (a fieldset or repeater goes on its own line).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-form-reveal:not(fieldset),
+.canon-form-reveal:not(.canon-choice + *) {
+  --canon-contract: "Form Layout";
+  --canon-contract-reason: "A reveal is a fieldset right after the choice that shows it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-form[data-layout]:not([data-layout="aside"]) {
+  --canon-contract: "Form Layout";
+  --canon-contract-reason: "Known hint values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Separator                                                              */
+/* ---------------------------------------------------------------------- */
+
+.canon-separator:not(hr, div),
+div.canon-separator:empty,
+div.canon-separator[role="separator"],
+div.canon-separator > *,
+.canon-separator[aria-orientation]:not([aria-orientation="vertical"], [aria-orientation="horizontal"]),
+div.canon-separator[aria-orientation] {
+  --canon-contract: "Separator";
+  --canon-contract-reason: "A line is an <hr>; words go in a <div> (role=\"separator\" would hide them from screen readers); vertical lines have no words.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-select, .canon-combobox) > select hr:not(.canon-separator) {
+  --canon-contract: "Separator";
+  --canon-contract-reason: "Lists separate their options with Separators.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Breadcrumb                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-breadcrumb:not(nav),
+.canon-breadcrumb:not([aria-label], [aria-labelledby]),
+.canon-breadcrumb > :not(ol),
+.canon-breadcrumb > ol > :not(li),
+.canon-breadcrumb a:not([href]),
+.canon-breadcrumb [aria-current]:not([aria-current="page"]),
+.canon-breadcrumb-more:not(button[type="button"][popovertarget][aria-haspopup="menu"]),
+.canon-breadcrumb :is(a, .canon-breadcrumb-more):has(> .canon-icon):not(:has(.canon-visually-hidden), [aria-label]) {
+  --canon-contract: "Breadcrumb";
+  --canon-contract-reason: "A named nav with an ordered list of items; links have an href; the \"more\" button opens a menu; an icon-only link keeps a name.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Table                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.canon-table:not(:has(> table)),
+.canon-table > :not(table),
+.canon-table > table:not(:has(> caption), [aria-label], [aria-labelledby]),
+.canon-table > table[role="presentation"],
+.canon-table > table[role="none"],
+.canon-table thead > tr > td:not(:empty),
+.canon-table :is(th, td)[data-align]:not([data-align="start"], [data-align="center"], [data-align="end"]),
+.canon-table :is(th, td)[data-wrap]:not([data-wrap="none"], [data-wrap="normal"], .canon-data-table [data-wrap="truncate"]),
+.canon-table[data-lines]:not([data-lines="rows"], [data-lines="grid"], [data-lines="none"]),
+.canon-table[data-frame]:not([data-frame="none"]),
+:is([data-frame], [data-striped], [data-hover]):not(.canon-table),
+[data-lines]:not(.canon-table, .canon-description-list, .canon-stats) {
+  --canon-contract: "Table";
+  --canon-contract-reason: "A frame around one named data table (caption or aria-label); header cells are <th>; alignment values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Data Table                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-data-table:not(:has(> .canon-table)),
+.canon-data-table > :not(.canon-table, .canon-pagination, .canon-data-table-toolbar, .canon-data-table-chips, .canon-data-table-bulk, .canon-popover, template.canon-data-table-no-results, .canon-data-table-edit-hint[hidden]) {
+  --canon-contract: "Data Table";
+  --canon-contract-reason: "A Table and optionally its Pagination; known column roles and sort states; the select column has checkboxes (a select-all in its header); pins on header cells only.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-data-table-bulk:not([role="region"]),
+.canon-data-table-bulk:not([aria-label], [aria-labelledby]),
+.canon-data-table-bulk > :not(.canon-button, .canon-toolbar, .canon-split-button, .canon-menu, .canon-popover, .canon-link, .canon-separator, .canon-data-table-bulk-count),
+.canon-data-table:has(> .canon-data-table-bulk):not(:has(thead [data-column="select"])),
+.canon-data-table-toolbar [data-panel]:not([data-panel="filters"], [data-panel="columns"]),
+.canon-data-table-toolbar [data-panel]:not(button[type="button"]),
+.canon-data-table thead th[data-type]:not([data-type="text"], [data-type="number"], [data-type="date"], [data-type="choice"]),
+.canon-data-table thead [aria-sort]:not([aria-sort="none"], [aria-sort="ascending"], [aria-sort="descending"]),
+.canon-data-table [aria-sort]:not(th),
+.canon-data-table thead [data-column]:not([data-column="select"], [data-column="actions"]),
+.canon-data-table thead [data-column="select"]:not(:has(input[type="checkbox"])),
+.canon-data-table [data-pin]:not(thead th),
+.canon-data-table[aria-busy]:not([aria-busy="true"], [aria-busy="false"]) {
+  --canon-contract: "Data Table";
+  --canon-contract-reason: "The bulk bar: a named region of actions, for a table that selects rows.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Description List                                                       */
+/* ---------------------------------------------------------------------- */
+
+.canon-description-list:not(dl),
+.canon-description-list > :not(div),
+.canon-description-list > div:not(:has(> dt + dd)),
+.canon-description-list > div > :not(dt, dd, .canon-button, .canon-link),
+.canon-description-list > div > dt ~ dt,
+.canon-description-list > div > dd ~ dt,
+.canon-description-list > div > :is(.canon-button, .canon-link) ~ :is(dt, dd),
+.canon-description-list > div > dt > .canon-icon:not([aria-hidden="true"]),
+.canon-description-list[data-columns]:not([data-columns="2"], [data-columns="3"]),
+.canon-description-list[data-lines]:not([data-lines="none"]) {
+  --canon-contract: "Description List";
+  --canon-contract-reason: "A <dl> of <div> items: one term, then its values, then an optional action (a Button or a Link); an icon term is decoration plus a name.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Skeleton and Empty State                                               */
+/* ---------------------------------------------------------------------- */
+
+.canon-skeleton:not([aria-hidden="true"]):not([data-canon-skeleton] *),
+.canon-skeleton[data-shape]:not([data-shape="block"], [data-shape="circle"], [data-shape="square"]),
+.canon-empty-state:not(:has(> .canon-empty-state-title)),
+.canon-empty-state-icon:not([aria-hidden="true"]) {
+  --canon-contract: "Skeleton and Empty State";
+  --canon-contract-reason: "A skeleton is decoration (the loading region says aria-busy). An empty state has a title.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Pagination                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-pagination:not(nav),
+.canon-pagination:not([aria-label], [aria-labelledby]),
+.canon-pagination > :not(ol, .canon-pagination-summary, .canon-pagination-size, .canon-pagination-jump),
+.canon-pagination:not([data-pages], [data-total]):not(:has(> ol)),
+.canon-pagination > ol > :not(li),
+.canon-pagination > ol > li > a:not([href]):not([aria-disabled="true"]),
+.canon-pagination [aria-current]:not([aria-current="page"]) {
+  --canon-contract: "Pagination";
+  --canon-contract-reason: "A named nav: an optional summary and rows-per-page select, the list (written, or drawn from data-pages / data-total), an optional jump form.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-pagination :is(.canon-pagination-first, .canon-pagination-prev, .canon-pagination-next, .canon-pagination-last):not(:has(> .canon-pagination-label)),
+.canon-pagination-size:not(:has(> label + :is(.canon-select, .canon-text-input) > select)),
+.canon-pagination-jump:not(form),
+.canon-pagination-jump:not(:has(> label + .canon-text-input > input[type="number"])),
+.canon-pagination[data-layout]:not([data-layout="compact"]) {
+  --canon-contract: "Pagination";
+  --canon-contract-reason: "Arrows keep a name; the size select and jump field have labels.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-load-more:not(:has(> .canon-button)),
+.canon-load-more[data-auto]:not(:has(> button.canon-button)) {
+  --canon-contract: "Pagination";
+  --canon-contract-reason: "Load more: a Button (or a link to the next page) and a status.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Toolbar                                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-toolbar:not([role="toolbar"]),
+.canon-toolbar:not([aria-label], [aria-labelledby]) {
+  --canon-contract: "Toolbar";
+  --canon-contract-reason: "A named toolbar.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Popover                                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-popover:not([popover]),
+.canon-popover:not([id]),
+.canon-popover:not([role="dialog"]),
+.canon-popover:not([aria-label], [aria-labelledby]) {
+  --canon-contract: "Popover";
+  --canon-contract-reason: "A named, non-modal dialog that a button opens (popovertarget).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Dialog                                                                 */
+/* ---------------------------------------------------------------------- */
+
+.canon-dialog:not(dialog),
+.canon-dialog:not([id]),
+.canon-dialog:not([aria-label], [aria-labelledby]),
+.canon-dialog[open]:not(:modal),
+.canon-dialog > :not(.canon-dialog-header, .canon-dialog-body, .canon-dialog-footer, form),
+.canon-dialog > form > :not(.canon-dialog-header, .canon-dialog-body, .canon-dialog-footer),
+.canon-dialog-header:not(:has(> .canon-dialog-title)),
+.canon-dialog-header > :not(.canon-dialog-title, .canon-button),
+.canon-dialog[role="alertdialog"]:not([aria-describedby]),
+.canon-dialog[role]:not([role="alertdialog"]),
+.canon-dialog[role="alertdialog"][closedby="any"],
+.canon-dialog[closedby]:not([closedby="any"], [closedby="closerequest"], [closedby="none"]),
+.canon-dialog[data-width]:not([data-width="sm"], [data-width="lg"]) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "A named <dialog> with an id, opened modal (show-modal), never written open. Its parts: header (with a title), body, footer, maybe inside one form. An alert dialog points at its message in the body (aria-describedby) and isn't dismissed by a click beside it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-dialog[data-side]:not([data-side="start"], [data-side="end"]),
+.canon-dialog[data-side][role="alertdialog"],
+.canon-dialog-section:not(.canon-dialog-body > *),
+.canon-dialog-footer > :not(.canon-button, .canon-split-button, .canon-link, .canon-choice, p) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "A drawer: a dialog from the start or the end; an alert (a decision) is a centered dialog.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-nav-list:not(nav),
+.canon-nav-list:not([aria-label], [aria-labelledby]),
+.canon-nav-list > :not(ul, .canon-nav-list-heading),
+.canon-nav-list ul > :not(li),
+.canon-nav-list li > :not(a.canon-nav-list-item[href], details.canon-nav-list-section, .canon-button, .canon-tooltip),
+.canon-nav-list li:not(:has(> :is(a.canon-nav-list-item, details.canon-nav-list-section):first-child)),
+.canon-nav-list li > .canon-button:not(:is(a, details) + .canon-button),
+.canon-nav-list-section > :not(summary.canon-nav-list-item, ul),
+.canon-nav-list-section:not(:has(> summary.canon-nav-list-item:first-child + ul)),
+.canon-nav-list-item:not(:has(> .canon-nav-list-label)),
+.canon-nav-list-item > :not(.canon-icon, .canon-avatar, .canon-nav-list-label, .canon-tag, .canon-count) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "A nav list: a named <nav> of lists (each may follow a heading); each item a link or a section (<details>: a summary item, then a list); a row's action a Button after its link. Navigation, never menu or tree roles; aria-current is \"page\".";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-nav-list-item > .canon-tag ~ .canon-tag,
+.canon-nav-list-item > .canon-tag:not(.canon-nav-list-label + .canon-tag),
+.canon-nav-list-item > .canon-icon:not([aria-hidden="true"]),
+.canon-nav-list [aria-current]:not([aria-current="page"]),
+.canon-nav-list :is([role="menu"], [role="menuitem"], [role="tree"], [role="treeitem"]) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "One tag, right after the label.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-command-palette:not(dialog),
+.canon-command-palette:not([id]),
+.canon-command-palette:not([aria-label], [aria-labelledby]),
+.canon-command-palette:not(:has(> .canon-command-search:first-child > input[type="search"]:is([aria-label], [aria-labelledby]))),
+.canon-command-search > :not(.canon-icon, input[type="search"]),
+.canon-command-palette:not(:has(> .canon-command-list)),
+.canon-command-palette > :not(.canon-command-search, .canon-command-list, .canon-command-empty, .canon-command-footer),
+.canon-command-list > :not(.canon-command-group, .canon-command-item),
+.canon-command-group:not([aria-label], [aria-labelledby]),
+.canon-command-group > :not(.canon-command-heading, .canon-command-item),
+.canon-command-item:not(a[href], button[type="button"]),
+.canon-command-item:not(:has(> .canon-command-label)),
+.canon-command-item > :not(.canon-icon, .canon-avatar, .canon-command-label, .canon-command-hint, .canon-kbd),
+.canon-command-item > :is(.canon-icon, .canon-kbd):not([aria-hidden="true"]) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "A command palette: a named <dialog> with an id, its search row (an icon and a named input of type search) first, then the list; items are links or buttons with a label.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+button[command="show-modal"]:not([commandfor]) {
+  --canon-contract: "Dialog";
+  --canon-contract-reason: "Opening a dialog: a button naming it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Rich text                                                              */
+/* ---------------------------------------------------------------------- */
+
+[data-tools]:not(.canon-textarea[data-rich]) {
+  --canon-contract: "Rich text";
+  --canon-contract-reason: "data-tools belongs to a rich textarea.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Field                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.canon-field:not(:has(> .canon-label)),
+.canon-field:not(:has(> :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-swatches, .canon-segmented, .canon-toggle-chips, .canon-otp, .canon-number, .canon-time))) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "A field needs a label and a box.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field > .canon-label > .canon-label-text:not(label[for]):not([role="group"] > .canon-label > [id], .canon-field:has(> :is(.canon-swatches, .canon-segmented, .canon-toggle-chips)) > .canon-label > [id]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Labels point at their control (a range slider's or swatches' label names the group instead).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field-hint,
+.canon-field-label {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Replaced: the field's hint is the label's description now.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-label:is(:has(~ :required), :has(~ * > :required)) .canon-label-optional {
+  --canon-contract: "Field";
+  --canon-contract-reason: "\"(optional)\" on a required field.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-date):has(> :is(input:not(.canon-combobox-input), textarea, select) ~ :is(input:not(.canon-combobox-input), textarea, select)):not(:has(> input[type="range"] + input[type="range"])):not(.canon-date:has(> input[type="date"] ~ input[type="date"]):not(:has(> input[type="date"] ~ input[type="date"] ~ input[type="date"]))),
+.canon-control:has(> input[type="range"] ~ input[type="range"] ~ input[type="range"]),
+.canon-field > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-otp, .canon-number, .canon-time) > :is(input:not(.canon-combobox-input), textarea, select):not([id]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "The box holds exactly one main native control (or a range slider's two range inputs), and it has an id.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:not(.canon-field) > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-otp, .canon-number, .canon-time) > :is(input, textarea, select):not([aria-label], [aria-labelledby], [id]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Outside a field, the box's control needs a name of its own (an id may be a <label for> elsewhere, which CSS can't see).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea):has(> :is(
+  input:not([type="checkbox"], [type="radio"], [type="date"], [type="time"], [type="datetime-local"],
+            [type="month"], [type="week"], [type="color"], [type="range"], [type="file"], [type="hidden"]),
+  textarea
+):not([placeholder])) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Inside a field, text-like inputs and textareas need a placeholder attribute.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-control-prefix, .canon-control-suffix, .canon-text-input-prefix, .canon-text-input-suffix):not([aria-hidden="true"]):not(:has(select, input, button)) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Affix text is aria-hidden; an affix with a control inside is not.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field:has(> .canon-field-counter):not(:has(> :is(.canon-text-input, .canon-textarea) > :is(input, textarea):is([maxlength], [data-maxlength]))),
+.canon-field:has(> .canon-field-counter):not(:has(> .canon-field-message)),
+[data-limit] {
+  --canon-contract: "Field";
+  --canon-contract-reason: "A counter counts toward the maxlength of a text input or textarea (canon.js moves it to data-maxlength and makes it soft). Its field needs a message for the error past the limit. data-limit is gone: maxlength is the one limit.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field:has(> :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > [aria-invalid="true"]):not(:has(> .canon-field-message[data-intent="danger"])) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "An invalid control needs a danger message.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-control > select option[label]:has(> *) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Rich options and the label attribute don't mix (label replaces the markup).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-control:has(> input:not([type="range"], [type="checkbox"], [type="radio"])),
+.canon-text-input:not(:has(> input:not([type="range"], [type="checkbox"], [type="radio"], [type="hidden"]))),
+.canon-text-input:has(> :is(textarea, select)),
+.canon-text-input > :is(.canon-control-prefix, .canon-control-suffix) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Text inputs are .canon-text-input, with -prefix and -suffix: a text-like <input> as the main control.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-text-input-prefix, .canon-text-input-suffix):has(select, input, button),
+.canon-text-input > :is(.canon-select, .canon-combobox):not(:first-child, :last-child),
+.canon-text-input > .canon-combobox:is([data-search="inline"], :has(> select[multiple])) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "A control beside the value is a Select or one-value Combobox box, first or last in the text input, not a control inside an affix.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-control:has(> select),
+.canon-select:not(:has(> select)),
+.canon-select > select[multiple],
+.canon-select > select[size]:not([size="1"]),
+.canon-select > select option[data-intent]:not([data-intent="danger"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Selects are .canon-select around a single-choice <select>: several values, or typing to search, are a combobox.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-select > select option[value=""]:not(:first-of-type) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "The placeholder (an empty value) comes first.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-combobox:not(:has(> select)),
+.canon-combobox > select[size]:not([size="1"]),
+.canon-combobox > select option[value=""]:not(:first-of-type),
+:is(.canon-select, .canon-combobox) > select:not([multiple]) option[data-seed],
+.canon-combobox > select:not([multiple]) option[data-intent],
+.canon-combobox > select[multiple] option[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]),
+.canon-combobox > select[multiple] option[data-intent][data-seed],
+:is(.canon-select, .canon-combobox) > select option:not([data-intent]) > .canon-tag-dot,
+:is(.canon-select, .canon-combobox) > select:not([multiple]) .canon-tag-dot,
+select option > .canon-tag-dot:not(:first-child),
+.canon-combobox > select[data-max]:not([multiple]),
+.canon-combobox > select:is([data-max=""], [data-max^="0"], [data-max^="-"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Comboboxes are .canon-combobox around a <select> (canon.js builds the rest): single or multiple, no list box (size), options like Select's but never destructive (that's a Select's or a Menu's). data-seed on an option colors its tag, so it needs multiple; with multiple, data-intent makes the tag a status (one color source, an intent of a status), and a dot belongs to a status. data-max: a positive number, with multiple.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-combobox[data-search]:not([data-search="list"], [data-search="inline"]),
+.canon-combobox:is([data-creatable], [data-filter]):not([data-search]),
+.canon-combobox[data-filter]:not([data-filter="none"]),
+.canon-combobox[data-tags]:not([data-tags="collapse"]),
+.canon-combobox[data-tags]:not(:has(> select[multiple])) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Hints: known values; tags only with several values; adding values and app-supplied options need a search.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-select, .canon-combobox) > .canon-button:not([command="--canon-clear"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "The only button in a Select or Combobox box is a clear button.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-text-input:has(> input[type="password"]),
+.canon-password:not(:has(> input:is([type="password"], [type="text"]))),
+.canon-password > :is(.canon-text-input-prefix, .canon-text-input-suffix, .canon-control-prefix, .canon-control-suffix),
+.canon-password > .canon-button:not([command="--canon-toggle-password"], [command="--canon-generate-password"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Passwords are .canon-password (with the show / hide toggle), not text inputs. The toggle switches type to text, so both count.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+input[data-match]:not(.canon-password > input) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "A confirmation names the password it repeats.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-text-input, .canon-password, .canon-textarea)[data-intent]:not([data-intent="warning"], [data-intent="success"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Error is aria-invalid (assistive tech needs it), not data-intent.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-control:has(> textarea),
+.canon-textarea:not(:has(> textarea)),
+.canon-textarea > :not(textarea, .canon-limit-mirror, .canon-rich-toolbar, .canon-rich-area),
+.canon-textarea:not([data-rich]) > :is(.canon-rich-toolbar, .canon-rich-area),
+.canon-textarea > textarea:is([data-max-lines=""], [data-max-lines^="0"], [data-max-lines^="-"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Textareas are .canon-textarea around a <textarea> and nothing else. data-max-lines: a number, or \"none\".";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field-message[data-intent]:not([data-intent="danger"], [data-intent="warning"], [data-intent="success"]),
+.canon-textarea > textarea[data-resize]:not([data-resize="vertical"], [data-resize="none"]) {
+  --canon-contract: "Field";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Slider and range slider                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-field:has(> .canon-control > input[type="range"] + input[type="range"]):not([role="group"][aria-labelledby]),
+.canon-control > input[type="range"] + input[type="range"]:not([aria-label], [aria-labelledby]),
+.canon-control > input[type="range"]:has(+ input[type="range"]):not([aria-label], [aria-labelledby]) {
+  --canon-contract: "Slider and range slider";
+  --canon-contract-reason: "A range slider is a group named by its label; each thumb has its own name.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-control-value:not(output[for]),
+.canon-control-value:not([aria-hidden="true"]) {
+  --canon-contract: "Slider and range slider";
+  --canon-contract-reason: "Values are <output for>, hidden from assistive tech (the input already exposes its value; a live <output> would announce it twice).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-field[data-orientation]:not([data-orientation="vertical"]) {
+  --canon-contract: "Slider and range slider";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Choice: checkbox, radio, switch                                        */
+/* ---------------------------------------------------------------------- */
+
+.canon-choice:not(:has(> input:is([type="checkbox"], [type="radio"]))),
+.canon-choice:has(> input ~ input),
+.canon-choice > input:not([id]),
+.canon-choice:not(:has(> .canon-choice-label)),
+.canon-choice-label:not([for]) {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "A choice is exactly one checkbox or radio (with an id) and its label.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-choice > .canon-choice-label:first-child {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "The input comes first: the label follows it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-choice > [role="switch"]:not([type="checkbox"]) {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "A switch is a checkbox with role=\"switch\".";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-choice:not(:has(> [role="switch"])) > .canon-choice-state,
+.canon-choice-state:not([aria-hidden="true"]),
+.canon-choice-state:not(:has(> .canon-choice-state-on)),
+.canon-choice-state:not(:has(> .canon-choice-state-off)),
+.canon-choice-state > :not(.canon-choice-state-on, .canon-choice-state-off) {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "State text: only on a switch, hidden from assistive tech (which hears the state), with words for both states and nothing else.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-choice:has(> [type="radio"]):not(fieldset .canon-choice) {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "Radios are always grouped in a fieldset.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-choice:has(> [aria-invalid="true"]):not(:has(> .canon-choice-message[data-intent="danger"])) {
+  --canon-contract: "Choice: checkbox, radio, switch";
+  --canon-contract-reason: "An invalid choice needs a danger message.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Color picker                                                           */
+/* ---------------------------------------------------------------------- */
+
+.canon-color:not(:has(> input:is([type="color"], [alpha]))) {
+  --canon-contract: "Color picker";
+  --canon-contract-reason: "A color box holds a color input (canon.js makes it a read-only text field when it keeps opacity, marked by alpha).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Date                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-date:not(:has(> input:is([type="date"], [type="week"]))),
+.canon-date:has(> input[type="week"]) > input:is([type="date"], [type="week"]) ~ input,
+.canon-date:has(> input[type="date"] ~ input[type="date"]) > input[type="date"]:not([aria-label], [aria-labelledby]) {
+  --canon-contract: "Date";
+  --canon-contract-reason: "A date box holds a date input, or two for a range; the week starts on an ISO day (1-7). A range's inputs name themselves (\"Start\", \"End\"); its field's label names the pair (a <span id>, role=\"group\" on the field). Presets (a <datalist>) belong to a range.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+input:is([type="date"], [type="week"]):not(.canon-date > input),
+.canon-field:not([role="group"]) > .canon-date:has(> input[type="date"] ~ input[type="date"]),
+.canon-date:not(:has(> input[type="date"] ~ input[type="date"])) > datalist,
+.canon-date[data-strip]:not(:has(> input[type="date"])),
+.canon-date[data-strip]:has(> input ~ input),
+.canon-date[data-strip][data-inline],
+.canon-date[data-header]:not([data-header="select"]),
+.canon-date[data-header]:has(> input ~ input),
+[data-week-start]:not([data-week-start="1"], [data-week-start="2"], [data-week-start="3"], [data-week-start="4"], [data-week-start="5"], [data-week-start="6"], [data-week-start="7"]) {
+  --canon-contract: "Date";
+  --canon-contract-reason: "A date or a week is always a Date box: never the browser's picker in a Text Input or on its own.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Input OTP                                                              */
+/* ---------------------------------------------------------------------- */
+
+.canon-otp:not(:has(> input:is([type="text"], [type="password"], :not([type])))),
+.canon-otp > input:not([maxlength]),
+.canon-otp > input:not([autocomplete="one-time-code"]),
+.canon-otp > :not(input, .canon-otp-cells) {
+  --canon-contract: "Input OTP";
+  --canon-contract-reason: "One text input: its maxlength is the length; autocomplete lets the browser fill a code it received. (data-groups must add up to the length; CSS can't check, canon.js then draws one group.)";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Form Repeater                                                          */
+/* ---------------------------------------------------------------------- */
+
+.canon-repeater > :not(.canon-repeater-item, template, button[command="--canon-add"]),
+.canon-repeater:has(> button[command="--canon-add"]):not(:has(> template, > .canon-repeater-item)),
+.canon-repeater:has(button[command^="--canon-"]):not([id]) {
+  --canon-contract: "Form Repeater";
+  --canon-contract-reason: "Items, an optional <template> and an Add button. Add copies the first item, so a list that starts empty needs the template. (Its content is inert: CSS can't check that it holds one item, nor that commandfor names the repeater.)";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-repeater-item > :not(.canon-field, .canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-otp, .canon-number, .canon-time, button[command="--canon-remove"]),
+.canon-repeater-item:not(.canon-repeater > *) {
+  --canon-contract: "Form Repeater";
+  --canon-contract-reason: "An item: Fields or boxes, and its Remove button.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+button:is([command="--canon-add"], [command="--canon-remove"]):not(.canon-button),
+button[command="--canon-add"]:not(.canon-repeater > *),
+button[command="--canon-remove"]:not(.canon-repeater-item > *) {
+  --canon-contract: "Form Repeater";
+  --canon-contract-reason: "Add and Remove are Buttons, in place.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Number Input                                                           */
+/* ---------------------------------------------------------------------- */
+
+.canon-number:not(:has(> input[type="number"])),
+.canon-number > :not(input[type="number"], .canon-button, .canon-number-ticker),
+.canon-number > .canon-button:not([command="--canon-step-down"], [command="--canon-step-up"]),
+.canon-number > .canon-button[command="--canon-step-down"]:not(:first-child, input:first-child ~ [command="--canon-step-up"] ~ *),
+.canon-number > .canon-button[command="--canon-step-up"]:not(:last-child, input:first-child ~ *),
+.canon-number > .canon-button:not([data-display="icon"]) {
+  --canon-contract: "Number Input";
+  --canon-contract-reason: "A number input between its step-down and step-up buttons, or followed by its step-up then step-down buttons (stacked at the end).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Swatches                                                               */
+/* ---------------------------------------------------------------------- */
+
+.canon-swatches:not([role="radiogroup"]),
+.canon-swatches:not([aria-label], [aria-labelledby]),
+.canon-swatches > :not(input[type="radio"], .canon-swatches-toggle),
+.canon-swatches > input[type="radio"]:not([name]),
+.canon-swatches > input[type="radio"]:not([aria-label], [aria-labelledby]) {
+  --canon-contract: "Swatches";
+  --canon-contract-reason: "A named radio group of named radios (the colors have no visible text).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Segmented Control                                                      */
+/* ---------------------------------------------------------------------- */
+
+.canon-segmented:not([role="radiogroup"]),
+.canon-segmented:not([aria-label], [aria-labelledby]),
+.canon-segmented > :not(label.canon-segmented-option),
+.canon-segmented:not(:has(> .canon-segmented-option ~ .canon-segmented-option)),
+.canon-segmented:not(:has(> .canon-segmented-option > input:checked)) {
+  --canon-contract: "Segmented Control";
+  --canon-contract-reason: "A named radio group of two or more options, one of them chosen.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-segmented-option:not(:has(> input[type="radio"][name]:first-child)),
+.canon-segmented-option:has(> input ~ input),
+.canon-segmented-option:not(:has(> .canon-segmented-label)),
+.canon-segmented-option > :not(input[type="radio"], .canon-icon, .canon-segmented-label),
+.canon-segmented-option > .canon-icon:not([aria-hidden="true"]) {
+  --canon-contract: "Segmented Control";
+  --canon-contract-reason: "An option: a label around one named radio (first), an optional decorative icon, and its text (also when only the icon shows).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-segmented[data-display="icon"], [data-display="icon"] .canon-segmented) > .canon-segmented-option:not(:has(> .canon-icon)) {
+  --canon-contract: "Segmented Control";
+  --canon-contract-reason: "Icons only: every option shows one.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-segmented, .canon-segmented-option)[data-intent] {
+  --canon-contract: "Segmented Control";
+  --canon-contract-reason: "A choice has no intent.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Toggle Chip                                                            */
+/* ---------------------------------------------------------------------- */
+
+.canon-toggle-chip:not(label),
+.canon-toggle-chip:not(:has(> input:is([type="checkbox"], [type="radio"])[name]:first-child)),
+.canon-toggle-chip:has(> input ~ input),
+.canon-toggle-chip:not(:has(> .canon-toggle-chip-label)),
+.canon-toggle-chip > :not(input, .canon-icon, .canon-toggle-chip-label),
+.canon-toggle-chip > .canon-icon:not([aria-hidden="true"]),
+.canon-toggle-chip[data-intent] {
+  --canon-contract: "Toggle Chip";
+  --canon-contract-reason: "A chip: a label around one named checkbox or radio (first), an optional decorative icon, and its text.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-toggle-chips:not([role="group"], [role="radiogroup"]),
+.canon-toggle-chips:not([aria-label], [aria-labelledby]),
+.canon-toggle-chips > :not(.canon-toggle-chip),
+.canon-toggle-chips[role="group"]:has(input[type="radio"]),
+.canon-toggle-chips[role="radiogroup"]:has(input[type="checkbox"]) {
+  --canon-contract: "Toggle Chip";
+  --canon-contract-reason: "A set: a named group of chips; radios (one at a time) in a radiogroup.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-toggle-chip:has(> input[type="radio"]):not(.canon-toggle-chips > *) {
+  --canon-contract: "Toggle Chip";
+  --canon-contract-reason: "Radio chips always come in a set.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Filter Bar                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-filter-bar:not(form),
+.canon-filter-bar:not([role="search"]),
+.canon-filter-bar:not([aria-label], [aria-labelledby]),
+.canon-filter-bar > :not(.canon-text-input, .canon-filter-bar-facet, .canon-toggle-chip, .canon-toggle-chips, .canon-button, .canon-select, .canon-segmented, .canon-filter-bar-count, input[type="hidden"]),
+.canon-filter-bar > .canon-text-input:not(:has(> input[type="search"])) {
+  --canon-contract: "Filter Bar";
+  --canon-contract-reason: "A named search form of filters.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-filter-bar-facet:not(.canon-filter-bar > *),
+.canon-filter-bar-facet:not(:has(> button.canon-filter-bar-button[type="button"][popovertarget][aria-haspopup="dialog"] + .canon-popover[popover][role="dialog"])),
+.canon-filter-bar-button:not(:has(> .canon-filter-bar-label)),
+.canon-filter-bar-button > .canon-icon:not([aria-hidden="true"]) {
+  --canon-contract: "Filter Bar";
+  --canon-contract-reason: "A facet: its button opening its popover, right after it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-filter-bar-count:not(output),
+.canon-filter-bar-apply:not(button[type="submit"]) {
+  --canon-contract: "Filter Bar";
+  --canon-contract-reason: "The count is an <output> (announced as it changes); Apply submits.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Fieldset                                                               */
+/* ---------------------------------------------------------------------- */
+
+.canon-fieldset:not(fieldset),
+.canon-fieldset:not(:has(> .canon-fieldset-legend:first-child)) {
+  --canon-contract: "Fieldset";
+  --canon-contract-reason: "A fieldset element with a legend as its first child.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-fieldset[aria-invalid] {
+  --canon-contract: "Fieldset";
+  --canon-contract-reason: "ARIA has no invalid state for groups: the danger message is the signal.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:is(.canon-choice-message, .canon-fieldset-message)[data-intent]:not([data-intent="danger"], [data-intent="warning"], [data-intent="success"]),
+.canon-fieldset[data-orientation]:not([data-orientation="horizontal"], [data-orientation="vertical"]) {
+  --canon-contract: "Fieldset";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tooltip                                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-tooltip:not([popover]),
+.canon-tooltip:is([popover=""], [popover="auto"]),
+.canon-tooltip:not([id]),
+.canon-tooltip:not([role="tooltip"]) {
+  --canon-contract: "Tooltip";
+  --canon-contract-reason: "A tooltip is a hint popover (manual only for always-open demos; auto would close on the first click and close other popovers) with an id and role.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tooltip :is(a[href], button, input, select, textarea, details, [tabindex], [contenteditable]) {
+  --canon-contract: "Tooltip";
+  --canon-contract-reason: "Nothing interactive inside: nobody can reach it. That's a Popover.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[interestfor]:not(button, a[href], area),
+button[interestfor]:disabled {
+  --canon-contract: "Tooltip";
+  --canon-contract-reason: "Triggers are buttons and links. A disabled button never shows its tooltip (no focus, unreliable hover): use aria-disabled.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tooltip[data-placement]:not([data-placement="top"], [data-placement="top-start"], [data-placement="top-end"], [data-placement="bottom"], [data-placement="bottom-start"], [data-placement="bottom-end"], [data-placement="start"], [data-placement="end"]) {
+  --canon-contract: "Tooltip";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Kbd                                                                    */
+/* ---------------------------------------------------------------------- */
+
+.canon-kbd:not(kbd),
+.canon-kbd > :not(abbr) {
+  --canon-contract: "Kbd";
+  --canon-contract-reason: "A <kbd> holding text only.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-button > .canon-kbd:not([aria-hidden="true"]),
+.canon-button > .canon-kbd:not(:last-child),
+.canon-button:has(> .canon-kbd):not([aria-keyshortcuts]) {
+  --canon-contract: "Kbd";
+  --canon-contract-reason: "As a button's accessory it repeats aria-keyshortcuts, so it is hidden, comes last, and the button declares the shortcut.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* App Shell · Sidebar · Top Bar                                          */
+/* ---------------------------------------------------------------------- */
+
+.canon-app-shell > :not(.canon-sidebar, .canon-top-bar, main, dialog, [popover]),
+.canon-app-shell:not(:has(> main)),
+.canon-app-shell > .canon-sidebar ~ .canon-sidebar,
+.canon-app-shell > .canon-top-bar ~ .canon-top-bar {
+  --canon-contract: "App Shell · Sidebar · Top Bar";
+  --canon-contract-reason: "The shell: a Sidebar, a Top Bar, the <main> (and closed dialogs or popovers, which take no place).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-sidebar > :not(.canon-sidebar-header, .canon-sidebar-body, .canon-sidebar-footer),
+.canon-sidebar > .canon-sidebar-header:not(:first-child),
+.canon-sidebar > .canon-sidebar-footer:not(:last-child),
+.canon-sidebar:not(:has(> .canon-sidebar-body)),
+.canon-sidebar > .canon-sidebar-body ~ .canon-sidebar-body,
+.canon-sidebar-body > :not(.canon-nav-list, .canon-separator),
+.canon-sidebar-body:not(:has(> .canon-nav-list)),
+.canon-sidebar[data-display]:not([data-display="icon"]),
+.canon-sidebar-header > :not(.canon-sidebar-brand, .canon-button),
+.canon-sidebar-brand:not(:has(> .canon-sidebar-brand-name)),
+:is(.canon-sidebar-header, .canon-sidebar-body, .canon-sidebar-footer):not(.canon-sidebar > *) {
+  --canon-contract: "App Shell · Sidebar · Top Bar";
+  --canon-contract-reason: "A Sidebar: a header first, a body of Nav Lists (with Separators between; the part that scrolls), a footer last; data-display=\"icon\" is its rail.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-top-bar:not(header),
+.canon-top-bar > :not(.canon-top-bar-start, .canon-top-bar-end),
+:is(.canon-top-bar-start, .canon-top-bar-end):not(.canon-top-bar > *) {
+  --canon-contract: "App Shell · Sidebar · Top Bar";
+  --canon-contract-reason: "A Top Bar: a <header> with a start and an end group.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-top-bar-end > .canon-button:not(:has(> .canon-button-label), [aria-label]) {
+  --canon-contract: "App Shell · Sidebar · Top Bar";
+  --canon-contract-reason: "The end's Buttons may fold into its More menu: each needs a name there.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Split Pane                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-split-pane:not(:has(> :first-child + .canon-split-pane-handle + :last-child)),
+.canon-split-pane-handle:not(.canon-split-pane > *),
+.canon-split-pane-handle:not([role="separator"][tabindex="0"]),
+.canon-split-pane-handle:not([aria-label], [aria-labelledby]),
+.canon-split-pane-handle:not([aria-orientation="vertical"], [aria-orientation="horizontal"]),
+.canon-split-pane-handle:not([aria-controls]),
+.canon-split-pane-handle:not([aria-valuenow]),
+.canon-split-pane-handle:not(:empty) {
+  --canon-contract: "Split Pane";
+  --canon-contract-reason: "A pane, a handle, a pane. The handle: a focusable, named separator saying how it lies, controlling the first pane, with its value and limits.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Save Bar                                                               */
+/* ---------------------------------------------------------------------- */
+
+.canon-save-bar:not(form .canon-save-bar),
+.canon-save-bar:not(:last-child),
+.canon-save-bar > :not(.canon-save-bar-status, .canon-button, .canon-split-button),
+.canon-save-bar:not(:has(> button[type="submit"])),
+.canon-save-bar > button[type="submit"] ~ button[type="submit"],
+.canon-save-bar-status:not(p),
+.canon-save-bar-status:not(.canon-save-bar > :first-child) {
+  --canon-contract: "Save Bar";
+  --canon-contract-reason: "In a form, last; its status, then Buttons: a Save (type=\"submit\"), and a Discard (type=\"reset\") if any.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Toast                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.canon-toast:not(:has(> p.canon-toast-title)),
+.canon-toast > :not(.canon-toast-title, .canon-toast-description, .canon-toast-actions, .canon-toast-close),
+.canon-toast > .canon-toast-title ~ .canon-toast-title,
+.canon-toast-description:not(p),
+.canon-toast-close:not(button[type="button"][aria-label]),
+.canon-toast-actions > :not(.canon-button, a),
+.canon-toast[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]),
+.canon-toast[data-emphasis]:not([data-emphasis="high"], [data-emphasis="medium"]),
+.canon-toast[data-timer][data-duration="none"],
+.canon-toast[data-duration]:not([data-duration="none"]):not([data-duration^="1"], [data-duration^="2"], [data-duration^="3"], [data-duration^="4"], [data-duration^="5"], [data-duration^="6"], [data-duration^="7"], [data-duration^="8"], [data-duration^="9"]),
+.canon-toaster:not(section) {
+  --canon-contract: "Toast";
+  --canon-contract-reason: "A title (a <p>), then an optional description and actions; the close button (canon.js adds one) a named button. Known intents.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Alert                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.canon-alert:not(:has(> .canon-alert-title, > .canon-alert-description)) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "An alert says something: a title, a description, or both.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert > :not(.canon-alert-title, .canon-alert-description, .canon-alert-actions, .canon-alert-close),
+.canon-alert > .canon-alert-title ~ .canon-alert-title,
+.canon-alert > .canon-alert-description ~ .canon-alert-description,
+.canon-alert > .canon-alert-actions ~ .canon-alert-actions {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "An alert holds one title, one description, one row of actions and a close button, nothing else.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert > .canon-alert-title:not(:first-child),
+.canon-alert > .canon-alert-actions ~ :is(.canon-alert-title, .canon-alert-description),
+.canon-alert > .canon-alert-close:not(:last-child) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "In order: the title, the description, the actions, the close button last.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert-title:not(p, h2, h3, h4, h5, h6) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "The title is a <p>, or a heading (h2–h6) when the alert heads a part of the page.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert-description:not(p, div) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "The description is a <p>, or a <div> holding paragraphs or a list.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert-actions > :not(.canon-button, .canon-link) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "Actions are Buttons or Links.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert-close:not(button[type="button"]),
+.canon-alert-close:not(:empty) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "The close button is an empty <button type=\"button\">: the theme draws the X, canon.js names it (\"Dismiss\").";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert[role]:not([role="alert"], [role="status"]) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "An alert shown while the page is open is role=\"alert\" (urgent) or role=\"status\" (polite); one there from the start has no role.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-alert[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]),
+.canon-alert[data-emphasis]:not([data-emphasis="medium"], [data-emphasis="high"]) {
+  --canon-contract: "Alert";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Accordion                                                              */
+/* ---------------------------------------------------------------------- */
+
+.canon-accordion > :not(details.canon-accordion-item),
+.canon-accordion-item:not(details),
+.canon-accordion-item:not(.canon-accordion > *) {
+  --canon-contract: "Accordion";
+  --canon-contract-reason: "An accordion holds <details class=\"canon-accordion-item\"> items, and items live in an accordion.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-accordion-item:not(:has(> summary.canon-accordion-summary:first-child)),
+.canon-accordion-item:not(:has(> .canon-accordion-content)),
+.canon-accordion-item > :not(summary.canon-accordion-summary, .canon-accordion-content),
+.canon-accordion-item > .canon-accordion-content ~ .canon-accordion-content {
+  --canon-contract: "Accordion";
+  --canon-contract-reason: "An item is its <summary class=\"canon-accordion-summary\"> first, then one .canon-accordion-content.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-accordion-summary:not(:has(> .canon-accordion-title)),
+.canon-accordion-summary > :not(.canon-accordion-title, .canon-accordion-description, .canon-icon, .canon-tag, .canon-count, .canon-status),
+.canon-accordion-title:not(span),
+.canon-accordion-description:not(span) {
+  --canon-contract: "Accordion";
+  --canon-contract-reason: "A summary holds a .canon-accordion-title (a <span>), then maybe a description (a <span>), a leading icon, and a Tag, Count or Status at the end.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-accordion-summary :is(a, button, input, select, textarea, [tabindex]),
+.canon-accordion-summary :is(h1, h2, h3, h4, h5, h6) {
+  --canon-contract: "Accordion";
+  --canon-contract-reason: "Nothing interactive in a summary (it is the button), and no heading: inside a summary, screen readers lose its role.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+
+.canon-accordion:has(> [name]):has(> :not([name])) {
+  --canon-contract: "Accordion";
+  --canon-contract-reason: "One at a time (name) is for every item of the accordion, or none.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Banner                                                                 */
+/* ---------------------------------------------------------------------- */
+
+.canon-banner:not(:has(> .canon-banner-title, > .canon-banner-description)) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "A banner says something: a title, a description, or both.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner > :not(.canon-banner-title, .canon-banner-description, .canon-banner-actions, .canon-banner-close),
+.canon-banner > .canon-banner-title ~ .canon-banner-title,
+.canon-banner > .canon-banner-description ~ .canon-banner-description,
+.canon-banner > .canon-banner-actions ~ .canon-banner-actions {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "A banner holds one title, one description, one row of actions and a close button, nothing else.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner > .canon-banner-title:not(:first-child),
+.canon-banner > .canon-banner-actions ~ :is(.canon-banner-title, .canon-banner-description),
+.canon-banner > .canon-banner-close:not(:last-child) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "In order: the title, the description, the actions, the close button last.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner-title:not(p),
+.canon-banner-description:not(p) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "The title and the description are <p>s: one line each.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner-actions > :not(.canon-button, .canon-link) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "Actions are Buttons or Links.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner-close:not(button[type="button"]),
+.canon-banner-close:not(:empty) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "The close button is an empty <button type=\"button\">: the theme draws the X, canon.js names it (\"Dismiss\").";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+:not(.canon-banner, script, style, template, link) ~ .canon-banner {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "Banners go first in what holds the app (the <body>, before the App Shell), so they sit across the top and are read first.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner[role]:not([role="alert"], [role="status"]) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "A banner shown while the page is open is role=\"alert\" (urgent) or role=\"status\" (polite); one there from the start has no role.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-banner[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]),
+.canon-banner[data-emphasis]:not([data-emphasis="medium"], [data-emphasis="high"]) {
+  --canon-contract: "Banner";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Spinner                                                                */
+/* ---------------------------------------------------------------------- */
+
+.canon-spinner:not(progress),
+.canon-spinner:is([value], [max]) {
+  --canon-contract: "Spinner";
+  --canon-contract-reason: "A spinner is a <progress> with no value: working, for how long unknown. With a value it's a progress bar.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-spinner:not([aria-label], [aria-labelledby], .canon-spinner-label > .canon-spinner) {
+  --canon-contract: "Spinner";
+  --canon-contract-reason: "Name what's loading: aria-label (\"Loading invoices\"), or visible words in a .canon-spinner-label around it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-spinner-label:not(label),
+.canon-spinner-label:not(:has(> .canon-spinner:first-child)),
+.canon-spinner-label > .canon-spinner ~ .canon-spinner,
+.canon-spinner-label > .canon-spinner[aria-label] {
+  --canon-contract: "Spinner";
+  --canon-contract-reason: "Visible words: a <label class=\"canon-spinner-label\"> around the spinner, the spinner first, then the words, which name it (no aria-label too).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[data-delay]:not([data-delay="none"]) {
+  --canon-contract: "Spinner";
+  --canon-contract-reason: "Unknown value: data-delay is \"none\" (shown at once) or absent (after 0.4s).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Status Indicator                                                       */
+/* ---------------------------------------------------------------------- */
+
+.canon-status:not(:has(> .canon-status-label)),
+.canon-status > :not(.canon-status-label),
+.canon-status-label:not(.canon-status > *),
+.canon-status[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+  --canon-contract: "Status Indicator";
+  --canon-contract-reason: "A label, and only a label: the dot is the theme's. Known intents.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Stack · Cluster · Grid                                                 */
+/* ---------------------------------------------------------------------- */
+
+[data-gap]:not(.canon-stack, .canon-cluster, .canon-grid),
+:is(.canon-stack, .canon-cluster, .canon-grid)[data-gap]:not([data-gap="none"], [data-gap="sm"], [data-gap="md"], [data-gap="lg"], [data-gap="xl"]),
+.canon-grid[data-columns]:not([data-columns="2"], [data-columns="3"], [data-columns="4"], [data-columns="5"], [data-columns="6"]),
+[data-columns]:not(.canon-grid, .canon-description-list),
+.canon-cluster > [data-align]:not([data-align="end"]) {
+  --canon-contract: "Stack, Cluster and Grid";
+  --canon-contract-reason: "data-gap (none, sm, md, lg, xl) on a Stack, Cluster or Grid; data-columns (2 to 6) on a Grid; data-align=\"end\" on a Cluster's child.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Time                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-time:not(:has(> input[type="time"])),
+.canon-time > input:not([type="time"]),
+.canon-time > input[type="time"] ~ input[type="time"] ~ input[type="time"],
+.canon-time:has(> input[type="time"] ~ input[type="time"]) > input:not([aria-label], [aria-labelledby]),
+.canon-time[data-overnight]:not(:has(> input[type="time"] ~ input[type="time"])) {
+  --canon-contract: "Time";
+  --canon-contract-reason: "One <input type=\"time\">, or two for a range, each named (aria-label); data-overnight only on a range.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Stat                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-stat:not(:has(> .canon-stat-label)),
+.canon-stat:not(:has(> .canon-stat-value)),
+.canon-stat > :not(.canon-stat-label, .canon-stat-value, .canon-stat-change, .canon-stat-description, .canon-stat-chart),
+.canon-stat > .canon-stat-label:not(:first-child),
+.canon-stat > .canon-stat-value:not(.canon-stat-label + *),
+.canon-stat > .canon-stat-change:not(.canon-stat-value + *),
+.canon-stat > .canon-stat-description:not(:is(.canon-stat-value, .canon-stat-change) + *),
+.canon-stat > .canon-stat-chart:not(:last-child),
+:is(.canon-stat-label, .canon-stat-value, .canon-stat-change, .canon-stat-description, .canon-stat-chart):not(.canon-stat > *) {
+  --canon-contract: "Stat";
+  --canon-contract-reason: "In order: a label, the value, then maybe a change, a description and a chart, each once.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-stat[data-intent],
+.canon-stat[data-direction],
+.canon-stat-change[data-intent]:not([data-intent="success"], [data-intent="danger"], [data-intent="warning"], [data-intent="info"]),
+.canon-stat-change[data-direction]:not([data-direction="up"], [data-direction="down"], [data-direction="flat"]) {
+  --canon-contract: "Stat";
+  --canon-contract-reason: "Direction and intent go on the change (the number itself is neutral). Known values: up, down, flat; success, danger, warning, info.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-stat-link:not(.canon-stat-label > a[href]),
+.canon-stat:has(.canon-stat-link) :is(a, button):not(.canon-stat-link),
+.canon-stat-chart > svg:not([aria-hidden="true"], [role="img"]:is([aria-label], [aria-labelledby])),
+.canon-stats > :not(.canon-stat) {
+  --canon-contract: "Stat";
+  --canon-contract-reason: "A linked stat is one link, an <a href> in its label. A chart is hidden from assistive tech, or an image with a name. A row holds only stats.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Card · Section                                                         */
+/* ---------------------------------------------------------------------- */
+
+.canon-card > .canon-card-header:not(:first-child),
+.canon-card > .canon-card-footer:not(:last-child),
+.canon-card > .canon-card-header ~ .canon-card-header,
+.canon-card > .canon-card-body ~ .canon-card-body,
+.canon-card > .canon-card-footer ~ .canon-card-footer,
+:is(.canon-card-header, .canon-card-body, .canon-card-footer):not(.canon-card > *) {
+  --canon-contract: "Card · Section";
+  --canon-contract-reason: "A card: a header first, a footer last, one of each; a body at most once (Sections are its parts otherwise).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-card-header > :not(.canon-card-title, .canon-card-description, .canon-card-actions),
+.canon-section-header > :not(.canon-section-title, .canon-section-description, .canon-section-actions),
+:is(.canon-card-header, .canon-section-header):not(:has(> :is(.canon-card-title, .canon-section-title))),
+:is(.canon-card-title, .canon-section-title):not(h1, h2, h3, h4, h5, h6),
+.canon-card-title:not(.canon-card-header > *),
+.canon-section-title:not(.canon-section-header > *),
+:is(.canon-card-description, .canon-section-description):not(p),
+.canon-card-header > .canon-card-title ~ .canon-card-title,
+.canon-section-header > .canon-section-title ~ .canon-section-title,
+.canon-section-header:not(.canon-section > :first-child) {
+  --canon-contract: "Card · Section";
+  --canon-contract-reason: "A header: a title (a heading), a description, actions.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-card-link:not(a[href]),
+.canon-card-link:not(.canon-card-title *),
+.canon-card:has(.canon-card-link ~ .canon-card-link, .canon-card-link .canon-card-link) .canon-card-link {
+  --canon-contract: "Card · Section";
+  --canon-contract-reason: "A link card: one link, in its title, going somewhere.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tabs                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.canon-tabs > :not(.canon-tabs-list, .canon-tabs-more, .canon-menu, .canon-tabs-panel),
+.canon-tabs > :first-child:not(.canon-tabs-list[role="tablist"]),
+.canon-tabs:not(:has(> .canon-tabs-panel)),
+.canon-tabs-list[role="tablist"]:not(.canon-tabs > *),
+.canon-tabs-list:not([aria-label], [aria-labelledby]),
+.canon-tabs-list > :not(.canon-tab, .canon-tabs-more, .canon-menu),
+.canon-tabs-list:not(:has(> .canon-tab ~ .canon-tab)),
+.canon-tabs-list[role="tablist"] > .canon-tab:not(button[type="button"][role="tab"][aria-controls]),
+.canon-tabs-list[role="tablist"] > .canon-tab:not([aria-selected="true"], [aria-selected="false"]),
+.canon-tabs-list[role="tablist"]:not(:has(> .canon-tab[aria-selected="true"])),
+.canon-tabs-list[role="tablist"] > .canon-tab[aria-selected="true"] ~ .canon-tab[aria-selected="true"],
+.canon-tabs-panel:not([role="tabpanel"][id][aria-labelledby]),
+.canon-tabs-panel:not(.canon-tabs > *) {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "In-page: .canon-tabs holds a named tablist strip first, then its panels. Each tab a button controlling its panel (aria-controls), one selected; each panel labelled by its tab.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tabs-list:not([role="tablist"]):not(nav),
+nav.canon-tabs-list > .canon-tab:not(a[href]),
+nav.canon-tabs-list > .canon-tab[role],
+nav.canon-tabs-list > .canon-tab[aria-current="page"] ~ .canon-tab[aria-current="page"],
+.canon-tab > :not(.canon-icon, .canon-tab-label, .canon-count),
+.canon-tab:not(:has(> .canon-tab-label)),
+.canon-tab > .canon-icon:not([aria-hidden="true"]),
+.canon-tab:not(.canon-tabs-list > *) {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "Links: a named <nav> of links, the current one aria-current=\"page\", without tab roles (they go somewhere; they don't show a panel).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-top-bar .canon-breadcrumb {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "Where people are is the page's: a Breadcrumb goes in its Page Header.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-page-header:not(header),
+.canon-page-header > :not(.canon-page-header-back, .canon-breadcrumb, .canon-page-header-title, .canon-page-header-description, .canon-page-header-actions),
+.canon-page-header > :is(.canon-page-header-back, .canon-breadcrumb):not(:first-child),
+.canon-page-header > :is(.canon-page-header-back, .canon-breadcrumb) ~ :is(.canon-page-header-back, .canon-breadcrumb),
+.canon-page-header > .canon-page-header-title ~ .canon-page-header-title,
+.canon-page-header > .canon-page-header-description ~ .canon-page-header-description,
+.canon-page-header > .canon-page-header-actions ~ .canon-page-header-actions,
+:is(.canon-page-header-back, .canon-page-header-title, .canon-page-header-description, .canon-page-header-actions):not(.canon-page-header > *),
+.canon-page-header-back:not(a[href]),
+.canon-page-header-title:not(:has(> :is(h1, h2, h3, h4, h5, h6))),
+.canon-page-header-title > :is(h1, h2, h3, h4, h5, h6) ~ :is(h1, h2, h3, h4, h5, h6),
+.canon-page-header-description:not(p),
+.canon-page-header-actions > :not(.canon-button, .canon-split-button, .canon-button-group, .canon-menu),
+.canon-page-header-actions > .canon-button[data-emphasis="high"] ~ .canon-button[data-emphasis="high"] {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "A Page Header: a <header> of an optional back link or Breadcrumb (first, one of them), a title (one heading, its status, a rename button), a description, actions (at most one primary).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-page-header-actions > .canon-button:not(:has(> .canon-button-label), [aria-label]) {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "Actions may fold into a More menu: each needs a name there.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[command="--canon-edit"]:not(.canon-button),
+[command="--canon-edit"]:not(:has(> .canon-button-label), [aria-label]) {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "Rename in place: a named Button aimed at the text it edits.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[command="--canon-toggle-sidebar"]:not(.canon-button),
+[command="--canon-toggle-sidebar"]:not([aria-expanded="true"], [aria-expanded="false"]),
+[command="--canon-toggle-sidebar"]:not([aria-controls]),
+.canon-app-shell:has([command="--canon-toggle-sidebar"] ~ [command="--canon-toggle-sidebar"], .canon-sidebar-header > [command="--canon-toggle-sidebar"]):has(.canon-top-bar [command="--canon-toggle-sidebar"]) [command="--canon-toggle-sidebar"],
+.canon-app-shell:has([command="--canon-toggle-sidebar"]) > .canon-sidebar:not([id]) {
+  --canon-contract: "Tabs";
+  --canon-contract-reason: "The sidebar's toggle: one Button that says whether the sidebar is open and which one it controls, aimed at a sidebar with an id.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Code Block                                                             */
+/* ---------------------------------------------------------------------- */
+
+.canon-code-block:not(:has(> pre > code)),
+.canon-code-block > :not(.canon-code-block-header, pre, .canon-button),
+.canon-code-block > pre > :not(code),
+.canon-code-block > .canon-code-block-header:not(:first-child),
+.canon-code-block > .canon-code-block-header ~ .canon-code-block-header,
+.canon-code-block > pre ~ pre,
+.canon-code-block:has(> .canon-code-block-header) > .canon-button,
+.canon-code-block > .canon-button ~ .canon-button,
+.canon-code-block-header:not(:has(> .canon-code-block-title)),
+.canon-code-block-header > :not(.canon-code-block-title, .canon-button),
+.canon-code-block-title:not(:first-child),
+:is(.canon-code-block-header, .canon-code-block-title):not(.canon-code-block > *, .canon-code-block-header > *),
+.canon-code-block[data-wrap] {
+  --canon-contract: "Code Block";
+  --canon-contract-reason: "A frame around one <pre><code>: an optional header first (a title, then buttons), or one corner button without it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[command="--canon-wrap"]:not(.canon-code-block-header > .canon-button),
+[command="--canon-wrap"]:not([aria-pressed="true"], [aria-pressed="false"]),
+.canon-code-block-header > [command="--canon-copy"] ~ [command="--canon-wrap"],
+.canon-code-block-header > [command="--canon-wrap"] ~ [command="--canon-wrap"] {
+  --canon-contract: "Code Block";
+  --canon-contract-reason: "The wrap toggle: in a Code Block's header, before the copy button, with aria-pressed (the state).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-code-block > .canon-button:not([command="--canon-copy"]),
+.canon-code-block > .canon-button:not([data-display="icon"]) {
+  --canon-contract: "Code Block";
+  --canon-contract-reason: "The corner button copies the code: an icon-only Button with --canon-copy.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Avatar · Count                                                         */
+/* ---------------------------------------------------------------------- */
+
+.canon-avatar:not(:has(> .canon-avatar-fallback)),
+.canon-avatar-fallback:not([role="img"][aria-label], [aria-hidden="true"]) {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "Always a fallback. It carries the name (role=\"img\" + aria-label), or is aria-hidden when the name is written beside the avatar.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-avatar-image:not(img),
+.canon-avatar-image:not([alt=""]),
+.canon-avatar > .canon-avatar-fallback ~ .canon-avatar-image {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "The photo is a decorative <img> (the fallback has the name), before the fallback so it covers it.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-avatar:has(> .canon-avatar-status):has(> .canon-avatar-badge) {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "Status and badge share the bottom-end corner: one or the other.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-avatar-status:not(:has(> .canon-visually-hidden)),
+.canon-avatar-badge:not(:has(> .canon-visually-hidden)) {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "Status and badge say what they mean, for screen readers.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-count:empty {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "A count has a number.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-avatar-group:not([role="group"]),
+.canon-avatar-group:not([aria-label], [aria-labelledby]),
+.canon-avatar-group > :not(.canon-avatar) {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "A group is labeled and holds avatars only.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-avatar-status:not([data-status="online"], [data-status="away"], [data-status="busy"], [data-status="offline"]),
+.canon-avatar[data-kind]:not([data-kind="person"], [data-kind="team"], [data-kind="bot"]),
+.canon-avatar-badge[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+  --canon-contract: "Avatar · Count";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Password strength and rules                                            */
+/* ---------------------------------------------------------------------- */
+
+.canon-password-strength:not(meter),
+.canon-password-strength:not([min="0"][max="4"]),
+.canon-password-strength:not([value="0"], [value="1"], [value="2"], [value="3"], [value="4"]),
+.canon-password-strength:not([aria-label], [aria-labelledby]),
+.canon-password-strength:not([value="0"]):not([aria-valuetext]) {
+  --canon-contract: "Password strength and rules";
+  --canon-contract-reason: "A native meter, 0 to 4, named, with words once it has a value.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-password-rules:not(:has(> ul)),
+.canon-password-rules > ul > :not(li.canon-password-rule),
+.canon-password-rule:not(.canon-password-rules > ul > li),
+.canon-password-rule[data-state]:not([data-state="met"], [data-state="error"]) {
+  --canon-contract: "Password strength and rules";
+  --canon-contract-reason: "Rules: a title and a list of rule items, each met, failed or pending.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-password-rule[data-rule]:not([data-rule^="min-length:"], [data-rule="digit"], [data-rule="lowercase"], [data-rule="uppercase"], [data-rule="symbol"], [data-rule^="pattern:"]),
+.canon-password-rules[data-reveal]:not([data-reveal="focus"]),
+.canon-password-strength[data-score]:not([data-score="rules"]) {
+  --canon-contract: "Password strength and rules";
+  --canon-contract-reason: "Known checks and reveal modes; scoring from the rules only.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-password-strength-label:not(.canon-password-strength + *),
+.canon-password-strength-label:not([aria-hidden="true"]) {
+  --canon-contract: "Password strength and rules";
+  --canon-contract-reason: "The strength's word comes right after the meter, and is hidden from assistive tech (the meter's aria-valuetext says it).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Label                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.canon-label:not(:has(> .canon-label-text)),
+.canon-label:has(> .canon-label-text ~ .canon-label-text),
+.canon-label-text:not(label, [id]) {
+  --canon-contract: "Label";
+  --canon-contract-reason: "One label text: a <label for>, or an element with an id that names a group.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-label-optional:not(.canon-label-text > *) {
+  --canon-contract: "Label";
+  --canon-contract-reason: "\"(optional)\" is part of the label text, so it is read with the name.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-label-info:not(button[type="button"]),
+.canon-label-info:not([interestfor]),
+.canon-label-info:not([aria-describedby]),
+.canon-label-info:not([aria-label], [aria-labelledby], :has(.canon-visually-hidden)) {
+  --canon-contract: "Label";
+  --canon-contract-reason: "The info button: a real button with a name, pointing at its tooltip.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-label-description:not([id]) {
+  --canon-contract: "Label";
+  --canon-contract-reason: "A description is read with the control: it needs an id for aria-describedby.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tag                                                                    */
+/* ---------------------------------------------------------------------- */
+
+.canon-tag:not(:has(> .canon-tag-label)) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "Every tag has a label, icon-only ones included.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag:is(a, button, [tabindex]),
+.canon-tag :is(a[href], button:not(.canon-tag-remove), input, select, textarea, [tabindex]:not(.canon-tag-remove)),
+.canon-tag-remove:not(button[type="button"]),
+.canon-tag-remove:not([aria-label], [aria-labelledby]):not(:has(.canon-visually-hidden)),
+.canon-tag-remove:not(:last-child),
+.canon-tag:has(> .canon-tag-remove) > .canon-kbd {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "Tags don't act themselves (links and filters aren't in the contract yet). The one thing inside that may: a remove button, last, a <button type=\"button\"> with a name (\"Remove Design\"), and nothing else in the tag can be clicked.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag-dot:not(:empty),
+.canon-tag > .canon-tag-dot:not(:has(+ .canon-tag-label)) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "The dot is decoration: empty, right before the label.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag > .canon-avatar:not(:first-child),
+.canon-tag > .canon-avatar:has(> .canon-avatar-status, > .canon-avatar-badge, > .canon-count) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "An avatar comes first and is just a face: no status, badge or count.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag > .canon-kbd:not(:last-child) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "A key comes last.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag[data-intent][data-seed] {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "A color has one source: meaning (intent) or identity (seed).";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag[data-intent] > :is(.canon-avatar, .canon-kbd) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "A status (data-intent) is not a person and has no shortcut.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+.canon-tag[data-emphasis]:not([data-emphasis="high"], [data-emphasis="medium"], [data-emphasis="low"]),
+.canon-tag[data-intent]:not([data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+  --canon-contract: "Tag";
+  --canon-contract-reason: "Unknown values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* canon.js commands                                                      */
+/* ---------------------------------------------------------------------- */
+
+button[command^="--canon-"]:not([commandfor]),
+button[command^="--canon-"]:not([type="button"]) {
+  --canon-contract: "Command";
+  --canon-contract-reason: "A Canon command needs a target and a button that isn't a submit.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+button[command^="--canon-"]:not([command="--canon-clear"], [command="--canon-toggle-password"], [command="--canon-copy"], [command="--canon-generate-password"], [command="--canon-add"], [command="--canon-remove"], [command="--canon-step-down"], [command="--canon-step-up"], [command="--canon-wrap"], [command="--canon-toggle-sidebar"], [command="--canon-edit"], [command="--canon-toast"]) {
+  --canon-contract: "Command";
+  --canon-contract-reason: "Known commands only.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+button[command="--canon-toggle-password"]:not([aria-pressed]) {
+  --canon-contract: "Command";
+  --canon-contract-reason: "The password toggle is a toggle button.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Canon (shared)                                                         */
+/* ---------------------------------------------------------------------- */
+
+.canon-icon:not([aria-hidden="true"]) {
+  --canon-contract: "Canon";
+  --canon-contract-reason: "Icons are decorative: the label carries the meaning.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+[data-size]:not([data-size="xs"], [data-size="sm"], [data-size="md"], [data-size="lg"], [data-size="xl"], [data-size="2xl"]),
+[data-label]:not([data-label="start"], [data-label="above"]),
+[data-density]:not([data-density="compact"], [data-density="comfortable"], [data-density="spacious"]),
+[data-display]:not([data-display="icon"], [data-display="label"]:is(.canon-pagination, .canon-pagination *, :has(.canon-pagination))) {
+  --canon-contract: "Canon";
+  --canon-contract-reason: "Unknown hint values.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* The warnings (canon.debug.js)                                          */
+/* ---------------------------------------------------------------------- */
+
+/* A warning toast's look, with its own values so it reads the same in any
+   theme: a card, the warning's bar 4px out at the start, its icon, a title,
+   the reason, the conditions, and (floating) a close button. */
+.canon-debug-report {
+  display: grid;
+  gap: 0.75rem;
+}
+.canon-debug-alert {
+  --_bar: light-dark(#f59e0b, #fbbf24);                            /* amber-500 / amber-400 */
+  --_bar-x: -4px;
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 0.75rem;
+  box-sizing: border-box;
+  margin: 0 0 0 4px;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem 0.5rem;
+  border: 1px solid light-dark(#e4e4e7, #3f3f46);                  /* zinc-200 / zinc-700 */
+  border-radius: 0.75rem;
+  background-color: light-dark(#ffffff, #27272a);                  /* white / zinc-800 */
+  box-shadow: var(--_bar-x) 0 0 0 var(--_bar), 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  color: light-dark(#18181b, #ffffff);                             /* zinc-900 / white */
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: -0.006em;
+  text-align: start;
+}
+/* A block has no close button: the text takes the room, the padding evens out. */
+.canon-debug-alert:not(:has(> .canon-debug-alert-close)) {
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  padding-inline-end: 0.75rem;
+}
+.canon-debug-alert:dir(rtl) {
+  --_bar-x: 4px;
+  margin: 0 4px 0 0;
+}
+.canon-debug-alert::before {
+  content: "";
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  background-color: var(--_bar);
+  mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>") center / contain no-repeat;
+}
+.canon-debug-alert-body > * { margin: 0; }
+.canon-debug-alert-title { font-weight: 500; }
+.canon-debug-alert-title:not(:first-child) { margin-block-start: 0.75rem; }
+.canon-debug-alert :is(.canon-debug-alert-reason, .canon-debug-alert-checks, .canon-debug-alert-target) {
+  color: light-dark(#71717a, #a1a1aa);                             /* zinc-500 / zinc-400 */
+}
+.canon-debug-alert-checks { margin-block-start: 0.375rem; padding: 0; list-style: none; }
+.canon-debug-alert-checks li + li { margin-block-start: 0.25rem; }
+.canon-debug-alert-target { margin-block-start: 0.375rem; }
+.canon-debug-alert code {
+  font: 0.75rem/1.125rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+  color: light-dark(#52525b, #d4d4d8);                             /* zinc-600 / zinc-300 */
+}
+/* The close button: 28px, the X in zinc-500. */
+.canon-debug-alert-close {
+  display: grid;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  margin-block: -0.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.375rem;
+  background: none;
+  color: light-dark(#71717a, #a1a1aa);
+  cursor: pointer;
+}
+.canon-debug-alert-close::before {
+  content: "";
+  inline-size: 1rem;
+  block-size: 1rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18'/><path d='m6 6 12 12'/></svg>") center / contain no-repeat;
+}
+.canon-debug-alert-close:hover {
+  background-color: light-dark(#f4f4f5, #3f3f46);                  /* zinc-100 / zinc-700 */
+  color: light-dark(#18181b, #ffffff);
+}
+.canon-debug-alert-close:focus-visible {
+  outline: 2px solid light-dark(#2563eb, #60a5fa);
+  outline-offset: 1px;
+}
+
+/* Floating (no container takes it): a top-layer note under its element. */
+.canon-debug-alert[popover] {
+  position: fixed;
+  position-area: block-end span-inline-end;
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position-visibility: anchors-visible;
+  inset: auto;
+  inline-size: max-content;
+  max-inline-size: min(28rem, calc(100vw - 1rem));
+  margin-block: 6px;
+  overflow: visible;
+}
+
+/* The element a pointed-at warning is about. */
+[data-canon-debug-target] {
+  outline: 2px solid var(--canon-debug) !important;
+  outline-offset: 2px !important;
+}

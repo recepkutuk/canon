@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Pagination reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Pagination</h1>
+  <p class="ref-note">Moving through a long list a page at a time: numbered pages, a compact "Page 2 of 30", a table footer with rows per page, or a "Load more" button. Specification: <a href="../docs/components/pagination.md">docs/components/pagination.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pagination">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;nav class="canon-pagination"&gt;</code> named "Pagination" around an <code>&lt;ol&gt;</code>: Previous, the pages as links with the current one marked <code>aria-current="page"</code>, a <code>.canon-pagination-gap</code> where pages are left out, and Next. On the first or last page, the arrow with nowhere to go is a link without <code>href</code> (<code>aria-disabled="true"</code>).</p>
+
+    <nav class="canon-pagination" aria-label="Pagination">
+      <ol>
+        <li><a class="canon-pagination-prev" href="#" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><a href="#" aria-label="Page 1">1</a></li>
+        <li><a href="#" aria-label="Page 2" aria-current="page">2</a></li>
+        <li><a href="#" aria-label="Page 3">3</a></li>
+        <li><a href="#" aria-label="Page 4">4</a></li>
+        <li><a href="#" aria-label="Page 5">5</a></li>
+        <li class="canon-pagination-gap">…</li>
+        <li><a href="#" aria-label="Page 30">30</a></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+      </ol>
+    </nav>
+
+    <nav class="canon-pagination" aria-label="Pagination">
+      <ol>
+        <li><a class="canon-pagination-prev" aria-disabled="true"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><a href="#" aria-label="Page 1" aria-current="page">1</a></li>
+        <li><a href="#" aria-label="Page 2">2</a></li>
+        <li><a href="#" aria-label="Page 3">3</a></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="words">
+    <h2>Words and ends</h2>
+    <p class="ref-note">The arrows show icons only; <code>data-display="label"</code> on the pagination (or an arrow) adds their words. <code>.canon-pagination-first</code> and <code>.canon-pagination-last</code> (<code>chevrons-left</code>, <code>chevrons-right</code>) jump to the ends of a long list.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination" data-display="label">
+      <ol>
+        <li><a class="canon-pagination-prev" href="#" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><a href="#" aria-label="Page 1">1</a></li>
+        <li class="canon-pagination-gap">…</li>
+        <li><a href="#" aria-label="Page 6">6</a></li>
+        <li><a href="#" aria-label="Page 7" aria-current="page">7</a></li>
+        <li><a href="#" aria-label="Page 8">8</a></li>
+        <li class="canon-pagination-gap">…</li>
+        <li><a href="#" aria-label="Page 30">30</a></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+      </ol>
+    </nav>
+
+    <nav class="canon-pagination" aria-label="Pagination">
+      <ol>
+        <li><a class="canon-pagination-first" href="#"><span class="canon-icon" data-icon="chevrons-left" aria-hidden="true"></span><span class="canon-pagination-label">First page</span></a></li>
+        <li><a class="canon-pagination-prev" href="#" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><a href="#" aria-label="Page 1">1</a></li>
+        <li class="canon-pagination-gap">…</li>
+        <li><a href="#" aria-label="Page 6">6</a></li>
+        <li><a href="#" aria-label="Page 7" aria-current="page">7</a></li>
+        <li><a href="#" aria-label="Page 8">8</a></li>
+        <li class="canon-pagination-gap">…</li>
+        <li><a href="#" aria-label="Page 30">30</a></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+        <li><a class="canon-pagination-last" href="#"><span class="canon-pagination-label">Last page</span><span class="canon-icon" data-icon="chevrons-right" aria-hidden="true"></span></a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="compact">
+    <h2>Compact</h2>
+    <p class="ref-note">For narrow spaces: <code>.canon-pagination-current</code> ("Page 2 of 30") between the arrows instead of the pages.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination">
+      <ol>
+        <li><a class="canon-pagination-prev" href="#" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><span class="canon-pagination-current">Page 2 of 30</span></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="drawn">
+    <h2>Drawn from the page count</h2>
+    <p class="ref-note">With <code>data-pages</code> and <code>data-page</code>, canon.js draws the list: the first and last pages, <code>data-siblings</code> pages on each side of the current one (1 by default), gaps, and always as many items, so the arrows don't move. <code>data-ends</code> adds First and Last. With <code>data-href="?page={page}"</code> the pages are links; without it they are buttons that fire <code>canon-page</code> and move. When the pages don't fit, fewer are shown, then "Page 2 of 30". Drag the frame's corner to narrow it.</p>
+
+    <div class="ref-resizable">
+      <nav class="canon-pagination" aria-label="Pagination" data-pages="30" data-page="2"></nav>
+    </div>
+    <p class="ref-note">With <code>data-ends</code>, First and Last as well.</p>
+    <div class="ref-resizable">
+      <nav class="canon-pagination" aria-label="Pagination" data-pages="30" data-page="15" data-ends></nav>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="table">
+    <h2>Table footer</h2>
+    <p class="ref-note">Before the list, a <code>.canon-pagination-summary</code> and a <code>.canon-pagination-size</code> (a <a href="select.html">Select</a> of rows per page) send it to the far end. With <code>data-total</code> and <code>data-per-page</code> canon.js counts the pages, writes the summary ("1–10 of 300") and keeps the first row in view when the rows per page change. After the list, a <code>.canon-pagination-jump</code> form goes to a page.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination" data-total="300" data-per-page="10" data-page="1" data-size="sm">
+      <div class="canon-pagination-size">
+        <label for="tf-size">Rows per page</label>
+        <div class="canon-select">
+          <select id="tf-size">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+          </select>
+        </div>
+      </div>
+      <p class="canon-pagination-summary"></p>
+      <form class="canon-pagination-jump">
+        <label for="tf-jump">Go to page</label>
+        <div class="canon-text-input"><input type="number" id="tf-jump" name="page" inputmode="numeric"></div>
+      </form>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="jump">
+    <h2>Jump to page</h2>
+    <p class="ref-note">Without canon.js, the jump form is a plain <code>GET</code> form: Enter sends <code>?page=12</code> to the page's address.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination">
+      <ol>
+        <li><a class="canon-pagination-prev" href="#" rel="prev"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span><span class="canon-pagination-label">Previous</span></a></li>
+        <li><span class="canon-pagination-current">Page 2 of 30</span></li>
+        <li><a class="canon-pagination-next" href="#" rel="next"><span class="canon-pagination-label">Next</span><span class="canon-icon" data-icon="chevron-right" aria-hidden="true"></span></a></li>
+      </ol>
+      <form class="canon-pagination-jump" onsubmit="event.preventDefault()">
+        <label for="jp-jump">Go to page</label>
+        <div class="canon-text-input"><input type="number" id="jp-jump" name="page" min="1" max="30" inputmode="numeric"></div>
+      </form>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="load-more">
+    <h2>Load more</h2>
+    <p class="ref-note">For feeds and search results: a <code>.canon-load-more</code> under the list with a status and a <a href="button.html">Button</a>. A press fires <code>canon-load-more</code> and the button is busy until the app adds the rows and sets <code>data-shown</code>; at <code>data-total</code> the button goes. <code>data-auto</code> loads as the button scrolls near view (infinite scroll), keeping it as the way in for keyboards. Without canon.js, a link to the next page does the same.</p>
+
+    <div class="ref-load-demo">
+      <ul class="ref-load-list" id="lm-list"></ul>
+      <div class="canon-load-more" id="lm" data-shown="5" data-total="23">
+        <p class="canon-load-more-status"></p>
+        <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low"><span class="canon-button-label">Load more</span></button>
+      </div>
+    </div>
+    <script>
+      /* Example: an app that adds five rows a press (after a short wait). */
+      {
+        const list = document.getElementById("lm-list");
+        const box = document.getElementById("lm");
+        const add = (count) => {
+          for (let i = 0; i < count; i++) {
+            const item = document.createElement("li");
+            item.textContent = `Result ${list.children.length + 1}`;
+            list.append(item);
+          }
+        };
+        add(5);
+        box.addEventListener("canon-load-more", () => {
+          setTimeout(() => {
+            add(Math.min(5, box.dataset.total - list.children.length));
+            box.dataset.shown = list.children.length;
+          }, 600);
+        });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the pagination or a container: squares the button's size (32 / 40 / 48), text and icons to match.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination" data-pages="30" data-page="2" data-size="sm"></nav>
+    <nav class="canon-pagination" aria-label="Pagination" data-pages="30" data-page="2" data-size="md"></nav>
+    <nav class="canon-pagination" aria-label="Pagination" data-pages="30" data-page="2" data-size="lg"></nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Long page numbers widen their squares. A single page has nothing to move to. Right to left, the pages read from the right and the arrows point the other way.</p>
+
+    <nav class="canon-pagination" aria-label="Pagination" data-pages="12480" data-page="9876"></nav>
+    <nav class="canon-pagination" aria-label="Pagination" data-pages="1"></nav>
+    <nav class="canon-pagination" aria-label="ترقيم الصفحات" dir="rtl" lang="ar" data-pages="30" data-page="2" data-ends data-display="label"></nav>
+  </section>
+
+</main>
+</body>
+</html>

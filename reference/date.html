@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Date reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Date</h1>
+  <p class="ref-note">One date: a native <code>&lt;input type="date"&gt;</code> in a <code>.canon-date</code> box, Text Input's frame. canon.js draws the field (day, month and year, in the order of the reader's language) the same way in every browser, and adds a button that opens a calendar. The input stays underneath with the value (<code>2025-10-10</code>), <code>min</code>, <code>max</code> and <code>required</code>. Without JavaScript it is the browser's date field. Specification: <a href="../docs/components/date.md">docs/components/date.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field or a container sizes the box and its calendar. Type a date (digits move on by themselves; Up and Down step a part), open the calendar with its button, or press Alt+Down in the field.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="sz-sm">Small</label></div>
+        <div class="canon-date">
+          <input type="date" id="sz-sm" name="sz-sm" value="2025-10-10">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="sz-md">Theme decides</label></div>
+        <div class="canon-date">
+          <input type="date" id="sz-md" name="sz-md" value="2025-10-10">
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="sz-lg">Large</label></div>
+        <div class="canon-date">
+          <input type="date" id="sz-lg" name="sz-lg" value="2025-10-10">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="placeholder">
+    <h2>Placeholder</h2>
+    <p class="ref-note"><code>placeholder</code> on the input shows while the field is empty and not focused (a native date field has none).</p>
+
+    <div class="canon-field" data-size="sm">
+      <div class="canon-label"><label class="canon-label-text" for="ph-date">Delivery date</label></div>
+      <div class="canon-date">
+        <input type="date" id="ph-date" name="ph-date" placeholder="Select date">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="inline">
+    <h2>Inline</h2>
+    <p class="ref-note"><code>data-inline</code> on the box: the calendar sits in the page in place of the box, always shown. The title zooms out: days, then months, then years. The input still holds the value the form submits.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="in-sm">Small</label></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="in-sm" name="in-sm" value="2025-10-10">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="in-md">Theme decides</label></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="in-md" name="in-md" value="2025-10-10">
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="in-lg">Large</label></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="in-lg" name="in-lg" value="2025-10-10">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="header">
+    <h2>Month and year selects</h2>
+    <p class="ref-note"><code>data-header="select"</code> on the box: the calendar's title becomes two Selects, the month and the year, for jumping far (a birth date) without zooming out. Years run from <code>min</code> to <code>max</code>, else a century back and ten years ahead.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="hd-sm">Small</label></div>
+        <div class="canon-date" data-inline data-header="select">
+          <input type="date" id="hd-sm" name="hd-sm" value="2025-10-10">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="hd-md">Birth date</label></div>
+        <div class="canon-date" data-header="select">
+          <input type="date" id="hd-md" name="hd-md" placeholder="Select date" max="2025-12-31">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="range">
+    <h2>Range</h2>
+    <p class="ref-note">Two date inputs in one box: a start and an end, each with its own <code>name</code> and <code>aria-label</code>. The field's label is a <code>&lt;span id&gt;</code> naming the pair (<code>role="group"</code> on the field), as for a Range Slider. The calendar shows two months: the first click picks the start, the second the end (the pointer previews the range in between).</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" role="group" aria-labelledby="rg-sm-label" data-size="sm">
+        <div class="canon-label"><span class="canon-label-text" id="rg-sm-label">Small</span></div>
+        <div class="canon-date">
+          <input type="date" id="rg-sm-from" name="rg-sm-from" value="2025-10-27" aria-label="Start">
+          <input type="date" id="rg-sm-to" name="rg-sm-to" value="2025-11-07" aria-label="End">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="rg-md-label">
+        <div class="canon-label"><span class="canon-label-text" id="rg-md-label">Theme decides</span></div>
+        <div class="canon-date">
+          <input type="date" id="rg-md-from" name="rg-md-from" value="2025-10-27" aria-label="Start">
+          <input type="date" id="rg-md-to" name="rg-md-to" value="2025-11-07" aria-label="End">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="rg-lg-label" data-size="lg">
+        <div class="canon-label"><span class="canon-label-text" id="rg-lg-label">Large</span></div>
+        <div class="canon-date">
+          <input type="date" id="rg-lg-from" name="rg-lg-from" value="2025-10-27" aria-label="Start">
+          <input type="date" id="rg-lg-to" name="rg-lg-to" value="2025-11-07" aria-label="End">
+        </div>
+      </div>
+    </div>
+
+    <h3>Presets</h3>
+    <p class="ref-note">A <code>&lt;datalist&gt;</code> in the box adds a column of ready ranges. Each option's value is a keyword (<code>all</code>, <code>today</code>, <code>yesterday</code>, <code>this-week</code>, <code>last-week</code>, <code>last-7-days</code>, <code>this-month</code>, <code>last-month</code>, <code>last-30-days</code>, <code>this-year</code>, <code>last-year</code>), named in the reader's language, or a start/end range with a <code>label</code>. The one matching the range is pressed. "All time" is <code>min</code> to <code>max</code>, or empty without them.</p>
+    <div class="canon-field" role="group" aria-labelledby="rg-pre-label" data-size="sm">
+      <div class="canon-label"><span class="canon-label-text" id="rg-pre-label">Report period</span></div>
+      <div class="canon-date">
+        <input type="date" id="rg-pre-from" name="rg-pre-from" aria-label="Start" placeholder="Start date">
+        <input type="date" id="rg-pre-to" name="rg-pre-to" aria-label="End" placeholder="End date">
+        <datalist>
+          <option value="all"></option>
+          <option value="today"></option>
+          <option value="yesterday"></option>
+          <option value="this-week"></option>
+          <option value="last-week"></option>
+          <option value="this-month"></option>
+          <option value="last-month"></option>
+          <option value="this-year"></option>
+          <option value="last-year"></option>
+        </datalist>
+      </div>
+    </div>
+
+    <h3>Inline</h3>
+    <div class="canon-field" role="group" aria-labelledby="rg-in-label" data-size="sm">
+      <div class="canon-label"><span class="canon-label-text" id="rg-in-label">Stay</span></div>
+      <div class="canon-date" data-inline>
+        <input type="date" id="rg-in-from" name="rg-in-from" value="2025-10-27" aria-label="Check-in">
+        <input type="date" id="rg-in-to" name="rg-in-to" value="2025-11-07" aria-label="Check-out">
+        <datalist>
+          <option value="this-week"></option>
+          <option value="last-7-days"></option>
+          <option value="2025-12-24/2025-12-26" label="Holidays"></option>
+        </datalist>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="week">
+    <h2>Week</h2>
+    <p class="ref-note">An <code>&lt;input type="week"&gt;</code> in the box: the value is an ISO week (<code>2025-W42</code>), weeks start on Monday. The calendar adds a column of week numbers; a click on a number or on any of its days picks the week, and so does Enter on a day. Browsers without week inputs still get the same field and calendar.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="wk-sm">Sprint</label></div>
+        <div class="canon-date">
+          <input type="week" id="wk-sm" name="wk-sm" value="2025-W42">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="wk-ph">Report week</label></div>
+        <div class="canon-date">
+          <input type="week" id="wk-ph" name="wk-ph" placeholder="Select week" min="2025-W01" max="2026-W52">
+        </div>
+      </div>
+    </div>
+
+    <h3>Inline</h3>
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="wk-in-sm">Small</label></div>
+        <div class="canon-date" data-inline>
+          <input type="week" id="wk-in-sm" name="wk-in-sm" value="2025-W42">
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="wk-in-lg">Large</label></div>
+        <div class="canon-date" data-inline>
+          <input type="week" id="wk-in-lg" name="wk-in-lg" value="2025-W42">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="strip">
+    <h2>Day strip</h2>
+    <p class="ref-note"><code>data-strip</code> on the box: the date as a row of days in the page, in place of the box (for picking a day close to now: a delivery slot, a booking). As many whole days show as fit, a week at most; previous and next move by the days shown, and the arrow keys move along the days and on past either end. Enter, Space or a click picks a day. The input still holds the value the form submits. Narrow the window to see fewer days.</p>
+
+    <div style="display: grid; gap: 1.5rem; margin-block: 0.75rem;">
+    <div class="canon-field" data-size="sm">
+      <div class="canon-label"><label class="canon-label-text" for="st-sm">Small</label></div>
+      <div class="canon-date" data-strip data-week-start="1">
+        <input type="date" id="st-sm" name="st-sm" value="2025-10-03">
+      </div>
+    </div>
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="st-md">Theme decides</label></div>
+      <div class="canon-date" data-strip data-week-start="1">
+        <input type="date" id="st-md" name="st-md" value="2025-10-03">
+      </div>
+    </div>
+    <div class="canon-field" data-size="lg">
+      <div class="canon-label"><label class="canon-label-text" for="st-lg">Large</label></div>
+      <div class="canon-date" data-strip data-week-start="1">
+        <input type="date" id="st-lg" name="st-lg" value="2025-10-03" data-weekdays="1-6">
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="unavailable">
+    <h2>Dates that can't be chosen</h2>
+    <p class="ref-note">Four ways, combined freely. Such days are greyed in the calendar, can be reached with the keyboard but not chosen, and a typed one makes the field invalid.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="un-weekdays">Weekdays only</label><p class="canon-label-description" id="un-weekdays-description"><code>data-weekdays="1-5"</code>: ISO days, 1 is Monday.</p></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="un-weekdays" name="un-weekdays" value="2025-10-10" data-weekdays="1-5" aria-describedby="un-weekdays-description">
+        </div>
+      </div>
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="un-range">Within October</label><p class="canon-label-description" id="un-range-description"><code>min</code> and <code>max</code>, the browser's own.</p></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="un-range" name="un-range" value="2025-10-10" min="2025-10-06" max="2025-10-17" aria-describedby="un-range-description">
+        </div>
+      </div>
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="un-list">Not on these dates</label><p class="canon-label-description" id="un-list-description"><code>data-unavailable</code>: dates and start/end ranges.</p></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="un-list" name="un-list" value="2025-10-10" data-unavailable="2025-10-14 2025-10-20/2025-10-24" aria-describedby="un-list-description">
+        </div>
+      </div>
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="un-app">Odd days only</label><p class="canon-label-description" id="un-app-description">The app's function: <code>input.canonUnavailable = (iso) =&gt; …</code></p></div>
+        <div class="canon-date" data-inline>
+          <input type="date" id="un-app" name="un-app" value="2025-10-11" aria-describedby="un-app-description">
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById("un-app").canonUnavailable = (iso) => Number(iso.slice(8)) % 2 === 0;
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Text Input's states: <code>disabled</code> and <code>readonly</code> on the input (the calendar button is off too), an error with <code>aria-invalid="true"</code> and a danger message.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-dis">Disabled</label></div>
+        <div class="canon-date">
+          <input type="date" id="st-dis" name="st-dis" value="2025-10-10" disabled>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-ro">Read-only</label></div>
+        <div class="canon-date">
+          <input type="date" id="st-ro" name="st-ro" value="2025-10-10" readonly>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-err">Check-in</label></div>
+        <div class="canon-date">
+          <input type="date" id="st-err" name="st-err" value="2025-10-04" aria-invalid="true" aria-describedby="st-err-message">
+        </div>
+        <p class="canon-field-message" id="st-err-message" data-intent="danger">Check-in can't be in the past.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Week start</h3>
+    <p class="ref-note">The week starts on the language's first day (Sunday in US English, Monday in most of Europe). <code>data-week-start</code> (1 is Monday, 7 Sunday) on the box or a container sets it.</p>
+    <div class="canon-field" data-size="sm">
+      <div class="canon-label"><label class="canon-label-text" for="ex-monday">Starting Monday</label></div>
+      <div class="canon-date" data-inline data-week-start="1">
+        <input type="date" id="ex-monday" name="ex-monday" value="2025-10-10">
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">Names come from the language; the grid and the arrows follow the direction.</p>
+    <div class="canon-field" dir="rtl" lang="ar" data-size="sm">
+      <div class="canon-label"><label class="canon-label-text" for="ex-rtl">تاريخ الوصول</label></div>
+      <div class="canon-date" data-inline>
+        <input type="date" id="ex-rtl" name="ex-rtl" value="2025-10-10">
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

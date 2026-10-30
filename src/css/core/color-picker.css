@@ -1,0 +1,174 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Color picker                                                        */
+  /*                                                                     */
+  /* The box is Text Input's frame. Without canon.js the native color    */
+  /* input owns it as a select does (--canon-select-start / -end): its   */
+  /* swatch sits where a value would, the theme's arrow after it, and a  */
+  /* click opens the browser's picker. With canon.js the input covers    */
+  /* the box, transparent (it keeps focus, the click and the form value) */
+  /* over the swatch canon.js adds (.canon-color-swatch, --canon-color), */
+  /* and opens .canon-color-popup. Themes style the native swatch with   */
+  /* ::-webkit-color-swatch and ::-moz-color-swatch.                     */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-color) {
+    inline-size: fit-content;
+    cursor: pointer;
+  }
+  :where(.canon-color) > :where(input) {
+    box-sizing: content-box;
+    flex: none;
+    align-self: center;
+    inline-size: var(--canon-icon-size);
+    min-inline-size: 0;
+    block-size: var(--canon-icon-size);
+    margin-block: 0;
+    margin-inline: calc(-1 * var(--canon-select-start, 0px)) calc(-1 * var(--canon-select-end, 0px));
+    padding-block: max(0px, (var(--canon-control-block-size) - var(--canon-icon-size)) / 2 - 1px);
+    padding-inline: var(--canon-select-start, 0px) var(--canon-select-end, 0px);
+    cursor: inherit;
+  }
+  :where(.canon-color) > :where(input)::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  :where(.canon-color) > :where(input)::-webkit-color-swatch {
+    border: 0;
+  }
+  :where(.canon-color) > :where(input)::-moz-color-swatch {
+    border: 0;
+  }
+  :where(.canon-color:has(> .canon-color-swatch)) > :where(input) {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    /* An input keeps its own height when absolute (inset alone doesn't
+       stretch it): sized to the box, so any click on the box lands on it. */
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+  }
+  :where(.canon-color-swatch) {
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    pointer-events: none;
+  }
+
+  /* The popover: anchored to the box. The area is a square of the hue,
+     white to the left, black to the bottom, its thumb at the saturation and brightness canon.js
+     sets; the hue slider shows every hue, the opacity slider the color
+     fading out. Fields and swatches are ordinary Text Inputs, a Select and
+     Swatches. */
+  /* The first place it fits in the window: below, then above (starting
+     at the box's start edge, else ending at its end edge), then beside
+     the box at its inline end, then its inline start (centered on the
+     box, shifted to stay in the window). Five options: Chromium tries no
+     more. self- keywords: the field's direction, not the page's (in RTL
+     "end" is the left). The gap is --canon-popup-offset. */
+  @position-try --canon-popup-side {
+    position-area: self-inline-end span-all;
+    margin: 0 var(--canon-popup-offset, 0px);
+  }
+  :where(.canon-color-popup) {
+    position-area: self-block-end span-self-inline-end;
+    position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, --canon-popup-side, --canon-popup-side flip-inline;
+    inset: auto;
+    box-sizing: border-box;
+    margin: var(--canon-popup-offset, 0px) 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: default;
+  }
+  :where(.canon-color-popup):popover-open {
+    display: flex;
+    flex-direction: column;
+  }
+  /* data-inline: canon.js puts the picker after the box and the
+     box is hidden (its input still holds the value). */
+  :where(.canon-color[data-inline]):has(+ .canon-color-popup) {
+    display: none;
+  }
+  :where(.canon-color-popup:not([popover])) {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  :where(.canon-color-area) {
+    position: relative;
+    flex: none;
+    aspect-ratio: 1;
+    background:
+      linear-gradient(to top, #000, transparent),
+      linear-gradient(to right, #fff, transparent),
+      var(--canon-color-hue, red);
+    touch-action: none;
+    cursor: crosshair;
+  }
+  :where(.canon-color-area):dir(rtl) {
+    background:
+      linear-gradient(to top, #000, transparent),
+      linear-gradient(to left, #fff, transparent),
+      var(--canon-color-hue, red);
+  }
+  :where(.canon-color-thumb) {
+    position: absolute;
+    inset-inline-start: calc(var(--canon-color-saturation, 0) * 100%);
+    inset-block-start: calc((1 - var(--canon-color-brightness, 1)) * 100%);
+    translate: -50% -50%;
+    pointer-events: none;
+  }
+  :where(.canon-color-thumb):dir(rtl) {
+    translate: 50% -50%;
+  }
+  :where(.canon-color-tools) {
+    display: flex;
+    align-items: center;
+  }
+  :where(.canon-color-sliders) {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+  :where(.canon-color-hue, .canon-color-opacity) {
+    margin: 0;
+    padding: 0;
+    background: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  :where(.canon-color-hue) {
+    --canon-color-track: linear-gradient(to right, #f00, #ff0 16.67%, #0f0 33.33%, #0ff 50%, #00f 66.67%, #f0f 83.33%, #f00);
+  }
+  :where(.canon-color-hue):dir(rtl) {
+    --canon-color-track: linear-gradient(to left, #f00, #ff0 16.67%, #0f0 33.33%, #0ff 50%, #00f 66.67%, #f0f 83.33%, #f00);
+  }
+  :where(.canon-color-opacity) {
+    --canon-color-track: linear-gradient(to right, transparent, var(--canon-color-opaque, #000));
+  }
+  :where(.canon-color-opacity):dir(rtl) {
+    --canon-color-track: linear-gradient(to left, transparent, var(--canon-color-opaque, #000));
+  }
+  :where(.canon-color-fields) {
+    display: flex;
+    align-items: center;
+  }
+  :where(.canon-color-values) {
+    display: flex;
+    flex: 1 1 0;
+    min-inline-size: 0;
+  }
+  :where(.canon-color-values) > * {
+    flex: 1 1 0;
+    min-inline-size: 0;
+  }
+  :where(.canon-color-fields) :where(input) {
+    min-inline-size: 0;
+  }
+}

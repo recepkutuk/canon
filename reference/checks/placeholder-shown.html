@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check: :placeholder-shown</title>
+  <style>
+    body { font: 18px/1.5 system-ui, sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; }
+    td, th { padding: 0.5rem 1rem; text-align: start; border-block-end: 1px solid #ddd; }
+    input { inline-size: 8rem; }
+    output::after { content: "no match"; color: #b00020; font-weight: 600; }
+    td:has(:placeholder-shown) + td output::after { content: "MATCH"; color: #0a7d32; }
+  </style>
+</head>
+<body>
+  <h1>Does <code>:placeholder-shown</code> match?</h1>
+  <p>Open in each browser. Canon needs rows 2 and 3 to say MATCH and row 5 to say no match.</p>
+  <table>
+    <tr><th>Markup</th><th>Input</th><th>Result</th></tr>
+    <tr><td>no attribute, empty</td><td><input></td><td><output></output></td></tr>
+    <tr><td><code>placeholder</code>, empty</td><td><input placeholder></td><td><output></output></td></tr>
+    <tr><td><code>placeholder=" "</code>, empty</td><td><input placeholder=" "></td><td><output></output></td></tr>
+    <tr><td><code>placeholder</code> textarea, empty</td><td><textarea placeholder></textarea></td><td><output></output></td></tr>
+    <tr><td><code>placeholder</code>, filled</td><td><input placeholder value="x"></td><td><output></output></td></tr>
+  </table>
+</body>
+</html>

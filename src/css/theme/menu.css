@@ -1,0 +1,166 @@
+/* ==================================================================== */
+/* Menu                                                                 */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The panel is Select's
+     list (white, dark zinc-900; corners 8 / 12 / 16; a hairline edge and
+     the floating shadow; 4px inside), 4px under its trigger and
+     4px before it, so the items' text lines up with the trigger's, and at
+     least 8px wider. Items are the box's height (32 / 40 / 48), padding
+     and corners (8 / 10 / 12, 4 / 8 / 12), the label 4 / 6 / 8 further
+     in. A submenu opens beside its item, 4px over the menu's edge, its
+     first item level with the item. Hover and
+     the keyboard's place are the open item's fill; long menus scroll. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-menu-rule-space: 7.5px;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-menu-rule-space: 5.5px;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-menu-rule-space: 9.5px;
+  }
+
+  .canon-menu {
+    --_muted: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    min-inline-size: max(calc(anchor-size(inline, 0px) + 0.5rem), 8rem);
+    margin-block: 0.25rem;
+    margin-inline: -0.25rem 0;
+    padding: calc(0.25rem - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-menu[data-submenu] {
+    min-inline-size: 8rem;
+    margin-block: -0.25rem;
+    margin-inline: -0.25rem 0;
+  }
+
+  /* Items: hover and the keyboard's place zinc-100 (dark zinc-800), as is
+     an item whose submenu is open. Icons zinc-500 (dark zinc-400). */
+  .canon-menu-item {
+    --_fill: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    --_icon: var(--_muted);
+    gap: var(--canon-theme-input-icon-gap);
+    min-block-size: var(--canon-control-block-size);
+    padding-inline: var(--canon-control-padding-inline);
+    border-radius: var(--canon-theme-input-radius);
+  }
+  .canon-menu-item:is(:focus, [aria-expanded="true"]) {
+    background-color: var(--_fill);
+  }
+  .canon-menu-label {
+    padding-inline: var(--canon-theme-input-inset);
+  }
+  .canon-menu-item > .canon-icon {
+    color: var(--_icon);
+  }
+
+  /* An avatar overhangs its slot towards the edge: Avatar's 24 / 32 / 40
+     (its xs / sm / md, status dot and all), its end where a 20 / 26 / 32
+     slot ends. */
+  .canon-menu-item > .canon-avatar:first-child {
+    --canon-theme-avatar-size: 2rem;
+    --canon-theme-avatar-font-size: 0.75rem;
+    --canon-theme-avatar-line-height: 1rem;
+    --canon-theme-avatar-tracking: -0.007em;
+    --canon-theme-avatar-badge-at: 1.25rem;
+    --canon-theme-avatar-count-at: -0.25rem;
+    --canon-theme-avatar-status: 0.375rem;
+    --canon-theme-avatar-status-at: 1.5625rem;
+    --canon-theme-avatar-ring: 0.1875rem;
+    --canon-theme-avatar-overlap: 0.25rem;
+    margin-block: -0.25rem;
+    margin-inline-start: calc(-1 * var(--canon-theme-input-inset));
+  }
+  .canon-menu:is([data-size="xs"], [data-size="sm"], [data-size="xs"] *, [data-size="sm"] *) .canon-menu-item > .canon-avatar:first-child {
+    --canon-theme-avatar-size: 1.5rem;
+    --canon-theme-avatar-font-size: 0.625rem;
+    --canon-theme-avatar-line-height: 0.75rem;
+    --canon-theme-avatar-tracking: -0.0025em;
+    --canon-theme-avatar-badge-at: 0.875rem;
+    --canon-theme-avatar-count-at: -0.375rem;
+    --canon-theme-avatar-status: 0.25rem;
+    --canon-theme-avatar-status-at: 1.1875rem;
+    --canon-theme-avatar-ring: 0.125rem;
+    --canon-theme-avatar-overlap: 0.125rem;
+  }
+  .canon-menu:is([data-size="lg"], [data-size="xl"], [data-size="2xl"], [data-size="lg"] *, [data-size="xl"] *, [data-size="2xl"] *) .canon-menu-item > .canon-avatar:first-child {
+    --canon-theme-avatar-size: 2.5rem;
+    --canon-theme-avatar-font-size: 0.875rem;
+    --canon-theme-avatar-line-height: 1.25rem;
+    --canon-theme-avatar-tracking: -0.006em;
+    --canon-theme-avatar-badge-at: 1.75rem;
+    --canon-theme-avatar-count-at: -0.25rem;
+    --canon-theme-avatar-status: 0.5rem;
+    --canon-theme-avatar-status-at: 1.875rem;
+    --canon-theme-avatar-ring: 0.25rem;
+    --canon-theme-avatar-overlap: 0.375rem;
+  }
+
+  /* A shortcut: Kbd at its smallest, tinted from the item's text. */
+  .canon-menu-item > .canon-kbd {
+    padding: 0 0.25rem;
+    border-radius: 0.125rem;
+  }
+
+  /* Checked (aria-checked): medium, a check in the text's color at the
+     end. A submenu's item: an arrow in the icon color. */
+  .canon-menu-item[aria-checked="true"] {
+    font-weight: 500;
+  }
+  .canon-menu-item:is([aria-checked="true"], [aria-haspopup])::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-tick) center / contain no-repeat;
+  }
+  .canon-menu-item[aria-haspopup]::after {
+    background-color: var(--_icon);
+    mask-image: var(--canon-theme-icon-chevron-right);
+  }
+  .canon-menu-item[aria-haspopup]:dir(rtl)::after {
+    scale: -1 1;
+  }
+
+  /* Destructive: red-700 (dark red-300), icon too, on a red tint. */
+  .canon-menu-item[data-intent="danger"] {
+    --_fill: light-dark(color-mix(in srgb, var(--canon-theme-red-400) 15%, transparent), color-mix(in srgb, var(--canon-theme-red-500) 20%, transparent));
+    --_icon: currentColor;
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+  }
+
+  /* Disabled: zinc-400 (dark zinc-600), icons and marks too, no fill. */
+  .canon-menu-item:is(:disabled, [aria-disabled="true"]) {
+    --_icon: currentColor;
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+    background-color: transparent;
+  }
+
+  /* A group's heading: 10px semibold capitals, zinc-500 (dark zinc-400),
+     in a 32px row, where the labels start. */
+  .canon-menu-heading {
+    padding-block: 0.5rem;
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    color: var(--_muted);
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  /* Separators: Separator (<hr class="canon-separator">). */
+}

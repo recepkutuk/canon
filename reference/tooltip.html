@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Tooltip reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Tooltip</h1>
+  <p class="ref-note">A short text that appears when a button or link is hovered or focused. Specification: <a href="../docs/components/tooltip.md">docs/components/tooltip.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="placement-size">
+    <h2>Placement × size</h2>
+    <p class="ref-note">Every placement and size, shown open against the dashed boxes. Real tooltips use <code>popover="hint"</code> and open on hover or focus (see Triggers). Scroll one to the top of the window: it flips below to stay visible, arrow included.</p>
+
+    <h3>sm</h3>
+    <div class="ref-tip-grid">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-default"></span>
+        <div class="canon-tooltip" id="tt-sm-default" popover="manual" role="tooltip" data-size="sm">Label</div>
+        <code class="ref-tip-caption">(theme decides)</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-top"></span>
+        <div class="canon-tooltip" id="tt-sm-top" popover="manual" role="tooltip" data-size="sm" data-placement="block-start">Label</div>
+        <code class="ref-tip-caption">block-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-top-start"></span>
+        <div class="canon-tooltip" id="tt-sm-top-start" popover="manual" role="tooltip" data-size="sm" data-placement="block-start inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-top-end"></span>
+        <div class="canon-tooltip" id="tt-sm-top-end" popover="manual" role="tooltip" data-size="sm" data-placement="block-start inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-bottom"></span>
+        <div class="canon-tooltip" id="tt-sm-bottom" popover="manual" role="tooltip" data-size="sm" data-placement="block-end">Label</div>
+        <code class="ref-tip-caption">block-end</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-bottom-start"></span>
+        <div class="canon-tooltip" id="tt-sm-bottom-start" popover="manual" role="tooltip" data-size="sm" data-placement="block-end inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-bottom-end"></span>
+        <div class="canon-tooltip" id="tt-sm-bottom-end" popover="manual" role="tooltip" data-size="sm" data-placement="block-end inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-start"></span>
+        <div class="canon-tooltip" id="tt-sm-start" popover="manual" role="tooltip" data-size="sm" data-placement="inline-start">Label</div>
+        <code class="ref-tip-caption">inline-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-sm-end"></span>
+        <div class="canon-tooltip" id="tt-sm-end" popover="manual" role="tooltip" data-size="sm" data-placement="inline-end">Label</div>
+        <code class="ref-tip-caption">inline-end</code>
+      </div>
+    </div>
+
+    <h3>md</h3>
+    <div class="ref-tip-grid">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-default"></span>
+        <div class="canon-tooltip" id="tt-md-default" popover="manual" role="tooltip" data-size="md">Label</div>
+        <code class="ref-tip-caption">(theme decides)</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-top"></span>
+        <div class="canon-tooltip" id="tt-md-top" popover="manual" role="tooltip" data-size="md" data-placement="block-start">Label</div>
+        <code class="ref-tip-caption">block-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-top-start"></span>
+        <div class="canon-tooltip" id="tt-md-top-start" popover="manual" role="tooltip" data-size="md" data-placement="block-start inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-top-end"></span>
+        <div class="canon-tooltip" id="tt-md-top-end" popover="manual" role="tooltip" data-size="md" data-placement="block-start inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-bottom"></span>
+        <div class="canon-tooltip" id="tt-md-bottom" popover="manual" role="tooltip" data-size="md" data-placement="block-end">Label</div>
+        <code class="ref-tip-caption">block-end</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-bottom-start"></span>
+        <div class="canon-tooltip" id="tt-md-bottom-start" popover="manual" role="tooltip" data-size="md" data-placement="block-end inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-bottom-end"></span>
+        <div class="canon-tooltip" id="tt-md-bottom-end" popover="manual" role="tooltip" data-size="md" data-placement="block-end inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-start"></span>
+        <div class="canon-tooltip" id="tt-md-start" popover="manual" role="tooltip" data-size="md" data-placement="inline-start">Label</div>
+        <code class="ref-tip-caption">inline-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-md-end"></span>
+        <div class="canon-tooltip" id="tt-md-end" popover="manual" role="tooltip" data-size="md" data-placement="inline-end">Label</div>
+        <code class="ref-tip-caption">inline-end</code>
+      </div>
+    </div>
+
+    <h3>lg</h3>
+    <div class="ref-tip-grid">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-default"></span>
+        <div class="canon-tooltip" id="tt-lg-default" popover="manual" role="tooltip" data-size="lg">Label</div>
+        <code class="ref-tip-caption">(theme decides)</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-top"></span>
+        <div class="canon-tooltip" id="tt-lg-top" popover="manual" role="tooltip" data-size="lg" data-placement="block-start">Label</div>
+        <code class="ref-tip-caption">block-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-top-start"></span>
+        <div class="canon-tooltip" id="tt-lg-top-start" popover="manual" role="tooltip" data-size="lg" data-placement="block-start inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-top-end"></span>
+        <div class="canon-tooltip" id="tt-lg-top-end" popover="manual" role="tooltip" data-size="lg" data-placement="block-start inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-bottom"></span>
+        <div class="canon-tooltip" id="tt-lg-bottom" popover="manual" role="tooltip" data-size="lg" data-placement="block-end">Label</div>
+        <code class="ref-tip-caption">block-end</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-bottom-start"></span>
+        <div class="canon-tooltip" id="tt-lg-bottom-start" popover="manual" role="tooltip" data-size="lg" data-placement="block-end inline-start">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-bottom-end"></span>
+        <div class="canon-tooltip" id="tt-lg-bottom-end" popover="manual" role="tooltip" data-size="lg" data-placement="block-end inline-end">Label</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-start"></span>
+        <div class="canon-tooltip" id="tt-lg-start" popover="manual" role="tooltip" data-size="lg" data-placement="inline-start">Label</div>
+        <code class="ref-tip-caption">inline-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-lg-end"></span>
+        <div class="canon-tooltip" id="tt-lg-end" popover="manual" role="tooltip" data-size="lg" data-placement="inline-end">Label</div>
+        <code class="ref-tip-caption">inline-end</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="triggers">
+    <h2>Triggers</h2>
+    <p class="ref-note">Hover or focus. The trigger is a button or a link with <code>interestfor</code>; Escape dismisses.</p>
+
+    <h3>Icon-only buttons: the tooltip shows the label</h3>
+    <p class="ref-note">The label is already the button's name, so there is no <code>aria-describedby</code> (it would be read twice).</p>
+    <div class="ref-row" data-display="icon">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-bold">
+        <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+        <span class="canon-button-label">Bold</span>
+      </button>
+      <div class="canon-tooltip" id="tt-bold" popover="hint" role="tooltip">Bold</div>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-italic">
+        <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+        <span class="canon-button-label">Italic</span>
+      </button>
+      <div class="canon-tooltip" id="tt-italic" popover="hint" role="tooltip">Italic</div>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-link">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert link</span>
+      </button>
+      <div class="canon-tooltip" id="tt-link" popover="hint" role="tooltip">Insert link</div>
+      <a href="/settings" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-settings">
+        <span class="canon-icon" data-icon="settings" aria-hidden="true"></span>
+        <span class="canon-button-label">Settings</span>
+      </a>
+      <div class="canon-tooltip" id="tt-settings" popover="hint" role="tooltip">Settings</div>
+    </div>
+
+    <h3>Description: the tooltip adds information</h3>
+    <p class="ref-note">The trigger points at it with <code>aria-describedby</code> too.</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button" interestfor="tt-archive" aria-describedby="tt-archive">
+        <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+        <span class="canon-button-label">Archive</span>
+      </button>
+      <div class="canon-tooltip" id="tt-archive" popover="hint" role="tooltip">Hidden from the list, kept for 30 days</div>
+    </div>
+
+    <h3>Why an action is unavailable</h3>
+    <p class="ref-note"><code>aria-disabled</code>, not <code>disabled</code>: a disabled button can't be focused or hovered reliably, so its tooltip would never show.</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high" aria-disabled="true" interestfor="tt-publish" aria-describedby="tt-publish">
+        <span class="canon-button-label">Publish</span>
+      </button>
+      <div class="canon-tooltip" id="tt-publish" popover="hint" role="tooltip">Add a title before publishing</div>
+    </div>
+
+    <h3>Placement from the author</h3>
+    <p class="ref-note">A vertical rail: tooltips prefer the end side.</p>
+    <div class="ref-rail" data-display="icon">
+      <a href="/inbox" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-rail-mail">
+        <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+        <span class="canon-button-label">Inbox</span>
+      </a>
+      <div class="canon-tooltip" id="tt-rail-mail" popover="hint" role="tooltip" data-placement="inline-end">Inbox</div>
+      <a href="/search" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-rail-search">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <span class="canon-button-label">Search</span>
+      </a>
+      <div class="canon-tooltip" id="tt-rail-search" popover="hint" role="tooltip" data-placement="inline-end">Search</div>
+      <a href="/tags" class="canon-button" data-intent="neutral" data-emphasis="minimal" interestfor="tt-rail-tag">
+        <span class="canon-icon" data-icon="tag" aria-hidden="true"></span>
+        <span class="canon-button-label">Tags</span>
+      </a>
+      <div class="canon-tooltip" id="tt-rail-tag" popover="hint" role="tooltip" data-placement="inline-end">Tags</div>
+    </div>
+
+    <h3>Size inherited from a container</h3>
+    <div class="ref-row" data-size="lg">
+      <button type="button" class="canon-button" data-intent="neutral" data-display="icon" interestfor="tt-lg-star">
+        <span class="canon-icon" data-icon="star" aria-hidden="true"></span>
+        <span class="canon-button-label">Add to favorites</span>
+      </button>
+      <div class="canon-tooltip" id="tt-lg-star" popover="hint" role="tooltip">Add to favorites</div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Long text</h3>
+    <p class="ref-note">Long text wraps at a maximum width.</p>
+    <div class="ref-tip-grid ref-tip-grid-wide">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-long"></span>
+        <div class="canon-tooltip" id="tt-long" popover="manual" role="tooltip" data-placement="block-end">Archived projects stay searchable for 30 days. After that they are deleted with their files, comments and history.</div>
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">The inline start and end follow the direction: <code>inline-end</code> is on the left here.</p>
+    <div class="ref-tip-grid" dir="rtl" lang="ar">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-rtl-top-start"></span>
+        <div class="canon-tooltip" id="tt-rtl-top-start" popover="manual" role="tooltip" data-placement="block-start inline-start">تلميح</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-start</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-rtl-top-end"></span>
+        <div class="canon-tooltip" id="tt-rtl-top-end" popover="manual" role="tooltip" data-placement="block-start inline-end">تلميح</div>
+        <code class="ref-tip-caption ref-code"><span>block-start</span> <span>inline-end</span></code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-rtl-start"></span>
+        <div class="canon-tooltip" id="tt-rtl-start" popover="manual" role="tooltip" data-placement="inline-start">تلميح</div>
+        <code class="ref-tip-caption">inline-start</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-rtl-end"></span>
+        <div class="canon-tooltip" id="tt-rtl-end" popover="manual" role="tooltip" data-placement="inline-end">تلميح</div>
+        <code class="ref-tip-caption">inline-end</code>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="tt-rtl-bottom-start"></span>
+        <div class="canon-tooltip" id="tt-rtl-bottom-start" popover="manual" role="tooltip" data-placement="block-end inline-start">تلميح</div>
+        <code class="ref-tip-caption ref-code"><span>block-end</span> <span>inline-start</span></code>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

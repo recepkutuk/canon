@@ -1,0 +1,92 @@
+/* ==================================================================== */
+/* Description List                                                     */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Table's look and the event sheet's
+     details. Items a Table row's height (a control's + 16px, 56 at md),
+     8px inside, a hairline rule between them; terms in
+     Table's header type (zinc-500 medium, dark zinc-400), values zinc-900
+     (dark white), Text Input's type; stacked, the value 4px under its
+     term; beside, 16px apart. An icon term (the event sheet): the icon
+     zinc-500 (dark zinc-400) centered in a control-sized square, 8px from
+     its values. Empty values zinc-400 (dark zinc-500). Columns 32px
+     apart. */
+  .canon-description-list {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_row-extra: calc((var(--canon-density, 0) + 1) * 1rem);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-description-list > div {
+    box-sizing: border-box;
+    align-content: center;
+    align-items: baseline;
+    column-gap: 1rem;
+    min-block-size: calc(var(--canon-control-block-size) + var(--_row-extra));
+    padding-block: calc(0.5rem - 1px);
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* Every item has its line; the list hides the first row's (whichever
+     items the columns put there) by clipping its top pixel. */
+  .canon-description-list {
+    clip-path: inset(1px -1rem -1rem -1rem);
+  }
+  .canon-description-list[data-lines="none"] > div {
+    border-block-start: 0;
+  }
+  .canon-description-list[data-lines="none"] {
+    clip-path: none;
+  }
+  .canon-description-list > div > dt {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-weight: 500;
+  }
+  .canon-description-list > div > dt + dd {
+    margin-block-start: 0.25rem;
+  }
+  .canon-description-list > div > dd + dd {
+    margin-block-start: 0.25rem;
+  }
+  .canon-description-list > div > dd:empty::before {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  /* Beside (an icon term, or data-label): term and first value on one
+     line. */
+  /* An action at the item's end: stacked (the term over its value),
+     centered on the item, inside its padding; beside (term and value on
+     one line), centered on that line. */
+  .canon-description-list > div > :not(dt, dd) {
+    align-self: center;
+  }
+  /* An icon term: the value's first line level with the icon (the event
+     sheet), longer values running on under it. */
+  .canon-description-list > div:has(> dt > .canon-icon) {
+    align-items: start;
+    column-gap: 0.5rem;
+  }
+  .canon-description-list > div:has(> dt > .canon-icon) > dt + dd {
+    margin-block-start: calc((var(--canon-control-block-size) - var(--canon-theme-input-line-height)) / 2);
+  }
+  .canon-description-list > div:has(> dt > .canon-icon) > :not(dt, dd) {
+    margin-block: 0;
+  }
+  .canon-description-list > div > dt:has(> .canon-icon) {
+    display: grid;
+    place-items: center;
+    inline-size: var(--canon-control-block-size);
+    block-size: var(--canon-control-block-size);
+  }
+  @container (width >= 32rem) {
+    :is([data-label="start"] .canon-description-list, .canon-description-list[data-label="start"]) > div > dt + dd {
+      margin-block-start: 0;
+    }
+    :is([data-label="start"] .canon-description-list, .canon-description-list[data-label="start"]) > div:not(:has(> dt > .canon-icon)) > :not(dt, dd) {
+      align-self: start;
+      margin-block: calc((var(--canon-theme-input-line-height) - var(--canon-control-block-size)) / 2);
+    }
+  }
+}

@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Button reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Button</h1>
+  <p class="ref-note">An action (<code>&lt;button&gt;</code>), or a link that looks like one (<code>&lt;a&gt;</code>). Specification: <a href="../docs/components/button.md">docs/components/button.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis-intent">
+    <h2>Emphasis × intent</h2>
+    <p class="ref-note">Four emphases (<code>data-emphasis</code>) by five intents (<code>data-intent</code>): 20 variants. Without an intent a button takes the accent; <code>neutral</code> takes none, for ordinary actions that shouldn't draw the eye (Cancel, a toolbar's or a filter bar's buttons, a search trigger).</p>
+
+    <table class="ref-matrix">
+      <thead>
+        <tr>
+          <th scope="col">Emphasis</th>
+          <th scope="col">(none: the accent)</th>
+          <th scope="col">neutral</th>
+          <th scope="col">success</th>
+          <th scope="col">warning</th>
+          <th scope="col">danger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">high</th>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="high">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="neutral" data-emphasis="high">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="high" data-intent="success">
+              <span class="canon-button-label">Approve</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="high" data-intent="warning">
+              <span class="canon-button-label">Force deploy</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="high" data-intent="danger">
+              <span class="canon-button-label">Delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">medium (default)</th>
+          <td>
+            <button type="button" class="canon-button">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="neutral">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="success">
+              <span class="canon-button-label">Approve</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="warning">
+              <span class="canon-button-label">Force deploy</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="danger">
+              <span class="canon-button-label">Delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">low</th>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="low">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="success">
+              <span class="canon-button-label">Approve</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="warning">
+              <span class="canon-button-label">Force deploy</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger">
+              <span class="canon-button-label">Delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">minimal</th>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="minimal">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal">
+              <span class="canon-button-label">Save</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="success">
+              <span class="canon-button-label">Approve</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="warning">
+              <span class="canon-button-label">Force deploy</span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="danger">
+              <span class="canon-button-label">Delete</span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="ref-note">Omitting <code>data-emphasis</code> is identical to <code>data-emphasis="medium"</code>:</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Implicit medium</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="medium">
+        <span class="canon-button-label">Explicit medium</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="elements">
+    <h2>Elements</h2>
+
+    <h3>&lt;button&gt;: it does something</h3>
+    <form class="ref-row" action="/users" method="post">
+      <button type="submit" class="canon-button" data-emphasis="high">
+        <span class="canon-button-label">Create user</span>
+      </button>
+      <button type="reset" class="canon-button" data-emphasis="low">
+        <span class="canon-button-label">Reset</span>
+      </button>
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Preview</span>
+      </button>
+    </form>
+
+    <h3>&lt;a&gt;: it goes somewhere</h3>
+    <div class="ref-row">
+      <a href="/users/new" class="canon-button" data-emphasis="high">
+        <span class="canon-button-label">New user</span>
+      </a>
+      <a href="https://example.com/docs" target="_blank" rel="noopener" class="canon-button" data-emphasis="low">
+        <span class="canon-button-label">Documentation</span>
+        <!-- External-link indicator is drawn by the theme from target="_blank" -->
+      </a>
+      <a href="/users" class="canon-button" data-emphasis="minimal" aria-current="page">
+        <span class="canon-button-label">Users (current page)</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Anatomy</h2>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Label only</span>
+      </button>
+
+      <button type="button" class="canon-button">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Leading icon</span>
+      </button>
+
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Trailing icon</span>
+        <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="canon-button">
+        <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+        <span class="canon-button-label">Both icons</span>
+        <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <h3>Accessory</h3>
+    <p class="ref-note">After the trailing icon. <code>canon-kbd</code> for a keyboard shortcut (hidden from assistive tech; <code>aria-keyshortcuts</code> on the button carries it). A <a href="../docs/components/count.md">Count</a> will be able to go here too.</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button" aria-keyshortcuts="Meta+K">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <span class="canon-button-label">Search</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+Enter">
+        <span class="canon-button-label">Send</span>
+        <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘↵</kbd>
+      </button>
+    </div>
+    <!--
+    <button type="button" class="canon-button">
+      <span class="canon-icon" data-icon="filter" aria-hidden="true"></span>
+      <span class="canon-button-label">Filters</span>
+      <span class="canon-count">3</span>
+    </button>
+    -->
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="display">
+    <h2>Display</h2>
+
+    <h3>Icon-only, on the button</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-display="icon">
+        <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+        <span class="canon-button-label">Delete</span>
+      </button>
+      <button type="button" class="canon-button" data-display="icon" data-emphasis="minimal">
+        <span class="canon-icon" data-icon="settings" aria-hidden="true"></span>
+        <span class="canon-button-label">Settings</span>
+      </button>
+    </div>
+
+    <h3>Icon-only, inherited from a container</h3>
+    <div class="ref-row" data-display="icon">
+      <button type="button" class="canon-button" data-emphasis="minimal">
+        <span class="canon-icon" data-icon="bold" aria-hidden="true"></span>
+        <span class="canon-button-label">Bold</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="minimal">
+        <span class="canon-icon" data-icon="italic" aria-hidden="true"></span>
+        <span class="canon-button-label">Italic</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="minimal">
+        <span class="canon-icon" data-icon="link" aria-hidden="true"></span>
+        <span class="canon-button-label">Insert link</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+
+    <h3>On the button</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-size="sm">
+        <span class="canon-button-label">Small</span>
+      </button>
+      <button type="button" class="canon-button" data-size="md">
+        <span class="canon-button-label">Medium</span>
+      </button>
+      <button type="button" class="canon-button" data-size="lg">
+        <span class="canon-button-label">Large</span>
+      </button>
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Theme decides</span>
+      </button>
+    </div>
+
+    <h3>Inherited from a container, with an override</h3>
+    <div class="ref-row" data-size="sm">
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Inherits sm</span>
+      </button>
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">Inherits sm</span>
+      </button>
+      <button type="button" class="canon-button" data-size="lg">
+        <span class="canon-button-label">Overrides to lg</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Hover, press and keyboard focus are live: try them on any button.</p>
+
+    <h3>Disabled</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high" disabled>
+        <span class="canon-button-label">disabled</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="high" aria-disabled="true">
+        <span class="canon-button-label">aria-disabled (focusable)</span>
+      </button>
+      <a class="canon-button" role="link" aria-disabled="true">
+        <span class="canon-button-label">Disabled link (no href)</span>
+      </a>
+    </div>
+
+    <h3>Loading</h3>
+    <div class="ref-row">
+      <button type="submit" class="canon-button" data-emphasis="high" aria-busy="true" aria-disabled="true">
+        <span class="canon-button-label">Saving…</span>
+      </button>
+      <button type="button" class="canon-button" data-display="icon" aria-busy="true" aria-disabled="true">
+        <span class="canon-icon" data-icon="refresh" aria-hidden="true"></span>
+        <span class="canon-button-label">Refreshing</span>
+      </button>
+    </div>
+
+    <h3>Pressed (toggle button)</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" aria-pressed="false">
+        <span class="canon-icon" data-icon="star" aria-hidden="true"></span>
+        <span class="canon-button-label">Star</span>
+      </button>
+      <button type="button" class="canon-button" aria-pressed="true">
+        <span class="canon-icon" data-icon="star" aria-hidden="true"></span>
+        <span class="canon-button-label">Starred</span>
+      </button>
+    </div>
+
+    <h3>Pressed, without JS (form round trip)</h3>
+    <form class="ref-row" method="post" action="/tickets/42/pin">
+      <button type="submit" class="canon-button" aria-pressed="true" name="pinned" value="false">
+        <span class="canon-icon" data-icon="pin" aria-hidden="true"></span>
+        <span class="canon-button-label">Pinned</span>
+      </button>
+    </form>
+
+    <h3>Opens a menu</h3>
+    <p class="ref-note">Add <code>aria-haspopup</code> and the theme draws the menu indicator; <code>aria-expanded</code> follows the menu as it opens and closes (canon.js keeps it). Open one to see the expanded state; the menu is a <a href="menu.html">Menu</a>.</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button" aria-haspopup="menu" aria-expanded="false" popovertarget="button-menu">
+        <span class="canon-icon" data-icon="settings" aria-hidden="true"></span>
+        <span class="canon-button-label">Actions</span>
+      </button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" aria-haspopup="menu" aria-expanded="false" popovertarget="button-menu">
+        <span class="canon-button-label">Actions</span>
+      </button>
+      <button type="button" class="canon-button" data-display="icon" data-emphasis="minimal" aria-haspopup="menu" aria-expanded="false" popovertarget="button-menu">
+        <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+        <span class="canon-button-label">More actions</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="button-menu" popover role="menu" aria-label="Actions">
+      <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Duplicate</span></button>
+      <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-menu-label">Archive</span></button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem" data-intent="danger">
+        <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+        <span class="canon-menu-label">Delete</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="copy">
+    <h2>Copy</h2>
+    <p class="ref-note">A Button with <code>command="--canon-copy"</code> and <code>commandfor</code> naming what it copies: an input's value, or an element's text. For 2 seconds after copying it has <code>data-state="copied"</code> (here the icon becomes a check) and screen readers hear "Copied". In a field's box, see <a href="field.html">Field</a>.</p>
+
+    <div class="ref-row">
+      <span id="copy-invite">https://example.com/invite/7Fq2</span>
+      <button type="button" class="canon-button" data-emphasis="low" commandfor="copy-invite" command="--canon-copy">
+        <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+        <span class="canon-button-label">Copy link</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" commandfor="copy-invite" command="--canon-copy">
+        <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+        <span class="canon-button-label">Copy link</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Long label</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high">
+        <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+        <span class="canon-button-label">Export all filtered records including archived and soft-deleted entries as CSV</span>
+      </button>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">Leading and trailing icons swap sides in right-to-left text.</p>
+    <div class="ref-row" dir="rtl" lang="ar">
+      <button type="button" class="canon-button" data-emphasis="high">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">مستخدم جديد</span>
+      </button>
+      <button type="button" class="canon-button">
+        <span class="canon-button-label">التالي</span>
+        <span class="canon-icon" data-icon="arrow-forward" aria-hidden="true"></span>
+      </button>
+      <a href="https://example.com/ar/docs" target="_blank" rel="noopener" class="canon-button" data-emphasis="low">
+        <span class="canon-button-label">التوثيق</span>
+      </a>
+    </div>
+
+    <h3>Many buttons, wrapping</h3>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button>
+      <button type="button" class="canon-button"><span class="canon-button-label">Save as draft</span></button>
+      <button type="button" class="canon-button"><span class="canon-button-label">Duplicate</span></button>
+      <button type="button" class="canon-button"><span class="canon-button-label">Export</span></button>
+      <button type="button" class="canon-button" data-emphasis="low"><span class="canon-button-label">Cancel</span></button>
+      <button type="button" class="canon-button" data-emphasis="minimal" data-intent="danger"><span class="canon-button-label">Delete</span></button>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

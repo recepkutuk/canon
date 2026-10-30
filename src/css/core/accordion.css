@@ -1,0 +1,52 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Accordion                                                           */
+  /*                                                                     */
+  /* <details> items: the summary a row (a leading icon, the title with  */
+  /* its description under it, something at the end: a Tag, a Count, a  */
+  /* Status; the theme's chevron last, as ::after), the content under    */
+  /* it. Columns only for what's there. The browser's marker is hidden.  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-accordion-summary) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "icon title end chevron" "icon description end chevron";
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+  }
+  :where(.canon-accordion-summary:not(:has(> .canon-icon))) {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "title end chevron" "description end chevron";
+  }
+  :where(.canon-accordion-summary:not(:has(> :is(.canon-tag, .canon-count, .canon-status)))) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "icon title chevron" "icon description chevron";
+  }
+  :where(.canon-accordion-summary:not(:has(> .canon-icon)):not(:has(> :is(.canon-tag, .canon-count, .canon-status)))) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "title chevron" "description chevron";
+  }
+  :where(.canon-accordion-summary)::-webkit-details-marker {
+    display: none;
+  }
+  :where(.canon-accordion-summary) > :where(.canon-icon) {
+    grid-area: icon;
+  }
+  :where(.canon-accordion-title) {
+    grid-area: title;
+    min-inline-size: 0;
+  }
+  :where(.canon-accordion-description) {
+    grid-area: description;
+    min-inline-size: 0;
+  }
+  :where(.canon-accordion-summary) > :where(.canon-tag, .canon-count, .canon-status) {
+    grid-area: end;
+    justify-self: end;
+  }
+  :where(.canon-accordion-summary)::after {
+    grid-area: chevron;
+  }
+}

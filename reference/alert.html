@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Alert reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Alert</h1>
+  <p class="ref-note">A message in the page that stays while it's true: about the record, the form or the setting it sits with. Specification: <a href="../docs/components/alert.md">docs/components/alert.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="alert">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;div class="canon-alert"&gt;</code> with a <code>.canon-alert-title</code>, a <code>.canon-alert-description</code>, or both. <code>data-intent</code> says what it means, in the same words as a Button's or a Toast's: <code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>. The theme draws the icon, and screen readers hear the intent's word first ("Warning: This invoice is overdue"). With no intent it's a plain note.</p>
+
+    <div class="ref-alerts">
+      <div class="canon-alert" data-intent="info">
+        <p class="canon-alert-title">Changes apply to new invoices only</p>
+        <p class="canon-alert-description">Invoices already sent keep the terms they were sent with.</p>
+      </div>
+      <div class="canon-alert" data-intent="success">
+        <p class="canon-alert-title">Payment received</p>
+        <p class="canon-alert-description">Globex paid €12,400 on 14 October.</p>
+      </div>
+      <div class="canon-alert" data-intent="warning">
+        <p class="canon-alert-title">This invoice is overdue</p>
+        <p class="canon-alert-description">It was due on 3 October. Globex hasn't paid yet.</p>
+      </div>
+      <div class="canon-alert" data-intent="danger">
+        <p class="canon-alert-title">The bank rejected this payment</p>
+        <p class="canon-alert-description">The account number doesn't match the one on file.</p>
+      </div>
+      <div class="canon-alert">
+        <p class="canon-alert-title">Exports run overnight</p>
+        <p class="canon-alert-description">Large exports arrive by email the next morning.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="parts">
+    <h2>Parts</h2>
+    <p class="ref-note">Actions that deal with it go after the text: small high neutral Buttons, or Links. Under 20rem they go under the text. A title alone, or a description alone, is enough for one sentence. The description can be a <code>&lt;div&gt;</code> holding paragraphs or a list.</p>
+
+    <div class="ref-alerts">
+      <div class="canon-alert" data-intent="warning">
+        <p class="canon-alert-title">This invoice is overdue</p>
+        <p class="canon-alert-description">It was due on 3 October. Globex hasn't paid yet.</p>
+        <div class="canon-alert-actions">
+          <button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+          <a class="canon-link" href="#parts">View payment history</a>
+        </div>
+      </div>
+      <div class="canon-alert" data-intent="info">
+        <p class="canon-alert-title">Sync is slow right now</p>
+      </div>
+      <div class="canon-alert">
+        <p class="canon-alert-description">Only owners can change billing details. Ask one of the owners of this workspace.</p>
+      </div>
+      <div class="canon-alert" data-intent="danger">
+        <p class="canon-alert-title">3 invoices couldn't be imported</p>
+        <div class="canon-alert-description">
+          <p>Fix these rows in the file and import it again:</p>
+          <ul>
+            <li>Row 12: the date isn't a date</li>
+            <li>Row 31: the customer doesn't exist</li>
+            <li>Row 58: the amount is empty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Emphasis</h2>
+    <p class="ref-note"><code>data-emphasis="high"</code> fills it with the intent's color, in Button's words, for the alert that must not be missed: the page can't be used until it's dealt with. Keep it rare; one per page at most.</p>
+
+    <div class="ref-alerts">
+      <div class="canon-alert" data-intent="danger" data-emphasis="high">
+        <p class="canon-alert-title">This workspace is read-only</p>
+        <p class="canon-alert-description">The last payment failed. Update the card to make changes again.</p>
+        <div class="canon-alert-actions">
+          <button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Update the card</span></button>
+        </div>
+      </div>
+      <div class="canon-alert" data-intent="warning" data-emphasis="high">
+        <p class="canon-alert-title">You're editing the live configuration</p>
+        <p class="canon-alert-description">Changes reach every customer as soon as they're saved.</p>
+      </div>
+      <div class="canon-alert" data-emphasis="high">
+        <p class="canon-alert-title">Viewing as Ana Duarte</p>
+        <p class="canon-alert-description">You see what she sees. Nothing you do is saved as her.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="dismiss">
+    <h2>Dismissing</h2>
+    <p class="ref-note">A close button (<code>.canon-alert-close</code>, empty and last) for an alert that can be put away without fixing anything: a tip, news. canon.js names it ("Dismiss"), fires <code>canon-dismiss</code> on the alert (cancelable) and hides it; focus that was in it moves on. An alert that reports a problem has none: it goes when the problem does.</p>
+
+    <div class="ref-alerts">
+      <div class="canon-alert" data-intent="info">
+        <p class="canon-alert-title">Invoices can now be paid by card</p>
+        <p class="canon-alert-description">Customers see a Pay button in the email; you get the money in two days.</p>
+        <button type="button" class="canon-alert-close"></button>
+      </div>
+      <div class="canon-alert">
+        <p class="canon-alert-description">Tip: press <kbd class="canon-kbd">⌘K</kbd> to find any invoice by its number.</p>
+        <button type="button" class="canon-alert-close"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="in-context">
+    <h2>In context</h2>
+    <p class="ref-note">Right before what it's about. Above a form after a submit that failed: an error summary, its title a heading, its description links to each field; the app shows it with <code>role="alert"</code> and moves focus to it (<code>tabindex="-1"</code>). Each field keeps its own message.</p>
+
+    <div class="ref-alerts">
+      <form class="canon-card" action="#in-context" novalidate>
+        <div class="canon-card-body ref-alert-form">
+          <div class="canon-alert" data-intent="danger" role="alert" tabindex="-1">
+            <h3 class="canon-alert-title">2 fields need attention</h3>
+            <div class="canon-alert-description">
+              <ul>
+                <li><a class="canon-link" href="#ia-email">Billing email isn't an email address</a></li>
+                <li><a class="canon-link" href="#ia-terms">Payment terms are required</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="ia-email">Billing email</label></div>
+            <div class="canon-text-input"><input id="ia-email" name="email" type="email" value="billing@globex" placeholder="" aria-invalid="true" aria-describedby="ia-email-message"></div>
+            <p class="canon-field-message" id="ia-email-message" data-intent="danger">Enter an email address, like name@example.com.</p>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="ia-terms">Payment terms</label></div>
+            <div class="canon-text-input"><input id="ia-terms" name="terms" type="text" placeholder="" aria-invalid="true" aria-describedby="ia-terms-message"></div>
+            <p class="canon-field-message" id="ia-terms-message" data-intent="danger">Enter the payment terms, like Net 30.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the icon and the intent's mark are on the right, and the intent's word is the page's language. Long words wrap; in a narrow place the actions wrap under each other.</p>
+
+    <div class="ref-alerts">
+      <div class="canon-alert" data-intent="warning" dir="rtl" lang="ar">
+        <p class="canon-alert-title">هذه الفاتورة متأخرة</p>
+        <p class="canon-alert-description">كان موعد استحقاقها في ٣ أكتوبر.</p>
+        <button type="button" class="canon-alert-close"></button>
+      </div>
+      <div class="canon-alert" data-intent="danger" style="max-inline-size: 18rem">
+        <p class="canon-alert-title">Couldn't reach accounts-receivable-reconciliation.internal.example</p>
+        <div class="canon-alert-actions">
+          <button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Try again</span></button>
+          <button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Check the status page</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

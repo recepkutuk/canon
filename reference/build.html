@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Build</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+  <script type="module" src="build.js"></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Build</h1>
+  <p class="ref-note">Canon in full is three files with every component. If your app uses only some of them, build Canon with just those: the smaller files behave exactly like the full ones.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="bundles">
+    <h2>Bundles</h2>
+    <p class="ref-note">Core is always in. Add the bundles your app uses; point at a bundle's components to see what's in it. For single components, the command line takes them one at a time (<code>node tools/build.mjs --list</code>).</p>
+    <div class="ref-build-bar ref-plain">
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" id="build-all"><span class="canon-button-label">Everything</span></button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" id="build-none"><span class="canon-button-label">Core only</span></button>
+      <p class="ref-build-summary" id="build-summary" aria-live="polite">Loading Canon's sources…</p>
+    </div>
+    <div class="ref-build-addons ref-plain" id="build-bundles" aria-busy="true"></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="files">
+    <h2>Files</h2>
+    <p class="ref-note">Put them where the full ones would go: <code>canon.css</code> and <code>canon.core.css</code> side by side (the first imports the second), <code>canon.js</code> anywhere. The page links one stylesheet and one script, as with the full build.</p>
+    <div class="ref-build-files ref-plain" id="build-files"></div>
+    <div class="ref-build-bar ref-plain">
+      <button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" id="build-download"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download the three files</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="command">
+    <h2>From the command line</h2>
+    <p class="ref-note">The same build, from a copy of Canon: <code>node tools/build.mjs --list</code> shows the components, and this writes the three files to <code>dist/</code>.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="build-command" command="--canon-copy">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-button-label">Copy the command</span>
+        </button>
+      </div>
+      <pre><code id="build-command">node tools/build.mjs</code></pre>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

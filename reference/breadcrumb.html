@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Breadcrumb reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Breadcrumb</h1>
+  <p class="ref-note">The trail of pages above the current one, each a link back up. Specification: <a href="../docs/components/breadcrumb.md">docs/components/breadcrumb.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="breadcrumb">
+    <h2>Basics</h2>
+    <p class="ref-note">Where the page sits: a <code>&lt;nav class="canon-breadcrumb"&gt;</code> named "Breadcrumb", an <code>&lt;ol&gt;</code> of the pages above it, each a link, and the current page last, marked <code>aria-current="page"</code>. The separators are drawn between items.</p>
+
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Members</a></li>
+        <li><a href="#" aria-current="page">Ada Lovelace</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="home">
+    <h2>Home and collapsed pages</h2>
+    <p class="ref-note">The first item can be an icon (<code>house</code>) with its name in visually hidden text. Pages in the middle can collapse into a <code>.canon-breadcrumb-more</code> button that opens a <a href="menu.html">Menu</a> of them, its items links (<code>&lt;a role="menuitem"&gt;</code>).</p>
+
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">Home</span></a></li>
+        <li>
+          <button type="button" class="canon-breadcrumb-more" popovertarget="hm-more" aria-haspopup="menu" aria-expanded="false">
+            <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+            <span class="canon-visually-hidden">More pages</span>
+          </button>
+          <div class="canon-menu" id="hm-more" popover role="menu" aria-label="More pages">
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Docs</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Design system</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Foundations</span></a>
+          </div>
+        </li>
+        <li><a href="#">Components</a></li>
+        <li><a href="#" aria-current="page">Breadcrumb</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the breadcrumb or a container: rows the button's height (32 / 40 / 48), text and icons to match.</p>
+
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb" data-size="sm">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">Home</span></a></li>
+        <li>
+          <button type="button" class="canon-breadcrumb-more" popovertarget="sz-sm-more" aria-haspopup="menu" aria-expanded="false">
+            <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+            <span class="canon-visually-hidden">More pages</span>
+          </button>
+          <div class="canon-menu" id="sz-sm-more" popover role="menu" aria-label="More pages">
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Docs</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Design system</span></a>
+          </div>
+        </li>
+        <li><a href="#">Components</a></li>
+        <li><a href="#" aria-current="page">Breadcrumb</a></li>
+      </ol>
+    </nav>
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb" data-size="md">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">Home</span></a></li>
+        <li>
+          <button type="button" class="canon-breadcrumb-more" popovertarget="sz-md-more" aria-haspopup="menu" aria-expanded="false">
+            <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+            <span class="canon-visually-hidden">More pages</span>
+          </button>
+          <div class="canon-menu" id="sz-md-more" popover role="menu" aria-label="More pages">
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Docs</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Design system</span></a>
+          </div>
+        </li>
+        <li><a href="#">Components</a></li>
+        <li><a href="#" aria-current="page">Breadcrumb</a></li>
+      </ol>
+    </nav>
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb" data-size="lg">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">Home</span></a></li>
+        <li>
+          <button type="button" class="canon-breadcrumb-more" popovertarget="sz-lg-more" aria-haspopup="menu" aria-expanded="false">
+            <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+            <span class="canon-visually-hidden">More pages</span>
+          </button>
+          <div class="canon-menu" id="sz-lg-more" popover role="menu" aria-label="More pages">
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Docs</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">Design system</span></a>
+          </div>
+        </li>
+        <li><a href="#">Components</a></li>
+        <li><a href="#" aria-current="page">Breadcrumb</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long trail wraps onto more lines; a long name stays whole. Right to left, the trail reads from the right and the separators point left.</p>
+
+    <nav class="canon-breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">Home</span></a></li>
+        <li><a href="#">Organization settings</a></li>
+        <li><a href="#">Billing and invoices</a></li>
+        <li><a href="#">Payment methods</a></li>
+        <li><a href="#">Corporate cards</a></li>
+        <li><a href="#" aria-current="page">Card ending 4242 issued to the finance department</a></li>
+      </ol>
+    </nav>
+    <nav class="canon-breadcrumb" aria-label="مسار التنقل" dir="rtl" lang="ar">
+      <ol>
+        <li><a href="#"><span class="canon-icon" data-icon="house" aria-hidden="true"></span><span class="canon-visually-hidden">الرئيسية</span></a></li>
+        <li>
+          <button type="button" class="canon-breadcrumb-more" popovertarget="rtl-more" aria-haspopup="menu" aria-expanded="false">
+            <span class="canon-icon" data-icon="more" aria-hidden="true"></span>
+            <span class="canon-visually-hidden">صفحات أخرى</span>
+          </button>
+          <div class="canon-menu" id="rtl-more" popover role="menu" aria-label="صفحات أخرى">
+            <a class="canon-menu-item" role="menuitem" href="#"><span class="canon-menu-label">الوثائق</span></a>
+          </div>
+        </li>
+        <li><a href="#">المكونات</a></li>
+        <li><a href="#" aria-current="page">مسار التنقل</a></li>
+      </ol>
+    </nav>
+  </section>
+
+</main>
+</body>
+</html>

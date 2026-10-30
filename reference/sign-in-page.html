@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Sign-in Page pattern</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Sign-in Page</h1>
+  <p class="ref-note">Getting into an app, and back in when something goes wrong: signing in (with a second step), creating an account, and resetting a password, with every state on the way. Made only of Canon's components. Try a wrong password (type <code>wrong</code>), a wrong code (<code>000000</code>), or a reset that ends in the app.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pattern">
+    <h2>The pattern</h2>
+    <p class="ref-note">A page of its own, without the app around it: the app's mark, then a <a href="card.html">Card</a> for each step. In an app, each step is its own address: <code>/sign-in</code>, <code>/sign-in/code</code>, <code>/sign-up</code>, <code>/forgot-password</code>, <code>/reset-password?token=…</code>.</p>
+
+    <div class="ref-row ref-plain ref-auth-starts" aria-label="Start from">
+      <span class="ref-auth-starts-label">Start from:</span>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" data-start="signin"><span class="canon-button-label">Sign in</span></button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" data-start="session"><span class="canon-button-label">A session that ended</span></button>
+      <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" data-start="expired"><span class="canon-button-label">An expired reset link</span></button>
+    </div>
+
+    <div class="ref-auth-frame" id="si-app">
+      <div class="ref-auth">
+        <p class="ref-auth-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg>Globex Billing</p>
+
+        <!-- Sign in -->
+        <section class="canon-card ref-view" data-view="signin" aria-labelledby="si-signin-title">
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-signin-title" tabindex="-1">Sign in</h1>
+            <p class="canon-card-description">Welcome back to Globex Billing.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <div class="canon-alert" data-intent="danger" role="alert" data-bind="signin-alert" hidden>
+              <p class="canon-alert-title" data-bind="signin-alert-title">That email and password don't match</p>
+              <p class="canon-alert-description" data-bind="signin-alert-description">Check them and try again.</p>
+              <div class="canon-alert-actions" data-bind="signin-alert-actions" hidden><a class="canon-link" href="#si-forgot" data-go="forgot">Reset your password</a></div>
+            </div>
+            <form class="ref-auth-form" id="si-signin-form" action="#" method="post">
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-email">Email</label></div>
+                <div class="canon-text-input"><input id="si-email" name="email" type="email" autocomplete="username" placeholder required></div>
+                <p class="canon-field-message"></p>
+              </div>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-password">Password</label></div>
+                <a class="canon-field-action" href="#si-forgot" data-go="forgot">Forgot password?</a>
+                <div class="canon-password">
+                  <input id="si-password" name="password" type="password" autocomplete="current-password" placeholder required>
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="si-password" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+                </div>
+                <p class="canon-field-message"></p>
+              </div>
+              <div class="canon-choice">
+                <input type="checkbox" id="si-keep" name="keep" aria-describedby="si-keep-hint">
+                <label class="canon-choice-label" for="si-keep">Keep me signed in</label>
+                <p class="canon-choice-hint" id="si-keep-hint">On this device, for 30 days.</p>
+              </div>
+              <button type="submit" class="canon-button ref-auth-submit" data-emphasis="high"><span class="canon-button-label">Sign in</span></button>
+            </form>
+            <div class="canon-separator">or</div>
+            <div class="ref-auth-providers">
+              <button type="button" class="canon-button" data-intent="neutral" data-provider="Google"><span class="ref-provider-logo" data-logo="google" aria-hidden="true"></span><span class="canon-button-label">Continue with Google</span></button>
+              <button type="button" class="canon-button" data-intent="neutral" data-provider="GitHub"><span class="ref-provider-logo" data-logo="github" aria-hidden="true"></span><span class="canon-button-label">Continue with GitHub</span></button>
+            </div>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p>No account? <a class="canon-link" href="#si-signup" data-go="signup">Create one</a></p>
+          </footer>
+        </section>
+
+        <!-- Second step -->
+        <section class="canon-card ref-view" data-view="code" aria-labelledby="si-code-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-code-title" tabindex="-1">Enter your code</h1>
+            <p class="canon-card-description">The 6-digit code in your authenticator app.</p>
+          </header>
+          <div class="canon-card-body">
+            <form class="ref-auth-form" id="si-code-form" action="#" method="post">
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-code">Verification code</label></div>
+                <div class="canon-otp" data-groups="3 3">
+                  <input type="text" id="si-code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required>
+                </div>
+                <p class="canon-field-message" data-bind="code-message"></p>
+              </div>
+              <div class="canon-choice">
+                <input type="checkbox" id="si-trust" name="trust">
+                <label class="canon-choice-label" for="si-trust">Don't ask again on this device for 30 days</label>
+              </div>
+              <button type="submit" class="canon-button ref-auth-submit" data-emphasis="high"><span class="canon-button-label">Verify</span></button>
+            </form>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p>Lost your device? <a class="canon-link" href="#si-recovery" data-recovery>Use a recovery code</a></p>
+            <p><a class="canon-link" href="#si-signin" data-go="signin" data-standalone>Back to sign in</a></p>
+          </footer>
+        </section>
+
+        <!-- Signed in -->
+        <section class="canon-card ref-view" data-view="done" aria-labelledby="si-done-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-done-title" tabindex="-1">Signed in</h1>
+            <p class="canon-card-description">As <span data-bind="done-email">ada@globex.example</span>.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <label class="canon-spinner-label"><progress class="canon-spinner"></progress>Opening Globex Billing…</label>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-go="signin"><span class="canon-button-label">Start the demo again</span></button>
+          </div>
+        </section>
+
+        <!-- Sign up -->
+        <section class="canon-card ref-view" data-view="signup" aria-labelledby="si-signup-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-signup-title" tabindex="-1">Create your account</h1>
+            <p class="canon-card-description">For Globex Billing.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <form class="ref-auth-form" id="si-signup-form" action="#" method="post">
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-new-email">Work email</label></div>
+                <div class="canon-text-input"><input id="si-new-email" name="email" type="email" autocomplete="email" placeholder required></div>
+                <p class="canon-field-message"></p>
+              </div>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-new-password">Password</label></div>
+                <div class="canon-password">
+                  <input id="si-new-password" name="password" type="password" autocomplete="new-password" placeholder required aria-describedby="si-new-strength si-new-rules">
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="si-new-password" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+                </div>
+                <meter class="canon-password-strength" id="si-new-strength" min="0" max="4" value="0" data-score="rules" aria-label="Password strength"></meter>
+                <div class="canon-password-rules" id="si-new-rules" data-reveal="focus">
+                  <p class="canon-password-rules-title">Your password needs:</p>
+                  <ul>
+                    <li class="canon-password-rule" data-rule="min-length:12">at least 12 characters</li>
+                    <li class="canon-password-rule" data-rule="digit">a number</li>
+                    <li class="canon-password-rule" data-rule="uppercase">an uppercase letter</li>
+                    <li class="canon-password-rule" data-rule="symbol">a symbol</li>
+                  </ul>
+                </div>
+                <p class="canon-field-message"></p>
+              </div>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-new-confirm">Confirm password</label></div>
+                <div class="canon-password">
+                  <input id="si-new-confirm" name="confirm" type="password" autocomplete="new-password" placeholder required data-match="si-new-password">
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="si-new-confirm" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+                </div>
+                <p class="canon-field-message"></p>
+              </div>
+              <button type="submit" class="canon-button ref-auth-submit" data-emphasis="high"><span class="canon-button-label">Create account</span></button>
+            </form>
+            <div class="canon-separator">or</div>
+            <div class="ref-auth-providers">
+              <button type="button" class="canon-button" data-intent="neutral" data-provider="Google"><span class="ref-provider-logo" data-logo="google" aria-hidden="true"></span><span class="canon-button-label">Continue with Google</span></button>
+              <button type="button" class="canon-button" data-intent="neutral" data-provider="GitHub"><span class="ref-provider-logo" data-logo="github" aria-hidden="true"></span><span class="canon-button-label">Continue with GitHub</span></button>
+            </div>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p>Have an account? <a class="canon-link" href="#si-signin" data-go="signin">Sign in</a></p>
+          </footer>
+        </section>
+
+        <!-- Sign up: check your inbox -->
+        <section class="canon-card ref-view" data-view="verify" aria-labelledby="si-verify-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-verify-title" tabindex="-1">Check your inbox</h1>
+            <p class="canon-card-description">We sent a link to <strong data-bind="verify-email">you@globex.example</strong>. Open it to confirm the address is yours.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <button type="button" class="canon-button" data-intent="neutral" data-resend><span class="canon-button-label">Send it again</span></button>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-go="done"><span class="canon-button-label">Demo: open the link</span></button>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p>Wrong address? <a class="canon-link" href="#si-signup" data-go="signup">Start over</a></p>
+          </footer>
+        </section>
+
+        <!-- Forgot password -->
+        <section class="canon-card ref-view" data-view="forgot" aria-labelledby="si-forgot-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-forgot-title" tabindex="-1">Reset your password</h1>
+            <p class="canon-card-description">Enter your email; we'll send you a link to choose a new password.</p>
+          </header>
+          <div class="canon-card-body">
+            <form class="ref-auth-form" id="si-forgot-form" action="#" method="post">
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-forgot-email">Email</label></div>
+                <div class="canon-text-input"><input id="si-forgot-email" name="email" type="email" autocomplete="username" placeholder required></div>
+                <p class="canon-field-message"></p>
+              </div>
+              <button type="submit" class="canon-button ref-auth-submit" data-emphasis="high"><span class="canon-button-label">Send the link</span></button>
+            </form>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p><a class="canon-link" href="#si-signin" data-go="signin" data-standalone>Back to sign in</a></p>
+          </footer>
+        </section>
+
+        <!-- Forgot password: check your email -->
+        <section class="canon-card ref-view" data-view="sent" aria-labelledby="si-sent-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-sent-title" tabindex="-1">Check your email</h1>
+            <p class="canon-card-description">If there's an account for <strong data-bind="sent-email">you@globex.example</strong>, a link to reset its password is on its way. It works for an hour.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <button type="button" class="canon-button" data-intent="neutral" data-resend><span class="canon-button-label">Send it again</span></button>
+            <div class="ref-row">
+              <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-go="reset"><span class="canon-button-label">Demo: open the link</span></button>
+              <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-go="expired"><span class="canon-button-label">Demo: an old link</span></button>
+            </div>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p><a class="canon-link" href="#si-signin" data-go="signin" data-standalone>Back to sign in</a></p>
+          </footer>
+        </section>
+
+        <!-- Reset: a new password -->
+        <section class="canon-card ref-view" data-view="reset" aria-labelledby="si-reset-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-reset-title" tabindex="-1">Choose a new password</h1>
+            <p class="canon-card-description">For <strong data-bind="reset-email">ada@globex.example</strong>.</p>
+          </header>
+          <div class="canon-card-body">
+            <form class="ref-auth-form" id="si-reset-form" action="#" method="post">
+              <input type="text" name="username" autocomplete="username" value="ada@globex.example" hidden>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-reset-password">New password</label></div>
+                <div class="canon-password">
+                  <input id="si-reset-password" name="password" type="password" autocomplete="new-password" placeholder required aria-describedby="si-reset-strength si-reset-rules">
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="si-reset-password" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+                </div>
+                <meter class="canon-password-strength" id="si-reset-strength" min="0" max="4" value="0" data-score="rules" aria-label="Password strength"></meter>
+                <div class="canon-password-rules" id="si-reset-rules">
+                  <p class="canon-password-rules-title">Your password needs:</p>
+                  <ul>
+                    <li class="canon-password-rule" data-rule="min-length:12">at least 12 characters</li>
+                    <li class="canon-password-rule" data-rule="digit">a number</li>
+                    <li class="canon-password-rule" data-rule="uppercase">an uppercase letter</li>
+                    <li class="canon-password-rule" data-rule="symbol">a symbol</li>
+                  </ul>
+                </div>
+                <p class="canon-field-message"></p>
+              </div>
+              <div class="canon-field">
+                <div class="canon-label"><label class="canon-label-text" for="si-reset-confirm">Confirm new password</label></div>
+                <div class="canon-password">
+                  <input id="si-reset-confirm" name="confirm" type="password" autocomplete="new-password" placeholder required data-match="si-reset-password">
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="si-reset-confirm" command="--canon-toggle-password"><span class="canon-icon" data-icon="eye" aria-hidden="true"></span><span class="canon-button-label">Show password</span></button>
+                </div>
+                <p class="canon-field-message"></p>
+              </div>
+              <button type="submit" class="canon-button ref-auth-submit" data-emphasis="high"><span class="canon-button-label">Save the new password</span></button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Reset: the link expired -->
+        <section class="canon-card ref-view" data-view="expired" aria-labelledby="si-expired-title" hidden>
+          <header class="canon-card-header">
+            <h1 class="canon-card-title" id="si-expired-title" tabindex="-1">This link has expired</h1>
+            <p class="canon-card-description">Reset links work for an hour, and only once. Ask for a new one.</p>
+          </header>
+          <div class="canon-card-body ref-auth-body">
+            <button type="button" class="canon-button ref-auth-submit" data-emphasis="high" data-go="forgot"><span class="canon-button-label">Send a new link</span></button>
+          </div>
+          <footer class="canon-card-footer ref-auth-footer">
+            <p><a class="canon-link" href="#si-signin" data-go="signin" data-standalone>Back to sign in</a></p>
+          </footer>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      /* The demo: each step a view of one page, switched by data-go. A
+         short wait stands in for the server. */
+      {
+        const app = document.getElementById("si-app");
+        const views = Object.fromEntries([...app.querySelectorAll(".ref-view")].map((view) => [view.dataset.view, view]));
+        const bind = (name) => app.querySelector(`[data-bind="${name}"]`);
+        const toast = (detail) => document.dispatchEvent(new CustomEvent("canon-toast", { detail }));
+        const wait = (ms) => new Promise((done) => setTimeout(done, ms));
+        let failures = 0;
+
+        const show = (name) => {
+          for (const [key, view] of Object.entries(views)) view.hidden = key !== name;
+          app.scrollTop = 0;
+          /* Focus goes to the step's title, as a new page's would. */
+          views[name].querySelector("h1").focus({ preventScroll: true });
+        };
+        const alertOn = (intent, title, description, { actions = false, role = "alert" } = {}) => {
+          const alert = bind("signin-alert");
+          alert.dataset.intent = intent;
+          alert.setAttribute("role", role);
+          bind("signin-alert-title").textContent = title;
+          bind("signin-alert-description").textContent = description;
+          bind("signin-alert-actions").hidden = !actions;
+          alert.hidden = false;
+        };
+        const alertOff = () => { bind("signin-alert").hidden = true; };
+        /* While the server answers: the button busy and unavailable. */
+        const busy = async (form, ms = 700) => {
+          const button = form.querySelector("[type=submit]");
+          button.setAttribute("aria-busy", "true");
+          button.setAttribute("aria-disabled", "true");
+          await wait(ms);
+          button.removeAttribute("aria-busy");
+          button.removeAttribute("aria-disabled");
+        };
+        const reset = () => {
+          for (const form of app.querySelectorAll("form")) form.reset();
+          for (const input of app.querySelectorAll("input")) input.dispatchEvent(new Event("input", { bubbles: true }));
+          failures = 0;
+          alertOff();
+        };
+
+        app.addEventListener("click", (event) => {
+          const link = event.target.closest("[data-go]");
+          if (!link) return;
+          event.preventDefault();
+          if (link.dataset.go === "forgot") app.querySelector("#si-forgot-email").value = app.querySelector("#si-email").value;
+          if (link.dataset.go === "signin" && !views.done.hidden) reset();
+          if (link.dataset.go !== "signin") alertOff();
+          show(link.dataset.go);
+        });
+        document.querySelector(".ref-auth-starts").addEventListener("click", (event) => {
+          const start = event.target.closest("[data-start]")?.dataset.start;
+          if (!start) return;
+          reset();
+          if (start === "session") alertOn("info", "Your session ended", "Sign in again to pick up where you left off.", { role: "status" });
+          show(start === "expired" ? "expired" : "signin");
+        });
+
+        /* Signing in: a wrong password says so without saying which part
+           was wrong; the third time, it says to wait. */
+        const signIn = document.getElementById("si-signin-form");
+        signIn.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (signIn.querySelector("[aria-busy]")) return;
+          alertOff();
+          await busy(signIn);
+          const password = signIn.elements.password;
+          if (password.value === "wrong") {
+            failures++;
+            if (failures >= 3) alertOn("danger", "Too many tries", "Wait 5 minutes before trying again, or reset your password.", { actions: true });
+            else alertOn("danger", "That email and password don't match", "Check them and try again. Passwords are case-sensitive.");
+            password.value = "";
+            password.focus();
+            return;
+          }
+          bind("done-email").textContent = signIn.elements.email.value;
+          show("code");
+        });
+
+        /* The second step: checked as soon as the sixth digit is in. */
+        const codeForm = document.getElementById("si-code-form");
+        const code = document.getElementById("si-code");
+        const message = bind("code-message");
+        const checkCode = async () => {
+          if (codeForm.querySelector("[aria-busy]")) return;
+          message.textContent = "";
+          message.removeAttribute("data-intent");
+          code.removeAttribute("aria-invalid");
+          await busy(codeForm, 600);
+          if (code.value === "000000") {
+            message.dataset.intent = "danger";
+            message.textContent = "That code didn't work. Try the newest one in your app.";
+            code.setAttribute("aria-invalid", "true");
+            code.value = "";
+            code.dispatchEvent(new Event("input", { bubbles: true }));
+            code.focus();
+            return;
+          }
+          show("done");
+        };
+        code.addEventListener("input", () => { if (/^\d{6}$/.test(code.value)) checkCode(); });
+        codeForm.addEventListener("submit", (event) => { event.preventDefault(); checkCode(); });
+        app.querySelector("[data-recovery]").addEventListener("click", (event) => {
+          event.preventDefault();
+          toast({ intent: "info", title: "Recovery codes aren't in this demo", description: "A field for one of them would replace the code." });
+        });
+
+        /* Creating an account, then confirming the address. */
+        const signUp = document.getElementById("si-signup-form");
+        signUp.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          await busy(signUp);
+          bind("verify-email").textContent = signUp.elements.email.value;
+          bind("done-email").textContent = signUp.elements.email.value;
+          show("verify");
+        });
+
+        /* Forgetting: the same answer whether there's an account or not. */
+        const forgot = document.getElementById("si-forgot-form");
+        forgot.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          await busy(forgot);
+          bind("sent-email").textContent = forgot.elements.email.value;
+          show("sent");
+        });
+        /* Sending again: unavailable for 30 seconds, counting down. */
+        for (const button of app.querySelectorAll("[data-resend]")) {
+          button.addEventListener("click", () => {
+            if (button.getAttribute("aria-disabled") === "true") return;
+            toast({ intent: "success", title: "Sent again", description: "It can take a minute to arrive." });
+            const label = button.querySelector(".canon-button-label");
+            let left = 30;
+            button.setAttribute("aria-disabled", "true");
+            const tick = () => {
+              if (left === 0) {
+                button.removeAttribute("aria-disabled");
+                label.textContent = "Send it again";
+                return;
+              }
+              label.textContent = `Send again in ${left--}s`;
+              setTimeout(tick, 1000);
+            };
+            tick();
+          });
+        }
+
+        /* A new password, then signing in with it. */
+        const resetForm = document.getElementById("si-reset-form");
+        resetForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          await busy(resetForm);
+          resetForm.reset();
+          alertOn("success", "Password changed", "Sign in with your new password.", { role: "status" });
+          show("signin");
+        });
+
+        for (const button of app.querySelectorAll("[data-provider]")) {
+          button.addEventListener("click", () => {
+            toast({ intent: "info", title: `${button.dataset.provider} isn't in this demo`, description: "In an app, this goes to its sign-in page and back." });
+          });
+        }
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sign-in">
+    <h2>Signing in</h2>
+    <p class="ref-note">Two <a href="field.html">Fields</a>: the email (<code>autocomplete="username"</code>) and a <a href="password.html">Password</a> with <code>autocomplete="current-password"</code>, so password managers fill them. No rules and no strength meter here: they're for choosing a password, not typing one in. The way out, "Forgot password?", is the password Field's own action, beside its label. Password warns when Caps Lock is on.</p>
+    <p class="ref-note">While the server answers, the Button is busy (<code>aria-busy</code>) and unavailable, so it isn't sent twice. A wrong password shows an <a href="alert.html">Alert</a> (<code>role="alert"</code>) that doesn't say which of the two was wrong, empties the password and puts focus back in it. After three, the Alert says to wait, and offers the reset.</p>
+    <p class="ref-note">Other providers go after a <a href="separator.html">Separator</a> with "or", as Buttons whose words say where they go, each with its provider's mark (decoration: <code>aria-hidden</code>, in the Button's text color). "Keep me signed in" is a <a href="checkbox.html">Checkbox</a>: it's sent with the form, unlike a Switch.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="second-step">
+    <h2>The second step</h2>
+    <p class="ref-note">An <a href="input-otp.html">Input OTP</a> with <code>autocomplete="one-time-code"</code>, so a code the device received fills in by itself. It's checked as soon as the last digit is in (the Button is there too). A wrong code is the Field's error, and the code empties for another try. Lost devices have a way out: a recovery code.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="sign-up">
+    <h2>Creating an account</h2>
+    <p class="ref-note">The new password shows what it needs while it has focus (<code>data-reveal="focus"</code>): its rules, checked as people type, and a strength meter scored from them. The confirmation only says whether it matches (<code>data-match</code>). Both use <code>autocomplete="new-password"</code>, so a password manager can make one up. Afterwards, a step that says where the confirmation went, with a way to send it again.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="reset">
+    <h2>Resetting a password</h2>
+    <p class="ref-note">Asking for a link says the same whether or not there's an account for that email, so the page can't be used to find out who has one. Sending again waits 30 seconds, counting down on its Button. The link opens "Choose a new password" (its rules shown at once: it's all the page is for), then sign in, with an Alert that says the password changed. An old link gets a page of its own, with a way to ask for a new one.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>The page's states</h2>
+    <p class="ref-note">A session that ended brings people back to sign in with an Alert that says so (<code>role="status"</code>: it's news, not an error), and back where they were afterwards. Each step's title takes focus when it opens, as a new page's would; each step is its own address.</p>
+  </section>
+
+</main>
+</body>
+</html>

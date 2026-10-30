@@ -1,0 +1,47 @@
+/* ==================================================================== */
+/* Popover                                                              */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The Menu panel (white, dark zinc-900; corners 8 / 12 / 16; a
+     hairline edge and the floating shadow), 4px
+     under its button; inside, Form Layout's spacing: 12 / 16 / 20px of
+     padding and between what it holds, a form's actions a step under its
+     fields (not a section's). The title Form Layout's section title. As
+     wide as what it holds, at most 24rem. */
+  .canon-popover {
+    margin-block: 0.25rem;
+    padding: calc(var(--canon-theme-form-gap) - 1px);
+    inline-size: max-content;
+    max-inline-size: min(24rem, calc(100vw - 1rem));
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-popover > * + * {
+    margin-block-start: var(--canon-theme-form-gap);
+  }
+  .canon-popover .canon-form > * + .canon-form-actions {
+    margin-block-start: var(--canon-theme-form-gap);
+  }
+  .canon-popover-title {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-theme-form-title-size);
+    font-weight: 600;
+    line-height: var(--canon-theme-form-title-line-height);
+    letter-spacing: var(--canon-theme-label-tracking);
+  }
+  .canon-popover > p {
+    margin-block-end: 0;
+  }
+  .canon-popover > p:first-child {
+    margin-block-start: 0;
+  }
+}

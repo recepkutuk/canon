@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Banner reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Banner</h1>
+  <p class="ref-note">A message about the whole app, across the top of every page while it's true. Specification: <a href="../docs/components/banner.md">docs/components/banner.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="banner">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;div class="canon-banner"&gt;</code> first in what holds the app, before the <a href="app-shell.html">App Shell</a>: a title, a description beside it, actions and a close button at the end. canon.js keeps it in view: it sticks to the top, and the shell's sidebar and <a href="top-bar.html">Top Bar</a> stick under it. Scroll the frame to try it; dismiss it and the shell moves back up.</p>
+
+    <div class="ref-shell-frame ref-shell-frame-short">
+      <div class="canon-banner" data-intent="warning">
+        <p class="canon-banner-title">Maintenance tonight, 22:00–23:00</p>
+        <p class="canon-banner-description">Invoices can't be sent during that hour.</p>
+        <div class="canon-banner-actions"><a class="canon-link" href="#banner">Details</a></div>
+        <button type="button" class="canon-banner-close"></button>
+      </div>
+      <div class="canon-app-shell">
+        <div class="canon-sidebar" id="bn-sidebar">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#banner"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Corporation</span></a>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#banner" aria-current="page"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a></li>
+                <li><a class="canon-nav-list-item" href="#banner"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span></a></li>
+                <li><a class="canon-nav-list-item" href="#banner"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Companies</span></a></li>
+                <li><a class="canon-nav-list-item" href="#banner"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="canon-sidebar-footer">
+            <nav class="canon-nav-list" aria-label="Help and settings">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#banner"><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-nav-list-label">Help</span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <header class="canon-top-bar">
+          <div class="canon-top-bar-start">
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="bn-sidebar" command="--canon-toggle-sidebar" aria-controls="bn-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-top-bar-end">
+            <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span></button>
+          </div>
+        </header>
+        <main class="ref-shell-content">
+          <h1>Dashboard</h1>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box"></div>
+          <div class="ref-shell-box ref-shell-box-wide"></div>
+          <div class="ref-shell-box ref-shell-box-wide"></div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="intents">
+    <h2>Intents</h2>
+    <p class="ref-note"><code>data-intent</code> tints the strip and gives it its icon, whose word screen readers hear first ("Warning: Maintenance tonight"). With none it's plain news.</p>
+
+    <div class="ref-banners">
+      <div class="canon-banner">
+        <p class="canon-banner-title">The new reports are here</p>
+        <p class="canon-banner-description">Find them under Insights.</p>
+        <div class="canon-banner-actions"><a class="canon-link" href="#intents">Take a look</a></div>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="info">
+        <p class="canon-banner-title">Your trial ends in 5 days</p>
+        <div class="canon-banner-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Choose a plan</span></button></div>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="success">
+        <p class="canon-banner-title">Payments are back to normal</p>
+        <p class="canon-banner-description">Everything delayed this morning has gone through.</p>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="warning">
+        <p class="canon-banner-title">Maintenance tonight, 22:00–23:00</p>
+        <p class="canon-banner-description">Invoices can't be sent during that hour.</p>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="danger">
+        <p class="canon-banner-title">Payments are delayed</p>
+        <p class="canon-banner-description">The bank is slow to answer; nothing is lost.</p>
+        <div class="canon-banner-actions"><a class="canon-link" href="#intents">Status page</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Emphasis</h2>
+    <p class="ref-note"><code>data-emphasis="high"</code> fills it, for the banner that must not be missed: a state that changes what everything in the app does. These have no close button: they stay while the state does.</p>
+
+    <div class="ref-banners">
+      <div class="canon-banner" data-emphasis="high">
+        <p class="canon-banner-title">Viewing as Ana Duarte</p>
+        <p class="canon-banner-description">You see what she sees; nothing you do is saved as her.</p>
+        <div class="canon-banner-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Stop viewing</span></button></div>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="danger" data-emphasis="high">
+        <p class="canon-banner-title">This workspace is read-only</p>
+        <p class="canon-banner-description">The last payment failed.</p>
+        <div class="canon-banner-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Update the card</span></button></div>
+      </div>
+    </div>
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="warning" data-emphasis="high">
+        <p class="canon-banner-title">You're in the staging environment</p>
+        <p class="canon-banner-description">Changes here don't reach customers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="stacked">
+    <h2>Several</h2>
+    <p class="ref-note">Banners stack, the most important first, each sticking under the one before. Two at most. A close button only on news that can be put away; canon.js names it, fires a cancelable <code>canon-dismiss</code> and hides the banner. Remembering that across pages is the app's.</p>
+
+    <div class="ref-banners">
+      <div class="canon-banner" data-intent="danger" data-emphasis="high">
+        <p class="canon-banner-title">This workspace is read-only</p>
+        <div class="canon-banner-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Update the card</span></button></div>
+      </div>
+      <div class="canon-banner">
+        <p class="canon-banner-title">The new reports are here</p>
+        <div class="canon-banner-actions"><a class="canon-link" href="#stacked">Take a look</a></div>
+        <button type="button" class="canon-banner-close"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the icon is on the right and the actions on the left. In a narrow window the description goes under the title, then the actions under it.</p>
+
+    <div class="ref-banners" dir="rtl" lang="ar">
+      <div class="canon-banner" data-intent="warning">
+        <p class="canon-banner-title">صيانة الليلة، ٢٢:٠٠–٢٣:٠٠</p>
+        <p class="canon-banner-description">لا يمكن إرسال الفواتير خلال تلك الساعة.</p>
+        <div class="canon-banner-actions"><a class="canon-link" href="#edge-cases">التفاصيل</a></div>
+        <button type="button" class="canon-banner-close"></button>
+      </div>
+    </div>
+    <div class="ref-banners" style="max-inline-size: 22rem">
+      <div class="canon-banner" data-intent="info">
+        <p class="canon-banner-title">Your trial ends in 5 days</p>
+        <p class="canon-banner-description">Choose a plan to keep your invoices.</p>
+        <div class="canon-banner-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Choose a plan</span></button></div>
+        <button type="button" class="canon-banner-close"></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

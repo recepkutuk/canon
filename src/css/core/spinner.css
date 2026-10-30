@@ -1,0 +1,45 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Spinner                                                             */
+  /*                                                                     */
+  /* A <progress> with no value: working, for how long unknown. The      */
+  /* browser's bar is cleared for the theme to draw on the element; its  */
+  /* size follows the text (1em) unless the theme sizes it. Words beside */
+  /* it: a .canon-spinner-label (a <label>) around it. It shows after    */
+  /* 0.4s (most waits end sooner), when it's put in the page or shown:   */
+  /* data-delay="none" shows it at once.                                 */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-spinner) {
+    appearance: none;
+    box-sizing: border-box;
+    display: inline-block;
+    flex: none;
+    inline-size: 1em;
+    block-size: 1em;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: -0.125em;
+  }
+  :where(.canon-spinner)::-webkit-progress-bar,
+  :where(.canon-spinner)::-webkit-progress-value {
+    background: transparent;
+  }
+  :where(.canon-spinner)::-moz-progress-bar {
+    background: transparent;
+  }
+  :where(.canon-spinner-label) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  :where(.canon-spinner, .canon-spinner-label) {
+    transition: opacity 0s 0.4s;
+  }
+  @starting-style {
+    :where(.canon-spinner, .canon-spinner-label) {
+      opacity: 0;
+    }
+  }
+}

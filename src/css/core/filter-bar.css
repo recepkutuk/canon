@@ -1,0 +1,64 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Filter Bar                                                         */
+  /*                                                                    */
+  /* A search form (role="search") above a list: a search field,        */
+  /* facets (a button opening a popover of choices), Toggle Chips,      */
+  /* Clear all and a result count, in a wrapping row. data-align="end" */
+  /* sends an item and what follows to the far end. canon.js shows each */
+  /* facet's choice on its button and fires canon-filter; without it    */
+  /* the Apply button submits the form.                                 */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-filter-bar) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  :where(.canon-filter-bar) > :where([data-align="end"]) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-filter-bar-facet) {
+    display: inline-flex;
+    max-inline-size: 100%;
+  }
+  :where(.canon-filter-bar-button) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  :where(.canon-filter-bar-button) > :where(.canon-icon) {
+    flex: none;
+  }
+  :where(.canon-filter-bar-value) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-filter-bar-value:empty) {
+    display: none;
+  }
+  /* Clear all only while something is chosen. */
+  :where(.canon-filter-bar:not([data-active])) > :where([command="--canon-clear"]) {
+    display: none;
+  }
+  /* Apply submits the form without scripting; with it, changes apply
+     as they happen. */
+  @media (scripting: enabled) {
+    :where(.canon-filter-bar-apply) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Banner                                                              */
+  /*                                                                     */
+  /* A message about the whole app, first in what holds the App Shell    */
+  /* (the <body>), across it. One line that wraps: the theme's icon      */
+  /* (::before, from data-intent, named with the intent's word), the     */
+  /* title, the description beside it, the actions at the end, the close */
+  /* button last. canon.js marks their parent data-canon-banners and     */
+  /* measures them: each sticks at --canon-banner-offset (under the ones */
+  /* before it), and --canon-banners-height on the parent moves the App  */
+  /* Shell's sticky parts under them. Without it they scroll away.       */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-banner) {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-wrap: break-word;
+  }
+  :where([data-canon-banners]) > :where(.canon-banner) {
+    position: sticky;
+    inset-block-start: var(--canon-banner-offset, 0px);
+    z-index: 5;
+  }
+  :where(.canon-banner[hidden]) {
+    display: none;
+  }
+  :where(.canon-banner[data-intent])::before {
+    flex: none;
+  }
+  :where(.canon-banner[data-intent="info"])::before { content: "" / var(--canon-text-intent-info); }
+  :where(.canon-banner[data-intent="success"])::before { content: "" / var(--canon-text-intent-success); }
+  :where(.canon-banner[data-intent="warning"])::before { content: "" / var(--canon-text-intent-warning); }
+  :where(.canon-banner[data-intent="danger"])::before { content: "" / var(--canon-text-intent-danger); }
+  :where(.canon-banner-title, .canon-banner-description) {
+    margin: 0;
+    min-inline-size: 0;
+  }
+  :where(.canon-banner-actions) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-inline-start: auto;
+  }
+  :where(.canon-banner-close) {
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  /* No actions: the close button goes to the end by itself. */
+  :where(.canon-banner:not(:has(> .canon-banner-actions))) > :where(.canon-banner-close) {
+    margin-inline-start: auto;
+  }
+  @media (scripting: none) {
+    :where(.canon-banner-close) {
+      display: none;
+    }
+  }
+}

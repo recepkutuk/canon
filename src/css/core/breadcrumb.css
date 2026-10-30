@@ -1,0 +1,51 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Breadcrumb                                                         */
+  /*                                                                    */
+  /* <nav class="canon-breadcrumb"> with an <ol> of <li>s: links, the   */
+  /* current page last (aria-current="page"), and optionally a button   */
+  /* (.canon-breadcrumb-more) that opens a Menu of the pages left out.  */
+  /* The separators between items are the theme's (li + li::before).    */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-breadcrumb) {
+    display: flex;
+    align-items: center;
+  }
+  :where(.canon-breadcrumb) > :where(ol) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  :where(.canon-breadcrumb) :where(li) {
+    display: inline-flex;
+    align-items: center;
+    min-inline-size: 0;
+  }
+  :where(.canon-breadcrumb) :where(li + li)::before {
+    content: "";
+    flex: none;
+  }
+  :where(.canon-breadcrumb) :where(a) {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+  :where(.canon-breadcrumb-more) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+}

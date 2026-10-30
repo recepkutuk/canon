@@ -1,0 +1,62 @@
+/* ==================================================================== */
+/* Empty State                                                          */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The icon in a
+     soft hexagon (zinc-100 fading to the surface; dark zinc-800), the
+     icon zinc-400 (dark zinc-500); the title medium zinc-900 (dark
+     white), the description zinc-500 (dark zinc-400), Text Input's type.
+     The hexagon 5 / 6 / 7rem with icons 2 / 2.5 / 3rem; an
+     error (data-intent="danger") tints both red; actions a field step
+     under the text. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-empty-badge: 6rem;
+    --canon-theme-empty-icon: 2.5rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-empty-badge: 5rem;
+    --canon-theme-empty-icon: 2rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-empty-badge: 7rem;
+    --canon-theme-empty-icon: 3rem;
+  }
+  .canon-empty-state {
+    gap: 0.25rem;
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-empty-state-icon {
+    display: grid;
+    place-items: center;
+    inline-size: var(--canon-theme-empty-badge);
+    block-size: var(--canon-theme-empty-badge);
+    margin-block-end: 0.75rem;
+    background: radial-gradient(circle at 50% 65%, light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)) 0%, light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800)) 70%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-empty-state-icon > .canon-icon {
+    --canon-icon-size: var(--canon-theme-empty-icon);
+  }
+  .canon-empty-state[data-intent="danger"] .canon-empty-state-icon {
+    background: radial-gradient(circle at 50% 65%, light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)) 0%, light-dark(var(--canon-theme-red-50), color-mix(in srgb, var(--canon-theme-red-500) 15%, var(--canon-theme-zinc-900))) 70%);
+    color: light-dark(var(--canon-theme-red-500), var(--canon-theme-red-400));
+  }
+  .canon-empty-state-title {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-weight: 500;
+  }
+  .canon-empty-state-description {
+    max-inline-size: 32rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-empty-state-actions {
+    gap: 0.5rem;
+    margin-block-start: var(--canon-theme-form-gap);
+  }
+}

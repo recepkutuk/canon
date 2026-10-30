@@ -1,0 +1,122 @@
+/* ==================================================================== */
+/* Dialog                                                               */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* White (dark zinc-900)
+     with a hairline edge and the overlay shadow, 24px corners; the page
+     behind it white at 85%
+     (dark zinc-950 at 75%) and blurred 4px. Header: 16 / 16 / 16 / 24
+     inside, the title 16px semibold (24px lines) zinc-900 (dark white),
+     the close button a minimal neutral Button, a hairline rule under it.
+     Body 24px inside; sections 24px inside with a hairline rule between
+     them. Footer: 24px inside under a hairline rule, buttons 12px apart (Cancel:
+     a low neutral Button). Widths 400 / 640 / 896 (sm, md, lg);
+     opening, the dialog fades in from 98% (0.15s) and the backdrop fades;
+     with reduced motion they only fade. */
+  .canon-dialog {
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: 1.5rem;
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-overlay);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+    transition: opacity 0.15s ease-out, scale 0.15s ease-out, display 0.15s allow-discrete, overlay 0.15s allow-discrete;
+  }
+  .canon-dialog:not([open]) {
+    opacity: 0;
+    scale: 0.98;
+  }
+  .canon-dialog::backdrop {
+    background-color: light-dark(rgb(255 255 255 / 0.85), rgb(9 9 11 / 0.75));
+    backdrop-filter: blur(4px);
+    transition: opacity 0.15s ease-out, display 0.15s allow-discrete, overlay 0.15s allow-discrete;
+  }
+  .canon-dialog:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    .canon-dialog[open] {
+      opacity: 0;
+      scale: 0.98;
+    }
+    .canon-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  /* Lines take no height (72px header, 88px footer). */
+  .canon-dialog-header {
+    column-gap: 1rem;
+    padding-block: 1rem calc(1rem - 1px);
+    padding-inline: 1.5rem 1rem;
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* Without a close button the header keeps its height. */
+  .canon-dialog-header:not(:has(> .canon-button)) {
+    min-block-size: calc(var(--canon-control-block-size) + 2rem);
+    align-content: center;
+  }
+  .canon-dialog-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    letter-spacing: -0.004em;
+  }
+  /* Body and sections stack what they hold 24px apart. */
+  .canon-dialog-body,
+  .canon-dialog-section {
+    display: grid;
+    align-content: start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  .canon-dialog-body:has(> .canon-dialog-section) {
+    gap: 0;
+    padding: 0;
+  }
+  .canon-dialog-section + .canon-dialog-section {
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-dialog-footer {
+    gap: 0.75rem;
+    padding: calc(1.5rem - 1px) 1.5rem 1.5rem;
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  /* Drawer: the dialog's
+     panel (hairline edge, overlay shadow, 24px corners all round)
+     floating 8px from the window's top, side and bottom, 320 / 480 / 640px
+     wide (sm, md, lg). It slides in from its edge (0.25s) while the
+     backdrop fades; none with reduced motion. */
+  .canon-dialog[data-side] {
+    --canon-drawer-inset: 0.5rem;
+    --_away: calc(100% + 2 * var(--canon-drawer-inset));
+    transition: translate 0.25s ease-out, display 0.25s allow-discrete, overlay 0.25s allow-discrete;
+  }
+  .canon-dialog[data-side]:not([open]) {
+    opacity: 1;
+    scale: none;
+  }
+  .canon-dialog[data-side="end"]:not([open]) { translate: var(--_away) 0; }
+  .canon-dialog[data-side="start"]:not([open]) { translate: calc(-1 * var(--_away)) 0; }
+  .canon-dialog[data-side="end"]:dir(rtl):not([open]) { translate: calc(-1 * var(--_away)) 0; }
+  .canon-dialog[data-side="start"]:dir(rtl):not([open]) { translate: var(--_away) 0; }
+  @starting-style {
+    .canon-dialog[data-side][open] {
+      opacity: 1;
+      scale: none;
+    }
+    .canon-dialog[data-side="end"][open] { translate: var(--_away) 0; }
+    .canon-dialog[data-side="start"][open] { translate: calc(-1 * var(--_away)) 0; }
+    .canon-dialog[data-side="end"][open]:dir(rtl) { translate: calc(-1 * var(--_away)) 0; }
+    .canon-dialog[data-side="start"][open]:dir(rtl) { translate: var(--_away) 0; }
+  }
+  /* With reduced motion a dialog and its backdrop only fade, and a drawer
+     doesn't slide: it comes and goes at once, its backdrop fading. */
+  @media (prefers-reduced-motion: reduce) {
+    .canon-dialog { transition: opacity 0.15s ease-out, display 0.15s allow-discrete, overlay 0.15s allow-discrete; }
+    .canon-dialog[data-side] { transition: none; }
+  }
+}

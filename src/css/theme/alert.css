@@ -1,0 +1,172 @@
+/* ==================================================================== */
+/* Alert                                                                */
+/* ==================================================================== */
+
+@layer canon.theme {
+  /* A Toast's look, in the page. The Card's surface (white,
+     dark zinc-900) and hairline edge, 12px corners; with an intent, the
+     intent's bar 4px out at its start (500, dark 400) and its icon (info
+     blue, success green, warning amber, danger red). No
+     shadow: it's part of the page, not over it. 12px inside (the close
+     button 8px in); icon 20px; text 14px on 20px lines. */
+  .canon-alert {
+    --_icon: none;
+    --_tone: currentColor;
+    --_bar: transparent;
+    --_bar-x: -4px;
+    --_lead: 0px;
+    padding: 0.75rem;
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: 0.75rem;
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--_bar-x) 0 0 0 var(--_bar);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: -0.006em;
+  }
+  .canon-alert:has(> .canon-alert-close) {
+    padding-inline-end: 0.5rem;
+  }
+  .canon-alert:dir(rtl) {
+    --_bar-x: 4px;
+  }
+  .canon-alert[data-intent]::before {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    background-color: var(--_tone);
+    mask: var(--_icon) center / contain no-repeat;
+  }
+  .canon-alert[data-intent="info"]    { --_bar: light-dark(var(--canon-theme-blue-500), var(--canon-theme-blue-400));   --_tone: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));   --_icon: var(--canon-theme-icon-info); }
+  .canon-alert[data-intent="success"] { --_bar: light-dark(var(--canon-theme-green-500), var(--canon-theme-green-400)); --_tone: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400)); --_icon: var(--canon-theme-icon-circle-check); }
+  .canon-alert[data-intent="warning"] { --_bar: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400)); --_tone: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400)); --_icon: var(--canon-theme-icon-triangle-alert); }
+  .canon-alert[data-intent="danger"]  { --_bar: light-dark(var(--canon-theme-red-500), var(--canon-theme-red-400));     --_tone: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));     --_icon: var(--canon-theme-icon-circle-alert); }
+  .canon-alert-title {
+    font-weight: 500;
+  }
+  .canon-alert-description {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-alert-description > :is(ul, ol) {
+    padding-inline-start: 1.25rem;
+  }
+  .canon-alert-description > * + * {
+    margin-block-start: 0.25rem;
+  }
+  /* Parts 12px apart; the text 12px after the icon, when there is one.
+     Actions after the text, centered on it (a small button overhangs a
+     single line evenly); under 20rem, under the text. */
+  .canon-alert[data-intent] {
+    --_lead: 0.75rem;
+  }
+  .canon-alert > :is(.canon-alert-title, .canon-alert-description) {
+    margin-inline-start: var(--_lead);
+  }
+  .canon-alert > .canon-alert-close {
+    margin-inline-start: 0.75rem;
+  }
+  .canon-alert-actions {
+    gap: 0.5rem;
+    margin-block: -0.375rem;
+    margin-inline-start: 0.75rem;
+  }
+  @container canon-alert (width < 20rem) {
+    .canon-alert-actions {
+      margin-block: 0.5rem 0;
+      margin-inline-start: var(--_lead);
+    }
+  }
+  /* The close button: a minimal icon button, 28px, the X in zinc-500. */
+  .canon-alert-close {
+    display: grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    margin-block: -0.25rem;
+    border-radius: 0.375rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    transition: background-color 0.12s, color 0.12s;
+  }
+  .canon-alert-close::before {
+    content: "";
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-x) center / contain no-repeat;
+  }
+  @media (hover: hover) {
+    .canon-alert-close:hover {
+      background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-alert-close:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  /* data-emphasis="high": Toast's solid fill. The intent's 600 (warning
+     amber-400 with amber-950 text), white text and icon, the description
+     at 80%; no intent, inverted (zinc-900 with white text; dark the
+     reverse). The close button takes its colors; an action is the
+     inverse, filled with the text's color, labelled in the fill's. For
+     the alert that must not be missed: the page can't be used until it's
+     dealt with. */
+  .canon-alert[data-emphasis="high"] {
+    --_solid: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_on: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    border-color: var(--_solid);
+    background-color: var(--_solid);
+    color: var(--_on);
+    box-shadow: none;
+  }
+  .canon-alert[data-emphasis="high"][data-intent="info"]    { --_solid: var(--canon-theme-blue-600); --_on: var(--canon-theme-white); }
+  .canon-alert[data-emphasis="high"][data-intent="success"] { --_solid: var(--canon-theme-green-600); --_on: var(--canon-theme-white); }
+  .canon-alert[data-emphasis="high"][data-intent="warning"] { --_solid: var(--canon-theme-amber-400); --_on: var(--canon-theme-amber-950); }
+  .canon-alert[data-emphasis="high"][data-intent="danger"]  { --_solid: var(--canon-theme-red-600); --_on: var(--canon-theme-white); }
+  .canon-alert[data-emphasis="high"]::before {
+    background-color: var(--_on);
+  }
+  .canon-alert[data-emphasis="high"] > :is(.canon-alert-description, .canon-alert-close) {
+    color: color-mix(in srgb, var(--_on) 80%, transparent);
+  }
+  @media (hover: hover) {
+    .canon-alert[data-emphasis="high"] > .canon-alert-close:hover {
+      background-color: color-mix(in srgb, var(--_on) 15%, transparent);
+      color: var(--_on);
+    }
+  }
+  .canon-alert[data-emphasis="high"] > .canon-alert-close:focus-visible {
+    box-shadow: 0 0 0 2px var(--_solid), 0 0 0 3px var(--_on);
+  }
+  .canon-alert[data-emphasis="high"] :is(.canon-alert-description, .canon-alert-title) .canon-link {
+    color: inherit;
+  }
+  .canon-alert[data-emphasis="high"] > .canon-alert-actions .canon-button {
+    --canon-theme-fg: var(--_solid);
+    --canon-theme-bg: var(--_on);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_on) 88%, var(--_solid));
+    --canon-theme-bg-active: color-mix(in srgb, var(--_on) 78%, var(--_solid));
+    --canon-theme-border: transparent;
+    --canon-theme-ring-offset: var(--_solid);
+    --canon-theme-ring: var(--_on);
+    --_icon: var(--_solid);
+  }
+
+  /* Forced colors: the bar (a shadow) is gone, so the line takes the
+     intent's place in shape: 4px thick at the start; the icon in the
+     text's color. */
+  @media (forced-colors: active) {
+    .canon-alert[data-intent] {
+      border-inline-start-width: 4px;
+    }
+    .canon-alert[data-intent]::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+    .canon-alert-close::before {
+      forced-color-adjust: none;
+      background-color: ButtonText;
+    }
+  }
+}

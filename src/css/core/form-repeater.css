@@ -1,0 +1,72 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Form Repeater                                                      */
+  /*                                                                    */
+  /* .canon-repeater: items (.canon-repeater-item) and an Add button    */
+  /* (command="--canon-add"), which copies the first item (or a         */
+  /* <template>, for a list that starts empty). An item is a            */
+  /* row of Fields (or bare boxes) and a Remove button (command=        */
+  /* "--canon-remove"). Each item is a grid                             */
+  /* of three rows, label / box / message, that its Fields share        */
+  /* (subgrid), so boxes line up whatever their labels and messages.    */
+  /* Columns are equal unless --canon-repeater-columns says otherwise   */
+  /* (2fr 3fr). Labels show on the first item only: the column headers; */
+  /* later items keep theirs for screen readers. The Remove button sits */
+  /* at the end of the box row, in padding kept for it.                 */
+  /* canon.js adds and removes items, hiding Add at data-max and Remove */
+  /* at data-min (1 by default).                                        */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-repeater) {
+    --canon-repeater-gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: var(--canon-repeater-gap);
+    min-inline-size: 0;
+  }
+  :where(.canon-repeater-item) {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: var(--canon-repeater-columns, none);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    column-gap: var(--canon-repeater-gap);
+    align-self: stretch;
+    min-inline-size: 0;
+  }
+  :where(.canon-repeater-item) > :where(.canon-field) {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+  :where(.canon-repeater-item) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-otp, .canon-number) {
+    grid-row: 2;
+    align-self: end;
+  }
+  :where(.canon-repeater-item:has(> button[command="--canon-remove"]:not([hidden]))) {
+    padding-inline-end: calc(var(--canon-repeater-remove-size, var(--canon-control-block-size)) + var(--canon-repeater-gap));
+  }
+  /* Both lines: an absolutely positioned item's auto line is the edge. */
+  :where(.canon-repeater-item) > :where(button[command="--canon-remove"]) {
+    position: absolute;
+    grid-row: 2 / 3;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+  }
+  :where(.canon-repeater-item ~ .canon-repeater-item) > :where(.canon-field) > :where(.canon-label) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Without scripting these buttons are hidden like every Canon command. */
+  :where(.canon-repeater) :where(button[command="--canon-add"], button[command="--canon-remove"])[hidden] {
+    display: none;
+  }
+}

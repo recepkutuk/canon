@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Toggle Chip reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Toggle Chip</h1>
+  <p class="ref-note">Options you turn on and off, drawn as chips: quick filters (Remote, Full-time), interests, categories. Each chip is a checkbox, or a radio when only one can be on; its value is sent with the form, and it works without scripting. Specification: <a href="../docs/components/toggle-chip.md">docs/components/toggle-chip.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="toggle-chip">
+    <h2>Basics</h2>
+    <p class="ref-note">Each chip is a <code>&lt;label class="canon-toggle-chip"&gt;</code> around its checkbox and a <code>.canon-toggle-chip-label</code>. A set of chips sits in a <code>.canon-toggle-chips</code> with <code>role="group"</code> and a name; it wraps onto more rows. Chosen chips show a check, so the state reads by more than color. Tab moves from chip to chip; Space turns one on or off.</p>
+
+    <div class="canon-toggle-chips" role="group" aria-label="Job type">
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="job-type" value="remote" checked>
+        <span class="canon-toggle-chip-label">Remote</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="job-type" value="full-time" checked>
+        <span class="canon-toggle-chip-label">Full-time</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="job-type" value="part-time">
+        <span class="canon-toggle-chip-label">Part-time</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="job-type" value="contract">
+        <span class="canon-toggle-chip-label">Contract</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="job-type" value="internship">
+        <span class="canon-toggle-chip-label">Internship</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="single">
+    <h2>A single chip</h2>
+    <p class="ref-note">One chip on its own needs no group: its label says what it turns on.</p>
+
+    <div class="ref-row">
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="unread-only" value="1">
+        <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+        <span class="canon-toggle-chip-label">Unread only</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="icons">
+    <h2>Icons</h2>
+    <p class="ref-note">An icon before the text, <code>aria-hidden="true"</code>, after the input. When the chip is on, the check takes the icon's place.</p>
+
+    <div class="canon-toggle-chips" role="group" aria-label="Show">
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="show" value="starred" checked>
+        <span class="canon-icon" data-icon="star" aria-hidden="true"></span>
+        <span class="canon-toggle-chip-label">Starred</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="show" value="pinned">
+        <span class="canon-icon" data-icon="pin" aria-hidden="true"></span>
+        <span class="canon-toggle-chip-label">Pinned</span>
+      </label>
+      <label class="canon-toggle-chip">
+        <input type="checkbox" name="show" value="tagged">
+        <span class="canon-icon" data-icon="tag" aria-hidden="true"></span>
+        <span class="canon-toggle-chip-label">Tagged</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="one">
+    <h2>One at a time</h2>
+    <p class="ref-note">Radios instead of checkboxes, in a <code>role="radiogroup"</code>: choosing one releases the others, and the arrow keys move between them. For a few short options that fit one row, a <a href="segmented-control.html">Segmented Control</a> reads better; chips suit a longer set that wraps.</p>
+
+    <div class="canon-toggle-chips" role="radiogroup" aria-label="Size">
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="xs"><span class="canon-toggle-chip-label">XS</span></label>
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="s"><span class="canon-toggle-chip-label">S</span></label>
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="m" checked><span class="canon-toggle-chip-label">M</span></label>
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="l"><span class="canon-toggle-chip-label">L</span></label>
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="xl"><span class="canon-toggle-chip-label">XL</span></label>
+      <label class="canon-toggle-chip"><input type="radio" name="tee-size" value="xxl" disabled><span class="canon-toggle-chip-label">XXL</span></label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="field">
+    <h2>In a field</h2>
+    <p class="ref-note">In a <a href="field.html">Field</a>, the set takes the box's place and is named by the field's label: a <code>&lt;span id&gt;</code> the group points at with <code>aria-labelledby</code>.</p>
+
+    <div class="ref-stack" style="max-inline-size: 30rem">
+      <div class="canon-field">
+        <div class="canon-label">
+          <span class="canon-label-text" id="topics-label">Topics</span>
+          <p class="canon-label-description" id="topics-description">Pick as many as you like.</p>
+        </div>
+        <div class="canon-toggle-chips" role="group" aria-labelledby="topics-label" aria-describedby="topics-description">
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="design" checked><span class="canon-toggle-chip-label">Design</span></label>
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="engineering"><span class="canon-toggle-chip-label">Engineering</span></label>
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="research" checked><span class="canon-toggle-chip-label">Research</span></label>
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="product"><span class="canon-toggle-chip-label">Product</span></label>
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="marketing"><span class="canon-toggle-chip-label">Marketing</span></label>
+          <label class="canon-toggle-chip"><input type="checkbox" name="topics" value="data"><span class="canon-toggle-chip-label">Data</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on a chip, the set or a container: chips 24 / 32 / 40 tall, a little shorter than a button.</p>
+
+    <div class="ref-stack" style="max-inline-size: none">
+      <div class="canon-toggle-chips" role="group" aria-label="Job type, small" data-size="sm">
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-sm" value="remote" checked><span class="canon-toggle-chip-label">Remote</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-sm" value="full-time"><span class="canon-toggle-chip-label">Full-time</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-sm" value="contract"><span class="canon-toggle-chip-label">Contract</span></label>
+      </div>
+      <div class="canon-toggle-chips" role="group" aria-label="Job type, theme decides">
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-md" value="remote" checked><span class="canon-toggle-chip-label">Remote</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-md" value="full-time"><span class="canon-toggle-chip-label">Full-time</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-md" value="contract"><span class="canon-toggle-chip-label">Contract</span></label>
+      </div>
+      <div class="canon-toggle-chips" role="group" aria-label="Job type, large" data-size="lg">
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-lg" value="remote" checked><span class="canon-toggle-chip-label">Remote</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-lg" value="full-time"><span class="canon-toggle-chip-label">Full-time</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="size-lg" value="contract"><span class="canon-toggle-chip-label">Contract</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="disabled">
+    <h2>Disabled</h2>
+    <p class="ref-note"><code>disabled</code> on an input: that chip can't change, on or off.</p>
+
+    <div class="canon-toggle-chips" role="group" aria-label="Notifications">
+      <label class="canon-toggle-chip"><input type="checkbox" name="notify" value="security" checked disabled><span class="canon-toggle-chip-label">Security</span></label>
+      <label class="canon-toggle-chip"><input type="checkbox" name="notify" value="billing" checked><span class="canon-toggle-chip-label">Billing</span></label>
+      <label class="canon-toggle-chip"><input type="checkbox" name="notify" value="news" disabled><span class="canon-toggle-chip-label">Product news</span></label>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="choosing">
+    <h2>Toggle Chip or…</h2>
+    <p class="ref-note">They can look alike; what they do differs.</p>
+    <ul class="ref-note">
+      <li><strong><a href="tag.html">Tag</a></strong> shows something (a status, a category); the one thing it can do is be removed.</li>
+      <li><strong><a href="checkbox.html">Checkbox</a></strong> suits a list: longer labels, descriptions, a form to read top to bottom.</li>
+      <li><strong><a href="segmented-control.html">Segmented Control</a></strong> picks one of a few short options in one row.</li>
+      <li><strong><a href="button.html">Button</a></strong> toggles (<code>aria-pressed</code>) change the interface right away and aren't form values.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Many chips wrap onto more rows; a chip wider than the room cuts its text (…) and keeps its full name. Drag the frame's corner to try it.</p>
+
+    <div class="ref-resizable ref-resizable-narrow">
+      <div class="canon-toggle-chips" role="group" aria-label="Amenities">
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="wifi" checked><span class="canon-toggle-chip-label">Wi-Fi</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="parking"><span class="canon-toggle-chip-label">Free parking</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="pool"><span class="canon-toggle-chip-label">Pool</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="pets" checked><span class="canon-toggle-chip-label">Pets allowed</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="kitchen"><span class="canon-toggle-chip-label">Kitchen</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="amenities" value="workspace"><span class="canon-toggle-chip-label">Dedicated workspace with a standing desk and a second monitor</span></label>
+      </div>
+    </div>
+    <p class="ref-note">Right to left, the chips run from the right.</p>
+
+    <div class="ref-row" dir="rtl" lang="ar">
+      <div class="canon-toggle-chips" role="group" aria-label="نوع الوظيفة">
+        <label class="canon-toggle-chip"><input type="checkbox" name="ar-type" value="remote" checked><span class="canon-toggle-chip-label">عن بُعد</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="ar-type" value="full-time"><span class="canon-toggle-chip-label">دوام كامل</span></label>
+        <label class="canon-toggle-chip"><input type="checkbox" name="ar-type" value="contract"><span class="canon-toggle-chip-label">عقد</span></label>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,206 @@
+[
+ {
+  "module": "base",
+  "part": 0
+ },
+ {
+  "module": "base",
+  "part": 1
+ },
+ {
+  "module": "number",
+  "part": 0
+ },
+ {
+  "module": "table",
+  "part": 0
+ },
+ {
+  "module": "code-block",
+  "part": 0
+ },
+ {
+  "module": "data-table",
+  "part": 0
+ },
+ {
+  "module": "pagination",
+  "part": 0
+ },
+ {
+  "module": "pagination",
+  "part": 1
+ },
+ {
+  "module": "filter-bar",
+  "part": 0
+ },
+ {
+  "module": "command-palette",
+  "part": 0
+ },
+ {
+  "module": "nav-list",
+  "part": 0
+ },
+ {
+  "module": "folding",
+  "part": 0
+ },
+ {
+  "module": "app-shell",
+  "part": 0
+ },
+ {
+  "module": "page-header",
+  "part": 0
+ },
+ {
+  "module": "tabs",
+  "part": 0
+ },
+ {
+  "module": "base",
+  "part": 2
+ },
+ {
+  "module": "toast",
+  "part": 0
+ },
+ {
+  "module": "page-header",
+  "part": 1
+ },
+ {
+  "module": "app-shell",
+  "part": 1
+ },
+ {
+  "module": "alert",
+  "part": 0
+ },
+ {
+  "module": "banner",
+  "part": 0
+ },
+ {
+  "module": "save-bar",
+  "part": 0
+ },
+ {
+  "module": "split-pane",
+  "part": 0
+ },
+ {
+  "module": "select",
+  "part": 0
+ },
+ {
+  "module": "toolbar",
+  "part": 0
+ },
+ {
+  "module": "popover",
+  "part": 0
+ },
+ {
+  "module": "rich-text",
+  "part": 0
+ },
+ {
+  "module": "menu",
+  "part": 0
+ },
+ {
+  "module": "avatar",
+  "part": 0
+ },
+ {
+  "module": "avatar",
+  "part": 1
+ },
+ {
+  "module": "password",
+  "part": 0
+ },
+ {
+  "module": "field",
+  "part": 0
+ },
+ {
+  "module": "field",
+  "part": 1
+ },
+ {
+  "module": "choice",
+  "part": 0
+ },
+ {
+  "module": "select",
+  "part": 1
+ },
+ {
+  "module": "combobox",
+  "part": 0
+ },
+ {
+  "module": "swatches",
+  "part": 0
+ },
+ {
+  "module": "color-picker",
+  "part": 0
+ },
+ {
+  "module": "otp",
+  "part": 0
+ },
+ {
+  "module": "form-repeater",
+  "part": 0
+ },
+ {
+  "module": "form-layout",
+  "part": 0
+ },
+ {
+  "module": "date",
+  "part": 0
+ },
+ {
+  "module": "time",
+  "part": 0
+ },
+ {
+  "module": "slider",
+  "part": 0
+ },
+ {
+  "module": "text-input",
+  "part": 0
+ },
+ {
+  "module": "init",
+  "part": 0
+ },
+ {
+  "module": "tooltip",
+  "part": 0
+ },
+ {
+  "module": "popups",
+  "part": 0
+ },
+ {
+  "module": "tooltip",
+  "part": 1
+ },
+ {
+  "module": "dialog",
+  "part": 0
+ },
+ {
+  "module": "base",
+  "part": 3
+ }
+]

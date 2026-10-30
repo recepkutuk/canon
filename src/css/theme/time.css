@@ -1,0 +1,203 @@
+/* ==================================================================== */
+/* Time                                                                 */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A cell is a control's height square (32 / 40 / 48) in Text Input's
+     frame (white, a zinc-200 line; dark zinc-900, zinc-700), corners and
+     type; cells 4 / 4 / 6 apart around a zinc-400 ":" (dark zinc-500);
+     a range's arrow the icon size, 8 / 8 / 12 from the cells. At rest
+     its arrows peek: a 4px zinc-100 tab (dark zinc-800) inside its top
+     and bottom. Hover: that cell's line zinc-400 (dark zinc-500), the
+     tabs zinc-200 (dark zinc-700). Active (focused), the cell grows from
+     its middle by 10 / 12 / 14 up and down (52 / 64 / 76 tall), over its
+     neighbours and raised above them, in Text Input's focus look; its
+     tabs open into the arrows (Lucide chevron-up, chevron-down, zinc-500,
+     dark zinc-400) on zinc-100 (dark zinc-800), hover zinc-200 (dark
+     zinc-700), pressed zinc-300 (dark zinc-600). Each arrow's target
+     reaches 12px past the cell. Growing 0.15s, shrinking 0.1s; none with
+     reduced motion. Error: every cell's line red. Disabled: zinc-50
+     cells (dark zinc-800), zinc-400 text, no tabs; read-only: dashed
+     lines, no tabs. Empty cells show "--" in the placeholder color. */
+  .canon-time {
+    --_gap: 0.25rem;
+    --_arrow-gap: 0.5rem;
+    gap: var(--_arrow-gap);
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) .canon-time,
+  .canon-time:is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --_gap: 0.375rem;
+    --_arrow-gap: 0.75rem;
+  }
+  /* Without canon.js: the input in Text Input's frame. */
+  .canon-time:not(:has(> .canon-time-segments)) > input {
+    box-sizing: border-box;
+    block-size: var(--canon-control-block-size);
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset) - 1px);
+    border: 1px solid light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    border-radius: var(--canon-theme-input-radius);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font: inherit;
+  }
+  .canon-time-segments {
+    gap: var(--_gap);
+  }
+  .canon-time-literal,
+  .canon-time-arrow {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-time-cell {
+    --_border: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_tab: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    --_tab-hover: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    --_grow: calc((var(--canon-control-block-size) + 0.5rem) / 4);
+    --_inner: max(0px, calc(var(--canon-theme-input-radius) - 1px));
+    inline-size: var(--canon-control-block-size);
+    block-size: var(--canon-control-block-size);
+    border: 1px solid var(--_border);
+    border-radius: var(--canon-theme-input-radius);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: var(--canon-theme-shadow-control);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+    transition: block-size 0.1s ease-out, margin-block 0.1s ease-out, border-color 0.12s, box-shadow 0.12s;
+  }
+  .canon-time-cell[data-empty] > .canon-time-value {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-time-cell[data-type="period"] {
+    inline-size: auto;
+    min-inline-size: var(--canon-control-block-size);
+    padding-inline: calc(var(--canon-control-padding-inline) / 2);
+  }
+
+  /* The tabs (at rest) and the arrows (active). */
+  .canon-time-step {
+    inset-inline: 2px;
+    block-size: 4px;
+    background-color: var(--_tab);
+    pointer-events: none;
+    transition: block-size 0.1s ease-out, background-color 0.12s;
+  }
+  .canon-time-step[data-direction="up"] {
+    inset-block-start: 0;
+    border-radius: var(--_inner) var(--_inner) 0.125rem 0.125rem;
+  }
+  .canon-time-step[data-direction="down"] {
+    inset-block-end: 0;
+    border-radius: 0.125rem 0.125rem var(--_inner) var(--_inner);
+  }
+  .canon-time-step::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    mask: var(--canon-theme-icon-chevron) center / var(--canon-icon-size) no-repeat;
+    opacity: 0;
+  }
+  .canon-time-step[data-direction="up"]::after {
+    rotate: 180deg;
+  }
+
+  @media (hover: hover) {
+    .canon-time-cell:hover:not([data-active]) {
+      --_border: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+      --_tab: var(--_tab-hover);
+    }
+  }
+
+  /* Active: grown from the middle over its neighbours, raised. */
+  .canon-time-cell[data-active] {
+    z-index: 2;
+    --_border: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    block-size: calc(var(--canon-control-block-size) + 2 * var(--_grow));
+    margin-block: calc(-1 * var(--_grow));
+    outline: 2px solid transparent; /* shows in forced colors, where shadows don't */
+    box-shadow: 0 0 0 3px light-dark(var(--canon-theme-blue-100), var(--canon-theme-blue-900));
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  .canon-time-cell[data-active] > .canon-time-step {
+    inset-inline: 3px;
+    block-size: var(--_grow);
+    pointer-events: auto;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  .canon-time-cell[data-active] > .canon-time-step[data-direction="up"] {
+    inset-block-start: 3px;
+    border-radius: max(0px, calc(var(--_inner) - 2px)) max(0px, calc(var(--_inner) - 2px)) 0.125rem 0.125rem;
+  }
+  .canon-time-cell[data-active] > .canon-time-step[data-direction="down"] {
+    inset-block-end: 3px;
+    border-radius: 0.125rem 0.125rem max(0px, calc(var(--_inner) - 2px)) max(0px, calc(var(--_inner) - 2px));
+  }
+  .canon-time-cell[data-active] > .canon-time-step::after {
+    opacity: 1;
+    transition: opacity 0.12s 0.05s;
+  }
+  @media (hover: hover) {
+    .canon-time-cell[data-active] > .canon-time-step:hover {
+      background-color: var(--_tab-hover);
+    }
+  }
+  .canon-time-cell[data-active] > .canon-time-step:active {
+    background-color: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+  }
+  /* Each arrow's target reaches 12px past the cell, outward. */
+  .canon-time-cell[data-active] > .canon-time-step::before {
+    content: "";
+    position: absolute;
+    inset-inline: -3px;
+  }
+  .canon-time-cell[data-active] > .canon-time-step[data-direction="up"]::before {
+    inset-block: calc(-3px - 0.75rem) 0;
+  }
+  .canon-time-cell[data-active] > .canon-time-step[data-direction="down"]::before {
+    inset-block: 0 calc(-3px - 0.75rem);
+  }
+
+  /* States, on every cell at once. */
+  .canon-time:has(> input:is([aria-invalid="true"], :user-invalid)) .canon-time-cell:not([data-active]) {
+    --_border: light-dark(var(--canon-theme-red-400), var(--canon-theme-red-500));
+  }
+  .canon-time:has(> input:is([aria-invalid="true"], :user-invalid)) .canon-time-cell[data-active] {
+    --_border: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));
+    box-shadow: 0 0 0 3px light-dark(var(--canon-theme-red-100), var(--canon-theme-red-900));
+  }
+  .canon-time:has(> input:disabled) .canon-time-cell {
+    --_border: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    background-color: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+    box-shadow: none;
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    cursor: not-allowed;
+  }
+  .canon-time:has(> input[readonly]) .canon-time-cell {
+    border-style: dashed;
+  }
+  .canon-time:has(> input:is(:disabled, [readonly])) .canon-time-step {
+    display: none;
+  }
+  .canon-time:has(> input[readonly]) .canon-time-cell[data-active] {
+    block-size: var(--canon-control-block-size);
+    margin-block: 0;
+  }
+
+  @media (forced-colors: active) {
+    .canon-time-step::after {
+      forced-color-adjust: none;
+      background-color: ButtonText;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-time-cell,
+    .canon-time-step,
+    .canon-time-step::after,
+    .canon-time-cell[data-active],
+    .canon-time-cell[data-active] > .canon-time-step,
+    .canon-time-cell[data-active] > .canon-time-step::after { transition: none; }
+  }
+}

@@ -1,0 +1,526 @@
+/* ==================================================================== */
+/* Data Table                                                           */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Sort buttons in the header's type,
+     the arrow 8px after the label (Lucide arrow-down-up while sortable,
+     arrow-up ascending, arrow-down descending); the select column as
+     wide as a row is tall (48 / 56 / 64), the checkbox centered; a
+     selected row zinc-50 (dark zinc-800). Pinned columns: a data column keeps a hairline rule at its
+     end and a pin (Lucide) at the end of its header; the last pinned
+     column casts a 4px band (black at 5%, dark white at 5%) while rows
+     scroll under it. The actions column has the line at its start and
+     the band before it while rows hide under it. The
+     select column, pinned on its own, gets the line and band only while
+     rows scroll under it; the actions cell 8px in; sort hover zinc-900
+     (dark white), focus Button's ring. */
+  .canon-data-table {
+    --_band: light-dark(rgb(0 0 0 / 5%), rgb(255 255 255 / 5%));
+    gap: 1rem;
+  }
+  .canon-data-table-sort {
+    gap: 0.5rem;
+    border-radius: 0.125rem;
+    font-weight: inherit;
+    transition: color 0.12s;
+  }
+  .canon-data-table-sort::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-arrow-down-up) center / contain no-repeat;
+  }
+  /* Sorted, one arrow: up, turning over to point down (0.2s). */
+  :is([aria-sort="ascending"], [aria-sort="descending"]) > .canon-data-table-sort::after {
+    mask-image: var(--canon-theme-icon-arrow-up);
+    transition: rotate 0.2s ease;
+  }
+  [aria-sort="descending"] > .canon-data-table-sort::after {
+    rotate: 0.5turn;
+  }
+  .canon-data-table-sort:focus-visible {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-data-table-sort:hover {
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-data-table-sort:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  .canon-data-table :is(th, td)[data-column="select"] {
+    inline-size: calc(var(--canon-control-block-size) + 1rem);
+    min-inline-size: calc(var(--canon-control-block-size) + 1rem);
+    padding-inline: 0;
+  }
+  .canon-data-table :is(th, td)[data-column="actions"] {
+    padding-inline: 0.5rem;
+  }
+
+  /* Editing cells. The edit frame is Text Input's box at the table's
+     size, across the cell and centered in the row, the text where the
+     cell's text was; at rest it doesn't show. Under the pointer its line
+     shows (zinc-200, dark zinc-700) and the pointer is a text cursor;
+     with focus, Button's ring around it. Saving: the value zinc-400
+     (dark zinc-500) with the Spinner's ring at the frame's end. Saved: a
+     green check there for a second, then it fades. Failed: Text Input's
+     error line and a danger icon at the end. Changed (in a form): a 6px
+     amber dot at the top end corner, the Save Bar's changed color. */
+  .canon-data-table :is(td, th):has(> .canon-data-table-edit) {
+    padding: 0;
+  }
+  .canon-data-table-edit {
+    --_mark: none;
+    --_mark-color: currentColor;
+    position: relative;
+    gap: 0.5rem;
+    min-block-size: var(--canon-control-block-size);
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset) - 1px);
+    border: 1px solid transparent;
+    border-radius: var(--canon-theme-input-radius);
+    transition: border-color 0.12s, color 0.12s;
+  }
+  .canon-data-table-edit::after {
+    content: "";
+    flex: none;
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: var(--_mark-color);
+    mask: var(--_mark) center / contain no-repeat;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  /* The mark takes no room at rest, so the value sits where it did. */
+  .canon-data-table :is(td, th):not([data-state="saving"], [data-state="saved"], [data-state="failed"]) > .canon-data-table-edit::after {
+    position: absolute;
+    inset-inline-end: calc(0.25rem - 1px);
+  }
+  /* End-aligned values keep their place: the mark goes before them. */
+  [data-align="end"] > .canon-data-table-edit::after {
+    order: -1;
+  }
+  [data-align="end"]:not([data-state="saving"], [data-state="saved"], [data-state="failed"]) > .canon-data-table-edit::after {
+    inset-inline: calc(0.25rem - 1px) auto;
+  }
+  @media (hover: hover) {
+    .canon-data-table-edit:hover:not([aria-disabled="true"]) {
+      border-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    }
+  }
+  .canon-data-table-edit:focus-visible {
+    outline: 2px solid transparent;
+    border-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+  [data-state="saving"] > .canon-data-table-edit {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  [data-state="saving"] > .canon-data-table-edit::after {
+    --_mark: var(--canon-theme-icon-loader) center / contain no-repeat, var(--canon-theme-icon-loader-track);
+    opacity: 1;
+    transition: none;
+    animation: canon-spin 0.8s linear infinite;
+  }
+  [data-state="saved"] > .canon-data-table-edit::after {
+    --_mark: var(--canon-theme-icon-check);
+    --_mark-color: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400));
+    opacity: 1;
+  }
+  [data-state="failed"] > .canon-data-table-edit {
+    border-color: light-dark(var(--canon-theme-red-400), var(--canon-theme-red-500));
+  }
+  [data-state="failed"] > .canon-data-table-edit::after {
+    --_mark: var(--canon-theme-icon-circle-alert);
+    --_mark-color: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));
+    opacity: 1;
+    transition: none;
+  }
+  [data-state="changed"] > .canon-data-table-edit::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0.25rem;
+    inset-inline-end: 0.25rem;
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    border-radius: 50%;
+    background-color: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400));
+  }
+  /* A checkbox or switch saving or failed: its cell says so the same way. */
+  .canon-data-table :is(td, th):has(> .canon-choice)[data-state="saving"] {
+    opacity: 0.6;
+  }
+  .canon-data-table :is(td, th):has(> .canon-choice):is([data-state="changed"], [data-state="failed"]) {
+    position: relative;
+  }
+  .canon-data-table :is(td, th):has(> .canon-choice)[data-state="failed"]::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0.25rem;
+    inline-size: 1rem;
+    margin-block: auto;
+    block-size: 1rem;
+    background-color: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));
+    mask: var(--canon-theme-icon-circle-alert) center / contain no-repeat;
+  }
+  .canon-data-table :is(td, th):has(> .canon-choice)[data-state="changed"]::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0.25rem;
+    inset-inline-end: 0.25rem;
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    border-radius: 50%;
+    background-color: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-data-table-edit,
+    .canon-data-table-edit::after {
+      transition: none;
+    }
+    [data-state="saving"] > .canon-data-table-edit::after {
+      animation-duration: 2.4s;
+    }
+  }
+  @media (forced-colors: active) {
+    .canon-data-table-edit::after,
+    [data-state="changed"] > .canon-data-table-edit::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+    [data-state="failed"] > .canon-data-table-edit {
+      border-color: Mark;
+    }
+  }
+  .canon-data-table tbody > tr:has(> td > .canon-choice > input[type="checkbox"]:checked) {
+    --_picked: var(--_selected);
+  }
+
+  /* The header, which stays at the top, paints the table's fill. */
+  .canon-data-table thead :is(th, td) {
+    background-color: var(--_bg);
+  }
+  /* Pinned cells paint their row's fill (or the table's) over what
+     scrolls under them. */
+  .canon-data-table :is(th, td)[data-pinned] {
+    background-color: var(--_hovered, var(--_picked, var(--_striped, var(--_bg))));
+    transition: background-color 0.12s;
+  }
+  /* With column lines, the pinned column's own line is the one. */
+  .canon-data-table .canon-table[data-lines="grid"] [data-pinned="start"]:not([data-column="select"]) + * {
+    border-inline-start: 0;
+  }
+  .canon-data-table [data-pinned="start"]:not([data-column="select"]),
+  .canon-data-table .canon-table[data-scroll-start] [data-pin-edge="start"] {
+    border-inline-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-data-table [data-pinned="end"] {
+    border-inline-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+  .canon-data-table .canon-table[data-scroll-start] [data-pin-edge="start"] {
+    box-shadow: 4px 0 0 var(--_band);
+  }
+  .canon-data-table .canon-table[data-scroll-end] [data-pin-edge="end"] {
+    box-shadow: -4px 0 0 var(--_band);
+  }
+  .canon-data-table .canon-table[data-scroll-start] [data-pin-edge="start"]:dir(rtl) {
+    box-shadow: -4px 0 0 var(--_band);
+  }
+  .canon-data-table .canon-table[data-scroll-end] [data-pin-edge="end"]:dir(rtl) {
+    box-shadow: 4px 0 0 var(--_band);
+  }
+  .canon-data-table thead th[data-pin] {
+    padding-inline-end: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset) + var(--canon-icon-size) + 0.5rem);
+  }
+  .canon-data-table thead th[data-pin]::after {
+    content: "";
+    position: absolute;
+    inset-block-start: calc(50% - var(--canon-icon-size) / 2);
+    inset-inline-end: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-pin) center / contain no-repeat;
+  }
+
+  /* The skeleton rows: a square for the select column, a circle for the
+     actions, lines of varying length elsewhere. */
+  .canon-data-table tbody[data-canon-skeleton] .canon-skeleton:not([data-shape]) {
+    inline-size: var(--canon-skeleton-length, 80%);
+  }
+  .canon-data-table tbody[data-canon-skeleton] [data-column] .canon-skeleton {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .canon-data-table .canon-empty-state {
+    padding-block: 4rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-data-table-sort,
+    .canon-data-table-sort::after,
+    .canon-table tbody > tr,
+    .canon-data-table :is(th, td)[data-pinned] {
+      transition: none;
+    }
+  }
+}
+
+/* @canon-part */
+/* ==================================================================== */
+/* Data Table: bulk bar                                                 */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Canon's panel look, floating. White (dark zinc-900) with a hairline
+     edge and the floating shadow at Popover's corners (12 / 16 / 20 by
+     size), 8px inside, items 8px apart. The
+     count medium zinc-900 (dark white), 4px in from its neighbours; a
+     vertical Separator before the actions, which keep to the end; in
+     windows narrower than 40rem the actions take their own row under a
+     horizontal line. It rises 8px and fades in
+     (0.15s), and out the same way; still with reduced motion. */
+  /* A steady width: at least 48rem (the window less 1rem each side on
+     smaller screens), at most 64rem, so the count changing ("Select all"
+     coming and going) moves nothing; the actions keep to the end. */
+  .canon-data-table-bulk[popover] {
+    min-inline-size: min(100vw - 2rem, 48rem);
+    max-inline-size: min(100vw - 2rem, 64rem);
+    padding: calc(0.5rem - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    transition: opacity 0.15s ease-out, translate 0.15s ease-out, display 0.15s allow-discrete, overlay 0.15s allow-discrete;
+  }
+  .canon-data-table-bulk[popover]:not(:popover-open) {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+  @starting-style {
+    .canon-data-table-bulk[popover]:popover-open {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+  .canon-data-table-bulk-count {
+    padding-inline: 0.25rem;
+    font-weight: 500;
+  }
+  .canon-data-table-bulk-clear + .canon-data-table-bulk-count {
+    padding-inline-start: 0;
+  }
+  .canon-data-table-bulk > .canon-separator[aria-orientation="vertical"] {
+    align-self: stretch;
+    margin-block: 0.25rem;
+    margin-inline-start: auto;
+  }
+  /* Narrow windows: the actions take a row of their own, under a line. */
+  @media (width < 40rem) {
+    .canon-data-table-bulk > .canon-separator[aria-orientation="vertical"] {
+      flex-basis: 100%;
+      align-self: auto;
+      block-size: 1px;
+      margin: 0.25rem 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-data-table-bulk[popover] { transition: none; }
+  }
+}
+
+/* @canon-part */
+/* ==================================================================== */
+/* Data Table: toolbar, filters, columns                                */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The toolbar's items 12px apart, the
+     search field 200px wide (12.5rem); filter chips 16px apart, each a
+     row of joined segments (column, condition, value, x) on zinc-50 with
+     zinc-200 lines (dark zinc-800, zinc-700), Text Input's type, 2px end
+     corners, choice values as their status Tags; a filtered column's
+     header shows its filter button (Lucide list-filter) in the header's
+     color. The filter builder: rows of
+     condition fields 8px apart, rows 16px apart, Add filter and Apply
+     filter under a line. Columns: rows 4px in and apart, a grip (Lucide
+     grip-vertical, zinc-400) before each checkbox, a pin button at the
+     end, shown while pinned (zinc-100, dark zinc-700) or with the row
+     under the pointer or keyboard focus; a line between pinned columns and the
+     rest. Clear all a minimal Button after the chips; the
+     panels' corners and padding are Popover's; a row being dragged
+     zinc-100 (dark zinc-800). */
+  .canon-data-table-toolbar {
+    gap: 0.75rem;
+  }
+  .canon-data-table-toolbar > .canon-text-input:has(> input[type="search"]) {
+    inline-size: 12.5rem;
+  }
+  .canon-data-table-chips {
+    gap: 0.5rem 1rem;
+  }
+  .canon-data-table-chip {
+    --_seg-bg: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+    --_seg-line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-data-table-chip-edit > span,
+  .canon-data-table-chip-remove {
+    min-block-size: calc(var(--canon-control-block-size) * 0.75);
+    padding-inline: 0.5rem;
+    border: 1px solid var(--_seg-line);
+    background-color: var(--_seg-bg);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-data-table-chip-edit > span + span,
+  .canon-data-table-chip-remove {
+    margin-inline-start: -1px;
+  }
+  .canon-data-table-chip-edit > span:first-child {
+    border-start-start-radius: 0.125rem;
+    border-end-start-radius: 0.125rem;
+  }
+  .canon-data-table-chip-values {
+    gap: 0.25rem;
+  }
+  .canon-data-table-chip-remove {
+    align-items: center;
+    padding-inline: 0.25rem;
+    border-start-end-radius: 0.125rem;
+    border-end-end-radius: 0.125rem;
+  }
+  .canon-data-table-chip-remove::before {
+    content: "";
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    mask: var(--canon-theme-icon-x) center / contain no-repeat;
+  }
+  .canon-data-table-chip-edit:focus-visible > span,
+  .canon-data-table-chip-remove:focus-visible {
+    --_seg-bg: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+  }
+  @media (hover: hover) {
+    .canon-data-table-chip-edit:hover > span,
+    .canon-data-table-chip-remove:hover {
+      --_seg-bg: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    }
+  }
+  .canon-data-table-chip-remove:focus-visible::before {
+    background-color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-data-table-chip-remove:hover::before {
+      background-color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-data-table-chip :is(.canon-data-table-chip-edit, .canon-data-table-chip-remove):focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+    border-radius: 0.125rem;
+  }
+
+  .canon-data-table-filter {
+    margin-inline-start: 0.5rem;
+    border-radius: 0.125rem;
+  }
+  .canon-data-table-filter::before {
+    content: "";
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-list-filter) center / contain no-repeat;
+  }
+  .canon-data-table-filter:is(:focus-visible, [aria-expanded="true"]) {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-data-table-filter:hover {
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-data-table-filter:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  /* The panels: wider than a plain popover. */
+  .canon-popover:is(.canon-data-table-filters, .canon-data-table-filter-panel) {
+    max-inline-size: min(40rem, 100vw - 2rem);
+  }
+  .canon-data-table-filter-row {
+    gap: 0.5rem;
+  }
+  .canon-data-table-filter-rows {
+    gap: 1rem;
+  }
+  .canon-data-table-filters .canon-data-table-filter-row > .canon-text-input,
+  .canon-data-table-filters .canon-data-table-filter-row > .canon-date,
+  .canon-data-table-filters .canon-data-table-filter-row > .canon-combobox {
+    min-inline-size: 12rem;
+  }
+  .canon-data-table-filter-footer {
+    gap: 0.5rem;
+    margin-block-start: var(--canon-theme-form-gap);
+    padding-block-start: var(--canon-theme-form-gap);
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+  }
+
+  .canon-popover.canon-data-table-columns {
+    padding: 0.25rem;
+  }
+  .canon-data-table-columns > .canon-separator {
+    margin-block: 0.25rem;
+  }
+  .canon-data-table-column {
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--canon-theme-button-radius);
+  }
+  .canon-data-table-column[data-dragging] {
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+  }
+  .canon-data-table-grip {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    border-radius: 0.125rem;
+  }
+  .canon-data-table-grip:focus-visible {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-data-table-grip:hover {
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-data-table-grip:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+  .canon-data-table-column > .canon-button[aria-pressed] {
+    --canon-theme-fg: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-300));
+    --canon-theme-bg-hover: light-dark(var(--canon-theme-zinc-50), var(--canon-theme-zinc-800));
+    --canon-theme-bg-active: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    --canon-theme-border: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-600));
+  }
+  /* An unpinned column's pin shows with the row under the pointer, or
+     keyboard focus in the row (not the focus the panel puts there when a
+     click opens it). */
+  .canon-data-table-column:not(:hover, :has(:focus-visible)) > .canon-button[aria-pressed="false"] {
+    opacity: 0;
+  }
+}

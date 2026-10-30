@@ -1,0 +1,124 @@
+/* ==================================================================== */
+/* Page Header                                                          */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Canon's type and the shell's measures. The title
+     semibold, 20 / 24 / 30px on 28 / 32 / 36 at sm / md / lg; the trail
+     (a back link or a Breadcrumb, a line tall here) and the description
+     in the control's type, zinc-500 (dark zinc-400); the shell's inset
+     above and below, and between the trail and the title (8 / 12 / 16);
+     6 / 8 / 10 between the title and the description; 16px between the
+     title and the actions, 8px between actions and between the title's
+     parts. Sticky,
+     it takes the page's color and, once stuck, the shell's line under
+     it. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-page-title-size: 1.5rem;
+    --canon-theme-page-title-line: 2rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-page-title-size: 1.25rem;
+    --canon-theme-page-title-line: 1.75rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-page-title-size: 1.875rem;
+    --canon-theme-page-title-line: 2.25rem;
+  }
+
+  .canon-page-header {
+    --_muted: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    column-gap: 1rem;
+    padding-block: var(--canon-theme-shell-inset);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  .canon-page-header > :is(.canon-page-header-back, .canon-breadcrumb) {
+    min-block-size: 0;
+    margin-block-end: var(--canon-theme-shell-inset);
+  }
+  .canon-page-header-back {
+    gap: 0.25rem;
+    border-radius: 0.125rem;
+    color: var(--_muted);
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+    transition: color 0.12s;
+  }
+  .canon-page-header-back > .canon-icon {
+    --canon-icon-size: 1.15em;
+  }
+  .canon-page-header-back:focus-visible {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-page-header-back:hover {
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-page-header-back:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+  .canon-page-header-title {
+    gap: 0.5rem;
+    font-size: var(--canon-theme-page-title-size);
+    font-weight: 600;
+    line-height: var(--canon-theme-page-title-line);
+    letter-spacing: -0.015em;
+  }
+  /* A rename button (and any Button) in the title takes no more height
+     than the title's line: it overhangs it evenly. */
+  .canon-page-header-title > .canon-button {
+    margin-block: calc((var(--canon-theme-page-title-line) - var(--canon-control-block-size)) / 2);
+  }
+  .canon-page-header-description {
+    margin-block-start: calc(var(--canon-theme-shell-inset) / 2 + 0.125rem);
+    color: var(--_muted);
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-page-header-actions {
+    gap: 0.5rem;
+  }
+  @container canon-page-header (width < 24rem) {
+    .canon-page-header-actions {
+      margin-block-start: calc(var(--canon-theme-shell-inset) / 2 + 0.125rem);
+    }
+  }
+
+  /* Sticky: the page's color behind it; the shell's line under it once
+     it is stuck (a scroll-state query; without one, no line). */
+  .canon-page-header[data-sticky] {
+    background-color: var(--canon-theme-page-bg);
+  }
+  .canon-page-header[data-sticky]::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule-faint);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  @container canon-page-header scroll-state(stuck: top) {
+    .canon-page-header[data-sticky]::after {
+      opacity: 1;
+    }
+  }
+
+  /* Rename in place: the field in the title's type, on a quiet fill, the
+     focus ring around it. */
+  .canon-page-header-title > .canon-inline-edit {
+    margin-inline: -0.25rem;
+    padding: 0 0.25rem;
+    border: 0;
+    border-radius: var(--canon-theme-button-radius);
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-focus);
+  }
+}

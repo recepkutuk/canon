@@ -1,0 +1,237 @@
+/* ==================================================================== */
+/* Select                                                               */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The box: Text Input's frame, sizes and states. The value sits where a text input's does; the chevron
+     (Lucide chevron-down, the icon color) is 2 / 2 / 0px past the text
+     block, at the box's end, and turns up while the list is open. The
+     select reaches under all of it, so the whole box opens the list. */
+  :is(.canon-select, .canon-combobox) {
+    --_pad: calc(var(--canon-control-padding-inline) - 1px);
+    --_gap: calc(var(--canon-theme-input-icon-gap) + var(--canon-theme-input-inset));
+    --canon-select-start: calc(var(--_pad) + var(--canon-theme-input-inset));
+    --canon-select-end: calc(var(--_pad) + var(--canon-icon-size) + var(--_gap));
+    gap: var(--_gap);
+    padding-inline: var(--canon-select-start) var(--_pad);
+  }
+  :is(.canon-select, .canon-combobox):has(> .canon-icon:first-child) {
+    --canon-select-start: calc(var(--_pad) + var(--canon-icon-size) + var(--_gap));
+    padding-inline-start: var(--_pad);
+  }
+  :is(.canon-select, .canon-combobox)::after {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: var(--_muted);
+    mask: var(--canon-theme-icon-chevron) center / contain no-repeat;
+    transition: rotate 0.15s;
+  }
+  :is(.canon-select, .canon-combobox):has(> select:open)::after {
+    rotate: 180deg;
+  }
+  /* The open list counts as focus. */
+  :is(.canon-select, .canon-combobox):has(> select:open) {
+    border-color: var(--_border-focus);
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+
+  /* Placeholder: a first option with an empty value ("Please select"),
+     zinc-500 (dark zinc-400) while it is the choice. */
+  :is(.canon-select, .canon-combobox) > select:has(> option[value=""]:checked) {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  :is(.canon-select, .canon-combobox) > select:has(> option[value=""]:checked):disabled {
+    color: inherit;
+  }
+
+  /* The list: a styled dropdown where the browser allows it (fine
+     pointers only; touch keeps the native sheet). 4px under the box and
+     8px wider, so the options' text lines up with the box's; corners 4px
+     rounder than the box's. White (dark zinc-900), a hairline edge and the
+     floating shadow. */
+  @media (pointer: fine) {
+    :is(.canon-select, .canon-combobox) > select,
+    :is(.canon-select, .canon-combobox) > select::picker(select) {
+      appearance: base-select;
+    }
+  }
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    min-inline-size: calc(anchor-size(inline) + 0.5rem);
+    margin: 0.25rem 0 0.25rem -0.25rem;
+    padding: calc(0.25rem - 1px);
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-input-radius) + 0.25rem);
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-floating);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+
+  /* Options: the box's height, text where the box's text is, the box's
+     corners. Hover and the keyboard's place: zinc-100 (dark zinc-800).
+     Chosen: medium, with a check (the text color) at the end. Disabled:
+     zinc-400 (dark zinc-600), no fill. Destructive (data-intent="danger"):
+     red-700 (dark red-300) on a red tint. */
+  :is(.canon-select, .canon-combobox) > select option,
+  .canon-combobox-option {
+    --_fill: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    display: flex;
+    align-items: center;
+    min-block-size: var(--canon-control-block-size);
+    padding-block: 0;
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset)) var(--canon-control-padding-inline);
+    border-radius: var(--canon-theme-input-radius);
+    background-color: transparent;
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-weight: 400;
+  }
+  .canon-combobox-option[data-state="active"]:not([aria-disabled="true"]),
+  :is(.canon-select, .canon-combobox) > select option:focus-visible:not(:disabled) {
+    background-color: var(--_fill);
+  }
+  @media (hover: hover) {
+    :is(.canon-select, .canon-combobox) > select option:hover:not(:disabled) {
+      background-color: var(--_fill);
+    }
+  }
+  :is(.canon-select, .canon-combobox) > select option:checked,
+  .canon-combobox-option[aria-selected="true"] {
+    font-weight: 500;
+  }
+  :is(.canon-select, .canon-combobox) > select option::checkmark {
+    content: "";
+    order: 1;
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    margin-inline-start: auto;
+    padding-inline-start: var(--_gap, 0.375rem);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-tick) right center / var(--canon-icon-size) no-repeat;
+    box-sizing: content-box;
+  }
+  :is(.canon-select, .canon-combobox) > select option:dir(rtl)::checkmark {
+    mask-position: left center;
+  }
+  :is(.canon-select, .canon-combobox) > select option:disabled,
+  .canon-combobox-option[aria-disabled="true"] {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+  }
+  :is(.canon-select, .canon-combobox) > select option[data-intent="danger"]:not(:disabled),
+  .canon-combobox-option[data-intent="danger"]:not([aria-disabled="true"]) {
+    --_fill: light-dark(color-mix(in srgb, var(--canon-theme-red-400) 15%, transparent), color-mix(in srgb, var(--canon-theme-red-500) 20%, transparent));
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+  }
+
+  /* A leading icon or avatar: 2 / 2 / 0px plus the text's inset before
+     the label (the box's spacing). */
+  :is(.canon-select, .canon-combobox) > select option:has(> :is(.canon-icon, .canon-avatar):first-child),
+  .canon-combobox-option:has(> :is(.canon-icon, .canon-avatar, .canon-tag):first-child) {
+    padding-inline-start: var(--canon-control-padding-inline);
+  }
+  :is(.canon-select, .canon-combobox) > select :is(option, selectedcontent) > :is(.canon-icon, .canon-avatar):first-child,
+  :is(.canon-combobox-option, .canon-combobox-value) > :is(.canon-icon, .canon-avatar):first-child {
+    margin-inline-end: calc(var(--canon-theme-input-icon-gap) + var(--canon-theme-input-inset));
+  }
+  /* The closed box shows the chosen option's icon or avatar the same way. */
+  :is(.canon-select, .canon-combobox) > select selectedcontent {
+    display: flex;
+    align-items: center;
+    min-inline-size: 0;
+  }
+  :is(.canon-select, .canon-combobox) > select :is(option, selectedcontent) > .canon-avatar,
+  :is(.canon-combobox-option, .canon-combobox-value) > .canon-avatar {
+    --canon-theme-avatar-size: var(--canon-icon-size);
+    --canon-theme-avatar-font-size: calc(var(--canon-icon-size) * 0.4);
+    --canon-theme-avatar-line-height: 1;
+  }
+
+  /* A label and a description on one line; the description muted. */
+  .canon-option-description {
+    margin-inline-start: 0.5em;
+    color: var(--_muted, light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500)));
+  }
+  :is(option:disabled, [aria-disabled="true"]) .canon-option-description {
+    color: inherit;
+  }
+
+  /* Groups: a caption in 10px semibold capitals, zinc-500 (dark
+     zinc-400), in a 32px row with the options' inset. */
+  /* Chrome indents the caption by half its size (5px): taken off the
+     group's inset so it lines up with the options. */
+  :is(.canon-select, .canon-combobox) > select optgroup {
+    --_group-inset: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset) - 0.3125rem);
+    padding: 0.5rem 0 0;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    padding-inline-start: var(--_group-inset);
+  }
+  :is(.canon-select, .canon-combobox) > select optgroup option {
+    margin-inline-start: calc(-1 * var(--_group-inset));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+    text-transform: none;
+  }
+  :is(.canon-select, .canon-combobox) > select optgroup option:first-of-type {
+    margin-block-start: 0.5rem;
+  }
+
+  /* Separators: Separator (<hr class="canon-separator">). */
+
+  @media (prefers-reduced-motion: reduce) {
+    :is(.canon-select, .canon-combobox)::after {
+      transition: none;
+    }
+  }
+}
+
+/* @canon-part */
+/* ==================================================================== */
+/* Text input with a Select or Combobox (a country code, a currency)    */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The box is the text input's: one frame, with a 1px line (the frame's
+     resting color) between the select and the value. The select gives up
+     its own frame, hover and focus; the text input shows focus for both,
+     and the open list. Its text keeps the box's inset from the frame on
+     one side and from the line on the other. It sits above the input
+     (which reaches under it), so it takes its own clicks. After this
+     file's Select and Combobox sections, so it wins over their states. */
+  .canon-text-input > :is(.canon-select, .canon-combobox):is(.canon-select, .canon-combobox) {
+    --_edge: calc(var(--canon-control-padding-inline) - 1px + var(--canon-theme-input-inset));
+    z-index: 1;
+    flex: none;
+    align-self: stretch;
+    min-block-size: 0;
+    margin-inline: calc(-1 * var(--_edge)) calc(var(--_edge) - var(--canon-theme-input-gap));
+    border-width: 0;
+    border-inline-end-width: 1px;
+    border-color: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-700));
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    outline: none;
+  }
+  .canon-text-input > :is(.canon-select, .canon-combobox):is(.canon-select, .canon-combobox):last-child {
+    margin-inline: calc(var(--_edge) - var(--canon-theme-input-gap)) calc(-1 * var(--_edge));
+    border-inline-end-width: 0;
+    border-inline-start-width: 1px;
+  }
+  .canon-text-input:has(> :is(.canon-select, .canon-combobox):focus-within, > .canon-select > :is(select:open)) {
+    border-color: var(--_border-focus);
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px var(--_ring);
+  }
+}

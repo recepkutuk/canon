@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Segmented Control reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Segmented Control</h1>
+  <p class="ref-note">One value from a few, as joined segments: a view (Day, Week, Month), a period (Monthly, Yearly), an alignment. It is a radio group: the chosen option is a form value, and it works without scripting. Specification: <a href="../docs/components/segmented-control.md">docs/components/segmented-control.md</a></p>
+  <p class="ref-note">Tab reaches the chosen option; the arrow keys choose the next one, as in any radio group.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="segmented-control">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>role="radiogroup"</code> on the <code>.canon-segmented</code>, named by <code>aria-label</code> (or <code>aria-labelledby</code>). Each option is a <code>&lt;label class="canon-segmented-option"&gt;</code> around its radio and a <code>.canon-segmented-label</code>. One option is always chosen: <code>checked</code> on one radio.</p>
+
+    <div class="ref-row">
+      <div class="canon-segmented" role="radiogroup" aria-label="Calendar view">
+        <label class="canon-segmented-option">
+          <input type="radio" name="view" value="day">
+          <span class="canon-segmented-label">Day</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="view" value="week" checked>
+          <span class="canon-segmented-label">Week</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="view" value="month">
+          <span class="canon-segmented-label">Month</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="field">
+    <h2>In a field</h2>
+    <p class="ref-note">In a <a href="field.html">Field</a>, the group takes the box's place and is named by the field's label: a <code>&lt;span id&gt;</code> the group points at with <code>aria-labelledby</code>. A description is linked with <code>aria-describedby</code> on the group.</p>
+
+    <div class="ref-stack">
+      <div class="canon-field">
+        <div class="canon-label">
+          <span class="canon-label-text" id="billing-label">Billing period</span>
+          <p class="canon-label-description" id="billing-description">Yearly billing saves two months.</p>
+        </div>
+        <div class="canon-segmented" role="radiogroup" aria-labelledby="billing-label" aria-describedby="billing-description">
+          <label class="canon-segmented-option">
+            <input type="radio" name="billing" value="monthly" checked>
+            <span class="canon-segmented-label">Monthly</span>
+          </label>
+          <label class="canon-segmented-option">
+            <input type="radio" name="billing" value="yearly">
+            <span class="canon-segmented-label">Yearly</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="icons">
+    <h2>Icons</h2>
+    <p class="ref-note">An icon before the text: a <code>canon-icon</code> with <code>aria-hidden="true"</code>, after the radio. With <code>data-display="icon"</code> on the group or a container, only the icons show and the options are square; the text stays, hidden, as each option's name.</p>
+
+    <div class="ref-row">
+      <div class="canon-segmented" role="radiogroup" aria-label="Alignment">
+        <label class="canon-segmented-option">
+          <input type="radio" name="align" value="start" checked>
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-segmented-label">Start</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="align" value="center">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-segmented-label">Center</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="align" value="end">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-segmented-label">End</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="ref-row">
+      <div class="canon-segmented" role="radiogroup" aria-label="Alignment" data-display="icon">
+        <label class="canon-segmented-option">
+          <input type="radio" name="align-icons" value="start" checked>
+          <span class="canon-icon" data-icon="align-start" aria-hidden="true"></span>
+          <span class="canon-segmented-label">Start</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="align-icons" value="center">
+          <span class="canon-icon" data-icon="align-center" aria-hidden="true"></span>
+          <span class="canon-segmented-label">Center</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="align-icons" value="end">
+          <span class="canon-icon" data-icon="align-end" aria-hidden="true"></span>
+          <span class="canon-segmented-label">End</span>
+        </label>
+        <label class="canon-segmented-option">
+          <input type="radio" name="align-icons" value="justify">
+          <span class="canon-icon" data-icon="align-justify" aria-hidden="true"></span>
+          <span class="canon-segmented-label">Justify</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the group or a container: 32 / 40 / 48 tall, a button's height.</p>
+
+    <div class="ref-stack">
+      <div class="canon-segmented" role="radiogroup" aria-label="Calendar view, small" data-size="sm">
+        <label class="canon-segmented-option"><input type="radio" name="size-sm" value="day"><span class="canon-segmented-label">Day</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-sm" value="week" checked><span class="canon-segmented-label">Week</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-sm" value="month"><span class="canon-segmented-label">Month</span></label>
+      </div>
+      <div class="canon-segmented" role="radiogroup" aria-label="Calendar view, theme decides">
+        <label class="canon-segmented-option"><input type="radio" name="size-md" value="day"><span class="canon-segmented-label">Day</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-md" value="week" checked><span class="canon-segmented-label">Week</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-md" value="month"><span class="canon-segmented-label">Month</span></label>
+      </div>
+      <div class="canon-segmented" role="radiogroup" aria-label="Calendar view, large" data-size="lg">
+        <label class="canon-segmented-option"><input type="radio" name="size-lg" value="day"><span class="canon-segmented-label">Day</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-lg" value="week" checked><span class="canon-segmented-label">Week</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="size-lg" value="month"><span class="canon-segmented-label">Month</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="disabled">
+    <h2>Disabled</h2>
+    <p class="ref-note"><code>disabled</code> on a radio: that option can't be chosen and the arrow keys skip it. On every radio (or a disabled <code>&lt;fieldset&gt;</code> around the group), the whole control is disabled and keeps showing its value.</p>
+
+    <div class="ref-stack">
+      <div class="canon-segmented" role="radiogroup" aria-label="Plan">
+        <label class="canon-segmented-option"><input type="radio" name="plan" value="free"><span class="canon-segmented-label">Free</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="plan" value="pro" checked><span class="canon-segmented-label">Pro</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="plan" value="team" disabled><span class="canon-segmented-label">Team</span></label>
+      </div>
+      <div class="canon-segmented" role="radiogroup" aria-label="Plan, locked">
+        <label class="canon-segmented-option"><input type="radio" name="plan-locked" value="free" disabled><span class="canon-segmented-label">Free</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="plan-locked" value="pro" checked disabled><span class="canon-segmented-label">Pro</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="plan-locked" value="team" disabled><span class="canon-segmented-label">Team</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="choosing">
+    <h2>Segmented Control or…</h2>
+    <p class="ref-note">Each is "one of these" in a way; what they do differs.</p>
+    <ul class="ref-note">
+      <li><strong>Tabs</strong> switch between panels of content, each its own (General, Billing, Members). A Segmented Control sets a value for the same content (the same calendar by day, week or month).</li>
+      <li><strong><a href="button-group.html">Button Group</a></strong> toggles (<code>aria-pressed</code>) change the interface right away and aren't form values (bold, italic). A Segmented Control's value is submitted with its form.</li>
+      <li><strong><a href="radio.html">Radio</a></strong> buttons suit longer labels, descriptions, more than about five options, or a choice with no default.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Too narrow a place: the options shrink and cut their text (…); each keeps its full name. Drag the frame's corner to try it.</p>
+
+    <div class="ref-resizable ref-resizable-narrow">
+      <div class="canon-segmented" role="radiogroup" aria-label="Report period">
+        <label class="canon-segmented-option"><input type="radio" name="period" value="7" checked><span class="canon-segmented-label">Last 7 days</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="period" value="30"><span class="canon-segmented-label">Last 30 days</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="period" value="90"><span class="canon-segmented-label">Last 90 days</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="period" value="365"><span class="canon-segmented-label">Last 12 months</span></label>
+      </div>
+    </div>
+    <p class="ref-note">Right to left, the options run from the right.</p>
+
+    <div class="ref-row" dir="rtl" lang="ar">
+      <div class="canon-segmented" role="radiogroup" aria-label="عرض التقويم">
+        <label class="canon-segmented-option"><input type="radio" name="view-ar" value="day"><span class="canon-segmented-label">يوم</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="view-ar" value="week" checked><span class="canon-segmented-label">أسبوع</span></label>
+        <label class="canon-segmented-option"><input type="radio" name="view-ar" value="month"><span class="canon-segmented-label">شهر</span></label>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

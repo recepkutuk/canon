@@ -1,0 +1,64 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Description List                                                   */
+  /*                                                                    */
+  /* <dl class="canon-description-list">: facts about one thing, a      */
+  /* <div> per item holding its term (<dt>), its values (<dd>) and an   */
+  /* optional action (a Button or Link) at the end. A term with an icon */
+  /* sits beside its values; with data-label="start" every term does    */
+  /* (the Field hint, while the list has 32rem). data-columns="2" / "3" */
+  /* puts items side by side, fewer where columns would be narrower     */
+  /* than 16rem. An empty value shows a dash, read as "Not set".        */
+  /* ------------------------------------------------------------------ */
+
+  /* A size container has no width of its own: as wide as its room, also
+     where its parent shrinks to fit. */
+  :where(.canon-description-list) {
+    --_columns: 1;
+    container-type: inline-size;
+    box-sizing: border-box;
+    inline-size: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, max(16rem, (100% - (var(--_columns) - 1) * var(--canon-description-list-gap, 2rem)) / var(--_columns))), 1fr));
+    column-gap: var(--canon-description-list-gap, 2rem);
+    margin: 0;
+    padding: 0;
+  }
+  :where(.canon-description-list:not([data-columns])) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  :where(.canon-description-list[data-columns="2"]) { --_columns: 2; }
+  :where(.canon-description-list[data-columns="3"]) { --_columns: 3; }
+  :where(.canon-description-list) > :where(div) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-inline-size: 0;
+  }
+  :where(.canon-description-list) > :where(div) > :where(dt, dd) {
+    grid-column: 1;
+    min-inline-size: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  :where(.canon-description-list) > :where(div) > :where(:not(dt, dd)) {
+    grid-column: -2;
+    grid-row: 1 / span 20;
+    align-self: center;
+  }
+  :where(.canon-description-list) > :where(div) > :where(dd:empty)::before {
+    content: "—" / var(--canon-text-not-set, "Not set");
+  }
+  /* Beside: a term with an icon always (its own narrow column, also
+     with data-label); every term with data-label. */
+  :where(.canon-description-list) > :where(div:has(> dt > .canon-icon)) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  :where(.canon-description-list) > :where(div:has(> dt > .canon-icon)) > :where(dt) {
+    grid-column: 1;
+    grid-row: 1 / span 20;
+  }
+  :where(.canon-description-list) > :where(div:has(> dt > .canon-icon)) > :where(dd) {
+    grid-column: 2;
+  }
+}

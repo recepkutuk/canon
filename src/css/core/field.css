@@ -1,0 +1,88 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Field                                                               */
+  /*                                                                     */
+  /* A grid; every slot is a direct child placed in a named area. The    */
+  /* default is label above. Themes redefine grid-template-areas to      */
+  /* move slots (beside, inside the box, hint above, …).                 */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-field) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label   action"
+      "control control"
+      "message counter";
+    /* Absent slots leave empty rows, and grid gaps apply even to empty rows.
+       Themes space slots with margins, never row-gap. */
+    row-gap: 0;
+    align-content: start;
+    align-items: baseline;
+    min-inline-size: 0;
+  }
+
+  /* A Password's strength (and its word) and rules: under the control,
+     over the message, across the field. */
+  :where(.canon-field:has(> .canon-password-strength, > .canon-password-rules)) {
+    grid-template-areas:
+      "label    action"
+      "control  control"
+      "strength strength-label"
+      "rules    rules"
+      "message  counter";
+  }
+  :where(.canon-field) > :where(.canon-password-strength) { grid-area: strength; align-self: center; inline-size: 100%; }
+  :where(.canon-field) > :where(.canon-password-strength-label) { grid-area: strength-label; justify-self: end; }
+  /* Without its word, the meter runs the field's whole width. */
+  :where(.canon-field:not(:has(> .canon-password-strength-label))) > :where(.canon-password-strength) { grid-column: 1 / -1; }
+  :where(.canon-field) > :where(.canon-password-rules) { grid-area: rules; }
+
+  :where(.canon-field) > :where(.canon-label) { grid-area: label; }
+  :where(.canon-field-action)  { grid-area: action; justify-self: end; }
+  :where(.canon-field) > :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-swatches, .canon-segmented, .canon-toggle-chips, .canon-otp, .canon-number, .canon-time) { grid-area: control; }
+  :where(.canon-field) > :where(.canon-swatches, .canon-segmented, .canon-toggle-chips, .canon-color, .canon-otp, .canon-time, .canon-number:not(:has(> input:first-child ~ .canon-button))) { justify-self: start; }
+  :where(.canon-field) > :where(.canon-color-popup) { grid-area: control; justify-self: start; }
+  :where(.canon-field-message) { grid-area: message; margin: 0; }
+  :where(.canon-field-counter) { grid-area: counter; justify-self: end; margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Past a soft limit (canon.js): the control's text turns transparent
+     over a copy drawn behind it (.canon-limit-mirror, same font, padding
+     and wrapping), where the excess is a <mark> the theme colors. The
+     control keeps the caret and the selection. */
+  :where(.canon-limit-mirror) {
+    position: absolute;
+    z-index: -1;
+    box-sizing: content-box;
+    margin: 0;
+    border: 0;
+    overflow: hidden;
+    color: inherit;
+    pointer-events: none;
+  }
+  :where(.canon-limit-mirror:has(> span)) {
+    display: flex;
+    align-items: center;
+  }
+  :where(:has(> .canon-limit-mirror:not([hidden]))) {
+    isolation: isolate;
+  }
+  /* Not :where()'d: it must win over the box's "color: inherit". */
+  :is(input, textarea)[data-state="over"] {
+    color: transparent;
+  }
+  :where(.canon-limit-excess) {
+    color: inherit;
+    background: none;
+  }
+
+  /* The counter is filled by canon.js; without it there is nothing to show. */
+  :where(.canon-field-counter):empty {
+    display: none;
+  }
+
+  /* An empty message is a live region waiting for text. */
+  :where(.canon-field-message):empty {
+    display: none;
+  }
+}

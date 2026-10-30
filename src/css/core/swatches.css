@@ -1,0 +1,66 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Swatches                                                            */
+  /*                                                                     */
+  /* A radio group of colors (role="radiogroup"): each radio is a        */
+  /* swatch. Its color is --canon-swatch when the author sets it,        */
+  /* otherwise its value read as a color (typed attr(); canon.js sets    */
+  /* --canon-swatch where that isn't supported). Themes paint            */
+  /* --canon-swatch-color. With data-collapse, canon.js adds a toggle    */
+  /* and, while closed, only the chosen swatch shows (or the first, so   */
+  /* Tab still reaches the group).                                       */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-swatches) {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--canon-swatches-gap, 0.5rem);
+    inline-size: fit-content;
+    max-inline-size: 100%;
+  }
+  :where(.canon-swatches) > :where(input[type="radio"]) {
+    --canon-swatch-color: var(--canon-swatch, transparent);
+    position: relative;
+    box-sizing: border-box;
+    flex: none;
+    inline-size: var(--canon-swatch-size, var(--canon-icon-size, 1em));
+    block-size: var(--canon-swatch-size, var(--canon-icon-size, 1em));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+  }
+  @supports (color: attr(value type(<color>), red)) {
+    :where(.canon-swatches) > :where(input[type="radio"]) {
+      --canon-swatch-color: var(--canon-swatch, attr(value type(<color>), transparent));
+    }
+  }
+  :where(.canon-swatches) > :where(input[type="radio"])::before,
+  :where(.canon-swatches) > :where(input[type="radio"])::after {
+    pointer-events: none;
+  }
+  :where(.canon-swatches) > :where(input[type="radio"]:disabled) {
+    cursor: not-allowed;
+  }
+  :where(.canon-swatches-toggle) {
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  :where(.canon-swatches:has(> .canon-swatches-toggle[aria-expanded="false"])) > :where(input[type="radio"]:not(:checked)) {
+    display: none;
+  }
+  :where(.canon-swatches:has(> .canon-swatches-toggle[aria-expanded="false"]):not(:has(> input:checked))) > :where(input[type="radio"]:first-of-type) {
+    display: revert;
+  }
+}

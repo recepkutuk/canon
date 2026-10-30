@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Menubar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Menubar</h1>
+  <p class="ref-note">A row of menus, for apps whose commands are too many for a toolbar: File, Edit, View. Each item opens a <a href="menu.html">Menu</a>. Specification: <a href="../docs/components/menubar.md">docs/components/menubar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="menubar">
+    <h2>Basics</h2>
+    <p class="ref-note">A row of menus, as at the top of a desktop app: <code>role="menubar"</code>, named by <code>aria-label</code>, holding <code>.canon-menubar-item</code>s (<code>role="menuitem"</code>) that each open a <a href="menu.html">Menu</a> with <code>popovertarget</code>. It is one stop for Tab: Left and Right move along it, Down opens a menu. With a menu open, pointing at another item opens its menu, and Left and Right move from menu to menu.</p>
+
+    <div class="canon-menubar" role="menubar" aria-label="Main">
+      <button type="button" class="canon-menubar-item" id="mb-file-item" role="menuitem" popovertarget="mb-file" aria-haspopup="menu" aria-expanded="false">File</button>
+      <button type="button" class="canon-menubar-item" id="mb-edit-item" role="menuitem" popovertarget="mb-edit" aria-haspopup="menu" aria-expanded="false">Edit</button>
+      <button type="button" class="canon-menubar-item" id="mb-view-item" role="menuitem" popovertarget="mb-view" aria-haspopup="menu" aria-expanded="false">View</button>
+      <button type="button" class="canon-menubar-item" id="mb-profiles-item" role="menuitem" popovertarget="mb-profiles" aria-haspopup="menu" aria-expanded="false">Profiles</button>
+    </div>
+    <div class="canon-menu" id="mb-file" popover role="menu" aria-labelledby="mb-file-item">
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+T">
+        <span class="canon-menu-label">New tab</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘T</kbd>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+        <span class="canon-menu-label">New window</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem" aria-disabled="true">
+        <span class="canon-menu-label">New incognito window</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem" popovertarget="mb-share" aria-haspopup="menu">
+        <span class="canon-menu-label">Share</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+P">
+        <span class="canon-menu-label">Print…</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘P</kbd>
+      </button>
+    </div>
+    <div class="canon-menu" id="mb-share" popover role="menu" aria-label="Share">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Email link</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Messages</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Notes</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="mb-edit" popover role="menu" aria-labelledby="mb-edit-item">
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+Z">
+        <span class="canon-menu-label">Undo</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘Z</kbd>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Shift+Meta+Z">
+        <span class="canon-menu-label">Redo</span>
+        <kbd class="canon-kbd" aria-hidden="true">⇧⌘Z</kbd>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem" popovertarget="mb-find" aria-haspopup="menu">
+        <span class="canon-menu-label">Find</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Cut</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Copy</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Paste</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="mb-find" popover role="menu" aria-label="Find">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+        <span class="canon-menu-label">Search the web</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Find…</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Find next</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Find previous</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="mb-view" popover role="menu" aria-labelledby="mb-view-item">
+      <button type="button" class="canon-menu-item" role="menuitemcheckbox" aria-checked="false">
+        <span class="canon-menu-label">Always show bookmarks bar</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitemcheckbox" aria-checked="true">
+        <span class="canon-menu-label">Always show full URLs</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+R">
+        <span class="canon-menu-label">Reload</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘R</kbd>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem" aria-disabled="true" aria-keyshortcuts="Shift+Meta+R">
+        <span class="canon-menu-label">Force reload</span>
+        <kbd class="canon-kbd" aria-hidden="true">⇧⌘R</kbd>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Toggle full screen</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="mb-profiles" popover role="menu" aria-labelledby="mb-profiles-item">
+      <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="false">
+        <span class="canon-menu-label">Andy</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="true">
+        <span class="canon-menu-label">Benoit</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="false">
+        <span class="canon-menu-label">Luis</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Edit…</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-menu-label">Add profile…</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="ref-note">Open, with a submenu: the open item is held down, its menu opens under the bar.</p>
+
+    <div style="block-size: 21rem">
+      <div class="canon-menubar" role="menubar" aria-label="Main">
+        <button type="button" class="canon-menubar-item" role="menuitem" aria-haspopup="menu" aria-expanded="false">File</button>
+        <button type="button" class="canon-menubar-item" role="menuitem" aria-haspopup="menu" aria-expanded="true" data-ref-opens="open-edit">Edit</button>
+        <button type="button" class="canon-menubar-item" role="menuitem" aria-haspopup="menu" aria-expanded="false">View</button>
+        <button type="button" class="canon-menubar-item" role="menuitem" aria-haspopup="menu" aria-expanded="false">Profiles</button>
+      </div>
+      <div class="canon-menu" id="open-edit" popover="manual" role="menu" data-menubar style="position-try-fallbacks: none" aria-label="Edit">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+Z">
+          <span class="canon-menu-label">Undo</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘Z</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Shift+Meta+Z">
+          <span class="canon-menu-label">Redo</span>
+          <kbd class="canon-kbd" aria-hidden="true">⇧⌘Z</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-haspopup="menu" aria-expanded="true" data-ref-opens="open-find">
+          <span class="canon-menu-label">Find</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Cut</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Copy</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Paste</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="open-find" popover="manual" role="menu" data-submenu style="position-try-fallbacks: none" aria-label="Find">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+          <span class="canon-menu-label">Search the web</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find…</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find next</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find previous</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on a container around the bar and its menus (the menus aren't inside the bar): 32 / 40 / 48 tall items, the menus' items alike.</p>
+
+    <div class="ref-stack">
+      <div data-size="sm">
+        <div class="canon-menubar" role="menubar" aria-label="Main">
+          <button type="button" class="canon-menubar-item" id="sz-sm-file-item" role="menuitem" popovertarget="sz-sm-file" aria-haspopup="menu" aria-expanded="false">File</button>
+          <button type="button" class="canon-menubar-item" id="sz-sm-edit-item" role="menuitem" popovertarget="sz-sm-edit" aria-haspopup="menu" aria-expanded="false">Edit</button>
+          <button type="button" class="canon-menubar-item" id="sz-sm-view-item" role="menuitem" popovertarget="sz-sm-view" aria-haspopup="menu" aria-expanded="false">View</button>
+        </div>
+      <div class="canon-menu" id="sz-sm-file" popover role="menu" aria-labelledby="sz-sm-file-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-sm-edit" popover role="menu" aria-labelledby="sz-sm-edit-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-sm-view" popover role="menu" aria-labelledby="sz-sm-view-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      </div>
+      <div data-size="md">
+        <div class="canon-menubar" role="menubar" aria-label="Main">
+          <button type="button" class="canon-menubar-item" id="sz-md-file-item" role="menuitem" popovertarget="sz-md-file" aria-haspopup="menu" aria-expanded="false">File</button>
+          <button type="button" class="canon-menubar-item" id="sz-md-edit-item" role="menuitem" popovertarget="sz-md-edit" aria-haspopup="menu" aria-expanded="false">Edit</button>
+          <button type="button" class="canon-menubar-item" id="sz-md-view-item" role="menuitem" popovertarget="sz-md-view" aria-haspopup="menu" aria-expanded="false">View</button>
+        </div>
+      <div class="canon-menu" id="sz-md-file" popover role="menu" aria-labelledby="sz-md-file-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-md-edit" popover role="menu" aria-labelledby="sz-md-edit-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-md-view" popover role="menu" aria-labelledby="sz-md-view-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      </div>
+      <div data-size="lg">
+        <div class="canon-menubar" role="menubar" aria-label="Main">
+          <button type="button" class="canon-menubar-item" id="sz-lg-file-item" role="menuitem" popovertarget="sz-lg-file" aria-haspopup="menu" aria-expanded="false">File</button>
+          <button type="button" class="canon-menubar-item" id="sz-lg-edit-item" role="menuitem" popovertarget="sz-lg-edit" aria-haspopup="menu" aria-expanded="false">Edit</button>
+          <button type="button" class="canon-menubar-item" id="sz-lg-view-item" role="menuitem" popovertarget="sz-lg-view" aria-haspopup="menu" aria-expanded="false">View</button>
+        </div>
+      <div class="canon-menu" id="sz-lg-file" popover role="menu" aria-labelledby="sz-lg-file-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-lg-edit" popover role="menu" aria-labelledby="sz-lg-edit-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-lg-view" popover role="menu" aria-labelledby="sz-lg-view-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+O">
+          <span class="canon-menu-label">Open…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘O</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Close</span>
+        </button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the bar runs from the right, Left moves to the next item, and menus open from the item's right edge.</p>
+
+    <div dir="rtl" lang="ar">
+      <div class="canon-menubar" role="menubar" aria-label="القائمة الرئيسية">
+        <button type="button" class="canon-menubar-item" id="rtl-file-item" role="menuitem" popovertarget="rtl-file" aria-haspopup="menu" aria-expanded="false">ملف</button>
+        <button type="button" class="canon-menubar-item" id="rtl-edit-item" role="menuitem" popovertarget="rtl-edit" aria-haspopup="menu" aria-expanded="false">تحرير</button>
+        <button type="button" class="canon-menubar-item" id="rtl-view-item" role="menuitem" popovertarget="rtl-view" aria-haspopup="menu" aria-expanded="false">عرض</button>
+        <button type="button" class="canon-menubar-item" id="rtl-profiles-item" role="menuitem" popovertarget="rtl-profiles" aria-haspopup="menu" aria-expanded="false">الملفات الشخصية</button>
+      </div>
+      <div class="canon-menu" id="rtl-file" popover role="menu" aria-labelledby="rtl-file-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+T">
+          <span class="canon-menu-label">New tab</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘T</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+N">
+          <span class="canon-menu-label">New window</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘N</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-disabled="true">
+          <span class="canon-menu-label">New incognito window</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem" popovertarget="rtl-share" aria-haspopup="menu">
+          <span class="canon-menu-label">Share</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+P">
+          <span class="canon-menu-label">Print…</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘P</kbd>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl-share" popover role="menu" aria-label="Share">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Email link</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Messages</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Notes</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl-edit" popover role="menu" aria-labelledby="rtl-edit-item">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+Z">
+          <span class="canon-menu-label">Undo</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘Z</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Shift+Meta+Z">
+          <span class="canon-menu-label">Redo</span>
+          <kbd class="canon-kbd" aria-hidden="true">⇧⌘Z</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem" popovertarget="rtl-find" aria-haspopup="menu">
+          <span class="canon-menu-label">Find</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Cut</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Copy</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Paste</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl-find" popover role="menu" aria-label="Find">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+          <span class="canon-menu-label">Search the web</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find…</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find next</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Find previous</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl-view" popover role="menu" aria-labelledby="rtl-view-item">
+        <button type="button" class="canon-menu-item" role="menuitemcheckbox" aria-checked="false">
+          <span class="canon-menu-label">Always show bookmarks bar</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitemcheckbox" aria-checked="true">
+          <span class="canon-menu-label">Always show full URLs</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem" aria-keyshortcuts="Meta+R">
+          <span class="canon-menu-label">Reload</span>
+          <kbd class="canon-kbd" aria-hidden="true">⌘R</kbd>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem" aria-disabled="true" aria-keyshortcuts="Shift+Meta+R">
+          <span class="canon-menu-label">Force reload</span>
+          <kbd class="canon-kbd" aria-hidden="true">⇧⌘R</kbd>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Toggle full screen</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl-profiles" popover role="menu" aria-labelledby="rtl-profiles-item">
+        <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="false">
+          <span class="canon-menu-label">Andy</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="true">
+          <span class="canon-menu-label">Benoit</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitemradio" aria-checked="false">
+          <span class="canon-menu-label">Luis</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Edit…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-menu-label">Add profile…</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

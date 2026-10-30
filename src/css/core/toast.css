@@ -1,0 +1,79 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Toast                                                               */
+  /*                                                                     */
+  /* The toaster: a popover pinned to the window's bottom-end corner     */
+  /* (--canon-toaster-inset from the edges), its toasts stacked, the     */
+  /* newest last. It lets clicks through but on its toasts. A toast: the */
+  /* theme's icon (::before, from data-intent), the title with the       */
+  /* description under it, the actions after them, the close button at   */
+  /* the end; under 20rem the actions go under the text. A part that     */
+  /* isn't there leaves its column empty: themes space parts with        */
+  /* margins, not column-gap.                                            */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-toaster) {
+    position: fixed;
+    inset: auto;
+    inset-block-end: var(--canon-toaster-inset, 1rem);
+    inset-inline-end: var(--canon-toaster-inset, 1rem);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    inline-size: min(24rem, calc(100vw - 2 * var(--canon-toaster-inset, 1rem)));
+    max-block-size: calc(100dvh - 2 * var(--canon-toaster-inset, 1rem));
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: none;
+    color: inherit;
+    pointer-events: none;
+  }
+  :where(.canon-toaster:not(:popover-open)) {
+    display: none;
+  }
+  :where(.canon-toast) {
+    box-sizing: border-box;
+    display: grid;
+    container: canon-toast / inline-size;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "icon title actions close" "icon description actions close";
+    align-items: start;
+    pointer-events: auto;
+  }
+  :where(.canon-toast)::before {
+    grid-area: icon;
+  }
+  :where(.canon-toast-title) {
+    grid-area: title;
+    margin: 0;
+  }
+  :where(.canon-toast-description) {
+    grid-area: description;
+    margin: 0;
+  }
+  :where(.canon-toast-actions) {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-self: center;
+  }
+  :where(.canon-toast-close) {
+    grid-area: close;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  @container canon-toast (width < 20rem) {
+    :where(.canon-toast-title) { grid-area: 1 / 2; }
+    :where(.canon-toast-description) { grid-area: 2 / 2; }
+    :where(.canon-toast-actions) { grid-area: 3 / 2; align-self: start; }
+    :where(.canon-toast-close) { grid-area: 1 / 4 / span 3; }
+  }
+}

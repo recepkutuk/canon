@@ -1,0 +1,137 @@
+/* ==================================================================== */
+/* Banner                                                               */
+/* ==================================================================== */
+
+@layer canon.theme {
+  /* A strip across the top, no corners, a hairline under it. No
+     intent: zinc-100 (dark zinc-900), the hairline rule. With an intent,
+     tinted: the intent's 50 (dark its 950, 70% over the page) with its
+     200 line (dark 900), and its icon (info blue, success green, warning
+     amber, danger red, as Alert's). The title medium, the description
+     beside it in zinc-600 (dark zinc-300), the actions small high neutral
+     Buttons or Links at the end. data-emphasis="high": Alert's solid
+     fill. Text 14px on 20px lines; at least 40px tall, 8px above and
+     below, the shell's side inset (+4px) at the sides, the close button
+     8px from the end. */
+  .canon-banner {
+    --_bg: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-900));
+    --_line: var(--canon-theme-rule);
+    --_tone: currentColor;
+    --_icon: none;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    min-block-size: 2.5rem;
+    padding-block: 0.5rem;
+    padding-inline: calc(var(--canon-theme-shell-inset) + 0.25rem);
+    border-block-end: var(--canon-theme-hairline) solid var(--_line);
+    background-color: var(--_bg);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: -0.006em;
+  }
+  .canon-banner:has(> .canon-banner-close) {
+    padding-inline-end: 0.5rem;
+  }
+  .canon-banner[data-intent="info"] { --_bg: light-dark(var(--canon-theme-blue-50), color-mix(in srgb, var(--canon-theme-blue-950) 70%, var(--canon-theme-zinc-950))); --_line: light-dark(var(--canon-theme-blue-200), var(--canon-theme-blue-900)); --_tone: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400)); --_icon: var(--canon-theme-icon-info); }
+  .canon-banner[data-intent="success"] { --_bg: light-dark(var(--canon-theme-green-50), color-mix(in srgb, var(--canon-theme-green-950) 70%, var(--canon-theme-zinc-950))); --_line: light-dark(var(--canon-theme-green-200), var(--canon-theme-green-900)); --_tone: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400)); --_icon: var(--canon-theme-icon-circle-check); }
+  .canon-banner[data-intent="warning"] { --_bg: light-dark(var(--canon-theme-amber-50), color-mix(in srgb, var(--canon-theme-amber-950) 70%, var(--canon-theme-zinc-950))); --_line: light-dark(var(--canon-theme-amber-200), var(--canon-theme-amber-900)); --_tone: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400)); --_icon: var(--canon-theme-icon-triangle-alert); }
+  .canon-banner[data-intent="danger"] { --_bg: light-dark(var(--canon-theme-red-50), color-mix(in srgb, var(--canon-theme-red-950) 70%, var(--canon-theme-zinc-950))); --_line: light-dark(var(--canon-theme-red-200), var(--canon-theme-red-900)); --_tone: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400)); --_icon: var(--canon-theme-icon-circle-alert); }
+  .canon-banner[data-intent]::before {
+    content: "";
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    background-color: var(--_tone);
+    mask: var(--_icon) center / contain no-repeat;
+  }
+  .canon-banner-title {
+    font-weight: 500;
+  }
+  .canon-banner-description {
+    color: light-dark(var(--canon-theme-zinc-600), var(--canon-theme-zinc-300));
+  }
+  .canon-banner-actions {
+    gap: 0.5rem;
+  }
+  .canon-banner-close {
+    display: grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: 0.375rem;
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    transition: background-color 0.12s, color 0.12s;
+  }
+  .canon-banner-close::before {
+    content: "";
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-x) center / contain no-repeat;
+  }
+  @media (hover: hover) {
+    .canon-banner-close:hover {
+      background-color: color-mix(in srgb, currentColor 12%, transparent);
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-banner-close:focus-visible {
+    outline: 2px solid var(--canon-theme-focus);
+    outline-offset: 1px;
+  }
+
+  /* data-emphasis="high": Alert's solid fill, for the banner that must not
+     be missed (viewing as someone else, read-only). */
+  .canon-banner[data-emphasis="high"] {
+    --_solid: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_on: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    --_bg: var(--_solid);
+    --_line: var(--_solid);
+    color: var(--_on);
+  }
+  .canon-banner[data-emphasis="high"][data-intent="info"]    { --_solid: var(--canon-theme-blue-600); --_on: var(--canon-theme-white); }
+  .canon-banner[data-emphasis="high"][data-intent="success"] { --_solid: var(--canon-theme-green-600); --_on: var(--canon-theme-white); }
+  .canon-banner[data-emphasis="high"][data-intent="warning"] { --_solid: var(--canon-theme-amber-400); --_on: var(--canon-theme-amber-950); }
+  .canon-banner[data-emphasis="high"][data-intent="danger"]  { --_solid: var(--canon-theme-red-600); --_on: var(--canon-theme-white); }
+  .canon-banner[data-emphasis="high"]::before {
+    background-color: var(--_on);
+  }
+  .canon-banner[data-emphasis="high"] > :is(.canon-banner-description, .canon-banner-close) {
+    color: color-mix(in srgb, var(--_on) 80%, transparent);
+  }
+  @media (hover: hover) {
+    .canon-banner[data-emphasis="high"] > .canon-banner-close:hover {
+      background-color: color-mix(in srgb, var(--_on) 15%, transparent);
+      color: var(--_on);
+    }
+  }
+  .canon-banner[data-emphasis="high"] > .canon-banner-close:focus-visible {
+    outline-color: var(--_on);
+  }
+  .canon-banner[data-emphasis="high"] .canon-link {
+    color: inherit;
+  }
+  /* An action on the solid fill: the inverse, filled with the text's
+     color, labelled in the fill's. */
+  .canon-banner[data-emphasis="high"] > .canon-banner-actions .canon-button {
+    --canon-theme-fg: var(--_solid);
+    --canon-theme-bg: var(--_on);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_on) 88%, var(--_solid));
+    --canon-theme-bg-active: color-mix(in srgb, var(--_on) 78%, var(--_solid));
+    --canon-theme-border: transparent;
+    --canon-theme-ring-offset: var(--_solid);
+    --canon-theme-ring: var(--_on);
+    --_icon: var(--_solid);
+  }
+
+  @media (forced-colors: active) {
+    .canon-banner[data-intent]::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+    .canon-banner-close::before {
+      forced-color-adjust: none;
+      background-color: ButtonText;
+    }
+  }
+}

@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Avatar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Avatar</h1>
+  <p class="ref-note">A person, team or bot, shown as a photo, initials or an icon, with an optional status, badge and count. Specification: <a href="../docs/components/avatar.md">docs/components/avatar.md</a> · count: <a href="../docs/components/count.md">docs/components/count.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="types">
+    <h2>Type × size</h2>
+    <p class="ref-note">The type comes from the content: a photo, initials, or an empty fallback, which shows an icon. Sizes xs to 2xl, then without <code>data-size</code>.</p>
+
+    <h3>Photo</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+    </div>
+
+    <h3>Initials</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+    </div>
+
+    <h3>Icon (empty fallback)</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="color">
+    <h2>Color from a seed</h2>
+    <p class="ref-note">Pass a stable number from your app (a user id) as <code>data-seed</code>: it always picks the same color. Without a seed the avatar is neutral.</p>
+    <div class="ref-row ref-avatar-row">
+      <span class="canon-avatar" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+      </span>
+      <span class="canon-avatar" data-seed="2">
+        <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+      </span>
+      <span class="canon-avatar" data-seed="3">
+        <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson">KJ</span>
+      </span>
+      <span class="canon-avatar" data-seed="4">
+        <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds">LT</span>
+      </span>
+      <span class="canon-avatar" data-seed="5">
+        <span class="canon-avatar-fallback" role="img" aria-label="Margaret Hamilton">MH</span>
+      </span>
+      <span class="canon-avatar" data-seed="6">
+        <span class="canon-avatar-fallback" role="img" aria-label="Dennis Ritchie">DR</span>
+      </span>
+      <span class="canon-avatar" data-seed="7">
+        <span class="canon-avatar-fallback" role="img" aria-label="Barbara Liskov">BL</span>
+      </span>
+      <span class="canon-avatar" data-seed="8">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ken Thompson">KT</span>
+      </span>
+      <span class="canon-avatar" data-seed="9">
+        <span class="canon-avatar-fallback" role="img" aria-label="Radia Perlman">RP</span>
+      </span>
+      <span class="canon-avatar" data-seed="10">
+        <span class="canon-avatar-fallback" role="img" aria-label="Tim Berners-Lee">TB</span>
+      </span>
+      <span class="canon-avatar" data-seed="11">
+        <span class="canon-avatar-fallback" role="img" aria-label="Frances Allen">FA</span>
+      </span>
+      <span class="canon-avatar" data-seed="12">
+        <span class="canon-avatar-fallback" role="img" aria-label="Donald Knuth">DK</span>
+      </span>
+      <span class="canon-avatar" data-seed="13">
+        <span class="canon-avatar-fallback" role="img" aria-label="Hedy Lamarr">HL</span>
+      </span>
+      <span class="canon-avatar" data-seed="14">
+        <span class="canon-avatar-fallback" role="img" aria-label="John Backus">JB</span>
+      </span>
+      <span class="canon-avatar" data-seed="15">
+        <span class="canon-avatar-fallback" role="img" aria-label="Shafi Goldwasser">SG</span>
+      </span>
+      <span class="canon-avatar" data-seed="16">
+        <span class="canon-avatar-fallback" role="img" aria-label="Edsger Dijkstra">ED</span>
+      </span>
+      <span class="canon-avatar">
+        <span class="canon-avatar-fallback" role="img" aria-label="No seed">NS</span>
+      </span>
+    </div>
+    <div class="ref-row ref-avatar-row">
+      <span class="canon-avatar" data-seed="0">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace"></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper"></span>
+      </span>
+      <span class="canon-avatar" data-seed="2">
+        <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing"></span>
+      </span>
+      <span class="canon-avatar" data-seed="3">
+        <span class="canon-avatar-fallback" role="img" aria-label="Katherine Johnson"></span>
+      </span>
+      <span class="canon-avatar" data-seed="4">
+        <span class="canon-avatar-fallback" role="img" aria-label="Linus Torvalds"></span>
+      </span>
+      <span class="canon-avatar" data-seed="5">
+        <span class="canon-avatar-fallback" role="img" aria-label="Margaret Hamilton"></span>
+      </span>
+      <span class="canon-avatar" data-seed="6">
+        <span class="canon-avatar-fallback" role="img" aria-label="Dennis Ritchie"></span>
+      </span>
+      <span class="canon-avatar" data-seed="7">
+        <span class="canon-avatar-fallback" role="img" aria-label="Barbara Liskov"></span>
+      </span>
+      <span class="canon-avatar" data-seed="8">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ken Thompson"></span>
+      </span>
+      <span class="canon-avatar" data-seed="9">
+        <span class="canon-avatar-fallback" role="img" aria-label="Radia Perlman"></span>
+      </span>
+      <span class="canon-avatar" data-seed="10">
+        <span class="canon-avatar-fallback" role="img" aria-label="Tim Berners-Lee"></span>
+      </span>
+      <span class="canon-avatar" data-seed="11">
+        <span class="canon-avatar-fallback" role="img" aria-label="Frances Allen"></span>
+      </span>
+      <span class="canon-avatar" data-seed="12">
+        <span class="canon-avatar-fallback" role="img" aria-label="Donald Knuth"></span>
+      </span>
+      <span class="canon-avatar" data-seed="13">
+        <span class="canon-avatar-fallback" role="img" aria-label="Hedy Lamarr"></span>
+      </span>
+      <span class="canon-avatar" data-seed="14">
+        <span class="canon-avatar-fallback" role="img" aria-label="John Backus"></span>
+      </span>
+      <span class="canon-avatar" data-seed="15">
+        <span class="canon-avatar-fallback" role="img" aria-label="Shafi Goldwasser"></span>
+      </span>
+      <span class="canon-avatar" data-seed="16">
+        <span class="canon-avatar-fallback" role="img" aria-label="Edsger Dijkstra"></span>
+      </span>
+      <span class="canon-avatar">
+        <span class="canon-avatar-fallback" role="img" aria-label="No seed"></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="status">
+    <h2>Status</h2>
+    <p class="ref-note">A dot cut into the edge. Its text is for screen readers only.</p>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="away"><span class="canon-visually-hidden">Away</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="busy"><span class="canon-visually-hidden">Busy</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="offline"><span class="canon-visually-hidden">Offline</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-status" data-status="away"><span class="canon-visually-hidden">Away</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-status" data-status="busy"><span class="canon-visually-hidden">Busy</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-status" data-status="offline"><span class="canon-visually-hidden">Offline</span></span>
+      </span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="badge-count">
+    <h2>Badge and count</h2>
+    <p class="ref-note">A badge (bottom-end) holds an icon and its meaning; a <code>canon-count</code> sits top-end. Each is cut into the avatar.</p>
+
+    <h3>Badge</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-badge" data-intent="info"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-badge" data-intent="warning"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+        <span class="canon-avatar-badge" data-intent="danger"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+    </div>
+
+    <h3>Count</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="xs" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-size="sm" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-size="md" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-size="lg" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+    </div>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">12<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">99+<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+    </div>
+
+    <h3>Together</h3>
+    <div class="ref-row">
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="2">
+        <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="kind">
+    <h2>Kind</h2>
+    <p class="ref-note"><code>data-kind</code>: <code>person</code> (the default), <code>team</code> or <code>bot</code>. Teams and bots get their own shape and icon.</p>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="4" data-kind="team">
+        <span class="canon-avatar-fallback" role="img" aria-label="Design team">DT</span>
+      </span>
+      <span class="canon-avatar" data-seed="4" data-kind="team">
+        <span class="canon-avatar-fallback" role="img" aria-label="Design team"></span>
+      </span>
+      <span class="canon-avatar" data-seed="9" data-kind="bot">
+        <span class="canon-avatar-fallback" role="img" aria-label="Deploy bot"></span>
+      </span>
+      <span class="canon-avatar" data-seed="9" data-kind="bot">
+        <span class="canon-avatar-fallback" role="img" aria-label="Deploy bot">DB</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="12" data-kind="team">
+        <span class="canon-avatar-fallback" role="img" aria-label="Acme">AC</span>
+        <span class="canon-count">5<span class="canon-visually-hidden"> unread</span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="interactive">
+    <h2>Clickable</h2>
+    <p class="ref-note">A link to a profile, a button that opens the account menu. Tab to see the focus ring.</p>
+    <div class="ref-row">
+      <a href="/people/ada" class="canon-avatar" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+      </a>
+      <button type="button" aria-haspopup="menu" aria-expanded="false" class="canon-avatar" data-seed="1">
+        <span class="canon-avatar-fallback" role="img" aria-label="Your account, Grace Hopper">GH</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="spotlight">
+    <h2>Spotlight</h2>
+    <p class="ref-note"><code>data-spotlight</code> on an avatar: under the pointer or with focus it grows a little and shows its name in a <a href="tooltip.html">Tooltip</a>; it takes focus so keyboards reach it. For several avatars, put it on the <a href="avatar-group.html#spotlight">Avatar Group</a>. For more than the name, point the avatar at your own Tooltip with <code>interestfor</code>.</p>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="0" data-size="lg" data-spotlight>
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-seed="1" data-size="lg" data-spotlight interestfor="spot-grace-tip">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+      </span>
+      <div class="canon-tooltip" id="spot-grace-tip" popover="hint" role="tooltip">Grace Hopper · Compilers, away until Monday</div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="fallback">
+    <h2>Fallback</h2>
+    <p class="ref-note">A photo that doesn't load shows the initials (canon.js), or the icon when there are none.</p>
+    <div class="ref-row">
+      <span class="canon-avatar" data-seed="1">
+        <img class="canon-avatar-image" src="assets/missing.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+      </span>
+      <span class="canon-avatar" data-seed="1">
+        <img class="canon-avatar-image" src="assets/missing.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Guest"></span>
+      </span>
+      <span class="canon-avatar" data-size="2xl" data-seed="2">
+        <img class="canon-avatar-image" src="assets/missing.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Alan Turing">AT</span>
+        <span class="canon-avatar-status" data-status="away"><span class="canon-visually-hidden">Away</span></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="decorative">
+    <h2>Beside the name</h2>
+    <p class="ref-note">When the name is written next to it, the avatar is decorative: the fallback is <code>aria-hidden</code> with no label.</p>
+    <div class="ref-row">
+      <span class="ref-person">
+        <span class="canon-avatar" data-size="sm" data-seed="0">
+          <span class="canon-avatar-fallback" aria-hidden="true">AL</span>
+        </span>
+        <span>Ada Lovelace</span>
+      </span>
+      <span class="ref-person">
+        <span class="canon-avatar" data-size="sm" data-seed="1">
+          <span class="canon-avatar-fallback" aria-hidden="true">GH</span>
+        </span>
+        <span>Grace Hopper</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>On other surfaces</h3>
+    <p class="ref-note">The cut-outs are real gaps: the surface shows through.</p>
+    <div class="ref-row">
+      <div class="ref-surface">
+        <div class="ref-row">
+        <span class="canon-avatar" data-size="xl" data-seed="0">
+          <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+          <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+          <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+        </span>
+        <span class="canon-avatar" data-size="xl" data-seed="1">
+          <span class="canon-avatar-fallback" role="img" aria-label="Grace Hopper">GH</span>
+          <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+        </span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">Status, badge and count move to the other side.</p>
+    <div class="ref-row" dir="rtl" lang="ar">
+      <span class="canon-avatar" data-size="xl" data-seed="0">
+        <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+        <span class="canon-avatar-fallback" role="img" aria-label="Ada Lovelace">AL</span>
+        <span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span>
+        <span class="canon-avatar-status" data-status="online"><span class="canon-visually-hidden">Online</span></span>
+      </span>
+      <span class="canon-avatar" data-size="xl" data-seed="5">
+        <span class="canon-avatar-fallback" role="img" aria-label="أحمد">أ</span>
+        <span class="canon-avatar-badge"><span class="canon-icon" data-icon="circle-check" aria-hidden="true"></span><span class="canon-visually-hidden">Verified</span></span>
+      </span>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

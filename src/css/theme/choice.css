@@ -1,0 +1,349 @@
+/* ==================================================================== */
+/* Choice: checkbox, radio, switch · Fieldset                           */
+/* ==================================================================== */
+
+/* How far a switch's thumb has gone, 0 (off) to 1 (on), passing both
+   ends on its spring: it squeezes the thumb while it moves. */
+@property --canon-theme-switch-travel {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer canon.theme {
+
+  /* Size scale. The control is the icon size (16 / 20 / 24); the label the
+     text input's type (12 / 14 / 16px on 16 / 20 / 24px lines), 6 / 8 /
+     8px from it. A group: the label (Label's look), the options 12 / 16 /
+     16px under it and 8 / 8 / 12px apart, the message 12 / 16 / 16px
+     after them. md by default. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-choice-gap: 0.5rem;
+    --canon-theme-fieldset-gap: 1rem;
+    --canon-theme-fieldset-item-gap: 0.5rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-choice-gap: 0.375rem;
+    --canon-theme-fieldset-gap: 0.75rem;
+    --canon-theme-fieldset-item-gap: 0.5rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-choice-gap: 0.5rem;
+    --canon-theme-fieldset-gap: 1rem;
+    --canon-theme-fieldset-item-gap: 0.75rem;
+  }
+
+  .canon-choice {
+    --canon-choice-control-size: var(--canon-icon-size);
+    --canon-choice-gap: var(--canon-theme-choice-gap);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+
+  /* Checkbox and radio. The box is 90% of the
+     control: a checkbox's corners a quarter of the control (4 / 5 / 6px),
+     a radio's round. A 1px zinc-400 line (dark zinc-500). Checked (and an
+     indeterminate checkbox): filled zinc-900 with a white mark (dark: white
+     with a zinc-900 mark), as a neutral high Button; a checkbox's mark is a check or a dash, a radio's a dot a
+     quarter of the control (4 / 5 / 6px). Hover: a zinc-600 line (dark
+     zinc-300), and a 3px zinc-100 halo (dark zinc-800) also when checked.
+     Disabled: filled zinc-200 (dark zinc-600); checked, zinc-300 with a
+     zinc-100 mark (dark zinc-600, zinc-400). An invalid box
+     takes Text Input's error line and halo. Focus rings the box and its
+     label together. The box is ::before, the mark ::after. (A radio is
+     :indeterminate while its group has no choice, so only checkboxes take
+     the indeterminate look.) */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_line: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    --_fill: transparent;
+    --_mark: transparent;
+    --_halo: transparent;
+    outline: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::before {
+    content: "";
+    position: absolute;
+    inset: 5%;
+    box-sizing: border-box;
+    border: 1px solid var(--_line);
+    border-radius: calc(var(--canon-choice-control-size) / 4);
+    background-color: var(--_fill);
+    box-shadow: 0 0 0 3px var(--_halo);
+    transition: border-color 0.12s, background-color 0.12s, box-shadow 0.12s;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--_mark);
+    mask: var(--canon-theme-icon-checkbox-check) center / contain no-repeat;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):indeterminate::after {
+    mask-image: var(--canon-theme-icon-checkbox-dash);
+  }
+  .canon-choice > input[type="radio"]::before {
+    border-radius: 50%;
+  }
+  .canon-choice > input[type="radio"]::after {
+    inset: 37.5%;
+    border-radius: 50%;
+    mask: none;
+  }
+  /* A squeeze and a stroke. Pressing squeezes the control (to 82%,
+     0.08s); let go, it eases back to its size (0.2s), no overshoot: a
+     state change settles, it doesn't bounce. Checking,
+     the fill comes in (0.08s) and the check (or dash) is drawn along its
+     stroke: it only ever runs rightward, so a reveal across its own
+     width (8.25 to 15.75 of the 24-unit frame) draws it in order, the
+     short leg then the long one (0.22s from 0.05s, eased in and out).
+     The radio's dot grows from the middle (0.2s). Unchecking, the
+     mark goes at once. */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    transition: scale 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):active:not(:disabled) {
+    scale: 0.82;
+    transition-duration: 0.08s;
+    transition-timing-function: ease-out;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate)::before {
+    transition-duration: 0.08s;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"])::after {
+    clip-path: inset(0 66% 0 0);
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):is(:checked, :indeterminate)::after {
+    clip-path: inset(0 33% 0 0);
+    transition: clip-path 0.22s cubic-bezier(0.65, 0, 0.35, 1) 0.05s;
+  }
+  .canon-choice > input[type="radio"]::after {
+    scale: 0;
+  }
+  .canon-choice > input[type="radio"]:checked::after {
+    scale: 1;
+    transition: scale 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_fill: var(--_line);
+    --_mark: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is([aria-invalid="true"], :user-invalid):not(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(var(--canon-theme-red-400), var(--canon-theme-red-500));
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled)):hover > input {
+      --_halo: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+    }
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: light-dark(var(--canon-theme-zinc-600), var(--canon-theme-zinc-300));
+    }
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate):is([aria-invalid="true"], :user-invalid)):hover > input {
+      --_line: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400));
+      --_halo: light-dark(var(--canon-theme-red-100), var(--canon-theme-red-900));
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-600));
+    --_fill: var(--_line);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled:is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    --_fill: var(--_line);
+    --_mark: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-400));
+  }
+
+  /* Focus: a 1px blue-600 ring (dark blue-300) 2px out from the
+     control and its label, corners 2px; for a switch too, 2px out from its
+     track's ring (--canon-theme-choice-bleed). Drawn on the label, reaching back
+     over the control. */
+  .canon-choice:has(> input:where([type="checkbox"], [type="radio"])) > :is(.canon-choice-label, .canon-choice-state) {
+    position: relative;
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input:where([type="checkbox"], [type="radio"]):focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input:where([type="checkbox"], [type="radio"]):focus-visible ~ .canon-choice-state::before {
+    --_out: var(--canon-theme-choice-bleed, 0px);
+    content: "";
+    position: absolute;
+    inset-block: calc(-1 * var(--_out));
+    inset-inline:
+      calc(-1 * (var(--canon-choice-control-inline-size, var(--canon-choice-control-size)) + var(--canon-choice-gap) + var(--_out)))
+      calc(-1 * var(--_out));
+    border-radius: 0.125rem;
+    box-shadow:
+      0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)),
+      0 0 0 3px light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-300));
+    pointer-events: none;
+  }
+
+  /* Switch. The track is 28 / 34 / 40 × 16 / 20 / 24 (the
+     control's height, 1.5 of it plus 4px wide) with a 2px ring of its own
+     color outside it; the thumb is the control's height, a white circle
+     (dark zinc-400) with a 1px ring and a 1px drop, black at 5%. Off: zinc-300 (dark zinc-700).
+     On: zinc-900 with a white thumb (dark: white with a zinc-900 thumb). The ring sits outside
+     the box, so the label is 2px further away, the focus ring 2px further
+     out (around the label too, as for the others), and a group 4px more
+     apart (see Fieldset). Disabled
+     takes Checkbox's greys (off zinc-200 with a zinc-100 thumb, dark
+     zinc-800 with zinc-600; on zinc-300 with zinc-100, dark zinc-600 with
+     zinc-400); an invalid switch that is off takes Text Input's error
+     line color. No hover look. Toggling, the thumb springs across, past
+     the end and back (0.3s), squeezed while it moves: flatter and wider
+     mid-way (80% tall, 120% wide), a touch taller as it rebounds. */
+  .canon-choice:has(> input[role="switch"]) {
+    --canon-theme-choice-bleed: 2px;
+    --canon-choice-control-inline-size: calc(var(--canon-choice-control-size) * 1.5 + 4px);
+    --canon-choice-gap: calc(var(--canon-theme-choice-gap) + var(--canon-theme-choice-bleed));
+  }
+  .canon-choice > input[role="switch"] {
+    --_track: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-700));
+    --_thumb: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-400));
+    border-radius: 999px;
+    background-color: var(--_track);
+    box-shadow: 0 0 0 2px var(--_track);
+    outline: none;
+    transition: background-color 0.12s, box-shadow 0.12s;
+  }
+  .canon-choice > input[role="switch"]::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: var(--canon-choice-control-size);
+    block-size: var(--canon-choice-control-size);
+    border-radius: 50%;
+    background-color: var(--_thumb);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.05), 0 1px 0 rgb(0 0 0 / 0.05);
+    --_squeeze: calc(sin(var(--canon-theme-switch-travel) * 180deg) * 0.2);
+    scale: calc(1 + var(--_squeeze)) calc(1 - var(--_squeeze));
+    transition:
+      inset-inline-start 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      --canon-theme-switch-travel 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 0.12s;
+  }
+  .canon-choice > input[role="switch"]:checked {
+    --_track: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    --_thumb: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+  }
+  .canon-choice > input[role="switch"]:checked::after {
+    inset-inline-start: calc(100% - var(--canon-choice-control-size));
+    --canon-theme-switch-travel: 1;
+  }
+  .canon-choice > input[role="switch"]:is([aria-invalid="true"], :user-invalid):not(:checked) {
+    --_track: light-dark(var(--canon-theme-red-400), var(--canon-theme-red-500));
+  }
+  .canon-choice > input[role="switch"]:disabled {
+    --_track: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+    --_thumb: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-600));
+  }
+  .canon-choice > input[role="switch"]:disabled:checked {
+    --_track: light-dark(var(--canon-theme-zinc-300), var(--canon-theme-zinc-600));
+    --_thumb: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-400));
+  }
+
+  /* State text: the label above in Label's type, like a
+     field's, the hint under it; the switch 6px below (Field's step, plus
+     the track's ring) with the words beside it in the label's usual place.
+     The focus ring goes around the switch and the words. */
+  .canon-choice:has(> .canon-choice-state) > .canon-choice-label {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-theme-label-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-label-line-height);
+    letter-spacing: var(--canon-theme-label-tracking);
+  }
+  .canon-choice:has(> .canon-choice-state) > :is(input, .canon-choice-state) {
+    align-self: center;
+    margin-block-start: calc(0.375rem + var(--canon-theme-choice-bleed, 0px));
+  }
+  .canon-choice:has(> .canon-choice-state) > .canon-choice-message {
+    margin-block-start: calc(0.25rem + var(--canon-theme-choice-bleed, 0px));
+  }
+  .canon-choice:has(> :disabled) > :is(.canon-choice-label, .canon-choice-state) {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+
+  /* Hints are the label description's; messages the field's (with their
+     icon, see Field). */
+  .canon-choice-hint,
+  .canon-fieldset-hint {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-size: var(--canon-theme-label-description-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-label-description-line-height);
+    letter-spacing: var(--canon-theme-label-description-tracking);
+  }
+  .canon-choice > .canon-choice-hint {
+    margin-block-start: var(--canon-theme-label-description-gap);
+  }
+  .canon-choice > .canon-choice-message {
+    margin-block-start: 0.25rem;
+  }
+
+  /* Fieldset: the legend in the label's
+     type, the hint under it, then the items. Every item keeps the same
+     top margin (so a horizontal row lines up); the legend or hint makes
+     up the rest of the step above the first. */
+  .canon-fieldset-legend {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-theme-label-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-label-line-height);
+    letter-spacing: var(--canon-theme-label-tracking);
+  }
+  .canon-fieldset:has(:required) > .canon-fieldset-legend::after {
+    content: "*" / "";
+    margin-inline-start: 0.25rem;
+    color: light-dark(var(--canon-theme-red-700), var(--canon-theme-red-300));
+    font-weight: 600;
+  }
+  .canon-fieldset > .canon-fieldset-hint {
+    margin-block-start: var(--canon-theme-label-description-gap);
+  }
+  .canon-fieldset > :not(.canon-fieldset-legend, .canon-fieldset-hint, .canon-fieldset-message) {
+    margin-block-start: var(--canon-theme-fieldset-item-gap);
+  }
+  .canon-fieldset > :is(.canon-fieldset-legend:not(:has(+ .canon-fieldset-hint)), .canon-fieldset-hint) {
+    margin-block-end: calc(var(--canon-theme-fieldset-gap) - var(--canon-theme-fieldset-item-gap));
+  }
+  .canon-fieldset > .canon-fieldset-message {
+    margin-block-start: var(--canon-theme-fieldset-gap);
+  }
+  /* Switches: their ring reaches 2px past the box, so the steps grow by
+     it (4px between two switches) and the spaces look the same. */
+  .canon-fieldset > .canon-choice:has(> input[role="switch"]) {
+    margin-block-start: calc(var(--canon-theme-fieldset-item-gap) + 4px);
+  }
+  .canon-fieldset:has(> .canon-choice > input[role="switch"]) > :is(.canon-fieldset-legend:not(:has(+ .canon-fieldset-hint)), .canon-fieldset-hint) {
+    margin-block-end: calc(var(--canon-theme-fieldset-gap) - var(--canon-theme-fieldset-item-gap) - 2px);
+  }
+  .canon-fieldset:has(> .canon-choice > input[role="switch"]) > .canon-fieldset-message {
+    margin-block-start: calc(var(--canon-theme-fieldset-gap) + 2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canon-choice > input[role="switch"],
+    .canon-choice > input[role="switch"]::after,
+    .canon-choice > input:is([type="checkbox"], [type="radio"]),
+    .canon-choice > input:is([type="checkbox"], [type="radio"])::before,
+    .canon-choice > input:is([type="checkbox"], [type="radio"])::after { transition: none; }
+    .canon-choice > input:is([type="checkbox"], [type="radio"]):active { scale: none; }
+  }
+}
+
+@layer canon.theme {
+  /* Fields stacked in a fieldset: a clear step above the gap between choices.
+     Horizontal rows keep the items' shared top margin, so they still
+     line up. */
+  .canon-fieldset:not([data-orientation="horizontal"]) > .canon-field + .canon-field {
+    margin-block-start: 1rem;
+  }
+}

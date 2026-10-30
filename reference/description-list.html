@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Description List reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Description List</h1>
+  <p class="ref-note">Facts about one thing, as terms and their values: a record's details, a profile, an invoice's totals, a settings overview. The read-only side of a form: it lines up the same way, so a page can switch between showing and editing without moving. To compare many records, use a <a href="table.html">Table</a>. Specification: <a href="../docs/components/description-list.md">docs/components/description-list.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="description-list">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;dl class="canon-description-list"&gt;</code> with a <code>&lt;div&gt;</code> per item: its term (<code>&lt;dt&gt;</code>) and its value (<code>&lt;dd&gt;</code>). Terms sit above their values; lines run between items.</p>
+
+    <div class="ref-stack">
+      <dl class="canon-description-list">
+        <div><dt>Invoice</dt><dd>INV-2041</dd></div>
+        <div><dt>Customer</dt><dd>Edwin Mueller</dd></div>
+        <div><dt>Amount</dt><dd>$495.90</dd></div>
+        <div><dt>Due</dt><dd><time datetime="2026-11-01">1 Nov 2026</time></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="beside">
+    <h2>Terms beside their values</h2>
+    <p class="ref-note"><code>data-label="start"</code>, the hint a form uses for its labels: terms in a column a third wide, beside their values, while the list has 32rem; narrower, they go back above. On a page with a form beside the list, set it on their container and both line up. Drag the frame's corner to try it.</p>
+
+    <div class="ref-resizable">
+      <dl class="canon-description-list" data-label="start">
+        <div><dt>Display name</dt><dd>Ada Lovelace</dd></div>
+        <div><dt>Email</dt><dd>ada@example.com</dd></div>
+        <div><dt>Role</dt><dd><span class="canon-tag"><span class="canon-tag-label">Designer</span></span></dd></div>
+        <div><dt>Bio</dt><dd>Writes the first programs for engines that don't exist yet, and the notes that explain them, which run three times as long as the paper they are about.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="columns">
+    <h2>Columns</h2>
+    <p class="ref-note"><code>data-columns="2"</code> or <code>"3"</code>: items side by side, as many columns as fit at 16rem each, up to that number.</p>
+
+    <dl class="canon-description-list" data-columns="3">
+      <div><dt>Plan</dt><dd>Pro</dd></div>
+      <div><dt>Seats</dt><dd>12 of 15</dd></div>
+      <div><dt>Renews</dt><dd><time datetime="2026-11-01">1 Nov 2026</time></dd></div>
+      <div><dt>Billing</dt><dd>Monthly</dd></div>
+      <div><dt>Payment</dt><dd>Visa ending 4242</dd></div>
+      <div><dt>Region</dt><dd>Europe</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="icons">
+    <h2>Icons as terms</h2>
+    <p class="ref-note">A term can be an icon (<code>aria-hidden="true"</code>) with its words visually hidden (<code>canon-visually-hidden</code>): the icon sits beside the value, and screen readers still hear "Date, 10 October 2026". For a panel where the icons say enough at a glance (an event, a contact card); <code>data-lines="none"</code> drops the lines.</p>
+
+    <div class="ref-stack">
+      <dl class="canon-description-list" data-lines="none">
+        <div><dt><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-visually-hidden">Date</span></dt><dd><time datetime="2026-10-10">Friday, 10 October 2026</time></dd></div>
+        <div><dt><span class="canon-icon" data-icon="tag" aria-hidden="true"></span><span class="canon-visually-hidden">Category</span></dt><dd>Meetings</dd></div>
+        <div><dt><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-visually-hidden">Organizer</span></dt><dd>ada@example.com</dd></div>
+        <div><dt><span class="canon-icon" data-icon="info" aria-hidden="true"></span><span class="canon-visually-hidden">Notes</span></dt><dd>Bring the latest numbers. We'll pick the three projects for the next quarter and who leads each.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="values">
+    <h2>Values</h2>
+    <p class="ref-note">A value can hold anything inline: a <a href="tag.html">Tag</a>, a <a href="link.html">Link</a>, a time, a code with a copy button. A term with several values gets a <code>&lt;dd&gt;</code> for each. An empty <code>&lt;dd&gt;</code> shows a dash that screen readers hear as "Not set" (the <code>--canon-text-not-set</code> string).</p>
+
+    <div class="ref-stack" style="max-inline-size: 32rem">
+      <dl class="canon-description-list" data-label="start">
+        <div><dt>Status</dt><dd><span class="canon-tag" data-intent="success"><span class="canon-tag-label">Paid</span></span></dd></div>
+        <div><dt>Receipt</dt><dd><a class="canon-link" href="#receipt" data-standalone>Download PDF</a></dd></div>
+        <div><dt>Participants</dt><dd>Ada Lovelace</dd><dd>Grace Hopper</dd><dd>Katherine Johnson</dd></div>
+        <div><dt>Reference</dt><dd></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="actions">
+    <h2>Row actions</h2>
+    <p class="ref-note">A <a href="button.html">Button</a> or <a href="link.html">Link</a> after the values sits at the item's end, level with it: "Change" on a settings overview. Name it for its item ("Change email") where several are alike.</p>
+
+    <div class="ref-stack" style="max-inline-size: 36rem">
+      <dl class="canon-description-list" data-label="start">
+        <div>
+          <dt>Email</dt><dd>ada@example.com</dd>
+          <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal"><span class="canon-button-label">Change<span class="canon-visually-hidden"> email</span></span></button>
+        </div>
+        <div>
+          <dt>Password</dt><dd>Changed 3 months ago</dd>
+          <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal"><span class="canon-button-label">Change<span class="canon-visually-hidden"> password</span></span></button>
+        </div>
+        <div>
+          <dt>Two-factor</dt><dd>Off</dd>
+          <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal"><span class="canon-button-label">Turn on<span class="canon-visually-hidden"> two-factor</span></span></button>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the list or a container: Table's type and row heights.</p>
+
+    <div class="ref-grid">
+      <dl class="canon-description-list" data-size="sm">
+        <div><dt>Plan</dt><dd>Pro</dd></div>
+        <div><dt>Seats</dt><dd>12 of 15</dd></div>
+      </dl>
+      <dl class="canon-description-list">
+        <div><dt>Plan</dt><dd>Pro</dd></div>
+        <div><dt>Seats</dt><dd>12 of 15</dd></div>
+      </dl>
+      <dl class="canon-description-list" data-size="lg">
+        <div><dt>Plan</dt><dd>Pro</dd></div>
+        <div><dt>Seats</dt><dd>12 of 15</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Long values wrap, also unbroken ones (a link, an id). Right to left, terms are on the right.</p>
+
+    <div class="ref-stack" style="max-inline-size: 32rem">
+      <dl class="canon-description-list" data-label="start">
+        <div><dt>API key</dt><dd>sk_live_51HxQ2bKz9vPqR7mN4tY8wE3cL6dF0gH2jK5</dd></div>
+        <div><dt>Callback address for payment notifications</dt><dd>https://example.com/hooks/payments/notify</dd></div>
+      </dl>
+      <dl class="canon-description-list" data-label="start" dir="rtl" lang="ar">
+        <div><dt>الاسم</dt><dd>آدا لوفلايس</dd></div>
+        <div><dt>البريد</dt><dd>ada@example.com</dd></div>
+        <div><dt>المرجع</dt><dd></dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

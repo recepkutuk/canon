@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Swatches reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Swatches</h1>
+  <p class="ref-note">Pick one color from a few: radios drawn as colored circles. Each radio's value is its color and is what the form submits; each one needs a name for screen readers (<code>aria-label</code>). Specification: <a href="../docs/components/swatches.md">docs/components/swatches.md</a></p>
+  <p class="ref-note">The group is a <code>role="radiogroup"</code> named by its label, in a <a href="field.html">Field</a>. Arrow keys move between the colors, as in any radio group.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field or a container: the swatches are the icon size, the box the height of a text input.</p>
+
+    <div class="ref-stack">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><span class="canon-label-text" id="sz-sm-label">Small</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="sz-sm-label">
+          <input type="radio" name="sz-sm" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="sz-sm" value="#06b6d4" aria-label="Cyan">
+          <input type="radio" name="sz-sm" value="#22c55e" aria-label="Green">
+          <input type="radio" name="sz-sm" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="sz-sm" value="#f97316" aria-label="Orange">
+          <input type="radio" name="sz-sm" value="#ef4444" aria-label="Red">
+          <input type="radio" name="sz-sm" value="#ec4899" aria-label="Pink">
+          <input type="radio" name="sz-sm" value="#a855f7" aria-label="Purple">
+          <input type="radio" name="sz-sm" value="#6366f1" aria-label="Indigo">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="sz-md-label">Theme decides</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="sz-md-label">
+          <input type="radio" name="sz-md" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="sz-md" value="#06b6d4" aria-label="Cyan">
+          <input type="radio" name="sz-md" value="#22c55e" aria-label="Green">
+          <input type="radio" name="sz-md" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="sz-md" value="#f97316" aria-label="Orange">
+          <input type="radio" name="sz-md" value="#ef4444" aria-label="Red">
+          <input type="radio" name="sz-md" value="#ec4899" aria-label="Pink">
+          <input type="radio" name="sz-md" value="#a855f7" aria-label="Purple">
+          <input type="radio" name="sz-md" value="#6366f1" aria-label="Indigo">
+        </div>
+      </div>
+
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><span class="canon-label-text" id="sz-lg-label">Large</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="sz-lg-label">
+          <input type="radio" name="sz-lg" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="sz-lg" value="#06b6d4" aria-label="Cyan">
+          <input type="radio" name="sz-lg" value="#22c55e" aria-label="Green">
+          <input type="radio" name="sz-lg" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="sz-lg" value="#f97316" aria-label="Orange">
+          <input type="radio" name="sz-lg" value="#ef4444" aria-label="Red">
+          <input type="radio" name="sz-lg" value="#ec4899" aria-label="Pink">
+          <input type="radio" name="sz-lg" value="#a855f7" aria-label="Purple">
+          <input type="radio" name="sz-lg" value="#6366f1" aria-label="Indigo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="collapse">
+    <h2>Expanding</h2>
+    <p class="ref-note"><code>data-collapse</code>: only the chosen color shows, with a chevron. The group opens when it gets focus or the chevron is clicked, and closes when focus leaves, on Escape, or after a color is clicked. Without JavaScript every color shows.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="cl-label">Label color</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="cl-label" data-collapse>
+          <input type="radio" name="cl" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="cl" value="#06b6d4" aria-label="Cyan">
+          <input type="radio" name="cl" value="#22c55e" aria-label="Green">
+          <input type="radio" name="cl" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="cl" value="#f97316" aria-label="Orange">
+          <input type="radio" name="cl" value="#ef4444" aria-label="Red">
+          <input type="radio" name="cl" value="#ec4899" aria-label="Pink">
+          <input type="radio" name="cl" value="#a855f7" aria-label="Purple">
+          <input type="radio" name="cl" value="#6366f1" aria-label="Indigo">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="cl-none-label">Nothing chosen yet</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="cl-none-label" data-collapse>
+          <input type="radio" name="cl-none" value="#3b82f6" aria-label="Blue">
+          <input type="radio" name="cl-none" value="#22c55e" aria-label="Green">
+          <input type="radio" name="cl-none" value="#ef4444" aria-label="Red">
+          <input type="radio" name="cl-none" value="#a855f7" aria-label="Purple">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="values">
+    <h2>Values that aren't colors</h2>
+    <p class="ref-note">When the value is a name (a theme token, an id), set the color to show with <code>style="--canon-swatch: …"</code>. The form submits the value.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><span class="canon-label-text" id="tk-label">Accent</span></div>
+      <div class="canon-swatches" role="radiogroup" aria-labelledby="tk-label">
+        <input type="radio" name="accent" value="ocean" aria-label="Ocean" style="--canon-swatch: #0ea5e9" checked>
+        <input type="radio" name="accent" value="forest" aria-label="Forest" style="--canon-swatch: #15803d">
+        <input type="radio" name="accent" value="sunset" aria-label="Sunset" style="--canon-swatch: #ea580c">
+        <input type="radio" name="accent" value="ink" aria-label="Ink" style="--canon-swatch: #18181b">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Hover and focus are shown on the swatch. <code>disabled</code> on one radio, or on all of them.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="st-one-label">One unavailable</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="st-one-label">
+          <input type="radio" name="st-one" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="st-one" value="#22c55e" aria-label="Green">
+          <input type="radio" name="st-one" value="#ef4444" aria-label="Red" disabled>
+          <input type="radio" name="st-one" value="#a855f7" aria-label="Purple">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="st-all-label">All disabled</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="st-all-label">
+          <input type="radio" name="st-all" value="#3b82f6" aria-label="Blue" checked disabled>
+          <input type="radio" name="st-all" value="#22c55e" aria-label="Green" disabled>
+          <input type="radio" name="st-all" value="#ef4444" aria-label="Red" disabled>
+          <input type="radio" name="st-all" value="#a855f7" aria-label="Purple" disabled>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Many colors in a narrow space</h3>
+    <p class="ref-note">The swatches wrap inside the box.</p>
+    <div class="ref-narrow">
+      <div class="canon-field">
+        <div class="canon-label"><span class="canon-label-text" id="ex-many-label">Highlight</span></div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="ex-many-label">
+          <input type="radio" name="ex-many" value="#ef4444" aria-label="Red" checked>
+          <input type="radio" name="ex-many" value="#f97316" aria-label="Orange">
+          <input type="radio" name="ex-many" value="#f59e0b" aria-label="Amber">
+          <input type="radio" name="ex-many" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="ex-many" value="#84cc16" aria-label="Lime">
+          <input type="radio" name="ex-many" value="#22c55e" aria-label="Green">
+          <input type="radio" name="ex-many" value="#10b981" aria-label="Emerald">
+          <input type="radio" name="ex-many" value="#14b8a6" aria-label="Teal">
+          <input type="radio" name="ex-many" value="#06b6d4" aria-label="Cyan">
+          <input type="radio" name="ex-many" value="#0ea5e9" aria-label="Sky">
+          <input type="radio" name="ex-many" value="#3b82f6" aria-label="Blue">
+          <input type="radio" name="ex-many" value="#6366f1" aria-label="Indigo">
+          <input type="radio" name="ex-many" value="#8b5cf6" aria-label="Violet">
+          <input type="radio" name="ex-many" value="#a855f7" aria-label="Purple">
+          <input type="radio" name="ex-many" value="#d946ef" aria-label="Fuchsia">
+          <input type="radio" name="ex-many" value="#ec4899" aria-label="Pink">
+        </div>
+      </div>
+    </div>
+
+    <h3>Right-to-left</h3>
+    <div class="canon-field" dir="rtl" lang="ar">
+      <div class="canon-label"><span class="canon-label-text" id="ex-rtl-label">اللون</span></div>
+      <div class="canon-swatches" role="radiogroup" aria-labelledby="ex-rtl-label" data-collapse>
+        <input type="radio" name="ex-rtl" value="#3b82f6" aria-label="أزرق" checked>
+        <input type="radio" name="ex-rtl" value="#22c55e" aria-label="أخضر">
+        <input type="radio" name="ex-rtl" value="#ef4444" aria-label="أحمر">
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

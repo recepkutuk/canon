@@ -1,0 +1,92 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Pagination                                                          */
+  /*                                                                     */
+  /* <nav class="canon-pagination"> around an <ol>: Previous, the pages  */
+  /* (links, the current one aria-current="page"), gaps, Next, and       */
+  /* optionally First and Last, or "Page 2 of 30" between the arrows.    */
+  /* Before it, a summary ("1–10 of 300") and a rows-per-page Select;    */
+  /* after it, a form to jump to a page. With info before the list, the  */
+  /* list goes to the far end. canon.js draws the list from data-pages.  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-pagination) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: var(--canon-control-font-size);
+  }
+  :where(.canon-pagination) > :where(ol) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  :where(.canon-pagination-summary, .canon-pagination-size) ~ :where(ol) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-pagination) > :where(ol) > :where(li) {
+    display: inline-flex;
+  }
+  :where(.canon-pagination) > :where(ol) > :where(li) > :where(a, button),
+  :where(.canon-pagination-gap, .canon-pagination-current) {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: var(--canon-control-block-size);
+    min-inline-size: var(--canon-control-block-size);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  :where(.canon-pagination) > :where(ol) > :where(li) > :where(a, button) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  :where(.canon-pagination) > :where(ol) > :where(li) > :where(a:not([href]), button:disabled, [aria-current="page"]) {
+    cursor: default;
+  }
+  :where(.canon-pagination) :where(.canon-pagination-first, .canon-pagination-prev, .canon-pagination-next, .canon-pagination-last) > :where(.canon-icon):dir(rtl) {
+    scale: -1 1;
+  }
+  :where(.canon-pagination-summary) {
+    margin: 0;
+  }
+  :where(.canon-pagination-size, .canon-pagination-jump) {
+    display: inline-flex;
+    align-items: center;
+  }
+  :where(.canon-pagination-jump) {
+    margin: 0;
+  }
+}
+
+/* @canon-part */
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Load more                                                           */
+  /*                                                                     */
+  /* .canon-load-more: a status ("Showing 20 of 300") and a Button that  */
+  /* loads the next page into the list above it (canon.js: busy while    */
+  /* loading, gone at the end; data-auto loads on scrolling near it).    */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-load-more) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  :where(.canon-load-more-status) {
+    margin: 0;
+  }
+}

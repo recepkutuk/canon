@@ -1,0 +1,72 @@
+/* ==================================================================== */
+/* Kbd                                                                  */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Size scale: the text stays 10px; the chip grows (16 / 20 / 24px).
+     sm is the default; a data-size on the kbd or a container changes it. */
+  :root,
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-kbd-padding-block: 0;
+    --canon-theme-kbd-padding-inline: 0.25rem;
+    --canon-theme-kbd-radius: 0.125rem;
+  }
+  [data-size="md"] {
+    --canon-theme-kbd-padding-block: 0.125rem;
+    --canon-theme-kbd-padding-inline: 0.375rem;
+    --canon-theme-kbd-radius: 0.25rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-kbd-padding-block: 0.25rem;
+    --canon-theme-kbd-padding-inline: 0.5rem;
+    --canon-theme-kbd-radius: 0.375rem;
+  }
+
+  /* Colors come from the text around the key, not from fixed tokens, so
+     it reads on any surface: one step darker on a gray panel, tinted in a
+     tinted button, translucent white on a solid one. The text is the
+     surrounding color at 55% (dark: 80%), the chip that again at 8%
+     (dark: 29%). On the plain page that lands on the palette's
+     (zinc-100 / zinc-500, dark zinc-700 / zinc-300) within a few RGB
+     units; zinc's cool tint is the difference. In `color`, currentColor
+     is the parent's; in `background-color` it is the key's own. */
+  .canon-kbd {
+    padding: var(--canon-theme-kbd-padding-block) var(--canon-theme-kbd-padding-inline);
+    border-radius: var(--canon-theme-kbd-radius);
+    color: light-dark(
+      color-mix(in srgb, currentColor 55%, transparent),
+      color-mix(in srgb, currentColor 80%, transparent));
+    background-color: light-dark(
+      color-mix(in srgb, currentColor 8%, transparent),
+      color-mix(in srgb, currentColor 29%, transparent));
+    box-shadow: inset 0 calc(-1 * var(--canon-theme-hairline)) 0 color-mix(in srgb, currentColor 25%, transparent);
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  /* In a button: the button's size, md by default like the button. The
+     button's size scale carries it, so a data-size on the button, a
+     container or the key itself all work. */
+  .canon-button > .canon-kbd {
+    padding: var(--canon-theme-button-kbd-padding-block) var(--canon-theme-button-kbd-padding-inline);
+    border-radius: var(--canon-theme-button-kbd-radius);
+  }
+
+  /* Light text on a solid color (high-emphasis buttons, disabled ones
+     excepted): the dark-scheme recipe reads better there. */
+  .canon-button[data-emphasis="high"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) > .canon-kbd {
+    color-scheme: dark;
+  }
+
+  /* In a tooltip: beside the text, 8px apart. */
+  .canon-tooltip:popover-open:has(> .canon-kbd) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

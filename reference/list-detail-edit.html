@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · List, Detail, Edit pattern</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>List → Detail → Edit</h1>
+  <p class="ref-note">Most of an internal tool: find a record in a list, open it, change it, save. Here with invoices, made only of Canon's components. Open an invoice, edit it, save; or change something and try to leave.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pattern">
+    <h2>The pattern</h2>
+    <p class="ref-note">An App Shell with the three steps as views of one page. In an app, each is its own address: <code>/invoices</code>, <code>/invoices/2041</code>, <code>/invoices/2041/edit</code>.</p>
+    <div class="ref-shell-frame ref-pattern-frame">
+      <div class="canon-app-shell" id="lde-app">
+        <div class="canon-sidebar" id="lde-sidebar">
+          <div class="canon-sidebar-header">
+            <a class="canon-sidebar-brand" href="#lde-home"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#3b82f6" fill-rule="evenodd" d="M16 32c8.84 0 16-7.16 16-16S24.84 0 16 0 0 7.16 0 16s7.16 16 16 16Zm4.99-24.55c.24-.86-.59-1.37-1.36-.83L8.95 14.23c-.83.59-.7 1.77.2 1.77h2.81v-.02h5.48l-4.46 1.57-1.97 7c-.24.86.59 1.37 1.36.83l10.68-7.61c.83-.59.7-1.77-.2-1.77h-4.26l2.4-8.55Z"/></svg><span class="canon-sidebar-brand-name">Globex Billing</span></a>
+          </div>
+          <div class="canon-sidebar-body">
+            <nav class="canon-nav-list" aria-label="Main">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#lde-dashboard" interestfor="lde-tip-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-nav-list-label">Dashboard</span></a><div class="canon-tooltip" id="lde-tip-dashboard" data-placement="inline-end" popover="hint" role="tooltip">Dashboard</div></li>
+                <li><a class="canon-nav-list-item" href="#lde-invoices" aria-current="page" interestfor="lde-tip-invoices"><span class="canon-icon" data-icon="receipt" aria-hidden="true"></span><span class="canon-nav-list-label">Invoices</span></a><div class="canon-tooltip" id="lde-tip-invoices" data-placement="inline-end" popover="hint" role="tooltip">Invoices</div></li>
+                <li><a class="canon-nav-list-item" href="#lde-customers" interestfor="lde-tip-customers"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-nav-list-label">Customers</span></a><div class="canon-tooltip" id="lde-tip-customers" data-placement="inline-end" popover="hint" role="tooltip">Customers</div></li>
+                <li><a class="canon-nav-list-item" href="#lde-reports" interestfor="lde-tip-reports"><span class="canon-icon" data-icon="list" aria-hidden="true"></span><span class="canon-nav-list-label">Reports</span></a><div class="canon-tooltip" id="lde-tip-reports" data-placement="inline-end" popover="hint" role="tooltip">Reports</div></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="canon-sidebar-footer">
+            <nav class="canon-nav-list" aria-label="Help and settings">
+              <ul>
+                <li><a class="canon-nav-list-item" href="#lde-settings" interestfor="lde-tip-settings"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-nav-list-label">Settings</span></a><div class="canon-tooltip" id="lde-tip-settings" data-placement="inline-end" popover="hint" role="tooltip">Settings</div></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <header class="canon-top-bar">
+          <div class="canon-top-bar-start">
+            <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="lde-sidebar" command="--canon-toggle-sidebar" aria-controls="lde-sidebar" aria-expanded="true"><span class="canon-icon" data-icon="panel-left-close" aria-hidden="true"></span><span class="canon-button-label">Sidebar</span></button>
+          </div>
+          <div class="canon-top-bar-end">
+            <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span><span class="canon-count">2<span class="canon-visually-hidden"> unread</span></span></button>
+            <button type="button" class="canon-avatar" id="lde-account" popovertarget="lde-account-menu" aria-haspopup="menu" aria-expanded="false" data-seed="1">
+              <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+              <span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span>
+            </button>
+            <div class="canon-menu" id="lde-account-menu" popover role="menu" aria-labelledby="lde-account">
+              <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-menu-label">Profile</span></button>
+              <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="log-out" aria-hidden="true"></span><span class="canon-menu-label">Sign out</span></button>
+            </div>
+          </div>
+        </header>
+        <main class="ref-shell-content ref-pattern-main">
+          <div class="ref-view" data-view="list">
+            <header class="canon-page-header">
+              <div class="canon-page-header-title"><h1 tabindex="-1">Invoices</h1></div>
+              <p class="canon-page-header-description">10 invoices · €72,580.00 outstanding</p>
+              <div class="canon-page-header-actions">
+                <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Export</span></button>
+                <button type="button" class="canon-button" data-emphasis="high"><span class="canon-icon" data-icon="plus" aria-hidden="true"></span><span class="canon-button-label">New invoice</span></button>
+              </div>
+            </header>
+            <div class="canon-data-table" data-local>
+              <div class="canon-data-table-toolbar">
+                <div class="canon-text-input">
+                  <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+                  <input type="search" aria-label="Search invoices" placeholder="Search">
+                </div>
+                <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-panel="filters"><span class="canon-icon" data-icon="list-filter" aria-hidden="true"></span><span class="canon-button-label">Filter</span></button>
+              </div>
+              <div class="canon-table">
+                <table>
+                  <caption class="canon-visually-hidden">Invoices</caption>
+                  <thead>
+                    <tr><th scope="col" aria-sort="none" data-type="text">Invoice</th><th scope="col" aria-sort="none" data-type="text">Customer</th><th scope="col" aria-sort="none" data-type="date">Due</th><th scope="col" aria-sort="none" data-type="number" data-align="end">Amount</th><th scope="col" data-type="choice" data-options="Overdue, Due soon, Sent, Paid, Draft">Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2041" data-go="record" data-invoice="2041">INV-2041</a></th><td>Globex Corporation</td><td><time datetime="2026-10-03">3 Oct 2026</time></td><td data-align="end" data-value="12400">€12,400.00</td><td><span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2040" data-go="record" data-invoice="2040">INV-2040</a></th><td>Initech</td><td><time datetime="2026-10-28">28 Oct 2026</time></td><td data-align="end" data-value="6900">€6,900.00</td><td><span class="canon-status" data-intent="warning"><span class="canon-status-label">Due soon</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2039" data-go="record" data-invoice="2039">INV-2039</a></th><td>Umbrella</td><td><time datetime="2026-10-12">12 Oct 2026</time></td><td data-align="end" data-value="3150">€3,150.00</td><td><span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2038" data-go="record" data-invoice="2038">INV-2038</a></th><td>Soylent</td><td><time datetime="2026-10-30">30 Oct 2026</time></td><td data-align="end" data-value="980">€980.00</td><td><span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2037" data-go="record" data-invoice="2037">INV-2037</a></th><td>Hooli</td><td>—</td><td data-align="end" data-value="15000">€15,000.00</td><td><span class="canon-status"><span class="canon-status-label">Draft</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2036" data-go="record" data-invoice="2036">INV-2036</a></th><td>Vandelay Industries</td><td><time datetime="2026-09-20">20 Sep 2026</time></td><td data-align="end" data-value="2200">€2,200.00</td><td><span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2035" data-go="record" data-invoice="2035">INV-2035</a></th><td>Stark Industries</td><td><time datetime="2026-09-28">28 Sep 2026</time></td><td data-align="end" data-value="45000">€45,000.00</td><td><span class="canon-status" data-intent="danger"><span class="canon-status-label">Overdue</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2034" data-go="record" data-invoice="2034">INV-2034</a></th><td>Wayne Enterprises</td><td><time datetime="2026-11-04">4 Nov 2026</time></td><td data-align="end" data-value="7300">€7,300.00</td><td><span class="canon-status" data-intent="info"><span class="canon-status-label">Sent</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2033" data-go="record" data-invoice="2033">INV-2033</a></th><td>Acme Corp</td><td><time datetime="2026-09-15">15 Sep 2026</time></td><td data-align="end" data-value="640">€640.00</td><td><span class="canon-status" data-intent="success"><span class="canon-status-label">Paid</span></span></td></tr>
+                    <tr><th scope="row"><a class="canon-link" href="#lde-inv-2032" data-go="record" data-invoice="2032">INV-2032</a></th><td>Cyberdyne</td><td><time datetime="2026-11-10">10 Nov 2026</time></td><td data-align="end" data-value="12000">€12,000.00</td><td><span class="canon-status"><span class="canon-status-label">Draft</span></span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav class="canon-pagination" aria-label="Pagination" data-per-page="6" data-page="1" data-total="10">
+                <p class="canon-pagination-summary"></p>
+              </nav>
+            </div>
+          </div>
+          <div class="ref-view" data-view="record" hidden>
+            <header class="canon-page-header">
+              <a class="canon-page-header-back" href="#lde-invoices" data-go="list"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>Invoices</a>
+              <div class="canon-page-header-title">
+                <h1 tabindex="-1" data-bind="title">INV-2041</h1>
+                <span class="canon-tag" data-intent="danger" data-bind="tag"><span class="canon-tag-label">Overdue</span></span>
+              </div>
+              <p class="canon-page-header-description" data-bind="summary">Globex Corporation · Due 3 Oct 2026 · €12,400.00</p>
+              <div class="canon-page-header-actions">
+                <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral"><span class="canon-icon" data-icon="download" aria-hidden="true"></span><span class="canon-button-label">Download</span></button>
+                <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-go="edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit</span></button>
+                <button type="button" class="canon-button" data-emphasis="high" data-remind><span class="canon-icon" data-icon="mail" aria-hidden="true"></span><span class="canon-button-label">Send reminder</span></button>
+              </div>
+            </header>
+            <div class="canon-tabs">
+              <div class="canon-tabs-list" role="tablist" aria-label="Invoice">
+                <button type="button" class="canon-tab" role="tab" id="lde-tab-overview" aria-controls="lde-overview" aria-selected="true"><span class="canon-tab-label">Overview</span></button>
+                <button type="button" class="canon-tab" role="tab" id="lde-tab-payments" aria-controls="lde-payments" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Payments</span></button>
+                <button type="button" class="canon-tab" role="tab" id="lde-tab-activity" aria-controls="lde-activity" aria-selected="false" tabindex="-1"><span class="canon-tab-label">Activity</span><span class="canon-count">3<span class="canon-visually-hidden"> events</span></span></button>
+              </div>
+              <div class="canon-tabs-panel" role="tabpanel" id="lde-overview" aria-labelledby="lde-tab-overview" tabindex="0">
+                <section class="canon-card">
+                  <header class="canon-card-header">
+                    <h2 class="canon-card-title">Details</h2>
+                    <div class="canon-card-actions"><button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-go="edit"><span class="canon-icon" data-icon="pencil" aria-hidden="true"></span><span class="canon-button-label">Edit<span class="canon-visually-hidden"> details</span></span></button></div>
+                  </header>
+                  <div class="canon-card-body">
+                    <dl class="canon-description-list" data-label="start">
+                      <div><dt>Customer</dt><dd data-bind="customer">Globex Corporation</dd></div>
+                      <div><dt>Issued</dt><dd><time datetime="2026-09-03">3 Sep 2026</time></dd></div>
+                      <div><dt>Due</dt><dd data-bind="due">3 Oct 2026</dd></div>
+                      <div><dt>Amount</dt><dd data-bind="amount">€12,400.00</dd></div>
+                      <div><dt>Notes</dt><dd data-bind="notes">Net 30, reminders weekly.</dd></div>
+                    </dl>
+                  </div>
+                </section>
+              </div>
+              <div class="canon-tabs-panel" role="tabpanel" id="lde-payments" aria-labelledby="lde-tab-payments" tabindex="0" hidden>
+                <section class="canon-card">
+                  <header class="canon-card-header">
+                    <h2 class="canon-card-title" id="lde-payments-title">Payments</h2>
+                    <p class="canon-card-description">€6,400.00 of €12,400.00 paid</p>
+                  </header>
+                  <div class="canon-table">
+                    <table aria-labelledby="lde-payments-title">
+                      <thead><tr><th scope="col">Date</th><th scope="col">Method</th><th scope="col" data-align="end">Amount</th></tr></thead>
+                      <tbody>
+                        <tr><td><time datetime="2026-09-20">20 Sep 2026</time></td><td>Bank transfer</td><td data-align="end">€4,000.00</td></tr>
+                        <tr><td><time datetime="2026-09-10">10 Sep 2026</time></td><td>Card ending 4242</td><td data-align="end">€2,400.00</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+              <div class="canon-tabs-panel" role="tabpanel" id="lde-activity" aria-labelledby="lde-tab-activity" tabindex="0" hidden>
+                <section class="canon-card">
+                  <header class="canon-card-header"><h2 class="canon-card-title">Activity</h2></header>
+                  <div class="canon-card-body">
+                    <dl class="canon-description-list" data-label="start" data-bind="activity">
+                      <div><dt><time datetime="2026-10-04">4 Oct 2026</time></dt><dd><span class="canon-status" data-intent="warning"><span class="canon-status-label">Reminder sent</span></span></dd></div>
+                      <div><dt><time datetime="2026-09-03">3 Sep 2026</time></dt><dd><span class="canon-status" data-intent="info"><span class="canon-status-label">Sent to billing@globex.example</span></span></dd></div>
+                      <div><dt><time datetime="2026-09-02">2 Sep 2026</time></dt><dd><span class="canon-status"><span class="canon-status-label">Created by Ada Lovelace</span></span></dd></div>
+                    </dl>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="ref-view" data-view="edit" hidden>
+            <header class="canon-page-header">
+              <a class="canon-page-header-back" href="#lde-inv" data-go="record" data-bind="back"><span class="canon-icon" data-icon="chevron-left" aria-hidden="true"></span>INV-2041</a>
+              <div class="canon-page-header-title"><h1 tabindex="-1" data-bind="edit-title">Edit INV-2041</h1></div>
+            </header>
+            <form class="canon-card" id="lde-form" action="#" method="post">
+              <div class="canon-card-body">
+                <div class="canon-field">
+                  <div class="canon-label"><label class="canon-label-text" for="lde-customer">Customer</label></div>
+                  <div class="canon-text-input"><input id="lde-customer" name="customer" type="text" value="Globex Corporation" placeholder required></div>
+                </div>
+                <div class="canon-field">
+                  <div class="canon-label"><label class="canon-label-text" for="lde-amount">Amount</label></div>
+                  <div class="canon-text-input"><input id="lde-amount" name="amount" type="text" inputmode="decimal" value="12,400.00" placeholder required></div>
+                </div>
+                <div class="canon-field">
+                  <div class="canon-label"><label class="canon-label-text" for="lde-notes">Notes</label></div>
+                  <div class="canon-textarea"><textarea id="lde-notes" name="notes" rows="3" placeholder>Net 30, reminders weekly.</textarea></div>
+                </div>
+                <div class="canon-choice">
+                  <input type="checkbox" role="switch" id="lde-remind" name="remind" checked>
+                  <label class="canon-choice-label" for="lde-remind">Send reminders when it's overdue</label>
+                </div>
+              </div>
+              <footer class="canon-save-bar">
+                <p class="canon-save-bar-status"></p>
+                <button type="reset" class="canon-button" data-intent="neutral"><span class="canon-button-label">Discard</span></button>
+                <button type="submit" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+S Control+S"><span class="canon-button-label">Save</span><kbd class="canon-kbd" aria-hidden="true">⌘S</kbd></button>
+              </footer>
+            </form>
+          </div>
+        </main>
+        <dialog class="canon-dialog" id="lde-leave" role="alertdialog" data-width="sm" aria-labelledby="lde-leave-title" aria-describedby="lde-leave-description">
+          <header class="canon-dialog-header">
+            <h2 class="canon-dialog-title" id="lde-leave-title">Discard your changes?</h2>
+          </header>
+          <div class="canon-dialog-body">
+            <p id="lde-leave-description">Your changes to this invoice haven't been saved.</p>
+          </div>
+          <footer class="canon-dialog-footer">
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="lde-leave" command="close" autofocus><span class="canon-button-label">Keep editing</span></button>
+            <button type="button" class="canon-button" data-emphasis="high" data-intent="danger" data-align="end" commandfor="lde-leave" command="close" data-discard><span class="canon-button-label">Discard changes</span></button>
+          </footer>
+        </dialog>
+      </div>
+    </div>
+    <script>
+      /* The demo app: three views in one <main>, switched by data-go. A real
+         app has a URL for each (/invoices, /invoices/2041, /invoices/2041/edit). */
+      {
+        const app = document.getElementById("lde-app");
+        const frame = app.closest(".ref-shell-frame");
+        const views = Object.fromEntries([...app.querySelectorAll(".ref-view")].map((view) => [view.dataset.view, view]));
+        const form = document.getElementById("lde-form");
+        const bar = form.querySelector(".canon-save-bar");
+        const leave = document.getElementById("lde-leave");
+        const bind = (name) => app.querySelector(`[data-bind="${name}"]`);
+        const rows = Object.fromEntries([...app.querySelectorAll("[data-invoice]")].map((link) => [link.dataset.invoice, link.closest("tr")]));
+        let current = "2041";
+        let pending = null;
+
+        const show = (name) => {
+          for (const [key, view] of Object.entries(views)) view.hidden = key !== name;
+          frame.scrollTop = 0;
+          /* Focus goes to the new view's title, as a new page's would. */
+          views[name].querySelector("h1").focus({ preventScroll: true });
+        };
+        const fill = (number) => {
+          current = number;
+          const row = rows[number];
+          const [invoice, customer, dueDate, amount, state] = row.children;
+          const status = state.querySelector(".canon-status");
+          const intent = status.dataset.intent;
+          bind("title").textContent = `INV-${number}`;
+          bind("edit-title").textContent = `Edit INV-${number}`;
+          bind("back").lastChild.textContent = `INV-${number}`;
+          const tag = bind("tag");
+          if (intent) tag.dataset.intent = intent;
+          else tag.removeAttribute("data-intent");
+          tag.firstElementChild.textContent = status.textContent;
+          bind("customer").textContent = customer.textContent;
+          bind("due").textContent = dueDate.textContent;
+          bind("amount").textContent = amount.textContent;
+          bind("summary").textContent = [customer.textContent, dueDate.textContent !== "—" ? `Due ${dueDate.textContent}` : "No due date", amount.textContent].join(" · ");
+          for (const [name, value] of [["customer", customer.textContent], ["amount", amount.textContent.replace("€", "")], ["notes", bind("notes").textContent]]) {
+            form.elements[name].value = value;
+            form.elements[name].defaultValue = value;
+          }
+          form.dispatchEvent(new Event("input"));
+        };
+        const go = (name) => {
+          /* Leaving the editor with changes asks first. */
+          if (!views.edit.hidden && name !== "edit" && bar.dataset.state === "changed") {
+            pending = name;
+            leave.showModal();
+            return;
+          }
+          show(name);
+        };
+
+        app.addEventListener("click", (event) => {
+          const link = event.target.closest("[data-go]");
+          if (!link) return;
+          event.preventDefault();
+          if (link.dataset.invoice) fill(link.dataset.invoice);
+          go(link.dataset.go);
+        });
+        leave.addEventListener("click", (event) => {
+          if (!event.target.closest("[data-discard]") || !pending) return;
+          form.reset();
+          setTimeout(() => show(pending));
+        });
+        app.addEventListener("click", (event) => {
+          if (!event.target.closest("[data-remind]")) return;
+          document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Reminder sent", description: `INV-${current} is in their inbox.` } }));
+        });
+
+        /* Saving: a short wait stands in for the server. */
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          setTimeout(() => {
+            form.dispatchEvent(new CustomEvent("canon-saved"));
+            const amount = `€${form.elements.amount.value}`;
+            bind("customer").textContent = form.elements.customer.value;
+            bind("amount").textContent = amount;
+            bind("notes").textContent = form.elements.notes.value;
+            const [, customer, , cell] = rows[current].children;
+            customer.textContent = form.elements.customer.value;
+            cell.textContent = amount;
+            bind("summary").textContent = [form.elements.customer.value, bind("due").textContent !== "—" ? `Due ${bind("due").textContent}` : "No due date", amount].join(" · ");
+            document.dispatchEvent(new CustomEvent("canon-toast", { detail: { intent: "success", title: "Invoice saved", description: `INV-${current} is up to date.` } }));
+            show("record");
+          }, 700);
+        });
+      }
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="list">
+    <h2>The list</h2>
+    <p class="ref-note">A <a href="page-header.html">Page Header</a> names the collection and holds what you can do to it: one primary action (New invoice), the rest neutral.</p>
+    <p class="ref-note">A <a href="data-table.html">Data Table</a> finds the record: its own search and filters (a column, a condition, a value), sorting, pages. Its status column is a <a href="status.html">Status Indicator</a> per row: quiet, so the eye can run down the column.</p>
+    <p class="ref-note">Each record opens from its name, a link in the row's header cell (<code>th scope="row"</code>), not from a click anywhere on the row: links can be opened in a new tab, copied and read as links, and the row's other cells stay selectable.</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="record">
+    <h2>The record</h2>
+    <p class="ref-note">A back link up to the list, the record's name as the title and its status beside it, as a <a href="tag.html">Tag</a>: the one status on the page, so it can be louder than the list's.</p>
+    <p class="ref-note">Its actions: what the page is for is the primary one (Send reminder); Edit is neutral, and also beside the part it edits.</p>
+    <p class="ref-note">Its parts in <a href="tabs.html">Tabs</a>, each a <a href="card.html">Card</a>: facts in a <a href="description-list.html">Description List</a>, rows in a Table running edge to edge, events as Status Indicators.</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edit">
+    <h2>Editing</h2>
+    <p class="ref-note">A page of its own when there's more than a field or two to change (a <a href="drawer.html">Drawer</a> for a quick change beside the list; a field in place for one value). Its back link goes to the record, not the list.</p>
+    <p class="ref-note">The form ends with a <a href="save-bar.html">Save Bar</a>: it counts the changes, Discard brings the record back, Save (or <kbd class="canon-kbd">⌘S</kbd>) saves. Saving goes back to the record, which shows the new values, and a <a href="toast.html">Toast</a> says it's done.</p>
+    <p class="ref-note">Leaving with changes asks first: closing the page through the browser's own question; leaving inside the app through an alert <a href="dialog.html">Dialog</a>, which the app opens when the bar's <code>data-state</code> is <code>changed</code>.</p>
+
+  </section>
+
+</main>
+</body>
+</html>

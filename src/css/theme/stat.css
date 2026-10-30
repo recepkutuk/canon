@@ -1,0 +1,184 @@
+/* ==================================================================== */
+/* Stat                                                                 */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* No frame, no fill, no padding: its container's. The label 12 / 14 /
+     16px medium zinc-500 (dark zinc-400); the value 24 / 30 / 36px
+     semibold zinc-900 (dark white), 4 / 4 / 8px under it; the change
+     and the description in the control's type, 4 / 6 / 8px under what's
+     above, the change medium in its intent's color (the 600, dark the
+     400; neutral zinc-500, dark zinc-400) after its arrow (Lucide
+     trending-up, trending-down, move-right; 16 / 16 / 20px, 4px before
+     the words), the description zinc-500 (dark zinc-400). The chart 32 /
+     40 / 48px tall, 8 / 12 / 16px under what's above, zinc-400 (dark
+     zinc-500), or the change's color at 60%. A row: stats 24 / 32 / 40px
+     apart; data-lines, a hairline rule between the stats of a row, at
+     the gap's middle. A linked stat: its label in the text's color,
+     underlined on hover with Link's line; focus a 1px ring 4px out at
+     Button's corners. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-stat-value-size: 1.875rem;
+    --canon-theme-stat-value-line: 2.25rem;
+    --canon-theme-stat-text-size: 0.875rem;
+    --canon-theme-stat-text-line: 1.25rem;
+    --canon-theme-stat-label-step: 0.25rem;
+    --canon-theme-stat-step: 0.375rem;
+    --canon-theme-stat-arrow: 1rem;
+    --canon-theme-stat-chart: 2.5rem;
+    --canon-theme-stat-chart-step: 0.75rem;
+    --canon-theme-stats-gap: 2rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-stat-value-size: 1.5rem;
+    --canon-theme-stat-value-line: 2rem;
+    --canon-theme-stat-text-size: 0.75rem;
+    --canon-theme-stat-text-line: 1rem;
+    --canon-theme-stat-label-step: 0.25rem;
+    --canon-theme-stat-step: 0.25rem;
+    --canon-theme-stat-arrow: 1rem;
+    --canon-theme-stat-chart: 2rem;
+    --canon-theme-stat-chart-step: 0.5rem;
+    --canon-theme-stats-gap: 1.5rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-stat-value-size: 2.25rem;
+    --canon-theme-stat-value-line: 2.75rem;
+    --canon-theme-stat-text-size: 1rem;
+    --canon-theme-stat-text-line: 1.5rem;
+    --canon-theme-stat-label-step: 0.5rem;
+    --canon-theme-stat-step: 0.5rem;
+    --canon-theme-stat-arrow: 1.25rem;
+    --canon-theme-stat-chart: 3rem;
+    --canon-theme-stat-chart-step: 1rem;
+    --canon-theme-stats-gap: 2.5rem;
+  }
+
+  .canon-stat {
+    --_tone: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    --_chart: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    border-radius: var(--canon-theme-button-radius);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-theme-stat-text-size);
+    line-height: var(--canon-theme-stat-text-line);
+    letter-spacing: -0.006em;
+  }
+  .canon-stat-label {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    font-weight: 500;
+  }
+  .canon-stat-value {
+    font-size: var(--canon-theme-stat-value-size);
+    font-weight: 600;
+    line-height: var(--canon-theme-stat-value-line);
+    letter-spacing: -0.02em;
+  }
+  .canon-stat-label + .canon-stat-value {
+    margin-block-start: var(--canon-theme-stat-label-step);
+  }
+  .canon-stat-value:empty {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+  .canon-stat-value > .canon-skeleton:is(*, [data-shape]) {
+    inline-size: 6rem;
+    block-size: 1em;
+    border-radius: var(--canon-theme-button-radius);
+  }
+  .canon-stat-change,
+  .canon-stat-description {
+    margin-block-start: var(--canon-theme-stat-step);
+  }
+  .canon-stat-description {
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+
+  /* The change: in its intent's color, after its arrow, which sits on
+     the first line. */
+  .canon-stat-change {
+    gap: 0.25rem;
+    color: var(--_tone);
+    font-weight: 500;
+  }
+  .canon-stat-change[data-direction]::before {
+    inline-size: var(--canon-theme-stat-arrow);
+    block-size: 1lh;
+    background-color: currentColor;
+    mask: var(--_arrow) center / var(--canon-theme-stat-arrow) no-repeat;
+  }
+  .canon-stat-change[data-direction="up"] { --_arrow: var(--canon-theme-icon-trending-up); }
+  .canon-stat-change[data-direction="down"] { --_arrow: var(--canon-theme-icon-trending-down); }
+  .canon-stat-change[data-direction="flat"] { --_arrow: var(--canon-theme-icon-move-right); }
+  /* Time runs the other way in right-to-left: the arrows mirror. */
+  .canon-stat-change[data-direction]:dir(rtl)::before {
+    scale: -1 1;
+  }
+  .canon-stat:has(> .canon-stat-change[data-intent="success"]) { --_tone: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400)); }
+  .canon-stat:has(> .canon-stat-change[data-intent="danger"])  { --_tone: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400)); }
+  .canon-stat:has(> .canon-stat-change[data-intent="warning"]) { --_tone: light-dark(var(--canon-theme-amber-600), var(--canon-theme-amber-400)); }
+  .canon-stat:has(> .canon-stat-change[data-intent="info"])    { --_tone: light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400)); }
+  .canon-stat:has(> .canon-stat-change[data-intent]) {
+    --_chart: color-mix(in srgb, var(--_tone) 60%, transparent);
+  }
+
+  .canon-stat-chart {
+    block-size: var(--canon-theme-stat-chart);
+    margin-block-start: var(--canon-theme-stat-chart-step);
+    color: var(--_chart);
+  }
+
+  /* A linked stat. */
+  .canon-stat-link {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 0.12s;
+  }
+  @media (hover: hover) {
+    .canon-stat-link:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+  .canon-stat-link:focus-visible {
+    outline: none;
+  }
+  .canon-stat:has(.canon-stat-link:focus-visible) {
+    outline: 1px solid var(--canon-theme-focus);
+    outline-offset: 4px;
+  }
+
+  /* A row: the stats apart, and with data-lines a rule between the
+     stats of a row, at the gap's middle. The rule before a row's first
+     stat falls outside the row, where the row cuts it off (a focus
+     ring, 4px out, still shows). */
+  .canon-stats {
+    gap: var(--canon-theme-stats-gap);
+  }
+  .canon-stats[data-lines] {
+    clip-path: inset(-0.5rem);
+  }
+  .canon-stats[data-lines] > .canon-stat::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(var(--canon-theme-stats-gap) / -2);
+    border-inline-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    pointer-events: none;
+  }
+
+  @media (forced-colors: active) {
+    .canon-stat-change[data-direction]::before {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+    .canon-stat-chart {
+      color: CanvasText;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-stat-link { transition: none; }
+  }
+}

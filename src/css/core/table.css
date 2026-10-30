@@ -1,0 +1,47 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Table                                                               */
+  /*                                                                     */
+  /* .canon-table around a native <table>: the frame, which scrolls      */
+  /* sideways when the table is wider than its room. Cells start-aligned */
+  /* (data-align="center" | "end" on a cell), figures tabular, header    */
+  /* cells on one line (body cells too with data-wrap="none").           */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-table) {
+    box-sizing: border-box;
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+  :where(.canon-table) > :where(table) {
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--canon-control-font-size);
+    font-variant-numeric: tabular-nums;
+  }
+  :where(.canon-table) :where(caption) {
+    text-align: start;
+  }
+  :where(.canon-table) :where(th, td) {
+    box-sizing: border-box;
+    text-align: start;
+    vertical-align: middle;
+  }
+  :where(.canon-table) :where(thead th) {
+    white-space: nowrap;
+  }
+  :where(.canon-table) :where(th, td):where([data-align="center"]) {
+    text-align: center;
+  }
+  :where(.canon-table) :where(th, td):where([data-align="end"]) {
+    text-align: end;
+  }
+  :where(.canon-table) :where(th, td):where([data-wrap="none"]) {
+    white-space: nowrap;
+  }
+  :where(.canon-table) :where(th, td):where([data-wrap="normal"]) {
+    white-space: normal;
+  }
+}

@@ -1,0 +1,109 @@
+/* ==================================================================== */
+/* Command Palette                                                      */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Dialog's panel (white, dark zinc-900; its hairline edge and
+     overlay shadow; Dialog's backdrop color, unblurred) with 16px corners, 12% of the window from the top, 640px wide
+     and at most 480px tall. The search field fills the top: no frame, a
+     control's height + 16px, the type 16px, a hairline rule under it.
+     Items are Menu's (a control's height, the active one zinc-100, dark
+     zinc-800; icons zinc-500), in a list 8px inside; headings Menu's;
+     hints zinc-500 after the label; matched words semibold. The empty
+     message centered, zinc-500, 32px above and below; the footer's hints
+     zinc-500 under a line. Opened from the keyboard many times a day,
+     it opens and closes at once, without motion. */
+  .canon-command-palette {
+    --_line: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+    --_muted: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: 1rem;
+    background-color: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900));
+    box-shadow: 0 0 0 var(--canon-theme-hairline) var(--canon-theme-edge), var(--canon-theme-shadow-overlay);
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    font-size: var(--canon-control-font-size);
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  .canon-command-palette::backdrop {
+    background-color: light-dark(rgb(255 255 255 / 0.85), rgb(9 9 11 / 0.75));
+  }
+  /* The search row: the palette's top, unframed. */
+  .canon-command-search {
+    gap: 0.75rem;
+    min-block-size: calc(var(--canon-control-block-size) + 1rem);
+    padding-inline: 1.25rem;
+    border-block-end: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .canon-command-search > .canon-icon {
+    color: var(--_muted);
+  }
+  .canon-command-search > input::placeholder {
+    color: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    opacity: 1;
+  }
+  .canon-command-list {
+    padding: 0.5rem;
+  }
+  .canon-command-group + .canon-command-group {
+    margin-block-start: 0.25rem;
+  }
+  .canon-command-heading {
+    padding-block: 0.5rem;
+    padding-inline: calc(var(--canon-control-padding-inline) + var(--canon-theme-input-inset));
+    color: var(--_muted);
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .canon-command-item {
+    gap: var(--canon-theme-input-icon-gap);
+    min-block-size: var(--canon-control-block-size);
+    padding-inline: var(--canon-control-padding-inline);
+    border-radius: var(--canon-theme-input-radius);
+  }
+  .canon-command-item[aria-selected="true"] {
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+  }
+  .canon-command-item > .canon-icon {
+    color: var(--_muted);
+  }
+  .canon-command-label {
+    padding-inline: var(--canon-theme-input-inset);
+  }
+  .canon-command-hint {
+    color: var(--_muted);
+  }
+  .canon-command-item > .canon-kbd {
+    padding: 0 0.25rem;
+    border-radius: 0.125rem;
+  }
+  .canon-command-match {
+    font-weight: 600;
+  }
+  .canon-command-empty {
+    margin: 0;
+    padding: 2rem 1rem;
+    color: var(--_muted);
+    text-align: center;
+  }
+  .canon-command-footer {
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    border-block-start: var(--canon-theme-hairline) solid var(--canon-theme-rule);
+    color: var(--_muted);
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  @media (forced-colors: active) {
+    .canon-command-item[aria-selected="true"] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+  }
+}

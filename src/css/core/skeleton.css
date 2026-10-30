@@ -1,0 +1,14 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Skeleton                                                            */
+  /*                                                                     */
+  /* A placeholder shape while content loads: a line of text by default, */
+  /* data-shape="block" (a control) or "circle". Always aria-hidden: the */
+  /* region loading says so (aria-busy).                                 */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-skeleton) {
+    display: block;
+    max-inline-size: 100%;
+  }
+}

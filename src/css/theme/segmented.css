@@ -1,0 +1,92 @@
+/* ==================================================================== */
+/* Segmented Control                                                    */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Button Group's sizes and type on a track. The group is a zinc-100
+     track (dark zinc-800) 32 / 40 / 48 tall with 3px inside, its corners
+     Button's plus 2px (6 / 10 / 14); options are 26 / 34 / 42 tall, 2px
+     apart, corners 3px tighter, padded as a button. Labels and icons
+     zinc-600 (dark zinc-400); hover darkens the label to zinc-900 (dark
+     white), pressing adds zinc-200 at 60% (dark zinc-700 at 60%). The
+     chosen option is a white card (dark zinc-700) lifted by a faint ring
+     and a soft shadow, its label zinc-950 (dark white). Focus: the
+     button's ring. Disabled: zinc-400 labels (dark zinc-600); chosen and
+     disabled, a flat card (a zinc-400 label, dark zinc-500). In forced
+     colors the chosen option takes the system's highlight. */
+  .canon-segmented {
+    --_track: var(--canon-control-block-size);
+    --_card-bg: light-dark(var(--canon-theme-white), var(--canon-theme-zinc-700));
+    --_card-ring: 0 0 0 1px light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.06));
+    --_card-shadow: var(--_card-ring), 0 1px 2px light-dark(rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.4)), 0 1px 3px light-dark(rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.2));
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid transparent; /* shows in forced colors */
+    border-radius: calc(var(--canon-theme-button-radius) + 2px);
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-800));
+  }
+  .canon-segmented-option {
+    --_fg: light-dark(var(--canon-theme-zinc-600), var(--canon-theme-zinc-400));
+    --_bg: transparent;
+    --_border: transparent;
+    gap: var(--canon-theme-button-gap);
+    block-size: calc(var(--_track) - 6px);
+    padding-inline: calc(var(--canon-control-padding-inline) - 3px);
+    border: 1px solid var(--_border);
+    border-radius: max(0px, calc(var(--canon-theme-button-radius) - 1px));
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--canon-control-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-button-line-height);
+    letter-spacing: var(--canon-theme-button-tracking);
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+  }
+  .canon-segmented-label {
+    padding-inline: var(--canon-theme-button-label-inset);
+  }
+  /* Icons only: square. */
+  .canon-segmented-option:where([data-display="icon"] *) {
+    flex: none;
+    inline-size: calc(var(--_track) - 6px);
+    padding-inline: 0;
+  }
+  @media (hover: hover) {
+    .canon-segmented-option:hover:not(:has(> input:is(:checked, :disabled))) {
+      --_fg: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+  .canon-segmented-option:active:not(:has(> input:is(:checked, :disabled))) {
+    --_bg: light-dark(color-mix(in srgb, var(--canon-theme-zinc-200) 60%, transparent), color-mix(in srgb, var(--canon-theme-zinc-700) 60%, transparent));
+  }
+  .canon-segmented-option:has(> input:checked) {
+    --_fg: light-dark(var(--canon-theme-zinc-950), var(--canon-theme-white));
+    --_bg: var(--_card-bg);
+    box-shadow: var(--_card-shadow);
+  }
+  .canon-segmented-option:has(> input:disabled) {
+    --_fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-600));
+  }
+  .canon-segmented-option:has(> input:checked:disabled) {
+    --_fg: light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+    box-shadow: var(--_card-ring);
+  }
+  .canon-segmented-option:has(> input:focus-visible) {
+    z-index: 1;
+    outline: 2px solid transparent; /* shows in forced colors, where shadows don't */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+  @media (forced-colors: active) {
+    .canon-segmented-option:has(> input:checked) {
+      forced-color-adjust: none;
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-segmented-option { transition: none; }
+  }
+}

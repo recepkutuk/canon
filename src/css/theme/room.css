@@ -1,0 +1,128 @@
+@layer canon.theme {
+  /* Room (canon.js): dismissed (data-state="closing"), it fades out
+     (0.15s), then its room closes (0.2s) and what's under it moves up;
+     shown while the page is open ("opening"), its room opens (0.2s), then
+     it fades in (0.15s). With reduced motion it only fades. Banners,
+     toasts and a Form Repeater's items too. */
+  :is(.canon-alert, .canon-banner, .canon-toast, .canon-repeater-item):is([data-state="opening"], [data-state="closing"]) {
+    overflow: clip;
+  }
+  :is(.canon-alert, .canon-banner, .canon-toast, .canon-repeater-item)[data-state="closing"] {
+    pointer-events: none;
+    animation:
+      canon-fade-out 0.15s ease-out forwards,
+      canon-room-close 0.2s ease-in-out 0.15s forwards;
+  }
+  :is(.canon-alert, .canon-banner, .canon-toast, .canon-repeater-item)[data-state="opening"] {
+    animation:
+      canon-room-open 0.2s ease-in-out both,
+      canon-fade-in 0.15s ease-out 0.2s both;
+  }
+  @keyframes canon-fade-out {
+    to { opacity: 0; }
+  }
+  @keyframes canon-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes canon-room-close {
+    from {
+      opacity: 0;
+      block-size: var(--canon-motion-height);
+      min-block-size: 0;
+    }
+    to {
+      opacity: 0;
+      block-size: 0;
+      min-block-size: 0;
+      padding-block: 0;
+      border-block-width: 0;
+      margin-block: calc(0px - var(--canon-motion-gap-before, 0px)) calc(0px - var(--canon-motion-gap-after, 0px));
+    }
+  }
+  @keyframes canon-room-open {
+    from {
+      opacity: 0;
+      block-size: 0;
+      min-block-size: 0;
+      padding-block: 0;
+      border-block-width: 0;
+      margin-block: calc(0px - var(--canon-motion-gap-before, 0px)) calc(0px - var(--canon-motion-gap-after, 0px));
+    }
+    to {
+      opacity: 0;
+      block-size: var(--canon-motion-height);
+      min-block-size: 0;
+    }
+  }
+  /* A Combobox's tags make and give back room sideways: a removed one
+     fades (0.12s) and narrows away (0.18s), its neighbours closing up;
+     a new one widens (0.18s), then fades in (0.12s). */
+  .canon-combobox-tags > li:is([data-state="opening"], [data-state="closing"]) {
+    overflow: clip;
+  }
+  .canon-combobox-tags > li[data-state="closing"] {
+    pointer-events: none;
+    animation:
+      canon-fade-out 0.12s ease-out forwards,
+      canon-room-close-inline 0.18s ease-in-out 0.12s forwards;
+  }
+  .canon-combobox-tags > li[data-state="opening"] {
+    animation:
+      canon-room-open-inline 0.18s ease-in-out both,
+      canon-fade-in 0.12s ease-out 0.18s both;
+  }
+  /* The box follows its tags' rows (data-resizing, canon.js): its height
+     changes as they narrow away (after their fade) or widen (0.18s). */
+  .canon-combobox[data-resizing] {
+    box-sizing: border-box;
+    overflow: clip;
+    animation: canon-resize 0.18s ease-in-out both;
+  }
+  .canon-combobox[data-resizing="closing"] {
+    animation-delay: 0.12s;
+  }
+  @keyframes canon-resize {
+    from { block-size: var(--canon-motion-from-height); }
+    to { block-size: var(--canon-motion-to-height); }
+  }
+  @keyframes canon-room-close-inline {
+    from {
+      opacity: 0;
+      inline-size: var(--canon-motion-width);
+      min-inline-size: 0;
+    }
+    to {
+      opacity: 0;
+      inline-size: 0;
+      min-inline-size: 0;
+      margin-inline: calc(0px - var(--canon-motion-gap-before, 0px)) calc(0px - var(--canon-motion-gap-after, 0px));
+    }
+  }
+  @keyframes canon-room-open-inline {
+    from {
+      opacity: 0;
+      inline-size: 0;
+      min-inline-size: 0;
+      margin-inline: calc(0px - var(--canon-motion-gap-before, 0px)) calc(0px - var(--canon-motion-gap-after, 0px));
+    }
+    to {
+      opacity: 0;
+      inline-size: var(--canon-motion-width);
+      min-inline-size: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :is(.canon-alert, .canon-banner, .canon-toast, .canon-repeater-item)[data-state="closing"],
+    .canon-combobox-tags > li[data-state="closing"] {
+      animation: canon-fade-out 0.15s ease-out forwards;
+    }
+    :is(.canon-alert, .canon-banner, .canon-toast, .canon-repeater-item)[data-state="opening"],
+    .canon-combobox-tags > li[data-state="opening"] {
+      animation: canon-fade-in 0.15s ease-out both;
+    }
+    .canon-combobox[data-resizing] {
+      animation: none;
+    }
+  }
+}

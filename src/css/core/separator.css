@@ -1,0 +1,35 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Separator                                                          */
+  /*                                                                    */
+  /* <hr class="canon-separator">: a line between things (vertical with */
+  /* aria-orientation="vertical", in a row). With words ("or"), a       */
+  /* <div class="canon-separator">: the words between two lines the     */
+  /* theme draws (::before, ::after), read as plain text.               */
+  /* ------------------------------------------------------------------ */
+
+  :where(hr.canon-separator) {
+    display: block;
+    box-sizing: content-box;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  :where(hr.canon-separator[aria-orientation="vertical"]) {
+    align-self: stretch;
+    block-size: auto;
+  }
+  :where(div.canon-separator) {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  :where(div.canon-separator)::before,
+  :where(div.canon-separator)::after {
+    content: "";
+    flex: 1 1 0;
+    min-inline-size: 0;
+  }
+}

@@ -1,0 +1,43 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Link                                                               */
+  /*                                                                    */
+  /* An <a href> (it goes somewhere) or a <button> that looks like one  */
+  /* (it does something, inside text). It stays inline, in the text's   */
+  /* font and size; icons are as big as the text. The theme draws the   */
+  /* color, the underline and the new-tab indicator (target="_blank"). */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-link) {
+    --canon-icon-size: 1em;
+  }
+  :where(button.canon-link) {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    cursor: pointer;
+  }
+  /* With an icon: a row in one piece (the text still wraps inside it),
+     the gap the theme's; the text sets the baseline. */
+  :where(.canon-link:has(> .canon-icon)) {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--canon-link-gap, 0.25em);
+  }
+  :where(.canon-link) > :where(.canon-icon) {
+    align-self: center;
+  }
+  :where(.canon-link:is(:disabled, [aria-disabled="true"])) {
+    cursor: not-allowed;
+  }
+  :where(.canon-link[hidden]) {
+    display: none;
+  }
+}

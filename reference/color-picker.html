@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Color Picker reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Color Picker</h1>
+  <p class="ref-note">Any color: a native <code>&lt;input type="color"&gt;</code> in a box that shows the color. canon.js opens a picker under it: a saturation and brightness area, hue, opacity, an eyedropper where the browser has one, the value as HEX, RGB, HSL or HSB, and swatches. Without JavaScript, the box opens the browser's own picker. Specification: <a href="../docs/components/color-picker.md">docs/components/color-picker.md</a></p>
+  <p class="ref-note">For a choice among a few colors, use <a href="swatches.html">Swatches</a>.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the field or a container: the box is a text input's height. Click one to open the picker.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field" data-size="sm">
+        <div class="canon-label"><label class="canon-label-text" for="sz-sm">Small</label></div>
+        <div class="canon-color">
+          <input type="color" id="sz-sm" name="sz-sm" value="#3b82f6">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="sz-md">Theme decides</label></div>
+        <div class="canon-color">
+          <input type="color" id="sz-md" name="sz-md" value="#3b82f6">
+        </div>
+      </div>
+      <div class="canon-field" data-size="lg">
+        <div class="canon-label"><label class="canon-label-text" for="sz-lg">Large</label></div>
+        <div class="canon-color">
+          <input type="color" id="sz-lg" name="sz-lg" value="#3b82f6">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="swatches">
+    <h2>Swatches</h2>
+    <p class="ref-note">A <code>&lt;datalist&gt;</code> linked with the input's <code>list</code>: its options become swatches in the picker, named by their labels. The browser's own picker shows them too.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="sw-brand">Brand color</label></div>
+      <div class="canon-color">
+        <input type="color" id="sw-brand" name="brand" value="#3b82f6" list="sw-brand-colors">
+        <datalist id="sw-brand-colors">
+          <option value="#3b82f6" label="Blue"></option>
+          <option value="#06b6d4" label="Cyan"></option>
+          <option value="#22c55e" label="Green"></option>
+          <option value="#eab308" label="Yellow"></option>
+          <option value="#f97316" label="Orange"></option>
+          <option value="#ef4444" label="Red"></option>
+          <option value="#ec4899" label="Pink"></option>
+          <option value="#a855f7" label="Purple"></option>
+          <option value="#6366f1" label="Indigo"></option>
+        </datalist>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="opacity">
+    <h2>Opacity</h2>
+    <p class="ref-note"><code>alpha</code> on the input adds an opacity slider and field. The value is then an 8-digit hex (<code>#3b82f680</code> is half see-through); where the browser can't keep opacity in a color input, canon.js makes the input a read-only text field holding that code, which the form submits as usual. Without JavaScript the browser's picker has no opacity.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="op-overlay">Overlay</label></div>
+      <div class="canon-color">
+        <input type="color" id="op-overlay" name="overlay" value="#3b82f680" alpha list="op-overlay-colors">
+        <datalist id="op-overlay-colors">
+          <option value="#18181b" label="Black"></option>
+          <option value="#18181b80" label="Black, half"></option>
+          <option value="#ffffff" label="White"></option>
+          <option value="#3b82f6" label="Blue"></option>
+          <option value="#3b82f633" label="Blue, faint"></option>
+        </datalist>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="inline">
+    <h2>Inline</h2>
+    <p class="ref-note"><code>data-inline</code> on the box: the picker sits in the page, always shown, in place of the box. The input still holds the value the form submits; <code>change</code> fires when a drag ends, after a key, a slider, a field or a swatch. Without JavaScript the box shows as usual.</p>
+
+    <div class="canon-field">
+      <div class="canon-label"><label class="canon-label-text" for="in-accent">Accent</label></div>
+      <div class="canon-color" data-inline>
+        <input type="color" id="in-accent" name="accent" value="#22c55e" list="in-accent-colors">
+        <datalist id="in-accent-colors">
+          <option value="#3b82f6" label="Blue"></option>
+          <option value="#06b6d4" label="Cyan"></option>
+          <option value="#22c55e" label="Green"></option>
+          <option value="#eab308" label="Yellow"></option>
+          <option value="#f97316" label="Orange"></option>
+          <option value="#ef4444" label="Red"></option>
+          <option value="#ec4899" label="Pink"></option>
+          <option value="#a855f7" label="Purple"></option>
+          <option value="#6366f1" label="Indigo"></option>
+        </datalist>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Text Input's states: <code>disabled</code> on the input, an error with <code>aria-invalid="true"</code> and a danger message.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-dis">Disabled</label></div>
+        <div class="canon-color">
+          <input type="color" id="st-dis" name="st-dis" value="#22c55e" disabled>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label"><label class="canon-label-text" for="st-err">Text color</label></div>
+        <div class="canon-color">
+          <input type="color" id="st-err" name="st-err" value="#e4e4e7" aria-invalid="true" aria-describedby="st-err-message">
+        </div>
+        <p class="canon-field-message" id="st-err-message" data-intent="danger">Too light to read on white.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">The area's white side and the sliders' start follow the direction.</p>
+    <div class="canon-field" dir="rtl" lang="ar">
+      <div class="canon-label"><label class="canon-label-text" for="ex-rtl">لون العلامة</label></div>
+      <div class="canon-color">
+        <input type="color" id="ex-rtl" name="ex-rtl" value="#a855f7">
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

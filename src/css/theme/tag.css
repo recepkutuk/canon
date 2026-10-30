@@ -1,0 +1,266 @@
+/* ==================================================================== */
+/* Tag                                                                  */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Size scale: sm 24 ·
+     md 32 · lg 40, sm by default. Statuses: 10 / 11 / 12px text. Icons and the avatar are the line's
+     height (16 / 20 / 24). The dot sits 3 / 2 / 1px further in than the
+     label's inset. */
+  :root,
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-tag-padding: 0.25rem;
+    --canon-theme-tag-gap: 0.125rem;
+    --canon-theme-tag-radius: 0.125rem;
+    --canon-theme-tag-label-inset: 0.125rem;
+    --canon-theme-tag-status-inset: 0.25rem;
+    --canon-theme-tag-status-font-size: 0.625rem;
+    --canon-theme-tag-dot: 0.375rem;
+    --canon-theme-tag-dot-offset: 3px;
+    --canon-theme-tag-font-size: 0.75rem;
+    --canon-theme-tag-line-height: 1rem;
+    --canon-theme-tag-tracking: -0.007em;
+  }
+  /* In a combobox, tags take the box's size (md by default, like the box). */
+  :is([data-size="md"], .canon-combobox:not([data-size], [data-size] *)) {
+    --canon-theme-tag-padding: 0.375rem;
+    --canon-theme-tag-gap: 0.25rem;
+    --canon-theme-tag-radius: 0.25rem;
+    --canon-theme-tag-label-inset: 0.25rem;
+    --canon-theme-tag-status-inset: 0.375rem;
+    --canon-theme-tag-status-font-size: 0.6875rem;
+    --canon-theme-tag-dot: 0.5rem;
+    --canon-theme-tag-dot-offset: 2px;
+    --canon-theme-tag-font-size: 0.875rem;
+    --canon-theme-tag-line-height: 1.25rem;
+    --canon-theme-tag-tracking: -0.006em;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-tag-padding: 0.5rem;
+    --canon-theme-tag-gap: 0.375rem;
+    --canon-theme-tag-radius: 0.5rem;
+    --canon-theme-tag-label-inset: 0.375rem;
+    --canon-theme-tag-status-inset: 0.5rem;
+    --canon-theme-tag-status-font-size: 0.75rem;
+    --canon-theme-tag-dot: 0.625rem;
+    --canon-theme-tag-dot-offset: 1px;
+    --canon-theme-tag-font-size: 1rem;
+    --canon-theme-tag-line-height: 1.5rem;
+    --canon-theme-tag-tracking: -0.004em;
+  }
+
+  /* Colors. No seed and no intent: neutral, derived from the text around
+     the tag (as Kbd), so it reads on any surface: one step darker on a
+     gray panel, lighter on a dark one. On the plain page it lands on
+     the zinc row within a few RGB units (zinc's cool tint is the
+     difference): medium zinc-100 / zinc-900 (dark zinc-700 / white),
+     low a zinc-300 border (dark zinc-600), high zinc-600 (dark zinc-500).
+     In `color`, currentColor is the parent's; in `background-color` and
+     `border-color` it is the tag's own, so those percentages are of the
+     tag's text (94% of the parent's in light). A solid tag keeps the
+     parent's color for its fill and draws its content in the light
+     --_solid-text (zinc-100, dark white): that text contrasts with the
+     fill, not the surface. A hue (from data-intent or the seed) uses the medium
+     button's tints: solid tone-600 with white; tinted tone-400 at 15%
+     with tone-700 (dark: tone-500 at 20%, tone-300); outlined tone-700
+     (dark: tone-300 at 50%) around the tinted text color. */
+  .canon-tag {
+    --_z-solid: light-dark(
+      color-mix(in srgb, currentColor 70%, transparent),
+      color-mix(in srgb, currentColor 43%, transparent));
+    --_z-on-solid: currentColor;
+    --_z-solid-text: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-white));
+    --_z-tint: light-dark(
+      color-mix(in srgb, currentColor 4.8%, transparent),
+      color-mix(in srgb, currentColor 22.4%, transparent));
+    --_z-on-tint: light-dark(color-mix(in srgb, currentColor 94%, transparent), currentColor);
+    --_z-line: light-dark(
+      color-mix(in srgb, currentColor 18.6%, transparent),
+      color-mix(in srgb, currentColor 30.3%, transparent));
+
+    --_h-solid: var(--_t600);
+    --_h-on-solid: var(--canon-theme-white);
+    --_h-solid-text: var(--canon-theme-white);
+    --_h-tint: light-dark(
+      color-mix(in srgb, var(--_t400) 15%, transparent),
+      color-mix(in srgb, var(--_t500) 20%, transparent));
+    --_h-on-tint: light-dark(var(--_t700), var(--_t300));
+    --_h-line: light-dark(var(--_t700), color-mix(in srgb, var(--_t300) 50%, transparent));
+
+    --_solid: var(--_z-solid);
+    --_on-solid: var(--_z-on-solid);
+    --_solid-text: var(--_z-solid-text);
+    --_tint: var(--_z-tint);
+    --_on-tint: var(--_z-on-tint);
+    --_line: var(--_z-line);
+  }
+
+  /* A seed, CSS-only path: its slot may be -1 (not an integer), which
+     stays zinc. */
+  @supports (color: if(else: red)) and (inline-size: calc(attr(data-x type(<integer>), 1) * 1px)) {
+    .canon-tag[data-seed] {
+      --_solid: if(style(--canon-theme-seed-slot: -1): var(--_z-solid); else: var(--_h-solid));
+      --_on-solid: if(style(--canon-theme-seed-slot: -1): var(--_z-on-solid); else: var(--_h-on-solid));
+      --_solid-text: if(style(--canon-theme-seed-slot: -1): var(--_z-solid-text); else: var(--_h-solid-text));
+      --_tint: if(style(--canon-theme-seed-slot: -1): var(--_z-tint); else: var(--_h-tint));
+      --_on-tint: if(style(--canon-theme-seed-slot: -1): var(--_z-on-tint); else: var(--_h-on-tint));
+      --_line: if(style(--canon-theme-seed-slot: -1): var(--_z-line); else: var(--_h-line));
+    }
+  }
+
+  /* A seed's slot from canon.js, or an intent. Intent wins over a seed. */
+  .canon-tag:is([data-seed-slot], [data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+    --_solid: var(--_h-solid);
+    --_on-solid: var(--_h-on-solid);
+    --_solid-text: var(--_h-solid-text);
+    --_tint: var(--_h-tint);
+    --_on-tint: var(--_h-on-tint);
+    --_line: var(--_h-line);
+  }
+  .canon-tag[data-intent="info"]    { --_t300: var(--canon-theme-blue-300);  --_t400: var(--canon-theme-blue-400);  --_t500: var(--canon-theme-blue-500);  --_t600: var(--canon-theme-blue-600);  --_t700: var(--canon-theme-blue-700); }
+  .canon-tag[data-intent="success"] { --_t300: var(--canon-theme-green-300); --_t400: var(--canon-theme-green-400); --_t500: var(--canon-theme-green-500); --_t600: var(--canon-theme-green-600); --_t700: var(--canon-theme-green-700); }
+  .canon-tag[data-intent="warning"] { --_t300: var(--canon-theme-amber-300); --_t400: var(--canon-theme-amber-400); --_t500: var(--canon-theme-amber-500); --_t600: var(--canon-theme-amber-600); --_t700: var(--canon-theme-amber-700); }
+  .canon-tag[data-intent="danger"]  { --_t300: var(--canon-theme-red-300);   --_t400: var(--canon-theme-red-400);   --_t500: var(--canon-theme-red-500);   --_t600: var(--canon-theme-red-600);   --_t700: var(--canon-theme-red-700); }
+
+  /* Emphasis: medium (tinted) by default; high is solid, low outlined.
+     The 1px border is always there, so every emphasis has the same box;
+     padding is measured from the outer edge. */
+  .canon-tag {
+    --_bg: var(--_tint);
+    --_fg: var(--_on-tint);
+    --_border: transparent;
+    --canon-icon-size: var(--canon-theme-tag-line-height);
+
+    gap: var(--canon-theme-tag-gap);
+    padding: calc(var(--canon-theme-tag-padding) - 1px);
+    border: 1px solid var(--_border);
+    border-radius: var(--canon-theme-tag-radius);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--canon-theme-tag-font-size);
+    font-weight: 500;
+    line-height: var(--canon-theme-tag-line-height);
+    letter-spacing: var(--canon-theme-tag-tracking);
+  }
+  .canon-tag[data-emphasis="high"] {
+    --_bg: var(--_solid);
+    --_fg: var(--_on-solid);
+  }
+  .canon-tag[data-emphasis="high"] > :is(.canon-tag-label, .canon-icon, .canon-tag-dot) {
+    color: var(--_solid-text);
+  }
+  .canon-tag[data-emphasis="low"] {
+    --_bg: transparent;
+    --_border: var(--_line);
+  }
+
+  .canon-tag {
+    --_inset: var(--canon-theme-tag-label-inset);
+  }
+  .canon-tag-label {
+    padding-inline: var(--_inset);
+  }
+
+  /* A status (a tag with data-intent) is a pill with smaller uppercase
+     semibold text, so it never reads as a category. Same heights; the
+     label sits further in (8 / 12 / 16px from the edge) to clear the
+     round ends. */
+  .canon-tag[data-intent] {
+    --_inset: var(--canon-theme-tag-status-inset);
+    border-radius: 999px;
+    font-size: var(--canon-theme-tag-status-font-size);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* The dot: a circle in the text color, inside the label's inset. The
+     label after it keeps 4 / 6 / 8px from it (2px more than the gap). */
+  .canon-tag-dot {
+    inline-size: var(--canon-theme-tag-dot);
+    block-size: var(--canon-theme-tag-dot);
+    margin-inline-start: calc(var(--_inset) + var(--canon-theme-tag-dot-offset));
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+  .canon-tag-dot + .canon-tag-label {
+    padding-inline-start: 2px;
+  }
+
+  /* An avatar: the line's height, a person's photo or initials. */
+  .canon-tag > .canon-avatar {
+    --canon-theme-avatar-size: var(--canon-theme-tag-line-height);
+    --canon-theme-avatar-font-size: calc(var(--canon-theme-tag-line-height) * 0.4);
+    --canon-theme-avatar-line-height: 1;
+    --canon-theme-avatar-tracking: 0;
+  }
+
+  /* Remove: Lucide x at the icon size, in the
+     text color softened (zinc-500 on the plain page, dark zinc-400),
+     full strength on hover. On a hued tag it is a segment of its own, in
+     the neutral colors (zinc-100, dark zinc-700): the tag's padding
+     around the icon, its end corners rounded with the tag's. */
+  .canon-tag-remove {
+    color: light-dark(
+      color-mix(in srgb, currentColor 65%, transparent),
+      color-mix(in srgb, currentColor 50%, transparent));
+    transition: color 0.12s;
+  }
+  .canon-tag-remove::before {
+    content: "";
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-x) center / contain no-repeat;
+  }
+  .canon-tag-remove:focus-visible:not(:disabled) {
+    color: inherit;
+  }
+  @media (hover: hover) {
+    .canon-tag-remove:hover:not(:disabled) {
+      color: inherit;
+    }
+  }
+  .canon-tag[data-emphasis="high"] > .canon-tag-remove {
+    color: color-mix(in srgb, var(--_solid-text) 75%, transparent);
+  }
+  .canon-tag[data-emphasis="high"] > .canon-tag-remove:focus-visible:not(:disabled) {
+    color: var(--_solid-text);
+  }
+  @media (hover: hover) {
+    .canon-tag[data-emphasis="high"] > .canon-tag-remove:hover:not(:disabled) {
+      color: var(--_solid-text);
+    }
+  }
+  .canon-tag-remove:focus-visible {
+    outline: 2px solid light-dark(var(--canon-theme-blue-600), var(--canon-theme-blue-400));
+    outline-offset: -2px;
+    border-radius: var(--canon-theme-tag-radius);
+  }
+  .canon-tag:is([data-seed-slot], [data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) > .canon-tag-remove {
+    margin-block: calc(-1 * var(--canon-theme-tag-padding));
+    margin-inline: calc(var(--canon-theme-tag-padding) - var(--canon-theme-tag-gap)) calc(-1 * var(--canon-theme-tag-padding));
+    padding: var(--canon-theme-tag-padding);
+    border-start-end-radius: inherit;
+    border-end-end-radius: inherit;
+    background-color: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    color: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-400));
+  }
+  .canon-tag:is([data-seed-slot], [data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) > .canon-tag-remove:focus-visible:not(:disabled) {
+    color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+  }
+  @media (hover: hover) {
+    .canon-tag:is([data-seed-slot], [data-intent="info"], [data-intent="success"], [data-intent="warning"], [data-intent="danger"]) > .canon-tag-remove:hover:not(:disabled) {
+      color: light-dark(var(--canon-theme-zinc-900), var(--canon-theme-white));
+    }
+  }
+
+  /* A key: the tag's size (its own scale follows the same data-size), and
+     the dark-scheme recipe on a solid tag, as on a high-emphasis button,
+     from the solid tag's text. */
+  .canon-tag[data-emphasis="high"] > .canon-kbd {
+    color-scheme: dark;
+    color: color-mix(in srgb, var(--_solid-text) 80%, transparent);
+  }
+}

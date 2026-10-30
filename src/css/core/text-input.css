@@ -1,0 +1,234 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Control (the box)                                                   */
+  /*                                                                     */
+  /* The frame belongs to the box; the native element is chromeless and  */
+  /* fills it. Focus is shown on the box (:focus-within), which is a     */
+  /* theme obligation.                                                   */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--canon-control-gap);
+    min-block-size: var(--canon-control-block-size);
+    min-inline-size: 0;
+    padding-inline: var(--canon-control-padding-inline);
+    font-size: var(--canon-control-font-size);
+    cursor: text;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date):has(> :disabled) {
+    cursor: not-allowed;
+  }
+
+  /* The main control: the box's direct native child. */
+  /* It takes the space left after affixes and icons, but never less than 4rem. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(input, textarea, select) {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    align-self: stretch;
+    min-inline-size: 4rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    outline: none;
+    appearance: none;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) {
+    cursor: pointer;
+  }
+
+  /* Customizable select. Themes opt in with appearance: base-select on the
+     select and its ::picker(select); browsers without support keep the
+     native picker. Core makes the picker belong to the box:
+     - anchored to the whole frame, not just the <select> inside it. Only
+       one select is open at a time, so only that box gets the anchor name
+       (anchor-scope doesn't reach the picker pseudo-element);
+     - at least as wide as the box, below it, flipping above only if needed;
+     - the box draws its own arrow, so the browser's is hidden. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date):has(> select:open) {
+    anchor-name: --canon-open-select;
+    animation: none;
+  }
+
+  /* After closing, keep the anchor name for 400ms so a theme's close
+     transition fades out in place instead of jumping to the page corner.
+     An animation, not a transition: themes set their own transitions on the
+     box, which would replace one from core. Only while closed, so it
+     restarts each time the select closes. Theme close transitions must
+     stay under 400ms. Not a Combobox canon.js has drawn: its own list
+     anchors to the box by the box's own name. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date):has(> select):not(:has(> select:open, > .canon-combobox-trigger)) {
+    animation: canon-keep-select-anchor 400ms;
+  }
+
+  @keyframes canon-keep-select-anchor {
+    from, to { anchor-name: --canon-open-select; }
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select)::picker(select) {
+    position-anchor: --canon-open-select;
+    position-area: block-end span-inline-end;
+    position-try-order: normal;
+    position-try-fallbacks: flip-block;
+    min-inline-size: anchor-size(inline);
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select)::picker-icon {
+    display: none;
+  }
+
+  /* Customizable-select options get min-block-size: 24px from the browser,
+     which makes a row taller than its padding + line and pushes the text to
+     the top of it. Rows size from the theme's padding and line height. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) :where(option) {
+    min-block-size: 0;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) {
+    align-items: center;
+  }
+
+  /* The select owns the whole box: it extends under the leading icon, the
+     theme's arrow and the box's padding (and pads its text back by the same
+     amounts), so clicking anywhere in the box opens it. Themes set
+     --canon-select-start (padding, + icon and gap with a leading icon) and
+     --canon-select-end (gap + arrow + padding, + any status icon): the
+     distances from the box's border to the select's text. The select is
+     transparent, so the icon still shows; the box's decorations ignore the
+     pointer. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) {
+    margin-inline: calc(-1 * var(--canon-select-start, 0px)) calc(-1 * var(--canon-select-end, 0px));
+    padding-inline: var(--canon-select-start, 0px) var(--canon-select-end, 0px);
+  }
+
+  /* The chosen option stays on one line, so a narrow box keeps its control
+     height, and is cut at the text's edge rather than running under the
+     arrow. (A customizable select draws its text in its own shadow tree,
+     out of text-overflow's reach, so it clips instead of ellipsizing.) The
+     list is in the top layer, so the clip doesn't touch it. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) {
+    white-space: nowrap;
+    overflow: clip;
+    overflow-clip-margin: content-box;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date)::before,
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date)::after,
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(.canon-icon) {
+    pointer-events: none;
+  }
+
+  /* Text inputs and textareas own the whole box too. Affix widths are
+     unknowable, so instead of exact distances the native element reaches
+     20rem past both edges with matching padding (its text doesn't move by a
+     pixel) and the box clips the overshoot. It measures its content box, so
+     the 4rem minimum is still 4rem of text. Paint order does the rest:
+     leading icons and prefix text sit under the transparent input, so
+     clicks reach it; trailing icons, suffix text and status icons sit on
+     top but let clicks through; trailing buttons and controls inside an
+     affix stay clickable. Textareas extend only at the start, so their
+     scrollbar and resize handle stay inside the box. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-date):has(> :is(input:not([type="range"]), textarea)) {
+    overflow: clip;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-date) > :where(input:not([type="range"])) {
+    box-sizing: content-box;
+    margin-inline: -20rem;
+    padding-inline: 20rem;
+  }
+  /* Textareas take over the box's padding exactly on the other three sides
+     (themes declare it), so the scrollbar and resize handle sit at the box's
+     inner edge. They measure their content box, so rows × 1lh is unaffected. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(textarea) {
+    box-sizing: content-box;
+    margin-block: calc(-1 * var(--canon-textarea-inset-block, 0px));
+    margin-inline: -20rem calc(-1 * var(--canon-textarea-inset-end, 0px));
+    padding-block: var(--canon-textarea-inset-block, 0px);
+    padding-inline: 20rem var(--canon-textarea-inset-end, 0px);
+  }
+  :where(.canon-control-prefix, .canon-control-suffix, .canon-text-input-prefix, .canon-text-input-suffix) {
+    pointer-events: none;
+  }
+  :where(.canon-control-prefix, .canon-control-suffix, .canon-text-input-prefix, .canon-text-input-suffix) :where(select, input, button) {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+  }
+
+  /* Optional <button><selectedcontent></selectedcontent></button> as the
+     select's first child: the closed select mirrors the chosen option's
+     markup there. Core makes the button chromeless and shows only the
+     option's label (descriptions belong to the list). */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(select) > :where(button) {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    white-space: inherit;
+  }
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) :where(selectedcontent) :where(.canon-option-description) {
+    display: none;
+  }
+
+  /* canon.js commands. Without scripting the buttons can't work, so they
+     aren't shown. A clear button hides while there is nothing to clear
+     (visibility keeps its space, so the input doesn't shift, and removes it
+     from the tab order). */
+  @media (scripting: none) {
+    :where(button[command^="--canon-"]) {
+      display: none;
+    }
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date):has(> :placeholder-shown) > :where(button[command="--canon-clear"]) {
+    visibility: hidden;
+  }
+
+  /* The browser's own search clear button can't be themed. Clearing is a
+     trailing canon-button the author adds; Escape still clears natively. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(input[type="search"])::-webkit-search-cancel-button,
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(input[type="search"])::-webkit-search-decoration {
+    appearance: none;
+    display: none;
+  }
+
+  /* Native textarea resizing allows both axes; Canon never offers horizontal.
+     A textarea is never less than one line tall (dragging its handle up
+     stops there); rows and data-max-lines raise that below. */
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(textarea) {
+    resize: none;
+    min-block-size: 1lh;
+  }
+
+  /* Affixes truncate before they push the native element or icons out of the box. */
+  :where(.canon-control-prefix, .canon-control-suffix, .canon-text-input-prefix, .canon-text-input-suffix) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* "@acme.com" or "https://" keep their own direction inside RTL text. */
+    unicode-bidi: plaintext;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date)::before,
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date)::after {
+    flex: none;
+  }
+
+  :where(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date) > :where(.canon-icon, .canon-button) {
+    flex: none;
+  }
+}

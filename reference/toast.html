@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Toast reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Toast</h1>
+  <p class="ref-note">Short news about what just happened, in a corner, for a few seconds. Specification: <a href="../docs/components/toast.md">docs/components/toast.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="toast">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-toast</code>: a title, an optional description and actions, a close button. <code>data-intent</code> picks its icon, in the same words as a Button's: <code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>; none for plain news. Here as they look (in the page, not shown as toasts).</p>
+
+    <div class="ref-toast-static">
+      <div class="canon-toast" data-intent="success">
+        <p class="canon-toast-title">Invoice saved</p>
+        <p class="canon-toast-description">INV-2041 is up to date.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="info">
+        <p class="canon-toast-title">Reminder scheduled</p>
+        <p class="canon-toast-description">Globex gets it tomorrow at 9:00.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="warning">
+        <p class="canon-toast-title">Sync is slow</p>
+        <p class="canon-toast-description">Changes may take a few minutes to appear.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="danger">
+        <p class="canon-toast-title">Couldn't save the invoice</p>
+        <p class="canon-toast-description">Your connection dropped. Try again.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast">
+        <p class="canon-toast-title">Link copied</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="success">
+        <p class="canon-toast-title">Invoice deleted</p>
+        <div class="canon-toast-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Undo</span></button></div>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Emphasis</h2>
+    <p class="ref-note"><code>data-emphasis="high"</code>: solid, for the rare toast that must be noticed (a failure that lost work, a sync that stopped). In the same words as a Button's. Without an intent it is the page's colors inverted. Most toasts stay at the default.</p>
+
+    <div class="ref-toast-static">
+      <div class="canon-toast" data-intent="info" data-emphasis="high">
+        <p class="canon-toast-title">Reminder scheduled</p>
+        <p class="canon-toast-description">Globex gets it tomorrow at 9:00.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="success" data-emphasis="high">
+        <p class="canon-toast-title">Invoice saved</p>
+        <p class="canon-toast-description">INV-2041 is up to date.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="warning" data-emphasis="high">
+        <p class="canon-toast-title">Sync is slow</p>
+        <p class="canon-toast-description">Changes may take a few minutes to appear.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="danger" data-emphasis="high">
+        <p class="canon-toast-title">Couldn't save the invoice</p>
+        <p class="canon-toast-description">Your connection dropped. Try again.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-emphasis="high">
+        <p class="canon-toast-title">Link copied</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+      <div class="canon-toast" data-intent="danger" data-emphasis="high">
+        <p class="canon-toast-title">Sync stopped</p>
+        <p class="canon-toast-description">12 changes are waiting.</p>
+        <div class="canon-toast-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Retry</span></button></div>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="show">
+    <h2>Showing one</h2>
+    <p class="ref-note">A Button with <code>command="--canon-toast"</code> and <code>commandfor</code> a <code>&lt;template&gt;</code> holding the toast shows a copy in the toaster, at the window's bottom-end corner. It goes after 5 seconds; the time stops while the pointer or focus is on it. The last one stays until you close it (<code>data-duration="none"</code>).</p>
+
+    <template id="tt-saved">
+      <div class="canon-toast" data-intent="success">
+        <p class="canon-toast-title">Invoice saved</p>
+        <p class="canon-toast-description">INV-2041 is up to date.</p>
+      </div>
+    </template>
+    <template id="tt-sent">
+      <div class="canon-toast" data-intent="info">
+        <p class="canon-toast-title">Reminder scheduled</p>
+        <p class="canon-toast-description">Globex gets it tomorrow at 9:00.</p>
+      </div>
+    </template>
+    <template id="tt-slow">
+      <div class="canon-toast" data-intent="warning">
+        <p class="canon-toast-title">Sync is slow</p>
+        <p class="canon-toast-description">Changes may take a few minutes to appear.</p>
+      </div>
+    </template>
+    <template id="tt-failed">
+      <div class="canon-toast" data-intent="danger">
+        <p class="canon-toast-title">Couldn't save the invoice</p>
+        <p class="canon-toast-description">Your connection dropped. Try again.</p>
+      </div>
+    </template>
+    <template id="tt-copied">
+      <div class="canon-toast">
+        <p class="canon-toast-title">Link copied</p>
+      </div>
+    </template>
+    <template id="tt-kept">
+      <div class="canon-toast" data-intent="info" data-duration="none">
+        <p class="canon-toast-title">Export ready</p>
+        <p class="canon-toast-description">It stays until you close it.</p>
+      </div>
+    </template>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high" commandfor="tt-saved" command="--canon-toast"><span class="canon-button-label">Save</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tt-sent" command="--canon-toast"><span class="canon-button-label">Schedule</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tt-slow" command="--canon-toast"><span class="canon-button-label">Sync</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tt-failed" command="--canon-toast"><span class="canon-button-label">Save offline</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tt-copied" command="--canon-toast"><span class="canon-button-label">Copy link</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tt-kept" command="--canon-toast"><span class="canon-button-label">Export</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="timer">
+    <h2>A timer</h2>
+    <p class="ref-note"><code>data-timer</code> (or <code>timer: true</code> in the event): a line along the bottom runs out with the toast's time, so people can see it's going. It stops while the pointer or focus is on the toaster (the toast is <code>data-paused</code>), as the time does: hover one to try.</p>
+
+    <template id="tm-saved">
+      <div class="canon-toast" data-intent="success" data-timer>
+        <p class="canon-toast-title">Invoice saved</p>
+        <p class="canon-toast-description">INV-2041 is up to date.</p>
+      </div>
+    </template>
+    <template id="tm-undo">
+      <div class="canon-toast" data-intent="success" data-timer>
+        <p class="canon-toast-title">Invoice deleted</p>
+        <div class="canon-toast-actions"><button type="button" class="canon-button" data-emphasis="high" data-intent="neutral" data-size="sm"><span class="canon-button-label">Undo</span></button></div>
+      </div>
+    </template>
+    <template id="tm-high">
+      <div class="canon-toast" data-intent="danger" data-emphasis="high" data-duration="8000" data-timer>
+        <p class="canon-toast-title">Couldn't save the invoice</p>
+        <p class="canon-toast-description">Your connection dropped. Try again.</p>
+      </div>
+    </template>
+    <template id="tm-plain">
+      <div class="canon-toast" data-timer>
+        <p class="canon-toast-title">Link copied</p>
+      </div>
+    </template>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high" commandfor="tm-saved" command="--canon-toast"><span class="canon-button-label">Save</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tm-undo" command="--canon-toast"><span class="canon-button-label">Delete (10s)</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tm-high" command="--canon-toast"><span class="canon-button-label">Fail (8s)</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" commandfor="tm-plain" command="--canon-toast"><span class="canon-button-label">Copy link</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="events">
+    <h2>From app code</h2>
+    <p class="ref-note">Most toasts follow something the app did, after the server answered. Dispatch <code>canon-toast</code> on the document with what to show: <code>title</code>, <code>description</code>, <code>intent</code>, <code>action</code> (<code>{ label, onClick }</code>), <code>duration</code>. The toast made comes back on <code>detail.toast</code>, which fires <code>canon-dismiss</code> when it goes (<code>detail.reason</code>). A toast with an action stays 10 seconds.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" id="te-delete"><span class="canon-button-label">Delete INV-2037</span></button>
+    </div>
+    <p class="ref-note" id="te-log" aria-live="polite">Delete it, then undo, or let the toast go.</p>
+    <script>
+      document.getElementById("te-delete").addEventListener("click", () => {
+        const log = document.getElementById("te-log");
+        const detail = {
+          intent: "success",
+          title: "Invoice deleted",
+          description: "INV-2037 is in the bin for 30 days.",
+          action: { label: "Undo", onClick: () => { log.textContent = "Undone: INV-2037 is back."; } },
+        };
+        document.dispatchEvent(new CustomEvent("canon-toast", { detail }));
+        detail.toast.addEventListener("canon-dismiss", (event) => {
+          if (event.detail.reason !== "action") log.textContent = `The toast went (${event.detail.reason}).`;
+        });
+      });
+    </script>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the toaster sits at the bottom-left and the icon comes first on the right. Long text wraps. At most three toasts at once: a fourth sends the oldest away.</p>
+
+    <div class="ref-toast-static" dir="rtl" lang="ar">
+      <div class="canon-toast" data-intent="success">
+        <p class="canon-toast-title">تم حفظ الفاتورة</p>
+        <p class="canon-toast-description">الفاتورة INV-2041 محدثة.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+    </div>
+    <div class="ref-toast-static">
+      <div class="canon-toast" data-intent="warning">
+        <p class="canon-toast-title">Some invoices weren't sent because their customers have no billing email on file</p>
+        <p class="canon-toast-description">Add an email to Globex Corporation, Initech and Umbrella, then send them again from the list.</p>
+        <button type="button" class="canon-toast-close" aria-label="Dismiss"></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

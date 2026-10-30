@@ -1,0 +1,53 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Label                                                               */
+  /*                                                                     */
+  /* What a control is called, with what goes with the name: "(optional)" */
+  /* (inside the label, so it is read), an info button with a tooltip,   */
+  /* and a description. A wrapping row: the label takes the room left,   */
+  /* the info button sits at the end on the first line, the description */
+  /* gets a line of its own. Long labels wrap; "(optional)" stays on the */
+  /* first line.                                                          */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-label) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    min-inline-size: 0;
+  }
+  :where(.canon-label) > :where(.canon-label-text) {
+    display: block;
+    flex: 1 1 0;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: break-word;
+  }
+  :where(.canon-label-optional) {
+    float: inline-end;
+    white-space: nowrap;
+  }
+  :where(.canon-label) > :where(.canon-label-info) {
+    box-sizing: border-box;
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    inline-size: var(--canon-icon-size, 1em);
+    block-size: var(--canon-icon-size, 1em);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    appearance: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(.canon-label) > :where(.canon-label-description) {
+    flex: 1 0 100%;
+    margin: 0;
+  }
+}

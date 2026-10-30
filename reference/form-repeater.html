@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Form Repeater reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Form Repeater</h1>
+  <p class="ref-note">A list of items people add to and remove, each a row of fields: members, line items, links. Items are ordinary Fields in a <code>.canon-repeater</code>, written once: Add copies the first item, empty, and numbers it. The Add and Remove buttons name the repeater with <code>commandfor</code> (<code>command="--canon-add"</code>, <code>"--canon-remove"</code>), and canon.js does the rest. Without JavaScript the items the page starts with are an ordinary form. Specification: <a href="../docs/components/form-repeater.md">docs/components/form-repeater.md</a></p>
+
+  <div id="ref-controls"></div>
+
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="items">
+    <h2>Items</h2>
+    <p class="ref-note">Each item is a row of <a href="field.html">Fields</a> and a Remove button. The labels show over the first item, as column headers; later items keep theirs for screen readers, so each control is still named. Add copies the first item, empty, with the next number in its ids and names (<code>team-0-name</code> becomes <code>team-3-name</code>, <code>team[0][name]</code> <code>team[3][name]</code>), and moves focus into it. Remove shows once there is more than one item.</p>
+
+    <div class="ref-stack" style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="first">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="first-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="first-0-team" name="first[0][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="first-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="first-0-name" name="first[0][name]" placeholder="Enter name">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="first" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="first" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+      <div class="canon-repeater" id="team" data-max="5">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="team-0-team" name="team[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="team-0-name" name="team[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="team" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="team-1-team" name="team[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="team-1-name" name="team[1][name]" placeholder="Enter name" value="Jane Smith">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="team" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-2-team">Team</label></div>
+            <div class="canon-select">
+              <select id="team-2-team" name="team[2][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="team-2-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="team-2-name" name="team[2][name]" placeholder="Enter name">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="team" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="team" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="max">
+    <h2>Limit</h2>
+    <p class="ref-note"><code>data-max</code> on the repeater: the most items. Once there are that many, Add disappears; it comes back when an item is removed. Say the limit in the description, so people know before they reach it.</p>
+
+    <fieldset class="canon-fieldset" aria-describedby="max-hint" style="max-inline-size: 28.5rem">
+      <legend class="canon-fieldset-legend">Reviewers</legend>
+      <p class="canon-fieldset-hint" id="max-hint">Up to 3 reviewers.</p>
+      <div class="canon-repeater" id="reviewers" data-max="3">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="reviewers-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="reviewers-0-team" name="reviewers[0][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option selected>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="reviewers-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="reviewers-0-name" name="reviewers[0][name]" placeholder="Enter name" value="Ana Lima">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="reviewers" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="reviewers-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="reviewers-1-team" name="reviewers[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option selected>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="reviewers-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="reviewers-1-name" name="reviewers[1][name]" placeholder="Enter name" value="Kenji Sato">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="reviewers" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="reviewers" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="min">
+    <h2>Fewest items</h2>
+    <p class="ref-note"><code>data-min</code>: the fewest items, 1 by default (Remove is hidden while there are that many). With <code>data-min="0"</code> every item can go, leaving the Add button. A list that can start empty has no item to copy, so it gives one in a <code>&lt;template&gt;</code>, with <code>{index}</code> where the number goes: <code>id="none-{index}-team"</code>, <code>name="none[{index}][team]"</code>.</p>
+
+    <div style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="none" data-min="0">
+        <template>
+          <div class="canon-repeater-item">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="none-{index}-team">Team</label></div>
+              <div class="canon-select">
+                <select id="none-{index}-team" name="none[{index}][team]">
+                  <option value="" hidden>Select team</option>
+                  <option>HR</option>
+                  <option>Finance</option>
+                  <option>Engineering</option>
+                  <option>Design</option>
+                  <option>Sales</option>
+                </select>
+              </div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="none-{index}-name">Name</label></div>
+              <div class="canon-text-input">
+                <input type="text" id="none-{index}-name" name="none[{index}][name]" placeholder="Enter name">
+              </div>
+            </div>
+            <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="none" command="--canon-remove">
+              <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+              <span class="canon-button-label">Remove</span>
+            </button>
+          </div>
+        </template>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="none" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="without-labels">
+    <h2>Without labels</h2>
+    <p class="ref-note">Labels are optional: put the boxes in the item without a Field, each control named by <code>aria-label</code>, and there are no column headers. For lists whose columns explain themselves, or that sit under a heading saying what they hold.</p>
+
+    <div style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="bare" data-max="5">
+        <div class="canon-repeater-item">
+          <div class="canon-select">
+            <select id="bare-0-team" name="bare[0][team]" aria-label="Team">
+              <option value="" hidden>Select team</option>
+              <option selected>HR</option>
+              <option>Finance</option>
+              <option>Engineering</option>
+              <option>Design</option>
+              <option>Sales</option>
+            </select>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="bare-0-name" name="bare[0][name]" aria-label="Name" placeholder="Enter name" value="John Doe">
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="bare" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-select">
+            <select id="bare-1-team" name="bare[1][team]" aria-label="Team">
+              <option value="" hidden>Select team</option>
+              <option>HR</option>
+              <option selected>Finance</option>
+              <option>Engineering</option>
+              <option>Design</option>
+              <option>Sales</option>
+            </select>
+          </div>
+          <div class="canon-text-input">
+            <input type="text" id="bare-1-name" name="bare[1][name]" aria-label="Name" placeholder="Enter name" value="Jane Smith">
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="bare" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="bare" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="columns">
+    <h2>Columns</h2>
+    <p class="ref-note">Columns share the width equally. <code>--canon-repeater-columns</code> on the repeater sets them like <code>grid-template-columns</code>, one per Field: here the team is narrower than the name. It is layout, set wherever the page sets its layout.</p>
+
+    <div style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="cols" data-max="5" style="--canon-repeater-columns: minmax(0, 19fr) minmax(0, 31fr)">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="cols-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="cols-0-team" name="cols[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="cols-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="cols-0-name" name="cols[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="cols" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="cols-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="cols-1-team" name="cols[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="cols-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="cols-1-name" name="cols[1][name]" placeholder="Enter name" value="Jane Smith">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="cols" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="cols" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="messages">
+    <h2>Messages</h2>
+    <p class="ref-note">Each Field keeps its message under its box. The boxes and Remove buttons stay in line whatever is above or below them.</p>
+
+    <div style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="msg" data-max="5">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="msg-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="msg-0-team" name="msg[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="msg-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="msg-0-name" name="msg[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="msg" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="msg-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="msg-1-team" name="msg[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="msg-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="msg-1-name" name="msg[1][name]" placeholder="Enter name" value="J" aria-invalid="true" aria-describedby="msg-1-name-message">
+            </div>
+            <p class="canon-field-message" id="msg-1-name-message" data-intent="danger">Enter the full name.</p>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="msg" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="msg" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the repeater or a container sizes the Fields and buttons, and the spaces between items.</p>
+
+    <div class="ref-stack" style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="sm" data-size="sm">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sm-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="sm-0-team" name="sm[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sm-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="sm-0-name" name="sm[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="sm" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sm-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="sm-1-team" name="sm[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="sm-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="sm-1-name" name="sm[1][name]" placeholder="Enter name" value="Jane Smith">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="sm" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="sm" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+      <div class="canon-repeater" id="lg" data-size="lg">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="lg-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="lg-0-team" name="lg[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="lg-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="lg-0-name" name="lg[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="lg" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="lg-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="lg-1-team" name="lg[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="lg-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="lg-1-name" name="lg[1][name]" placeholder="Enter name" value="Jane Smith">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="lg" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="lg" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A disabled fieldset disables every control in it, the buttons too.</p>
+
+    <h3>Disabled</h3>
+    <fieldset class="canon-fieldset" disabled style="max-inline-size: 28.5rem">
+      <legend class="canon-fieldset-legend">Members</legend>
+      <div class="canon-repeater" id="dis" data-max="5">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="dis-0-team">Team</label></div>
+            <div class="canon-select">
+              <select id="dis-0-team" name="dis[0][team]">
+                <option value="" hidden>Select team</option>
+                <option selected>HR</option>
+                <option>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="dis-0-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="dis-0-name" name="dis[0][name]" placeholder="Enter name" value="John Doe">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="dis" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="dis-1-team">Team</label></div>
+            <div class="canon-select">
+              <select id="dis-1-team" name="dis[1][team]">
+                <option value="" hidden>Select team</option>
+                <option>HR</option>
+                <option selected>Finance</option>
+                <option>Engineering</option>
+                <option>Design</option>
+                <option>Sales</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="dis-1-name">Name</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="dis-1-name" name="dis[1][name]" placeholder="Enter name" value="Jane Smith">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="dis" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">Remove</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="dis" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+      </div>
+    </fieldset>
+
+    <h3>Right-to-left</h3>
+    <div dir="rtl" lang="ar" style="max-inline-size: 28.5rem">
+      <div class="canon-repeater" id="rtl" data-max="5">
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="rtl-0-team">الفريق</label></div>
+            <div class="canon-select">
+              <select id="rtl-0-team" name="rtl[0][team]">
+                <option value="" hidden>اختر الفريق</option>
+                <option selected>الموارد البشرية</option>
+                <option>المالية</option>
+                <option>الهندسة</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="rtl-0-name">الاسم</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="rtl-0-name" name="rtl[0][name]" placeholder="أدخل الاسم" value="سارة أحمد">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="rtl" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">إزالة</span>
+          </button>
+        </div>
+        <div class="canon-repeater-item">
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="rtl-1-team">الفريق</label></div>
+            <div class="canon-select">
+              <select id="rtl-1-team" name="rtl[1][team]">
+                <option value="" hidden>اختر الفريق</option>
+                <option>الموارد البشرية</option>
+                <option selected>المالية</option>
+                <option>الهندسة</option>
+              </select>
+            </div>
+          </div>
+          <div class="canon-field">
+            <div class="canon-label"><label class="canon-label-text" for="rtl-1-name">الاسم</label></div>
+            <div class="canon-text-input">
+              <input type="text" id="rtl-1-name" name="rtl[1][name]" placeholder="أدخل الاسم">
+            </div>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" commandfor="rtl" command="--canon-remove">
+            <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+            <span class="canon-button-label">إزالة</span>
+          </button>
+        </div>
+        <button type="button" class="canon-button" data-intent="neutral" commandfor="rtl" command="--canon-add">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">إضافة</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

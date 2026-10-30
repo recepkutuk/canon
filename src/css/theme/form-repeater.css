@@ -1,0 +1,71 @@
+/* ==================================================================== */
+/* Form Repeater                                                        */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Items 8px apart, their fields
+     8px apart, the Add button 16px under the last item (md). sm keeps
+     8 with Add 12 under; lg 12, Add 16 under. The labels are the
+     Fields', over the first item only. Remove is the danger icon button
+     with low emphasis (red here: the theme's danger), as tall as the
+     box; Add the medium button. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-repeater-gap: 0.5rem;
+    --canon-theme-repeater-add-gap: 1rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-repeater-gap: 0.5rem;
+    --canon-theme-repeater-add-gap: 0.75rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-repeater-gap: 0.75rem;
+    --canon-theme-repeater-add-gap: 1rem;
+  }
+
+  .canon-repeater {
+    --canon-repeater-gap: var(--canon-theme-repeater-gap);
+  }
+  .canon-repeater > button[command="--canon-add"] {
+    margin-block-start: calc(var(--canon-theme-repeater-add-gap) - var(--canon-theme-repeater-gap));
+  }
+  /* Later items show no labels, so their boxes don't keep the label's gap. */
+  .canon-repeater-item ~ .canon-repeater-item > .canon-field > :is(.canon-control, .canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-otp, .canon-number) {
+    margin-block-start: 0;
+  }
+
+  /* An item coming or going (data-changing, canon.js) shows or hides the
+     Remove buttons at the limit, and the boxes make or give back their
+     room in step with it. Shown: the boxes narrow (0.2s) as the new
+     item's room opens, then the buttons fade in (0.15s) with it. Hidden:
+     the buttons fade out (0.15s) with the item going, then the boxes
+     widen (0.2s) as its room closes. With reduced motion only the
+     buttons fade. */
+  .canon-repeater[data-changing] > .canon-repeater-item {
+    transition: padding-inline-end 0.2s ease-in-out 0.15s;
+  }
+  .canon-repeater[data-changing] > .canon-repeater-item:has(> button[command="--canon-remove"]:not([hidden])) {
+    transition-delay: 0s;
+  }
+  .canon-repeater[data-changing] > .canon-repeater-item > button[command="--canon-remove"] {
+    transition: opacity 0.15s ease-out 0.2s;
+  }
+  @starting-style {
+    .canon-repeater[data-changing] > .canon-repeater-item > button[command="--canon-remove"] {
+      opacity: 0;
+    }
+  }
+  .canon-repeater[data-changing] > .canon-repeater-item > button[command="--canon-remove"][hidden] {
+    opacity: 0;
+    transition: opacity 0.15s ease-out, display 0.15s allow-discrete;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-repeater[data-changing] > .canon-repeater-item {
+      transition: none;
+    }
+    .canon-repeater[data-changing] > .canon-repeater-item > button[command="--canon-remove"] {
+      transition-delay: 0s;
+    }
+  }
+}

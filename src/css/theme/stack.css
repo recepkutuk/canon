@@ -1,0 +1,30 @@
+/* ==================================================================== */
+/* Stack · Cluster · Grid                                               */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The gaps, four steps of Canon's spacing at each size (sm / md / lg):
+     sm 4 / 8 / 12; md 12 / 16 / 20, Fieldset's step between fields and
+     the default; lg 16 / 24 / 32; xl 24 / 32 / 40, Form Layout's step
+     between sections. No look of their own. */
+  :root,
+  [data-size="md"] {
+    --canon-gap-sm: 0.5rem;
+    --canon-gap-md: 1rem;
+    --canon-gap-lg: 1.5rem;
+    --canon-gap-xl: 2rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-gap-sm: 0.25rem;
+    --canon-gap-md: 0.75rem;
+    --canon-gap-lg: 1rem;
+    --canon-gap-xl: 1.5rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-gap-sm: 0.75rem;
+    --canon-gap-md: 1.25rem;
+    --canon-gap-lg: 2rem;
+    --canon-gap-xl: 2.5rem;
+  }
+}

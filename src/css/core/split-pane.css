@@ -1,0 +1,65 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Split Pane                                                          */
+  /*                                                                     */
+  /* Two panes and a handle between them, as a grid: the first pane      */
+  /* --canon-split-size of the box (canon.js keeps it from the handle's  */
+  /* aria-valuenow; 50% without it), the second the rest. Side by side   */
+  /* with a vertical handle; stacked with a horizontal one. Each pane    */
+  /* scrolls on its own. While dragging (data-state="resizing") nothing  */
+  /* in it is selected.                                                  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-split-pane) {
+    display: grid;
+    grid-template-columns: minmax(0, var(--canon-split-size, 50%)) auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    min-inline-size: 0;
+    min-block-size: 0;
+    overflow: hidden;
+  }
+  :where(.canon-split-pane:has(> .canon-split-pane-handle[aria-orientation="horizontal"])) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, var(--canon-split-size, 50%)) auto minmax(0, 1fr);
+  }
+  :where(.canon-split-pane) > :where(:not(.canon-split-pane-handle)) {
+    min-inline-size: 0;
+    min-block-size: 0;
+    overflow: auto;
+  }
+  /* Above the panes, so a theme's wider grip over them takes the pointer. */
+  :where(.canon-split-pane-handle) {
+    position: relative;
+    z-index: 1;
+    touch-action: none;
+    cursor: col-resize;
+  }
+  :where(.canon-split-pane-handle[aria-orientation="horizontal"]) {
+    cursor: row-resize;
+  }
+  :where(.canon-split-pane[data-state="resizing"]) {
+    user-select: none;
+  }
+  :where(.canon-split-pane[data-state="resizing"]) > :where(:not(.canon-split-pane-handle)) {
+    pointer-events: none;
+  }
+
+  /* Edit in place (--canon-edit): the field takes the text's place, in
+     its type. */
+  :where(.canon-inline-edit) {
+    box-sizing: border-box;
+    field-sizing: content;
+    min-inline-size: 4ch;
+    max-inline-size: 100%;
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  /* A Count on an icon-only Button: its top-end corner, as on an Avatar. */
+  :where(.canon-button[data-display="icon"], [data-display="icon"] .canon-button) > :where(.canon-count) {
+    position: absolute;
+    z-index: 1;
+  }
+}

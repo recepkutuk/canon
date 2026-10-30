@@ -1,0 +1,297 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Data Table                                                          */
+  /*                                                                     */
+  /* .canon-data-table around a Table (and its Pagination). canon.js:    */
+  /* sort buttons in th[aria-sort] headers, a select column              */
+  /* (data-column="select") with select-all, an actions column           */
+  /* (data-column="actions"), pinned columns (data-pin on a header; the  */
+  /* select column at the start and the actions column at the end are   */
+  /* always pinned): sticky cells at --canon-pin-offset. While           */
+  /* aria-busy="true", skeleton rows stand in for the body.              */
+  /* ------------------------------------------------------------------ */
+
+  /* As wide as its container, never its rows' full width (the frame
+     scrolls instead): its own width doesn't count when the page lays
+     out around it, even in a flex row or a centering grid. */
+  :where(.canon-data-table) {
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+    min-inline-size: 0;
+    contain: inline-size;
+  }
+  :where(.canon-data-table-sort) {
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    cursor: pointer;
+  }
+  /* Rows stay one line high: cells don't wrap (data-wrap="normal" lets
+     one); a table too wide for its frame scrolls. */
+  :where(.canon-data-table) :where(th, td):where(:not([data-wrap="normal"])) {
+    white-space: nowrap;
+  }
+  :where(.canon-data-table) :where([data-column="select"], [data-column="actions"]) {
+    inline-size: 0;
+  }
+  :where(.canon-data-table) :where([data-column="select"]) {
+    text-align: center;
+  }
+  :where(.canon-data-table) :where([data-column="actions"]) > :where(.canon-toolbar) {
+    flex-wrap: nowrap;
+  }
+  /* The checkbox alone in the middle: its label is visually hidden, so
+     no gap before it. */
+  :where(.canon-data-table) :where([data-column="select"]) > :where(.canon-choice) {
+    display: inline-flex;
+    gap: 0;
+    vertical-align: middle;
+  }
+  :where(.canon-data-table) :where(th, td):where([data-pinned]) {
+    position: sticky;
+    z-index: 1;
+  }
+  :where(.canon-data-table) :where(th, td):where([data-pinned="start"]) {
+    inset-inline-start: var(--canon-pin-offset, 0);
+  }
+  :where(.canon-data-table) :where(th, td):where([data-pinned="end"]) {
+    inset-inline-end: var(--canon-pin-offset, 0);
+  }
+  /* The header stays at the top while the frame scrolls down (give the
+     frame a max-block-size); pinned header cells sit above the rest. */
+  :where(.canon-data-table) :where(thead) :where(th, td) {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+  }
+  :where(.canon-data-table) :where(thead) :where(th, td):where([data-pinned]) {
+    z-index: 3;
+  }
+  :where(.canon-data-table-truncate) {
+    display: block;
+    max-inline-size: var(--canon-truncate, 16rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Cut in the middle (data-wrap="middle", canon.js): the start gives way
+     with "…", the end stays whole. */
+  :where(.canon-data-table-truncate[data-cut="middle"]) {
+    display: flex;
+  }
+  :where(.canon-data-table-truncate[data-cut="middle"]) > :where(span) {
+    white-space: pre;
+  }
+  :where(.canon-data-table-truncate[data-cut="middle"]) > :where(:first-child) {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-data-table-truncate[data-cut="middle"]) > :where(:last-child) {
+    flex-shrink: 0;
+  }
+
+  /* Editing cells (canon.js): the cell's content in a button that fills */
+  /* the cell, laid out as the cell would lay it out; while editing, the */
+  /* button keeps the cell's size, unseen, and the editor sits over it:  */
+  /* as wide as the cell (lists and dates at least that), centered in    */
+  /* the row, at the cell's end for end-aligned columns.                 */
+  :where(.canon-data-table-edit) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    white-space: inherit;
+    cursor: text;
+  }
+  :where(.canon-data-table-edit[aria-disabled="true"]) {
+    cursor: default;
+  }
+  :where(.canon-data-table-value) {
+    display: block;
+    flex: 1;
+    min-inline-size: 0;
+  }
+  :where(.canon-data-table) :where(td, th)[data-state="editing"]:not([data-pinned]) {
+    position: relative;
+  }
+  :where(.canon-data-table) :where(td, th)[data-state="editing"] > :where(.canon-data-table-edit) {
+    visibility: hidden;
+  }
+  :where([data-canon-editor]) {
+    position: absolute;
+    z-index: 4;
+    inset-block: 0;
+    inset-inline-start: 0;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: fit-content;
+    margin-block: auto;
+  }
+  :where([data-align="end"]) > :where([data-canon-editor]) {
+    inset-inline: auto 0;
+  }
+  :where([data-canon-editor]):where(.canon-select, .canon-combobox, .canon-date) {
+    inline-size: max-content;
+    min-inline-size: 100%;
+  }
+  :where([data-canon-editor]) > :where(input) {
+    min-inline-size: 0;
+  }
+  /* A number keeps its column's alignment, without the browser's arrows. */
+  :where([data-align="end"]) > :where([data-canon-editor]) > :where(input) {
+    text-align: end;
+  }
+  :where([data-canon-editor]) > :where(input[type="number"]) {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  :where([data-canon-editor]) > :where(input[type="number"])::-webkit-inner-spin-button,
+  :where([data-canon-editor]) > :where(input[type="number"])::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  /* The toolbar: search, filters and columns; data-align="end" sends an
+     item (and what follows) to the far end. */
+  :where(.canon-data-table-toolbar) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  :where(.canon-data-table-toolbar) > :where([data-align="end"]) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-data-table-toolbar) > :where(.canon-text-input) {
+    flex: 0 1 auto;
+  }
+  :where(.canon-data-table-filter) {
+    display: inline-flex;
+    position: relative;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  :where(.canon-data-table-filter[hidden]) {
+    display: none;
+  }
+  /* The bulk bar: a wrapping row. canon.js makes it a manual popover
+     shown while rows are selected, floating at the bottom of the window,
+     centered; without canon.js it stays in the page. */
+  :where(.canon-data-table-bulk) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  :where(.canon-data-table-bulk[popover]) {
+    position: fixed;
+    inset: auto 0 var(--canon-bulk-offset, 1.5rem);
+    box-sizing: border-box;
+    inline-size: fit-content;
+    max-inline-size: calc(100vw - 2rem);
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: none;
+    color: inherit;
+  }
+  :where(.canon-data-table-bulk[popover]:not(:popover-open)) {
+    display: none;
+  }
+  :where(.canon-data-table-bulk-count) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  :where(.canon-data-table-chips) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  :where(.canon-data-table-chip) {
+    display: inline-flex;
+    align-items: stretch;
+  }
+  :where(.canon-data-table-chip-edit, .canon-data-table-chip-remove) {
+    display: inline-flex;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  :where(.canon-data-table-chip-edit) > :where(span) {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  :where(.canon-data-table-filter-row) {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+  :where(.canon-data-table-filter-row) > :where(.canon-text-input, .canon-date, .canon-combobox) {
+    flex: 1 1 10rem;
+  }
+  :where(.canon-data-table-filter-rows) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-data-table-filter-footer) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  :where(.canon-data-table-column) {
+    display: flex;
+    align-items: center;
+  }
+  :where(.canon-data-table-column) > :where(.canon-choice) {
+    flex: 1;
+  }
+  :where(.canon-data-table-grip) {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: grab;
+    touch-action: none;
+  }
+  :where(.canon-data-table-column[data-dragging]) :where(.canon-data-table-grip) {
+    cursor: grabbing;
+  }
+
+  :where(.canon-data-table[aria-busy="true"]) :where(tbody:not([data-canon-skeleton])),
+  :where(.canon-data-table:not([aria-busy="true"])) :where(tbody[data-canon-skeleton]) {
+    display: none;
+  }
+}

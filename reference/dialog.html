@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Dialog reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Dialog</h1>
+  <p class="ref-note">A task over the page that has to be finished or dismissed before going on: editing an event, confirming a deletion. It is modal: the page behind can't be used, and focus stays inside. For a short task beside a button that leaves the page usable, use a <a href="popover.html">Popover</a>. Specification: <a href="../docs/components/dialog.md">docs/components/dialog.md</a></p>
+  <p class="ref-note">A native <code>&lt;dialog&gt;</code> opened by a button with <code>command="show-modal"</code>: the browser keeps focus inside, closes it on Escape and gives focus back to the button. It works without JavaScript; canon.js fills in where a browser lacks a part of it.</p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="dialog">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;dialog class="canon-dialog"&gt;</code> with an <code>id</code>, named by its title (<code>aria-labelledby</code>): a <code>.canon-dialog-header</code> (the title, a close button with <code>command="close"</code>), a <code>.canon-dialog-body</code> and a <code>.canon-dialog-footer</code>. A <code>&lt;form method="dialog"&gt;</code> around them makes Save close it with the form's values. The body scrolls when the dialog is taller than the window; <code>.canon-dialog-section</code>s in it run edge to edge with a line between.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" commandfor="edit-event" command="show-modal">
+        <span class="canon-icon" data-icon="calendar" aria-hidden="true"></span>
+        <span class="canon-button-label">Edit event</span>
+      </button>
+    </div>
+
+    <dialog class="canon-dialog" id="edit-event" aria-labelledby="edit-event-title">
+      <form method="dialog">
+        <header class="canon-dialog-header">
+          <h2 class="canon-dialog-title" id="edit-event-title">Edit event</h2>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="edit-event" command="close">
+            <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+            <span class="canon-button-label">Close</span>
+          </button>
+        </header>
+        <div class="canon-dialog-body">
+          <div class="canon-dialog-section">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="event-title">Title</label></div>
+              <div class="canon-text-input"><input type="text" id="event-title" name="title" value="Hackweek" placeholder></div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="event-description">Description</label></div>
+              <div class="canon-textarea"><textarea id="event-description" name="description" rows="3" placeholder>Three days to build anything, together.</textarea></div>
+            </div>
+          </div>
+          <div class="canon-dialog-section">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="event-date">Date</label></div>
+              <div class="canon-date"><input type="date" id="event-date" name="date" value="2025-10-05"></div>
+            </div>
+            <div class="canon-choice">
+              <input type="checkbox" id="event-all-day" name="all-day" checked>
+              <label class="canon-choice-label" for="event-all-day">All day</label>
+            </div>
+          </div>
+          <div class="canon-dialog-section">
+            <div class="canon-field">
+              <div class="canon-label"><label class="canon-label-text" for="event-category">Category</label></div>
+              <div class="canon-select">
+                <select id="event-category" name="category">
+                  <option>Conferences</option>
+                  <option>Meetings</option>
+                  <option>Birthdays</option>
+                </select>
+              </div>
+            </div>
+            <div class="canon-field">
+              <div class="canon-label"><span class="canon-label-text" id="event-color-label">Color</span></div>
+              <div class="canon-swatches" role="radiogroup" aria-labelledby="event-color-label">
+                <input type="radio" name="color" value="#3b82f6" aria-label="Blue" checked>
+                <input type="radio" name="color" value="#22c55e" aria-label="Green">
+                <input type="radio" name="color" value="#f97316" aria-label="Orange">
+                <input type="radio" name="color" value="#ef4444" aria-label="Red">
+                <input type="radio" name="color" value="#a855f7" aria-label="Purple">
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="canon-dialog-footer">
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="edit-event" command="close">
+            <span class="canon-button-label">Cancel</span>
+          </button>
+          <button type="submit" class="canon-button" data-emphasis="high" data-align="end" value="save">
+            <span class="canon-button-label">Save</span>
+          </button>
+        </footer>
+      </form>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="alert">
+    <h2>Alert dialog</h2>
+    <p class="ref-note">For a decision that interrupts: <code>role="alertdialog"</code>, its question in the title and its consequence in the body, which the dialog points at with <code>aria-describedby</code>. No close button: the footer's buttons are the answers. A destructive answer says what it does ("Delete event") with <code>data-intent="danger"</code>. Narrow: <code>data-width="sm"</code>.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="danger" commandfor="delete-event" command="show-modal">
+        <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+        <span class="canon-button-label">Delete event</span>
+      </button>
+    </div>
+
+    <dialog class="canon-dialog" id="delete-event" role="alertdialog" data-width="sm" aria-labelledby="delete-event-title" aria-describedby="delete-event-description">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="delete-event-title">Delete Hackweek?</h2>
+      </header>
+      <div class="canon-dialog-body">
+        <p id="delete-event-description">The event is removed for its 3 participants. This can't be undone.</p>
+      </div>
+      <footer class="canon-dialog-footer">
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="delete-event" command="close" autofocus>
+          <span class="canon-button-label">Cancel</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-intent="danger" data-align="end" commandfor="delete-event" command="close" value="delete">
+          <span class="canon-button-label">Delete event</span>
+        </button>
+      </footer>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="closing">
+    <h2>Closing</h2>
+    <p class="ref-note">Escape and the close button close a dialog; focus goes back to the button that opened it. <code>closedby="any"</code> also closes it with a click beside it, for a dialog with nothing to lose (never an alert dialog); <code>closedby="none"</code> keeps it open on Escape, for a task that must be answered with its buttons. The dialog's <code>returnValue</code> is the <code>value</code> of the button that closed it.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="shortcuts" command="show-modal">
+        <span class="canon-button-label">Keyboard shortcuts</span>
+      </button>
+    </div>
+
+    <dialog class="canon-dialog" id="shortcuts" closedby="any" aria-labelledby="shortcuts-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="shortcuts-title">Keyboard shortcuts</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="shortcuts" command="close">
+          <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+          <span class="canon-button-label">Close</span>
+        </button>
+      </header>
+      <div class="canon-dialog-body">
+        <p>Search <kbd class="canon-kbd">⌘K</kbd> · New event <kbd class="canon-kbd">N</kbd> · Today <kbd class="canon-kbd">T</kbd></p>
+        <p>Click beside this dialog to close it.</p>
+      </div>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="width">
+    <h2>Width</h2>
+    <p class="ref-note"><code>data-width</code>: <code>sm</code> for a question, the default for a form, <code>lg</code> for more room. At most the window, less 1rem each side.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="width-sm" command="show-modal"><span class="canon-button-label">Small</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="width-md" command="show-modal"><span class="canon-button-label">Theme decides</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="width-lg" command="show-modal"><span class="canon-button-label">Large</span></button>
+    </div>
+
+    <dialog class="canon-dialog" id="width-sm" data-width="sm" aria-labelledby="width-sm-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="width-sm-title">Small</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="width-sm" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button>
+      </header>
+      <div class="canon-dialog-body"><p>For a question and its answers.</p></div>
+    </dialog>
+    <dialog class="canon-dialog" id="width-md" aria-labelledby="width-md-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="width-md-title">Theme decides</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="width-md" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button>
+      </header>
+      <div class="canon-dialog-body"><p>For a form.</p></div>
+    </dialog>
+    <dialog class="canon-dialog" id="width-lg" data-width="lg" aria-labelledby="width-lg-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="width-lg-title">Large</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="width-lg" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button>
+      </header>
+      <div class="canon-dialog-body"><p>For more room: a table, a preview.</p></div>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Content taller than the window: the body scrolls, the header and footer stay. A long title wraps beside the close button. Right to left, the close button is on the left and the footer runs from the right.</p>
+
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="long-dialog" command="show-modal"><span class="canon-button-label">Long content</span></button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" commandfor="rtl-dialog" command="show-modal"><span class="canon-button-label">Right to left</span></button>
+    </div>
+
+    <dialog class="canon-dialog" id="long-dialog" aria-labelledby="long-dialog-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="long-dialog-title">Terms of service for the workspace you are about to create and everyone you invite to it</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="long-dialog" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">Close</span></button>
+      </header>
+      <div class="canon-dialog-body">
+        <p>1. You keep everything you put in the workspace. We store it so the workspace works, and nothing more.</p>
+        <p>2. Invite only people who should see the workspace; anyone invited sees everything shared with them.</p>
+        <p>3. Don't use the workspace to break the law, to harm others or to get around the limits of your plan.</p>
+        <p>4. We may change these terms; we tell you 30 days before, and you can leave with your data.</p>
+        <p>5. Billing is monthly; cancel any time, and the workspace stays until the end of the month you paid for.</p>
+        <p>6. We keep backups for 30 days after you delete something, then it's gone for good.</p>
+        <p>7. Support answers within one working day; urgent problems go to the status page first.</p>
+        <p>8. These terms follow the law of the country where your workspace is billed.</p>
+        <p>9. If a part of these terms can't apply, the rest still does.</p>
+        <p>10. Questions go to the address on your invoice.</p>
+      </div>
+      <footer class="canon-dialog-footer">
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="long-dialog" command="close"><span class="canon-button-label">Decline</span></button>
+        <button type="button" class="canon-button" data-emphasis="high" data-align="end" commandfor="long-dialog" command="close" value="accept"><span class="canon-button-label">Accept</span></button>
+      </footer>
+    </dialog>
+
+    <dialog class="canon-dialog" id="rtl-dialog" dir="rtl" lang="ar" aria-labelledby="rtl-dialog-title">
+      <header class="canon-dialog-header">
+        <h2 class="canon-dialog-title" id="rtl-dialog-title">تعديل الحدث</h2>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" commandfor="rtl-dialog" command="close"><span class="canon-icon" data-icon="close" aria-hidden="true"></span><span class="canon-button-label">إغلاق</span></button>
+      </header>
+      <div class="canon-dialog-body">
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="rtl-title">العنوان</label></div>
+          <div class="canon-text-input"><input type="text" id="rtl-title" name="title" value="أسبوع الابتكار" placeholder></div>
+        </div>
+      </div>
+      <footer class="canon-dialog-footer">
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="rtl-dialog" command="close"><span class="canon-button-label">إلغاء</span></button>
+        <button type="button" class="canon-button" data-emphasis="high" data-align="end" commandfor="rtl-dialog" command="close"><span class="canon-button-label">حفظ</span></button>
+      </footer>
+    </dialog>
+  </section>
+
+</main>
+</body>
+</html>

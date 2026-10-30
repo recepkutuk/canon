@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Stat reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Stat</h1>
+  <p class="ref-note">One number that matters, with what it measures and how it moved: the headline numbers of a dashboard, also called a KPI. Specification: <a href="../docs/components/stat.md">docs/components/stat.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="stat">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>.canon-stat</code>: a <code>.canon-stat-label</code> (what is measured, with its period), a <code>.canon-stat-value</code> (the number, formatted by your app), and optionally a <code>.canon-stat-change</code> and a <code>.canon-stat-description</code>. It is plain, with no frame of its own: the Card, the row or the page around it frames it.</p>
+
+    <div class="ref-row">
+      <div class="canon-stat">
+        <p class="canon-stat-label">Revenue this month</p>
+        <p class="canon-stat-value">$48,210</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+        <p class="canon-stat-description">Goal: $50,000</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="change">
+    <h2>The change</h2>
+    <p class="ref-note">Your app writes the whole phrase, in the reader's language, with the direction in words: the arrow is decoration. <code>data-direction</code> (<code>up</code>, <code>down</code>, <code>flat</code>) draws the arrow; <code>data-intent</code> says whether the move is good (<code>success</code>), bad (<code>danger</code>), near a limit (<code>warning</code>) or worth noticing (<code>info</code>). The two are separate: an error rate going up is bad, a headcount going up is neither.</p>
+
+    <div class="ref-grid">
+      <div class="canon-stat">
+        <p class="canon-stat-label">Revenue this month</p>
+        <p class="canon-stat-value">$48,210</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Error rate</p>
+        <p class="canon-stat-value">2.4%</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="danger">Up 0.8 points since yesterday</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Avg. response time</p>
+        <p class="canon-stat-value">1.2 s</p>
+        <p class="canon-stat-change" data-direction="down" data-intent="success">Down 0.3 s this week</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Storage used</p>
+        <p class="canon-stat-value">92%</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="warning">Up 40%: near your plan's limit</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Team members</p>
+        <p class="canon-stat-value">38</p>
+        <p class="canon-stat-change" data-direction="up">3 more than last quarter</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Open tickets</p>
+        <p class="canon-stat-value">14</p>
+        <p class="canon-stat-change" data-direction="flat">No change since Monday</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="row">
+    <h2>A row of stats</h2>
+    <p class="ref-note"><code>.canon-stats</code> lays stats side by side, as many columns as fit (each at least 12rem), wrapping onto more rows. Name it (<code>role="group"</code>, <code>aria-label</code>) when the stats share a context the page doesn't give. <code>data-lines</code> draws a line between the stats of a row. Here in a <a href="card.html">Card</a>, which frames them; drag the frame's corner to see them wrap.</p>
+
+    <div class="ref-resizable" style="inline-size: 52rem">
+      <section class="canon-card">
+        <header class="canon-card-header">
+          <h3 class="canon-card-title">This month</h3>
+        </header>
+        <div class="canon-card-body">
+          <div class="canon-stats" role="group" aria-label="This month" data-lines>
+            <div class="canon-stat">
+              <p class="canon-stat-label">Revenue</p>
+              <p class="canon-stat-value">$48,210</p>
+              <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+            </div>
+            <div class="canon-stat">
+              <p class="canon-stat-label">New customers</p>
+              <p class="canon-stat-value">126</p>
+              <p class="canon-stat-change" data-direction="up" data-intent="success">Up 8 from last month</p>
+            </div>
+            <div class="canon-stat">
+              <p class="canon-stat-label">Churn</p>
+              <p class="canon-stat-value">3.1%</p>
+              <p class="canon-stat-change" data-direction="up" data-intent="danger">Up 0.4 points</p>
+            </div>
+            <div class="canon-stat">
+              <p class="canon-stat-label">Overdue invoices</p>
+              <p class="canon-stat-value">8</p>
+              <p class="canon-stat-change" data-direction="flat">Same as last month</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="chart">
+    <h2>Sparkline</h2>
+    <p class="ref-note">A <code>.canon-stat-chart</code> holds a sparkline your app draws: an inline <code>&lt;svg&gt;</code> with <code>preserveAspectRatio="none"</code> that strokes and fills with <code>currentColor</code>. Canon stretches it to the stat's width, keeps its lines their drawn width and colors it: quiet grey, or the change's color at 60%. It is <code>aria-hidden="true"</code> when the change already says the trend. Canon doesn't draw charts.</p>
+
+    <div class="canon-stats" role="group" aria-label="Last 30 days">
+      <div class="canon-stat">
+        <p class="canon-stat-label">Signups, last 30 days</p>
+        <p class="canon-stat-value">1,284</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 18% from the 30 before</p>
+        <div class="canon-stat-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26 L10 24 L20 25 L30 21 L40 22 L50 18 L60 19 L70 14 L80 15 L90 10 L100 11 L110 6 L120 4 L120 32 L0 32 Z" fill="currentColor" fill-opacity="0.12" stroke="none"/><polyline points="0,26 10,24 20,25 30,21 40,22 50,18 60,19 70,14 80,15 90,10 100,11 110,6 120,4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Failed payments</p>
+        <p class="canon-stat-value">37</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="danger">Up 9 from the 30 before</p>
+        <div class="canon-stat-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,24 10,25 20,22 30,23 40,20 50,22 60,17 70,18 80,12 90,14 100,9 110,10 120,6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Active sessions</p>
+        <p class="canon-stat-value">412</p>
+        <p class="canon-stat-description">Peak at 14:00</p>
+        <div class="canon-stat-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,22 10,18 20,20 30,12 40,14 50,8 60,10 70,16 80,13 90,19 100,17 110,21 120,20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="link">
+    <h2>Linking</h2>
+    <p class="ref-note">A stat that leads to the list behind it: its label holds an <code>&lt;a class="canon-stat-link"&gt;</code>, and the whole stat becomes the link, named by its label. One link per stat. Tab to see the focus ring around it.</p>
+
+    <div class="canon-stats" role="group" aria-label="Invoices">
+      <div class="canon-stat">
+        <p class="canon-stat-label"><a class="canon-stat-link" href="#link">Overdue invoices</a></p>
+        <p class="canon-stat-value">8</p>
+        <p class="canon-stat-description">$12,400 in total</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label"><a class="canon-stat-link" href="#link">Due this week</a></p>
+        <p class="canon-stat-value">21</p>
+        <p class="canon-stat-description">$31,050 in total</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label"><a class="canon-stat-link" href="#link">Drafts</a></p>
+        <p class="canon-stat-value">5</p>
+        <p class="canon-stat-description">Not sent yet</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the stat, the row or a container: the value 24 / 30 / 36px, the rest to match. A headline stat is a bigger size beside smaller ones, not a different kind of stat.</p>
+
+    <div class="ref-grid">
+      <div class="canon-stat" data-size="sm">
+        <p class="canon-stat-label">sm</p>
+        <p class="canon-stat-value">$48,210</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+      </div>
+      <div class="canon-stat" data-size="md">
+        <p class="canon-stat-label">md</p>
+        <p class="canon-stat-value">$48,210</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+      </div>
+      <div class="canon-stat" data-size="lg">
+        <p class="canon-stat-label">lg</p>
+        <p class="canon-stat-value">$48,210</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 12% from last month</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>Loading and empty</h2>
+    <p class="ref-note">While the value loads: <code>aria-busy="true"</code> on the stat (or the row) and a <a href="skeleton.html">Skeleton</a> block in the value. No value: an empty <code>.canon-stat-value</code> shows a dash, which screen readers hear as "Not set". How fresh the number is goes in the description, in your words.</p>
+
+    <div class="canon-stats">
+      <div class="canon-stat" aria-busy="true">
+        <p class="canon-stat-label">Revenue this month</p>
+        <p class="canon-stat-value"><span class="canon-skeleton" data-shape="block" aria-hidden="true"></span></p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Net promoter score</p>
+        <p class="canon-stat-value"></p>
+        <p class="canon-stat-description">Not enough answers yet</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Active users</p>
+        <p class="canon-stat-value">2,931</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">Up 2% since yesterday</p>
+        <p class="canon-stat-description">Updated 3 hours ago</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">A long label and change wrap; a value keeps its digits together and wraps only at spaces. Right to left, the stat starts on the right and the arrows mirror, as time runs the other way.</p>
+
+    <div class="canon-stats">
+      <div class="canon-stat">
+        <p class="canon-stat-label">Average time from a ticket being opened to its first reply, business hours only</p>
+        <p class="canon-stat-value">4 h 12 min</p>
+        <p class="canon-stat-change" data-direction="down" data-intent="success">Down 38 minutes from the previous four weeks, across every queue</p>
+      </div>
+      <div class="canon-stat">
+        <p class="canon-stat-label">Annual recurring revenue</p>
+        <p class="canon-stat-value">$12,480,915.50</p>
+      </div>
+      <div class="canon-stat" dir="rtl" lang="ar">
+        <p class="canon-stat-label">الإيرادات هذا الشهر</p>
+        <p class="canon-stat-value">٤٨٬٢١٠ $</p>
+        <p class="canon-stat-change" data-direction="up" data-intent="success">ارتفاع ١٢٪ عن الشهر الماضي</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

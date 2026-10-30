@@ -1,0 +1,116 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Command Palette                                                    */
+  /*                                                                    */
+  /* A modal <dialog class="canon-command-palette">: a search row       */
+  /* (.canon-command-search: an icon and the input, the combobox), the  */
+  /* list of commands (role=listbox)                                    */
+  /* in groups with headings, an empty message and an optional footer   */
+  /* of hints. Near the top of the window, so it doesn't move as the    */
+  /* list narrows. Items are links or buttons (role=option) of an icon, */
+  /* a label, a hint and a shortcut; canon.js filters them, marks the   */
+  /* active one (aria-selected) and runs it on Enter.                   */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-command-palette) {
+    box-sizing: border-box;
+    inline-size: min(var(--canon-command-width, 40rem), 100% - 2rem);
+    max-inline-size: none;
+    max-block-size: min(var(--canon-command-height, 30rem), 100% - 2rem);
+    margin-block: var(--canon-command-top, 12vh) auto;
+    margin-inline: auto;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    color: inherit;
+  }
+  :where(.canon-command-palette[open]) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-command-search) {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+  :where(.canon-command-search) > :where(.canon-icon) {
+    flex: none;
+  }
+  :where(.canon-command-search) > :where(input) {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    outline: none; /* the palette shows where focus is: its caret, its active item */
+    appearance: none;
+  }
+  :where(.canon-command-search) > :where(input)::-webkit-search-cancel-button {
+    display: none;
+  }
+  :where(.canon-command-list) {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  :where(.canon-command-heading) {
+    margin: 0;
+  }
+  :where(.canon-command-item) {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  :where(.canon-command-item):focus {
+    outline: none;
+  }
+  :where(.canon-command-label) {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :where(.canon-command-hint) {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :where(.canon-command-item) > :where(.canon-icon, .canon-avatar, .canon-kbd) {
+    flex: none;
+  }
+  :where(.canon-command-item) > :where(.canon-kbd) {
+    margin-inline-start: auto;
+  }
+  :where(.canon-command-match) {
+    background: none;
+    color: inherit;
+  }
+  :where(.canon-command-group[hidden], .canon-command-item[hidden], .canon-command-empty[hidden]) {
+    display: none;
+  }
+  :where(.canon-command-footer) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: none;
+    margin: 0;
+  }
+}

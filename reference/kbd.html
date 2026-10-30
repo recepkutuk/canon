@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Kbd reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Kbd</h1>
+  <p class="ref-note">A keyboard key or shortcut, in text, in a tooltip or on a button. Specification: <a href="../docs/components/kbd.md">docs/components/kbd.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+
+    <div class="ref-row">
+      <kbd class="canon-kbd" data-size="sm">⌘K</kbd>
+      <kbd class="canon-kbd" data-size="md">⌘K</kbd>
+      <kbd class="canon-kbd" data-size="lg">⌘K</kbd>
+      <kbd class="canon-kbd">⌘K</kbd>
+    </div>
+    <p class="ref-note"><code>data-size</code> sm, md and lg, then without it.</p>
+
+    <h3>Inherited from a container, with an override</h3>
+    <div class="ref-row" data-size="lg">
+      <kbd class="canon-kbd">Esc</kbd>
+      <kbd class="canon-kbd">Tab</kbd>
+      <kbd class="canon-kbd" data-size="sm">Space</kbd>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="content">
+    <h2>Content</h2>
+    <p class="ref-note">One <code>canon-kbd</code> per shortcut, written as the platform writes it. Sequences are several, with words between.</p>
+
+    <h3>Single keys</h3>
+    <div class="ref-row">
+      <kbd class="canon-kbd">Esc</kbd>
+      <kbd class="canon-kbd">Enter</kbd>
+      <kbd class="canon-kbd">↵</kbd>
+      <kbd class="canon-kbd">Tab</kbd>
+      <kbd class="canon-kbd">/</kbd>
+      <kbd class="canon-kbd">?</kbd>
+      <kbd class="canon-kbd">↑</kbd>
+      <kbd class="canon-kbd">F11</kbd>
+    </div>
+
+    <h3>Shortcuts</h3>
+    <div class="ref-row">
+      <kbd class="canon-kbd">⌘K</kbd>
+      <kbd class="canon-kbd">⇧⌘P</kbd>
+      <kbd class="canon-kbd">⌥⌘I</kbd>
+      <kbd class="canon-kbd">Ctrl K</kbd>
+      <kbd class="canon-kbd">Ctrl Shift P</kbd>
+      <kbd class="canon-kbd">Alt F4</kbd>
+    </div>
+
+    <h3>Sequences</h3>
+    <p><kbd class="canon-kbd">G</kbd> then <kbd class="canon-kbd">I</kbd> opens the inbox.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="context">
+    <h2>In context</h2>
+
+    <h3>In running text</h3>
+    <p>Press <kbd class="canon-kbd">⌘K</kbd> to search, or <kbd class="canon-kbd">Esc</kbd> to close any panel.</p>
+    <p data-size="lg">Larger text, larger keys: press <kbd class="canon-kbd">⌘K</kbd> to search.</p>
+
+    <h3>In a tooltip</h3>
+    <p class="ref-note">Shown open. After the text, apart from it.</p>
+    <div class="ref-tip-grid">
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="kb-tip-bold"></span>
+        <div class="canon-tooltip" id="kb-tip-bold" popover="manual" role="tooltip">Bold <kbd class="canon-kbd">⌘B</kbd></div>
+      </div>
+      <div class="ref-tip-cell">
+        <span class="ref-anchor" data-ref-opens="kb-tip-search"></span>
+        <div class="canon-tooltip" id="kb-tip-search" popover="manual" role="tooltip" data-size="md" data-placement="block-end">Search <kbd class="canon-kbd">⌘K</kbd></div>
+      </div>
+    </div>
+
+    <h3>In a button (accessory)</h3>
+    <p class="ref-note">After the label and trailing icon. The shortcut is not part of the button's name: add <code>aria-keyshortcuts</code> to the button when the shortcut works.</p>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-intent="neutral" aria-keyshortcuts="Meta+K">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <span class="canon-button-label">Search</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
+      </button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="low" aria-keyshortcuts="Escape">
+        <span class="canon-button-label">Cancel</span>
+        <kbd class="canon-kbd" aria-hidden="true">Esc</kbd>
+      </button>
+      <button type="button" class="canon-button" data-intent="neutral" data-emphasis="minimal" aria-keyshortcuts="Meta+Shift+P">
+        <span class="canon-button-label">Commands</span>
+        <kbd class="canon-kbd" aria-hidden="true">⇧⌘P</kbd>
+      </button>
+    </div>
+    <div class="ref-row" data-size="sm">
+      <button type="button" class="canon-button" data-intent="neutral" aria-keyshortcuts="Meta+K">
+        <span class="canon-button-label">Search</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
+      </button>
+    </div>
+    <div class="ref-row" data-size="lg">
+      <button type="button" class="canon-button" data-intent="neutral" aria-keyshortcuts="Meta+K">
+        <span class="canon-button-label">Search</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘K</kbd>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="surfaces">
+    <h2>On other surfaces</h2>
+    <p class="ref-note">The key takes its colors from the text around it, so it stays readable on gray panels and inside colored buttons.</p>
+
+    <div class="ref-row">
+      <div class="ref-surface">
+        <p>On a gray panel: press <kbd class="canon-kbd">⌘K</kbd> to search.</p>
+      </div>
+    </div>
+    <div class="ref-row">
+      <button type="button" class="canon-button" data-emphasis="high" aria-keyshortcuts="Meta+Enter">
+        <span class="canon-button-label">Send</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘↵</kbd>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="high" data-intent="danger" aria-keyshortcuts="Meta+Backspace">
+        <span class="canon-button-label">Delete</span>
+        <kbd class="canon-kbd" aria-hidden="true">⌘⌫</kbd>
+      </button>
+      <button type="button" class="canon-button" data-intent="success" aria-keyshortcuts="A">
+        <span class="canon-button-label">Approve</span>
+        <kbd class="canon-kbd" aria-hidden="true">A</kbd>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <h3>Right-to-left</h3>
+    <p class="ref-note">The keys stay in their own order inside right-to-left text.</p>
+    <p dir="rtl" lang="ar">اضغط <kbd class="canon-kbd">⌘K</kbd> للبحث، أو <kbd class="canon-kbd">Ctrl Shift P</kbd> للأوامر.</p>
+
+    <h3>Narrow container</h3>
+    <p class="ref-note">Lines break between keys, never inside one.</p>
+    <p class="ref-narrow">Use <kbd class="canon-kbd">Ctrl Shift Alt Delete</kbd> and then <kbd class="canon-kbd">Ctrl Alt Backspace</kbd> to reset.</p>
+  </section>
+
+</main>
+</body>
+</html>

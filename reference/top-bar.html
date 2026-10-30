@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Top Bar reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Top Bar</h1>
+  <p class="ref-note">The bar over an app's pages: search, or where people are, at the start; the app's own actions and the account at the end. Specification: <a href="../docs/components/top-bar.md">docs/components/top-bar.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="top-bar">
+    <h2>Basics</h2>
+    <p class="ref-note">A <code>&lt;header class="canon-top-bar"&gt;</code> over an app's pages: a <code>.canon-top-bar-start</code> and a <code>.canon-top-bar-end</code>. Here the start holds the search, a <a href="command-palette.html">Command Palette</a>'s button with its shortcut (<kbd class="canon-kbd">⌘K</kbd>, from anywhere); the end holds the app's own Buttons (dark mode, a toggle; notifications, with a <a href="count.html">Count</a> in its corner) and the account: an <a href="avatar.html">Avatar</a> button opening a <a href="menu.html">Menu</a>.</p>
+
+    <div class="ref-top-bar-frame">
+      <header class="canon-top-bar">
+        <div class="canon-top-bar-start">
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="tb-palette" command="show-modal" aria-keyshortcuts="Meta+K Control+K"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd></button>
+        </div>
+        <div class="canon-top-bar-end">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon" aria-pressed="false"><span class="canon-icon" data-icon="moon" aria-hidden="true"></span><span class="canon-button-label">Dark mode</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+          <button type="button" class="canon-avatar" id="tb-account" popovertarget="tb-account-menu" aria-haspopup="menu" aria-expanded="false" data-seed="1">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span>
+          </button>
+          <div class="canon-menu" id="tb-account-menu" popover role="menu" aria-labelledby="tb-account">
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-menu-label">Profile</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-menu-label">Settings</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="log-out" aria-hidden="true"></span><span class="canon-menu-label">Sign out</span></button>
+          </div>
+        </div>
+      </header>
+    </div>
+    <dialog class="canon-command-palette" id="tb-palette" aria-label="Command palette">
+      <div class="canon-command-search">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" aria-label="Search pages" placeholder="Search pages">
+      </div>
+      <div class="canon-command-list">
+        <div class="canon-command-group" aria-labelledby="tb-palette-pages">
+          <p class="canon-command-heading" id="tb-palette-pages">Pages</p>
+          <a class="canon-command-item" href="#tb-palette-dashboard"><span class="canon-icon" data-icon="gauge" aria-hidden="true"></span><span class="canon-command-label">Dashboard</span></a>
+          <a class="canon-command-item" href="#tb-palette-calendar"><span class="canon-icon" data-icon="calendar" aria-hidden="true"></span><span class="canon-command-label">Calendar</span></a>
+          <a class="canon-command-item" href="#tb-palette-scrumboard"><span class="canon-icon" data-icon="square-kanban" aria-hidden="true"></span><span class="canon-command-label">Scrumboard</span></a>
+          <a class="canon-command-item" href="#tb-palette-companies"><span class="canon-icon" data-icon="building" aria-hidden="true"></span><span class="canon-command-label">Companies</span></a>
+          <a class="canon-command-item" href="#tb-palette-contacts"><span class="canon-icon" data-icon="book-user" aria-hidden="true"></span><span class="canon-command-label">Contacts</span></a>
+          <a class="canon-command-item" href="#tb-palette-quotes"><span class="canon-icon" data-icon="inbox" aria-hidden="true"></span><span class="canon-command-label">Quotes</span></a>
+          <a class="canon-command-item" href="#tb-palette-administration"><span class="canon-icon" data-icon="crown" aria-hidden="true"></span><span class="canon-command-label">Administration</span></a>
+        </div>
+      </div>
+    </dialog>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="narrow">
+    <h2>Narrow</h2>
+    <p class="ref-note">When its things don't fit, the bar folds, a step at a time, and unfolds as room comes back (drag the frame's corner to try it). The search drops its shortcut, then its label; then the end's Buttons go into one More menu: a toggle there is a check, a Button with a menu a submenu. A Button with a <a href="count.html">Count</a> (notifications) and the account stay, as does the sidebar's toggle.</p>
+
+    <div class="ref-top-bar-frame ref-resize" style="inline-size: 30rem">
+      <header class="canon-top-bar">
+        <div class="canon-top-bar-start">
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" commandfor="tb-palette" command="show-modal" aria-keyshortcuts="Meta+K Control+K"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">Search</span><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd></button>
+        </div>
+        <div class="canon-top-bar-end">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon" popovertarget="tf-help-menu" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="circle-help" aria-hidden="true"></span><span class="canon-button-label">Help</span></button>
+          <div class="canon-menu" id="tf-help-menu" popover role="menu" aria-label="Help">
+            <a class="canon-menu-item" role="menuitem" href="#tf-docs"><span class="canon-menu-label">Documentation</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#tf-shortcuts"><span class="canon-menu-label">Keyboard shortcuts</span></a>
+            <a class="canon-menu-item" role="menuitem" href="#tf-whats-new"><span class="canon-menu-label">What's new</span></a>
+          </div>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon" aria-pressed="false"><span class="canon-icon" data-icon="moon" aria-hidden="true"></span><span class="canon-button-label">Dark mode</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">Notifications</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+          <button type="button" class="canon-avatar" id="tf-account" popovertarget="tf-account-menu" aria-haspopup="menu" aria-expanded="false" data-seed="1">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span>
+          </button>
+          <div class="canon-menu" id="tf-account-menu" popover role="menu" aria-labelledby="tf-account">
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-menu-label">Profile</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-menu-label">Settings</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="log-out" aria-hidden="true"></span><span class="canon-menu-label">Sign out</span></button>
+          </div>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, the start is on the right.</p>
+
+    <div class="ref-top-bar-frame" dir="rtl" lang="ar">
+      <header class="canon-top-bar">
+        <div class="canon-top-bar-start">
+          <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" aria-keyshortcuts="Meta+K Control+K"><span class="canon-icon" data-icon="search" aria-hidden="true"></span><span class="canon-button-label">بحث</span><kbd class="canon-kbd" aria-hidden="true">⌘K</kbd></button>
+        </div>
+        <div class="canon-top-bar-end">
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon" aria-pressed="false"><span class="canon-icon" data-icon="moon" aria-hidden="true"></span><span class="canon-button-label">الوضع الداكن</span></button>
+          <button type="button" class="canon-button" data-emphasis="medium" data-intent="neutral" data-display="icon"><span class="canon-icon" data-icon="bell" aria-hidden="true"></span><span class="canon-button-label">الإشعارات</span><span class="canon-count">3<span class="canon-visually-hidden"> unread</span></span></button>
+          <button type="button" class="canon-avatar" id="ta-account" popovertarget="ta-account-menu" aria-haspopup="menu" aria-expanded="false" data-seed="1">
+            <img class="canon-avatar-image" src="assets/avatar-photo.jpg" alt="">
+            <span class="canon-avatar-fallback" role="img" aria-label="Your account, Ada Lovelace">AL</span>
+          </button>
+          <div class="canon-menu" id="ta-account-menu" popover role="menu" aria-labelledby="ta-account">
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="user" aria-hidden="true"></span><span class="canon-menu-label">Profile</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="settings" aria-hidden="true"></span><span class="canon-menu-label">Settings</span></button>
+            <button type="button" class="canon-menu-item" role="menuitem"><span class="canon-icon" data-icon="log-out" aria-hidden="true"></span><span class="canon-menu-label">Sign out</span></button>
+          </div>
+        </div>
+      </header>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

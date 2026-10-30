@@ -1,0 +1,717 @@
+[
+ {
+  "side": "core",
+  "module": "base",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 1
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 2
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 3
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 4
+ },
+ {
+  "side": "core",
+  "module": "field",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "text-input",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "combobox",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "choice",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "color-picker",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "swatches",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "choice",
+  "part": 1
+ },
+ {
+  "side": "core",
+  "module": "slider",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "tooltip",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "kbd",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "app-shell",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "page-header",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "card",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "accordion",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "status",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "toast",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "alert",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "banner",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "save-bar",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "split-pane",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "stack",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "code-block",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "label",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 5
+ },
+ {
+  "side": "core",
+  "module": "avatar",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "avatar-group",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "tag",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "password",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "count",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "date",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "time",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "date",
+  "part": 1
+ },
+ {
+  "side": "core",
+  "module": "otp",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 6
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 7
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 8
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 9
+ },
+ {
+  "side": "core",
+  "module": "form-repeater",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "button-group",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "segmented",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "tabs",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "toggle-chip",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "filter-bar",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "link",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "menu",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "menubar",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "split-button",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "form-layout",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 10
+ },
+ {
+  "side": "core",
+  "module": "stack",
+  "part": 1
+ },
+ {
+  "side": "core",
+  "module": "description-list",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "stat",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "base",
+  "part": 11
+ },
+ {
+  "side": "core",
+  "module": "separator",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "breadcrumb",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "number",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "toolbar",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "popover",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "dialog",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "nav-list",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "command-palette",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "rich-text",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "pagination",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "pagination",
+  "part": 1
+ },
+ {
+  "side": "core",
+  "module": "table",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "data-table",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "spinner",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "skeleton",
+  "part": 0
+ },
+ {
+  "side": "core",
+  "module": "empty-state",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "base",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "field",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "choice",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "swatches",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "color-picker",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "date",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "time",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "otp",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "slider",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "tooltip",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "kbd",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "app-shell",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "code-block",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "avatar",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "seed",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "avatar",
+  "part": 1
+ },
+ {
+  "side": "theme",
+  "module": "count",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "avatar-group",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "tag",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "label",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "text-input",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "password",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "select",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "combobox",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "select",
+  "part": 1
+ },
+ {
+  "side": "theme",
+  "module": "text-input",
+  "part": 1
+ },
+ {
+  "side": "theme",
+  "module": "form-repeater",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "button-group",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "segmented",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "tabs",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "track-mark",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "toggle-chip",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "filter-bar",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "link",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "menu",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "menubar",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "split-button",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "form-layout",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "separator",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "breadcrumb",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "number",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "toolbar",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "popover",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "popups",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "dialog",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "page-header",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "card",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "accordion",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "status",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "toast",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "alert",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "room",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "banner",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "save-bar",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "split-pane",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "stack",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "nav-list",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "command-palette",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "rich-text",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "pagination",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "table",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "description-list",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "stat",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "data-table",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "data-table",
+  "part": 1
+ },
+ {
+  "side": "theme",
+  "module": "data-table",
+  "part": 2
+ },
+ {
+  "side": "theme",
+  "module": "spinner",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "skeleton",
+  "part": 0
+ },
+ {
+  "side": "theme",
+  "module": "empty-state",
+  "part": 0
+ }
+]

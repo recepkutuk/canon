@@ -1,0 +1,60 @@
+/* ==================================================================== */
+/* Popups: opening and closing                                          */
+/* ==================================================================== */
+
+@layer canon.theme {
+  /* Menus (and Split Button and Menubar menus), Popovers, the Select and
+     Combobox lists, the date picker's calendar and the color picker:
+     opening, they fade in from 97% (0.15s); closing, they fade out
+     where they are (0.1s). With reduced motion they only fade. */
+  :is(.canon-menu, .canon-popover, .canon-combobox-popup, .canon-color-popup, .canon-calendar)[popover] {
+    opacity: 0;
+    scale: 0.97;
+    transition: opacity 0.1s ease-in, scale 0.1s ease-in, display 0.1s allow-discrete, overlay 0.1s allow-discrete;
+  }
+  :is(.canon-menu, .canon-popover, .canon-combobox-popup, .canon-color-popup, .canon-calendar)[popover]:popover-open {
+    opacity: 1;
+    scale: 1;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+  }
+  @starting-style {
+    :is(.canon-menu, .canon-popover, .canon-combobox-popup, .canon-color-popup, .canon-calendar)[popover]:popover-open {
+      opacity: 0;
+      scale: 0.97;
+    }
+  }
+  /* The Select list (where the browser draws it from the page). Its box
+     keeps the list's anchor 400ms after closing (core), longer than this. */
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    opacity: 0;
+    scale: 0.97;
+    transition: opacity 0.1s ease-in, scale 0.1s ease-in, display 0.1s allow-discrete, overlay 0.1s allow-discrete;
+  }
+  :is(.canon-select, .canon-combobox) > select:open::picker(select) {
+    opacity: 1;
+    scale: 1;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+  }
+  @starting-style {
+    :is(.canon-select, .canon-combobox) > select:open::picker(select) {
+      opacity: 0;
+      scale: 0.97;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :is(.canon-menu, .canon-popover, .canon-combobox-popup, .canon-color-popup, .canon-calendar)[popover],
+    :is(.canon-select, .canon-combobox) > select::picker(select) {
+      scale: 1;
+    }
+    @starting-style {
+      :is(.canon-menu, .canon-popover, .canon-combobox-popup, .canon-color-popup, .canon-calendar)[popover]:popover-open {
+        scale: 1;
+      }
+      :is(.canon-select, .canon-combobox) > select:open::picker(select) {
+        scale: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Time                                                                */
+  /*                                                                     */
+  /* An <input type="time"> in .canon-time (two for a range). canon.js   */
+  /* draws a row of cells over the hidden input (.canon-time-segments:   */
+  /* .canon-time-cell frames, each a .canon-time-value spinbutton and    */
+  /* two .canon-time-step buttons; .canon-time-literal separators; a     */
+  /* range's .canon-time-arrow). The active cell grows over what's       */
+  /* around it, never moving it: the theme draws the growth outside its  */
+  /* box and raises it.                                                  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-time) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    vertical-align: middle;
+    font-size: var(--canon-control-font-size);
+  }
+  :where(.canon-time:has(> .canon-time-segments)) > :where(input) {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  :where(.canon-time-segments) {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  :where(.canon-time-cell) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    cursor: text;
+  }
+  :where(.canon-time-value) {
+    outline: none;
+    caret-color: transparent;
+  }
+  :where(.canon-time-step) {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  :where(.canon-time-arrow) {
+    flex: none;
+  }
+}

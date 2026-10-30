@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Field reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Field</h1>
+  <p class="ref-note">A form control with its label, description and messages: every box (text input, select, combobox, date, color, swatches, code, slider…) sits in a field the same way. Specification: <a href="../docs/components/field.md">docs/components/field.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="basics">
+    <h2>Basics</h2>
+    <p class="ref-note">Inside a field, text inputs always have a <code>placeholder</code> attribute: empty, or with an example value.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="basic-bare">Full name</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="basic-bare" name="basic-bare" type="text" placeholder>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="basic-text">Display name</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="basic-text" name="basic-text" type="text" placeholder="e.g. Jane Doe">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="basic-value">With a value</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="basic-value" name="basic-value" type="text" placeholder value="Jane Doe">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="basic-missing">Missing placeholder (authoring error)</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="basic-missing" name="basic-missing" type="text">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="every-control">
+    <h2>Every control</h2>
+    <p class="ref-note">Each box in a field: the label, its description and the message work the same way for every control. A control that is two inputs (a range) or a set of choices (swatches) names a group: the label is a <code>&lt;span id&gt;</code> and the field (or the swatches) is a <code>role="group"</code> labelled by it.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-text">Name</label>
+          <p class="canon-label-description" id="ev-text-desc">As on your ID.</p>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="ev-text" name="name" placeholder aria-describedby="ev-text-desc">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-pw">Password</label>
+          <p class="canon-label-description" id="ev-pw-desc">At least 12 characters.</p>
+        </div>
+        <div class="canon-password">
+          <input type="password" id="ev-pw" name="password" placeholder autocomplete="new-password" aria-describedby="ev-pw-desc">
+          <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="ev-pw" command="--canon-toggle-password">
+            <span class="canon-icon" data-icon="eye" aria-hidden="true"></span>
+            <span class="canon-button-label">Show password</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-ta">Bio</label>
+          <p class="canon-label-description" id="ev-ta-desc">A sentence or two.</p>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="ev-ta" name="bio" rows="2" placeholder aria-describedby="ev-ta-desc"></textarea>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-sel">Country</label>
+          <p class="canon-label-description" id="ev-sel-desc">Where you live.</p>
+        </div>
+        <div class="canon-select">
+          <select id="ev-sel" name="country" aria-describedby="ev-sel-desc">
+            <option value="" hidden>Select country</option>
+            <option>Germany</option><option>Turkey</option><option>Japan</option>
+          </select>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-cb">Assignee</label>
+          <p class="canon-label-description" id="ev-cb-desc">Who works on it.</p>
+        </div>
+        <div class="canon-combobox" data-search="list">
+          <select id="ev-cb" name="assignee" aria-describedby="ev-cb-desc">
+            <option value="" hidden>Select person</option>
+            <option>Ada Lovelace</option><option>Grace Hopper</option><option>Alan Turing</option>
+          </select>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-tags">Labels</label>
+          <p class="canon-label-description" id="ev-tags-desc">Any number.</p>
+        </div>
+        <div class="canon-combobox">
+          <select id="ev-tags" name="labels" multiple aria-describedby="ev-tags-desc">
+            <option selected>Bug</option><option>Feature</option><option selected>Docs</option>
+          </select>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-date">Start date</label>
+          <p class="canon-label-description" id="ev-date-desc">The first working day.</p>
+        </div>
+        <div class="canon-date">
+          <input type="date" id="ev-date" name="start" placeholder="Select date" aria-describedby="ev-date-desc">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="ev-range-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ev-range-label">Stay</span>
+          <p class="canon-label-description" id="ev-range-desc">Check-in and check-out.</p>
+        </div>
+        <div class="canon-date">
+          <input type="date" id="ev-range-from" name="from" aria-label="Check-in" aria-describedby="ev-range-desc">
+          <input type="date" id="ev-range-to" name="to" aria-label="Check-out" aria-describedby="ev-range-desc">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-week">Sprint</label>
+          <p class="canon-label-description" id="ev-week-desc">Weeks start on Monday.</p>
+        </div>
+        <div class="canon-date">
+          <input type="week" id="ev-week" name="sprint" aria-describedby="ev-week-desc">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-num">Seats</label>
+          <p class="canon-label-description" id="ev-num-desc">Up to 50.</p>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="ev-num" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer seats</span>
+          </button>
+          <input type="number" id="ev-num" name="seats" min="1" max="50" aria-describedby="ev-num-desc" value="1">
+          <button type="button" class="canon-button" data-display="icon" commandfor="ev-num" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">More seats</span>
+          </button>
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-color">Brand color</label>
+          <p class="canon-label-description" id="ev-color-desc">Used on buttons.</p>
+        </div>
+        <div class="canon-color">
+          <input type="color" id="ev-color" name="brand" value="#3b82f6" aria-describedby="ev-color-desc">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ev-sw-label">Label color</span>
+          <p class="canon-label-description" id="ev-sw-desc">Shown on the tag.</p>
+        </div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="ev-sw-label" aria-describedby="ev-sw-desc">
+          <input type="radio" name="ev-sw" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="ev-sw" value="#22c55e" aria-label="Green">
+          <input type="radio" name="ev-sw" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="ev-sw" value="#ef4444" aria-label="Red">
+          <input type="radio" name="ev-sw" value="#a855f7" aria-label="Purple">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-otp">Code</label>
+          <p class="canon-label-description" id="ev-otp-desc">Sent to your phone.</p>
+        </div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="ev-otp" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-describedby="ev-otp-desc">
+        </div>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ev-slider">Volume</label>
+          <p class="canon-label-description" id="ev-slider-desc">Applies to every room.</p>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="ev-slider" name="volume" value="40" aria-describedby="ev-slider-desc">
+        </div>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="ev-rs-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="ev-rs-label">Price</span>
+          <p class="canon-label-description" id="ev-rs-desc">Per night.</p>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="ev-rs-min" aria-hidden="true">200</output>
+          <input type="range" id="ev-rs-min" name="min" min="0" max="1000" step="10" value="200" aria-label="Minimum" aria-describedby="ev-rs-desc">
+          <input type="range" id="ev-rs-max" name="max" min="0" max="1000" step="10" value="800" aria-label="Maximum" aria-describedby="ev-rs-desc">
+          <output class="canon-control-value" for="ev-rs-max" aria-hidden="true">800</output>
+        </div>
+      </div>
+    </div>
+
+    <h3>With an error</h3>
+    <p class="ref-note">A danger message under the box, <code>aria-invalid="true"</code> on the control and the message in its <code>aria-describedby</code>.</p>
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-text">Name</label>
+          <p class="canon-label-description" id="er-text-desc">As on your ID.</p>
+        </div>
+        <div class="canon-text-input">
+          <input type="text" id="er-text" name="name" placeholder aria-describedby="er-text-desc er-text-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-text-msg" data-intent="danger">Enter your name.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-pw">Password</label>
+          <p class="canon-label-description" id="er-pw-desc">At least 12 characters.</p>
+        </div>
+        <div class="canon-password">
+          <input type="password" id="er-pw" name="password" placeholder autocomplete="new-password" aria-describedby="er-pw-desc er-pw-msg" aria-invalid="true">
+          <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false" commandfor="er-pw" command="--canon-toggle-password">
+            <span class="canon-icon" data-icon="eye" aria-hidden="true"></span>
+            <span class="canon-button-label">Show password</span>
+          </button>
+        </div>
+        <p class="canon-field-message" id="er-pw-msg" data-intent="danger">Use at least 12 characters.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-ta">Bio</label>
+          <p class="canon-label-description" id="er-ta-desc">A sentence or two.</p>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="er-ta" name="bio" rows="2" placeholder aria-describedby="er-ta-desc er-ta-msg" aria-invalid="true"></textarea>
+        </div>
+        <p class="canon-field-message" id="er-ta-msg" data-intent="danger">Write a short bio.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-sel">Country</label>
+          <p class="canon-label-description" id="er-sel-desc">Where you live.</p>
+        </div>
+        <div class="canon-select">
+          <select id="er-sel" name="country" aria-describedby="er-sel-desc er-sel-msg" aria-invalid="true">
+            <option value="" hidden>Select country</option>
+            <option>Germany</option><option>Turkey</option><option>Japan</option>
+          </select>
+        </div>
+        <p class="canon-field-message" id="er-sel-msg" data-intent="danger">Select a country.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-cb">Assignee</label>
+          <p class="canon-label-description" id="er-cb-desc">Who works on it.</p>
+        </div>
+        <div class="canon-combobox" data-search="list">
+          <select id="er-cb" name="assignee" aria-describedby="er-cb-desc er-cb-msg" aria-invalid="true">
+            <option value="" hidden>Select person</option>
+            <option>Ada Lovelace</option><option>Grace Hopper</option><option>Alan Turing</option>
+          </select>
+        </div>
+        <p class="canon-field-message" id="er-cb-msg" data-intent="danger">Pick an assignee.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-tags">Labels</label>
+          <p class="canon-label-description" id="er-tags-desc">Any number.</p>
+        </div>
+        <div class="canon-combobox">
+          <select id="er-tags" name="labels" multiple aria-describedby="er-tags-desc er-tags-msg" aria-invalid="true">
+            <option selected>Bug</option><option>Feature</option><option selected>Docs</option>
+          </select>
+        </div>
+        <p class="canon-field-message" id="er-tags-msg" data-intent="danger">Add at least one label.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-date">Start date</label>
+          <p class="canon-label-description" id="er-date-desc">The first working day.</p>
+        </div>
+        <div class="canon-date">
+          <input type="date" id="er-date" name="start" placeholder="Select date" aria-describedby="er-date-desc er-date-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-date-msg" data-intent="danger">Enter a date.</p>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="er-range-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="er-range-label">Stay</span>
+          <p class="canon-label-description" id="er-range-desc">Check-in and check-out.</p>
+        </div>
+        <div class="canon-date">
+          <input type="date" id="er-range-from" name="from" aria-label="Check-in" aria-describedby="er-range-desc er-range-msg" aria-invalid="true">
+          <input type="date" id="er-range-to" name="to" aria-label="Check-out" aria-describedby="er-range-desc er-range-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-range-msg" data-intent="danger">Choose both dates.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-week">Sprint</label>
+          <p class="canon-label-description" id="er-week-desc">Weeks start on Monday.</p>
+        </div>
+        <div class="canon-date">
+          <input type="week" id="er-week" name="sprint" aria-describedby="er-week-desc er-week-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-week-msg" data-intent="danger">Choose a week.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-num">Seats</label>
+          <p class="canon-label-description" id="er-num-desc">Up to 50.</p>
+        </div>
+        <div class="canon-number">
+          <button type="button" class="canon-button" data-display="icon" commandfor="er-num" command="--canon-step-down">
+            <span class="canon-icon" data-icon="minus" aria-hidden="true"></span>
+            <span class="canon-button-label">Fewer seats</span>
+          </button>
+          <input type="number" id="er-num" name="seats" min="1" max="50" aria-describedby="er-num-desc er-num-msg" aria-invalid="true" value="60">
+          <button type="button" class="canon-button" data-display="icon" commandfor="er-num" command="--canon-step-up">
+            <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+            <span class="canon-button-label">More seats</span>
+          </button>
+        </div>
+        <p class="canon-field-message" id="er-num-msg" data-intent="danger">Enter 1 to 50.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-color">Brand color</label>
+          <p class="canon-label-description" id="er-color-desc">Used on buttons.</p>
+        </div>
+        <div class="canon-color">
+          <input type="color" id="er-color" name="brand" value="#3b82f6" aria-describedby="er-color-desc er-color-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-color-msg" data-intent="danger">Choose a darker color.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <span class="canon-label-text" id="er-sw-label">Label color</span>
+          <p class="canon-label-description" id="er-sw-desc">Shown on the tag.</p>
+        </div>
+        <div class="canon-swatches" role="radiogroup" aria-labelledby="er-sw-label" aria-describedby="er-sw-desc er-sw-msg">
+          <input type="radio" name="er-sw" value="#3b82f6" aria-label="Blue" checked>
+          <input type="radio" name="er-sw" value="#22c55e" aria-label="Green">
+          <input type="radio" name="er-sw" value="#eab308" aria-label="Yellow">
+          <input type="radio" name="er-sw" value="#ef4444" aria-label="Red">
+          <input type="radio" name="er-sw" value="#a855f7" aria-label="Purple">
+        </div>
+        <p class="canon-field-message" id="er-sw-msg" data-intent="danger">Choose a color.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-otp">Code</label>
+          <p class="canon-label-description" id="er-otp-desc">Sent to your phone.</p>
+        </div>
+        <div class="canon-otp" data-groups="3 3">
+          <input type="text" id="er-otp" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-describedby="er-otp-desc er-otp-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-otp-msg" data-intent="danger">That code didn't work.</p>
+      </div>
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="er-slider">Volume</label>
+          <p class="canon-label-description" id="er-slider-desc">Applies to every room.</p>
+        </div>
+        <div class="canon-control">
+          <input type="range" id="er-slider" name="volume" value="40" aria-describedby="er-slider-desc er-slider-msg" aria-invalid="true">
+        </div>
+        <p class="canon-field-message" id="er-slider-msg" data-intent="danger">Too loud for night mode.</p>
+      </div>
+      <div class="canon-field" role="group" aria-labelledby="er-rs-label">
+        <div class="canon-label">
+          <span class="canon-label-text" id="er-rs-label">Price</span>
+          <p class="canon-label-description" id="er-rs-desc">Per night.</p>
+        </div>
+        <div class="canon-control">
+          <output class="canon-control-value" for="er-rs-min" aria-hidden="true">200</output>
+          <input type="range" id="er-rs-min" name="min" min="0" max="1000" step="10" value="200" aria-label="Minimum" aria-describedby="er-rs-desc er-rs-msg" aria-invalid="true">
+          <input type="range" id="er-rs-max" name="max" min="0" max="1000" step="10" value="800" aria-label="Maximum" aria-describedby="er-rs-desc er-rs-msg" aria-invalid="true">
+          <output class="canon-control-value" for="er-rs-max" aria-hidden="true">800</output>
+        </div>
+        <p class="canon-field-message" id="er-rs-msg" data-intent="danger">Narrow the range.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="hint-message">
+    <h2>Description and message</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="hm-hint">Username</label>
+          <p class="canon-label-description" id="hm-hint-hint">Letters, numbers and dashes only.</p>
+        </div>
+        <div class="canon-text-input">
+          <input id="hm-hint" name="hm-hint" type="text" placeholder aria-describedby="hm-hint-hint">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="hm-danger">Email</label>
+          <p class="canon-label-description" id="hm-danger-hint">We'll send the invite here.</p>
+        </div>
+        <div class="canon-text-input">
+          <input id="hm-danger" name="hm-danger" type="email" placeholder value="jane@"
+                 aria-invalid="true" aria-describedby="hm-danger-hint hm-danger-message">
+        </div>
+        <p class="canon-field-message" id="hm-danger-message" data-intent="danger">Enter a valid email address.</p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="hm-warning">Monthly budget</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="hm-warning" name="hm-warning" type="text" inputmode="decimal" placeholder value="48000"
+                 aria-describedby="hm-warning-message">
+        </div>
+        <p class="canon-field-message" id="hm-warning-message" data-intent="warning">This is 4× last month's budget.</p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="hm-success">Subdomain</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="hm-success" name="hm-success" type="text" placeholder value="acme-internal"
+                 aria-describedby="hm-success-message">
+        </div>
+        <p class="canon-field-message" id="hm-success-message" data-intent="success">acme-internal is available.</p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="hm-live">Live region (empty message)</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="hm-live" name="hm-live" type="text" placeholder aria-describedby="hm-live-message">
+        </div>
+        <p class="canon-field-message" id="hm-live-message" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="required">
+    <h2>Required and optional</h2>
+    <p class="ref-note">Add native <code>required</code> to the input and the label shows the marker. "(optional)" is your own text, inside the label so it is read with the name. Every part of a label: <a href="label.html">Label</a>.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="req-required">Full name</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="req-required" name="req-required" type="text" placeholder required>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="req-optional">Middle name <span class="canon-label-optional">(optional)</span></label>
+        </div>
+        <div class="canon-text-input">
+          <input id="req-optional" name="req-optional" type="text" placeholder>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="label-beside">
+    <h2>Label beside the box</h2>
+    <p class="ref-note"><code>data-label="start"</code> on a form or any container puts every field's label beside its box, in a column a third wide (<code>--canon-label-width</code>), level with the box's first line. Descriptions stay under the label; messages and counters go under the box. A <a href="fieldset.html">Fieldset</a>'s legend takes the label column, and a single checkbox or switch lines up with the boxes. With less than 32rem of room the labels go back above: drag the frame's corner to try it. On one field, <code>data-label="start"</code> always applies; <code>data-label="above"</code> inside puts a field back. Suited to forms people edit and scan (account details, settings, a record's properties); a form filled in once, top to bottom, reads faster with labels above.</p>
+
+    <div class="ref-resizable">
+      <form class="canon-form" data-label="start" onsubmit="event.preventDefault()">
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="lb-name">Display name</label></div>
+          <div class="canon-text-input"><input id="lb-name" name="lb-name" type="text" value="Ada Lovelace" placeholder></div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label">
+            <label class="canon-label-text" for="lb-email">Email</label>
+            <p class="canon-label-description" id="lb-email-hint">Where we send receipts.</p>
+          </div>
+          <div class="canon-text-input">
+            <input id="lb-email" name="lb-email" type="email" value="ada@" placeholder aria-invalid="true" aria-describedby="lb-email-hint lb-email-message">
+          </div>
+          <p class="canon-field-message" id="lb-email-message" data-intent="danger">Enter a valid email address.</p>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="lb-role">Role</label></div>
+          <div class="canon-select">
+            <select id="lb-role" name="lb-role">
+              <option>Designer</option>
+              <option>Engineer</option>
+              <option>Researcher</option>
+            </select>
+          </div>
+        </div>
+        <div class="canon-field">
+          <div class="canon-label"><label class="canon-label-text" for="lb-bio">Bio</label></div>
+          <div class="canon-textarea"><textarea id="lb-bio" name="lb-bio" rows="3" placeholder>Writes the first programs for engines that don't exist yet.</textarea></div>
+        </div>
+        <fieldset class="canon-fieldset">
+          <legend class="canon-fieldset-legend">Notifications</legend>
+          <div class="canon-choice"><input type="radio" id="lb-all" name="lb-notify" value="all" checked><label class="canon-choice-label" for="lb-all">Everything</label></div>
+          <div class="canon-choice"><input type="radio" id="lb-mentions" name="lb-notify" value="mentions"><label class="canon-choice-label" for="lb-mentions">Mentions only</label></div>
+          <div class="canon-choice"><input type="radio" id="lb-none" name="lb-notify" value="none"><label class="canon-choice-label" for="lb-none">Nothing</label></div>
+        </fieldset>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="lb-public" name="lb-public" checked>
+          <label class="canon-choice-label" for="lb-public">Show my profile publicly</label>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Box anatomy</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="an-leading">Leading icon</label>
+        </div>
+        <div class="canon-text-input">
+          <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+          <input id="an-leading" name="an-leading" type="email" placeholder>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="an-prefix">Website</label>
+        </div>
+        <div class="canon-text-input">
+          <span class="canon-text-input-prefix" aria-hidden="true">https://</span>
+          <input id="an-prefix" name="an-prefix" type="text" placeholder>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="an-suffix">Weight in kilograms</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="an-suffix" name="an-suffix" type="text" inputmode="decimal" placeholder>
+          <span class="canon-text-input-suffix" aria-hidden="true">kg</span>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="an-trailing">Trailing icon</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="an-trailing" name="an-trailing" type="text" placeholder>
+          <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="an-all">Price in USD</label>
+        </div>
+        <div class="canon-text-input">
+          <span class="canon-icon" data-icon="tag" aria-hidden="true"></span>
+          <span class="canon-text-input-prefix" aria-hidden="true">$</span>
+          <input id="an-all" name="an-all" type="text" inputmode="decimal" placeholder>
+          <span class="canon-text-input-suffix" aria-hidden="true">USD</span>
+          <span class="canon-icon" data-icon="info" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Trailing actions</h3>
+    <p class="ref-note">Buttons powered by canon.js: clear (hidden while the box is empty), show password and copy.</p>
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="act-search">Search users</label>
+        </div>
+        <div class="canon-text-input">
+          <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+          <input id="act-search" name="q" type="search" placeholder value="jane">
+          <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                  commandfor="act-search" command="--canon-clear">
+            <span class="canon-icon" data-icon="close" aria-hidden="true"></span>
+            <span class="canon-button-label">Clear search</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="act-password">Password</label>
+        </div>
+        <div class="canon-password">
+          <input id="act-password" name="password" type="password" placeholder value="hunter22" autocomplete="current-password">
+          <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" aria-pressed="false"
+                  commandfor="act-password" command="--canon-toggle-password">
+            <span class="canon-icon" data-icon="eye" aria-hidden="true"></span>
+            <span class="canon-button-label">Show password</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="act-copy">API key</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="act-copy" name="api-key" type="text" placeholder value="sk_test_4eC39HqLyjWDarjtT1zdp7dc" readonly>
+          <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon"
+                  commandfor="act-copy" command="--canon-copy">
+            <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+            <span class="canon-button-label">Copy API key</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <h3>A select beside the value</h3>
+    <p class="ref-note">A <a href="select.html">Select</a> box in the text input (here, a country code) is a control of its own: the label names the number, and the select needs its own name.</p>
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ip-phone">Phone number</label>
+        </div>
+        <div class="canon-text-input">
+          <div class="canon-select">
+            <select name="country-code" aria-label="Country code" autocomplete="tel-country-code">
+              <button><selectedcontent></selectedcontent></button>
+              <option value="+44" selected><span class="canon-option-label">+44</span> <span class="canon-option-description">United Kingdom</span></option>
+              <option value="+90"><span class="canon-option-label">+90</span> <span class="canon-option-description">Türkiye</span></option>
+              <option value="+1"><span class="canon-option-label">+1</span> <span class="canon-option-description">United States</span></option>
+            </select>
+          </div>
+          <input id="ip-phone" name="phone" type="tel" placeholder autocomplete="tel-national">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="label-action">
+    <h2>Label action and info</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="la-password">Password</label>
+        </div>
+        <a class="canon-field-action" href="/reset-password">Forgot password?</a>
+        <div class="canon-password">
+          <input id="la-password" name="la-password" type="password" placeholder autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="la-info">Cost center</label>
+          <button type="button" class="canon-label-info" interestfor="la-info-tip" aria-describedby="la-info-tip">
+            <span class="canon-visually-hidden">About cost centers</span>
+          </button>
+          <div class="canon-tooltip" id="la-info-tip" popover="hint" role="tooltip" data-placement="block-end inline-end">The team that pays for this.</div>
+        </div>
+        <div class="canon-text-input">
+          <input id="la-info" name="la-info" type="text" placeholder>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Type something that isn't an email address in the last field and leave it: the field shows the browser's message as an error.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-disabled">Disabled</label>
+          <p class="canon-label-description" id="st-disabled-hint">Managed by your administrator.</p>
+        </div>
+        <div class="canon-text-input">
+          <input id="st-disabled" name="st-disabled" type="text" placeholder value="Can't touch this" disabled
+                 aria-describedby="st-disabled-hint">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-readonly">Read-only</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="st-readonly" name="st-readonly" type="text" placeholder value="usr_8f2k1" readonly>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="st-user-invalid">Browser validation</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="st-user-invalid" name="st-user-invalid" type="email" placeholder required>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="select">
+    <h2>Select</h2>
+    <p class="ref-note">A native <code>&lt;select&gt;</code> in the box; the arrow is drawn for you.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sel-role">Role</label>
+        </div>
+        <div class="canon-select">
+          <select id="sel-role" name="role">
+            <option>Viewer</option>
+            <option>Editor</option>
+            <option>Admin</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sel-region">Region</label>
+        </div>
+        <div class="canon-select">
+          <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+          <select id="sel-region" name="region" aria-invalid="true" aria-describedby="sel-region-message">
+            <option value="">Choose a region</option>
+            <option>eu-west-1</option>
+            <option>us-east-1</option>
+          </select>
+        </div>
+        <p class="canon-field-message" id="sel-region-message" data-intent="danger">Choose a region.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="select-picker">
+    <h2>Select: customizable picker</h2>
+    <p class="ref-note">On computers with a mouse, the list opens as a styled dropdown; touch devices keep the native picker. Options can hold markup (a label and a description). Add <code>&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;</code> first in the select to show only the chosen option's label when it is closed. Browsers without support show the native picker.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sp-instance">Instance type</label>
+        </div>
+        <div class="canon-select">
+          <select id="sp-instance" name="instance">
+            <button><selectedcontent></selectedcontent></button>
+            <optgroup label="General purpose">
+              <option value="t3.micro">
+                <span class="canon-option-label">t3.micro</span>
+                <span class="canon-option-description">2 vCPU · 1 GiB</span>
+              </option>
+              <option value="t3.large" selected>
+                <span class="canon-option-label">t3.large</span>
+                <span class="canon-option-description">2 vCPU · 8 GiB</span>
+              </option>
+            </optgroup>
+            <optgroup label="Compute optimized">
+              <option value="c6i.xlarge">
+                <span class="canon-option-label">c6i.xlarge</span>
+                <span class="canon-option-description">4 vCPU · 8 GiB</span>
+              </option>
+              <option value="c6i.4xlarge" disabled>
+                <span class="canon-option-label">c6i.4xlarge</span>
+                <span class="canon-option-description">Quota exceeded</span>
+              </option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sp-region">Region</label>
+        </div>
+        <div class="canon-select">
+          <span class="canon-icon" data-icon="globe" aria-hidden="true"></span>
+          <select id="sp-region" name="sp-region">
+            <button><selectedcontent></selectedcontent></button>
+            <option value="eu-west-1">
+              <span class="canon-option-label">eu-west-1</span>
+              <span class="canon-option-description">Ireland</span>
+            </option>
+            <option value="eu-central-1">
+              <span class="canon-option-label">eu-central-1</span>
+              <span class="canon-option-description">Frankfurt</span>
+            </option>
+            <option value="us-east-1">
+              <span class="canon-option-label">us-east-1</span>
+              <span class="canon-option-description">N. Virginia</span>
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="textarea">
+    <h2>Textarea</h2>
+    <p class="ref-note">A <a href="textarea.html">Textarea</a> in a field: the label, its description and messages work as for any box. Type into it to see it grow.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ta-limit">Release notes</label>
+          <p class="canon-label-description" id="ta-limit-hint">Up to 280 characters.</p>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="ta-limit" name="ta-limit" rows="3" data-max-lines="8" maxlength="280" placeholder
+                    aria-describedby="ta-limit-hint"></textarea>
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ta-required">Reason</label>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="ta-required" name="ta-required" rows="2" data-max-lines="5" required placeholder
+                    aria-describedby="ta-required-message"></textarea>
+        </div>
+        <p class="canon-field-message" id="ta-required-message" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="counter">
+    <h2>Character counter</h2>
+    <p class="ref-note">An empty <code>&lt;p class="canon-field-counter"&gt;</code> after the message: canon.js shows how much of the control's <code>maxlength</code> is used, at the end of the message's row. With a counter, the limit doesn't stop typing or cut pasted text: people can go past it, the characters that are too many are marked in red, and the field shows its error at once, until they shorten it. (Without canon.js, <code>maxlength</code> stops typing as usual.) The last tenth of the limit is marked, and screen readers hear what is left after a pause in typing. Say the limit in the description, and give the field a message for the error.</p>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ct-bio">Bio</label>
+          <p class="canon-label-description" id="ct-bio-description">Up to 160 characters.</p>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="ct-bio" name="bio" rows="3" data-max-lines="6" maxlength="160" placeholder
+                    aria-describedby="ct-bio-description ct-bio-message"></textarea>
+        </div>
+        <p class="canon-field-message" id="ct-bio-message" aria-live="polite"></p>
+        <p class="canon-field-counter"></p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ct-username">Username</label>
+          <p class="canon-label-description" id="ct-username-description">Up to 20 characters.</p>
+        </div>
+        <div class="canon-text-input">
+          <span class="canon-text-input-prefix" aria-hidden="true">@</span>
+          <input id="ct-username" name="username" type="text" maxlength="20" value="ada_lovelace_1815" placeholder
+                 aria-describedby="ct-username-description ct-username-message">
+        </div>
+        <p class="canon-field-message" id="ct-username-message" aria-live="polite"></p>
+        <p class="canon-field-counter"></p>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="ct-summary">Summary</label>
+          <p class="canon-label-description" id="ct-summary-description">Up to 80 characters.</p>
+        </div>
+        <div class="canon-textarea">
+          <textarea id="ct-summary" name="summary" rows="2" data-max-lines="5" maxlength="80" placeholder
+                    aria-describedby="ct-summary-description ct-summary-message">Fixes the date picker opening behind dialogs on small screens, and the focus that got lost afterwards.</textarea>
+        </div>
+        <p class="canon-field-message" id="ct-summary-message" aria-live="polite"></p>
+        <p class="canon-field-counter"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note">Fields and buttons share <code>data-size</code>, so a field and its button line up.</p>
+
+    <div class="ref-row ref-row-baseline" data-size="sm">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-sm">Small</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="sz-sm" name="sz-sm" type="text" placeholder>
+        </div>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+    </div>
+
+    <div class="ref-row ref-row-baseline">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-md">Theme decides</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="sz-md" name="sz-md" type="text" placeholder>
+        </div>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+    </div>
+
+    <div class="ref-row ref-row-baseline" data-size="lg">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sz-lg">Large</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="sz-lg" name="sz-lg" type="text" placeholder>
+        </div>
+      </div>
+      <button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Apply</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="expected-length">
+    <h2>Expected length</h2>
+    <p class="ref-note">Native <code>size</code> and <code>maxlength</code> say how long the value is expected to be; the box may size itself from them.</p>
+
+    <div class="ref-stack">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="el-postcode">Postcode</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="el-postcode" name="postcode" type="text" placeholder size="10" autocomplete="postal-code">
+        </div>
+      </div>
+
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="el-year">Year</label>
+        </div>
+        <div class="canon-text-input">
+          <input id="el-year" name="year" type="text" inputmode="numeric" placeholder maxlength="4" size="4">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="standalone">
+    <h2>Standalone control</h2>
+    <p class="ref-note">A box without a field, like a search in a toolbar. Without a visible label, name the input with <code>aria-label</code>.</p>
+
+    <div class="ref-row">
+      <div class="canon-text-input">
+        <span class="canon-icon" data-icon="search" aria-hidden="true"></span>
+        <input type="search" name="filter" aria-label="Filter records" placeholder="Filter records">
+      </div>
+      <button type="button" class="canon-button"><span class="canon-button-label">Export</span></button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+
+    <div class="ref-grid">
+      <div class="canon-field">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-long">Primary contact email address for billing, invoices and payment failure notifications</label>
+          <p class="canon-label-description" id="sx-long-hint">This address receives every invoice, receipt and dunning email. Use a shared mailbox rather than a personal one so nothing is lost when people change roles.</p>
+        </div>
+        <a class="canon-field-action" href="/help/billing">Why do we need this?</a>
+        <div class="canon-text-input">
+          <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+          <input id="sx-long" name="sx-long" type="email" placeholder required aria-describedby="sx-long-hint sx-long-message" aria-invalid="true">
+          <span class="canon-text-input-suffix" aria-hidden="true">@billing.acme-corporation.example.com</span>
+        </div>
+        <p class="canon-field-message" id="sx-long-message" data-intent="danger">This address bounced three times in the last 30 days. Check it with your mail administrator.</p>
+      </div>
+
+      <div class="canon-field" dir="rtl" lang="ar">
+        <div class="canon-label">
+          <label class="canon-label-text" for="sx-rtl">البريد الإلكتروني</label>
+          <p class="canon-label-description" id="sx-rtl-hint">استخدم عنوان شركتك.</p>
+        </div>
+        <a class="canon-field-action" href="/help">مساعدة</a>
+        <div class="canon-text-input">
+          <span class="canon-icon" data-icon="mail" aria-hidden="true"></span>
+          <input id="sx-rtl" name="sx-rtl" type="email" placeholder required aria-describedby="sx-rtl-hint">
+          <span class="canon-text-input-suffix" aria-hidden="true">@acme.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

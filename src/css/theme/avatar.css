@@ -1,0 +1,288 @@
+/* ==================================================================== */
+/* Avatar · Count                                                       */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* Size scale: 24 / 32 / 40 / 48 / 56 / 64, md by default. Badge,
+     count and status positions are set per size (they sit on the
+     circle's edge, rounded to whole pixels). */
+  [data-size="xs"] {
+    --canon-theme-avatar-size: 1.5rem;
+    --canon-theme-avatar-font-size: 0.625rem;
+    --canon-theme-avatar-line-height: 0.75rem;
+    --canon-theme-avatar-tracking: -0.0025em;
+    --canon-theme-avatar-badge-at: 0.875rem;
+    --canon-theme-avatar-count-at: -0.375rem;
+    --canon-theme-avatar-status: 0.25rem;
+    --canon-theme-avatar-status-at: 1.1875rem;
+    --canon-theme-avatar-ring: 0.125rem;
+    --canon-theme-avatar-overlap: 0.125rem;
+  }
+  [data-size="sm"] {
+    --canon-theme-avatar-size: 2rem;
+    --canon-theme-avatar-font-size: 0.75rem;
+    --canon-theme-avatar-line-height: 1rem;
+    --canon-theme-avatar-tracking: -0.007em;
+    --canon-theme-avatar-badge-at: 1.25rem;
+    --canon-theme-avatar-count-at: -0.25rem;
+    --canon-theme-avatar-status: 0.375rem;
+    --canon-theme-avatar-status-at: 1.5625rem;
+    --canon-theme-avatar-ring: 0.1875rem;
+    --canon-theme-avatar-overlap: 0.25rem;
+  }
+  :root,
+  [data-size="md"] {
+    --canon-theme-avatar-size: 2.5rem;
+    --canon-theme-avatar-font-size: 0.875rem;
+    --canon-theme-avatar-line-height: 1.25rem;
+    --canon-theme-avatar-tracking: -0.006em;
+    --canon-theme-avatar-badge-at: 1.75rem;
+    --canon-theme-avatar-count-at: -0.25rem;
+    --canon-theme-avatar-status: 0.5rem;
+    --canon-theme-avatar-status-at: 1.875rem;
+    --canon-theme-avatar-ring: 0.25rem;
+    --canon-theme-avatar-overlap: 0.375rem;
+  }
+  [data-size="lg"] {
+    --canon-theme-avatar-size: 3rem;
+    --canon-theme-avatar-font-size: 1rem;
+    --canon-theme-avatar-line-height: 1.5rem;
+    --canon-theme-avatar-tracking: -0.004em;
+    --canon-theme-avatar-badge-at: 2.25rem;
+    --canon-theme-avatar-count-at: -0.25rem;
+    --canon-theme-avatar-status: 0.5rem;
+    --canon-theme-avatar-status-at: 2.3125rem;
+    --canon-theme-avatar-ring: 0.25rem;
+    --canon-theme-avatar-overlap: 0.5rem;
+  }
+  [data-size="xl"] {
+    --canon-theme-avatar-size: 3.5rem;
+    --canon-theme-avatar-font-size: 1rem;
+    --canon-theme-avatar-line-height: 1.5rem;
+    --canon-theme-avatar-tracking: -0.004em;
+    --canon-theme-avatar-badge-at: 2.625rem;
+    --canon-theme-avatar-count-at: -0.125rem;
+    --canon-theme-avatar-status: 0.625rem;
+    --canon-theme-avatar-status-at: 2.625rem;
+    --canon-theme-avatar-ring: 0.3125rem;
+    --canon-theme-avatar-overlap: 0.625rem;
+  }
+  [data-size="2xl"] {
+    --canon-theme-avatar-size: 4rem;
+    --canon-theme-avatar-font-size: 1.5rem;
+    --canon-theme-avatar-line-height: 2rem;
+    --canon-theme-avatar-tracking: 0;
+    --canon-theme-avatar-badge-at: 3rem;
+    --canon-theme-avatar-count-at: 0rem;
+    --canon-theme-avatar-status: 0.75rem;
+    --canon-theme-avatar-status-at: 3rem;
+    --canon-theme-avatar-ring: 0.375rem;
+    --canon-theme-avatar-overlap: 0.75rem;
+  }
+
+  .canon-avatar {
+    /* Mirrors the badge positions in right-to-left text. */
+    --_rtl: 0;
+
+    /* No seed: zinc. */
+    --_bg: light-dark(var(--canon-theme-zinc-100), var(--canon-theme-zinc-700));
+    --_fg: light-dark(var(--canon-theme-zinc-500), var(--canon-theme-zinc-300));
+
+    /* Where the status, badge and count sit, and their cut-outs (each
+       the element plus 2px, so whatever is behind shows through). */
+    --_status-c: calc(var(--canon-theme-avatar-status-at) + var(--canon-theme-avatar-status) / 2);
+    --_badge-c: calc(var(--canon-theme-avatar-badge-at) + 0.5rem);
+    --_count-c: calc(var(--canon-theme-avatar-count-at) + 0.5rem);
+    --_x-status: calc(var(--_status-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_status-c)));
+    --_x-badge: calc(var(--_badge-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_badge-c)));
+
+    /* The count's hole is a pill: a circle at each end and the band
+       between. Its width comes from canon.js (--canon-count-inline-size);
+       without it, one circle. */
+    --_count-w: max(1rem, var(--canon-count-inline-size, 1rem));
+    --_count-end-c: calc(var(--canon-theme-avatar-badge-at) + var(--_count-w) - 0.5rem);
+    --_x-count-end: calc(var(--_count-end-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_count-end-c)));
+    --_count-band: calc(var(--_count-w) - 1rem);
+    --_x-count-band: calc(var(--_badge-c) + var(--_rtl) * (var(--canon-theme-avatar-size) - 2 * var(--_badge-c) - var(--_count-band)));
+
+    /* Holes, opaque where the avatar is cut; none by default. */
+    --_hole-status: linear-gradient(#0000 0 0);
+    --_hole-badge: linear-gradient(#0000 0 0);
+    --_hole-count-start: linear-gradient(#0000 0 0);
+    --_hole-count-end: linear-gradient(#0000 0 0);
+    --_hole-count-band: linear-gradient(#0000 0 0);
+    --_hole-stack: linear-gradient(#0000 0 0);
+    --_hole-prev-corner: linear-gradient(#0000 0 0);
+    --_hole-prev-count: linear-gradient(#0000 0 0);
+    --_hole-next: linear-gradient(#0000 0 0);
+    --_radius: 50%;
+
+    /* The shape is the mask's base layer, not border-radius on the face:
+       Chrome leaks a hairline of a clipped edge through the cut-outs of
+       an overlapping neighbour. Rounded squares can't be a gradient, so
+       they keep border-radius (--_face-radius). */
+    --_shape: radial-gradient(closest-side, #000 calc(100% - 0.5px), #0000 100%);
+    --_face-radius: 0;
+
+    inline-size: var(--canon-theme-avatar-size);
+    block-size: var(--canon-theme-avatar-size);
+    border-radius: var(--_radius);
+  }
+  /* Initials are a picture, not text: the arrow over them (links and
+     buttons keep the hand). */
+  .canon-avatar:not(a, button) {
+    cursor: default;
+  }
+  .canon-avatar:dir(rtl) {
+    --_rtl: 1;
+  }
+
+}
+
+/* @canon-part */
+@layer canon.theme {
+
+  /* Teams and bots are rounded squares. */
+  .canon-avatar:is([data-kind="team"], [data-kind="bot"]) {
+    --_radius: calc(var(--canon-theme-avatar-size) * 0.2);
+    --_shape: linear-gradient(#000 0 0);
+    --_face-radius: var(--_radius);
+  }
+
+  .canon-avatar:has(> .canon-avatar-status) {
+    --_hole-status: radial-gradient(circle at var(--_x-status) var(--_status-c),
+      #000 calc(var(--canon-theme-avatar-status) / 2 + 2px), #0000 calc(var(--canon-theme-avatar-status) / 2 + 2.5px));
+  }
+  .canon-avatar:has(> .canon-avatar-badge) {
+    --_hole-badge: radial-gradient(circle at var(--_x-badge) var(--_badge-c),
+      #000 0.625rem, #0000 calc(0.625rem + 0.5px));
+  }
+  .canon-avatar:has(> .canon-count) {
+    --_hole-count-start: radial-gradient(circle at var(--_x-badge) var(--_count-c),
+      #000 0.625rem, #0000 calc(0.625rem + 0.5px));
+    --_hole-count-end: radial-gradient(circle at var(--_x-count-end) var(--_count-c),
+      #000 0.625rem, #0000 calc(0.625rem + 0.5px));
+    --_hole-count-band: linear-gradient(#000 0 0);
+  }
+
+  /* The avatar minus every hole (the photo's edge too, below). */
+  .canon-avatar > :is(.canon-avatar-image, .canon-avatar-fallback),
+  .canon-avatar::after {
+    border-radius: var(--_face-radius);
+    mask:
+      var(--_shape),
+      var(--_hole-status),
+      var(--_hole-badge),
+      var(--_hole-count-start),
+      var(--_hole-count-end),
+      var(--_hole-stack),
+      var(--_hole-prev-corner),
+      var(--_hole-prev-count),
+      var(--_hole-next),
+      var(--_hole-count-band) var(--_x-count-band) calc(var(--_count-c) - 0.625rem) / var(--_count-band) 1.25rem no-repeat;
+    mask-composite: subtract, add, add, add, add, add, add, add, add, add;
+  }
+
+  .canon-avatar > .canon-avatar-fallback {
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--canon-theme-avatar-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-avatar-line-height);
+    letter-spacing: var(--canon-theme-avatar-tracking);
+    text-transform: uppercase;
+  }
+
+  /* Empty fallback: an icon, half the avatar's size. */
+  .canon-avatar > .canon-avatar-fallback:empty::before {
+    content: "";
+    inline-size: 50%;
+    block-size: 50%;
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-user-round) center / contain no-repeat;
+  }
+  .canon-avatar[data-kind="team"] > .canon-avatar-fallback:empty::before { mask-image: var(--canon-theme-icon-users-round); }
+  .canon-avatar[data-kind="bot"] > .canon-avatar-fallback:empty::before  { mask-image: var(--canon-theme-icon-bot); }
+
+  /* Status: a dot on the edge, bottom-end. */
+  .canon-avatar-status {
+    inset-block-start: var(--canon-theme-avatar-status-at);
+    inset-inline-start: var(--canon-theme-avatar-status-at);
+    inline-size: var(--canon-theme-avatar-status);
+    block-size: var(--canon-theme-avatar-status);
+    border-radius: 50%;
+    background-color: light-dark(var(--canon-theme-green-600), var(--canon-theme-green-400));
+  }
+  .canon-avatar-status[data-status="away"] { background-color: light-dark(var(--canon-theme-amber-500), var(--canon-theme-amber-400)); }
+  .canon-avatar-status[data-status="busy"] { background-color: light-dark(var(--canon-theme-red-600), var(--canon-theme-red-400)); }
+  .canon-avatar-status[data-status="offline"] {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 max(1px, calc(var(--canon-theme-avatar-status) * 0.25)) light-dark(var(--canon-theme-zinc-400), var(--canon-theme-zinc-500));
+  }
+
+  /* Badge: a 16px tinted circle holding a 14px icon, bottom-end.
+     Green by default; data-intent changes the hue. */
+  .canon-avatar-badge {
+    --_b400: var(--canon-theme-green-400);
+    --_b500: var(--canon-theme-green-500);
+    --_b300: var(--canon-theme-green-300);
+    --_b700: var(--canon-theme-green-700);
+    inset-block-start: var(--canon-theme-avatar-badge-at);
+    inset-inline-start: var(--canon-theme-avatar-badge-at);
+    inline-size: 1rem;
+    block-size: 1rem;
+    border-radius: 50%;
+    background-color: light-dark(
+      color-mix(in srgb, var(--_b400) 20%, transparent),
+      color-mix(in srgb, var(--_b500) 20%, transparent));
+    color: light-dark(var(--_b700), var(--_b300));
+    --canon-icon-size: 0.875rem;
+  }
+  .canon-avatar-badge[data-intent="info"]    { --_b400: var(--canon-theme-blue-400);  --_b500: var(--canon-theme-blue-500);  --_b300: var(--canon-theme-blue-300);  --_b700: var(--canon-theme-blue-700); }
+  .canon-avatar-badge[data-intent="warning"] { --_b400: var(--canon-theme-amber-400); --_b500: var(--canon-theme-amber-500); --_b300: var(--canon-theme-amber-300); --_b700: var(--canon-theme-amber-700); }
+  .canon-avatar-badge[data-intent="danger"]  { --_b400: var(--canon-theme-red-400);   --_b500: var(--canon-theme-red-500);   --_b300: var(--canon-theme-red-300);   --_b700: var(--canon-theme-red-700); }
+
+  /* Count on an avatar: top-end. */
+  .canon-avatar > .canon-count {
+    inset-block-start: var(--canon-theme-avatar-count-at);
+    inset-inline-start: var(--canon-theme-avatar-badge-at);
+  }
+
+  /* Clickable (a profile link, an account menu): the button's focus ring. */
+  :is(a, button).canon-avatar:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px light-dark(var(--canon-theme-white), var(--canon-theme-zinc-900)), 0 0 0 3px var(--canon-theme-focus);
+  }
+
+  /* A photo still loading (data-state="loading", canon.js) waits unseen
+     over the initials, then fades in (0.2s) when it comes; a fade, so
+     also with reduced motion. */
+  .canon-avatar > .canon-avatar-image {
+    transition: opacity 0.2s ease-out;
+  }
+  .canon-avatar[data-state="loading"] > .canon-avatar-image {
+    opacity: 0;
+  }
+  /* The face's edge: a hairline inner rim, so a light face doesn't bleed
+     into the page. On initials, their own color at 20%; on a photo that
+     shows, black at 15% (dark white at 15%). It is rounded by
+     border-radius, not the shape mask (a square rim cut by a circle
+     leaves only its sides); the holes still cut it. */
+  .canon-avatar::after {
+    --_shape: linear-gradient(#000 0 0);
+    --_rim: color-mix(in srgb, var(--_fg) 20%, transparent);
+    content: "";
+    grid-area: 1 / 1;
+    position: relative;
+    z-index: 1;
+    border-radius: var(--_radius);
+    box-shadow: inset 0 0 0 var(--canon-theme-hairline) var(--_rim);
+    pointer-events: none;
+  }
+  .canon-avatar:has(> .canon-avatar-image):not([data-state="error"], [data-state="loading"])::after {
+    --_rim: light-dark(rgb(0 0 0 / 0.15), rgb(255 255 255 / 0.15));
+  }
+
+}

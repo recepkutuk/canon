@@ -1,0 +1,63 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Code Block                                                          */
+  /*                                                                     */
+  /* A <pre><code> in a frame: an optional header (a title, then         */
+  /* buttons), or a lone copy button in the top corner. Code is always   */
+  /* left to right and keeps its lines (a pressed --canon-wrap button in  */
+  /* the header wraps them);                                             */
+  /* it scrolls in its own box, up to --canon-code-block-max-height.     */
+  /* Highlighting is done before the page; Canon colors nothing here.    */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-code-block) {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    box-sizing: border-box;
+    max-inline-size: 100%;
+  }
+  :where(.canon-code-block-header) {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-inline-size: 0;
+  }
+  :where(.canon-code-block-title) {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :where(.canon-code-block-header) > :where(.canon-button) {
+    flex: none;
+  }
+  :where(.canon-code-block) > :where(pre) {
+    box-sizing: border-box;
+    margin: 0;
+    max-block-size: var(--canon-code-block-max-height, none);
+    overflow: auto;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: start;
+    white-space: pre;
+    tab-size: 2;
+  }
+  :where(.canon-code-block:has(> .canon-code-block-header > [command="--canon-wrap"][aria-pressed="true"])) > :where(pre) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  :where(.canon-code-block) > :where(pre) > :where(code) {
+    font: inherit;
+  }
+  /* Without a header, the copy button sits in the top corner over the
+     code. Code reads left to right in every language, so the corner is
+     the physical right one, where lines end, not where they start. */
+  :where(.canon-code-block) > :where(.canon-button) {
+    position: absolute;
+    inset-block-start: var(--canon-code-block-button-inset, 0.5rem);
+    right: var(--canon-code-block-button-inset, 0.5rem);
+  }
+}

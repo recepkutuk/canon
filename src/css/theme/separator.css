@@ -1,0 +1,53 @@
+/* ==================================================================== */
+/* Separator                                                            */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* A hairline rule (black at 10%, dark
+     white at 10%) in a 12 / 16 / 20px row; words in the text input's type (12 / 14 /
+     16px on 16 / 20 / 24px lines), zinc-500, 4 / 6 / 8px from the lines.
+     Vertical, the same line in a row, the same space beside
+     it. */
+  :root,
+  [data-size="md"] {
+    --canon-theme-separator-space: 7.5px;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --canon-theme-separator-space: 5.5px;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --canon-theme-separator-space: 9.5px;
+  }
+
+  .canon-separator {
+    --_line: var(--canon-theme-rule);
+  }
+  /* A hairline; the space around it makes up the rest of 1px, so what's
+     around it doesn't move. */
+  hr.canon-separator {
+    block-size: var(--canon-theme-hairline);
+    margin-block: calc(var(--canon-theme-separator-space) + (1px - var(--canon-theme-hairline)) / 2);
+    background-color: var(--_line);
+  }
+  hr.canon-separator[aria-orientation="vertical"] {
+    inline-size: var(--canon-theme-hairline);
+    block-size: auto;
+    margin-block: 0;
+    margin-inline: calc(var(--canon-theme-separator-space) + (1px - var(--canon-theme-hairline)) / 2);
+  }
+  div.canon-separator {
+    column-gap: var(--canon-theme-input-inset);
+    min-block-size: calc(2 * var(--canon-theme-separator-space) + 1px);
+    color: var(--canon-theme-zinc-500);
+    font-size: var(--canon-control-font-size);
+    font-weight: 400;
+    line-height: var(--canon-theme-input-line-height);
+    letter-spacing: var(--canon-theme-input-tracking);
+  }
+  div.canon-separator::before,
+  div.canon-separator::after {
+    block-size: var(--canon-theme-hairline);
+    background-color: var(--_line);
+  }
+}

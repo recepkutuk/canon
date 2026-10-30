@@ -1,0 +1,23 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Toolbar                                                            */
+  /*                                                                    */
+  /* role="toolbar": a row of controls (Buttons, Button Groups, Selects, */
+  /* menu buttons, vertical Separators) that wraps. One Tab stop;        */
+  /* canon.js moves along it with the arrow keys.                       */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-toolbar) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  :where(.canon-toolbar[aria-orientation="vertical"]) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  :where(.canon-toolbar) > * {
+    flex: none;
+  }
+}

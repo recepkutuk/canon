@@ -1,0 +1,65 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Avatar                                                              */
+  /*                                                                     */
+  /* A one-cell grid: the photo (if any) over the fallback, both filling */
+  /* the box. The fallback carries the person's name and shows initials, */
+  /* or an icon the theme draws when it is empty; it stays underneath    */
+  /* the photo, so the name is read whatever the photo does. Status,     */
+  /* badge and count are placed by the theme.                            */
+  /* ------------------------------------------------------------------ */
+
+  /* As a link or a button too, so the user-agent styles go. */
+  :where(.canon-avatar) {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-grid;
+    flex: none;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(button.canon-avatar) {
+    cursor: pointer;
+  }
+
+  :where(.canon-avatar) > :where(.canon-avatar-image, .canon-avatar-fallback) {
+    grid-area: 1 / 1;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+  :where(.canon-avatar) > :where(.canon-avatar-image) {
+    position: relative;
+    z-index: 1;
+    display: block;
+    object-fit: cover;
+  }
+  :where(.canon-avatar) > :where(.canon-avatar-fallback) {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* canon.js marks a photo that didn't load; the fallback shows instead. */
+  :where(.canon-avatar[data-state="error"]) > :where(.canon-avatar-image) {
+    display: none;
+  }
+
+  :where(.canon-avatar) > :where(.canon-avatar-status, .canon-avatar-badge, .canon-count) {
+    position: absolute;
+    z-index: 2;
+  }
+  :where(.canon-avatar) > :where(.canon-avatar-badge) {
+    display: grid;
+    place-items: center;
+  }
+}

@@ -1,0 +1,91 @@
+/* ==================================================================== */
+/* Split Button                                                         */
+/* ==================================================================== */
+
+@layer canon.theme {
+
+  /* The two buttons joined, corners
+     only at the ends, the arrow button square (32 / 40 / 48) with the
+     menu chevron (turning up while open). Between them a 1px line that
+     takes no space, the button's own tint laid over it: white at 15% on
+     high, the medium tint (tone-400 at 15%; dark tone-500 at 20%) on
+     medium, the low border (tone-200) on low; disabled zinc-200 (dark
+     zinc-800). Minimal (below), intents, dark, states,
+     from Button; the open arrow held at the pressed look. Its menu
+     opens 4px under it, ends level. */
+  .canon-split-button > .canon-button {
+    --_divider: var(--canon-theme-tint-2);
+  }
+  .canon-split-button > .canon-button[data-emphasis="high"] {
+    --_divider: color-mix(in srgb, var(--canon-theme-white) 15%, transparent);
+  }
+  .canon-split-button > .canon-button[data-emphasis="low"] {
+    --_divider: var(--canon-theme-border-low);
+  }
+  .canon-split-button > .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --_divider: light-dark(var(--canon-theme-zinc-200), var(--canon-theme-zinc-800));
+  }
+
+  /* Minimal (a toolbar's "Text color ▾"): one quiet piece at rest, no
+     line. Pointing at either half, focusing it or opening the menu joins
+     them: both take the lightest tint, the half in use a stronger one
+     (pressed stronger still), and the line shows in the low border's
+     color. */
+  .canon-split-button > .canon-button[data-emphasis="minimal"] {
+    --_divider: transparent;
+    --canon-theme-bg-hover: var(--canon-theme-tint-2);
+    --canon-theme-bg-active: var(--canon-theme-tint-3);
+  }
+  .canon-split-button:has(> .canon-button[data-emphasis="minimal"]:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"])) > .canon-button[data-emphasis="minimal"] {
+    --_divider: var(--canon-theme-border-low);
+  }
+  @media (hover: hover) {
+    .canon-split-button:has(> .canon-button[data-emphasis="minimal"]:hover:not(:disabled, [aria-disabled="true"])) > .canon-button[data-emphasis="minimal"] {
+      --_divider: var(--canon-theme-border-low);
+    }
+  }
+  .canon-split-button:has(> .canon-button[data-emphasis="minimal"]:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"])) > .canon-button[data-emphasis="minimal"]:not(:hover, :focus-visible, :active, [aria-expanded="true"], :disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-tint-1);
+  }
+  @media (hover: hover) {
+    .canon-split-button:has(> .canon-button[data-emphasis="minimal"]:hover:not(:disabled, [aria-disabled="true"])) > .canon-button[data-emphasis="minimal"]:not(:hover, :focus-visible, :active, [aria-expanded="true"], :disabled, [aria-disabled="true"]) {
+      background-color: var(--canon-theme-tint-1);
+    }
+  }
+  .canon-split-button > .canon-button:first-child {
+    padding-inline-end: var(--canon-control-padding-inline);
+    border-inline-end-width: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+  .canon-split-button > .canon-button:last-child {
+    border-inline-start-width: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    box-shadow: inset var(--canon-theme-hairline) 0 0 var(--_divider);
+  }
+  .canon-split-button > .canon-button:last-child:dir(rtl) {
+    box-shadow: inset calc(-1 * var(--canon-theme-hairline)) 0 0 var(--_divider);
+  }
+  /* Low: the lift under both halves. */
+  .canon-split-button > .canon-button[data-emphasis="low"]:last-child:not(:disabled, [aria-disabled="true"], :active) {
+    box-shadow: inset var(--canon-theme-hairline) 0 0 var(--_divider), var(--canon-theme-shadow-control);
+  }
+  .canon-split-button > .canon-button[data-emphasis="low"]:last-child:not(:disabled, [aria-disabled="true"], :active):dir(rtl) {
+    box-shadow: inset calc(-1 * var(--canon-theme-hairline)) 0 0 var(--_divider), var(--canon-theme-shadow-control);
+  }
+  .canon-split-button > .canon-button:focus-visible {
+    z-index: 1;
+    box-shadow: 0 0 0 2px var(--canon-theme-ring-offset), 0 0 0 3px var(--canon-theme-ring);
+  }
+  /* The arrow: the menu indicator, shown although the button is icon only. */
+  .canon-split-button > .canon-button[aria-haspopup]::after {
+    content: "";
+  }
+  .canon-split-button > .canon-button[aria-expanded="true"]:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--canon-theme-bg-active);
+  }
+  .canon-menu[data-split-button] {
+    margin-inline: 0;
+  }
+}

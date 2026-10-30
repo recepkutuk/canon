@@ -1,0 +1,2490 @@
+/*
+ * material.css
+ *
+ * A Material-inspired look for Canon, in one file: link it instead of
+ * canon.css. The markup and canon.js stay exactly the same. Not affiliated
+ * with or endorsed by Google.
+ *
+ * It builds on canon.css: the color roles and the shape tokens restyle every
+ * component at once, then rules redraw each one.
+ *
+ * Covers every component. Fields are 56px with floating labels, in CSS alone:
+ * the label takes the box's place in the field's grid, and :placeholder-shown
+ * and a select's empty option say when it rests. Dense places (bars, filters,
+ * pickers, tables) keep shorter controls, and their labels stay above.
+ *
+ * Supports: light, dark.
+ *
+ * This folder is the theme: this stylesheet, its icons and its fonts.
+ * Serve the page over HTTP; browsers don't draw mask images from file://.
+ *
+ * Credits: Roboto and Roboto Mono (SIL Open Font License, see the OFL files
+ * here), Material Symbols (Apache License 2.0, see LICENSE).
+ */
+
+@import url("../canon/canon.css");
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-cyrillic-400-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-greek-400-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-cyrillic-500-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-greek-500-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-mono-cyrillic-400-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-mono-greek-400-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-mono-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("roboto-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-mono-cyrillic-500-normal.woff2") format("woff2");
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-mono-greek-500-normal.woff2") format("woff2");
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-mono-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("roboto-mono-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@layer canon.theme {
+
+  /* ------------------------------------------------------------------ */
+  /* Color roles, then Canon's scales holding the same tones             */
+  /* ------------------------------------------------------------------ */
+
+  :root {
+    --md-primary: light-dark(#6750a4, #d0bcff);
+    --md-on-primary: light-dark(#fff, #381e72);
+    --md-primary-container: light-dark(#eaddff, #4f378b);
+    --md-on-primary-container: light-dark(#21005d, #eaddff);
+    --md-secondary-container: light-dark(#e8def8, #4a4458);
+    --md-on-secondary-container: light-dark(#1d192b, #e8def8);
+    --md-secondary: light-dark(#625b71, #ccc2dc);
+    --md-tertiary: light-dark(#7d5260, #efb8c8);
+    --md-tertiary-container: light-dark(#ffd8e4, #633b48);
+    --md-on-tertiary-container: light-dark(#31111d, #ffd8e4);
+    --md-error: light-dark(#b3261e, #f2b8b5);
+    --md-on-error: light-dark(#fff, #601410);
+    --md-error-container: light-dark(#f9dedc, #8c1d18);
+    --md-on-error-container: light-dark(#410e0b, #f9dedc);
+    --md-success: light-dark(#386a20, #9fd67b);
+    --md-on-success: light-dark(#fff, #0c3900);
+    --md-success-container: light-dark(#b8f397, #1f5107);
+    --md-on-success-container: light-dark(#042100, #b8f397);
+    --md-warning: light-dark(#7c5800, #f9bd22);
+    --md-on-warning: light-dark(#fff, #412d00);
+    --md-warning-container: light-dark(#ffdea2, #5e4200);
+    --md-on-warning-container: light-dark(#271900, #ffdea2);
+    --md-surface: light-dark(#fef7ff, #141218);
+    --md-surface-low: light-dark(#f7f2fa, #1d1b20);
+    --md-surface-container: light-dark(#f3edf7, #211f26);
+    --md-surface-high: light-dark(#ece6f0, #2b2930);
+    --md-surface-highest: light-dark(#e6e0e9, #36343b);
+    --md-on-surface: light-dark(#1d1b20, #e6e0e9);
+    --md-on-surface-variant: light-dark(#49454f, #cac4d0);
+    --md-outline: light-dark(#79747e, #938f99);
+    --md-outline-variant: light-dark(#cac4d0, #49454f);
+    --md-inverse-surface: light-dark(#322f35, #e6e0e9);
+    --md-inverse-on-surface: light-dark(#f5eff7, #322f35);
+    --md-inverse-primary: light-dark(#d0bcff, #6750a4);
+    --md-disabled: color-mix(in srgb, var(--md-on-surface) 38%, transparent);
+    --md-disabled-fill: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+    --md-hover: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+    --md-press: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+    --md-ease: cubic-bezier(0.2, 0, 0, 1);
+
+    --canon-theme-zinc-50: #f7f2fa;
+    --canon-theme-zinc-100: #ece6f0;
+    --canon-theme-zinc-200: #e6e0e9;
+    --canon-theme-zinc-300: #cac4d0;
+    --canon-theme-zinc-400: #938f99;
+    --canon-theme-zinc-500: #79747e;
+    --canon-theme-zinc-600: #49454f;
+    --canon-theme-zinc-700: #36343b;
+    --canon-theme-zinc-800: #2b2930;
+    --canon-theme-zinc-900: #1d1b20;
+    --canon-theme-zinc-950: #141218;
+
+    --canon-theme-blue-50: #f6edff;
+    --canon-theme-blue-100: #eaddff;
+    --canon-theme-blue-200: #d0bcff;
+    --canon-theme-blue-300: #d0bcff;
+    --canon-theme-blue-400: #b69df8;
+    --canon-theme-blue-500: #7f67be;
+    --canon-theme-blue-600: #6750a4;
+    --canon-theme-blue-700: #4f378b;
+    --canon-theme-blue-800: #381e72;
+    --canon-theme-blue-900: #21005d;
+    --canon-theme-blue-950: #21005d;
+
+    --canon-theme-green-50: #dcffc6;
+    --canon-theme-green-100: #b8f397;
+    --canon-theme-green-200: #9fd67b;
+    --canon-theme-green-300: #9fd67b;
+    --canon-theme-green-400: #84ba62;
+    --canon-theme-green-500: #518534;
+    --canon-theme-green-600: #386a20;
+    --canon-theme-green-700: #1f5107;
+    --canon-theme-green-800: #0c3900;
+    --canon-theme-green-900: #042100;
+    --canon-theme-green-950: #042100;
+
+    --canon-theme-amber-50: #ffeed8;
+    --canon-theme-amber-100: #ffdea2;
+    --canon-theme-amber-200: #f9bd22;
+    --canon-theme-amber-300: #f9bd22;
+    --canon-theme-amber-400: #dea100;
+    --canon-theme-amber-500: #9c6f00;
+    --canon-theme-amber-600: #7c5800;
+    --canon-theme-amber-700: #5e4200;
+    --canon-theme-amber-800: #412d00;
+    --canon-theme-amber-900: #271900;
+    --canon-theme-amber-950: #271900;
+
+    --canon-theme-red-50: #fceeee;
+    --canon-theme-red-100: #f9dedc;
+    --canon-theme-red-200: #f2b8b5;
+    --canon-theme-red-300: #f2b8b5;
+    --canon-theme-red-400: #e46962;
+    --canon-theme-red-500: #dc362e;
+    --canon-theme-red-600: #b3261e;
+    --canon-theme-red-700: #8c1d18;
+    --canon-theme-red-800: #601410;
+    --canon-theme-red-900: #410e0b;
+    --canon-theme-red-950: #410e0b;
+
+    /* ---------------------------------------------------------------- */
+    /* Lines, depth, type, sizes                                         */
+    /* ---------------------------------------------------------------- */
+
+    --canon-theme-paper: var(--md-surface);
+    --canon-theme-ink: var(--md-on-surface);
+    --canon-theme-focus: var(--md-primary);
+    --canon-theme-ring-offset: var(--md-surface);
+    --canon-theme-hairline: 1px;
+    --canon-theme-edge: transparent;
+    --canon-theme-rule: var(--md-outline-variant);
+    --canon-theme-rule-faint: var(--md-outline-variant);
+
+    /* Flat controls; tonal shadows only for what lifts off the page. */
+    --canon-theme-shadow-control: 0 0 transparent;
+    --canon-theme-shadow-raised: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --canon-theme-shadow-floating: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --canon-theme-shadow-overlay: 0 1px 3px rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+
+    --canon-theme-font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: Roboto, ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: normal;
+
+    --canon-control-padding-inline-sm: 0.75rem;
+    --canon-control-padding-inline-md: 1rem;
+    --canon-control-padding-inline-lg: 1.25rem;
+    --canon-icon-size-md: 1.125rem;
+  }
+
+  /* Pills to press, small rounded corners to type in, one tracking. */
+  :root,
+  [data-size] {
+    --canon-theme-button-radius: 999px;
+    --canon-theme-button-kbd-radius: 0.25rem;
+    --canon-theme-button-gap: 0.25rem;
+    --canon-theme-button-label-inset: 0.25rem;
+    --canon-theme-button-tracking: 0.007em;
+    --canon-theme-input-radius: 0.25rem;
+    --canon-theme-input-inset: 0px;
+    --canon-theme-input-icon-gap: 0.25rem;
+    --canon-theme-input-tracking: 0.018em;
+    --canon-theme-table-radius: 0.75rem;
+    --canon-theme-tag-radius: 0.5rem;
+    --canon-theme-tooltip-radius: 0.25rem;
+    --canon-theme-tooltip-padding-block: 0.25rem;
+    --canon-theme-tooltip-padding-inline: 0.5rem;
+    --canon-theme-tooltip-font-size: 0.75rem;
+    --canon-theme-tooltip-line-height: 1rem;
+    --canon-theme-tooltip-tracking: 0.033em;
+    --canon-theme-kbd-radius: 0.25rem;
+    --canon-theme-label-tracking: 0.03em;
+    --canon-theme-label-description-tracking: 0.03em;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Button                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* Each intent's roles: its accent, its container, its line. */
+  .canon-button {
+    --_accent: var(--md-primary);
+    --_on-accent: var(--md-on-primary);
+    --_c: var(--md-secondary-container);
+    --_on-c: var(--md-on-secondary-container);
+    --_text: var(--md-primary);
+    transition: background-color 0.2s var(--md-ease), border-color 0.2s var(--md-ease), box-shadow 0.2s var(--md-ease), color 0.2s var(--md-ease);
+  }
+  .canon-button[data-intent="success"] {
+    --_accent: var(--md-success);
+    --_on-accent: var(--md-on-success);
+    --_c: var(--md-success-container);
+    --_on-c: var(--md-on-success-container);
+    --_text: var(--md-success);
+  }
+  .canon-button[data-intent="warning"] {
+    --_accent: var(--md-warning);
+    --_on-accent: var(--md-on-warning);
+    --_c: var(--md-warning-container);
+    --_on-c: var(--md-on-warning-container);
+    --_text: var(--md-warning);
+  }
+  .canon-button[data-intent="danger"] {
+    --_accent: var(--md-error);
+    --_on-accent: var(--md-on-error);
+    --_c: var(--md-error-container);
+    --_on-c: var(--md-on-error-container);
+    --_text: var(--md-error);
+  }
+  .canon-button[data-intent="neutral"] {
+    --_accent: var(--md-inverse-surface);
+    --_on-accent: var(--md-inverse-on-surface);
+    --_c: var(--md-surface-high);
+    --_on-c: var(--md-on-surface);
+    --_text: var(--md-on-surface);
+  }
+
+  /* Medium: tonal. High: filled. Low: outlined. Minimal: text. Hover and
+     press lay the label's color over the fill, at 8% and 12%. */
+  .canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-c);
+    --canon-theme-bg: var(--_c);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_c), var(--_on-c) 8%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--_c), var(--_on-c) 12%);
+    --canon-theme-border: transparent;
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="high"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_on-accent);
+    --canon-theme-bg: var(--_accent);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_accent), var(--_on-accent) 8%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--_accent), var(--_on-accent) 12%);
+  }
+  .canon-button.canon-button.canon-button:is([data-emphasis="low"], [data-emphasis="minimal"]):not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--_text);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_text) 8%, transparent);
+    --canon-theme-bg-active: color-mix(in srgb, var(--_text) 12%, transparent);
+  }
+  .canon-button.canon-button.canon-button[data-emphasis="low"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-border: var(--md-outline);
+  }
+  .canon-button:not([data-emphasis="low"], :disabled, [aria-disabled="true"], .canon-button-group > *) > .canon-icon {
+    color: inherit;
+  }
+  @media (hover: hover) {
+    .canon-button[data-emphasis="high"]:not(:disabled, [aria-disabled="true"], :active):hover {
+      box-shadow: var(--canon-theme-shadow-raised);
+    }
+  }
+
+  /* An icon alone, without emphasis, is a bare icon on a circle of its own. */
+  .canon-button.canon-button.canon-button:where([data-display="icon"], [data-display="icon"] *):is(:not([data-emphasis]), [data-emphasis="medium"])[data-intent="neutral"]:not(:disabled, [aria-disabled="true"], .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--md-on-surface-variant);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--md-hover);
+    --canon-theme-bg-active: var(--md-press);
+  }
+
+  /* Wider than Canon's; the joined parts of a group keep their own. */
+  .canon-button:not([data-display="icon"], [data-display="icon"] *, .canon-button-group > *, .canon-split-button > *) {
+    padding-inline: calc(var(--canon-control-padding-inline) + 0.25rem - 1px);
+  }
+  /* 16px beside an icon, 24px beside words. */
+  .canon-button:has(> .canon-icon:first-child):not([data-display="icon"], [data-display="icon"] *, .canon-button-group > *, .canon-split-button > :last-child) {
+    padding-inline-start: calc(var(--canon-control-padding-inline) - 1px);
+  }
+  .canon-button:has(> .canon-icon:last-child):not([data-display="icon"], [data-display="icon"] *, .canon-button-group > *, .canon-split-button > :last-child) {
+    padding-inline-end: calc(var(--canon-control-padding-inline) - 1px);
+  }
+  /* An icon alone is 24px on its 40px circle. */
+  .canon-button:where([data-display="icon"], [data-display="icon"] *):not(.canon-button-group > *) {
+    --canon-icon-size: var(--md-field-icon-size);
+  }
+  .canon-button.canon-button.canon-button[aria-pressed="true"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"]), .canon-button-group > *, .canon-number > *, :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > *) {
+    --canon-theme-fg: var(--md-on-secondary-container);
+    --canon-theme-bg-active: var(--md-secondary-container);
+  }
+  .canon-button.canon-button.canon-button:active {
+    scale: none;
+  }
+
+  /* A group: connected pills 2px apart, the inner corners tight. A pressed
+     part fills with the primary color and rounds off. */
+  .canon-button-group {
+    /* Half the height, not a huge pill radius: next to it, a huge radius
+       would scale the tight inner corners down to nothing. */
+    --canon-theme-button-radius: calc(var(--canon-control-block-size) / 2);
+    gap: 2px;
+    box-shadow: none;
+  }
+  .canon-button-group > .canon-button,
+  .canon-button-group > .canon-button:not(:nth-child(1 of .canon-button)) {
+    --_line: transparent;
+    --_divider: 0 0 transparent;
+    --_icon: var(--md-on-surface-variant);
+    --canon-theme-fg: var(--md-on-surface);
+    --canon-theme-bg: var(--md-surface-high);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--md-surface-high), var(--md-on-surface) 8%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--md-surface-high), var(--md-on-surface) 12%);
+    transition: background-color 0.2s var(--md-ease), border-radius 0.2s var(--md-ease), color 0.2s var(--md-ease);
+  }
+  .canon-button-group > .canon-button {
+    border-radius: 0.5rem;
+  }
+  .canon-button-group > .canon-button[aria-pressed="true"].canon-button {
+    --_pressed: 0 0 transparent;
+    --_icon: var(--md-on-primary);
+    --canon-theme-fg: var(--md-on-primary);
+    --canon-theme-bg: var(--md-primary);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--md-primary), var(--md-on-primary) 8%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--md-primary), var(--md-on-primary) 12%);
+    border-radius: var(--canon-theme-button-radius);
+  }
+  .canon-button-group > .canon-button:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  /* Disabled: the text's color at 38% on a 12% fill. */
+  .canon-button:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--md-disabled);
+    --canon-theme-bg: var(--md-disabled-fill);
+    box-shadow: none;
+  }
+  .canon-button.canon-button:is([data-emphasis="low"], [data-emphasis="minimal"]):is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--md-disabled);
+    --canon-theme-bg: transparent;
+  }
+  .canon-button.canon-button[data-emphasis="low"]:is(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-border: var(--md-disabled-fill);
+  }
+
+  /* Focus: a thick line, standing clear of the shape. */
+  .canon-button:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Field and its boxes                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .canon-label-text {
+    color: var(--md-on-surface-variant);
+    font-weight: 400;
+  }
+  :is(.canon-field-message, .canon-choice-message, .canon-fieldset-message)[data-intent="danger"] {
+    color: var(--md-error);
+  }
+
+  /* Filled: rounded at the top, standing on one line that thickens with
+     focus. */
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))) {
+    --_line: var(--md-on-surface-variant);
+    --_weight: 1px;
+    border-color: transparent;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+    background-color: var(--md-surface-highest);
+    color: var(--md-on-surface);
+    box-shadow: inset 0 calc(var(--_weight) * -1) 0 var(--_line);
+    transition: background-color 0.2s var(--md-ease), box-shadow 0.2s var(--md-ease);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):where([data-intent="success"], [data-state="match"], .canon-field:has(> .canon-field-message[data-intent="success"]) > *) {
+    --_line: var(--md-success);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):where([data-intent="warning"], .canon-field:has(> .canon-field-message[data-intent="warning"]) > *) {
+    --_line: var(--md-warning);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> [aria-invalid="true"], > :user-invalid) {
+    --_line: var(--md-error);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> :disabled) {
+    --_line: var(--md-disabled);
+    background-color: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
+    color: var(--md-disabled);
+  }
+  @media (hover: hover) {
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):hover:not(:focus-within, :has(select:open), :has(> :disabled)) {
+      border-color: transparent;
+      background-color: color-mix(in srgb, var(--md-surface-highest), var(--md-on-surface) 8%);
+    }
+    :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):hover:has(> :disabled) {
+      border-color: transparent;
+    }
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> :is(input, textarea, select):focus),
+  :is(.canon-select, .canon-combobox):has(> select:open) {
+    --_weight: 2px;
+    --_line: var(--md-primary);
+    border-color: transparent;
+    outline: none;
+    box-shadow: inset 0 calc(var(--_weight) * -1) 0 var(--_line);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):has(> :is([aria-invalid="true"], :user-invalid):focus) {
+    --_line: var(--md-error);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > :is(input, textarea)::placeholder {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* The box's height and type: 56px, a step down and up for the sizes. Dense
+     places (bars, filters, pickers, tables) keep the shorter controls. */
+  :root,
+  [data-size="md"] {
+    --md-field-block-size: 3.5rem;
+    --md-field-font-size: 1rem;
+    --md-field-line-height: 1.5rem;
+    --md-field-icon-size: 1.5rem;
+    --md-field-lift: 1rem;
+    --md-field-float: 0.375rem;
+  }
+  :is([data-size="xs"], [data-size="sm"]) {
+    --md-field-block-size: 3rem;
+    --md-field-font-size: 0.875rem;
+    --md-field-line-height: 1.25rem;
+    --md-field-icon-size: 1.25rem;
+    --md-field-lift: 0.75rem;
+    --md-field-float: 0.125rem;
+  }
+  :is([data-size="lg"], [data-size="xl"], [data-size="2xl"]) {
+    --md-field-block-size: 4rem;
+    --md-field-font-size: 1rem;
+    --md-field-line-height: 1.5rem;
+    --md-field-icon-size: 1.5rem;
+    --md-field-lift: 1.25rem;
+    --md-field-float: 0.625rem;
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control:not(:has(> input[type="range"]))):not(.canon-toolbar *, .canon-filter-bar *, .canon-pagination *, .canon-data-table *, .canon-color-popup *, .canon-command-palette *, .canon-top-bar *, .canon-page-header *, .canon-menu *, .canon-calendar *, .canon-rich *) {
+    --canon-control-block-size: var(--md-field-block-size);
+    --canon-control-font-size: var(--md-field-font-size);
+    --canon-control-padding-inline: 1rem;
+    --canon-theme-input-line-height: var(--md-field-line-height);
+    --canon-icon-size: var(--md-field-icon-size);
+  }
+  :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control) > .canon-button {
+    --_muted: var(--md-on-surface-variant);
+    --canon-control-block-size: 2.5rem;
+    --canon-theme-button-radius: 999px;
+    --canon-theme-fg: var(--md-on-surface-variant);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--md-hover);
+    --canon-theme-bg-active: var(--md-press);
+  }
+
+  /* An inline picker is its own surface: no field around it. */
+  .canon-date[data-inline] {
+    padding-inline: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .canon-date[data-inline]:hover {
+    background-color: transparent;
+  }
+
+  /* A prefix and a suffix are quiet text in the field, not segments. */
+  .canon-text-input > :is(.canon-text-input-prefix, .canon-text-input-suffix) {
+    flex: none;
+    padding-inline: 0;
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--md-on-surface-variant);
+  }
+
+  /* Floating label: the label sits in the box's cell. It rests where the
+     text would be while the field is empty and unfocused, and rises and
+     shrinks otherwise. Whatever else was in the label goes under the box,
+     where the supporting text belongs. */
+  .canon-field:has(> :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-date), > .canon-number > input:first-child):not(.canon-toolbar *, .canon-filter-bar *, .canon-pagination *, .canon-data-table *, .canon-color-popup *, .canon-command-palette *, .canon-top-bar *, .canon-page-header *, .canon-menu *, .canon-calendar *, [data-orientation="horizontal"], [data-orientation="horizontal"] *, :has(> [data-rich], > [data-inline])) {
+    --_start: 1rem;
+    --_label-y: 0px;
+    --_label-scale: 0.75;
+    --_label-color: var(--md-on-surface-variant);
+    grid-template-areas:
+      "control control"
+      "support action"
+      "message counter";
+
+    &:has(> .canon-password-strength, > .canon-password-rules) {
+      grid-template-areas:
+        "control  control"
+        "support  action"
+        "strength strength-label"
+        "rules    rules"
+        "message  counter";
+    }
+    &:has(> * > .canon-icon:first-child, > * > .canon-button:first-child) {
+      --_start: calc(1rem + var(--md-field-icon-size) + 0.75rem);
+    }
+    /* Empty and unfocused, and nothing else showing at the text's start. */
+    &:has(> * > :is(input, textarea):placeholder-shown:not(:focus, :autofill)):not(:has(> * > .canon-control-prefix)),
+    &:has(> * > select:not(:focus, :open) option[value=""]:checked):not(:has(> .canon-combobox:focus-within)) {
+      --_label-y: calc((var(--md-field-block-size) - var(--md-field-line-height)) / 2 - var(--md-field-float));
+      --_label-scale: 1;
+    }
+    &:has(> * > :is(input, textarea):placeholder-shown:not(:focus, :autofill)):not(:has(> * > .canon-control-prefix)) > * > :is(input, textarea)::placeholder {
+      color: transparent;
+    }
+    &:has(> * > select:not(:focus, :open) option[value=""]:checked):not(:has(> .canon-combobox:focus-within)) > * > select,
+    &:has(> * > select:not(:focus, :open) option[value=""]:checked):not(:has(> .canon-combobox:focus-within)) .canon-combobox-placeholder {
+      color: transparent;
+    }
+    &:has(> * > :is(input, textarea, select):focus, > .canon-combobox:focus-within) {
+      --_label-color: var(--md-primary);
+    }
+    &:has(> * > :is([aria-invalid="true"], :user-invalid)) {
+      --_label-color: var(--md-error);
+    }
+    &:has(> * > :disabled) {
+      --_label-color: var(--md-disabled);
+    }
+
+    > .canon-label {
+      display: contents;
+    }
+    > .canon-label > .canon-label-text {
+      grid-area: control;
+      z-index: 1;
+      align-self: start;
+      justify-self: start;
+      max-inline-size: calc(100% - var(--_start) - 3rem);
+      margin-block-start: var(--md-field-float);
+      margin-inline-start: var(--_start);
+      overflow: hidden;
+      color: var(--_label-color);
+      font-size: var(--md-field-font-size);
+      line-height: var(--md-field-line-height);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      transform-origin: 0 0;
+      translate: 0 var(--_label-y);
+      scale: var(--_label-scale);
+      transition: translate 0.15s var(--md-ease), scale 0.15s var(--md-ease), color 0.15s var(--md-ease);
+    }
+    > .canon-label > .canon-label-text:dir(rtl) {
+      transform-origin: 100% 0;
+    }
+    > .canon-label > .canon-label-description {
+      grid-area: support;
+      margin-block: 0.25rem 0;
+      padding-inline: 1rem;
+    }
+    > .canon-label > :not(.canon-label-text, .canon-label-description) {
+      grid-area: action;
+      justify-self: end;
+      margin-block-start: 0.25rem;
+    }
+    > .canon-field-action {
+      margin-block: 0.25rem 0;
+    }
+    > :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-textarea, .canon-color, .canon-date, .canon-control, .canon-number) {
+      margin-block-start: 0;
+    }
+    > :is(.canon-text-input, .canon-password, .canon-select, .canon-combobox, .canon-color, .canon-date, .canon-control) > :is(input, select) {
+      padding-block-start: var(--md-field-lift);
+    }
+    > .canon-number > input:first-child,
+    > .canon-text-input > :is(.canon-text-input-prefix, .canon-text-input-suffix),
+    > .canon-combobox > :is(.canon-combobox-trigger, .canon-combobox-input, .canon-combobox-tags),
+    > .canon-date > .canon-date-segments {
+      padding-block-start: var(--md-field-lift);
+    }
+    > .canon-textarea > textarea {
+      padding-block-start: calc(var(--md-field-lift) + (var(--md-field-block-size) - var(--md-field-line-height)) / 2);
+    }
+    > .canon-field-message {
+      padding-inline: 1rem;
+    }
+    > .canon-field-counter {
+      padding-inline-end: 1rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-field > .canon-label > .canon-label-text {
+      transition: none;
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Lists that float: Menu, Select's list, Popover                      */
+  /* ------------------------------------------------------------------ */
+
+  :is(.canon-menu, .canon-combobox-popup) {
+    --canon-control-block-size: 3rem;
+    padding-inline: 0;
+    padding-block: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--md-surface-container);
+    box-shadow: var(--canon-theme-shadow-floating);
+  }
+  :is(.canon-select, .canon-combobox) > select::picker(select) {
+    --canon-control-block-size: 3rem;
+    min-inline-size: anchor-size(inline);
+    margin-block: 0.25rem;
+    padding-inline: 0;
+    padding-block: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--md-surface-container);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--md-on-surface);
+  }
+  .canon-menu {
+    --_muted: var(--md-on-surface-variant);
+    --canon-control-padding-inline: 0.75rem;
+  }
+  .canon-menu-item.canon-menu-item {
+    --_fill: var(--md-hover);
+    --canon-icon-size: 1.5rem;
+    gap: 0.75rem;
+    border-radius: 0;
+  }
+  .canon-menu-heading {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.045em;
+  }
+  :is(.canon-select, .canon-combobox) > select option,
+  .canon-combobox-option {
+    --_fill: var(--md-hover);
+    border-radius: 0;
+  }
+  :is(.canon-select, .canon-combobox) > select option:checked,
+  .canon-combobox-option[aria-selected="true"] {
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    font-weight: 400;
+  }
+  :is(.canon-popover, .canon-color-popup, .canon-calendar[popover], .canon-command-palette) {
+    border-radius: 1rem;
+    background-color: var(--md-surface-high);
+    box-shadow: var(--canon-theme-shadow-floating);
+    color: var(--md-on-surface);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Choice                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* The line in the text's quieter color; chosen, the primary color. */
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_line: var(--md-on-surface-variant);
+  }
+  /* A 2px line on the whole control; a checkbox's corners 2px, its mark as
+     big as the box. A 40px circle behind it answers hover, press and focus. */
+  :root {
+    --canon-theme-icon-checkbox-check: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3'><path d='M3.5 12.5 9.5 18.5 20.5 6.5'/></svg>");
+    --canon-theme-icon-checkbox-dash: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3'><path d='M5 12h14'/></svg>");
+  }
+  .canon-choice:has(> input[type="checkbox"]:not([role="switch"])) {
+    --canon-choice-control-size: 1.125rem;
+  }
+  .canon-choice:has(> input[type="radio"]) {
+    --canon-choice-control-size: 1.25rem;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]) {
+    --_layer: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 0 calc((2.5rem - var(--canon-choice-control-size)) / 2) var(--_layer);
+    transition: box-shadow 0.15s var(--md-ease);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"])::before {
+    inset: 0;
+    border-width: 2px;
+    box-shadow: none;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"])::before {
+    border-radius: 2px;
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"])::after {
+    clip-path: inset(0 100% 0 0);
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):is(:checked, :indeterminate)::after {
+    clip-path: inset(0);
+    transition: clip-path 0.15s var(--md-ease);
+  }
+  .canon-choice > input[type="radio"]::after {
+    inset: 25%;
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled)):hover > input {
+      --_layer: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+    }
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled):is(:checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_layer: color-mix(in srgb, var(--md-primary) 8%, transparent);
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled):is(:focus-visible, :active) {
+    --_layer: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled):is(:checked, [type="checkbox"]:indeterminate):is(:focus-visible, :active) {
+    --_layer: color-mix(in srgb, var(--md-primary) 12%, transparent);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: calc((2.5rem - var(--canon-choice-control-size)) / 2);
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):focus-visible ~ .canon-choice-state::before {
+    content: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):active:not(:disabled) {
+    scale: none;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: var(--md-primary);
+    --_fill: var(--md-primary);
+    --_mark: var(--md-on-primary);
+  }
+  /* A chosen radio is a ring around a dot, not a filled circle. */
+  .canon-choice > input[type="radio"]:checked:not(:disabled) {
+    --_fill: transparent;
+    --_mark: var(--md-primary);
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):is([aria-invalid="true"], :user-invalid) {
+    --_line: var(--md-error);
+  }
+  .canon-choice > input[type="checkbox"]:not([role="switch"]):is([aria-invalid="true"], :user-invalid):is(:checked, :indeterminate) {
+    --_fill: var(--md-error);
+    --_mark: var(--md-on-error);
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):not(:disabled, :checked, [type="checkbox"]:indeterminate)):hover > input {
+      --_line: var(--md-on-surface);
+    }
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled {
+    --_line: var(--md-disabled);
+    --_fill: transparent;
+  }
+  .canon-choice > input:where([type="checkbox"]:not([role="switch"]), [type="radio"]):disabled:is(:checked, [type="checkbox"]:indeterminate) {
+    --_line: transparent;
+    --_fill: var(--md-disabled);
+    --_mark: var(--md-surface);
+  }
+  .canon-choice > input[type="radio"]:disabled:checked {
+    --_line: var(--md-disabled);
+    --_fill: transparent;
+    --_mark: var(--md-disabled);
+  }
+
+  /* Switch: 52 x 32, its 2px line included. A 16px outlined thumb that grows
+     to 24px with a check as the track fills, and to 28px while pressed. The
+     circle behind the thumb is 40px, whatever the thumb's size. */
+  .canon-choice:has(> input[role="switch"]) {
+    --canon-choice-control-size: 1.75rem;
+    --canon-choice-control-inline-size: 3rem;
+  }
+  .canon-choice:has(> input[role="switch"]):where([data-size="xs"], [data-size="sm"], [data-size="xs"] *, [data-size="sm"] *) {
+    --canon-choice-control-size: 1.25rem;
+    --canon-choice-control-inline-size: 2.25rem;
+  }
+  .canon-choice > input[role="switch"] {
+    --_track: var(--md-surface-highest);
+    --_ring: var(--md-outline);
+    --_thumb: var(--md-outline);
+    --_thumb-scale: 0.5714;
+    --_layer: transparent;
+    --_check: transparent;
+    box-shadow: 0 0 0 2px var(--_ring);
+    transition: background-color 0.2s var(--md-ease), box-shadow 0.2s var(--md-ease);
+  }
+  .canon-choice > input[role="switch"]::after {
+    box-shadow: 0 0 0 calc((2.5rem / var(--_thumb-scale) - var(--canon-choice-control-size)) / 2) var(--_layer);
+    scale: var(--_thumb-scale);
+    transition: inset-inline-start 0.2s var(--md-ease), scale 0.2s var(--md-ease), background-color 0.2s var(--md-ease), box-shadow 0.2s var(--md-ease);
+  }
+  .canon-choice > input[role="switch"]::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset-block-start: calc((var(--canon-choice-control-size) - 1rem) / 2);
+    inset-inline-start: calc(100% - var(--canon-choice-control-size) / 2 - 0.5rem);
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: var(--_check);
+    mask: var(--canon-theme-icon-check) center / contain no-repeat;
+    pointer-events: none;
+    scale: 0;
+    transition: scale 0.2s var(--md-ease);
+  }
+  .canon-choice > input[role="switch"]:checked {
+    --_track: var(--md-primary);
+    --_ring: var(--md-primary);
+    --_thumb: var(--md-on-primary);
+    --_thumb-scale: 0.8571;
+    --_check: var(--md-on-primary-container);
+  }
+  .canon-choice > input[role="switch"]:checked::before {
+    scale: 1;
+  }
+  @media (hover: hover) {
+    .canon-choice:has(> input[role="switch"]:not(:disabled)):hover > input {
+      --_thumb: var(--md-on-surface-variant);
+      --_layer: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+    }
+    .canon-choice:has(> input[role="switch"]:not(:disabled):checked):hover > input {
+      --_thumb: var(--md-primary-container);
+      --_layer: color-mix(in srgb, var(--md-primary) 8%, transparent);
+    }
+  }
+  .canon-choice > input[role="switch"]:not(:disabled):is(:focus-visible, :active) {
+    --_layer: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+  }
+  .canon-choice > input[role="switch"]:not(:disabled):checked:is(:focus-visible, :active) {
+    --_thumb: var(--md-primary-container);
+    --_layer: color-mix(in srgb, var(--md-primary) 12%, transparent);
+  }
+  .canon-choice > input[role="switch"]:not(:disabled):active {
+    --_thumb-scale: 1;
+  }
+  .canon-choice > input[role="switch"]:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 4px;
+  }
+  .canon-choice:not(:has(> .canon-choice-state)) > input[role="switch"]:focus-visible ~ .canon-choice-label::before,
+  .canon-choice > input[role="switch"]:focus-visible ~ .canon-choice-state::before {
+    content: none;
+  }
+  .canon-choice > input[role="switch"]:is([aria-invalid="true"], :user-invalid):not(:checked) {
+    --_track: var(--md-surface-highest);
+    --_ring: var(--md-error);
+    --_thumb: var(--md-error);
+  }
+  .canon-choice > input[role="switch"]:disabled {
+    --_track: var(--md-disabled-fill);
+    --_ring: var(--md-disabled-fill);
+    --_thumb: var(--md-disabled);
+  }
+  .canon-choice > input[role="switch"]:disabled:checked {
+    --_track: var(--md-disabled-fill);
+    --_ring: transparent;
+    --_thumb: var(--md-surface);
+    --_check: var(--md-disabled);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canon-choice > input[role="switch"],
+    .canon-choice > input[role="switch"]::before,
+    .canon-choice > input[role="switch"]::after {
+      transition: none;
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Slider                                                              */
+  /* ------------------------------------------------------------------ */
+
+  /* A 16px track cut by a gap around a 4px handle, 44px tall. */
+  .canon-control:has(> input[type="range"]) {
+    --_line: var(--md-primary);
+    --_middle: var(--md-primary);
+    --_inactive: var(--md-secondary-container);
+    --_gap: 0.5rem;
+    --canon-slider-track: transparent;
+    --canon-slider-track-size: 1rem;
+    --canon-slider-track-radius: 0.5rem;
+    --canon-slider-thumb-inline-size: 0.25rem;
+    --canon-slider-thumb-block-size: 2.75rem;
+    --canon-slider-thumb-radius: 999px;
+    --canon-slider-thumb-border: 0;
+  }
+  .canon-control:has(> input[type="range"]:is([aria-invalid="true"], :user-invalid)) {
+    --_line: var(--md-error);
+    --_middle: var(--md-error);
+    --_inactive: var(--md-error-container);
+  }
+  .canon-control:has(> input[type="range"]:disabled) {
+    --_line: var(--md-disabled);
+    --_middle: var(--md-disabled);
+    --_inactive: var(--md-disabled-fill);
+  }
+  .canon-control > input[type="range"] {
+    --canon-slider-track-image: linear-gradient(var(--canon-slider-direction),
+      var(--_line) calc(var(--canon-slider-pos-end) - var(--_gap)),
+      transparent calc(var(--canon-slider-pos-end) - var(--_gap)) calc(var(--canon-slider-pos-end) + var(--_gap)),
+      var(--_inactive) calc(var(--canon-slider-pos-end) + var(--_gap)));
+  }
+  .canon-control > input[type="range"]:has(~ input[type="range"]) {
+    --canon-slider-track-image: linear-gradient(var(--canon-slider-direction),
+      var(--_inactive) calc(var(--canon-slider-pos-start) - var(--_gap)),
+      transparent calc(var(--canon-slider-pos-start) - var(--_gap)) calc(var(--canon-slider-pos-start) + var(--_gap)),
+      var(--_line) calc(var(--canon-slider-pos-start) + var(--_gap)) calc(var(--canon-slider-pos-end) - var(--_gap)),
+      transparent calc(var(--canon-slider-pos-end) - var(--_gap)) calc(var(--canon-slider-pos-end) + var(--_gap)),
+      var(--_inactive) calc(var(--canon-slider-pos-end) + var(--_gap)));
+  }
+  .canon-control > input[type="range"] ~ input[type="range"] {
+    --canon-slider-track-image: none;
+  }
+  .canon-control > input[type="range"]:focus-visible {
+    --canon-slider-thumb-shadow: 0 0 0 2px var(--md-surface), 0 0 0 4px var(--canon-theme-focus);
+  }
+  /* The value: an inverse pill over the handle, no arrow. */
+  .canon-control:has(> input[type="range"]) > output {
+    padding: 0.375rem 0.75rem;
+    border-color: transparent;
+    border-radius: 999px;
+    background-color: var(--md-inverse-surface);
+    color: var(--md-inverse-on-surface);
+    box-shadow: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    inset-block-end: calc(50% + 1.625rem);
+  }
+  .canon-control:has(> input[type="range"]) > output::before,
+  .canon-control:has(> input[type="range"]) > output::after {
+    content: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                                */
+  /* ------------------------------------------------------------------ */
+
+  /* One line under the whole strip; the current tab colored, on a thick
+     line of its own. */
+  .canon-tabs-list {
+    --_card-bg: transparent;
+    --_card-shadow: 0 0 transparent;
+    --_track: calc(var(--canon-control-block-size) + 0.5rem);
+    inline-size: auto;
+    gap: 0;
+    padding: 0;
+    padding-inline-end: var(--canon-tabs-more-size, 0px);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 var(--md-outline-variant);
+  }
+  .canon-tabs-list::before {
+    top: calc(anchor(bottom) - 3px);
+    border-radius: 3px 3px 0 0;
+    background-color: var(--md-primary);
+    box-shadow: none;
+  }
+  .canon-segmented::before {
+    border-radius: 0;
+  }
+  .canon-tab,
+  .canon-tabs-more {
+    --_track: calc(var(--canon-control-block-size) + 0.5rem);
+    --_fg: var(--md-on-surface-variant);
+    block-size: var(--_track);
+    border-radius: 0;
+  }
+  .canon-tab:where([data-display="icon"] *) {
+    inline-size: var(--_track);
+  }
+  .canon-tabs > .canon-tabs-more {
+    margin-inline-end: 0;
+  }
+  @media (hover: hover) {
+    .canon-tab:hover:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+    .canon-tabs-more:hover {
+      --_fg: var(--md-on-surface);
+      --_bg: var(--md-hover);
+    }
+    .canon-tab:is([aria-selected="true"], [aria-current="page"]):hover {
+      --_bg: color-mix(in srgb, var(--md-primary) 8%, transparent);
+    }
+  }
+  .canon-tab:active:not([aria-selected="true"], [aria-current="page"], [aria-disabled="true"]),
+  .canon-tabs-more:active {
+    --_bg: var(--md-press);
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) {
+    --_fg: var(--md-primary);
+  }
+  .canon-tab[aria-disabled="true"] {
+    --_fg: var(--md-disabled);
+  }
+  .canon-tab:is([aria-selected="true"], [aria-current="page"]) > .canon-count {
+    background-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .canon-tab:focus-visible,
+  .canon-tabs-more:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+  .canon-tabs-panel {
+    border-radius: 0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Segmented Control                                                   */
+  /* ------------------------------------------------------------------ */
+
+  /* An outlined pill cut by lines; the chosen part tinted, with a check. */
+  .canon-segmented {
+    --_card-bg: var(--md-secondary-container);
+    --_card-ring: 0 0 transparent;
+    --_card-shadow: 0 0 transparent;
+    gap: 0;
+    padding: 0;
+    overflow: clip;
+    border-color: var(--md-outline);
+    background-color: transparent;
+  }
+  .canon-segmented-option {
+    --_fg: var(--md-on-surface);
+    block-size: calc(var(--_track) - 2px);
+    border: 0;
+    border-radius: 0;
+  }
+  .canon-segmented-option:where([data-display="icon"] *) {
+    inline-size: var(--_track);
+  }
+  .canon-segmented-option:not(:first-child) {
+    border-inline-start: 1px solid var(--md-outline);
+  }
+  @media (hover: hover) {
+    .canon-segmented-option:hover:not(:has(> input:is(:checked, :disabled))) {
+      --_fg: var(--md-on-surface);
+      --_bg: var(--md-hover);
+    }
+  }
+  .canon-segmented-option:active:not(:has(> input:is(:checked, :disabled))) {
+    --_bg: var(--md-press);
+  }
+  .canon-segmented-option:has(> input:checked) {
+    --_fg: var(--md-on-secondary-container);
+  }
+  .canon-segmented-option:has(> input:checked):not(:has(> .canon-icon))::before {
+    content: "";
+    flex: none;
+    inline-size: var(--canon-icon-size);
+    block-size: var(--canon-icon-size);
+    background-color: currentColor;
+    mask: var(--canon-theme-icon-check) center / contain no-repeat;
+  }
+  .canon-segmented-option:has(> input:disabled) {
+    --_fg: var(--md-disabled);
+  }
+  .canon-segmented-option:has(> input:checked:disabled) {
+    --_fg: var(--md-disabled);
+    --_bg: var(--md-disabled-fill);
+  }
+  .canon-segmented-option:has(> input:focus-visible) {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Chips and Tag                                                       */
+  /* ------------------------------------------------------------------ */
+
+  .canon-toggle-chip {
+    --_fg: var(--md-on-surface-variant);
+    --_icon: var(--md-primary);
+    --_line: var(--md-outline);
+    border-radius: 0.5rem;
+  }
+  @media (hover: hover) {
+    .canon-toggle-chip:hover:not(:has(> input:disabled)) {
+      --_bg: var(--md-hover);
+      --_line: var(--md-outline);
+    }
+    .canon-toggle-chip:has(> input:checked):hover:not(:has(> input:disabled)) {
+      --_bg: color-mix(in srgb, var(--md-secondary-container), var(--md-on-secondary-container) 8%);
+      --_line: var(--_bg);
+    }
+  }
+  .canon-toggle-chip:active:not(:has(> input:disabled)) {
+    --_bg: var(--md-press);
+  }
+  .canon-toggle-chip:has(> input:checked) {
+    --_fg: var(--md-on-secondary-container);
+    --_bg: var(--md-secondary-container);
+    --_line: var(--_bg);
+  }
+  .canon-toggle-chip:has(> input:checked):active:not(:has(> input:disabled)) {
+    --_bg: color-mix(in srgb, var(--md-secondary-container), var(--md-on-secondary-container) 12%);
+    --_line: var(--_bg);
+  }
+
+  /* Small rounded tags in container colors. A status reads as a tag too:
+     no capitals. */
+  .canon-tag:not([data-size], [data-size] *, [data-intent], .canon-table *, .canon-nav-list *, .canon-page-header *, .canon-combobox *) {
+    --canon-theme-tag-padding: 0.375rem;
+    --canon-theme-tag-gap: 0.25rem;
+    --canon-theme-tag-label-inset: 0.25rem;
+    --canon-theme-tag-font-size: 0.875rem;
+    --canon-theme-tag-line-height: 1.25rem;
+    --canon-theme-tag-tracking: 0.007em;
+    font-weight: 500;
+  }
+  .canon-tag {
+    --_z-tint: var(--md-surface-high);
+    --_z-on-tint: var(--md-on-surface-variant);
+    border-radius: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .canon-tag[data-intent] {
+    font-size: var(--canon-theme-tag-font-size);
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+  .canon-tag[data-intent="info"]    { --_h-tint: var(--md-primary-container); --_h-on-tint: var(--md-on-primary-container); }
+  .canon-tag[data-intent="success"] { --_h-tint: var(--md-success-container); --_h-on-tint: var(--md-on-success-container); }
+  .canon-tag[data-intent="warning"] { --_h-tint: var(--md-warning-container); --_h-on-tint: var(--md-on-warning-container); }
+  .canon-tag[data-intent="danger"]  { --_h-tint: var(--md-error-container); --_h-on-tint: var(--md-on-error-container); }
+
+  /* ------------------------------------------------------------------ */
+  /* Card, Table, Dialog                                                 */
+  /* ------------------------------------------------------------------ */
+
+  .canon-card {
+    --_line: var(--md-outline-variant);
+    background-color: var(--md-surface-low);
+    color: var(--md-on-surface);
+  }
+  .canon-card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+  .canon-section-title {
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+    letter-spacing: 0;
+  }
+  :is(.canon-card-description, .canon-section-description) {
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.018em;
+  }
+
+  .canon-table {
+    --_bg: transparent;
+    --_stripe: var(--md-surface-low);
+    --_hover: var(--md-hover);
+    --_selected: var(--md-secondary-container);
+    box-shadow: 0 0 0 1px var(--md-outline-variant);
+  }
+  .canon-table thead th,
+  .canon-table thead td {
+    border-block-end-color: var(--md-outline-variant);
+    background-color: transparent;
+    color: var(--md-on-surface);
+    font-weight: 500;
+  }
+  .canon-data-table thead :is(th, td),
+  .canon-data-table thead :is(th, td)[data-pinned] {
+    background-color: var(--md-surface);
+  }
+
+  /* Very round, no lines between its parts, the buttons at the end. */
+  .canon-dialog {
+    border-radius: 1.75rem;
+    background-color: var(--md-surface-high);
+    box-shadow: var(--canon-theme-shadow-overlay);
+    color: var(--md-on-surface);
+  }
+  .canon-dialog::backdrop {
+    background-color: rgb(0 0 0 / 0.32);
+    backdrop-filter: none;
+  }
+  /* A side sheet: against the edge, rounded on its inner side. */
+  .canon-dialog[data-side] {
+    --canon-drawer-inset: 0px;
+    border-radius: 0;
+    background-color: var(--md-surface-low);
+  }
+  .canon-dialog[data-side="end"] {
+    border-start-start-radius: 1rem;
+    border-end-start-radius: 1rem;
+  }
+  .canon-dialog[data-side="start"] {
+    border-start-end-radius: 1rem;
+    border-end-end-radius: 1rem;
+  }
+  .canon-dialog-header {
+    padding-block: 1.5rem 0.5rem;
+    padding-inline: 1.5rem 0.75rem;
+    border-block-end: 0;
+    align-items: start;
+  }
+  .canon-dialog-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2rem;
+    letter-spacing: 0;
+  }
+  .canon-dialog-body,
+  .canon-dialog-section {
+    padding: 0.5rem 1.5rem 1rem;
+    color: var(--md-on-surface-variant);
+  }
+  .canon-dialog-section + .canon-dialog-section {
+    border-block-start: 0;
+  }
+  .canon-dialog-footer {
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem 1.5rem;
+    border-block-start: 0;
+    background-color: transparent;
+  }
+  /* A dialog's actions are text buttons, in the primary color unless an
+     intent says otherwise. A side sheet keeps its filled and outlined ones. */
+  .canon-dialog:not([data-side]) .canon-dialog-footer > .canon-button.canon-button.canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: var(--_text);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: color-mix(in srgb, var(--_text) 8%, transparent);
+    --canon-theme-bg-active: color-mix(in srgb, var(--_text) 12%, transparent);
+    --canon-theme-border: transparent;
+    box-shadow: none;
+  }
+  .canon-dialog:not([data-side]) .canon-dialog-footer > .canon-button:not([data-intent="success"], [data-intent="warning"], [data-intent="danger"]) {
+    --_text: var(--md-primary);
+  }
+  .canon-dialog:not([data-side]) .canon-dialog-footer > .canon-button > .canon-icon {
+    color: inherit;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Alert, Toast, Tooltip                                               */
+  /* ------------------------------------------------------------------ */
+
+  /* A whole surface in the intent's container color. */
+  .canon-alert {
+    border-radius: 0.75rem;
+    box-shadow: none;
+  }
+  .canon-alert:not([data-intent]) {
+    background-color: var(--md-surface-high);
+    color: var(--md-on-surface);
+  }
+  .canon-alert[data-intent]:not([data-emphasis="high"]) {
+    background-color: var(--_tint);
+    color: var(--_on);
+  }
+  .canon-alert[data-intent="info"]    { --_tint: var(--md-primary-container); --_on: var(--md-on-primary-container); --_tone: var(--md-primary); }
+  .canon-alert[data-intent="success"] { --_tint: var(--md-success-container); --_on: var(--md-on-success-container); --_tone: var(--md-success); }
+  .canon-alert[data-intent="warning"] { --_tint: var(--md-warning-container); --_on: var(--md-on-warning-container); --_tone: var(--md-warning); }
+  .canon-alert[data-intent="danger"]  { --_tint: var(--md-error-container); --_on: var(--md-on-error-container); --_tone: var(--md-error); }
+  .canon-alert-description {
+    color: inherit;
+  }
+
+  /* A snackbar: dark on a light page, light on a dark one, whatever the
+     intent; only the icon carries it. */
+  .canon-toast:not([data-emphasis="high"]),
+  .canon-toast[data-intent]:not([data-emphasis="high"]) {
+    --_bar: transparent;
+    border-radius: 0.25rem;
+    background-color: var(--md-inverse-surface);
+    color: var(--md-inverse-on-surface);
+    box-shadow: var(--canon-theme-shadow-overlay);
+  }
+  .canon-toast[data-intent="info"]:not([data-emphasis="high"])    { --_bar: transparent; --_tone: var(--md-inverse-primary); }
+  .canon-toast[data-intent="success"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: light-dark(#9fd67b, #386a20); }
+  .canon-toast[data-intent="warning"]:not([data-emphasis="high"]) { --_bar: transparent; --_tone: light-dark(#f9bd22, #7c5800); }
+  .canon-toast[data-intent="danger"]:not([data-emphasis="high"])  { --_bar: transparent; --_tone: light-dark(#f2b8b5, #b3261e); }
+
+  .canon-toast:not([data-emphasis="high"]) .canon-toast-description,
+  .canon-toast:not([data-emphasis="high"]) .canon-toast-close {
+    color: color-mix(in srgb, var(--md-inverse-on-surface) 80%, transparent);
+  }
+
+  .canon-toast:not([data-emphasis="high"]) .canon-button {
+    --_text: var(--md-inverse-primary);
+    --_c: transparent;
+    --_on-c: var(--md-inverse-primary);
+  }
+  .canon-toast:not([data-emphasis="high"]) .canon-toast-title {
+    font-weight: 500;
+  }
+
+  /* Plain: an inverse block with no arrow. */
+  .canon-tooltip {
+    --canon-theme-tooltip-bg: var(--md-inverse-surface);
+    --canon-theme-tooltip-border: transparent;
+    color: var(--md-inverse-on-surface);
+    box-shadow: none;
+  }
+  .canon-tooltip::before,
+  .canon-tooltip::after {
+    content: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Calendar                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* Round days; the chosen one filled, a range on a tinted band. */
+  .canon-calendar,
+  .canon-date-strip {
+    --canon-theme-input-radius: 999px;
+    --_chosen: var(--md-primary);
+    --_on-chosen: var(--md-on-primary);
+    --_band: var(--md-secondary-container);
+    --_band-muted: var(--md-on-surface-variant);
+    border-radius: 1rem;
+  }
+  .canon-calendar {
+    background-color: var(--md-surface-high);
+  }
+  .canon-calendar-cell {
+    font-weight: 400;
+  }
+  .canon-calendar-cell[data-outside] {
+    color: var(--md-disabled);
+  }
+  /* Today: a 1px ring, in the primary color. */
+  .canon-calendar-cell[aria-current="date"] {
+    color: var(--md-primary);
+  }
+  .canon-calendar-cell[aria-current="date"]::after {
+    inset: 0;
+    inline-size: auto;
+    block-size: auto;
+    border: 1px solid var(--md-primary);
+    background-color: transparent;
+  }
+  .canon-calendar-grid [aria-selected="true"] > .canon-calendar-cell[aria-current="date"] {
+    color: var(--_on-chosen);
+  }
+  .canon-calendar-grid [aria-selected="true"] > .canon-calendar-cell[aria-current="date"]::after {
+    border-color: transparent;
+  }
+  .canon-calendar-cell:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Controls that aren't one box: Number, Input OTP, Time               */
+  /* ------------------------------------------------------------------ */
+
+  /* Filled like the text field, its label staying above. */
+  .canon-number:not(.canon-toolbar *, .canon-data-table *) {
+    --canon-control-block-size: var(--md-field-block-size);
+    --canon-control-font-size: var(--md-field-font-size);
+    --canon-icon-size: var(--md-field-icon-size);
+    border-radius: 0.25rem 0.25rem 0 0;
+    background-color: var(--md-surface-highest);
+    box-shadow: inset 0 -1px 0 var(--md-on-surface-variant);
+  }
+  .canon-number > input,
+  .canon-number:has(> input:first-child ~ .canon-button) > input {
+    background-color: transparent;
+  }
+  .canon-number:has(> input:first-child ~ .canon-button) {
+    background-color: var(--md-surface-highest);
+  }
+  .canon-number:has(> input:focus) {
+    box-shadow: inset 0 -2px 0 var(--md-primary);
+  }
+  .canon-number:has(> [aria-invalid="true"], > :user-invalid) {
+    box-shadow: inset 0 -1px 0 var(--md-error);
+  }
+  .canon-number:has(> input:disabled),
+  .canon-number:has(> input:first-child ~ .canon-button):has(> input:disabled) {
+    background-color: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
+    box-shadow: inset 0 -1px 0 var(--md-disabled);
+    color: var(--md-disabled);
+  }
+  .canon-number > .canon-button.canon-button.canon-button {
+    --canon-theme-fg: var(--md-on-surface-variant);
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: var(--md-hover);
+    --canon-theme-bg-active: var(--md-press);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .canon-otp {
+    --_bg: var(--md-surface-highest);
+    --canon-control-block-size: var(--md-field-block-size);
+    --canon-control-font-size: 1.375rem;
+  }
+  .canon-otp:where(:has(> :disabled)) {
+    --_bg: color-mix(in srgb, var(--md-on-surface) 4%, transparent);
+    color: var(--md-disabled);
+  }
+  .canon-otp > input,
+  .canon-otp-cell {
+    border-color: transparent;
+    border-radius: 0.25rem 0.25rem 0 0;
+    box-shadow: inset 0 -1px 0 var(--md-on-surface-variant);
+  }
+  .canon-otp > input:focus,
+  .canon-otp-cell[data-active] {
+    box-shadow: inset 0 -2px 0 var(--md-primary);
+  }
+  .canon-otp-separator {
+    background-color: var(--md-outline);
+  }
+
+  /* Large tinted cells; the one being set in its primary container. */
+  .canon-time {
+    --canon-control-font-size: var(--md-field-font-size);
+  }
+  .canon-time-cell,
+  .canon-time:not(:has(> .canon-time-segments)) > input {
+    border-color: transparent;
+    border-radius: 0.5rem;
+    background-color: var(--md-surface-highest);
+    box-shadow: none;
+    color: var(--md-on-surface);
+  }
+  .canon-time-cell[data-active] {
+    background-color: var(--md-primary-container);
+    box-shadow: 0 0 0 2px var(--md-primary);
+    color: var(--md-on-primary-container);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Navigation                                                          */
+  /* ------------------------------------------------------------------ */
+
+  /* A drawer: tall rows; the current page on a tinted pill. */
+  .canon-nav-list {
+    --canon-control-block-size: 3.5rem;
+    --canon-icon-size: 1.5rem;
+    color: var(--md-on-surface-variant);
+  }
+  .canon-nav-list-item {
+    padding-inline: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s var(--md-ease), color 0.2s var(--md-ease);
+  }
+  .canon-nav-list-item > .canon-icon {
+    color: inherit;
+  }
+  @media (hover: hover) {
+    .canon-nav-list-item:hover {
+      background-color: var(--md-hover);
+      color: var(--md-on-surface);
+    }
+    .canon-nav-list-item:is([aria-current="page"], [data-current]):hover {
+      background-color: color-mix(in srgb, var(--md-secondary-container), var(--md-on-secondary-container) 8%);
+      color: var(--md-on-secondary-container);
+    }
+  }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) {
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+  }
+  .canon-nav-list-item:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+
+  .canon-nav-list-item {
+    padding-inline: 1rem 1.5rem;
+  }
+  .canon-nav-list-heading {
+    padding-inline: 1rem;
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    letter-spacing: 0.007em;
+    text-transform: none;
+  }
+  /* A rail: 80px wide, its current item a 56 x 32 pill. */
+  .canon-sidebar[data-display="icon"] {
+    inline-size: 5rem;
+  }
+  .canon-sidebar[data-display="icon"] > * {
+    padding-inline: 0.75rem;
+  }
+  .canon-nav-list:where([data-display="icon"], [data-display="icon"] *) .canon-nav-list-item:not(.canon-nav-list-section > ul *) {
+    justify-content: center;
+    min-block-size: 2rem;
+    margin-block: 0.75rem;
+    padding-inline: 0;
+  }
+
+  /* The shell: a tinted drawer beside a plain page, no lines between. */
+  .canon-sidebar {
+    border-color: transparent;
+    background-color: var(--md-surface-low);
+    box-shadow: none;
+    color: var(--md-on-surface);
+  }
+  .canon-sidebar[data-drawer] {
+    border-start-end-radius: 1rem;
+    border-end-end-radius: 1rem;
+    box-shadow: var(--canon-theme-shadow-overlay);
+  }
+  .canon-top-bar {
+    min-block-size: 4rem;
+    border-color: transparent;
+    background-color: var(--md-surface);
+    color: var(--md-on-surface);
+  }
+  /* Its search is a search bar: a tinted pill, no frame. */
+  .canon-top-bar .canon-button[command="show-modal"].canon-button.canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-control-block-size: 3rem;
+    --canon-theme-fg: var(--md-on-surface-variant);
+    --canon-theme-bg: var(--md-surface-high);
+    --canon-theme-bg-hover: color-mix(in srgb, var(--md-surface-high), var(--md-on-surface) 8%);
+    --canon-theme-bg-active: color-mix(in srgb, var(--md-surface-high), var(--md-on-surface) 12%);
+    --canon-theme-border: transparent;
+  }
+  /* A floating toolbar: a pill of bare controls. */
+  .canon-toolbar:not(.canon-textarea *, .canon-top-bar *) {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding: 0.5rem;
+    border-radius: 1.75rem;
+    background-color: var(--md-surface-container);
+    box-shadow: var(--canon-theme-shadow-floating);
+  }
+  .canon-toolbar > .canon-button.canon-button.canon-button.canon-button[data-emphasis="low"]:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-border: transparent;
+  }
+
+  .canon-page-header {
+    color: var(--md-on-surface);
+  }
+  .canon-page-header-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 2.25rem;
+    letter-spacing: 0;
+  }
+  .canon-page-header-back,
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more) {
+    color: var(--md-on-surface-variant);
+  }
+
+  .canon-pagination > ol > li > :is(a, button) {
+    color: var(--md-on-surface-variant);
+    transition: background-color 0.2s var(--md-ease);
+  }
+  .canon-pagination > ol > li > :is(a, button)[aria-current="page"] {
+    border-color: transparent;
+    background-color: var(--md-secondary-container);
+    box-shadow: none;
+    color: var(--md-on-secondary-container);
+  }
+  @media (hover: hover) {
+    .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):hover {
+      background-color: var(--md-hover);
+    }
+  }
+  .canon-pagination > ol > li > :is(a[href], button:enabled):not([aria-current="page"]):active {
+    background-color: var(--md-press);
+  }
+  .canon-pagination > ol > li > :is(a, button):focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  .canon-menubar {
+    border-radius: 0.25rem;
+    background-color: var(--md-surface-container);
+    box-shadow: var(--canon-theme-shadow-raised);
+  }
+  .canon-menubar-item {
+    border-radius: 0;
+    color: var(--md-on-surface);
+  }
+  .canon-menubar-item:is(:focus-visible, [aria-expanded="true"]):not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+  }
+  @media (hover: hover) {
+    .canon-menubar-item:hover:not(:disabled, [aria-disabled="true"]) {
+      background-color: var(--md-hover);
+      color: var(--md-on-surface);
+    }
+  }
+
+  /* A search view: very round, its rows on the surface. */
+  .canon-command-palette {
+    --_line: var(--md-outline-variant);
+    border-radius: 1.75rem;
+    box-shadow: var(--canon-theme-shadow-overlay);
+  }
+  .canon-command-item {
+    --canon-control-block-size: 3.5rem;
+    border-radius: 0;
+  }
+  .canon-command-item[aria-selected="true"] {
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+  }
+  .canon-command-search > input::placeholder {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* Filters are filter chips. */
+  .canon-filter-bar-button {
+    --_fg: var(--md-on-surface-variant);
+    --_line: var(--md-outline);
+    --canon-control-block-size: 2rem;
+    border-radius: 0.5rem;
+  }
+  @media (hover: hover) {
+    .canon-filter-bar-button:hover {
+      --_bg: var(--md-hover);
+      --_line: var(--md-outline);
+    }
+    .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:hover {
+      --_bg: color-mix(in srgb, var(--md-secondary-container), var(--md-on-secondary-container) 8%);
+    }
+  }
+  .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_bg: var(--md-press);
+  }
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button,
+  .canon-filter-bar-facet[data-active] > .canon-filter-bar-button:is([aria-expanded="true"], :active) {
+    --_fg: var(--md-on-secondary-container);
+    --_bg: var(--md-secondary-container);
+    --_line: transparent;
+  }
+  .canon-filter-bar .canon-toggle-chip {
+    block-size: 2rem;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Data                                                                */
+  /* ------------------------------------------------------------------ */
+
+  /* Rows 52px under a 56px header, one thin line between. */
+  .canon-data-table .canon-table {
+    --_row-extra: 0.75rem;
+  }
+  .canon-data-table thead :is(th, td) {
+    block-size: 3.5rem;
+  }
+  .canon-data-table-sort:hover,
+  .canon-data-table-sort:focus-visible {
+    color: var(--md-primary);
+  }
+  .canon-data-table-sort:focus-visible,
+  .canon-data-table-edit:focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+  .canon-data-table-bulk.canon-data-table-bulk {
+    border-radius: 1rem;
+    background-color: var(--md-surface-high);
+    box-shadow: var(--canon-theme-shadow-overlay);
+    color: var(--md-on-surface);
+  }
+
+  .canon-accordion {
+    --_line: var(--md-outline-variant);
+    color: var(--md-on-surface);
+  }
+  .canon-accordion-summary {
+    min-block-size: 3.5rem;
+    padding-inline: 1rem;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: background-color 0.2s var(--md-ease);
+  }
+  @media (hover: hover) {
+    .canon-accordion-summary:hover {
+      background-color: var(--md-hover);
+    }
+  }
+  .canon-accordion-summary:active {
+    background-color: var(--md-press);
+  }
+  .canon-accordion-content {
+    padding-inline: 1rem;
+    color: var(--md-on-surface-variant);
+  }
+
+  .canon-description-list {
+    --_line: var(--md-outline-variant);
+    color: var(--md-on-surface);
+  }
+  .canon-description-list > div > dt {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* Plain, large and light. */
+  .canon-stat-label,
+  .canon-stat-description {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-stat-value {
+    font-weight: 400;
+  }
+
+  .canon-avatar {
+    --_bg: var(--md-primary-container);
+    --_fg: var(--md-on-primary-container);
+  }
+  .canon-avatar[data-seed-slot] {
+    --_rim: transparent;
+  }
+
+  /* A badge: the error color, whatever it sits on. */
+  .canon-count {
+    min-inline-size: 1rem;
+    block-size: 1rem;
+    padding-inline: 0.25rem;
+    background-color: var(--md-error);
+    color: var(--md-on-error);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1rem;
+  }
+  .canon-tab > .canon-count {
+    background-color: var(--md-surface-highest);
+    color: var(--md-on-surface-variant);
+  }
+
+  .canon-code-block {
+    --_line: var(--md-outline-variant);
+    --_code-bg: var(--md-surface-low);
+    background-color: var(--md-surface-container);
+  }
+  .canon-code-block-title {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-code-block > pre {
+    color: var(--md-on-surface);
+  }
+
+  .canon-kbd.canon-kbd {
+    border: 0;
+    background-color: var(--md-surface-highest);
+    box-shadow: none;
+    color: var(--md-on-surface-variant);
+  }
+  .canon-link {
+    --_fg: var(--md-primary);
+    text-underline-offset: 0.15em;
+  }
+  .canon-link:is(:disabled, [aria-disabled="true"]) {
+    --_fg: var(--md-disabled);
+  }
+  .canon-fieldset-legend {
+    color: var(--md-on-surface);
+    font-weight: 500;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Feedback                                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* A banner across the top, in the intent's container. */
+  .canon-banner {
+    --_bg: var(--md-surface-high);
+    --_line: transparent;
+    min-block-size: 3.25rem;
+    color: var(--md-on-surface);
+  }
+  .canon-banner[data-intent="info"]    { --_bg: var(--md-primary-container); --_line: transparent; color: var(--md-on-primary-container); }
+  .canon-banner[data-intent="success"] { --_bg: var(--md-success-container); --_line: transparent; color: var(--md-on-success-container); }
+  .canon-banner[data-intent="warning"] { --_bg: var(--md-warning-container); --_line: transparent; color: var(--md-on-warning-container); }
+  .canon-banner[data-intent="danger"]  { --_bg: var(--md-error-container); --_line: transparent; color: var(--md-on-error-container); }
+  .canon-banner-description {
+    color: inherit;
+  }
+  .canon-banner-close {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border-radius: 50%;
+    color: inherit;
+  }
+
+  /* A round badge, tinted. */
+  .canon-empty-state-icon {
+    border-radius: 50%;
+    clip-path: none;
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+  }
+  .canon-empty-state[data-intent="danger"] .canon-empty-state-icon {
+    background: var(--md-error-container);
+    color: var(--md-on-error-container);
+  }
+  .canon-empty-state-title {
+    color: var(--md-on-surface);
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+  }
+  .canon-empty-state-description {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* A thick arc with no track. */
+  :root {
+    --canon-theme-icon-loader: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='black' stroke-width='7' stroke-linecap='round'><circle cx='24' cy='24' r='20' stroke-dasharray='88 38'/></svg>");
+    --canon-theme-icon-loader-track: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'/>");
+  }
+  .canon-spinner {
+    color: var(--md-primary);
+    animation-duration: 1.2s;
+  }
+  .canon-spinner-label {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-skeleton {
+    background-color: var(--md-surface-highest);
+  }
+
+  /* A floating bar of its own. */
+  .canon-save-bar {
+    background-color: var(--md-surface-high);
+    color: var(--md-on-surface);
+  }
+  .canon-card > .canon-save-bar {
+    background-color: var(--md-surface-high);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Split Button, Split Pane                                            */
+  /* ------------------------------------------------------------------ */
+
+  /* Two pills pressed together: a small gap, the inner corners tight. */
+  .canon-split-button {
+    --canon-theme-button-radius: calc(var(--canon-control-block-size) / 2);
+    gap: 2px;
+  }
+  .canon-split-button > .canon-button:first-child {
+    border-start-end-radius: 0.25rem;
+    border-end-end-radius: 0.25rem;
+  }
+  .canon-split-button > .canon-button:last-child {
+    border-start-start-radius: 0.25rem;
+    border-end-start-radius: 0.25rem;
+    box-shadow: none;
+  }
+  .canon-split-button > .canon-button {
+    --_divider: transparent;
+  }
+
+  /* A drag handle in the gutter, 4 x 48, with no line; 12 x 52 while held. */
+  .canon-split-pane-handle {
+    background-color: transparent;
+  }
+  .canon-split-pane-handle::after,
+  .canon-split-pane-handle:hover::after {
+    inline-size: 4px;
+    block-size: 48px;
+    border-radius: 999px;
+    background-color: var(--md-outline);
+  }
+  .canon-split-pane-handle[aria-orientation="horizontal"]::after,
+  .canon-split-pane-handle[aria-orientation="horizontal"]:hover::after {
+    inline-size: 48px;
+    block-size: 4px;
+  }
+  .canon-split-pane[data-state="resizing"] > .canon-split-pane-handle::after,
+  .canon-split-pane-handle:focus-visible::after {
+    inline-size: 12px;
+    block-size: 52px;
+    background-color: var(--md-on-surface);
+  }
+  .canon-split-pane[data-state="resizing"] > .canon-split-pane-handle[aria-orientation="horizontal"]::after,
+  .canon-split-pane-handle[aria-orientation="horizontal"]:focus-visible::after {
+    inline-size: 52px;
+    block-size: 12px;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* What the library would add: components it has no page for, drawn    */
+  /* from the nearest ones it does                                       */
+  /* ------------------------------------------------------------------ */
+
+  /* Data Table: a tinted header and selection; its bulk bar a floating
+     toolbar. */
+  .canon-data-table .canon-table {
+    --_selected: color-mix(in srgb, var(--md-primary) 12%, transparent);
+  }
+  .canon-data-table thead :is(th, td),
+  .canon-data-table thead :is(th, td)[data-pin],
+  .canon-data-table thead :is(th, td)[data-pinned] {
+    background-color: var(--md-surface-container);
+  }
+  .canon-data-table-bulk.canon-data-table-bulk {
+    border-radius: 1.75rem;
+    background-color: var(--md-surface-container);
+  }
+
+  /* Accordion: list rows; the open one lifts onto its own rounded surface. */
+  .canon-accordion-item {
+    transition: background-color 0.2s var(--md-ease);
+  }
+  .canon-accordion-item[open] {
+    border-radius: 0.75rem;
+    background-color: var(--md-surface-low);
+  }
+  .canon-accordion-item[open] > .canon-accordion-summary {
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+  .canon-accordion-item[open] > .canon-accordion-content {
+    padding-block-end: 1rem;
+  }
+  .canon-accordion-item:has(+ .canon-accordion-item[open]),
+  .canon-accordion-item[open] + .canon-accordion-item,
+  .canon-accordion-item[open] {
+    border-color: transparent;
+  }
+
+  /* Pagination: icon buttons and quiet numbers on 40px circles. */
+  .canon-pagination > ol {
+    gap: 0.25rem;
+  }
+  .canon-pagination > ol > li > :is(a, button) {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.007em;
+  }
+  .canon-pagination-current {
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    letter-spacing: 0.018em;
+  }
+
+  /* Breadcrumb: each crumb a small text button; the current page plain. */
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more) {
+    padding-inline: 0.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background-color 0.2s var(--md-ease);
+  }
+  @media (hover: hover) {
+    .canon-breadcrumb :is(a, .canon-breadcrumb-more):hover {
+      background-color: var(--md-hover);
+      color: var(--md-on-surface);
+    }
+  }
+  .canon-breadcrumb :is(a, .canon-breadcrumb-more):focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+  .canon-breadcrumb [aria-current="page"] {
+    color: var(--md-on-surface);
+    font-weight: 500;
+  }
+
+  /* Alert: the banner's layout, its actions text buttons at the bottom end. */
+  .canon-alert:has(> .canon-alert-actions) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "icon title close" "icon description close" "icon actions close";
+  }
+  .canon-alert-actions {
+    justify-self: end;
+    margin-block-start: 0.5rem;
+  }
+  .canon-alert:not([data-emphasis="high"]) > .canon-alert-actions .canon-button.canon-button.canon-button.canon-button.canon-button:not(:disabled, [aria-disabled="true"]:not([aria-busy="true"])) {
+    --canon-theme-fg: currentColor;
+    --canon-theme-bg: transparent;
+    --canon-theme-bg-hover: color-mix(in srgb, currentColor 8%, transparent);
+    --canon-theme-bg-active: color-mix(in srgb, currentColor 12%, transparent);
+    --canon-theme-border: transparent;
+  }
+  .canon-alert:not([data-emphasis="high"]) > .canon-alert-actions .canon-button > .canon-icon {
+    color: inherit;
+  }
+
+  /* Stat: display type; the change in a tonal pill. */
+  .canon-stat-value {
+    letter-spacing: 0;
+  }
+  .canon-stat-change {
+    inline-size: fit-content;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    background-color: var(--md-surface-high);
+    color: var(--md-on-surface-variant);
+  }
+  .canon-stat-change[data-intent="success"] { background-color: var(--md-success-container); color: var(--md-on-success-container); }
+  .canon-stat-change[data-intent="warning"] { background-color: var(--md-warning-container); color: var(--md-on-warning-container); }
+  .canon-stat-change[data-intent="danger"]  { background-color: var(--md-error-container); color: var(--md-on-error-container); }
+  .canon-stat-change[data-intent="info"]    { background-color: var(--md-primary-container); color: var(--md-on-primary-container); }
+
+  /* Status: the dot of a small badge. What's only informing or under way
+     takes the tertiary color, so a list of states isn't all purple. */
+  .canon-status {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-status:not([data-intent]) { --_dot: var(--md-outline); }
+  .canon-status[data-intent="info"]    { --_dot: var(--md-tertiary); }
+  .canon-status[data-intent="success"] { --_dot: var(--md-success); }
+  .canon-status[data-intent="warning"] { --_dot: var(--md-warning); }
+  .canon-status[data-intent="danger"]  { --_dot: var(--md-error); }
+
+  /* Status tags: the same shape as any tag, no capitals; the color says it. */
+  .canon-tag.canon-tag[data-intent] {
+    border-radius: 0.5rem;
+  }
+  .canon-tag[data-intent="info"] {
+    --_h-tint: var(--md-tertiary-container);
+    --_h-on-tint: var(--md-on-tertiary-container);
+  }
+
+  /* Input OTP: headline figures. */
+  .canon-otp {
+    --canon-control-font-size: 1.5rem;
+  }
+
+  /* Time: the large cells of a time input, alone. A range keeps smaller ones
+     to fit, and so does any data-size. */
+  .canon-time:not(:has(.canon-time-arrow), [data-size], [data-size] *, .canon-dialog *, .canon-popover *) {
+    --canon-control-block-size: 4.5rem;
+    --canon-control-font-size: 2.5rem;
+    --canon-theme-input-line-height: 3rem;
+
+    .canon-time-cell {
+      inline-size: 5rem;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    .canon-time-cell[data-type="period"] {
+      inline-size: 3.5rem;
+      min-inline-size: 3.5rem;
+      padding-inline: 0;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .canon-time-literal {
+      font-size: 3.5rem;
+      line-height: 4.5rem;
+    }
+  }
+
+  /* Color Picker: a very round surface. */
+  .canon-color-popup[popover] {
+    border-radius: 1.75rem;
+  }
+  .canon-color-popup:not([popover]) {
+    border-radius: 1rem;
+    background-color: var(--md-surface-high);
+  }
+  .canon-color-area {
+    border-radius: 0.75rem;
+    box-shadow: none;
+  }
+  .canon-color-swatch {
+    border-radius: 50%;
+  }
+
+  /* Rich Text: the toolbar floats inside the box, the label above it. */
+  .canon-rich-toolbar {
+    margin: 0.5rem;
+    border-block-end: 0;
+    border-radius: 1.75rem;
+    background-color: var(--md-surface-container);
+  }
+  .canon-rich-area :not(pre) > code,
+  .canon-rich-area pre {
+    background-color: var(--md-surface-container);
+    color: var(--md-on-surface);
+  }
+  .canon-rich-area a {
+    color: var(--md-primary);
+  }
+  .canon-rich-area blockquote {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* Command Palette: the search view's 72px header and two-line rows. */
+  .canon-command-search {
+    min-block-size: 4.5rem;
+    padding-inline: 1.5rem;
+    --canon-icon-size: 1.5rem;
+  }
+  .canon-command-search > .canon-icon {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-command-heading {
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: none;
+  }
+  .canon-command-item {
+    --canon-icon-size: 1.5rem;
+    gap: 1rem;
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+  }
+  .canon-command-item > .canon-icon {
+    color: var(--md-on-surface-variant);
+  }
+  .canon-command-hint {
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+  }
+
+  /* Kbd: small label type. */
+  .canon-kbd.canon-kbd {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1rem;
+  }
+
+  /* Code Block: a tinted card; syntax from the color roles. */
+  .canon-code-block {
+    border-radius: 0.75rem;
+  }
+  .canon-code-block .tok:is(.punctuation, .operator, .doctype, .comment) { color: var(--md-on-surface-variant); }
+  .canon-code-block .tok:is(.tag_name, .selector, .selector_class, .selector_id, .selector_pseudo, .function) { color: var(--md-primary); }
+  .canon-code-block .tok:is(.attr_name, .css_variable, .variable, .property, .attribute) { color: var(--md-secondary); }
+  .canon-code-block .tok:is(.string, .template) { color: var(--md-success); }
+  .canon-code-block .tok:is(.number, .unit, .entity, .keyword, .boolean) { color: var(--md-tertiary); }
+
+  /* Empty State: a smaller tonal badge, headline type. */
+  :root,
+  [data-size] {
+    --canon-theme-empty-badge: 5rem;
+  }
+  .canon-empty-state-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .canon-empty-state-description {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.018em;
+  }
+
+  /* Skeleton: surface tones, a control's real corners. */
+  .canon-skeleton {
+    --_base: var(--md-surface-high);
+    --_sweep: var(--md-surface-highest);
+    background-color: var(--_base);
+  }
+  .canon-skeleton[data-shape="block"] {
+    border-radius: 999px;
+  }
+  .canon-skeleton[data-shape="square"] {
+    border-radius: 2px;
+  }
+
+  /* Description List: small labels over body text. */
+  .canon-description-list > div > dt {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.033em;
+  }
+  .canon-description-list > div > dd {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.018em;
+  }
+
+  /* Fieldset, Link: title-small and a label's weight. */
+  .canon-fieldset-legend {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.007em;
+  }
+  .canon-link[data-standalone] {
+    font-weight: 500;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Everything else                                                     */
+  /* ------------------------------------------------------------------ */
+
+  .canon-swatches {
+    background-color: transparent;
+  }
+
+  /* Selected text takes the primary color. */
+  ::selection {
+    background-color: color-mix(in srgb, var(--md-primary) 28%, transparent);
+  }
+  :is(.canon-toast-close, .canon-banner-close, .canon-alert-close, .canon-menu-item, .canon-accordion-summary):focus-visible {
+    outline: 3px solid var(--canon-theme-focus);
+    outline-offset: -3px;
+    box-shadow: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Icons: one SVG per file, drawn as masks. The path names this folder, */
+  /* since a variable's url() can resolve from where it is used.        */
+  /* ------------------------------------------------------------------ */
+
+  [data-icon="align-center"] { --canon-theme-icon: url("../material/format_align_center.svg"); }
+  [data-icon="align-end"] { --canon-theme-icon: url("../material/format_align_right.svg"); }
+  [data-icon="align-justify"] { --canon-theme-icon: url("../material/format_align_justify.svg"); }
+  [data-icon="align-start"] { --canon-theme-icon: url("../material/format_align_left.svg"); }
+  [data-icon="arrow-back"] { --canon-theme-icon: url("../material/arrow_back.svg"); }
+  [data-icon="arrow-forward"] { --canon-theme-icon: url("../material/arrow_forward.svg"); }
+  [data-icon="baseline"] { --canon-theme-icon: url("../material/format_color_text.svg"); }
+  [data-icon="bell"] { --canon-theme-icon: url("../material/notifications.svg"); }
+  [data-icon="bold"] { --canon-theme-icon: url("../material/format_bold.svg"); }
+  [data-icon="book-user"] { --canon-theme-icon: url("../material/contacts.svg"); }
+  [data-icon="building"] { --canon-theme-icon: url("../material/apartment.svg"); }
+  [data-icon="calendar"] { --canon-theme-icon: url("../material/calendar_today.svg"); }
+  [data-icon="chevron-down"] { --canon-theme-icon: url("../material/keyboard_arrow_down.svg"); }
+  [data-icon="chevron-left"] { --canon-theme-icon: url("../material/chevron_left.svg"); }
+  [data-icon="chevron-right"] { --canon-theme-icon: url("../material/chevron_right.svg"); }
+  [data-icon="chevron-up"] { --canon-theme-icon: url("../material/keyboard_arrow_up.svg"); }
+  [data-icon="chevrons-left"] { --canon-theme-icon: url("../material/first_page.svg"); }
+  [data-icon="chevrons-right"] { --canon-theme-icon: url("../material/last_page.svg"); }
+  [data-icon="circle-alert"] { --canon-theme-icon: url("../material/error.svg"); }
+  [data-icon="circle-check"] { --canon-theme-icon: url("../material/check_circle.svg"); }
+  [data-icon="circle-help"] { --canon-theme-icon: url("../material/help.svg"); }
+  [data-icon="close"] { --canon-theme-icon: url("../material/close.svg"); }
+  [data-icon="copy"] { --canon-theme-icon: url("../material/content_copy.svg"); }
+  [data-icon="crown"] { --canon-theme-icon: url("../material/workspace_premium.svg"); }
+  [data-icon="download"] { --canon-theme-icon: url("../material/download.svg"); }
+  [data-icon="eraser"] { --canon-theme-icon: url("../material/ink_eraser.svg"); }
+  [data-icon="external"] { --canon-theme-icon: url("../material/open_in_new.svg"); }
+  [data-icon="eye"] { --canon-theme-icon: url("../material/visibility.svg"); }
+  [data-icon="filter"] { --canon-theme-icon: url("../material/filter_alt.svg"); }
+  [data-icon="gauge"] { --canon-theme-icon: url("../material/speed.svg"); }
+  [data-icon="globe"] { --canon-theme-icon: url("../material/language.svg"); }
+  [data-icon="grip-vertical"] { --canon-theme-icon: url("../material/drag_indicator.svg"); }
+  [data-icon="house"] { --canon-theme-icon: url("../material/home.svg"); }
+  [data-icon="inbox"] { --canon-theme-icon: url("../material/inbox.svg"); }
+  [data-icon="indent-decrease"] { --canon-theme-icon: url("../material/format_indent_decrease.svg"); }
+  [data-icon="indent-increase"] { --canon-theme-icon: url("../material/format_indent_increase.svg"); }
+  [data-icon="info"] { --canon-theme-icon: url("../material/info.svg"); }
+  [data-icon="italic"] { --canon-theme-icon: url("../material/format_italic.svg"); }
+  [data-icon="link"] { --canon-theme-icon: url("../material/link.svg"); }
+  [data-icon="list"] { --canon-theme-icon: url("../material/format_list_bulleted.svg"); }
+  [data-icon="list-filter"] { --canon-theme-icon: url("../material/filter_list.svg"); }
+  [data-icon="list-ordered"] { --canon-theme-icon: url("../material/format_list_numbered.svg"); }
+  [data-icon="log-out"] { --canon-theme-icon: url("../material/logout.svg"); }
+  [data-icon="mail"] { --canon-theme-icon: url("../material/mail.svg"); }
+  [data-icon="minus"] { --canon-theme-icon: url("../material/remove.svg"); }
+  [data-icon="moon"] { --canon-theme-icon: url("../material/dark_mode.svg"); }
+  [data-icon="more"] { --canon-theme-icon: url("../material/more_vert.svg"); }
+  [data-icon="panel-left-close"] { --canon-theme-icon: url("../material/left_panel_close.svg"); }
+  [data-icon="panel-left-open"] { --canon-theme-icon: url("../material/left_panel_open.svg"); }
+  [data-icon="pencil"] { --canon-theme-icon: url("../material/edit.svg"); }
+  [data-icon="pin"] { --canon-theme-icon: url("../material/keep.svg"); }
+  [data-icon="plus"] { --canon-theme-icon: url("../material/add.svg"); }
+  [data-icon="receipt"] { --canon-theme-icon: url("../material/receipt_long.svg"); }
+  [data-icon="redo"] { --canon-theme-icon: url("../material/redo.svg"); }
+  [data-icon="refresh"] { --canon-theme-icon: url("../material/refresh.svg"); }
+  [data-icon="search"] { --canon-theme-icon: url("../material/search.svg"); }
+  [data-icon="search-x"] { --canon-theme-icon: url("../material/search_off.svg"); }
+  [data-icon="settings"] { --canon-theme-icon: url("../material/settings.svg"); }
+  [data-icon="sparkles"] { --canon-theme-icon: url("../material/wand_stars.svg"); }
+  [data-icon="square-chevron-left"] { --canon-theme-icon: url("../material/left_panel_close.svg"); }
+  [data-icon="square-chevron-right"] { --canon-theme-icon: url("../material/right_panel_close.svg"); }
+  [data-icon="square-kanban"] { --canon-theme-icon: url("../material/view_kanban.svg"); }
+  [data-icon="star"] { --canon-theme-icon: url("../material/star.svg"); }
+  [data-icon="strikethrough"] { --canon-theme-icon: url("../material/format_strikethrough.svg"); }
+  [data-icon="subscript"] { --canon-theme-icon: url("../material/subscript.svg"); }
+  [data-icon="sun"] { --canon-theme-icon: url("../material/light_mode.svg"); }
+  [data-icon="superscript"] { --canon-theme-icon: url("../material/superscript.svg"); }
+  [data-icon="table"] { --canon-theme-icon: url("../material/table_chart.svg"); }
+  [data-icon="tag"] { --canon-theme-icon: url("../material/sell.svg"); }
+  [data-icon="text-cursor"] { --canon-theme-icon: url("../material/text_fields.svg"); }
+  [data-icon="text-wrap"] { --canon-theme-icon: url("../material/wrap_text.svg"); }
+  [data-icon="trash"] { --canon-theme-icon: url("../material/delete.svg"); }
+  [data-icon="underline"] { --canon-theme-icon: url("../material/format_underlined.svg"); }
+  [data-icon="undo"] { --canon-theme-icon: url("../material/undo.svg"); }
+  [data-icon="upload"] { --canon-theme-icon: url("../material/upload.svg"); }
+  [data-icon="user"] { --canon-theme-icon: url("../material/person.svg"); }
+
+  /* The current page's icon is filled. */
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="bell"] { --canon-theme-icon: url("../material/notifications-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="book-user"] { --canon-theme-icon: url("../material/contacts-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="building"] { --canon-theme-icon: url("../material/apartment-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="calendar"] { --canon-theme-icon: url("../material/calendar_today-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="circle-alert"] { --canon-theme-icon: url("../material/error-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="circle-check"] { --canon-theme-icon: url("../material/check_circle-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="circle-help"] { --canon-theme-icon: url("../material/help-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="copy"] { --canon-theme-icon: url("../material/content_copy-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="crown"] { --canon-theme-icon: url("../material/workspace_premium-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="download"] { --canon-theme-icon: url("../material/download-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="external"] { --canon-theme-icon: url("../material/open_in_new-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="eye"] { --canon-theme-icon: url("../material/visibility-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="gauge"] { --canon-theme-icon: url("../material/speed-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="globe"] { --canon-theme-icon: url("../material/language-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="grip-vertical"] { --canon-theme-icon: url("../material/drag_indicator-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="house"] { --canon-theme-icon: url("../material/home-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="inbox"] { --canon-theme-icon: url("../material/inbox-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="info"] { --canon-theme-icon: url("../material/info-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="log-out"] { --canon-theme-icon: url("../material/logout-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="mail"] { --canon-theme-icon: url("../material/mail-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="moon"] { --canon-theme-icon: url("../material/dark_mode-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="panel-left-close"] { --canon-theme-icon: url("../material/left_panel_close-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="panel-left-open"] { --canon-theme-icon: url("../material/left_panel_open-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="pencil"] { --canon-theme-icon: url("../material/edit-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="pin"] { --canon-theme-icon: url("../material/keep-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="receipt"] { --canon-theme-icon: url("../material/receipt_long-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="settings"] { --canon-theme-icon: url("../material/settings-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="sparkles"] { --canon-theme-icon: url("../material/wand_stars-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="square-chevron-left"] { --canon-theme-icon: url("../material/left_panel_close-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="square-chevron-right"] { --canon-theme-icon: url("../material/right_panel_close-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="square-kanban"] { --canon-theme-icon: url("../material/view_kanban-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="star"] { --canon-theme-icon: url("../material/star-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="sun"] { --canon-theme-icon: url("../material/light_mode-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="table"] { --canon-theme-icon: url("../material/table_chart-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="tag"] { --canon-theme-icon: url("../material/sell-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="trash"] { --canon-theme-icon: url("../material/delete-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="upload"] { --canon-theme-icon: url("../material/upload-fill.svg"); }
+  .canon-nav-list-item:is([aria-current="page"], [data-current]) > [data-icon="user"] { --canon-theme-icon: url("../material/person-fill.svg"); }
+
+  /* A select's arrow is the solid one. */
+  :is(.canon-select, .canon-combobox) { --canon-theme-icon-chevron: url("../material/arrow_drop_down.svg"); }
+
+  :root {
+    --canon-theme-icon-arrow-down: url("../material/arrow_downward.svg");
+    --canon-theme-icon-arrow-down-up: url("../material/swap_vert.svg");
+    --canon-theme-icon-arrow-up: url("../material/arrow_upward.svg");
+    --canon-theme-icon-bot: url("../material/smart_toy.svg");
+    --canon-theme-icon-caps-lock: url("../material/keyboard_capslock.svg");
+    --canon-theme-icon-check: url("../material/check.svg");
+    --canon-theme-icon-chevron: url("../material/keyboard_arrow_down.svg");
+    --canon-theme-icon-chevron-right: url("../material/chevron_right.svg");
+    --canon-theme-icon-circle-alert: url("../material/error.svg");
+    --canon-theme-icon-circle-check: url("../material/check_circle.svg");
+    --canon-theme-icon-ellipsis: url("../material/more_horiz.svg");
+    --canon-theme-icon-external: url("../material/open_in_new.svg");
+    --canon-theme-icon-info: url("../material/info.svg");
+    --canon-theme-icon-list-filter: url("../material/filter_list.svg");
+    --canon-theme-icon-move-right: url("../material/arrow_forward.svg");
+    --canon-theme-icon-pin: url("../material/keep.svg");
+    --canon-theme-icon-pipette: url("../material/colorize.svg");
+    --canon-theme-icon-search: url("../material/search.svg");
+    --canon-theme-icon-tick: url("../material/check.svg");
+    --canon-theme-icon-trending-down: url("../material/trending_down.svg");
+    --canon-theme-icon-trending-up: url("../material/trending_up.svg");
+    --canon-theme-icon-triangle-alert: url("../material/warning.svg");
+    --canon-theme-icon-user-round: url("../material/person.svg");
+    --canon-theme-icon-users-round: url("../material/group.svg");
+    --canon-theme-icon-x: url("../material/close.svg");
+    --canon-theme-rule-check: url("../material/check_circle.svg");
+    --canon-theme-rule-alert: url("../material/error.svg");
+  }
+
+  .canon-button[data-state="copied"] [data-icon="copy"] { --canon-theme-icon: url("../material/check.svg"); }
+  .canon-button[aria-pressed="true"] [data-icon="eye"] { --canon-theme-icon: url("../material/visibility_off.svg"); }
+
+  .canon-toast[data-intent="info"]    { --_icon: url("../material/info.svg"); }
+  .canon-toast[data-intent="success"] { --_icon: url("../material/check_circle.svg"); }
+  .canon-toast[data-intent="warning"] { --_icon: url("../material/warning.svg"); }
+  .canon-toast[data-intent="danger"]  { --_icon: url("../material/error.svg"); }
+  .canon-toast-close::before {
+    mask: url("../material/close.svg") center / contain no-repeat;
+  }
+}

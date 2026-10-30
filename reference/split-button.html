@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Split Button reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Split Button</h1>
+  <p class="ref-note">A button with a menu beside it: the usual action one click away, its variations one more. Specification: <a href="../docs/components/split-button.md">docs/components/split-button.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="split">
+    <h2>Basics</h2>
+    <p class="ref-note">The action people usually want, and an arrow for the related ones. Two <a href="button.html">Buttons</a> in a <code>.canon-split-button</code>: the action, then an icon-only button (<code>data-display="icon"</code>, its label saying what the menu holds) that opens a <a href="menu.html">Menu</a> with <code>popovertarget</code> and <code>aria-haspopup="menu"</code>. The arrow is drawn by the theme. Both buttons carry the same <code>data-emphasis</code> and <code>data-intent</code>.</p>
+
+    <div class="canon-split-button">
+      <button type="button" class="canon-button" data-emphasis="high">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-button-label">Add</span>
+      </button>
+      <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="main" aria-haspopup="menu" aria-expanded="false">
+        <span class="canon-button-label">More ways to add</span>
+      </button>
+    </div>
+    <div class="canon-menu" id="main" popover role="menu" aria-label="More ways to add">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+        <span class="canon-menu-label">Add from template</span>
+      </button>
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+        <span class="canon-menu-label">Import…</span>
+      </button>
+      <hr class="canon-separator">
+      <button type="button" class="canon-menu-item" role="menuitem">
+        <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+        <span class="canon-menu-label">Add folder</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="ref-note">Open: the arrow is held down and turned, the menu under it, ending where the split button ends.</p>
+
+    <div style="block-size: 13rem">
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" aria-haspopup="menu" aria-expanded="true" data-ref-opens="open">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="open" popover="manual" role="menu" data-split-button style="position-try-fallbacks: none" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="emphasis">
+    <h2>Emphasis</h2>
+    <p class="ref-note">Button's four emphases. The line between the halves is the button's own color laid over it. Minimal, for toolbars, is one piece at rest: point at it, or focus it, to see its two halves.</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center">
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="em-high" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="em-high" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="medium">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="medium" data-display="icon" popovertarget="em-medium" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="em-medium" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="low">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="low" data-display="icon" popovertarget="em-low" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="em-low" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="minimal">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-display="icon" popovertarget="em-minimal" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="em-minimal" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the split button or a container: Button's sizes; the arrow is square. Its menu takes the size too when it sits inside the same container, or carries its own.</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center">
+      <div class="canon-split-button" data-size="sm">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="sz-sm" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-sm" data-size="sm" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button" data-size="md">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="sz-md" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-md" data-size="md" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button" data-size="lg">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="sz-lg" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="sz-lg" data-size="lg" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="intent">
+    <h2>Intent</h2>
+    <p class="ref-note"><code>data-intent</code> on both buttons, as on any Button.</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center">
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="high" data-intent="danger">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-button-label">Delete</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-intent="danger" data-display="icon" popovertarget="in-high" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to delete</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="in-high" popover role="menu" aria-label="More ways to delete">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Move to trash</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Delete permanently</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="medium" data-intent="danger">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-button-label">Delete</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="medium" data-intent="danger" data-display="icon" popovertarget="in-medium" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to delete</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="in-medium" popover role="menu" aria-label="More ways to delete">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Move to trash</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Delete permanently</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="danger">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-button-label">Delete</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="low" data-intent="danger" data-display="icon" popovertarget="in-low" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to delete</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="in-low" popover role="menu" aria-label="More ways to delete">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Move to trash</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Delete permanently</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="danger">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-button-label">Delete</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="danger" data-display="icon" popovertarget="in-minimal" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">More ways to delete</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="in-minimal" popover role="menu" aria-label="More ways to delete">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Move to trash</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="trash" aria-hidden="true"></span>
+          <span class="canon-menu-label">Delete permanently</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">Each half has Button's states. Disable the arrow alone when there is nothing else to offer; disable both to disable the split button.</p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center">
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="st-menu" aria-haspopup="menu" aria-expanded="false" disabled>
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="st-menu" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="medium" disabled>
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="medium" data-display="icon" popovertarget="st-both" aria-haspopup="menu" aria-expanded="false" disabled>
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="st-both" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="low" disabled>
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">Add</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="low" data-display="icon" popovertarget="st-low" aria-haspopup="menu" aria-expanded="false" disabled>
+          <span class="canon-button-label">More ways to add</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="st-low" popover role="menu" aria-label="More ways to add">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add from template</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">Import…</span>
+        </button>
+        <hr class="canon-separator">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-menu-label">Add folder</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left: the arrow is on the left, and the menu ends at the split button's left edge.</p>
+
+    <div dir="rtl" lang="ar">
+      <div class="canon-split-button">
+        <button type="button" class="canon-button" data-emphasis="high">
+          <span class="canon-icon" data-icon="plus" aria-hidden="true"></span>
+          <span class="canon-button-label">إضافة</span>
+        </button>
+        <button type="button" class="canon-button" data-emphasis="high" data-display="icon" popovertarget="rtl" aria-haspopup="menu" aria-expanded="false">
+          <span class="canon-button-label">طرق أخرى للإضافة</span>
+        </button>
+      </div>
+      <div class="canon-menu" id="rtl" popover role="menu" aria-label="طرق أخرى للإضافة">
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+          <span class="canon-menu-label">إضافة من قالب</span>
+        </button>
+        <button type="button" class="canon-menu-item" role="menuitem">
+          <span class="canon-icon" data-icon="download" aria-hidden="true"></span>
+          <span class="canon-menu-label">استيراد…</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

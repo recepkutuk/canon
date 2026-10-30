@@ -1,0 +1,15 @@
+@layer canon.core {
+  /* ------------------------------------------------------------------ */
+  /* Count                                                               */
+  /* A number (unread messages, notifications). Never wraps.             */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-count) {
+    box-sizing: border-box;
+    display: inline-block;
+    font: inherit;
+    text-align: center;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+}

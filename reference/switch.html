@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · Switch reference</title>
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>Switch</h1>
+  <p class="ref-note">A setting that is on or off and takes effect right away. Specification: <a href="../docs/components/switch.md">docs/components/switch.md</a> · shared anatomy: <a href="../docs/components/choice.md">docs/components/choice.md</a></p>
+
+  <div id="ref-controls"></div>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="states">
+    <h2>States</h2>
+    <p class="ref-note">A checkbox with <code>role="switch"</code>, for settings that take effect immediately.</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="st-off" name="st-off">
+        <label class="canon-choice-label" for="st-off">Off</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="st-on" name="st-on" checked>
+        <label class="canon-choice-label" for="st-on">On</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="st-hint" name="st-hint" checked aria-describedby="st-hint-hint">
+        <label class="canon-choice-label" for="st-hint">Maintenance mode</label>
+        <p class="canon-choice-hint" id="st-hint-hint">Visitors see a maintenance page.</p>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="st-dis" name="st-dis" disabled>
+        <label class="canon-choice-label" for="st-dis">Disabled</label>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="st-dis-on" name="st-dis-on" disabled checked>
+        <label class="canon-choice-label" for="st-dis-on">Disabled, on</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="group">
+    <h2>Settings group</h2>
+
+    <div class="ref-stack">
+      <fieldset class="canon-fieldset" aria-describedby="gr-sec-hint">
+        <legend class="canon-fieldset-legend">Security</legend>
+        <p class="canon-fieldset-hint" id="gr-sec-hint">Applies to every member of the workspace.</p>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="gr-2fa" name="gr-2fa" checked aria-describedby="gr-2fa-hint">
+          <label class="canon-choice-label" for="gr-2fa">Require two-factor authentication</label>
+          <p class="canon-choice-hint" id="gr-2fa-hint">Members without it are signed out.</p>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="gr-sso" name="gr-sso">
+          <label class="canon-choice-label" for="gr-sso">Single sign-on only</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="gr-audit" name="gr-audit" checked>
+          <label class="canon-choice-label" for="gr-audit">Audit log</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="state-text">
+    <h2>State text</h2>
+    <p class="ref-note">Optional words for each state, in <code>canon-choice-state</code> after the label: <code>canon-choice-state-off</code> and <code>canon-choice-state-on</code>, one shown at a time. The label moves above and stays the switch's name, so it never changes; the words are <code>aria-hidden="true"</code>, because assistive tech already announces on and off. Write the label as the setting and the words as its value. Click each one to see the words change.</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="tx-vis" name="tx-vis">
+        <label class="canon-choice-label" for="tx-vis">Profile visibility</label>
+        <span class="canon-choice-state" aria-hidden="true">
+          <span class="canon-choice-state-off">Private</span>
+          <span class="canon-choice-state-on">Public</span>
+        </span>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="tx-sync" name="tx-sync" checked aria-describedby="tx-sync-hint">
+        <label class="canon-choice-label" for="tx-sync">Sync</label>
+        <p class="canon-choice-hint" id="tx-sync-hint">Keeps your drafts on every device.</p>
+        <span class="canon-choice-state" aria-hidden="true">
+          <span class="canon-choice-state-off">Off</span>
+          <span class="canon-choice-state-on">On</span>
+        </span>
+      </div>
+
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="tx-dis" name="tx-dis" disabled checked>
+        <label class="canon-choice-label" for="tx-dis">Billing alerts</label>
+        <span class="canon-choice-state" aria-hidden="true">
+          <span class="canon-choice-state-off">Paused</span>
+          <span class="canon-choice-state-on">Active</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="size">
+    <h2>Size</h2>
+    <p class="ref-note"><code>data-size</code> on the item or a container.</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice" data-size="sm">
+        <input type="checkbox" role="switch" id="sz-sm" name="sz-sm" checked>
+        <label class="canon-choice-label" for="sz-sm">Small</label>
+      </div>
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="sz-md" name="sz-md" checked>
+        <label class="canon-choice-label" for="sz-md">Theme decides</label>
+      </div>
+      <div class="canon-choice" data-size="lg">
+        <input type="checkbox" role="switch" id="sz-lg" name="sz-lg" checked>
+        <label class="canon-choice-label" for="sz-lg">Large</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="edge-cases">
+    <h2>Edge cases</h2>
+    <p class="ref-note">Right to left, in Arabic: the switch sits at the right and its thumb moves to the left when on. A long label wraps beside it.</p>
+
+    <div class="ref-grid">
+      <div class="canon-choice">
+        <input type="checkbox" role="switch" id="sx-long" name="sx-long" checked aria-describedby="sx-long-hint">
+        <label class="canon-choice-label" for="sx-long">Send crash reports with stack traces, device model and operating system version</label>
+        <p class="canon-choice-hint" id="sx-long-hint">Reports never include document content. Your legal team must approve this before it is turned on for regulated workspaces.</p>
+      </div>
+
+      <fieldset class="canon-fieldset" dir="rtl" lang="ar">
+        <legend class="canon-fieldset-legend">الأمان</legend>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="sx-rtl-a" name="sx-rtl-a" checked>
+          <label class="canon-choice-label" for="sx-rtl-a">وضع الصيانة</label>
+        </div>
+        <div class="canon-choice">
+          <input type="checkbox" role="switch" id="sx-rtl-b" name="sx-rtl-b">
+          <label class="canon-choice-label" for="sx-rtl-b">الدخول الموحد فقط</label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,79 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Menu                                                               */
+  /*                                                                    */
+  /* A popover (role="menu") opened by a button's popovertarget, under  */
+  /* it and from its start; it flips to fit. Items are buttons (or      */
+  /* links) with menu item roles, in a column; Separators divide them, */
+  /* role="group" with a .canon-menu-heading names a set. A submenu is  */
+  /* its own menu, opened by an item; canon.js marks it data-submenu    */
+  /* and it opens beside the item. A context menu opens at the pointer  */
+  /* (canon.js). The check and the submenu arrow are the theme's,       */
+  /* drawn from aria-checked and aria-haspopup.                         */
+  /* ------------------------------------------------------------------ */
+
+  /* A long menu scrolls in the room it has, so it never overflows and a
+     fallback is never tried: canon.js opens it towards the side with more
+     room. */
+  :where(.canon-menu) {
+    position-area: self-block-end span-self-inline-end;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    inset: auto;
+    box-sizing: border-box;
+    flex-direction: column;
+    max-block-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: none;
+    color: inherit;
+    cursor: default;
+  }
+  :where(.canon-menu):popover-open {
+    display: flex;
+  }
+  :where(.canon-menu[data-submenu]) {
+    position-area: self-inline-end span-self-block-end;
+    position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+  }
+  :where(.canon-menu):focus {
+    outline: none;
+  }
+  :where(.canon-menu-group) {
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.canon-menu-item) {
+    box-sizing: border-box;
+    display: flex;
+    flex: none;
+    align-items: center;
+    inline-size: 100%;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: default;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :where(.canon-menu-item):focus {
+    outline: none;
+  }
+  :where(.canon-menu-label) {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :where(.canon-menu-item) > :where(.canon-icon, .canon-avatar, .canon-kbd) {
+    flex: none;
+  }
+}

@@ -1,0 +1,72 @@
+@layer canon.core {
+
+  /* ------------------------------------------------------------------ */
+  /* Form Layout                                                        */
+  /*                                                                    */
+  /* .canon-form arranges a form: fields, fieldsets and repeaters, in    */
+  /* sections (a header with a title and description, then the fields), */
+  /* rows of fields side by side, and the actions at the end. A row is  */
+  /* a grid of three rows, label / box / message, that its Fields share */
+  /* (subgrid), so boxes line up; it stacks when the form is narrow.    */
+  /* .canon-form-reveal, right after a choice, shows while the choice is */
+  /* checked. The form is a size container (canon-form) for all of it.  */
+  /* ------------------------------------------------------------------ */
+
+  :where(.canon-form) {
+    container: canon-form / inline-size;
+    display: block;
+  }
+  :where(.canon-form-section) {
+    display: flow-root;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  :where(.canon-form-section-title, .canon-form-section-description) {
+    margin: 0;
+  }
+  :where(.canon-form-section-title) {
+    font: inherit;
+  }
+
+  :where(.canon-form-row) {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: var(--canon-form-columns, none);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    min-inline-size: 0;
+  }
+  :where(.canon-form-row) > :where(.canon-field) {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+  /* Labels start together at the top, whichever has a description. */
+  :where(.canon-form-row, .canon-repeater-item) > :where(.canon-field) > :where(.canon-label) {
+    align-self: start;
+  }
+  @container canon-form (width < 24rem) {
+    :where(.canon-form-row) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  :where(.canon-form-actions) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  :where(.canon-form-reveal) {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  /* Shown while the choice before it is checked. */
+  :where(.canon-choice:has(> input:not(:checked)) + .canon-form-reveal) {
+    display: none;
+  }
+}
