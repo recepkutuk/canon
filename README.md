@@ -6,6 +6,8 @@ Component library for internal tools: tables, forms, records.
 
 **The markup is the contract.**
 
+[Documentation](https://recepkutuk.github.io/canon/) · [npm](https://www.npmjs.com/package/canon-ui)
+
 Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both.
 
 ## Start
@@ -123,18 +125,13 @@ Canon is an homage to that page. It asks the same of the things internal tools a
 
 ## Documentation
 
-The reference is a set of HTML pages with a live example, a playground and the full specification for each component. To browse it, serve this folder and open the introduction:
+**[Read the documentation](https://recepkutuk.github.io/canon/)**: a live example, a playground and the full specification for each component.
 
-```bash
-python3 -m http.server 4174
-```
-
-Then go to <http://localhost:4174/reference/introduction.html>.
-
-- [Introduction](reference/introduction.html)
-- [Getting started](reference/getting-started.html)
-- [Components](reference/components.html)
-- [Themes](reference/themes.html)
+- [Introduction](https://recepkutuk.github.io/canon/reference/introduction.html)
+- [Getting started](https://recepkutuk.github.io/canon/reference/getting-started.html)
+- [Components](https://recepkutuk.github.io/canon/reference/components.html)
+- [Themes](https://recepkutuk.github.io/canon/reference/themes.html)
+- [Build](https://recepkutuk.github.io/canon/reference/build.html)
 
 ## License
 
