@@ -1,3 +1,5 @@
+![Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.](.github/cover.png)
+
 # Canon
 
 Component library for internal tools: tables, forms, records.
