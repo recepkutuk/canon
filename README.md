@@ -10,11 +10,31 @@ Canon builds tables, forms and dialogs once, in plain HTML: the browser does the
 
 ## Start
 
-Two lines, then the markup each component's page shows.
+Two lines, then the markup each component's page shows. There's no build step, so take them from a CDN:
 
 ```html
-<link rel="stylesheet" href="css/canon/canon.css">
-<script src="js/canon.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.1.0/css/canon/canon.css">
+<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.1.0/js/canon.js" defer></script>
+```
+
+Or install the package:
+
+```bash
+npm i canon-ui
+```
+
+Then link the files from `node_modules/canon-ui/`, or serve them with your app:
+
+```html
+<link rel="stylesheet" href="node_modules/canon-ui/css/canon/canon.css">
+<script src="node_modules/canon-ui/js/canon.js" defer></script>
+```
+
+With a bundler:
+
+```js
+import "canon-ui/css/canon/canon.css";
+import "canon-ui";
 ```
 
 A primary action:
