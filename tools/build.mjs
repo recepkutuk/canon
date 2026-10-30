@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /*
- * Builds Canon's stylesheets and script from their sources (src/).
+ * Builds Canon's stylesheets and script from their sources (src/). In an
+ * app, npx canon-ui build runs this (tools/cli.mjs).
  *
  *   node tools/build.mjs                    every component: css/canon/canon.css,
  *                                           css/canon/canon.core.css, js/canon.js
@@ -58,7 +59,7 @@ if (args.includes("--list")) {
 const asked = only ? only.split(",").map((each) => each.trim()).filter(Boolean) : null;
 const { wanted, unknown } = resolveModules(manifest, asked);
 if (unknown.length) {
-  console.error(`Unknown component: ${unknown.join(", ")}. See: node tools/build.mjs --list`);
+  console.error(`Unknown component: ${unknown.join(", ")}. See: npx canon-ui build --list`);
   process.exit(1);
 }
 const files = assemble(orders, wanted, read);

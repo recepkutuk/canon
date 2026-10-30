@@ -46,6 +46,14 @@ A primary action:
 </button>
 ```
 
+To ship only the components your app uses, build Canon with just those. This writes `canon.css`, `canon.core.css` and `canon.js` to `canon/`, or to the folder `--out` names:
+
+```bash
+npx canon-ui build --only core,data,date
+```
+
+`npx canon-ui build --list` shows the bundles and the components.
+
 ## Why Canon
 
 - **Write it once, keep it.** A `<button>` written today still works in ten years. Canon is unopinionated about your stack and your look: it's markup, so it works with whatever renders it and outlives the framework of the moment.

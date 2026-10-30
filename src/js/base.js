@@ -36,7 +36,7 @@
  * Load with <script src="canon.js" defer>.
  *
  * Built from src/js by tools/build.mjs: edit the sources, then run it.
- * A smaller build with only some components: node tools/build.mjs --list.
+ * A smaller build with only some components: npx canon-ui build --list.
  */
 (() => {
   const resetTimers = new WeakMap();

@@ -1,6 +1,6 @@
 {
   "name": "canon-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Component library for internal tools: tables, forms, records, in accessible plain HTML.",
   "keywords": [
     "accessibility",
@@ -17,13 +17,18 @@
     "type": "git",
     "url": "git+https://github.com/recepkutuk/canon.git"
   },
+  "bin": {
+    "canon-ui": "tools/cli.mjs"
+  },
   "files": [
     "css",
     "!css/canon.debug.css",
     "i18n",
     "js/canon.js",
     "licenses",
-    "THIRD-PARTY-NOTICES.md"
+    "src",
+    "THIRD-PARTY-NOTICES.md",
+    "tools"
   ],
   "exports": {
     ".": "./js/canon.js",

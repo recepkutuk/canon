@@ -19,7 +19,7 @@
   <!-- ============================================================ -->
   <section class="ref-section" id="bundles">
     <h2>Bundles</h2>
-    <p class="ref-note">Core is always in. Add the bundles your app uses; point at a bundle's components to see what's in it. For single components, the command line takes them one at a time (<code>node tools/build.mjs --list</code>).</p>
+    <p class="ref-note">Core is always in. Add the bundles your app uses; point at a bundle's components to see what's in it. For single components, the command line takes them one at a time (<code>npx canon-ui build --list</code>).</p>
     <div class="ref-build-bar ref-plain">
       <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" id="build-all"><span class="canon-button-label">Everything</span></button>
       <button type="button" class="canon-button" data-emphasis="low" data-intent="neutral" data-size="sm" id="build-none"><span class="canon-button-label">Core only</span></button>
@@ -41,7 +41,7 @@
   <!-- ============================================================ -->
   <section class="ref-section" id="command">
     <h2>From the command line</h2>
-    <p class="ref-note">The same build, from a copy of Canon: <code>node tools/build.mjs --list</code> shows the components, and this writes the three files to <code>dist/</code>.</p>
+    <p class="ref-note">The same build, in your project: this writes the three files to <code>canon/</code>, or to the folder <code>--out</code> names. <code>npx canon-ui build --list</code> shows the bundles and the components.</p>
     <div class="canon-code-block ref-plain">
       <div class="canon-code-block-header">
         <span class="canon-code-block-title">Terminal</span>
@@ -50,7 +50,7 @@
           <span class="canon-button-label">Copy the command</span>
         </button>
       </div>
-      <pre><code id="build-command">node tools/build.mjs</code></pre>
+      <pre><code id="build-command">npx canon-ui build</code></pre>
     </div>
   </section>
 

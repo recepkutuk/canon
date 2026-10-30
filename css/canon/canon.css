@@ -7,7 +7,7 @@
  * stays the same.
  *
  * Built from src/css by tools/build.mjs: edit the sources, then run it.
- * A smaller build with only some components: node tools/build.mjs --list.
+ * A smaller build with only some components: npx canon-ui build --list.
  *
  * Supports: light, dark.
  *

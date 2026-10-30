@@ -184,8 +184,8 @@ const update = async () => {
   const said = all ? "Everything" : chosen.size ? `Core and ${chosen.size === 1 ? "1 bundle" : `${chosen.size} bundles`}` : "Core";
   summary.textContent = `${said}: ${formatSize(raw)}`;
   document.getElementById("build-command").textContent = all
-    ? "node tools/build.mjs"
-    : `node tools/build.mjs --only ${names.join(",")} --out dist`;
+    ? "npx canon-ui build"
+    : `npx canon-ui build --only ${names.join(",")}`;
   for (const name of fileNames) fileRows.get(name).textContent = formatSize(built[name].length);
   const turn = ++sizing;
   const zipped = await Promise.all(fileNames.map((name) => gzipped(built[name])));

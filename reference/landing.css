@@ -26,6 +26,9 @@
 .ref-l-install { display: inline-flex; align-items: center; gap: 0.5rem; max-inline-size: 100%; box-sizing: border-box; margin-block-start: 1.75rem; padding: 0.5rem 0.5rem 0.5rem 0.875rem; border: 1px solid var(--ref-line); border-radius: 0.625rem; background-color: var(--ref-bg); }
 .ref-l-install pre { min-inline-size: 0; margin: 0; overflow-x: auto; font: 0.75rem/1.65 var(--l-mono); }
 .ref-l-install code { padding: 0; background: none; font-size: inherit; }
+.ref-l-install + .ref-l-text { margin-block-start: 1.75rem; }
+/* A long install line scrolls inside its box, not the page. */
+.ref-l-close > div { min-inline-size: 0; }
 
 /* ---------------------------------------------------------------------- */
 /* The first screen: the name, then working components framing the claim  */

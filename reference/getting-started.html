@@ -18,14 +18,31 @@
   <!-- ============================================================ -->
   <section class="ref-section" id="quick-start">
     <h2>Quick start</h2>
-    <p class="ref-note">Link Canon's stylesheet (it brings the core with it) and, for behavior, canon.js:</p>
+    <p class="ref-note">Link Canon's stylesheet (it brings the core with it) and, for behavior, canon.js. There's no build step, so a page can take both from a CDN:</p>
     <div class="canon-code-block ref-plain">
       <div class="canon-code-block-header">
         <span class="canon-code-block-title">index.html</span>
         <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-install" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy index.html</span></button>
       </div>
-      <pre><code id="intro-install"><span class="tok punctuation">&lt;</span><span class="tok tag_name">link</span> <span class="tok attr_name">rel</span><span class="tok operator">=</span><span class="tok string">&quot;stylesheet&quot;</span> <span class="tok attr_name">href</span><span class="tok operator">=</span><span class="tok string">&quot;css/canon/canon.css&quot;</span><span class="tok punctuation">&gt;</span>
-<span class="tok punctuation">&lt;</span><span class="tok tag_name">script</span> <span class="tok attr_name">src</span><span class="tok operator">=</span><span class="tok string">&quot;js/canon.js&quot;</span> <span class="tok attr_name">defer</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">script</span><span class="tok punctuation">&gt;</span></code></pre>
+      <pre><code id="intro-install"><span class="tok punctuation">&lt;</span><span class="tok tag_name">link</span> <span class="tok attr_name">rel</span><span class="tok operator">=</span><span class="tok string">&quot;stylesheet&quot;</span> <span class="tok attr_name">href</span><span class="tok operator">=</span><span class="tok string">&quot;https://cdn.jsdelivr.net/npm/canon-ui@0.1.0/css/canon/canon.css&quot;</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;</span><span class="tok tag_name">script</span> <span class="tok attr_name">src</span><span class="tok operator">=</span><span class="tok string">&quot;https://cdn.jsdelivr.net/npm/canon-ui@0.1.0/js/canon.js&quot;</span> <span class="tok attr_name">defer</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">script</span><span class="tok punctuation">&gt;</span></code></pre>
+    </div>
+    <p class="ref-note">Or install it from npm:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-npm" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy the install command</span></button>
+      </div>
+      <pre><code id="intro-npm">npm i canon-ui</code></pre>
+    </div>
+    <p class="ref-note">Then link the two files from where the package put them, or from wherever your app serves them. Keep the <code>css</code> folder's files together, since a stylesheet finds its icons and fonts next to it:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="intro-npm-link" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy index.html</span></button>
+      </div>
+      <pre><code id="intro-npm-link"><span class="tok punctuation">&lt;</span><span class="tok tag_name">link</span> <span class="tok attr_name">rel</span><span class="tok operator">=</span><span class="tok string">&quot;stylesheet&quot;</span> <span class="tok attr_name">href</span><span class="tok operator">=</span><span class="tok string">&quot;node_modules/canon-ui/css/canon/canon.css&quot;</span><span class="tok punctuation">&gt;</span>
+<span class="tok punctuation">&lt;</span><span class="tok tag_name">script</span> <span class="tok attr_name">src</span><span class="tok operator">=</span><span class="tok string">&quot;node_modules/canon-ui/js/canon.js&quot;</span> <span class="tok attr_name">defer</span><span class="tok punctuation">&gt;</span><span class="tok punctuation">&lt;/</span><span class="tok tag_name">script</span><span class="tok punctuation">&gt;</span></code></pre>
     </div>
     <p class="ref-note">Then write the markup each component's page shows. A primary action:</p>
     <div class="canon-code-block ref-plain">
