@@ -87,7 +87,7 @@
 /* Why Canon: a lead, then four beliefs                                    */
 /* ---------------------------------------------------------------------- */
 /* The lead at a size between the page's name and its text. */
-.ref-l-why { margin-block-start: 3.5rem; padding-block-start: 0; border-block-start: 0; }
+.ref-l-why { margin-block-start: clamp(4rem, 7vw, 6.5rem); padding-block-start: 0; border-block-start: 0; }
 .ref-l-lead, .ref-l-look .ref-l-label h2 { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 1.375rem; font-weight: 500; line-height: 1.45; letter-spacing: -0.015em; }
 .ref-l-beliefs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: l-belief; }
 .ref-l-beliefs li { counter-increment: l-belief; }
@@ -127,8 +127,9 @@
    by their shade and not by lines; teal is their accent.
    The window floats a little over the page. Side by side where both fit;
    else one over the other. */
-/* Its title as Why Canon's lead, without a rule over it. */
-.ref-l-look { padding-block-start: 0; border-block-start: 0; }
+/* Its title as Why Canon's lead, without a rule over it, so more room
+   above it. */
+.ref-l-look { margin-block-start: clamp(5.5rem, 10vw, 8.5rem); padding-block-start: 0; border-block-start: 0; }
 .ref-l-look > div { container-type: inline-size; }
 .ref-l-pg {
   --ins-accent: var(--l-teal);
