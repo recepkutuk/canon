@@ -392,21 +392,27 @@
     lookDocument.body.replaceChildren(button);
   };
   /* What changed is typed in, letter by letter: a new attribute whole; a
-     new value after the old one is taken back to its quote. One gone goes
-     at once. The playground takes no pointer while it types, and the
-     button follows once it's written. With reduced motion, all at once. */
+     new value after the old one is taken back to its quote. One gone is
+     taken back whole. The playground takes no pointer while it types, and
+     the button follows once it's written. With reduced motion, all at
+     once. */
+  const attributeOrder = ["data-emphasis", "data-intent", "aria-haspopup", "aria-busy", "aria-disabled"];
   let typing = 0;
   const draw = () => {
     clearInterval(typing);
-    written = added().map(([name, value]) => {
-      const text = `${name}="${value}"`;
+    const wanted = new Map(added());
+    written = attributeOrder.flatMap((name) => {
       const before = written.find((each) => each.name === name);
-      if (still.matches || before?.value === value) return { name, value, text, typed: text.length };
-      if (!before) return { name, value, text, typed: 0 };
+      if (!wanted.has(name)) return before && !still.matches ? [{ ...before, gone: true }] : [];
+      const value = wanted.get(name);
+      const text = `${name}="${value}"`;
+      if (still.matches || (before?.value === value && !before.gone)) return [{ name, value, text, typed: text.length }];
+      if (!before) return [{ name, value, text, typed: 0 }];
+      if (before.value === value) return [{ name, value, text, typed: before.typed }];
       /* What's shown of the old value goes first, then the new comes. */
-      return { name, value, text: before.text, typed: before.typed, then: text };
+      return [{ name, value, text: before.text, typed: before.typed, then: text }];
     });
-    const busy = (each) => each.then || each.typed < each.text.length;
+    const busy = (each) => each.gone || each.then || each.typed < each.text.length;
     const next = () => written.find(busy);
     const done = () => {
       clearInterval(typing);
@@ -420,7 +426,8 @@
     typing = setInterval(() => {
       const each = next();
       if (!each) { done(); return; }
-      if (each.then && each.typed > each.name.length + 2) each.typed -= 1;
+      if (each.gone) { each.typed -= 1; if (!each.typed) written.splice(written.indexOf(each), 1); }
+      else if (each.then && each.typed > each.name.length + 2) each.typed -= 1;
       else if (each.then) { each.text = each.then; delete each.then; each.typed += 1; }
       else each.typed += 1;
       write(next() ?? each);
