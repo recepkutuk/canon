@@ -89,7 +89,7 @@ A button becomes what its attributes say. The theme draws it.
 </button>
 ```
 
-The same markup looks right in each of Canon's six themes: Canon's own, and looks inspired by Carbon, Material, Fluent, Ant Design and Bootstrap. All of that is HTML and CSS.
+The same markup looks right in each of Canon's six themes: Canon's own, and looks inspired by Carbon, Material, Fluent, Ant Design and Bootstrap.
 
 ## Components
 

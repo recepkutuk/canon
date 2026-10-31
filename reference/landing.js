@@ -563,7 +563,7 @@
   addEventListener("load", room);
   room();
   look.toggleAttribute("data-framed", true);
-  for (const id of ["l-pg-controls", "l-look-note"]) document.getElementById(id).hidden = false;
+  document.getElementById("l-pg-controls").hidden = false;
 
 
   /* ------------------------------------------------------------------ */
