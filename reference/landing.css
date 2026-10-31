@@ -116,7 +116,18 @@
    author writes (the choice, and the markup it makes) and what the theme
    draws (the choice, and the button). The theme's is wider: six themes
    to name. */
-.ref-l-look-cards { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: 1rem; margin-block-start: 1.75rem; }
+.ref-l-look-cards { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: 1rem; margin-block-start: 4.25rem; }
+/* Side by side only where both cards' choices fit; else one over the
+   other, yours first. */
+.ref-l-look > div { container-type: inline-size; }
+@container (max-width: 50rem) {
+  .ref-l-look-cards { grid-template-columns: minmax(0, 1fr); }
+}
+/* "Try me", handwritten, over the corner of the first card, its arrow
+   reaching in: the choices are there to be made. Bobbing, as on Canon's
+   first page; still with reduced motion. */
+.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 0.75rem); inset-inline-start: -2.5rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
+@keyframes ref-l-try { to { translate: 0 0.5rem; } }
 .ref-l-look-card { display: grid; grid-template-rows: auto auto 1fr; min-inline-size: 0; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); overflow: hidden; }
 .ref-l-look-owner { margin: 0; padding: 1rem 1rem 0; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; }
 /* A choice: its name, then the options, on one line while they fit; a
@@ -184,10 +195,12 @@
 @media (max-width: 64rem) {
 }
 @media (max-width: 48rem) {
-  .ref-l-look-cards { grid-template-columns: minmax(0, 1fr); }
+  .ref-l-try { display: none; }
+  .ref-l-look-cards { margin-block-start: 1.75rem; }
   .ref-l-squares { grid-template-columns: repeat(17, minmax(0, 1fr)); }
   .ref-l-tally { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ref-l-try { animation: none; }
   .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li { transition: none; }
 }
