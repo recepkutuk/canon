@@ -318,7 +318,7 @@
       <meta charset="utf-8">
       <base href="${new URL(".", location.href).href}">
       <link rel="stylesheet" href="../css/canon/canon.css">
-      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background: radial-gradient(color-mix(in srgb, var(--canon-theme-ink) 16%, transparent) 1px, transparent 1.5px) 0 0 / 16px 16px, var(--canon-theme-page-bg); }</style>
+      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background: radial-gradient(color-mix(in srgb, var(--canon-theme-ink) 6%, transparent) 0.75px, transparent 1.25px) 0 0 / 20px 20px, var(--canon-theme-page-bg); }</style>
     </head>
     <body></body>
     </html>`);
