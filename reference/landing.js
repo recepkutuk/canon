@@ -258,41 +258,44 @@
   /* Why Canon                                                           */
   /* ------------------------------------------------------------------ */
 
-  /* Its entrance plays once, as it comes into view: the lead line by line.
-     Its words are wrapped so their lines can be told apart, numbered as
-     they wrap at that moment. */
-  const why = document.querySelector(".ref-l-why");
-  const lead = why.querySelector(".ref-l-lead");
-  /* Read whole: screen readers get the text once, plainly; the wrapped
-     words are only seen. */
-  const shown = document.createElement("span");
-  shown.setAttribute("aria-hidden", "true");
-  const spoken = Object.assign(document.createElement("span"), { className: "canon-visually-hidden", textContent: lead.textContent });
-  shown.append(...lead.childNodes);
-  lead.append(spoken, shown);
-  const words = [];
-  for (const node of [...shown.childNodes].flatMap((each) => each.nodeType === Node.TEXT_NODE ? [each] : [...each.childNodes].filter((child) => child.nodeType === Node.TEXT_NODE))) {
-    const parts = node.textContent.split(/(\s+)/).map((part) => {
-      if (!part || /^\s+$/.test(part)) return document.createTextNode(part);
-      const word = Object.assign(document.createElement("span"), { className: "ref-l-word", textContent: part });
-      words.push(word);
-      return word;
-    });
-    node.replaceWith(...parts);
-  }
-  why.dataset.waiting = "";
-  new IntersectionObserver(([entry], observer) => {
-    if (!entry.isIntersecting) return;
-    let line = -1;
-    let last = null;
-    for (const word of words) {
-      if (word.offsetTop !== last) { line++; last = word.offsetTop; }
-      word.style.setProperty("--line", line);
+  /* An entrance that plays once, as a section comes into view: its lead
+     line by line, then what follows it (CSS). The lead's words are wrapped
+     so their lines can be told apart, numbered as they wrap at that
+     moment. Why Canon has it, and What it is and how it looks. */
+  const rise = (section, lead) => {
+    /* Read whole: screen readers get the text once, plainly; the wrapped
+       words are only seen. */
+    const shown = document.createElement("span");
+    shown.setAttribute("aria-hidden", "true");
+    const spoken = Object.assign(document.createElement("span"), { className: "canon-visually-hidden", textContent: lead.textContent });
+    shown.append(...lead.childNodes);
+    lead.append(spoken, shown);
+    const words = [];
+    for (const node of [...shown.childNodes].flatMap((each) => each.nodeType === Node.TEXT_NODE ? [each] : [...each.childNodes].filter((child) => child.nodeType === Node.TEXT_NODE))) {
+      const parts = node.textContent.split(/(\s+)/).map((part) => {
+        if (!part || /^\s+$/.test(part)) return document.createTextNode(part);
+        const word = Object.assign(document.createElement("span"), { className: "ref-l-word", textContent: part });
+        words.push(word);
+        return word;
+      });
+      node.replaceWith(...parts);
     }
-    why.style.setProperty("--lines", line + 1);
-    delete why.dataset.waiting;
-    observer.disconnect();
-  }, { rootMargin: "0px 0px -15% 0px" }).observe(why);
+    section.dataset.waiting = "";
+    new IntersectionObserver(([entry], observer) => {
+      if (!entry.isIntersecting) return;
+      let line = -1;
+      let last = null;
+      for (const word of words) {
+        if (word.offsetTop !== last) { line++; last = word.offsetTop; }
+        word.style.setProperty("--line", line);
+      }
+      section.style.setProperty("--lines", line + 1);
+      delete section.dataset.waiting;
+      observer.disconnect();
+    }, { rootMargin: "0px 0px -15% 0px" }).observe(section);
+  };
+  const why = document.querySelector(".ref-l-why");
+  rise(why, why.querySelector(".ref-l-lead"));
 
   /* ------------------------------------------------------------------ */
   /* What it is and how it looks                                         */
@@ -306,6 +309,7 @@
      button takes the pointer and focus, so its hover, pressed and focus
      looks show; it does nothing. */
   const look = document.querySelector(".ref-l-look");
+  rise(look, look.querySelector("h2"));
   const source = look.querySelector(".ref-l-source > code");
   const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme" });
   look.querySelector(".ref-l-host").after(view);
