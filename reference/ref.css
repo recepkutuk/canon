@@ -10,6 +10,19 @@
   --ref-hover: light-dark(#f4f4f5, #27272a);       /* zinc-100 / zinc-800 */
   --ref-bg: light-dark(#ffffff, #09090b);          /* white / zinc-950 */
   --ref-top: 3.5rem;
+  /* Type, from the Canon Design System's text styles: a size and its
+     line height, both on the 4- and 8-point grid. */
+  --ref-heading-lg: 3rem;      --ref-heading-lg-lh: 3.5rem;   /* 48/56 */
+  --ref-heading-md: 2.5rem;    --ref-heading-md-lh: 3rem;     /* 40/48 */
+  --ref-heading-sm: 2rem;      --ref-heading-sm-lh: 2.5rem;   /* 32/40 */
+  --ref-text-lg: 1.5rem;       --ref-text-lg-lh: 2rem;        /* 24/32 */
+  --ref-text-md: 1rem;         --ref-text-md-lh: 1.5rem;      /* 16/24 */
+  --ref-text-sm: 0.875rem;     --ref-text-sm-lh: 1.25rem;     /* 14/20 */
+  --ref-text-xs: 0.75rem;      --ref-text-xs-lh: 1rem;        /* 12/16 */
+  --ref-text-2xs: 0.625rem;    --ref-text-2xs-lh: 0.75rem;    /* 10/12 */
+  --ref-caption: 0.625rem;     --ref-caption-lh: 1rem;        /* 10/16 */
+  --ref-code-md: 0.875rem;     --ref-code-md-lh: 1.5rem;      /* 14/24 */
+  --ref-code-sm: 0.75rem;      --ref-code-sm-lh: 1.25rem;     /* 12/20 */
 }
 .ref-layout {
   display: grid;
@@ -42,12 +55,12 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
   background-color: color-mix(in srgb, var(--ref-bg) 88%, transparent);
   backdrop-filter: blur(10px);
 }
-.ref-brand { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--ref-fg); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; }
+.ref-brand { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--ref-fg); font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); font-weight: 600; letter-spacing: -0.01em; text-decoration: none; }
 .ref-logo { inline-size: 1.5rem; block-size: 1.5rem; flex: none; }
 .ref-brand { grid-area: 1 / 1; justify-self: start; }
 .ref-top-tools { grid-area: 1 / -2; justify-self: end; display: flex; align-items: center; gap: 0.25rem; }
 .ref-top-menu { display: none; }
-.ref-theme-label { margin-inline-end: 0.25rem; color: var(--ref-muted); font-size: 0.8125rem; line-height: 1.25rem; white-space: nowrap; }
+.ref-theme-label { margin-inline-end: 0.25rem; color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); white-space: nowrap; }
 .ref-theme-select { inline-size: 10.5rem; margin-inline-end: 0.25rem; }
 .ref-search { margin-inline-end: 0.25rem; }
 .ref-search > .canon-button-label { min-inline-size: 7rem; text-align: start; }
@@ -85,11 +98,11 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-catalog-card, .ref-catalog-pattern { container-type: inline-size; }
 .ref-catalog-foot, .ref-catalog-pattern { display: grid; align-content: start; gap: 0.25rem; padding: 0.75rem 1rem 1rem; color: inherit; text-decoration: none; }
 .ref-catalog-foot {
-  gap: clamp(0.25rem, 0.085rem + 1.03cqi, 0.375rem);
-  padding: clamp(0.75rem, 0.42rem + 2.06cqi, 1rem) clamp(1rem, 0.67rem + 2.06cqi, 1.25rem) clamp(1rem, 0.67rem + 2.06cqi, 1.25rem);
+  gap: 0.25rem;
+  padding: 1rem 1.25rem 1.25rem;
 }
-.ref-catalog-name { color: var(--ref-fg); font-size: clamp(0.875rem, 0.627rem + 1.55cqi, 1.0625rem); font-weight: 600; line-height: 1.4; }
-.ref-catalog-text { color: var(--ref-muted); font-size: clamp(0.8125rem, 0.647rem + 1.03cqi, 0.9375rem); line-height: 1.55; }
+.ref-catalog-name { color: var(--ref-fg); font-size: var(--ref-text-md); font-weight: 600; line-height: var(--ref-text-md-lh); }
+.ref-catalog-text { color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
 .ref-catalog-foot:hover .ref-catalog-name, .ref-catalog-pattern:hover .ref-catalog-name { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .ref-catalog-foot:focus-visible, .ref-catalog-pattern:focus-visible { outline: 2px solid light-dark(#2563eb, #60a5fa); outline-offset: -2px; border-radius: 0 0 0.75rem 0.75rem; }
 /* Patterns: whole screens, so a card of words. */
@@ -105,13 +118,13 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1rem; align-items: start; }
 .ref-theme-card { display: grid; grid-template-rows: auto 1fr; overflow: hidden; border: 1px solid var(--ref-line); border-radius: 0.75rem; }
 .ref-theme-card-head { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 0.75rem; padding: 1rem; border-block-end: 1px solid var(--ref-line); }
-.ref-section .ref-theme-card .ref-theme-card-head h3 { margin: 0; color: var(--ref-fg); font-size: 0.9375rem; font-weight: 600; line-height: 1.5rem; }
-.ref-theme-card-head p { margin: 0; color: var(--ref-text); font-size: 0.875rem; line-height: 1.375rem; }
+.ref-section .ref-theme-card .ref-theme-card-head h3 { margin: 0; color: var(--ref-fg); font-size: var(--ref-text-md); font-weight: 600; line-height: var(--ref-text-md-lh); }
+.ref-theme-card-head p { margin: 0; color: var(--ref-text); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
 .ref-theme-frame { display: block; inline-size: 100%; block-size: 22rem; border: 0; }
 .ref-principles { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
 .ref-principle .canon-card-body { gap: 0.5rem; }
-.ref-principle p { margin: 0; color: var(--ref-text); font-size: 0.875rem; line-height: 1.375rem; }
-.ref-principle-title { margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 0.9375rem; font-weight: 600; line-height: 1.5rem; }
+.ref-principle p { margin: 0; color: var(--ref-text); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
+.ref-principle-title { margin: 0.25rem 0 0; color: var(--ref-fg); font-size: var(--ref-text-md); font-weight: 600; line-height: var(--ref-text-md-lh); }
 .ref-principle-icon { display: inline-grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 0.5rem; background-color: var(--ref-hover); color: var(--ref-fg); }
 /* The scheme toggle says it with its icon (a sun in dark, a moon in light), not a pressed fill. */
 .ref-github > .canon-icon { --canon-theme-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z'/></svg>"); }
@@ -134,8 +147,8 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 }
 /* Its scrollbar shows only while the pointer is over it. */
 .ref-aside:hover { scrollbar-color: light-dark(#d4d4d8, #3f3f46) transparent; }
-.ref-nav { font-size: 0.875rem; line-height: 1.25rem; }
-.ref-nav h2 { margin: 1.5rem 0 0.375rem; padding-inline: 0.625rem; color: var(--ref-fg); font-size: 0.8125rem; font-weight: 600; line-height: 1.25rem; }
+.ref-nav { font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
+.ref-nav h2 { margin: 1.5rem 0 0.375rem; padding-inline: 0.625rem; color: var(--ref-fg); font-size: var(--ref-text-sm); font-weight: 600; line-height: var(--ref-text-sm-lh); }
 .ref-nav > h2:first-child { margin-block-start: 0; }
 .ref-nav ul { display: grid; gap: 1px; list-style: none; margin: 0; padding: 0; }
 .ref-nav a { display: block; padding: 0.375rem 0.625rem; border-radius: 0.375rem; color: var(--ref-muted); text-decoration: none; transition: background-color 0.12s, color 0.12s; }
@@ -162,8 +175,8 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
   overflow-y: auto;
   box-sizing: border-box;
   padding: 2.5rem 1.5rem 2rem 0.5rem;
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
 }
 .ref-toc[hidden] { display: none; }
 .ref-toc p { margin: 0 0 0.5rem; color: var(--ref-fg); font-weight: 600; }
@@ -173,16 +186,16 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 
 /* The page */
 .ref-page { grid-area: main; box-sizing: border-box; inline-size: 100%; max-inline-size: 58rem; margin: 0 auto; padding: 2.5rem 3rem 6rem; color: var(--ref-fg); }
-.ref-page > h1 { margin: 0 0 0.75rem; font-size: 2rem; font-weight: 700; line-height: 2.5rem; letter-spacing: -0.025em; }
+.ref-page > h1 { margin: 0 0 0.75rem; font-size: var(--ref-heading-sm); font-weight: 700; line-height: var(--ref-heading-sm-lh); letter-spacing: -0.025em; }
 /* A component's tier tags beside its title; each opens its meaning. */
 .ref-tiers { display: inline-flex; gap: 0.375rem; vertical-align: 0.45em; }
 .ref-tier { display: inline-flex; margin: 0; padding: 0; border: 0; border-radius: 999px; background: none; font: inherit; line-height: 1; cursor: default; }
 .ref-tier:focus-visible { outline: 2px solid light-dark(#2563eb, #60a5fa); outline-offset: 2px; }
-.ref-page > h1 + .ref-note { margin-block: 0 2rem; color: var(--ref-muted); font-size: 1.0625rem; line-height: 1.75rem; }
+.ref-page > h1 + .ref-note { margin-block: 0 2rem; color: var(--ref-muted); font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); }
 .ref-section { margin-block: 3rem 0; scroll-margin-block-start: calc(var(--ref-top) + 1.5rem); }
-.ref-section > h2 { margin: 0 0 0.75rem; padding-block-end: 0.5rem; border-block-end: 1px solid var(--ref-line); font-size: 1.375rem; font-weight: 600; line-height: 2rem; letter-spacing: -0.015em; }
-.ref-section h3:not([class*="canon-"]) { margin: 2rem 0 0.5rem; font-size: 1.0625rem; font-weight: 600; line-height: 1.75rem; }
-.ref-note { max-inline-size: 46rem; margin-block: 0.75rem; color: var(--ref-text); font-size: 0.9375rem; line-height: 1.625rem; }
+.ref-section > h2 { margin: 0 0 0.75rem; padding-block-end: 0.5rem; border-block-end: 1px solid var(--ref-line); font-size: var(--ref-text-lg); font-weight: 600; line-height: var(--ref-text-lg-lh); letter-spacing: -0.015em; }
+.ref-section h3:not([class*="canon-"]) { margin: 2rem 0 0.5rem; font-size: var(--ref-text-md); font-weight: 600; line-height: var(--ref-text-md-lh); }
+.ref-note { max-inline-size: 46rem; margin-block: 0.75rem; color: var(--ref-text); font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); }
 .ref-page > .ref-support { max-inline-size: 46rem; margin-block: 0 2rem; }
 .ref-note a, .ref-page > h1 + .ref-note a { color: var(--ref-fg); font-weight: 500; text-decoration-line: underline; text-decoration-color: var(--ref-line); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .ref-note a:hover { text-decoration-color: currentColor; }
@@ -232,7 +245,8 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
   background: none;
   color: var(--ref-muted);
   font: inherit;
-  font-size: 0.875rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
   font-weight: 500;
   cursor: pointer;
   transition: color 0.12s, border-color 0.12s;
@@ -355,10 +369,10 @@ body[data-view="playground"] .ref-inspector {
   --ins-accent: light-dark(#2563eb, #60a5fa);                      /* blue-600 / blue-400 */
   --ins-focus: var(--ins-accent);
   --ins-h: 1.75rem;
-  --ins-r: 0.4375rem;
+  --ins-r: 0.5rem;
   --ins-gap: 2px;
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: var(--ref-text-xs);
+  line-height: var(--ref-text-xs-lh);
 }
 .ref-inspector-head {
   position: sticky;
@@ -373,7 +387,7 @@ body[data-view="playground"] .ref-inspector {
   border-block-end: 1px solid var(--ins-line);
   background-color: var(--ins-panel);
 }
-.ref-inspector-head h2 { margin: 0; color: var(--ins-fg); font-size: 0.75rem; font-weight: 600; line-height: 1rem; }
+.ref-inspector-head h2 { margin: 0; color: var(--ins-fg); font-size: var(--ref-text-xs); font-weight: 600; line-height: var(--ref-text-xs-lh); }
 .ref-ins-reset {
   block-size: 1.5rem;
   padding: 0 0.5rem;
@@ -403,9 +417,9 @@ body[data-view="playground"] .ref-inspector {
   margin: 0 0 0.375rem;
   padding: 0;
   color: var(--ins-muted);
-  font-size: 0.625rem;
+  font-size: var(--ref-caption);
   font-weight: 600;
-  line-height: 1rem;
+  line-height: var(--ref-caption-lh);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -430,7 +444,7 @@ body[data-view="playground"] .ref-inspector {
    the control. A yes-or-no row: the label across, the switch at the end. */
 .ref-ins-row {
   display: grid;
-  grid-template-columns: 5.75rem minmax(0, 1fr);
+  grid-template-columns: 6rem minmax(0, 1fr);
   align-items: center;
   column-gap: 0.5rem;
   min-block-size: var(--ins-h);
@@ -493,8 +507,8 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-switch {
   appearance: none;
   position: relative;
-  inline-size: 1.875rem;
-  block-size: 1.125rem;
+  inline-size: 2rem;
+  block-size: 1.25rem;
   margin: 0;
   border-radius: 999px;
   background-color: light-dark(#e2e2e6, #2a2a30);
@@ -508,8 +522,8 @@ body[data-view="playground"] .ref-inspector {
   position: absolute;
   inset-block-start: var(--ins-gap);
   inset-inline-start: var(--ins-gap);
-  inline-size: calc(1.125rem - 2 * var(--ins-gap));
-  block-size: calc(1.125rem - 2 * var(--ins-gap));
+  inline-size: calc(1.25rem - 2 * var(--ins-gap));
+  block-size: calc(1.25rem - 2 * var(--ins-gap));
   border-radius: 50%;
   background-color: light-dark(#ffffff, #d4d4d8);
   box-shadow: var(--ins-raised);
@@ -654,7 +668,7 @@ body[data-view="playground"] .ref-inspector {
   box-sizing: border-box;
   inline-size: 1.75rem;
   block-size: 0.875rem;
-  border-radius: 0.1875rem;
+  border-radius: 0.25rem;
   color: var(--_t);
 }
 .ref-ins-option:has(:checked) > .ref-ins-pill { --_t: var(--ins-tone); }
@@ -716,7 +730,8 @@ body[data-view="playground"] .ref-inspector {
   background-color: var(--ins-panel);
   color: var(--ins-fg);
   box-shadow: 0 0 0 1px var(--ins-line), 0 12px 32px light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.6)), 0 2px 6px light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.4));
-  font-size: 0.75rem;
+  font-size: var(--ref-text-xs);
+  line-height: var(--ref-text-xs-lh);
 }
 .ref-ins-none {
   inline-size: 1rem;
@@ -786,8 +801,8 @@ body[data-view="playground"] .ref-inspector {
   background: none;
   color: var(--ins-muted);
   font: inherit;
-  font-size: 0.6875rem;
-  line-height: 1rem;
+  font-size: var(--ref-text-xs);
+  line-height: var(--ref-text-xs-lh);
   white-space: nowrap;
   pointer-events: auto;
   cursor: pointer;
@@ -817,13 +832,13 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-number > input::-webkit-outer-spin-button { appearance: none; margin: 0; }
 .ref-ins-number > button {
   position: absolute;
-  inset-block: 0.1875rem;
+  inset-block: 0.25rem;
   display: grid;
   place-items: center;
   inline-size: 1.25rem;
   padding: 0;
   border: 0;
-  border-radius: calc(var(--ins-r) - 0.1875rem);
+  border-radius: calc(var(--ins-r) - 0.25rem);
   background: none;
   color: var(--ins-muted);
   cursor: pointer;
@@ -844,12 +859,13 @@ body[data-view="playground"] .ref-inspector {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-block-size: 2.75rem;
+  min-block-size: 3rem;
   box-sizing: border-box;
-  padding: 0.375rem 0.5rem 0.375rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
   border-block-end: 1px solid var(--ref-line);
   color: var(--ref-muted);
-  font-size: 0.8125rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
   font-weight: 500;
 }
 .ref-pg-bar > :first-child { margin-inline-end: auto; }
@@ -903,13 +919,13 @@ body[data-view="playground"] .ref-inspector {
   border-radius: 0.25rem;
   background-color: var(--ref-bg);
   color: var(--ref-fg);
-  font: 500 0.6875rem/1rem "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font: 500 var(--ref-text-xs)/var(--ref-text-xs-lh) "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
 }
 .ref-pg-width:is(:hover, [aria-expanded="true"]) { background-color: var(--ref-hover); }
 .ref-pg-width:focus-visible { outline: 2px solid light-dark(#2563eb, #60a5fa); outline-offset: 1px; }
-.ref-pg-preset-size { margin-inline-start: auto; padding-inline-start: 1.5rem; color: var(--ref-muted); font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.6875rem; font-variant-numeric: tabular-nums; }
+.ref-pg-preset-size { margin-inline-start: auto; padding-inline-start: 1.5rem; color: var(--ref-muted); font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--ref-text-xs); line-height: var(--ref-text-xs-lh); font-variant-numeric: tabular-nums; }
 .canon-menu-item[aria-disabled="true"] > .ref-pg-preset-size { color: inherit; }
 /* The presets open centered under the width. */
 #ref-pg-presets { position-area: self-block-end span-all; margin-inline: 0; }
@@ -993,8 +1009,8 @@ body[data-view="playground"] .ref-inspector {
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-variant-ligatures: none;
   font-feature-settings: normal;
-  font-size: 0.8125rem;
-  line-height: 1.6;
+  font-size: var(--ref-code-md);
+  line-height: var(--ref-code-md-lh);
   tab-size: 2;
   background-color: light-dark(#fafafa, color-mix(in srgb, #18181b 60%, #09090b)); /* zinc-50 / zinc-900–950 */
 }
@@ -1088,7 +1104,7 @@ a code.ref-code .tok { color: inherit; }
 .ref-tip-grid-wide { grid-template-columns: 1fr; padding-block-end: 6rem; }
 .ref-tip-cell { display: grid; grid-template-rows: 7.5rem auto; place-items: center; margin-block-end: 1rem; }
 .ref-anchor { display: block; inline-size: 1rem; block-size: 1rem; box-sizing: border-box; border: 1px dashed GrayText; }
-.ref-tip-caption { color: GrayText; font-size: 0.75rem; text-align: center; }
+.ref-tip-caption { color: GrayText; font-size: var(--ref-text-xs); line-height: var(--ref-text-xs-lh); text-align: center; }
 /* A two-word placement: the side over the alignment, the chip as wide as the longer one. */
 .ref-tip-caption:has(> span) { display: inline-block; inline-size: min-content; }
 .ref-tip-caption > span { white-space: nowrap; }
@@ -1137,7 +1153,7 @@ a code.ref-code .tok { color: inherit; }
 .ref-pg-stage:has(> .canon-banner) { inline-size: 100%; justify-items: stretch; }
 .ref-pg-stage:has(> .canon-alert) { inline-size: min(100%, 40rem); justify-items: stretch; }
 .ref-pg-stage:has(> .canon-accordion) { inline-size: min(100%, 32rem); justify-items: stretch; }
-.ref-jobs { margin-block: 1rem 0; padding-inline-start: 1.25rem; line-height: 1.8; }
+.ref-jobs { margin-block: 1rem 0; padding-inline-start: 1.25rem; line-height: 1.75rem; }
 .ref-sidebar { box-sizing: border-box; inline-size: 16rem; max-inline-size: 100%; padding: 0.75rem; border: 1px dashed color-mix(in srgb, currentColor 25%, transparent); border-radius: 0.75rem; }
 .ref-sidebar-rail { inline-size: auto; display: inline-block; }
 /* App Shell and Sidebar demos: a window's height, scrolling inside it. */
@@ -1170,8 +1186,8 @@ a code.ref-code .tok { color: inherit; }
 .ref-split-frame > .canon-split-pane { block-size: 100%; }
 .ref-pane { box-sizing: border-box; padding: 1rem; }
 .ref-pane > p { margin: 0; }
-.ref-split-code { margin: 0; font: 0.8125rem/1.5 var(--canon-theme-font-mono, monospace); white-space: pre; }
-.ref-split-console { margin: 0; font: 0.8125rem/1.6 var(--canon-theme-font-mono, monospace); }
+.ref-split-code { margin: 0; font: var(--ref-code-sm)/var(--ref-code-sm-lh) var(--canon-theme-font-mono, monospace); white-space: pre; }
+.ref-split-console { margin: 0; font: var(--ref-code-sm)/var(--ref-code-sm-lh) var(--canon-theme-font-mono, monospace); }
 .ref-pg-stage:has(> .canon-split-pane) { inline-size: 100%; block-size: 22rem; justify-items: stretch; }
 .ref-pg-stage > .canon-split-pane { block-size: 100%; }
 .ref-md-main { display: grid; min-block-size: 0; }
@@ -1200,7 +1216,7 @@ a code.ref-code .tok { color: inherit; }
 .ref-tabs-demo .canon-tabs-panel > p { margin: 0; }
 .ref-pg-stage:has(> :is(.canon-tabs, .canon-tabs-list)) { inline-size: 100%; justify-items: stretch; }
 .ref-pg-stage:has(> .canon-page-header) { inline-size: 100%; justify-items: stretch; }
-.ref-shell-content > h1 { grid-column: 1 / -1; margin: 0; font-size: 1.5rem; line-height: 2rem; }
+.ref-shell-content > h1 { grid-column: 1 / -1; margin: 0; font-size: var(--ref-text-lg); line-height: var(--ref-text-lg-lh); }
 .ref-shell-box { min-block-size: 9rem; border: 1px dashed color-mix(in srgb, currentColor 25%, transparent); border-radius: 0.75rem; }
 .ref-shell-box-wide { grid-column: 1 / -1; min-block-size: 16rem; }
 .ref-resize { resize: horizontal; min-inline-size: 10rem; max-inline-size: 100%; }
@@ -1254,7 +1270,7 @@ a code.ref-code .tok { color: inherit; }
 /* Sign-in Page pattern: a page of its own (the page's color), the app's
    mark over one Card, centered; the demo's starting points above it. */
 .ref-auth-starts { align-items: center; margin-block-end: 0.75rem; }
-.ref-auth-starts-label { color: var(--ref-muted); font-size: 0.8125rem; }
+.ref-auth-starts-label { color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
 .ref-auth-frame { box-sizing: border-box; block-size: 46rem; overflow: auto; padding: 2.5rem 1rem; border: 1px solid var(--ref-line); border-radius: 0.75rem; background-color: light-dark(#fafafa, #09090b); }
 .ref-auth { display: grid; gap: 1.5rem; inline-size: min(100%, 24rem); margin-inline: auto; }
 .ref-auth-brand { display: flex; align-items: center; justify-content: center; gap: 0.625rem; margin: 0; color: var(--ref-fg); font-weight: 600; }
@@ -1265,7 +1281,7 @@ a code.ref-code .tok { color: inherit; }
 .ref-auth-submit { inline-size: 100%; }
 .ref-auth-providers { display: grid; gap: 0.75rem; }
 .ref-auth-providers > .canon-button { inline-size: 100%; }
-.ref-auth-footer { display: grid; gap: 0.5rem; justify-items: center; color: var(--ref-muted); font-size: 0.875rem; }
+.ref-auth-footer { display: grid; gap: 0.5rem; justify-items: center; color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
 .ref-auth-footer > p { margin: 0; }
 
 /* Providers' marks in their Buttons: each file as it is, at its own size,
@@ -1288,7 +1304,8 @@ a code.ref-code .tok { color: inherit; }
   margin: 0;
   margin-inline-start: 0.5rem;
   color: var(--ref-muted);
-  font-size: 0.875rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
 }
 /* The bundles: a line each, in its own frame; Core first, tinted. */
 .ref-build-addons {
@@ -1342,7 +1359,8 @@ a code.ref-code .tok { color: inherit; }
   background: none;
   color: var(--ref-text);
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
   text-decoration: underline dashed var(--ref-muted);
   text-underline-offset: 0.25em;
   cursor: help;
@@ -1359,7 +1377,8 @@ a code.ref-code .tok { color: inherit; }
 .ref-build-weight {
   min-inline-size: 4.5rem;
   color: var(--ref-muted);
-  font-size: 0.8125rem;
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-text-sm-lh);
   font-variant-numeric: tabular-nums;
   text-align: end;
 }
@@ -1415,7 +1434,7 @@ a code.ref-code .tok { color: inherit; }
   .ref-top-page > .ref-tabs { align-self: stretch; gap: 1.25rem; margin: 0; border: 0; }
   .ref-top-page > .ref-tabs [role="tab"] { display: flex; align-items: center; margin-block-end: -1px; padding-block: 0; }
   /* The page's name, then a short line, then the switch. */
-  .ref-top-title { display: flex; align-items: center; gap: 1.25rem; color: var(--ref-fg); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+  .ref-top-title { display: flex; align-items: center; gap: 1.25rem; color: var(--ref-fg); font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
   .ref-top-title::after { content: ""; inline-size: 1px; block-size: 1rem; background-color: var(--ref-line); }
   body[data-view="playground"] .ref-playground { block-size: 100%; margin: 0; }
   body[data-view="playground"] .ref-pg-output {
