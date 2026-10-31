@@ -4,8 +4,9 @@
  * - The first screen: real components framing the claim, each acting in
  *   turn, round the frame.
  * - Why Canon: a lead and four beliefs, coming in once as they're seen.
- * - What it is and how it looks: the chosen button drawn in a page of its
- *   own, in the chosen theme.
+ * - What it is and how it looks: a small playground. The controls write the
+ *   button's markup; the button is drawn in a page of its own, in the
+ *   chosen theme.
  * - Without JavaScript: a cell for each component, settling by tier.
  * - Every component: pointing at a name shows it running above the
  *   pointer, its preview taken from the Components page.
@@ -297,11 +298,13 @@
   /* What it is and how it looks                                         */
   /* ------------------------------------------------------------------ */
 
-  /* The choice of what it is is the page's own (:has()). The theme is a
-     page of its own: the chosen button, alone, with that theme's stylesheet
-     and nothing else of the docs, in the docs' color scheme. The theme
-     choice swaps the stylesheet; the button's markup is copied as written. */
+  /* A small playground. The controls say what the button is; from them
+     come its markup, shown with what they add marked, and the button. The
+     theme is a page of its own: the button alone, with that theme's
+     stylesheet and nothing else of the docs, in the docs' color scheme. The
+     theme choice swaps the stylesheet and leaves the markup as it is. */
   const look = document.querySelector(".ref-l-look");
+  const source = look.querySelector(".ref-l-source > code");
   const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme", tabIndex: -1 });
   look.querySelector(".ref-l-host").after(view);
   const lookDocument = view.contentDocument;
@@ -320,9 +323,39 @@
   const scheme = () => { lookDocument.documentElement.style.colorScheme = document.documentElement.style.colorScheme; };
   new MutationObserver(scheme).observe(document.documentElement, { attributeFilter: ["style"] });
   scheme();
+
+  /* The attributes the controls add, in the order the specification
+     writes them. A busy button is also aria-disabled, as the
+     specification asks. */
+  const added = () => {
+    const value = (name) => look.querySelector(`[name="${name}"]:checked`)?.value ?? "";
+    const attributes = [];
+    if (value("l-pg-emphasis")) attributes.push(["data-emphasis", value("l-pg-emphasis")]);
+    if (value("l-pg-intent")) attributes.push(["data-intent", value("l-pg-intent")]);
+    if (value("l-pg-menu")) attributes.push(["aria-haspopup", "menu"]);
+    if (value("l-pg-busy")) attributes.push(["aria-busy", "true"], ["aria-disabled", "true"]);
+    return attributes;
+  };
+  const label = "Save";
+  const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
+  const attribute = ([name, value]) => `${token("a", name)}=${token("s", `&quot;${value}&quot;`)}`;
   const draw = () => {
-    const what = look.querySelector('[name="l-look-what"]:checked').value;
-    lookDocument.body.innerHTML = look.querySelector(`.ref-l-host > [data-is="${what}"]`).innerHTML;
+    const attributes = added();
+    /* The markup: each added attribute on a line of its own, marked. */
+    const open = `${token("p", "&lt;")}${token("t", "button")} ${attribute(["type", "button"])} ${attribute(["class", "canon-button"])}`;
+    const lines = attributes.length
+      ? [open, ...attributes.map((each, i) => `        <mark class="ref-l-mark">${attribute(each)}</mark>${i === attributes.length - 1 ? token("p", "&gt;") : ""}`)]
+      : [`${open}${token("p", "&gt;")}`];
+    lines.push(`  ${token("p", "&lt;")}${token("t", "span")} ${attribute(["class", "canon-button-label"])}${token("p", "&gt;")}${label}${token("p", "&lt;/")}${token("t", "span")}${token("p", "&gt;")}`);
+    lines.push(`${token("p", "&lt;/")}${token("t", "button")}${token("p", "&gt;")}`);
+    source.innerHTML = lines.join("\n");
+    /* The button, from the same attributes. */
+    const button = lookDocument.createElement("button");
+    button.type = "button";
+    button.className = "canon-button";
+    for (const [name, value] of attributes) button.setAttribute(name, value);
+    button.append(Object.assign(lookDocument.createElement("span"), { className: "canon-button-label", textContent: label }));
+    lookDocument.body.replaceChildren(button);
   };
   /* The new stylesheet goes in beside the old, which leaves once it's in,
      so the button never shows unstyled. Only the last one chosen stays. */
@@ -339,13 +372,12 @@
     lookDocument.head.append(sheet);
   };
   look.addEventListener("change", (event) => {
-    if (event.target.name === "l-look-what") draw();
-    else restyle(event.target.value);
+    if (event.target.name === "l-pg-theme") restyle(event.target.value);
+    else draw();
   });
   draw();
   look.toggleAttribute("data-framed", true);
-  document.getElementById("l-look-themes").hidden = false;
-  document.getElementById("l-look-note").hidden = false;
+  for (const id of ["l-pg-controls", "l-pg-themes", "l-look-note"]) document.getElementById(id).hidden = false;
 
 
   /* ------------------------------------------------------------------ */
