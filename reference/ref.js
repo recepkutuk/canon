@@ -1458,6 +1458,15 @@
           pop.previousElementSibling.focus();
         }
       });
+      /* A menu picked from with the pointer lets go of focus, so its ring
+         doesn't stay on; one picked from with the keyboard keeps it. */
+      let pointed = null;
+      form.addEventListener("pointerdown", (event) => { pointed = event.target.closest("select"); });
+      form.addEventListener("keydown", () => { pointed = null; });
+      form.addEventListener("change", (event) => {
+        if (event.target === pointed) event.target.blur();
+        pointed = null;
+      });
       /* The icon grid opens under its field, its end at the field's end
          (above it when there's no room below), on the chosen icon. */
       for (const pop of form.querySelectorAll(".ref-ins-pop")) {
