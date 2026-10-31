@@ -99,21 +99,22 @@
    --line, and counts them, --lines), then the
    beliefs follow one by one. Hidden at once; only the way in is animated. */
 .ref-l-word { display: inline-block; }
-/* The sections titled as the lead (.ref-l-titled: What it is and how it
-   looks, Without JavaScript) enter the same way: the title, then what
-   follows it, one by one. */
-:is(.ref-l-why, .ref-l-titled):not([data-waiting]) .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--line, 0) * 140ms); }
+/* The sections after it (.ref-l-enters) enter the same way: the title,
+   then what follows it, one by one. */
+:is(.ref-l-why, .ref-l-enters):not([data-waiting]) .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--line, 0) * 140ms); }
 .ref-l-why:not([data-waiting]) .ref-l-beliefs li { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms); }
 .ref-l-beliefs li:nth-child(1) { --i: 0; }
 .ref-l-beliefs li:nth-child(2) { --i: 1; }
 .ref-l-beliefs li:nth-child(3) { --i: 2; }
 .ref-l-beliefs li:nth-child(4) { --i: 3; }
-:is(.ref-l-why, .ref-l-titled)[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
-.ref-l-titled:not([data-waiting]) > div > * { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms); }
-.ref-l-titled > div > :nth-child(2) { --i: 1; }
-.ref-l-titled > div > :nth-child(3) { --i: 2; }
-.ref-l-titled > div > :nth-child(4) { --i: 3; }
-.ref-l-titled[data-waiting] > div > * { opacity: 0; translate: 0 0.75rem; }
+:is(.ref-l-why, .ref-l-enters)[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
+.ref-l-enters:not([data-waiting]) > div > * { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms); }
+.ref-l-enters > div > :nth-child(2) { --i: 1; }
+.ref-l-enters > div > :nth-child(3) { --i: 2; }
+.ref-l-enters > div > :nth-child(4) { --i: 3; }
+.ref-l-enters > div > :nth-child(5) { --i: 4; }
+.ref-l-enters > div > :nth-child(n + 6) { --i: 5; }
+.ref-l-enters[data-waiting] > div > * { opacity: 0; translate: 0 0.75rem; }
 .ref-l-why[data-waiting] .ref-l-beliefs li { opacity: 0; translate: 0 0.75rem; }
 @media (max-width: 40rem) {
   .ref-l-beliefs { grid-template-columns: minmax(0, 1fr); }
@@ -290,5 +291,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .ref-l-try { animation: none; }
-  .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li, .ref-l-titled .ref-l-word, .ref-l-titled > div > * { transition: none; }
+  .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li, .ref-l-enters .ref-l-word, .ref-l-enters > div > * { transition: none; }
 }

@@ -91,9 +91,9 @@ A button becomes what its attributes say. The theme draws it.
 
 The same markup looks right in each of Canon's six themes: Canon's own, and looks inspired by Carbon, Material, Fluent, Ant Design and Bootstrap. All of that is HTML and CSS.
 
-## Without JavaScript
+## 67 of 68 components work without JavaScript
 
-67 of 68 components work without it. Each component's specification gives its tier: what it does with HTML and CSS alone, and what canon.js adds. When a script doesn't load, the page still works.
+Each component's specification gives its tier, from T0 to T3: what it does with HTML and CSS alone, and what canon.js adds. When a script doesn't load, the page still works.
 
 | Tier | Components | What it needs |
 | --- | ---: | --- |

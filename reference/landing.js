@@ -261,8 +261,7 @@
   /* An entrance that plays once, as a section comes into view: its lead
      line by line, then what follows it (CSS). The lead's words are wrapped
      so their lines can be told apart, numbered as they wrap at that
-     moment. Why Canon has it, What it is and how it looks, and Without
-     JavaScript. */
+     moment. Why Canon has it, and every section after it (.ref-l-enters). */
   const rise = (section, lead) => {
     /* Read whole: screen readers get the text once, plainly; the wrapped
        words are only seen. */
@@ -297,8 +296,7 @@
   };
   const why = document.querySelector(".ref-l-why");
   rise(why, why.querySelector(".ref-l-lead"));
-  const tiersSection = document.querySelector(".ref-l-tiers");
-  rise(tiersSection, tiersSection.querySelector("h2"));
+  for (const section of document.querySelectorAll(".ref-l-enters")) rise(section, section.querySelector("h2"));
 
   /* ------------------------------------------------------------------ */
   /* What it is and how it looks                                         */
@@ -312,7 +310,6 @@
      button takes the pointer and focus, so its hover, pressed and focus
      looks show; it does nothing. */
   const look = document.querySelector(".ref-l-look");
-  rise(look, look.querySelector("h2"));
   const source = look.querySelector(".ref-l-source > code");
   const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme" });
   look.querySelector(".ref-l-host").after(view);
