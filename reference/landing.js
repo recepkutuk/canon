@@ -335,7 +335,8 @@
   title(why.querySelector(".ref-l-lead"));
   for (const belief of why.querySelectorAll(".ref-l-beliefs li")) block(belief);
   /* The sections after it: the title, then each thing under it; the tier
-     chart's cells and key, and each component's name, on their own. */
+     chart's cells and key, each component's name, and each thing Canon
+     leaves to others, on their own. */
   for (const section of document.querySelectorAll(".ref-l-enters")) {
     title(section.querySelector("h2"));
     for (const part of section.querySelector(":scope > div").children) {
@@ -344,6 +345,8 @@
         block(part.querySelector(".ref-l-key"));
       } else if (part.matches(".ref-l-names")) {
         for (const name of part.querySelectorAll("a")) block(name, 30);
+      } else if (part.matches("dl")) {
+        for (const item of part.children) block(item);
       } else block(part);
     }
   }

@@ -113,9 +113,9 @@ Each component's specification gives its tier, from T0 to T3: what it does with 
 | T2 | 11 | Better with JavaScript |
 | T3 | 1 | Needs JavaScript |
 
-## Not included
+## What Canon leaves to others, on purpose.
 
-What Canon leaves to others, on purpose.
+Canon is not:
 
 - **A JavaScript component library.** There's nothing to import or call, and no build step. Your framework or server renders the HTML.
 - **Locked to its look.** The look lives in one stylesheet. Change its colors, or replace it with your own theme, and no page changes.

@@ -258,7 +258,7 @@
 /* ---------------------------------------------------------------------- */
 /* Not included                                                            */
 /* ---------------------------------------------------------------------- */
-.ref-l-not dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.5rem 2rem; margin: 1.75rem 0 0; }
+.ref-l-not dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.5rem 2rem; margin: 2rem 0 0; }
 .ref-l-not dt { font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); font-weight: 600; }
 .ref-l-not dd { margin: 0.375rem 0 0; color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
 
