@@ -157,19 +157,15 @@
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 
-/* Whose each side is: small capitals, quiet, as the inspector's sections. */
-.ref-l-pg-owner { margin: 0; color: var(--ins-muted); font-size: 0.625rem; font-weight: 600; line-height: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }
 /* The inspector: the Playground's controls, a little larger; each names
    the attribute it writes, its meaning in its tooltip. */
 .ref-l-pg-controls { display: grid; align-content: start; gap: 0.875rem; padding: 1.125rem 1.25rem 1.25rem; font-size: 0.8125rem; line-height: 1.25rem; }
-.ref-l-pg-controls > .ref-l-pg-owner { margin-block-end: -0.25rem; }
 .ref-l-pg-controls > .ref-ins-row[data-switch] + .ref-ins-row[data-switch] { margin-block-start: -0.5rem; }
 .ref-l-pg-attr { font-family: var(--l-mono); font-size: 0.75rem; }
 /* No meaning chosen: the emphasis pictures in the text color, as the
    theme's own accent isn't the landing's. */
 .ref-l-pg:is([data-tone=""], :not([data-tone])) { --ins-tone: var(--ins-fg); }
-/* The theme's choice under the button's, a section of its own. */
-.ref-l-pg-controls > .ref-ins-row + .ref-l-pg-owner { margin-block-start: 0.5rem; padding-block-start: 1rem; border-block-start: 1px solid var(--ins-line); }
+/* The theme: its name beside its menu. */
 .ref-l-pg-controls .ref-ins-row:not([data-stack], [data-switch]) { grid-template-columns: 4rem minmax(0, 1fr); }
 
 /* The editor: the markup the controls write, recessed under them. */

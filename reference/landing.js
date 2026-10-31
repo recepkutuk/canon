@@ -344,17 +344,14 @@
     if (value("l-pg-busy")) attributes.push(["aria-busy", "true"], ["aria-disabled", "true"]);
     return attributes;
   };
-  /* The controls as the Playground's inspector shows them: a tile row's
-     value beside its name, a changed control's name in the text color
-     (the theme: any but Canon's), the emphasis tiles in the chosen
-     meaning's color. */
+  /* The controls as the Playground's inspector shows them: a changed
+     control's name in the text color (the theme: any but Canon's), the
+     emphasis tiles in the chosen meaning's color. */
   const controls = document.getElementById("l-pg-controls");
   const reflect = () => {
     for (const row of controls.querySelectorAll(".ref-ins-row")) {
       const select = row.querySelector("select");
       const chosen = row.querySelector("input:checked");
-      const shown = row.querySelector(".ref-ins-value");
-      if (shown) shown.textContent = chosen.getAttribute("aria-label");
       row.toggleAttribute("data-changed", select ? select.value !== "canon" : !!chosen?.value);
     }
     look.querySelector(".ref-l-pg").dataset.tone = value("l-pg-intent");
