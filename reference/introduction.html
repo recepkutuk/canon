@@ -50,33 +50,43 @@
     </div>
   </section>
 
-  <!-- What the markup gives you: a story in three chapters that plays
-       while it's in view (and pauses while someone is in it); its steps
-       jump to a chapter. Without JavaScript, the chapters read in turn. -->
-  <section class="ref-l-row ref-l-story" aria-labelledby="l-story">
-    <header class="ref-l-label"><h2 id="l-story">What the markup gives you</h2></header>
-    <ol class="ref-l-steps">
-          <li><button type="button" class="ref-l-step" data-chapter="1" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">You write the markup</span></button></li>
-          <li><button type="button" class="ref-l-step" data-chapter="2" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">Names come with it</span></button></li>
-          <li><button type="button" class="ref-l-step" data-chapter="3" aria-controls="l-story-stage"><span class="ref-l-step-bar" aria-hidden="true"></span><span class="ref-l-step-name">Keys and state come with it</span></button></li>
-    </ol>
-    <div class="ref-l-story-text">
-          <p data-chapter="1">A radio group: plain HTML, the classes and attributes the Segmented Control page shows.</p>
-          <p data-chapter="2"><code>aria-label</code> names the group and each label names its option, so a screen reader says where you are.</p>
-          <p data-chapter="3">The arrow keys choose, and the indicator slides to the new option. The browser and Canon keep the state; no code of yours.</p>
-    </div>
-    <div class="ref-l-story-work" id="l-story-stage">
-      <pre class="ref-l-source" aria-label="The segmented control's markup"><code><span class="ref-l-line" data-chapters="1 2"><span class="t-p">&lt;</span><span class="t-t">div</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented&quot;</span> <span class="t-a">role</span>=<span class="t-s">&quot;radiogroup&quot;</span></span><span class="ref-l-line" data-chapters="1 2">     <span class="t-a">aria-label</span>=<span class="t-s">&quot;Calendar view&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 3">    <span class="t-p">&lt;</span><span class="t-t">input</span> <span class="t-a">type</span>=<span class="t-s">&quot;radio&quot;</span> <span class="t-a">name</span>=<span class="t-s">&quot;view&quot;</span> <span class="t-a">value</span>=<span class="t-s">&quot;day&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 2">    <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-label&quot;</span><span class="t-p">&gt;</span>Day<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 3">    <span class="t-p">&lt;</span><span class="t-t">input</span> <span class="t-a">type</span>=<span class="t-s">&quot;radio&quot;</span> <span class="t-a">name</span>=<span class="t-s">&quot;view&quot;</span> <span class="t-a">value</span>=<span class="t-s">&quot;week&quot;</span> <span class="t-a">checked</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1 2">    <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-label&quot;</span><span class="t-p">&gt;</span>Week<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1">  <span class="t-p">&lt;</span><span class="t-t">label</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-segmented-option&quot;</span><span class="t-p">&gt;</span>…Month…<span class="t-p">&lt;/</span><span class="t-t">label</span><span class="t-p">&gt;</span></span><span class="ref-l-line" data-chapters="1"><span class="t-p">&lt;/</span><span class="t-t">div</span><span class="t-p">&gt;</span></span></code></pre>
-      <div class="ref-l-stage">
-        <div class="ref-l-host">
-          <div class="canon-segmented" role="radiogroup" aria-label="Calendar view" id="land-view">
-            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Day"><span class="canon-segmented-label">Day</span></label>
-            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Week" checked><span class="canon-segmented-label">Week</span></label>
-            <label class="canon-segmented-option"><input type="radio" name="land-view" value="Month"><span class="canon-segmented-label">Month</span></label>
-          </div>
+  <!-- What it is and how it looks: one button, made what one attribute
+       says, in a theme of the reader's choosing. The choice of what it is
+       works without JavaScript (:has()); the theme needs it (landing.js
+       draws the button in a page of its own, with that theme's stylesheet). -->
+  <section class="ref-l-row ref-l-look" aria-labelledby="l-look">
+    <header class="ref-l-label"><h2 id="l-look">What it is is yours. How it looks is the theme's.</h2></header>
+    <div>
+      <p class="ref-l-text">A button becomes what one attribute says. The theme draws it.</p>
+      <div class="ref-l-look-controls">
+        <div class="ref-l-look-control">
+          <span class="ref-l-look-name" id="l-look-what">What it is</span>
+          <div class="ref-l-look-scroll"><div class="canon-segmented" role="radiogroup" aria-labelledby="l-look-what"><label class="canon-segmented-option"><input type="radio" name="l-look-what" value="button" checked><span class="canon-segmented-label">Button</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-what" value="main"><span class="canon-segmented-label">Main action</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-what" value="menu"><span class="canon-segmented-label">Opens a menu</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-what" value="working"><span class="canon-segmented-label">Working</span></label></div></div>
         </div>
-        <p class="ref-l-heard" aria-hidden="true"><span>Heard</span> <span class="ref-l-heard-text">radio button, Week, 2 of 3, Calendar view</span></p>
+        <div class="ref-l-look-control" id="l-look-themes" hidden>
+          <span class="ref-l-look-name" id="l-look-theme">How it looks</span>
+          <div class="ref-l-look-scroll"><div class="canon-segmented" role="radiogroup" aria-labelledby="l-look-theme"><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="canon" checked><span class="canon-segmented-label">Canon</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="carbon"><span class="canon-segmented-label">Carbon</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="material"><span class="canon-segmented-label">Material</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="fluent"><span class="canon-segmented-label">Fluent</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="ant"><span class="canon-segmented-label">Ant Design</span></label><label class="canon-segmented-option"><input type="radio" name="l-look-theme" value="bootstrap"><span class="canon-segmented-label">Bootstrap</span></label></div></div>
+        </div>
       </div>
+      <div class="ref-l-look-work">
+        <pre class="ref-l-source" aria-label="The button's markup"><code data-is="button"><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span><span class="t-p">&gt;</span>
+  <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button-label&quot;</span><span class="t-p">&gt;</span>Cancel<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span>
+<span class="t-p">&lt;/</span><span class="t-t">button</span><span class="t-p">&gt;</span></code><code data-is="main"><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span>
+        <mark class="ref-l-mark"><span class="t-a">data-emphasis</span>=<span class="t-s">&quot;high&quot;</span></mark><span class="t-p">&gt;</span>
+  <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button-label&quot;</span><span class="t-p">&gt;</span>Save<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span>
+<span class="t-p">&lt;/</span><span class="t-t">button</span><span class="t-p">&gt;</span></code><code data-is="menu"><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span>
+        <mark class="ref-l-mark"><span class="t-a">aria-haspopup</span>=<span class="t-s">&quot;menu&quot;</span></mark><span class="t-p">&gt;</span>
+  <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button-label&quot;</span><span class="t-p">&gt;</span>Export<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span>
+<span class="t-p">&lt;/</span><span class="t-t">button</span><span class="t-p">&gt;</span></code><code data-is="working"><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span>
+        <span class="t-a">data-emphasis</span>=<span class="t-s">&quot;high&quot;</span>
+        <mark class="ref-l-mark"><span class="t-a">aria-busy</span>=<span class="t-s">&quot;true&quot;</span></mark>
+        <mark class="ref-l-mark"><span class="t-a">aria-disabled</span>=<span class="t-s">&quot;true&quot;</span></mark><span class="t-p">&gt;</span>
+  <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button-label&quot;</span><span class="t-p">&gt;</span>Saving…<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span>
+<span class="t-p">&lt;/</span><span class="t-t">button</span><span class="t-p">&gt;</span></code></pre>
+        <div class="ref-l-host" inert><span data-is="button"><button type="button" class="canon-button"><span class="canon-button-label">Cancel</span></button></span><span data-is="main"><button type="button" class="canon-button" data-emphasis="high"><span class="canon-button-label">Save</span></button></span><span data-is="menu"><button type="button" class="canon-button" aria-haspopup="menu"><span class="canon-button-label">Export</span></button></span><span data-is="working"><button type="button" class="canon-button" data-emphasis="high" aria-busy="true" aria-disabled="true"><span class="canon-button-label">Saving…</span></button></span></div>
+      </div>
+      <p class="ref-l-look-note" id="l-look-note" hidden>Five of the looks are inspired by other design systems, and not affiliated with them.</p>
+      <p class="ref-l-text ref-l-look-close">All of that is HTML and CSS.</p>
     </div>
   </section>
 

@@ -4,10 +4,8 @@
  * - The first screen: real components framing the claim, each acting in
  *   turn, round the frame.
  * - Why Canon: a lead and four beliefs, coming in once as they're seen.
- * - What the markup gives you: a story in three chapters that plays while
- *   it's in view. The source lights the lines each chapter is about; a
- *   segmented control is named, then its choice moves as the arrow keys
- *   would move it, the indicator sliding along.
+ * - What it is and how it looks: the chosen button drawn in a page of its
+ *   own, in the chosen theme.
  * - Without JavaScript: a cell for each component, settling by tier.
  * - Every component: pointing at a name shows it running above the
  *   pointer, its preview taken from the Components page.
@@ -296,94 +294,58 @@
   }, { rootMargin: "0px 0px -15% 0px" }).observe(why);
 
   /* ------------------------------------------------------------------ */
-  /* What the markup gives you                                           */
+  /* What it is and how it looks                                         */
   /* ------------------------------------------------------------------ */
 
-  /* A story in three chapters. Each step's bar fills while its chapter
-     plays (a CSS animation, as long as the chapter), and when it's full the
-     next chapter begins, round again after the last. It plays while the
-     section is in view, and holds while the pointer or focus is in it or
-     the tab is hidden. A step jumps to its chapter. With reduced motion
-     nothing plays: the steps are the way through. */
-  const story = document.querySelector(".ref-l-story");
-  const steps = [...story.querySelectorAll(".ref-l-step")];
-  const group = document.getElementById("land-view");
-  const radios = [...group.querySelectorAll('input[type="radio"]')];
-  const stage = story.querySelector(".ref-l-stage");
-  const heard = story.querySelector(".ref-l-heard-text");
-
-  /* What a screen reader announces: the chosen option, its place and the
-     group's name. */
-  const announce = () => {
-    const at = radios.findIndex((radio) => radio.checked);
-    heard.textContent = `radio button, ${radios[at].value}, ${at + 1} of ${radios.length}, ${group.getAttribute("aria-label")}`;
+  /* The choice of what it is is the page's own (:has()). The theme is a
+     page of its own: the chosen button, alone, with that theme's stylesheet
+     and nothing else of the docs, in the docs' color scheme. The theme
+     choice swaps the stylesheet; the button's markup is copied as written. */
+  const look = document.querySelector(".ref-l-look");
+  const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme", tabIndex: -1 });
+  look.querySelector(".ref-l-host").after(view);
+  const lookDocument = view.contentDocument;
+  lookDocument.open();
+  lookDocument.write(`<!doctype html>
+    <html lang="${document.documentElement.lang}">
+    <head>
+      <meta charset="utf-8">
+      <base href="${new URL(".", location.href).href}">
+      <link rel="stylesheet" href="../css/canon/canon.css">
+      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background-color: var(--canon-theme-page-bg); }</style>
+    </head>
+    <body inert></body>
+    </html>`);
+  lookDocument.close();
+  const scheme = () => { lookDocument.documentElement.style.colorScheme = document.documentElement.style.colorScheme; };
+  new MutationObserver(scheme).observe(document.documentElement, { attributeFilter: ["style"] });
+  scheme();
+  const draw = () => {
+    const what = look.querySelector('[name="l-look-what"]:checked').value;
+    lookDocument.body.innerHTML = look.querySelector(`.ref-l-host > [data-is="${what}"]`).innerHTML;
   };
-  group.addEventListener("change", announce);
-  /* Chapter three: the next option chosen every so often, as the arrow
-     keys would; the indicator slides to it. */
-  let choosing = 0;
-  const choose = (on) => {
-    clearInterval(choosing);
-    if (!on) return;
-    choosing = setInterval(() => {
-      if (story.hasAttribute("data-paused")) return;
-      const at = radios.findIndex((radio) => radio.checked);
-      radios[(at + 1) % radios.length].click();
-    }, 1400);
+  /* The new stylesheet goes in beside the old, which leaves once it's in,
+     so the button never shows unstyled. Only the last one chosen stays. */
+  let latest = null;
+  const restyle = (theme) => {
+    const sheet = Object.assign(lookDocument.createElement("link"), { rel: "stylesheet", href: `../css/${theme}/${theme}.css` });
+    latest = sheet;
+    const done = () => {
+      if (sheet !== latest) { sheet.remove(); return; }
+      for (const other of lookDocument.querySelectorAll('link[rel="stylesheet"]')) if (other !== sheet) other.remove();
+    };
+    sheet.addEventListener("load", done, { once: true });
+    sheet.addEventListener("error", done, { once: true });
+    lookDocument.head.append(sheet);
   };
-  const reset = () => {
-    if (!radios[1].checked) radios[1].click();
-  };
-
-  const go = (now) => {
-    story.dataset.chapter = now;
-    for (const step of steps) {
-      const at = Number(step.dataset.chapter);
-      /* Off, then on: the bar fills from empty, also on the same chapter. */
-      step.removeAttribute("data-now");
-      void step.offsetWidth;
-      step.toggleAttribute("data-now", at === now);
-      step.toggleAttribute("data-done", at < now);
-      if (at === now) step.setAttribute("aria-current", "step");
-      else step.removeAttribute("aria-current");
-    }
-    for (const text of story.querySelectorAll(".ref-l-story-text > p")) text.toggleAttribute("data-now", Number(text.dataset.chapter) === now);
-    /* Chapter one shows the whole source; the others light what they're about. */
-    for (const line of story.querySelectorAll(".ref-l-line")) {
-      const about = line.dataset.chapters.split(" ").map(Number);
-      line.toggleAttribute("data-lit", now === 1 || about.includes(now));
-    }
-    stage.toggleAttribute("data-named", now >= 2);
-    if (now < 3) reset();
-    choose(now === 3 && !still.matches);
-    announce();
-  };
-  for (const step of steps) {
-    step.addEventListener("click", () => go(Number(step.dataset.chapter)));
-    step.querySelector(".ref-l-step-bar").addEventListener("animationend", () => {
-      if (step.hasAttribute("data-now")) go(Number(step.dataset.chapter) % steps.length + 1);
-    });
-  }
-
-  let storySeen = false;
-  let started = false;
-  let inside = false;
-  const hold = () => {
-    const playing = storySeen && !inside && !document.hidden;
-    story.toggleAttribute("data-paused", !playing);
-    /* From the first chapter the first time it's seen. */
-    if (playing && !started) { started = true; go(1); }
-  };
-  new IntersectionObserver(([entry]) => { storySeen = entry.isIntersecting; hold(); }, { threshold: 0.35 }).observe(story);
-  document.addEventListener("visibilitychange", hold);
-  /* Keyboard focus holds it (a ring shows); a click's focus doesn't. */
-  const keyboardIn = () => !!story.querySelector(":focus-visible");
-  story.addEventListener("pointerenter", () => { inside = true; hold(); });
-  story.addEventListener("pointerleave", () => { inside = keyboardIn(); hold(); });
-  story.addEventListener("focusin", () => { inside = story.matches(":hover") || keyboardIn(); hold(); });
-  story.addEventListener("focusout", (event) => { if (!story.contains(event.relatedTarget)) { inside = story.matches(":hover"); hold(); } });
-  go(1);
-  hold();
+  look.addEventListener("change", (event) => {
+    if (event.target.name === "l-look-what") draw();
+    else restyle(event.target.value);
+  });
+  draw();
+  look.toggleAttribute("data-framed", true);
+  document.getElementById("l-look-themes").hidden = false;
+  document.getElementById("l-look-note").hidden = false;
 
 
   /* ------------------------------------------------------------------ */

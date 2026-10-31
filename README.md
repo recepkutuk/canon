@@ -63,24 +63,33 @@ npx canon-ui build --only core,data,date
 - **Less JavaScript every year.** Browsers keep doing more on their own. Canon uses what they do, and its script steps back as they catch up.
 - **Works the way you expect.** A table should read like a table, a form should never lose what was typed, and the keyboard should always work.
 
-## What the markup gives you
+## What it is is yours. How it looks is the theme's.
+
+A button becomes what one attribute says. The theme draws it.
 
 ```html
-<div class="canon-segmented" role="radiogroup" aria-label="Calendar view">
-  <label class="canon-segmented-option">
-    <input type="radio" name="view" value="day">
-    <span class="canon-segmented-label">Day</span>
-  </label>
-  <label class="canon-segmented-option">
-    <input type="radio" name="view" value="week" checked>
-    <span class="canon-segmented-label">Week</span>
-  </label>
-</div>
+<!-- A button -->
+<button type="button" class="canon-button">
+  <span class="canon-button-label">Cancel</span>
+</button>
+
+<!-- The main action -->
+<button type="button" class="canon-button" data-emphasis="high">
+  <span class="canon-button-label">Save</span>
+</button>
+
+<!-- A button that opens a menu: the theme draws its chevron -->
+<button type="button" class="canon-button" aria-haspopup="menu">
+  <span class="canon-button-label">Export</span>
+</button>
+
+<!-- Working: the theme draws a spinner -->
+<button type="button" class="canon-button" data-emphasis="high" aria-busy="true" aria-disabled="true">
+  <span class="canon-button-label">Saving…</span>
+</button>
 ```
 
-- **You write the markup.** A radio group: plain HTML, the classes and attributes the Segmented Control page shows.
-- **Names come with it.** `aria-label` names the group and each label names its option, so a screen reader says where you are.
-- **Keys and state come with it.** The arrow keys choose, and the indicator slides to the new option. The browser and Canon keep the state; no code of yours.
+The same markup looks right in each of Canon's six themes: Canon's own, and looks inspired by Carbon, Material, Fluent, Ant Design and Bootstrap. All of that is HTML and CSS.
 
 ## Without JavaScript
 
