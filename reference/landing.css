@@ -119,6 +119,8 @@
 /* Sections titled as Why Canon's lead (.ref-l-titled): no rule over
    them, so more room above. */
 .ref-l-titled { margin-block-start: 6rem; padding-block-start: 0; border-block-start: 0; }
+/* Start keeps its rule: the page's close, set apart from what it says. */
+.ref-l-close.ref-l-titled { padding-block-start: 4rem; border-block-start: 1px solid var(--ref-line); }
 .ref-l-look > div { container-type: inline-size; }
 .ref-l-pg {
   --ins-accent: var(--l-teal);
