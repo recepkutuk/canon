@@ -91,17 +91,6 @@ A button becomes what its attributes say. The theme draws it.
 
 The same markup looks right in each of Canon's six themes: Canon's own, and looks inspired by Carbon, Material, Fluent, Ant Design and Bootstrap. All of that is HTML and CSS.
 
-## 67 of 68 components work without JavaScript
-
-Each component's specification gives its tier, from T0 to T3: what it does with HTML and CSS alone, and what canon.js adds. When a script doesn't load, the page still works.
-
-| Tier | Components | What it needs |
-| --- | ---: | --- |
-| T0 | 49 | HTML and CSS |
-| T1 | 7 | Browser features |
-| T2 | 11 | Better with JavaScript |
-| T3 | 1 | Needs JavaScript |
-
 ## Components
 
 - **Layout:** App Shell, Page Header, Section, Separator, Sidebar, Split Pane, Stack, Cluster and Grid, Toolbar, Top Bar
@@ -112,6 +101,17 @@ Each component's specification gives its tier, from T0 to T3: what it does with 
 - **Overlays:** Dialog, Drawer, Menu, Popover, Tooltip
 - **Feedback:** Alert, Banner, Skeleton, Spinner, Toast
 - **Patterns:** List → Detail → Edit, Master–Detail, Settings Page, Sign-in Page
+
+## 67 of 68 components work without JavaScript
+
+Each component's specification gives its tier, from T0 to T3: what it does with HTML and CSS alone, and what canon.js adds. When a script doesn't load, the page still works.
+
+| Tier | Components | What it needs |
+| --- | ---: | --- |
+| T0 | 49 | HTML and CSS |
+| T1 | 7 | Browser features |
+| T2 | 11 | Better with JavaScript |
+| T3 | 1 | Needs JavaScript |
 
 ## Not included
 
