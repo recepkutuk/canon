@@ -60,27 +60,27 @@
       <p class="ref-l-text">A button becomes what its attributes say. The theme draws it.</p>
       <div class="ref-l-pg">
         <span class="ref-l-try" aria-hidden="true"></span>
-        <div class="ref-l-pg-controls" id="l-pg-controls" hidden>
+        <div class="ref-l-pg-controls ref-ins-host" id="l-pg-controls" hidden>
           <p class="ref-l-pg-owner">Yours</p>
-          <div class="ref-l-pg-row">
-            <span class="ref-l-pg-name" id="l-pg-emphasis">Emphasis</span>
-            <div class="ref-l-pg-scroll"><div class="canon-segmented" data-size="sm" role="radiogroup" aria-labelledby="l-pg-emphasis"><label class="canon-segmented-option"><input type="radio" name="l-pg-emphasis" value="high"><span class="canon-segmented-label">High</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-emphasis" value="" checked><span class="canon-segmented-label">Medium</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-emphasis" value="low"><span class="canon-segmented-label">Low</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-emphasis" value="minimal"><span class="canon-segmented-label">Minimal</span></label></div></div>
+          <div class="ref-ins-row" data-stack>
+            <span class="ref-ins-label" id="l-pg-emphasis"><span class="ref-l-pg-attr">data-emphasis</span></span><span class="ref-ins-value" aria-hidden="true">Auto</span>
+            <div class="ref-ins-tiles" role="radiogroup" aria-labelledby="l-pg-emphasis"><label class="ref-ins-option" title="Auto"><input type="radio" name="l-pg-emphasis" value="" aria-label="Auto" checked><span class="ref-ins-pill" data-emphasis="auto" aria-hidden="true"></span></label><label class="ref-ins-option" title="High"><input type="radio" name="l-pg-emphasis" value="high" aria-label="High"><span class="ref-ins-pill" data-emphasis="high" aria-hidden="true"></span></label><label class="ref-ins-option" title="Medium"><input type="radio" name="l-pg-emphasis" value="medium" aria-label="Medium"><span class="ref-ins-pill" data-emphasis="medium" aria-hidden="true"></span></label><label class="ref-ins-option" title="Low"><input type="radio" name="l-pg-emphasis" value="low" aria-label="Low"><span class="ref-ins-pill" data-emphasis="low" aria-hidden="true"></span></label><label class="ref-ins-option" title="Minimal"><input type="radio" name="l-pg-emphasis" value="minimal" aria-label="Minimal"><span class="ref-ins-pill" data-emphasis="minimal" aria-hidden="true"></span></label></div>
           </div>
-          <div class="ref-l-pg-row">
-            <span class="ref-l-pg-name" id="l-pg-intent">Intent</span>
-            <div class="ref-l-pg-scroll"><div class="canon-segmented" data-size="sm" role="radiogroup" aria-labelledby="l-pg-intent"><label class="canon-segmented-option"><input type="radio" name="l-pg-intent" value="" checked><span class="canon-segmented-label">Accent</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-intent" value="neutral"><span class="canon-segmented-label">Neutral</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-intent" value="danger"><span class="canon-segmented-label">Danger</span></label></div></div>
+          <div class="ref-ins-row" data-stack>
+            <span class="ref-ins-label" id="l-pg-intent"><span class="ref-l-pg-attr">data-intent</span></span><span class="ref-ins-value" aria-hidden="true">None</span>
+            <div class="ref-ins-tiles" role="radiogroup" aria-labelledby="l-pg-intent"><label class="ref-ins-option" title="None" data-tone="auto"><input type="radio" name="l-pg-intent" value="" aria-label="None" checked><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Neutral" data-tone="neutral"><input type="radio" name="l-pg-intent" value="neutral" aria-label="Neutral"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Success" data-tone="success"><input type="radio" name="l-pg-intent" value="success" aria-label="Success"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Warning" data-tone="warning"><input type="radio" name="l-pg-intent" value="warning" aria-label="Warning"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Danger" data-tone="danger"><input type="radio" name="l-pg-intent" value="danger" aria-label="Danger"><span class="ref-ins-glyph" aria-hidden="true"></span></label></div>
           </div>
-          <div class="ref-l-pg-row">
-            <div class="canon-choice"><input type="checkbox" role="switch" id="l-pg-menu" name="l-pg-menu"><label class="canon-choice-label" for="l-pg-menu">Opens a menu</label></div>
+          <div class="ref-ins-row" data-switch>
+            <label class="ref-ins-label" for="l-pg-menu"><span class="ref-l-pg-attr">aria-haspopup</span> <span class="ref-l-pg-hint">opens a menu</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-menu" name="l-pg-menu">
           </div>
-          <div class="ref-l-pg-row">
-            <div class="canon-choice"><input type="checkbox" role="switch" id="l-pg-busy" name="l-pg-busy"><label class="canon-choice-label" for="l-pg-busy">Working</label></div>
+          <div class="ref-ins-row" data-switch>
+            <label class="ref-ins-label" for="l-pg-busy"><span class="ref-l-pg-attr">aria-busy</span> <span class="ref-l-pg-hint">working</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-busy" name="l-pg-busy">
           </div>
         </div>
         <div class="ref-l-pg-preview">
-          <div class="ref-l-pg-row" id="l-pg-themes" hidden>
-            <span class="ref-l-pg-owner" id="l-pg-theme">The theme's</span>
-            <div class="ref-l-pg-scroll"><div class="canon-segmented" data-size="sm" role="radiogroup" aria-labelledby="l-pg-theme"><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="canon" checked><span class="canon-segmented-label">Canon</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="carbon"><span class="canon-segmented-label">Carbon</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="material"><span class="canon-segmented-label">Material</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="fluent"><span class="canon-segmented-label">Fluent</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="ant"><span class="canon-segmented-label">Ant</span></label><label class="canon-segmented-option"><input type="radio" name="l-pg-theme" value="bootstrap"><span class="canon-segmented-label">Bootstrap</span></label></div></div>
+          <div class="ref-l-pg-theme ref-ins-host" id="l-pg-themes" hidden>
+            <p class="ref-l-pg-owner" id="l-pg-theme">The theme's</p>
+            <div class="ref-ins-seg" role="radiogroup" aria-labelledby="l-pg-theme" style="--n: 6"><label class="ref-ins-option" title="Canon"><input type="radio" name="l-pg-theme" value="canon" aria-label="Canon" checked><span>Canon</span></label><label class="ref-ins-option" title="Carbon"><input type="radio" name="l-pg-theme" value="carbon" aria-label="Carbon"><span>Carbon</span></label><label class="ref-ins-option" title="Material"><input type="radio" name="l-pg-theme" value="material" aria-label="Material"><span>Material</span></label><label class="ref-ins-option" title="Fluent"><input type="radio" name="l-pg-theme" value="fluent" aria-label="Fluent"><span>Fluent</span></label><label class="ref-ins-option" title="Ant"><input type="radio" name="l-pg-theme" value="ant" aria-label="Ant"><span>Ant</span></label><label class="ref-ins-option" title="Bootstrap"><input type="radio" name="l-pg-theme" value="bootstrap" aria-label="Bootstrap"><span>Bootstrap</span></label></div>
           </div>
           <div class="ref-l-host" inert><button type="button" class="canon-button"><span class="canon-button-label">Save</span></button></div>
         </div>

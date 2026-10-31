@@ -118,10 +118,10 @@
    other. */
 .ref-l-look > div { container-type: inline-size; }
 .ref-l-pg { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-areas: "controls preview" "source source"; margin-block-start: 4.25rem; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); }
-.ref-l-pg-controls { grid-area: controls; min-inline-size: 0; padding-block-end: 0.5rem; border-inline-end: 1px solid var(--ref-line); }
+.ref-l-pg-controls { grid-area: controls; min-inline-size: 0; border-inline-end: 1px solid var(--ref-line); }
 .ref-l-pg-preview { grid-area: preview; display: grid; grid-template-rows: auto 1fr; min-inline-size: 0; }
 .ref-l-pg > .ref-l-source { grid-area: source; border-block-start: 1px solid var(--ref-line); }
-.ref-l-pg-controls[hidden], .ref-l-pg-row[hidden] { display: none; }
+.ref-l-pg-controls[hidden] { display: none; }
 /* Without the controls (no JavaScript), the button over its markup. */
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "preview" "source"; }
 @container (max-width: 50rem) {
@@ -135,24 +135,25 @@
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 
 /* Whose each side is. */
-.ref-l-pg-owner { margin: 0; padding: 1rem 1.25rem 0.25rem; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; }
-/* A control: its name in a column, then the control; hairlines between. */
-.ref-l-pg-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: center; gap: 0.75rem; min-block-size: 2.75rem; margin-inline: 1.25rem; padding-block: 0.5rem; }
-.ref-l-pg-row + .ref-l-pg-row { border-block-start: 1px solid var(--ref-line); }
-.ref-l-pg-row:has(> .canon-choice) { grid-template-columns: minmax(0, 1fr); }
-.ref-l-pg-name, .ref-l-pg-row .canon-choice-label { color: var(--ref-fg); font-size: 0.8125rem; font-weight: 500; }
-/* The theme's choice over the button: the owner names it, a hairline
-   under it. */
-.ref-l-pg-preview > .ref-l-pg-row { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; margin: 0; padding: 0 1.25rem 0.75rem; border-block-end: 1px solid var(--ref-line); }
-.ref-l-pg-preview > .ref-l-pg-row > .ref-l-pg-owner { padding: 1rem 0 0; }
-/* Where the options don't fit, they keep their names and the control
-   scrolls, room left for the focus ring. */
-.ref-l-pg-scroll { justify-self: start; max-inline-size: 100%; margin: -0.25rem; padding: 0.25rem; overflow-x: auto; scrollbar-width: none; }
-.ref-l-pg-scroll > .canon-segmented { max-inline-size: none; }
-.ref-l-pg-scroll .canon-segmented-option { flex: none; }
+.ref-l-pg-owner { margin: 0; padding: 1rem 0 0.5rem; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; line-height: 1rem; }
+/* The controls are the Playground's own (ref.css), a little larger: each
+   names the attribute it writes. */
+.ref-l-pg-controls { padding: 0 1.25rem 1rem; font-size: 0.8125rem; line-height: 1.25rem; }
+.ref-l-pg-controls > .ref-ins-row + .ref-ins-row { margin-block-start: 0.5rem; padding-block-start: 0.625rem; border-block-start: 1px solid var(--ref-line); }
+.ref-l-pg-attr { font-family: var(--l-mono); font-size: 0.75rem; }
+.ref-l-pg-controls .ref-ins-tiles > .ref-ins-option { block-size: 2.25rem; }
+.ref-l-pg-hint { margin-inline-start: 0.25rem; opacity: 0.75; }
+/* The theme's choice over the button, a hairline under it. */
+.ref-l-pg-theme { padding: 0 1.25rem 1rem; border-block-end: 1px solid var(--ref-line); font-size: 0.8125rem; }
+.ref-l-pg-theme[hidden] { display: none; }
+.ref-l-pg-theme > .ref-ins-seg > .ref-ins-option { block-size: 1.75rem; }
+/* Where six names don't fit, each keeps its name and the row scrolls. */
+@container (max-width: 30rem) {
+  .ref-l-pg-theme { overflow-x: auto; scrollbar-width: none; }
+  .ref-l-pg-theme > .ref-ins-seg { inline-size: max-content; grid-auto-columns: 4.75rem; }
+}
 
-/* The markup the controls write, as tall as its longest; what they add
-   is marked. */
+/* The markup the controls write; what they add is marked. */
 .ref-l-source {
   --t-text: light-dark(#3f3f46, #d4d4d8);
   --t-punct: light-dark(#71717a, #a1a1aa);
@@ -160,8 +161,6 @@
   --t-attr: light-dark(#6d28d9, #a78bfa);
   --t-string: light-dark(#047857, #34d399);
   min-inline-size: 0;
-  min-block-size: calc(8 * 1.8em + 2.5rem);
-  box-sizing: border-box;
   margin: 0;
   overflow-x: auto;
   padding: 1.25rem;

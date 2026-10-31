@@ -330,8 +330,12 @@ body[data-view="playground"] .ref-inspector {
   background-color: var(--ref-bg);
   scrollbar-width: thin;
 }
+/* The inspector's colors, also for its controls used elsewhere
+   (.ref-ins-host: the Introduction's playground). */
 .ref-inspector {
   container: ref-inspector / inline-size;
+}
+:is(.ref-inspector, .ref-ins-host) {
   --ins-fg: var(--ref-fg);
   --ins-muted: light-dark(#71717a, #a1a1aa);                       /* zinc-500 / zinc-400 */
   --ins-field: light-dark(#f4f4f5, #18181b);                       /* zinc-100 / zinc-900 */
@@ -594,7 +598,7 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-icons > .ref-ins-option { block-size: 1.75rem; --canon-icon-size: 1rem; }
 
 /* Meanings: each tile its color and icon; "none" a dashed ring. */
-.ref-inspector {
+:is(.ref-inspector, .ref-ins-host) {
   --ins-info: light-dark(#2563eb, #60a5fa);                        /* blue-600 / blue-400 */
   --ins-success: light-dark(#16a34a, #4ade80);                     /* green-600 / green-400 */
   --ins-warning: light-dark(#d97706, #fbbf24);                     /* amber-600 / amber-400 */
@@ -616,12 +620,12 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-option[data-tone="auto"] > .ref-ins-glyph { background-color: var(--ins-muted); }
 
 /* Emphasis: a tiny button at each level, in the chosen meaning's color. */
-.ref-inspector { --ins-tone: var(--ins-focus); }
-.ref-inspector[data-tone="neutral"] { --ins-tone: var(--ins-neutral); }
-.ref-inspector[data-tone="info"] { --ins-tone: var(--ins-info); }
-.ref-inspector[data-tone="success"] { --ins-tone: var(--ins-success); }
-.ref-inspector[data-tone="warning"] { --ins-tone: var(--ins-warning); }
-.ref-inspector[data-tone="danger"] { --ins-tone: var(--ins-danger); }
+:is(.ref-inspector, .ref-ins-host) { --ins-tone: var(--ins-focus); }
+:is(.ref-inspector, .ref-ins-host)[data-tone="neutral"] { --ins-tone: var(--ins-neutral); }
+:is(.ref-inspector, .ref-ins-host)[data-tone="info"] { --ins-tone: var(--ins-info); }
+:is(.ref-inspector, .ref-ins-host)[data-tone="success"] { --ins-tone: var(--ins-success); }
+:is(.ref-inspector, .ref-ins-host)[data-tone="warning"] { --ins-tone: var(--ins-warning); }
+:is(.ref-inspector, .ref-ins-host)[data-tone="danger"] { --ins-tone: var(--ins-danger); }
 .ref-ins-pill {
   display: grid;
   place-items: center;

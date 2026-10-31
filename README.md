@@ -65,7 +65,7 @@ npx canon-ui build --only core,data,date
 
 ## What it is is yours. How it looks is the theme's.
 
-A button becomes what one attribute says. The theme draws it.
+A button becomes what its attributes say. The theme draws it.
 
 ```html
 <!-- A button -->

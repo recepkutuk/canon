@@ -327,14 +327,30 @@
   /* The attributes the controls add, in the order the specification
      writes them. A busy button is also aria-disabled, as the
      specification asks. */
+  const value = (name) => look.querySelector(`[name="${name}"]:checked`)?.value ?? "";
   const added = () => {
-    const value = (name) => look.querySelector(`[name="${name}"]:checked`)?.value ?? "";
     const attributes = [];
     if (value("l-pg-emphasis")) attributes.push(["data-emphasis", value("l-pg-emphasis")]);
     if (value("l-pg-intent")) attributes.push(["data-intent", value("l-pg-intent")]);
     if (value("l-pg-menu")) attributes.push(["aria-haspopup", "menu"]);
     if (value("l-pg-busy")) attributes.push(["aria-busy", "true"], ["aria-disabled", "true"]);
     return attributes;
+  };
+  /* The controls as the Playground's inspector shows them: a tile row's
+     value beside its name, a changed control's name in the text color,
+     the emphasis tiles in the chosen meaning's color, the theme's plate
+     under the chosen one. */
+  const controls = document.getElementById("l-pg-controls");
+  const reflect = () => {
+    for (const row of controls.querySelectorAll(".ref-ins-row")) {
+      const chosen = row.querySelector("input:checked");
+      const shown = row.querySelector(".ref-ins-value");
+      if (shown) shown.textContent = chosen.getAttribute("aria-label");
+      row.toggleAttribute("data-changed", !!chosen?.value);
+    }
+    controls.dataset.tone = value("l-pg-intent");
+    const themes = [...look.querySelectorAll('[name="l-pg-theme"]')];
+    look.querySelector(".ref-l-pg-theme > .ref-ins-seg").style.setProperty("--at", themes.findIndex((theme) => theme.checked));
   };
   const label = "Save";
   const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
@@ -374,8 +390,10 @@
   look.addEventListener("change", (event) => {
     if (event.target.name === "l-pg-theme") restyle(event.target.value);
     else draw();
+    reflect();
   });
   draw();
+  reflect();
   look.toggleAttribute("data-framed", true);
   for (const id of ["l-pg-controls", "l-pg-themes", "l-look-note"]) document.getElementById(id).hidden = false;
 
