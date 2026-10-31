@@ -63,7 +63,7 @@ npx canon-ui build --only core,data,date
 - **Less JavaScript every year.** Browsers keep doing more on their own. Canon uses what they do, and its script steps back as they catch up.
 - **Works the way you expect.** A table should read like a table, a form should never lose what was typed, and the keyboard should always work.
 
-## What it is is yours. How it looks is the theme's.
+## You say what it is. The theme says how it looks.
 
 A button becomes what its attributes say. The theme draws it.
 
