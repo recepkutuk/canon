@@ -327,12 +327,17 @@
   new MutationObserver(scheme).observe(document.documentElement, { attributeFilter: ["style"] });
   scheme();
 
-  /* The attributes the controls add, in the order the specification
-     writes them. A busy button is also aria-disabled, as the
+  /* What the controls write: the theme's stylesheet (the link's href),
+     then the attributes they add to the button, in the order the
+     specification writes them. A busy button is also aria-disabled, as the
      specification asks. */
-  const value = (name) => look.querySelector(`[name="${name}"]:checked`)?.value ?? "";
+  const value = (name) => {
+    const field = look.querySelector(`[name="${name}"]`);
+    return field.matches("select") ? field.value : look.querySelector(`[name="${name}"]:checked`)?.value ?? "";
+  };
   const added = () => {
-    const attributes = [];
+    const theme = value("l-pg-theme");
+    const attributes = [["href", `css/${theme}/${theme}.css`]];
     if (value("l-pg-emphasis")) attributes.push(["data-emphasis", value("l-pg-emphasis")]);
     if (value("l-pg-intent")) attributes.push(["data-intent", value("l-pg-intent")]);
     if (value("l-pg-menu")) attributes.push(["aria-haspopup", "menu"]);
@@ -340,20 +345,19 @@
     return attributes;
   };
   /* The controls as the Playground's inspector shows them: a tile row's
-     value beside its name, a changed control's name in the text color,
-     the emphasis tiles in the chosen meaning's color, the theme's plate
-     under the chosen one. */
+     value beside its name, a changed control's name in the text color
+     (the theme: any but Canon's), the emphasis tiles in the chosen
+     meaning's color. */
   const controls = document.getElementById("l-pg-controls");
   const reflect = () => {
     for (const row of controls.querySelectorAll(".ref-ins-row")) {
+      const select = row.querySelector("select");
       const chosen = row.querySelector("input:checked");
       const shown = row.querySelector(".ref-ins-value");
       if (shown) shown.textContent = chosen.getAttribute("aria-label");
-      row.toggleAttribute("data-changed", !!chosen?.value);
+      row.toggleAttribute("data-changed", select ? select.value !== "canon" : !!chosen?.value);
     }
     look.querySelector(".ref-l-pg").dataset.tone = value("l-pg-intent");
-    const themes = [...look.querySelectorAll('[name="l-pg-theme"]')];
-    look.querySelector(".ref-l-pg-dock > .ref-ins-seg").style.setProperty("--at", themes.findIndex((theme) => theme.checked));
   };
   const label = "Save";
   const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
@@ -374,32 +378,37 @@
 
   /* The attributes as written so far, each with how much of it is typed. */
   let written = [];
-  /* The markup: the opening tag on one line, its attributes side by side,
-     wrapping between them under the first; the caret after the one being
-     typed. */
+  /* The markup: the stylesheet's link, then the button's opening tag on
+     one line, its attributes side by side, wrapping between them under the
+     first; the caret after the one being typed. */
   const write = (typing) => {
+    const typedOf = (each) => ` <span class="ref-l-attr">${partly(each, each === typing)}</span>`;
+    const href = written.find((each) => each.name === "href");
+    const link = `${token("p", "&lt;")}${token("t", "link")} ${attribute(["rel", "stylesheet"])}${href.typed > 0 ? typedOf(href) : ""}${token("p", "&gt;")}`;
     const fixed = `${token("p", "&lt;")}${token("t", "button")} ${attribute(["type", "button"])} ${attribute(["class", "canon-button"])}`;
-    const typed = written.filter((each) => each.typed > 0).map((each) =>
-      ` <span class="ref-l-attr">${partly(each, each === typing)}</span>`).join("");
-    source.innerHTML = `<span class="ref-l-open">${fixed}${typed}${token("p", "&gt;")}</span>`
+    const typed = written.filter((each) => each !== href && each.typed > 0).map(typedOf).join("");
+    source.innerHTML = `<span class="ref-l-open">${link}</span>\n<span class="ref-l-open">${fixed}${typed}${token("p", "&gt;")}</span>`
       + `<span class="ref-l-line">  ${token("p", "&lt;")}${token("t", "span")} ${attribute(["class", "canon-button-label"])}${token("p", "&gt;")}${label}${token("p", "&lt;/")}${token("t", "span")}${token("p", "&gt;")}</span>\n`
       + `${token("p", "&lt;/")}${token("t", "button")}${token("p", "&gt;")}`;
   };
-  /* The button, from the attributes. */
+  /* The button, from the attributes; the theme, from the link. */
+  let applied = "css/canon/canon.css";
   const build = () => {
+    const href = written.find((each) => each.name === "href").value;
+    if (href !== applied) { applied = href; restyle(href); }
     const button = lookDocument.createElement("button");
     button.type = "button";
     button.className = "canon-button";
-    for (const { name, value } of written) button.setAttribute(name, value);
+    for (const { name, value } of written) if (name !== "href") button.setAttribute(name, value);
     button.append(Object.assign(lookDocument.createElement("span"), { className: "canon-button-label", textContent: label }));
     lookDocument.body.replaceChildren(button);
   };
   /* What changed is typed in, letter by letter: a new attribute whole; a
      new value after the old one is taken back to its quote. One gone is
      taken back whole. The playground takes no pointer while it types, and
-     the button follows once it's written. With reduced motion, all at
-     once. */
-  const attributeOrder = ["data-emphasis", "data-intent", "aria-haspopup", "aria-busy", "aria-disabled"];
+     the button and its theme follow once it's written. With reduced
+     motion, all at once. */
+  const attributeOrder = ["href", "data-emphasis", "data-intent", "aria-haspopup", "aria-busy", "aria-disabled"];
   let typing = 0;
   const draw = () => {
     clearInterval(typing);
@@ -439,8 +448,8 @@
   /* The new stylesheet goes in beside the old, which leaves once it's in,
      so the button never shows unstyled. Only the last one chosen stays. */
   let latest = null;
-  const restyle = (theme) => {
-    const sheet = Object.assign(lookDocument.createElement("link"), { rel: "stylesheet", href: `../css/${theme}/${theme}.css` });
+  const restyle = (href) => {
+    const sheet = Object.assign(lookDocument.createElement("link"), { rel: "stylesheet", href: `../${href}` });
     latest = sheet;
     const done = () => {
       if (sheet !== latest) { sheet.remove(); return; }
@@ -450,9 +459,8 @@
     sheet.addEventListener("error", done, { once: true });
     lookDocument.head.append(sheet);
   };
-  look.addEventListener("change", (event) => {
-    if (event.target.name === "l-pg-theme") restyle(event.target.value);
-    else draw();
+  look.addEventListener("change", () => {
+    draw();
     reflect();
   });
   draw();
@@ -472,7 +480,7 @@
   addEventListener("load", room);
   room();
   look.toggleAttribute("data-framed", true);
-  for (const id of ["l-pg-controls", "l-pg-themes", "l-look-note"]) document.getElementById(id).hidden = false;
+  for (const id of ["l-pg-controls", "l-look-note"]) document.getElementById(id).hidden = false;
 
 
   /* ------------------------------------------------------------------ */

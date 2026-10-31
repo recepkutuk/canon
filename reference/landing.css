@@ -12,6 +12,7 @@
   --l-accent: light-dark(#d97706, #f59e0b);
   --l-ground: light-dark(#fafafa, #0c0c0e);
   --l-focus: light-dark(#2563eb, #60a5fa);
+  --l-teal: light-dark(#0d9488, #2dd4bf);                          /* teal-600 / teal-400: the playground's */
   --l-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.18);
   --l-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --l-ease: cubic-bezier(0.23, 1, 0.32, 1);
@@ -116,14 +117,14 @@
 /* A small design tool, in one window: the inspector (what the button is),
    the canvas (how the theme draws it) and, across the bottom, the editor
    (the markup). Three surfaces, the Playground's own (ref.css), told apart
-   by their shade and not by lines; the landing's amber is their accent.
+   by their shade and not by lines; teal is their accent.
    The window floats a little over the page. Side by side where both fit;
    else one over the other. */
 /* Its title as Why Canon's lead, without a rule over it. */
 .ref-l-look { padding-block-start: 0; border-block-start: 0; }
 .ref-l-look > div { container-type: inline-size; }
 .ref-l-pg {
-  --ins-accent: var(--l-accent);
+  --ins-accent: var(--l-teal);
   --ins-h: 2rem;
   --ins-r: 0.5rem;
   position: relative;
@@ -138,7 +139,7 @@
 .ref-l-pg-controls { grid-area: controls; min-inline-size: 0; }
 .ref-l-pg-controls[hidden] { display: none; }
 /* The canvas: inset in the window, its own rounded well. */
-.ref-l-pg-preview { grid-area: preview; position: relative; display: grid; min-inline-size: 0; min-block-size: 17rem; margin: 0.5rem 0.5rem 0.5rem 0; overflow: hidden; border-radius: 0.625rem; box-shadow: 0 0 0 1px var(--ins-line); }
+.ref-l-pg-preview { grid-area: preview; position: relative; display: grid; min-inline-size: 0; min-block-size: 14rem; margin: 0.5rem 0.5rem 0.5rem 0; overflow: hidden; border-radius: 0.625rem; box-shadow: 0 0 0 1px var(--ins-line); }
 .ref-l-pg > .ref-l-source { grid-area: source; }
 /* Without the controls (no JavaScript), the button over its markup. */
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "preview" "source"; }
@@ -151,7 +152,7 @@
    further out and lower where there's room left of it (data-roomy,
    landing.js). Bobbing, as on Canon's first page; still with reduced
    motion. */
-.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
+.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-teal); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
 .ref-l-pg[data-roomy] > .ref-l-try { inset-block-end: calc(100% - 3rem); inset-inline-start: -4.25rem; }
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
@@ -167,15 +168,9 @@
 /* No meaning chosen: the emphasis pictures in the text color, as the
    theme's own accent isn't the landing's. */
 .ref-l-pg:is([data-tone=""], :not([data-tone])) { --ins-tone: var(--ins-fg); }
-/* The canvas's name in its corner; the theme's choice docked at its
-   foot, floating on the canvas. */
-.ref-l-pg-preview > .ref-l-pg-owner { position: absolute; z-index: 1; inset: 0.875rem auto auto 1rem; pointer-events: none; }
-.ref-l-pg-dock { position: absolute; z-index: 1; inset-block-end: 0.75rem; inset-inline: 0.75rem; display: flex; justify-content: center; pointer-events: none; }
-.ref-l-pg-dock[hidden] { display: none; }
-.ref-l-pg-dock > .ref-ins-seg { max-inline-size: 100%; overflow-x: auto; scrollbar-width: none; background-color: color-mix(in srgb, var(--ins-panel) 82%, transparent); box-shadow: 0 0 0 1px var(--ins-line), 0 6px 20px -4px light-dark(rgb(0 0 0 / 0.16), rgb(0 0 0 / 0.6)); backdrop-filter: blur(12px); pointer-events: auto; }
-/* Each name whole, the options as wide as the longest; where six don't
-   fit, the dock scrolls. */
-.ref-l-pg-dock > .ref-ins-seg { grid-auto-columns: 4.375rem; font-size: 0.75rem; }
+/* The theme's choice under the button's, a section of its own. */
+.ref-l-pg-controls > .ref-ins-row + .ref-l-pg-owner { margin-block-start: 0.5rem; padding-block-start: 1rem; border-block-start: 1px solid var(--ins-line); }
+.ref-l-pg-controls .ref-ins-row:not([data-stack], [data-switch]) { grid-template-columns: 4rem minmax(0, 1fr); }
 
 /* The editor: the markup the controls write, recessed under them. */
 .ref-l-source {
@@ -201,7 +196,7 @@
 .ref-l-attr { white-space: nowrap; }
 .ref-l-line { white-space: pre; }
 /* The caret, as in overwrite mode: the letter just typed on a block. */
-.ref-l-caret { border-radius: 1px; background-color: var(--l-accent); color: var(--ref-bg); }
+.ref-l-caret { border-radius: 1px; background-color: var(--ins-accent); color: var(--ref-bg); }
 .ref-l-look[data-typing] .ref-l-pg { pointer-events: none; }
 .ref-l-source .t-p { color: var(--t-punct); }
 .ref-l-source .t-t { color: var(--t-tag); }

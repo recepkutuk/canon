@@ -76,13 +76,17 @@
           <div class="ref-ins-row" data-switch>
             <label class="ref-ins-label" for="l-pg-busy" title="Working"><span class="ref-l-pg-attr">aria-busy</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-busy" name="l-pg-busy">
           </div>
+          <p class="ref-l-pg-owner">The theme's</p>
+          <div class="ref-ins-row">
+            <label class="ref-ins-label" for="l-pg-theme" title="The theme's stylesheet"><span class="ref-l-pg-attr">href</span></label><span class="ref-ins-select"><select id="l-pg-theme" name="l-pg-theme"><option value="canon" selected>Canon</option><option value="carbon">Carbon-inspired</option><option value="material">Material-inspired</option><option value="fluent">Fluent-inspired</option><option value="ant">Ant Design-inspired</option><option value="bootstrap">Bootstrap-inspired</option></select></span>
+          </div>
         </div>
         <div class="ref-l-pg-preview">
-          <p class="ref-l-pg-owner" id="l-pg-theme">The theme's</p>
-          <div class="ref-l-pg-dock" id="l-pg-themes" hidden><div class="ref-ins-seg" role="radiogroup" aria-labelledby="l-pg-theme" style="--n: 6"><label class="ref-ins-option" title="Canon"><input type="radio" name="l-pg-theme" value="canon" aria-label="Canon" checked><span>Canon</span></label><label class="ref-ins-option" title="Carbon"><input type="radio" name="l-pg-theme" value="carbon" aria-label="Carbon"><span>Carbon</span></label><label class="ref-ins-option" title="Material"><input type="radio" name="l-pg-theme" value="material" aria-label="Material"><span>Material</span></label><label class="ref-ins-option" title="Fluent"><input type="radio" name="l-pg-theme" value="fluent" aria-label="Fluent"><span>Fluent</span></label><label class="ref-ins-option" title="Ant"><input type="radio" name="l-pg-theme" value="ant" aria-label="Ant"><span>Ant</span></label><label class="ref-ins-option" title="Bootstrap"><input type="radio" name="l-pg-theme" value="bootstrap" aria-label="Bootstrap"><span>Bootstrap</span></label></div></div>
           <div class="ref-l-host" inert><button type="button" class="canon-button"><span class="canon-button-label">Save</span></button></div>
         </div>
-        <pre class="ref-l-source" aria-label="The button's markup"><code><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span><span class="t-p">&gt;</span>
+        <pre class="ref-l-source" aria-label="The stylesheet and the button's markup"><code><span class="t-p">&lt;</span><span class="t-t">link</span> <span class="t-a">rel</span>=<span class="t-s">&quot;stylesheet&quot;</span> <span class="t-a">href</span>=<span class="t-s">&quot;css/canon/canon.css&quot;</span><span class="t-p">&gt;</span>
+
+<span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span><span class="t-p">&gt;</span>
   <span class="t-p">&lt;</span><span class="t-t">span</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button-label&quot;</span><span class="t-p">&gt;</span>Save<span class="t-p">&lt;/</span><span class="t-t">span</span><span class="t-p">&gt;</span>
 <span class="t-p">&lt;/</span><span class="t-t">button</span><span class="t-p">&gt;</span></code></pre>
       </div>
