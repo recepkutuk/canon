@@ -130,9 +130,12 @@
   .ref-l-pg { grid-template-columns: minmax(0, 1fr); grid-template-areas: "controls" "preview" "source"; }
   .ref-l-pg-controls { border-inline-end: 0; border-block-end: 1px solid var(--ref-line); }
 }
-/* "Try me", handwritten, over the card's corner, its arrow reaching in.
-   Bobbing, as on Canon's first page; still with reduced motion. */
+/* "Try me", handwritten, over the card's corner, its arrow reaching in;
+   further out and lower where there's room left of the card (data-roomy,
+   landing.js). Bobbing, as on Canon's first page; still with reduced
+   motion. */
 .ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
+.ref-l-pg[data-roomy] > .ref-l-try { inset-block-end: calc(100% - 3rem); inset-inline-start: -4.25rem; }
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 
