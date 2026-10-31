@@ -175,8 +175,8 @@
 .ref-l-open { display: block; padding-inline-start: 8ch; text-indent: -8ch; }
 .ref-l-attr { white-space: nowrap; }
 .ref-l-line { white-space: pre; }
-/* Where the next letter goes, while one is typed in. */
-.ref-l-caret { display: inline-block; inline-size: 1.5px; block-size: 1.2em; margin-inline-start: 1px; vertical-align: text-bottom; background-color: var(--l-accent); }
+/* The caret, as in overwrite mode: the letter just typed on a block. */
+.ref-l-caret { border-radius: 1px; background-color: var(--l-accent); color: var(--ref-bg); }
 .ref-l-look[data-typing] .ref-l-pg { pointer-events: none; }
 .ref-l-source .t-p { color: var(--t-punct); }
 .ref-l-source .t-t { color: var(--t-tag); }

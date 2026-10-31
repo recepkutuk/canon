@@ -355,12 +355,20 @@
   const label = "Save";
   const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
   const attribute = ([name, value]) => `${token("a", name)}=${token("s", `&quot;${value}&quot;`)}`;
-  /* An attribute as far as it's typed: its name, then = and its value. */
-  const partly = ({ name, text, typed }) => {
+  /* An attribute as far as it's typed: its name, then = and its value;
+     while it's being typed, its last letter on a block, the caret. */
+  const partly = ({ name, text, typed }, caret) => {
     const shown = text.slice(0, typed);
-    const value = shown.slice(name.length + 1).replaceAll('"', "&quot;");
-    return `${token("a", shown.slice(0, name.length))}${shown.length > name.length ? "=" : ""}${value ? token("s", value) : ""}`;
+    const parts = [["a", shown.slice(0, name.length)], ["", shown.slice(name.length, name.length + 1)], ["s", shown.slice(name.length + 1)]];
+    const last = caret ? parts.findLast(([, part]) => part) : null;
+    return parts.map((part) => {
+      const [kind, text] = part;
+      const html = (piece) => piece.replaceAll('"', "&quot;");
+      const inner = part === last ? `${html(text.slice(0, -1))}<span class="ref-l-caret">${html(text.slice(-1))}</span>` : html(text);
+      return !text ? "" : kind ? token(kind, inner) : inner;
+    }).join("");
   };
+
   /* The attributes as written so far, each with how much of it is typed. */
   let written = [];
   /* The markup: the opening tag on one line, its attributes side by side,
@@ -369,7 +377,7 @@
   const write = (typing) => {
     const fixed = `${token("p", "&lt;")}${token("t", "button")} ${attribute(["type", "button"])} ${attribute(["class", "canon-button"])}`;
     const typed = written.filter((each) => each.typed > 0).map((each) =>
-      ` <span class="ref-l-attr">${partly(each)}${each === typing ? '<span class="ref-l-caret"></span>' : ""}</span>`).join("");
+      ` <span class="ref-l-attr">${partly(each, each === typing)}</span>`).join("");
     source.innerHTML = `<span class="ref-l-open">${fixed}${typed}${token("p", "&gt;")}</span>`
       + `<span class="ref-l-line">  ${token("p", "&lt;")}${token("t", "span")} ${attribute(["class", "canon-button-label"])}${token("p", "&gt;")}${label}${token("p", "&lt;/")}${token("t", "span")}${token("p", "&gt;")}</span>\n`
       + `${token("p", "&lt;/")}${token("t", "button")}${token("p", "&gt;")}`;
@@ -383,30 +391,39 @@
     button.append(Object.assign(lookDocument.createElement("span"), { className: "canon-button-label", textContent: label }));
     lookDocument.body.replaceChildren(button);
   };
-  /* What changed is typed in, letter by letter: a new attribute whole, a
-     new value from its quote; one gone goes at once. The playground takes
-     no pointer while it types, and the button follows once it's written.
-     With reduced motion, all at once. */
+  /* What changed is typed in, letter by letter: a new attribute whole; a
+     new value after the old one is taken back to its quote. One gone goes
+     at once. The playground takes no pointer while it types, and the
+     button follows once it's written. With reduced motion, all at once. */
   let typing = 0;
   const draw = () => {
     clearInterval(typing);
     written = added().map(([name, value]) => {
       const text = `${name}="${value}"`;
       const before = written.find((each) => each.name === name);
-      const typed = !before ? 0 : before.value === value ? text.length : name.length + 2;
-      return { name, value, text, typed: still.matches ? text.length : typed };
+      if (still.matches || before?.value === value) return { name, value, text, typed: text.length };
+      if (!before) return { name, value, text, typed: 0 };
+      /* What's shown of the old value goes first, then the new comes. */
+      return { name, value, text: before.text, typed: before.typed, then: text };
     });
-    const next = () => written.find((each) => each.typed < each.text.length);
-    if (!next()) { look.removeAttribute("data-typing"); write(); build(); return; }
-    look.setAttribute("data-typing", "");
-    write(next());
-    typing = setInterval(() => {
-      const each = next();
-      if (each) { each.typed += 1; write(next() ?? each); return; }
+    const busy = (each) => each.then || each.typed < each.text.length;
+    const next = () => written.find(busy);
+    const done = () => {
       clearInterval(typing);
       look.removeAttribute("data-typing");
       write();
       build();
+    };
+    if (!next()) { done(); return; }
+    look.setAttribute("data-typing", "");
+    write(next());
+    typing = setInterval(() => {
+      const each = next();
+      if (!each) { done(); return; }
+      if (each.then && each.typed > each.name.length + 2) each.typed -= 1;
+      else if (each.then) { each.text = each.then; delete each.then; each.typed += 1; }
+      else each.typed += 1;
+      write(next() ?? each);
     }, 28);
   };
   /* The new stylesheet goes in beside the old, which leaves once it's in,
