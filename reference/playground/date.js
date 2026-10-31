@@ -16,10 +16,10 @@ export const controls = [
   { group: "Date", name: "header", label: 'data-header="select" (month and year Selects)', type: "checkbox", when: (s) => s.kind !== "range" && !s.strip },
   { group: "Date", name: "strip", label: "data-strip (a week of days in the page)", type: "checkbox", when: (s) => s.kind === "date" && !s.inline },
 
-  { group: "Can't be chosen", name: "min", label: "min", type: "text", default: "" },
-  { group: "Can't be chosen", name: "max", label: "max", type: "text", default: "" },
-  { group: "Can't be chosen", name: "weekdays", label: "data-weekdays (1 is Monday)", type: "text", default: "" },
-  { group: "Can't be chosen", name: "unavailable", label: "data-unavailable", type: "text", default: "" },
+  { group: "Which dates can be chosen", name: "min", label: "min", type: "text", default: "", hint: "The earliest date that can be chosen (a week: 2025-W01). Days before it are off in the calendar.", placeholder: "2025-01-01" },
+  { group: "Which dates can be chosen", name: "max", label: "max", type: "text", default: "", hint: "The latest date that can be chosen (a week: 2025-W52). Days after it are off in the calendar.", placeholder: "2025-12-31" },
+  { group: "Which dates can be chosen", name: "weekdays", label: "data-weekdays", type: "text", default: "", hint: "Only these weekdays can be chosen, 1 is Monday and 7 Sunday: single days and ranges, by commas or spaces (1-5 is weekdays).", placeholder: "1-5", when: (s) => s.kind !== "week" },
+  { group: "Which dates can be chosen", name: "unavailable", label: "data-unavailable", type: "text", default: "", hint: "Dates that can't be chosen, by spaces: single days, or a start and end with a slash between them (a holiday week).", placeholder: "2025-12-25 2025-12-29/2026-01-02", when: (s) => s.kind !== "week" },
 
   { group: "State", name: "status", label: "Status", type: "select", options: [["", "(none)"], ["error", 'error: aria-invalid="true"']], default: "" },
   { group: "State", name: "disabled", label: "disabled", type: "checkbox" },

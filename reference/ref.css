@@ -456,6 +456,12 @@ body[data-view="playground"] .ref-inspector {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+/* A label with more to say: a dotted line under it, its words on hover. */
+.ref-ins-label[data-hint] {
+  text-decoration: underline dotted color-mix(in srgb, currentColor 50%, transparent);
+  text-underline-offset: 3px;
+  cursor: help;
+}
 
 /* Fields: recessed, no outline; a shade lighter on hover, the accent's
    ring with focus. */

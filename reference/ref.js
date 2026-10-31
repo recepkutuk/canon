@@ -1042,14 +1042,17 @@
         const value = state[control.name];
         const widget = widgetOf(control);
         const [, name, note = ""] = control.label.match(/^(.*?)\s*(?:\((.*)\))?\s*$/);
-        const empty = note.match(/^empty:\s*(.*)$/)?.[1];
-        const hint = empty === undefined ? note : "";
-        const tip = escape(control.label);
+        /* A control may say more than its label's note: hint (what it does,
+           its tooltip and description) and placeholder (an example). */
+        const noteEmpty = note.match(/^empty:\s*(.*)$/)?.[1];
+        const hint = control.hint ?? (noteEmpty === undefined ? note : "");
+        const empty = control.placeholder ?? noteEmpty;
+        const tip = escape(control.hint ? `${name}: ${control.hint}` : control.label);
         const described = hint ? ` aria-description="${escape(hint)}"` : "";
         const grouped = ["segmented", "intent", "emphasis", "icons"].includes(widget);
         const label = grouped
-          ? `<span class="ref-ins-label" id="${id}-label" title="${tip}">${escape(name)}</span>`
-          : `<label class="ref-ins-label" for="${id}" title="${tip}">${escape(name)}</label>`;
+          ? `<span class="ref-ins-label" id="${id}-label" title="${tip}"${hint ? " data-hint" : ""}>${escape(name)}</span>`
+          : `<label class="ref-ins-label" for="${id}" title="${tip}"${hint ? " data-hint" : ""}>${escape(name)}</label>`;
         const isStacked = stacked(widget, control);
         /* Tiles name their value beside the label; the others show it. */
         const shown = ["intent", "emphasis"].includes(widget) ? `<span class="ref-ins-value" aria-hidden="true"></span>` : "";
