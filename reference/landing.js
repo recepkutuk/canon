@@ -506,7 +506,7 @@
       square.style.setProperty("--i", i);
       squares.append(square);
     });
-  /* Pointing at a line of the key keeps only its tier's cells lit. */
+  /* Pointing at a tier in the key keeps only its cells lit. */
   const tally = document.querySelector(".ref-l-tally");
   for (const line of tally.querySelectorAll(".ref-l-key > div")) {
     line.addEventListener("pointerenter", () => { tally.dataset.show = line.dataset.tier; });

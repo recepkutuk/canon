@@ -226,30 +226,33 @@
 /* ---------------------------------------------------------------------- */
 /* Without JavaScript: a cell for each component                           */
 /* ---------------------------------------------------------------------- */
-.ref-landing [data-tier="T0"] { --l-tier: color-mix(in srgb, var(--ref-fg) 70%, var(--ref-bg)); }
-.ref-landing [data-tier="T1"] { --l-tier: color-mix(in srgb, var(--ref-fg) 42%, var(--ref-bg)); }
-.ref-landing [data-tier="T2"] { --l-tier: color-mix(in srgb, var(--ref-fg) 20%, var(--ref-bg)); }
+.ref-landing [data-tier="T0"] { --l-tier: light-dark(#52525b, #a1a1aa); }   /* zinc-600 / zinc-400 */
+.ref-landing [data-tier="T1"] { --l-tier: #71717a; }                           /* zinc-500 */
+.ref-landing [data-tier="T2"] { --l-tier: light-dark(#a1a1aa, #52525b); }   /* zinc-400 / zinc-600 */
 .ref-landing [data-tier="T3"] { --l-tier: var(--l-accent); }
-/* The cells beside their key; pointing at a line of the key keeps its
-   tier's cells lit. */
-.ref-l-tally { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; margin-block-start: 2rem; }
-.ref-l-squares { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); gap: 3px; }
-.ref-l-squares > span { aspect-ratio: 1 / 2; background-color: var(--l-tier); transform-origin: bottom; transition: opacity 0.5s var(--l-ease) calc(var(--i) * 12ms), scale 0.7s var(--l-ease) calc(var(--i) * 12ms); }
+/* The cells, then their key in a row under them; pointing at a tier in
+   the key keeps its cells lit and dims the rest. */
+.ref-l-tally { display: grid; gap: 1.5rem; margin-block-start: 2rem; }
+.ref-l-squares { display: grid; grid-template-columns: repeat(34, minmax(0, 1fr)); gap: 2px; max-inline-size: 46.625rem; }
+.ref-l-squares > span { block-size: 2rem; background-color: var(--l-tier); transform-origin: bottom; transition: opacity 0.5s var(--l-ease) calc(var(--i) * 12ms), scale 0.7s var(--l-ease) calc(var(--i) * 12ms); }
 .ref-l-squares[data-waiting] > span { opacity: 0; scale: 1 0.2; }
 /* After their entrance (landing.js) they change at once, without the stagger. */
-.ref-l-squares[data-settled] > span { transition: opacity 0.2s; }
+.ref-l-squares[data-settled] > span { transition: background-color 0.2s; }
 .ref-l-tally[data-show="T0"] .ref-l-squares > span:not([data-tier="T0"]),
 .ref-l-tally[data-show="T1"] .ref-l-squares > span:not([data-tier="T1"]),
 .ref-l-tally[data-show="T2"] .ref-l-squares > span:not([data-tier="T2"]),
-.ref-l-tally[data-show="T3"] .ref-l-squares > span:not([data-tier="T3"]) { opacity: 0.15; }
-.ref-l-key { display: grid; margin: 0; }
-.ref-l-key > div { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0.5rem; align-items: baseline; padding: 0.625rem 0.75rem; border-radius: 0.5rem; cursor: default; transition: background-color 0.15s; }
+.ref-l-tally[data-show="T3"] .ref-l-squares > span:not([data-tier="T3"]) { background-color: light-dark(#e4e4e7, #27272a); }   /* zinc-200 / zinc-800 */
+/* The key: a tier each, its swatch and code, then its name over its
+   count; its padding hangs out of the column, so the text lines up. */
+.ref-l-key { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0 -1rem; }
+.ref-l-key > div { display: grid; grid-template-columns: auto auto; column-gap: 0.5rem; align-content: start; padding: 1rem; border-radius: 0.25rem; cursor: default; transition: background-color 0.15s; }
 .ref-l-key > div:hover { background-color: var(--ref-hover); }
-.ref-l-key dt { display: flex; align-items: center; gap: 0.375rem; font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); font-weight: 600; font-variant-numeric: tabular-nums; }
-.ref-l-key dt::before { content: ""; inline-size: 0.375rem; block-size: 0.75rem; background-color: var(--l-tier); }
-.ref-l-key dd { margin: 0; color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
-/* The tier's name, as the specifications write it. */
-.ref-l-tier-code { display: block; margin-block-end: 0.125rem; color: var(--ref-fg); font: 500 var(--ref-text-xs)/var(--ref-text-xs-lh) var(--l-mono); }
+.ref-l-key dt { display: contents; }
+.ref-l-tier-name { grid-column: 2; color: var(--ref-fg); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); font-weight: 500; }
+.ref-l-key dd { grid-column: 2; margin: 0; color: var(--ref-muted); font-size: var(--ref-text-xs); line-height: var(--ref-text-xs-lh); }
+/* The tier's code, as the specifications write it, after its swatch. */
+.ref-l-tier-code { grid-row: 1 / span 2; display: inline-flex; align-items: start; gap: 0.25rem; color: var(--ref-fg); font: 700 var(--ref-text-sm)/var(--ref-text-sm-lh) var(--l-mono); }
+.ref-l-tier-code::before { content: ""; inline-size: 0.75rem; block-size: 1.5rem; background-color: var(--l-tier); }
 
 /* ---------------------------------------------------------------------- */
 /* Every component                                                         */
@@ -287,7 +290,6 @@
   .ref-l-try { display: none; }
   .ref-l-pg { margin-block-start: 1.75rem; }
   .ref-l-squares { grid-template-columns: repeat(17, minmax(0, 1fr)); }
-  .ref-l-tally { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ref-l-try { animation: none; }
