@@ -113,25 +113,42 @@
 /* ---------------------------------------------------------------------- */
 /* What it is and how it looks: a small playground                         */
 /* ---------------------------------------------------------------------- */
-/* One card: what the button is beside how the theme draws it, and the
-   markup across the bottom. Side by side where both fit; else one over the
-   other. */
+/* A small design tool, in one window: the inspector (what the button is),
+   the canvas (how the theme draws it) and, across the bottom, the editor
+   (the markup). Three surfaces, the Playground's own (ref.css), told apart
+   by their shade and not by lines; the landing's amber is their accent.
+   The window floats a little over the page. Side by side where both fit;
+   else one over the other. */
 /* Its title as Why Canon's lead, without a rule over it. */
 .ref-l-look { padding-block-start: 0; border-block-start: 0; }
 .ref-l-look > div { container-type: inline-size; }
-.ref-l-pg { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-areas: "controls preview" "source source"; margin-block-start: 3rem; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); }
-.ref-l-pg-controls { grid-area: controls; min-inline-size: 0; border-inline-end: 1px solid var(--ref-line); }
-.ref-l-pg-preview { grid-area: preview; display: grid; grid-template-rows: auto 1fr; min-inline-size: 0; }
-.ref-l-pg > .ref-l-source { grid-area: source; border-block-start: 1px solid var(--ref-line); }
+.ref-l-pg {
+  --ins-accent: var(--l-accent);
+  --ins-h: 2rem;
+  --ins-r: 0.5rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-areas: "controls preview" "source source";
+  margin-block-start: 3rem;
+  border-radius: 1rem;
+  background-color: var(--ins-panel);
+  box-shadow: 0 0 0 1px var(--ins-line), 0 1px 2px light-dark(rgb(0 0 0 / 0.04), rgb(0 0 0 / 0.3)), 0 12px 32px -8px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.5));
+}
+.ref-l-pg-controls { grid-area: controls; min-inline-size: 0; }
 .ref-l-pg-controls[hidden] { display: none; }
+/* The canvas: inset in the window, its own rounded well. */
+.ref-l-pg-preview { grid-area: preview; position: relative; display: grid; min-inline-size: 0; min-block-size: 17rem; margin: 0.5rem 0.5rem 0.5rem 0; overflow: hidden; border-radius: 0.625rem; box-shadow: 0 0 0 1px var(--ins-line); }
+.ref-l-pg > .ref-l-source { grid-area: source; }
 /* Without the controls (no JavaScript), the button over its markup. */
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "preview" "source"; }
+.ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-pg-preview { margin-inline-start: 0.5rem; }
 @container (max-width: 50rem) {
   .ref-l-pg { grid-template-columns: minmax(0, 1fr); grid-template-areas: "controls" "preview" "source"; }
-  .ref-l-pg-controls { border-inline-end: 0; border-block-end: 1px solid var(--ref-line); }
+  .ref-l-pg-preview { margin-inline-start: 0.5rem; }
 }
-/* "Try me", handwritten, over the card's corner, its arrow reaching in;
-   further out and lower where there's room left of the card (data-roomy,
+/* "Try me", handwritten, over the window's corner, its arrow reaching in;
+   further out and lower where there's room left of it (data-roomy,
    landing.js). Bobbing, as on Canon's first page; still with reduced
    motion. */
 .ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
@@ -139,26 +156,28 @@
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 
-/* Whose each side is. */
-.ref-l-pg-owner { margin: 0; padding: 1rem 0 0.5rem; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; line-height: 1rem; }
-/* The controls are the Playground's own (ref.css), a little larger: each
-   names the attribute it writes. */
-.ref-l-pg-controls { padding: 0 1.25rem 1rem; font-size: 0.8125rem; line-height: 1.25rem; }
-.ref-l-pg-controls > .ref-ins-row + .ref-ins-row { margin-block-start: 0.5rem; padding-block-start: 0.625rem; border-block-start: 1px solid var(--ref-line); }
+/* Whose each side is: small capitals, quiet, as the inspector's sections. */
+.ref-l-pg-owner { margin: 0; color: var(--ins-muted); font-size: 0.625rem; font-weight: 600; line-height: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }
+/* The inspector: the Playground's controls, a little larger; each names
+   the attribute it writes, its meaning in its tooltip. */
+.ref-l-pg-controls { display: grid; align-content: start; gap: 0.875rem; padding: 1.125rem 1.25rem 1.25rem; font-size: 0.8125rem; line-height: 1.25rem; }
+.ref-l-pg-controls > .ref-l-pg-owner { margin-block-end: -0.25rem; }
+.ref-l-pg-controls > .ref-ins-row[data-switch] + .ref-ins-row[data-switch] { margin-block-start: -0.5rem; }
 .ref-l-pg-attr { font-family: var(--l-mono); font-size: 0.75rem; }
-.ref-l-pg-controls .ref-ins-tiles > .ref-ins-option { block-size: 2.25rem; }
-.ref-l-pg-hint { margin-inline-start: 0.25rem; opacity: 0.75; }
-/* The theme's choice over the button, a hairline under it. */
-.ref-l-pg-theme { padding: 0 1.25rem 1rem; border-block-end: 1px solid var(--ref-line); font-size: 0.8125rem; }
-.ref-l-pg-theme[hidden] { display: none; }
-.ref-l-pg-theme > .ref-ins-seg > .ref-ins-option { block-size: 1.75rem; }
-/* Where six names don't fit, each keeps its name and the row scrolls. */
-@container (max-width: 30rem) {
-  .ref-l-pg-theme { overflow-x: auto; scrollbar-width: none; }
-  .ref-l-pg-theme > .ref-ins-seg { inline-size: max-content; grid-auto-columns: 4.75rem; }
-}
+/* No meaning chosen: the emphasis pictures in the text color, as the
+   theme's own accent isn't the landing's. */
+.ref-l-pg:is([data-tone=""], :not([data-tone])) { --ins-tone: var(--ins-fg); }
+/* The canvas's name in its corner; the theme's choice docked at its
+   foot, floating on the canvas. */
+.ref-l-pg-preview > .ref-l-pg-owner { position: absolute; z-index: 1; inset: 0.875rem auto auto 1rem; pointer-events: none; }
+.ref-l-pg-dock { position: absolute; z-index: 1; inset-block-end: 0.75rem; inset-inline: 0.75rem; display: flex; justify-content: center; pointer-events: none; }
+.ref-l-pg-dock[hidden] { display: none; }
+.ref-l-pg-dock > .ref-ins-seg { max-inline-size: 100%; overflow-x: auto; scrollbar-width: none; background-color: color-mix(in srgb, var(--ins-panel) 82%, transparent); box-shadow: 0 0 0 1px var(--ins-line), 0 6px 20px -4px light-dark(rgb(0 0 0 / 0.16), rgb(0 0 0 / 0.6)); backdrop-filter: blur(12px); pointer-events: auto; }
+/* Each name whole, the options as wide as the longest; where six don't
+   fit, the dock scrolls. */
+.ref-l-pg-dock > .ref-ins-seg { grid-auto-columns: 4.375rem; font-size: 0.75rem; }
 
-/* The markup the controls write. */
+/* The editor: the markup the controls write, recessed under them. */
 .ref-l-source {
   --t-text: light-dark(#3f3f46, #d4d4d8);
   --t-punct: light-dark(#71717a, #a1a1aa);
@@ -168,10 +187,11 @@
   min-inline-size: 0;
   margin: 0;
   overflow-x: auto;
-  padding: 1.25rem;
+  padding: 1rem 1.25rem 1.125rem;
   border-end-start-radius: 1rem;
   border-end-end-radius: 1rem;
-  background-color: var(--l-ground);
+  background-color: var(--ins-field);
+  box-shadow: inset 0 1px 0 var(--ins-line);
   color: var(--t-text);
   font: 0.75rem/1.8 var(--l-mono);
 }
@@ -188,8 +208,8 @@
 .ref-l-source .t-a { color: var(--t-attr); }
 .ref-l-source .t-s { color: var(--t-string); }
 
-/* The button alone, in the rest of its side: in the page without
-   JavaScript, else in a page of its own with the chosen theme. */
+/* The button alone, on the canvas: in the page without JavaScript, else
+   in a page of its own with the chosen theme. */
 .ref-l-host, .ref-l-view { min-block-size: 10rem; }
 .ref-l-host { display: grid; place-items: center; padding: 1.5rem; }
 .ref-l-view { display: block; inline-size: 100%; block-size: 100%; border: 0; }

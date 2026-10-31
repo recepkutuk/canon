@@ -327,20 +327,36 @@ body[data-view="playground"] .ref-inspector {
   overflow-y: auto;
   box-sizing: border-box;
   border-inline-start: 1px solid var(--ref-line);
-  background-color: var(--ref-bg);
+  background-color: var(--ins-panel);
   scrollbar-width: thin;
 }
-/* The inspector's colors, also for its controls used elsewhere
-   (.ref-ins-host: the Introduction's playground). */
+/* The inspector's look, also for its controls used elsewhere
+   (.ref-ins-host: the Introduction's playground). Three surfaces, one
+   step apart: the panel; fields and tracks recessed into it (a shade in,
+   a soft shadow at their top edge); the chosen option raised out of its
+   track on a plate (a shade out, a crisp shadow under it, in the dark a
+   lit top edge). No outlines: one accent marks what's on, what's chosen
+   and what has focus. One height and one radius, a plate's radius its
+   track's less the gap between them. */
 .ref-inspector {
   container: ref-inspector / inline-size;
 }
 :is(.ref-inspector, .ref-ins-host) {
   --ins-fg: var(--ref-fg);
   --ins-muted: light-dark(#71717a, #a1a1aa);                       /* zinc-500 / zinc-400 */
-  --ins-field: light-dark(#f4f4f5, #18181b);                       /* zinc-100 / zinc-900 */
-  --ins-field-hover: light-dark(#e4e4e7, #27272a);                 /* zinc-200 / zinc-800 */
-  --ins-focus: light-dark(#3b82f6, #60a5fa);                       /* blue-500 / blue-400 */
+  --ins-faint: light-dark(#a1a1aa, #52525b);                       /* zinc-400 / zinc-600 */
+  --ins-panel: light-dark(#fafafa, #121214);
+  --ins-field: light-dark(#efeff1, #08080a);
+  --ins-field-hover: light-dark(#e7e7ea, #1c1c20);
+  --ins-plate: light-dark(#ffffff, #2e2e34);
+  --ins-line: light-dark(rgb(0 0 0 / 0.07), rgb(255 255 255 / 0.07));
+  --ins-sunken: inset 0 1px 2px light-dark(rgb(0 0 0 / 0.07), rgb(0 0 0 / 0.6));
+  --ins-raised: 0 0 0 0.5px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.5)), 0 1px 2px light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.5)), inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / 0.08));
+  --ins-accent: light-dark(#2563eb, #60a5fa);                      /* blue-600 / blue-400 */
+  --ins-focus: var(--ins-accent);
+  --ins-h: 1.75rem;
+  --ins-r: 0.4375rem;
+  --ins-gap: 2px;
   font-size: 0.75rem;
   line-height: 1rem;
 }
@@ -354,40 +370,44 @@ body[data-view="playground"] .ref-inspector {
   block-size: 2.5rem;
   box-sizing: border-box;
   padding-inline: 1rem 0.5rem;
-  border-block-end: 1px solid var(--ref-line);
-  background-color: var(--ref-bg);
+  border-block-end: 1px solid var(--ins-line);
+  background-color: var(--ins-panel);
 }
 .ref-inspector-head h2 { margin: 0; color: var(--ins-fg); font-size: 0.75rem; font-weight: 600; line-height: 1rem; }
 .ref-ins-reset {
   block-size: 1.5rem;
   padding: 0 0.5rem;
   border: 0;
-  border-radius: 0.375rem;
+  border-radius: var(--ins-r);
   background: none;
   color: var(--ins-muted);
   font: inherit;
   cursor: pointer;
 }
-.ref-ins-reset:hover { background-color: var(--ins-field); color: var(--ins-fg); }
+.ref-ins-reset:hover { background-color: var(--ins-field-hover); color: var(--ins-fg); }
+.ref-ins-reset:focus-visible { outline: 2px solid var(--ins-focus); outline-offset: 1px; }
 .ref-pg-controls fieldset {
   display: grid;
-  gap: 0.25rem;
+  gap: 0.375rem;
   min-inline-size: 0;
   margin: 0;
-  padding: 0.75rem 0.75rem 0.875rem 1rem;
+  padding: 0.875rem 1rem 1rem;
   border: 0;
-  border-block-end: 1px solid var(--ref-line);
+  border-block-end: 1px solid var(--ins-line);
 }
-/* Floated, the legend is an ordinary first row, not drawn on the border. */
+/* Floated, the legend is an ordinary first row, not drawn on the border:
+   small capitals, quiet, as a tool's section names. */
 .ref-pg-controls legend {
   float: inline-start;
   inline-size: 100%;
   margin: 0 0 0.375rem;
   padding: 0;
-  color: var(--ins-fg);
-  font-size: 0.75rem;
+  color: var(--ins-muted);
+  font-size: 0.625rem;
   font-weight: 600;
   line-height: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .ref-pg-controls [hidden] { display: none !important; }
 
@@ -401,7 +421,7 @@ body[data-view="playground"] .ref-inspector {
 /* Wide (under the playground on a narrow window): the sections flow into
    columns, packed top to bottom, a line between columns; the head across. */
 @container ref-inspector (width > 34rem) {
-  .ref-pg-controls { columns: 16rem; column-gap: 0; column-rule: 1px solid var(--ref-line); }
+  .ref-pg-controls { columns: 16rem; column-gap: 0; column-rule: 1px solid var(--ins-line); }
   .ref-inspector-head { column-span: all; }
   .ref-pg-controls fieldset { break-inside: avoid; }
 }
@@ -413,7 +433,7 @@ body[data-view="playground"] .ref-inspector {
   grid-template-columns: 5.75rem minmax(0, 1fr);
   align-items: center;
   column-gap: 0.5rem;
-  min-block-size: 1.75rem;
+  min-block-size: var(--ins-h);
 }
 .ref-ins-row[data-switch] { grid-template-columns: minmax(0, 1fr) auto; }
 .ref-ins-label {
@@ -423,28 +443,30 @@ body[data-view="playground"] .ref-inspector {
   text-overflow: ellipsis;
 }
 
-/* Fields: borderless on a soft fill, a line on hover, the accent on focus. */
+/* Fields: recessed, no outline; a shade lighter on hover, the accent's
+   ring with focus. */
 .ref-ins-input,
 .ref-ins-select > select {
   box-sizing: border-box;
   inline-size: 100%;
   min-inline-size: 0;
-  block-size: 1.75rem;
+  block-size: var(--ins-h);
   margin: 0;
   padding: 0 0.5rem;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
+  border: 0;
+  border-radius: var(--ins-r);
   background-color: var(--ins-field);
+  box-shadow: var(--ins-sunken);
   color: var(--ins-fg);
   font: inherit;
   outline: none;
-  transition: border-color 0.12s, background-color 0.12s;
+  transition: background-color 0.12s, box-shadow 0.12s;
 }
-.ref-ins-input::placeholder { color: var(--ins-muted); opacity: 0.7; }
+.ref-ins-input::placeholder { color: var(--ins-faint); opacity: 1; }
 .ref-ins-input:hover,
-.ref-ins-select > select:hover { border-color: var(--ins-field-hover); }
+.ref-ins-select > select:hover { background-color: var(--ins-field-hover); }
 .ref-ins-input:focus-visible,
-.ref-ins-select > select:focus-visible { border-color: var(--ins-focus); background-color: var(--ref-bg); }
+.ref-ins-select > select:focus-visible { box-shadow: var(--ins-sunken), 0 0 0 1.5px var(--ins-focus); }
 .ref-ins-input[type="number"] { font-variant-numeric: tabular-nums; }
 .ref-ins-select { position: relative; display: block; min-inline-size: 0; }
 .ref-ins-select > select {
@@ -466,33 +488,35 @@ body[data-view="playground"] .ref-inspector {
   pointer-events: none;
 }
 
-/* The switch: 28 × 16, the knob sliding to the end; the accent when on. */
+/* The switch: a recessed track, its knob a plate; the accent fills the
+   track when on. */
 .ref-ins-switch {
   appearance: none;
   position: relative;
-  inline-size: 1.75rem;
-  block-size: 1rem;
+  inline-size: 1.875rem;
+  block-size: 1.125rem;
   margin: 0;
   border-radius: 999px;
-  background-color: var(--ins-field-hover);
+  background-color: light-dark(#e2e2e6, #2a2a30);
+  box-shadow: var(--ins-sunken);
   cursor: pointer;
   transition: background-color 0.15s;
 }
+.ref-ins-switch:hover { background-color: light-dark(#d8d8dd, #34343b); }
 .ref-ins-switch::before {
   content: "";
   position: absolute;
-  inset-block-start: 2px;
-  inset-inline-start: 2px;
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
+  inset-block-start: var(--ins-gap);
+  inset-inline-start: var(--ins-gap);
+  inline-size: calc(1.125rem - 2 * var(--ins-gap));
+  block-size: calc(1.125rem - 2 * var(--ins-gap));
   border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
-  transition: translate 0.15s;
+  background-color: light-dark(#ffffff, #d4d4d8);
+  box-shadow: var(--ins-raised);
+  transition: translate 0.18s cubic-bezier(0.3, 1.3, 0.5, 1);
 }
-.ref-ins-switch:checked { background-color: var(--ins-focus); }
-.ref-ins-switch:checked::before { translate: 0.75rem 0; }
-
+.ref-ins-switch:checked { background-color: var(--ins-accent); }
+.ref-ins-switch:checked::before { background-color: #ffffff; translate: 0.75rem 0; }
 .ref-ins-switch:focus-visible { outline: 2px solid var(--ins-focus); outline-offset: 2px; }
 
 /* Reset has nothing to do until something changed. */
@@ -501,7 +525,7 @@ body[data-view="playground"] .ref-inspector {
 
 /* A stacked row: the label and the current value on one line, the
    control across under them. */
-.ref-ins-row { --_line: 1.75rem; position: relative; }
+.ref-ins-row { --_line: var(--ins-h); position: relative; }
 .ref-ins-row[data-stack] {
   --_line: 1.5rem;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -513,6 +537,7 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-value {
   overflow: hidden;
   color: var(--ins-fg);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -526,7 +551,7 @@ body[data-view="playground"] .ref-inspector {
   display: grid;
   place-items: center;
   min-inline-size: 0;
-  border-radius: 0.375rem;
+  border-radius: calc(var(--ins-r) - var(--ins-gap));
   color: var(--ins-muted);
   cursor: pointer;
   transition: background-color 0.12s, color 0.12s, box-shadow 0.12s;
@@ -540,38 +565,39 @@ body[data-view="playground"] .ref-inspector {
   cursor: pointer;
 }
 .ref-ins-option > input:focus-visible { outline: 2px solid var(--ins-focus); outline-offset: 1px; }
-.ref-ins-option > :not(input) { pointer-events: none; }
+.ref-ins-option > :not(input) { position: relative; pointer-events: none; }
 /* Off: faded, its reason on hover (the box, not the radio, takes it). */
 .ref-ins-option:has(> input:disabled) { opacity: 0.4; cursor: not-allowed; }
 .ref-ins-option > input:disabled { pointer-events: none; }
-.ref-ins-seg > .ref-ins-option:has(> input:disabled):hover { color: var(--ins-muted); }
+.ref-ins-option:has(> input:disabled):hover { color: var(--ins-muted); }
 
-/* Segmented: a sunken track, the chosen option raised on a plate that
-   slides to it. */
-.ref-ins-seg {
+/* Segmented and tiles: options in a recessed track, the chosen one
+   raised on a plate (a segmented control's slides to it). */
+.ref-ins-seg,
+.ref-ins-tiles:not(.ref-ins-icons) {
   position: relative;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
-  padding: 2px;
-  border-radius: 0.375rem;
+  padding: var(--ins-gap);
+  border-radius: var(--ins-r);
   background-color: var(--ins-field);
+  box-shadow: var(--ins-sunken);
 }
 .ref-ins-seg::before {
   content: "";
   position: absolute;
-  inset-block: 2px;
-  inset-inline-start: 2px;
-  inline-size: calc((100% - 4px) / var(--n));
-  border-radius: 0.25rem;
-  background-color: light-dark(#ffffff, #3f3f46);                  /* white / zinc-700 */
-  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.12);
+  inset-block: var(--ins-gap);
+  inset-inline-start: var(--ins-gap);
+  inline-size: calc((100% - 2 * var(--ins-gap)) / var(--n));
+  border-radius: calc(var(--ins-r) - var(--ins-gap));
+  background-color: var(--ins-plate);
+  box-shadow: var(--ins-raised);
   translate: calc(var(--at, 0) * 100%) 0;
   transition: translate 0.22s cubic-bezier(0.3, 1.3, 0.5, 1);
 }
-.ref-ins-seg > .ref-ins-option { block-size: 1.5rem; padding-inline: 0.25rem; }
+.ref-ins-seg > .ref-ins-option { block-size: calc(var(--ins-h) - 2 * var(--ins-gap)); padding-inline: 0.25rem; }
 .ref-ins-seg > .ref-ins-option > span {
-  position: relative;
   overflow: hidden;
   max-inline-size: 100%;
   white-space: nowrap;
@@ -580,32 +606,25 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-seg > .ref-ins-option:hover { color: var(--ins-fg); }
 .ref-ins-seg > .ref-ins-option:has(:checked) { color: var(--ins-fg); font-weight: 500; }
 
-/* Tiles: a row of equal boxes (icons wrap into a grid). */
-.ref-ins-tiles {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
-  gap: 0.25rem;
-}
-.ref-ins-tiles > .ref-ins-option { block-size: 2rem; background-color: var(--ins-field); }
-.ref-ins-tiles > .ref-ins-option:hover { background-color: var(--ins-field-hover); color: var(--ins-fg); }
-.ref-ins-tiles > .ref-ins-option:has(:checked) {
-  background-color: color-mix(in srgb, var(--_tone, var(--ins-focus)) 10%, var(--ref-bg));
-  box-shadow: inset 0 0 0 1.5px var(--_tone, var(--ins-focus));
-  color: var(--ins-fg);
-}
-.ref-ins-icons { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(1.75rem, 1fr)); }
-.ref-ins-icons > .ref-ins-option { block-size: 1.75rem; --canon-icon-size: 1rem; }
+/* Tiles: a picture each, grey until chosen. */
+.ref-ins-tiles:not(.ref-ins-icons) > .ref-ins-option { block-size: calc(var(--ins-h) + 0.25rem); }
+.ref-ins-tiles:not(.ref-ins-icons) > .ref-ins-option:hover { background-color: light-dark(rgb(0 0 0 / 0.04), rgb(255 255 255 / 0.05)); color: var(--ins-fg); }
+.ref-ins-tiles:not(.ref-ins-icons) > .ref-ins-option:has(:checked) { background-color: var(--ins-plate); box-shadow: var(--ins-raised); color: var(--ins-fg); }
+/* Icons, in their popover: a grid of boxes, the chosen one in the accent. */
+.ref-ins-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(1.75rem, 1fr)); gap: 0.125rem; }
+.ref-ins-icons > .ref-ins-option { block-size: 1.75rem; color: var(--ins-fg); --canon-icon-size: 1rem; }
+.ref-ins-icons > .ref-ins-option:hover { background-color: var(--ins-field-hover); }
+.ref-ins-icons > .ref-ins-option:has(:checked) { background-color: color-mix(in srgb, var(--ins-accent) 14%, transparent); color: var(--ins-accent); }
 
-/* Meanings: each tile its color and icon; "none" a dashed ring. */
+/* Meanings: each its icon, in its color once chosen; "none" a dashed ring. */
 :is(.ref-inspector, .ref-ins-host) {
   --ins-info: light-dark(#2563eb, #60a5fa);                        /* blue-600 / blue-400 */
   --ins-success: light-dark(#16a34a, #4ade80);                     /* green-600 / green-400 */
   --ins-warning: light-dark(#d97706, #fbbf24);                     /* amber-600 / amber-400 */
   --ins-danger: light-dark(#dc2626, #f87171);                      /* red-600 / red-400 */
-  --ins-neutral: light-dark(#52525b, #a1a1aa);                     /* zinc-600 / zinc-400 */
+  --ins-neutral: light-dark(#52525b, #d4d4d8);                     /* zinc-600 / zinc-300 */
 }
-.ref-ins-option[data-tone="auto"] { --_tone: var(--ins-focus); --_icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-dasharray='3.5 3'><circle cx='12' cy='12' r='9'/></svg>"); }
+.ref-ins-option[data-tone="auto"] { --_tone: var(--ins-fg); --_icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-dasharray='3.5 3'><circle cx='12' cy='12' r='9'/></svg>"); }
 .ref-ins-option[data-tone="neutral"] { --_tone: var(--ins-neutral); --_icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5'><circle cx='12' cy='12' r='10'/><circle cx='12' cy='12' r='4' fill='black'/></svg>"); }
 .ref-ins-option[data-tone="info"] { --_tone: var(--ins-info); --_icon: var(--canon-theme-icon-info); }
 .ref-ins-option[data-tone="success"] { --_tone: var(--ins-success); --_icon: var(--canon-theme-icon-circle-check); }
@@ -614,33 +633,36 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-glyph {
   inline-size: 1rem;
   block-size: 1rem;
-  background-color: var(--_tone);
+  background-color: currentColor;
   mask: var(--_icon) center / contain no-repeat;
+  transition: background-color 0.12s;
 }
-.ref-ins-option[data-tone="auto"] > .ref-ins-glyph { background-color: var(--ins-muted); }
+.ref-ins-option:has(:checked) > .ref-ins-glyph { background-color: var(--_tone); }
 
-/* Emphasis: a tiny button at each level, in the chosen meaning's color. */
-:is(.ref-inspector, .ref-ins-host) { --ins-tone: var(--ins-focus); }
+/* Emphasis: a tiny button at each level, grey until chosen, then in the
+   chosen meaning's color. */
+:is(.ref-inspector, .ref-ins-host) { --ins-tone: var(--ins-accent); }
 :is(.ref-inspector, .ref-ins-host)[data-tone="neutral"] { --ins-tone: var(--ins-neutral); }
 :is(.ref-inspector, .ref-ins-host)[data-tone="info"] { --ins-tone: var(--ins-info); }
 :is(.ref-inspector, .ref-ins-host)[data-tone="success"] { --ins-tone: var(--ins-success); }
 :is(.ref-inspector, .ref-ins-host)[data-tone="warning"] { --ins-tone: var(--ins-warning); }
 :is(.ref-inspector, .ref-ins-host)[data-tone="danger"] { --ins-tone: var(--ins-danger); }
 .ref-ins-pill {
+  --_t: var(--ins-muted);
   display: grid;
   place-items: center;
   box-sizing: border-box;
   inline-size: 1.75rem;
   block-size: 0.875rem;
   border-radius: 0.1875rem;
-  color: var(--ins-tone);
+  color: var(--_t);
 }
+.ref-ins-option:has(:checked) > .ref-ins-pill { --_t: var(--ins-tone); }
 .ref-ins-pill::after { content: ""; inline-size: 0.75rem; block-size: 2px; border-radius: 1px; background-color: currentColor; }
-.ref-ins-pill[data-emphasis="high"] { background-color: var(--ins-tone); color: var(--ref-bg); }
-.ref-ins-pill[data-emphasis="medium"] { background-color: color-mix(in srgb, var(--ins-tone) 20%, transparent); }
-.ref-ins-pill[data-emphasis="low"] { border: 1px solid color-mix(in srgb, var(--ins-fg) 30%, transparent); color: var(--ins-fg); }
-.ref-ins-pill[data-emphasis="auto"] { border: 1px dashed var(--ins-muted); color: var(--ins-muted); }
-.ref-ins-tiles > .ref-ins-option:has(.ref-ins-pill) { --_tone: var(--ins-tone); }
+.ref-ins-pill[data-emphasis="high"] { background-color: var(--_t); color: var(--ins-plate); }
+.ref-ins-pill[data-emphasis="medium"] { background-color: color-mix(in srgb, var(--_t) 22%, transparent); }
+.ref-ins-pill[data-emphasis="low"] { border: 1px solid color-mix(in srgb, var(--_t) 45%, transparent); }
+.ref-ins-pill[data-emphasis="auto"] { border: 1px dashed var(--_t); }
 
 /* Icons: a field showing the chosen one, opening a grid of them. None
    is a crossed-out circle. */
@@ -652,22 +674,23 @@ body[data-view="playground"] .ref-inspector {
   box-sizing: border-box;
   inline-size: 100%;
   min-inline-size: 0;
-  block-size: 1.75rem;
+  block-size: var(--ins-h);
   margin: 0;
   padding: 0 1.5rem 0 0.5rem;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
+  border: 0;
+  border-radius: var(--ins-r);
   background-color: var(--ins-field);
+  box-shadow: var(--ins-sunken);
   color: var(--ins-fg);
   font: inherit;
   text-align: start;
   cursor: pointer;
   --canon-icon-size: 1rem;
-  transition: border-color 0.12s;
+  transition: background-color 0.12s, box-shadow 0.12s;
 }
-.ref-ins-picker:hover { border-color: var(--ins-field-hover); }
-.ref-ins-picker:focus-visible { outline: none; border-color: var(--ins-focus); }
-.ref-ins-picker:has(+ :popover-open) { border-color: var(--ins-focus); background-color: var(--ref-bg); }
+.ref-ins-picker:hover { background-color: var(--ins-field-hover); }
+.ref-ins-picker:focus-visible { outline: none; box-shadow: var(--ins-sunken), 0 0 0 1.5px var(--ins-focus); }
+.ref-ins-picker:has(+ :popover-open) { box-shadow: var(--ins-sunken), 0 0 0 1.5px var(--ins-focus); }
 .ref-ins-picker::after {
   content: "";
   position: absolute;
@@ -680,6 +703,7 @@ body[data-view="playground"] .ref-inspector {
 .ref-ins-picked-icon { flex: none; color: var(--ins-fg); }
 .ref-ins-picked-icon.ref-ins-none { color: var(--ins-muted); }
 .ref-ins-picked-name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* The popover floats over the page: the panel's surface, raised. */
 .ref-ins-pop {
   position: fixed;
   inset: auto;
@@ -687,11 +711,11 @@ body[data-view="playground"] .ref-inspector {
   box-sizing: border-box;
   margin: 0;
   padding: 0.375rem;
-  border: 1px solid var(--ref-line);
-  border-radius: 0.5rem;
-  background-color: var(--ref-bg);
+  border: 0;
+  border-radius: calc(var(--ins-r) + 0.375rem);
+  background-color: var(--ins-panel);
   color: var(--ins-fg);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);
+  box-shadow: 0 0 0 1px var(--ins-line), 0 12px 32px light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.6)), 0 2px 6px light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.4));
   font-size: 0.75rem;
 }
 .ref-ins-none {
@@ -703,7 +727,8 @@ body[data-view="playground"] .ref-inspector {
 
 /* Scale: a slider with a dot at each stop and the stop's name over it;
    the current name in the text color. An Auto stop (the theme's
-   choice, when it isn't one of the others) is a ring. */
+   choice, when it isn't one of the others) is a ring. The track is
+   recessed, the thumb a plate. */
 .ref-ins-scale {
   --thumb: 0.875rem;
   position: relative;
@@ -723,16 +748,16 @@ body[data-view="playground"] .ref-inspector {
   background: none;
   cursor: pointer;
 }
-.ref-ins-scale > input::-webkit-slider-runnable-track { block-size: 2px; border-radius: 1px; background-color: var(--ins-field-hover); }
-.ref-ins-scale > input::-moz-range-track { block-size: 2px; border-radius: 1px; background-color: var(--ins-field-hover); }
+.ref-ins-scale > input::-webkit-slider-runnable-track { block-size: 4px; border-radius: 2px; background-color: var(--ins-field); box-shadow: var(--ins-sunken); }
+.ref-ins-scale > input::-moz-range-track { block-size: 4px; border-radius: 2px; background-color: var(--ins-field); box-shadow: var(--ins-sunken); }
 .ref-ins-scale > input::-webkit-slider-thumb {
   appearance: none;
   inline-size: var(--thumb);
   block-size: var(--thumb);
-  margin-block-start: calc(1px - var(--thumb) / 2);
+  margin-block-start: calc(2px - var(--thumb) / 2);
   border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.2);
+  background-color: light-dark(#ffffff, #d4d4d8);
+  box-shadow: var(--ins-raised);
   transition: scale 0.12s;
 }
 .ref-ins-scale > input::-moz-range-thumb {
@@ -741,13 +766,13 @@ body[data-view="playground"] .ref-inspector {
   block-size: var(--thumb);
   border: 0;
   border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.2);
+  background-color: light-dark(#ffffff, #d4d4d8);
+  box-shadow: var(--ins-raised);
 }
 .ref-ins-scale > input:hover::-webkit-slider-thumb { scale: 1.12; }
 .ref-ins-scale > input:focus-visible { outline: none; }
-.ref-ins-scale > input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px var(--ins-focus), 0 1px 3px rgb(0 0 0 / 0.2); }
-.ref-ins-scale > input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 2px var(--ins-focus), 0 1px 3px rgb(0 0 0 / 0.2); }
+.ref-ins-scale > input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px var(--ins-focus), var(--ins-raised); }
+.ref-ins-scale > input:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 2px var(--ins-focus), var(--ins-raised); }
 .ref-ins-ticks { position: absolute; inset: 0 0.125rem; pointer-events: none; }
 .ref-ins-tick {
   position: absolute;
@@ -779,10 +804,10 @@ body[data-view="playground"] .ref-inspector {
   block-size: 4px;
   margin-inline-start: -2px;
   border-radius: 50%;
-  background-color: light-dark(#a1a1aa, #71717a);                  /* zinc-400 / zinc-500 */
+  background-color: var(--ins-faint);
   pointer-events: none;
 }
-.ref-ins-tick[data-auto]::before { box-sizing: border-box; border: 1px solid light-dark(#a1a1aa, #71717a); background: var(--ref-bg); inline-size: 6px; block-size: 6px; margin-inline-start: -3px; inset-block-start: calc(1.625rem - 3px); }
+.ref-ins-tick[data-auto]::before { box-sizing: border-box; border: 1px solid var(--ins-faint); background: var(--ins-panel); inline-size: 6px; block-size: 6px; margin-inline-start: -3px; inset-block-start: calc(1.625rem - 3px); }
 .ref-ins-tick[data-current]::before { visibility: hidden; }
 
 /* Number: − and + inside the field's end; the label scrubs. */
@@ -798,7 +823,7 @@ body[data-view="playground"] .ref-inspector {
   inline-size: 1.25rem;
   padding: 0;
   border: 0;
-  border-radius: 0.25rem;
+  border-radius: calc(var(--ins-r) - 0.1875rem);
   background: none;
   color: var(--ins-muted);
   cursor: pointer;
@@ -806,16 +831,12 @@ body[data-view="playground"] .ref-inspector {
 }
 .ref-ins-number > button[data-nudge="-1"] { inset-inline-end: 1.5rem; }
 .ref-ins-number > button[data-nudge="1"] { inset-inline-end: 0.25rem; }
-.ref-ins-number > button:hover { background-color: var(--ins-field-hover); color: var(--ins-fg); }
+.ref-ins-number > button:hover { background-color: var(--ins-plate); box-shadow: var(--ins-raised); color: var(--ins-fg); }
 .ref-ins-row[data-widget="number"] > .ref-ins-label { cursor: ew-resize; touch-action: none; user-select: none; }
 .ref-ins-row[data-scrubbing] > .ref-ins-label { color: var(--ins-focus); }
 
 @media (prefers-reduced-motion: reduce) {
-  .ref-ins-seg::before, .ref-ins-option { transition: none; }
-}
-.ref-ins-switch:focus-visible { outline: 2px solid var(--ins-focus); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) {
-  .ref-ins-switch, .ref-ins-switch::before { transition: none; }
+  .ref-ins-seg::before, .ref-ins-option, .ref-ins-switch, .ref-ins-switch::before { transition: none; }
 }
 .ref-pg-output { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; min-inline-size: 0; }
 .ref-pg-preview { border: 1px solid var(--ref-line); border-radius: 0.75rem; overflow: hidden; }

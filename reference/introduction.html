@@ -58,9 +58,9 @@
     <header class="ref-l-label"><h2 id="l-look">What it is is yours. How it looks is the theme's.</h2></header>
     <div>
       <p class="ref-l-text">A button becomes what its attributes say. The theme draws it.</p>
-      <div class="ref-l-pg">
+      <div class="ref-l-pg ref-ins-host">
         <span class="ref-l-try" aria-hidden="true"></span>
-        <div class="ref-l-pg-controls ref-ins-host" id="l-pg-controls" hidden>
+        <div class="ref-l-pg-controls" id="l-pg-controls" hidden>
           <p class="ref-l-pg-owner">Yours</p>
           <div class="ref-ins-row" data-stack>
             <span class="ref-ins-label" id="l-pg-emphasis"><span class="ref-l-pg-attr">data-emphasis</span></span><span class="ref-ins-value" aria-hidden="true">Auto</span>
@@ -71,17 +71,15 @@
             <div class="ref-ins-tiles" role="radiogroup" aria-labelledby="l-pg-intent"><label class="ref-ins-option" title="None" data-tone="auto"><input type="radio" name="l-pg-intent" value="" aria-label="None" checked><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Neutral" data-tone="neutral"><input type="radio" name="l-pg-intent" value="neutral" aria-label="Neutral"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Success" data-tone="success"><input type="radio" name="l-pg-intent" value="success" aria-label="Success"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Warning" data-tone="warning"><input type="radio" name="l-pg-intent" value="warning" aria-label="Warning"><span class="ref-ins-glyph" aria-hidden="true"></span></label><label class="ref-ins-option" title="Danger" data-tone="danger"><input type="radio" name="l-pg-intent" value="danger" aria-label="Danger"><span class="ref-ins-glyph" aria-hidden="true"></span></label></div>
           </div>
           <div class="ref-ins-row" data-switch>
-            <label class="ref-ins-label" for="l-pg-menu"><span class="ref-l-pg-attr">aria-haspopup</span> <span class="ref-l-pg-hint">opens a menu</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-menu" name="l-pg-menu">
+            <label class="ref-ins-label" for="l-pg-menu" title="Opens a menu"><span class="ref-l-pg-attr">aria-haspopup</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-menu" name="l-pg-menu">
           </div>
           <div class="ref-ins-row" data-switch>
-            <label class="ref-ins-label" for="l-pg-busy"><span class="ref-l-pg-attr">aria-busy</span> <span class="ref-l-pg-hint">working</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-busy" name="l-pg-busy">
+            <label class="ref-ins-label" for="l-pg-busy" title="Working"><span class="ref-l-pg-attr">aria-busy</span></label><input class="ref-ins-switch" type="checkbox" role="switch" id="l-pg-busy" name="l-pg-busy">
           </div>
         </div>
         <div class="ref-l-pg-preview">
-          <div class="ref-l-pg-theme ref-ins-host" id="l-pg-themes" hidden>
-            <p class="ref-l-pg-owner" id="l-pg-theme">The theme's</p>
-            <div class="ref-ins-seg" role="radiogroup" aria-labelledby="l-pg-theme" style="--n: 6"><label class="ref-ins-option" title="Canon"><input type="radio" name="l-pg-theme" value="canon" aria-label="Canon" checked><span>Canon</span></label><label class="ref-ins-option" title="Carbon"><input type="radio" name="l-pg-theme" value="carbon" aria-label="Carbon"><span>Carbon</span></label><label class="ref-ins-option" title="Material"><input type="radio" name="l-pg-theme" value="material" aria-label="Material"><span>Material</span></label><label class="ref-ins-option" title="Fluent"><input type="radio" name="l-pg-theme" value="fluent" aria-label="Fluent"><span>Fluent</span></label><label class="ref-ins-option" title="Ant"><input type="radio" name="l-pg-theme" value="ant" aria-label="Ant"><span>Ant</span></label><label class="ref-ins-option" title="Bootstrap"><input type="radio" name="l-pg-theme" value="bootstrap" aria-label="Bootstrap"><span>Bootstrap</span></label></div>
-          </div>
+          <p class="ref-l-pg-owner" id="l-pg-theme">The theme's</p>
+          <div class="ref-l-pg-dock" id="l-pg-themes" hidden><div class="ref-ins-seg" role="radiogroup" aria-labelledby="l-pg-theme" style="--n: 6"><label class="ref-ins-option" title="Canon"><input type="radio" name="l-pg-theme" value="canon" aria-label="Canon" checked><span>Canon</span></label><label class="ref-ins-option" title="Carbon"><input type="radio" name="l-pg-theme" value="carbon" aria-label="Carbon"><span>Carbon</span></label><label class="ref-ins-option" title="Material"><input type="radio" name="l-pg-theme" value="material" aria-label="Material"><span>Material</span></label><label class="ref-ins-option" title="Fluent"><input type="radio" name="l-pg-theme" value="fluent" aria-label="Fluent"><span>Fluent</span></label><label class="ref-ins-option" title="Ant"><input type="radio" name="l-pg-theme" value="ant" aria-label="Ant"><span>Ant</span></label><label class="ref-ins-option" title="Bootstrap"><input type="radio" name="l-pg-theme" value="bootstrap" aria-label="Bootstrap"><span>Bootstrap</span></label></div></div>
           <div class="ref-l-host" inert><button type="button" class="canon-button"><span class="canon-button-label">Save</span></button></div>
         </div>
         <pre class="ref-l-source" aria-label="The button's markup"><code><span class="t-p">&lt;</span><span class="t-t">button</span> <span class="t-a">type</span>=<span class="t-s">&quot;button&quot;</span> <span class="t-a">class</span>=<span class="t-s">&quot;canon-button&quot;</span><span class="t-p">&gt;</span>

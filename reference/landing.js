@@ -301,7 +301,8 @@
   /* A small playground. The controls say what the button is; from them
      come its markup, what they add typed in, and the button. The
      theme is a page of its own: the button alone, with that theme's
-     stylesheet and nothing else of the docs, in the docs' color scheme. The
+     stylesheet and nothing else of the docs, in the docs' color scheme, on
+     a canvas of dots as in a design tool. The
      theme choice swaps the stylesheet and leaves the markup as it is. The
      button takes the pointer and focus, so its hover, pressed and focus
      looks show; it does nothing. */
@@ -317,7 +318,7 @@
       <meta charset="utf-8">
       <base href="${new URL(".", location.href).href}">
       <link rel="stylesheet" href="../css/canon/canon.css">
-      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background-color: var(--canon-theme-page-bg); }</style>
+      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background: radial-gradient(color-mix(in srgb, var(--canon-theme-ink) 16%, transparent) 1px, transparent 1.5px) 0 0 / 16px 16px, var(--canon-theme-page-bg); }</style>
     </head>
     <body></body>
     </html>`);
@@ -350,9 +351,9 @@
       if (shown) shown.textContent = chosen.getAttribute("aria-label");
       row.toggleAttribute("data-changed", !!chosen?.value);
     }
-    controls.dataset.tone = value("l-pg-intent");
+    look.querySelector(".ref-l-pg").dataset.tone = value("l-pg-intent");
     const themes = [...look.querySelectorAll('[name="l-pg-theme"]')];
-    look.querySelector(".ref-l-pg-theme > .ref-ins-seg").style.setProperty("--at", themes.findIndex((theme) => theme.checked));
+    look.querySelector(".ref-l-pg-dock > .ref-ins-seg").style.setProperty("--at", themes.findIndex((theme) => theme.checked));
   };
   const label = "Save";
   const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
