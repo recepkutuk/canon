@@ -32,7 +32,7 @@ Then link the files from `node_modules/canon-ui/`, or serve them with your app:
 <script src="node_modules/canon-ui/js/canon.js" defer></script>
 ```
 
-With a bundler:
+Or, if your app bundles its files, the same two:
 
 ```js
 import "canon-ui/css/canon/canon.css";
@@ -48,7 +48,7 @@ A primary action:
 </button>
 ```
 
-To ship only the components your app uses, build Canon with just those. This writes `canon.css`, `canon.core.css` and `canon.js` to `canon/`, or to the folder `--out` names:
+Optionally, to ship only the components your app uses, build Canon with just those. This writes `canon.css`, `canon.core.css` and `canon.js` to `canon/`, or to the folder `--out` names:
 
 ```bash
 npx canon-ui build --only core,data,date
