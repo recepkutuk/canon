@@ -102,7 +102,7 @@
     Separator: "separator.html",
   };
   const components = {
-    "Getting started": ["Introduction", "Getting started", "Themes", "Components", "Build"],
+    Guide: ["Introduction", "Getting started", "Themes", "Components", "Build"],
     Layout: ["App Shell", "Page Header", "Section", "Separator", "Sidebar", "Split Pane", "Stack / Cluster / Grid", "Toolbar", "Top Bar"],
     Actions: ["Button", "Button Group", "Link", "Segmented Control", "Split Button", "Toggle Chip"],
     Forms: ["Checkbox", "Color Picker", "Combobox", "Date family", "Field", "Fieldset", "File / Dropzone", "Form Layout", "Form Repeater", "Input OTP", "Label", "Number Input", "Password", "Radio", "Range Slider", "Rich Text", "Save Bar", "Select", "Slider", "Swatches", "Switch", "Text Input", "Textarea", "Time"],
