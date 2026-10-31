@@ -263,6 +263,20 @@
 .ref-l-not dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem 2rem; margin: 2rem 0 0; }
 .ref-l-not dt { font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); font-weight: 600; }
 .ref-l-not dd { margin: 0.375rem 0 0; color: var(--ref-muted); font-size: var(--ref-text-sm); line-height: var(--ref-text-sm-lh); }
+/* A mark beside each item: a check for what Canon is for, an X in an
+   octagon for what it leaves to others. */
+.ref-l-not dl > div { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr); column-gap: 0.75rem; }
+.ref-l-not dl > div::before { content: ""; grid-row: span 2; inline-size: 1.5rem; block-size: 1.5rem; background-color: var(--l-mark); mask: var(--l-mark-icon) center / contain no-repeat; }
+.ref-l-not dt, .ref-l-not dd { grid-column: 2; }
+.ref-l-not dt { align-self: center; }
+.ref-l-not {
+  --l-mark: light-dark(#dc2626, #f87171);   /* red-600 / red-400 */
+  --l-mark-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
+}
+.ref-l-for {
+  --l-mark: light-dark(#16a34a, #4ade80);   /* green-600 / green-400 */
+  --l-mark-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m9 12 2 2 4-4'/></svg>");
+}
 
 /* ---------------------------------------------------------------------- */
 /* Narrower windows                                                        */
