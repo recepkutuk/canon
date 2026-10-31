@@ -285,18 +285,21 @@
     words.set(lead, wrapped);
     enter(lead);
   };
-  /* One queue for the page: each thing starts a beat after the one before
-     it started (its step: 120ms; a title 160ms, its lines still rising),
-     however far apart they entered, never waiting for one to finish. */
+  /* A queue for each section: each thing starts a beat after the one
+     before it in its section started (its step: 120ms; a title 160ms, its
+     lines still rising), however far apart they entered, never waiting for
+     one to finish. Sections don't wait for each other. */
   let arriving = [];
-  let lastStart = 0;
-  let lastStep = 0;
+  const queues = new Map();
   const arrive = () => {
     const now = arriving.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
     arriving = [];
     for (const element of now) {
+      if (!element.hasAttribute("data-waiting")) continue;
+      const section = element.closest("section");
+      const queue = queues.get(section) ?? { start: 0, step: 0 };
       const clock = performance.now();
-      const start = Math.max(clock, lastStart + lastStep);
+      const start = Math.max(clock, queue.start + queue.step);
       element.style.setProperty("--d", `${Math.round(start - clock)}ms`);
       const its = words.get(element);
       if (its) {
@@ -307,8 +310,7 @@
           word.style.setProperty("--line", line);
         }
       }
-      lastStart = start;
-      lastStep = Number(element.dataset.step ?? (its ? 160 : 120));
+      queues.set(section, { start, step: Number(element.dataset.step ?? (its ? 160 : 120)) });
       delete element.dataset.waiting;
       element.dispatchEvent(new Event("ref-l-entered"));
     }
@@ -321,6 +323,27 @@
       arriving.push(entry.target);
     }
   }, { rootMargin: "0px 0px -8% 0px" });
+  /* What is already above the window (scrolled past, or above where a
+     reload put the page) is simply there, without an entrance: scrolling
+     back up doesn't play it. Checked as the page scrolls. */
+  let sweeping = 0;
+  const sweep = () => {
+    sweeping = 0;
+    const passed = [...document.querySelectorAll(".ref-landing [data-waiting]")].filter((element) => element.getBoundingClientRect().bottom <= 0);
+    if (!passed.length) return;
+    for (const element of passed) {
+      watcher.unobserve(element);
+      element.classList.add("ref-l-at-once");
+      delete element.dataset.waiting;
+      element.dispatchEvent(new Event("ref-l-entered"));
+    }
+    /* Back to their own transitions once drawn in place. */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      for (const element of passed) element.classList.remove("ref-l-at-once");
+    }));
+  };
+  addEventListener("scroll", () => { sweeping ||= requestAnimationFrame(sweep); }, { passive: true });
+  addEventListener("load", sweep);
   /* step: how long the next thing waits after it (ms). */
   function enter(element, step) {
     element.dataset.waiting = "";

@@ -103,6 +103,9 @@
 .ref-l-enter[data-waiting] { opacity: 0; translate: 0 0.75rem; }
 .ref-l-enter-title .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--d, 0ms) + var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--d, 0ms) + var(--line, 0) * 140ms); }
 .ref-l-enter-title[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
+/* Already passed when it would have come in (a reload further down): in
+   place at once. */
+.ref-l-at-once, .ref-l-at-once * { transition: none !important; }
 @media (max-width: 40rem) {
   .ref-l-beliefs { grid-template-columns: minmax(0, 1fr); }
 }
