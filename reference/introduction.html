@@ -199,7 +199,6 @@
       <dl>
       <div><dt>A back end and no front-end team</dt><dd>Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.</dd></div>
       <div><dt>Several stacks</dt><dd>A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.</dd></div>
-      <div><dt>Accessibility requirements</dt><dd>Each component's specification lists its roles, names and keys, and what every theme must keep, so an audit has something to check against.</dd></div>
       <div><dt>A brand to follow, or several</dt><dd>One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.</dd></div>
       <div><dt>Tools that must last years</dt><dd>Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.</dd></div>
     </dl>
@@ -213,11 +212,9 @@
       <p class="ref-l-text">Canon is not:</p>
       <dl>
       <div><dt>A JavaScript component library</dt><dd>There's nothing to import or call, and no build step. Your framework or server renders the HTML.</dd></div>
-      <div><dt>Locked to its look</dt><dd>The look lives in one stylesheet. Change its colors, or replace it with your own theme, and no page changes.</dd></div>
       <div><dt>Utility classes</dt><dd>Markup says what a thing is (<code>data-intent</code>), never how it looks: no “outline”, “rounded” or “blue”.</dd></div>
       <div><dt>An app framework</dt><dd>No routing, data loading or state. canon.js keeps the interface honest; saving and fetching are your app's.</dd></div>
       <div><dt>For marketing sites</dt><dd>Tables, forms, records and dashboards. Hero sections and pricing tables are out of scope.</dd></div>
-      <div><dt>A pile of effects</dt><dd>Motion in the components explains a change, like a tab's indicator sliding across, or it isn't there.</dd></div>
     </dl>
     </div>
   </section>

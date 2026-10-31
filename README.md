@@ -119,7 +119,6 @@ Canon is for teams with:
 
 - **A back end and no front-end team.** Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.
 - **Several stacks.** A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.
-- **Accessibility requirements.** Each component's specification lists its roles, names and keys, and what every theme must keep, so an audit has something to check against.
 - **A brand to follow, or several.** One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.
 - **Tools that must last years.** Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.
 
@@ -128,11 +127,9 @@ Canon is for teams with:
 Canon is not:
 
 - **A JavaScript component library.** There's nothing to import or call, and no build step. Your framework or server renders the HTML.
-- **Locked to its look.** The look lives in one stylesheet. Change its colors, or replace it with your own theme, and no page changes.
 - **Utility classes.** Markup says what a thing is (`data-intent`), never how it looks: no "outline", "rounded" or "blue".
 - **An app framework.** No routing, data loading or state. canon.js keeps the interface honest; saving and fetching are your app's.
 - **For marketing sites.** Tables, forms, records and dashboards. Hero sections and pricing tables are out of scope.
-- **A pile of effects.** Motion in the components explains a change, like a tab's indicator sliding across, or it isn't there.
 
 ## Origins
 
