@@ -245,7 +245,7 @@
 /* Every component                                                         */
 /* ---------------------------------------------------------------------- */
 /* The names, large; the one pointed at shows above the pointer. */
-.ref-l-names { margin-block-start: 1.75rem; font-size: var(--ref-text-lg); font-weight: 700; line-height: var(--ref-text-lg-lh); letter-spacing: -0.03em; }
+.ref-l-names { margin-block-start: 1rem; font-size: var(--ref-text-lg); font-weight: 700; line-height: var(--ref-text-lg-lh); letter-spacing: -0.03em; }
 /* A name never breaks across lines: it moves to the next one whole. */
 .ref-l-names a { display: inline-block; color: color-mix(in srgb, var(--ref-fg) 32%, var(--ref-bg)); text-decoration: none; white-space: nowrap; transition: color 0.15s, opacity 0.5s var(--l-ease) var(--d, 0ms), translate 0.6s var(--l-ease) var(--d, 0ms); }
 .ref-l-names a:not(:last-child)::after { content: "\00a0/ "; color: color-mix(in srgb, var(--ref-fg) 14%, var(--ref-bg)); font-weight: 400; }
