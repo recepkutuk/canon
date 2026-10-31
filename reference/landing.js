@@ -259,9 +259,8 @@
   /* ------------------------------------------------------------------ */
 
   /* Entrances. Each thing comes in once, as it enters the window: a title
-     line by line, anything else whole. What enters together comes in one
-     after another, in the page's order, a title's lines before what follows
-     it. Until then it waits, unseen (data-waiting; CSS). */
+     line by line, anything else whole, a beat after the thing before it
+     (below). Until then it waits, unseen (data-waiting; CSS). */
   const words = new Map();
   /* A title's words are wrapped so its lines can be told apart, numbered as
      they wrap when it comes in. Screen readers get the text once, plainly;
@@ -286,13 +285,19 @@
     words.set(lead, wrapped);
     enter(lead);
   };
+  /* One queue for the page: each thing starts a beat after the one before
+     it started (its step: 120ms; a title 160ms, its lines still rising),
+     however far apart they entered, never waiting for one to finish. */
   let arriving = [];
+  let lastStart = 0;
+  let lastStep = 0;
   const arrive = () => {
     const now = arriving.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
     arriving = [];
-    let at = 0;
     for (const element of now) {
-      element.style.setProperty("--d", `${at}ms`);
+      const clock = performance.now();
+      const start = Math.max(clock, lastStart + lastStep);
+      element.style.setProperty("--d", `${Math.round(start - clock)}ms`);
       const its = words.get(element);
       if (its) {
         let line = -1;
@@ -301,8 +306,9 @@
           if (word.offsetTop !== last) { line++; last = word.offsetTop; }
           word.style.setProperty("--line", line);
         }
-        at += (line + 1) * 140 + 200;
-      } else at += Number(element.dataset.step ?? 120);
+      }
+      lastStart = start;
+      lastStep = Number(element.dataset.step ?? (its ? 160 : 120));
       delete element.dataset.waiting;
       element.dispatchEvent(new Event("ref-l-entered"));
     }
