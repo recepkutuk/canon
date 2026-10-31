@@ -469,13 +469,13 @@
   draw();
   reflect();
   /* Whether there's room left of the playground, up to the navigation's
-     edge, for the "try me" note further out (5.25rem). */
+     edge, for the "try me" note further out (6rem). */
   const playground = look.querySelector(".ref-l-pg");
   const room = () => {
     /* The navigation is drawn by ref.js, so it's looked for each time. */
     const aside = document.querySelector(".ref-aside");
     const edge = aside && getComputedStyle(aside).display !== "none" ? Math.max(0, aside.getBoundingClientRect().right) : 0;
-    playground.toggleAttribute("data-roomy", playground.getBoundingClientRect().left - edge >= 84);
+    playground.toggleAttribute("data-roomy", playground.getBoundingClientRect().left - edge >= 96);
   };
   const measuring = new ResizeObserver(room);
   measuring.observe(document.documentElement);

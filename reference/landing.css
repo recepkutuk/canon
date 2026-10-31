@@ -138,8 +138,9 @@
 }
 .ref-l-pg-controls { grid-area: controls; min-inline-size: 0; }
 .ref-l-pg-controls[hidden] { display: none; }
-/* The canvas: inset in the window, its own rounded well. */
-.ref-l-pg-preview { grid-area: preview; position: relative; display: grid; min-inline-size: 0; min-block-size: 14rem; margin: 0.5rem 0.5rem 0.5rem 0; overflow: hidden; border-radius: 0.625rem; box-shadow: 0 0 0 1px var(--ins-line); }
+/* The canvas: inset in the window, its own rounded well, its edge the
+   theme's background against the window's. */
+.ref-l-pg-preview { grid-area: preview; position: relative; display: grid; min-inline-size: 0; min-block-size: 14rem; margin: 0.5rem 0.5rem 0.5rem 0; overflow: hidden; border-radius: 0.625rem; }
 .ref-l-pg > .ref-l-source { grid-area: source; }
 /* Without the controls (no JavaScript), the button over its markup. */
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "preview" "source"; }
@@ -152,8 +153,8 @@
    further out and lower where there's room left of it (data-roomy,
    landing.js). Bobbing, as on Canon's first page; still with reduced
    motion. */
-.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-teal); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
-.ref-l-pg[data-roomy] > .ref-l-try { inset-block-end: calc(100% - 3rem); inset-inline-start: -4.25rem; }
+.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-teal); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 6deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
+.ref-l-pg[data-roomy] > .ref-l-try { inset-block-end: calc(100% - 3rem); inset-inline-start: -5rem; }
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 
