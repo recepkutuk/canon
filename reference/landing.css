@@ -53,6 +53,7 @@
 .ref-l-claim { grid-column: span 2; place-content: center; gap: 0.5rem; text-align: center; }
 .ref-l-claim p { margin: 0; color: var(--ref-muted); font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); }
 .ref-l-claim strong { color: var(--ref-fg); font-weight: 600; }
+.ref-l-keep { display: inline-block; }   /* the list breaks as a whole, never inside */
 /* The frame follows its own width (the sidebar takes a share of the
    window): two columns with the claim across the top when four would
    squeeze the components, one on the narrowest. */
