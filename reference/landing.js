@@ -258,45 +258,89 @@
   /* Why Canon                                                           */
   /* ------------------------------------------------------------------ */
 
-  /* An entrance that plays once, as a section comes into view: its lead
-     line by line, then what follows it (CSS). The lead's words are wrapped
-     so their lines can be told apart, numbered as they wrap at that
-     moment. Why Canon has it, and every section after it (.ref-l-enters). */
-  const rise = (section, lead) => {
-    /* Read whole: screen readers get the text once, plainly; the wrapped
-       words are only seen. */
+  /* Entrances. Each thing comes in once, as it enters the window: a title
+     line by line, anything else whole. What enters together comes in one
+     after another, in the page's order, a title's lines before what follows
+     it. Until then it waits, unseen (data-waiting; CSS). */
+  const words = new Map();
+  /* A title's words are wrapped so its lines can be told apart, numbered as
+     they wrap when it comes in. Screen readers get the text once, plainly;
+     the wrapped words are only seen. */
+  const title = (lead) => {
     const shown = document.createElement("span");
     shown.setAttribute("aria-hidden", "true");
     const spoken = Object.assign(document.createElement("span"), { className: "canon-visually-hidden", textContent: lead.textContent });
     shown.append(...lead.childNodes);
     lead.append(spoken, shown);
-    const words = [];
+    const wrapped = [];
     for (const node of [...shown.childNodes].flatMap((each) => each.nodeType === Node.TEXT_NODE ? [each] : [...each.childNodes].filter((child) => child.nodeType === Node.TEXT_NODE))) {
       const parts = node.textContent.split(/(\s+)/).map((part) => {
         if (!part || /^\s+$/.test(part)) return document.createTextNode(part);
         const word = Object.assign(document.createElement("span"), { className: "ref-l-word", textContent: part });
-        words.push(word);
+        wrapped.push(word);
         return word;
       });
       node.replaceWith(...parts);
     }
-    section.dataset.waiting = "";
-    new IntersectionObserver(([entry], observer) => {
-      if (!entry.isIntersecting) return;
-      let line = -1;
-      let last = null;
-      for (const word of words) {
-        if (word.offsetTop !== last) { line++; last = word.offsetTop; }
-        word.style.setProperty("--line", line);
-      }
-      section.style.setProperty("--lines", line + 1);
-      delete section.dataset.waiting;
-      observer.disconnect();
-    }, { rootMargin: "0px 0px -15% 0px" }).observe(section);
+    lead.classList.add("ref-l-enter-title");
+    words.set(lead, wrapped);
+    enter(lead);
+  };
+  let arriving = [];
+  const arrive = () => {
+    const now = arriving.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    arriving = [];
+    let at = 0;
+    for (const element of now) {
+      element.style.setProperty("--d", `${at}ms`);
+      const its = words.get(element);
+      if (its) {
+        let line = -1;
+        let last = null;
+        for (const word of its) {
+          if (word.offsetTop !== last) { line++; last = word.offsetTop; }
+          word.style.setProperty("--line", line);
+        }
+        at += (line + 1) * 140 + 200;
+      } else at += Number(element.dataset.step ?? 120);
+      delete element.dataset.waiting;
+      element.dispatchEvent(new Event("ref-l-entered"));
+    }
+  };
+  const watcher = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      watcher.unobserve(entry.target);
+      if (!arriving.length) requestAnimationFrame(arrive);
+      arriving.push(entry.target);
+    }
+  }, { rootMargin: "0px 0px -8% 0px" });
+  /* step: how long the next thing waits after it (ms). */
+  function enter(element, step) {
+    element.dataset.waiting = "";
+    if (step !== undefined) element.dataset.step = step;
+    watcher.observe(element);
+  }
+  const block = (element, step) => {
+    element.classList.add("ref-l-enter");
+    enter(element, step);
   };
   const why = document.querySelector(".ref-l-why");
-  rise(why, why.querySelector(".ref-l-lead"));
-  for (const section of document.querySelectorAll(".ref-l-enters")) rise(section, section.querySelector("h2"));
+  title(why.querySelector(".ref-l-lead"));
+  for (const belief of why.querySelectorAll(".ref-l-beliefs li")) block(belief);
+  /* The sections after it: the title, then each thing under it; the tier
+     chart's cells and key, and each component's name, on their own. */
+  for (const section of document.querySelectorAll(".ref-l-enters")) {
+    title(section.querySelector("h2"));
+    for (const part of section.querySelector(":scope > div").children) {
+      if (part.matches(".ref-l-tally")) {
+        enter(part.querySelector(".ref-l-squares"), 300);
+        block(part.querySelector(".ref-l-key"));
+      } else if (part.matches(".ref-l-names")) {
+        for (const name of part.querySelectorAll("a")) block(name, 30);
+      } else block(part);
+    }
+  }
 
   /* ------------------------------------------------------------------ */
   /* What it is and how it looks                                         */
@@ -512,28 +556,17 @@
     line.addEventListener("pointerenter", () => { tally.dataset.show = line.dataset.tier; });
     line.addEventListener("pointerleave", () => { delete tally.dataset.show; });
   }
-  squares.dataset.waiting = "";
-  new IntersectionObserver(([entry], observer) => {
-    if (!entry.isIntersecting) return;
-    delete squares.dataset.waiting;
-    observer.disconnect();
-    /* Once in, they change at once: no staggered entrance again. */
+  /* Once in, they change at once: no staggered entrance again. */
+  squares.addEventListener("ref-l-entered", () => {
     setTimeout(() => { squares.dataset.settled = ""; }, squares.children.length * 12 + 800);
-  }, { rootMargin: "0px 0px -20% 0px" }).observe(squares);
+  }, { once: true });
 
   /* ------------------------------------------------------------------ */
   /* Every component                                                     */
   /* ------------------------------------------------------------------ */
 
   const names = document.querySelector(".ref-l-names");
-  /* The names appear one after another, once, as the list comes into view. */
-  [...names.querySelectorAll("a")].forEach((link, i) => link.style.setProperty("--i", i));
-  names.dataset.waiting = "";
-  new IntersectionObserver(([entry], observer) => {
-    if (!entry.isIntersecting) return;
-    delete names.dataset.waiting;
-    observer.disconnect();
-  }, { rootMargin: "0px 0px -20% 0px" }).observe(names);
+  /* The names come in as they enter the window (Entrances, above). */
   const peek = document.querySelector(".ref-l-peek");
   const peekStage = peek.querySelector(".ref-l-peek-stage");
   let previews = null;
