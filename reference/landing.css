@@ -112,19 +112,25 @@
 /* ---------------------------------------------------------------------- */
 /* What it is and how it looks: one button, two choices                    */
 /* ---------------------------------------------------------------------- */
-/* The two choices, each named, side by side while they fit. */
-.ref-l-look-controls { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-block-start: 1.5rem; }
-.ref-l-look-control { display: grid; gap: 0.5rem; justify-items: start; min-inline-size: 0; max-inline-size: 100%; }
-.ref-l-look-control[hidden] { display: none; }
-.ref-l-look-name { color: var(--ref-muted); font-size: 0.8125rem; font-weight: 500; }
+/* Two cards side by side, one for each half of the heading: what the
+   author writes (the choice, and the markup it makes) and what the theme
+   draws (the choice, and the button). The theme's is wider: six themes
+   to name. */
+.ref-l-look-cards { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: 1rem; margin-block-start: 1.75rem; }
+.ref-l-look-card { display: grid; grid-template-rows: auto auto 1fr; min-inline-size: 0; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); overflow: hidden; }
+.ref-l-look-owner { margin: 0; padding: 1rem 1rem 0; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; }
+/* A choice: its name, then the options, on one line while they fit; a
+   hairline under it. */
+.ref-l-look-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; padding: 0.625rem 1rem 1rem; border-block-end: 1px solid var(--ref-line); }
+.ref-l-look-row[hidden] { display: none; }
+.ref-l-look-name { color: var(--ref-fg); font-size: 0.8125rem; font-weight: 500; }
 /* Where the options don't fit (six themes on a phone), they keep their
    names and the control scrolls, room left for the focus ring. */
 .ref-l-look-scroll { max-inline-size: 100%; margin: -0.25rem; padding: 0.25rem; overflow-x: auto; scrollbar-width: none; }
 .ref-l-look-scroll > .canon-segmented { max-inline-size: none; }
 .ref-l-look-scroll .canon-segmented-option { flex: none; }
 
-/* The markup beside the button it makes. */
-.ref-l-look-work { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.25rem; margin-block-start: 1.25rem; }
+/* The markup, on the card's ground. */
 .ref-l-source {
   --t-text: light-dark(#3f3f46, #d4d4d8);
   --t-punct: light-dark(#71717a, #a1a1aa);
@@ -134,17 +140,15 @@
   display: grid;
   align-content: center;
   min-inline-size: 0;
+  min-block-size: 11rem;
   margin: 0;
   overflow-x: auto;
-  padding: 1rem 1.125rem;
-  border: 1px solid var(--ref-line);
-  border-radius: 0.875rem;
-  background-color: var(--l-ground);
+  padding: 1.25rem;
   color: var(--t-text);
-  font: 0.75rem/1.75 var(--l-mono);
+  font: 0.6875rem/1.8 var(--l-mono);
 }
 /* Each choice's markup in one place, the others kept unseen there, so the
-   box keeps the size of the longest. */
+   card keeps the size of the longest. */
 .ref-l-source code { grid-area: 1 / 1; display: block; min-inline-size: max-content; padding: 0; background: none; font-size: inherit; white-space: pre; }
 .ref-l-source .t-p { color: var(--t-punct); }
 .ref-l-source .t-t { color: var(--t-tag); }
@@ -153,12 +157,12 @@
 /* What the choice adds. */
 .ref-l-mark { margin-inline: -0.25rem; padding: 0.125rem 0.25rem; border-radius: 0.25rem; background-color: color-mix(in srgb, var(--l-accent) 16%, transparent); box-shadow: inset 0 -1.5px var(--l-accent); color: inherit; }
 
-/* The button alone, centered on the docs' preview ground: in the page
-   without JavaScript, else in a page of its own with the chosen theme. */
-.ref-l-host, .ref-l-view { min-block-size: 9rem; border: 1px solid var(--ref-line); border-radius: 0.875rem; background-color: var(--l-ground); }
+/* The button alone, in the rest of its card: in the page without
+   JavaScript, else in a page of its own with the chosen theme. */
+.ref-l-host, .ref-l-view { min-block-size: 11rem; }
 .ref-l-host { display: grid; place-items: center; padding: 1.5rem; }
 .ref-l-host > * { grid-area: 1 / 1; }
-.ref-l-view { display: block; inline-size: 100%; block-size: 100%; box-sizing: border-box; overflow: hidden; }
+.ref-l-view { display: block; inline-size: 100%; block-size: 100%; border: 0; }
 .ref-l-look[data-framed] .ref-l-host { display: none; }
 
 /* The choice shows its markup and its button. */
@@ -180,7 +184,7 @@
 @media (max-width: 64rem) {
 }
 @media (max-width: 48rem) {
-  .ref-l-look-work { grid-template-columns: minmax(0, 1fr); }
+  .ref-l-look-cards { grid-template-columns: minmax(0, 1fr); }
   .ref-l-squares { grid-template-columns: repeat(17, minmax(0, 1fr)); }
   .ref-l-tally { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 }
