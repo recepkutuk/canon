@@ -160,7 +160,9 @@
 /* The inspector: the Playground's controls, a little larger; each names
    the attribute it writes, its meaning in its tooltip. */
 .ref-l-pg-controls { display: grid; align-content: start; gap: 0.875rem; padding: 1.125rem 1.25rem 1.25rem; font-size: 0.8125rem; line-height: 1.25rem; }
-.ref-l-pg-controls > .ref-ins-row[data-switch] + .ref-ins-row[data-switch] { margin-block-start: -0.5rem; }
+/* The two switches side by side, each beside its name. */
+.ref-l-pg-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1rem; }
+.ref-l-pg-pair > .ref-ins-row { grid-template-columns: auto auto; justify-content: start; column-gap: 0.625rem; }
 .ref-l-pg-attr { font-family: var(--l-mono); font-size: 0.75rem; }
 /* No meaning chosen: the emphasis pictures in the text color, as the
    theme's own accent isn't the landing's. */

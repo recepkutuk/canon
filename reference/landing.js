@@ -301,8 +301,7 @@
   /* A small playground. The controls say what the button is; from them
      come its markup, what they add typed in, and the button. The
      theme is a page of its own: the button alone, with that theme's
-     stylesheet and nothing else of the docs, in the docs' color scheme, on
-     a canvas of dots as in a design tool. The
+     stylesheet and nothing else of the docs, in the docs' color scheme. The
      theme choice swaps the stylesheet and leaves the markup as it is. The
      button takes the pointer and focus, so its hover, pressed and focus
      looks show; it does nothing. */
@@ -318,7 +317,7 @@
       <meta charset="utf-8">
       <base href="${new URL(".", location.href).href}">
       <link rel="stylesheet" href="../css/canon/canon.css">
-      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background: radial-gradient(color-mix(in srgb, var(--canon-theme-ink) 6%, transparent) 0.75px, transparent 1.25px) 0 0 / 20px 20px, var(--canon-theme-page-bg); }</style>
+      <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background-color: var(--canon-theme-page-bg); }</style>
     </head>
     <body></body>
     </html>`);
@@ -460,6 +459,13 @@
     draw();
     reflect();
   });
+  /* A theme picked with the pointer lets go of the menu, so its focus ring
+     doesn't stay on; one picked with the keyboard keeps it. */
+  const themeMenu = document.getElementById("l-pg-theme");
+  let pointed = false;
+  themeMenu.addEventListener("pointerdown", () => { pointed = true; });
+  themeMenu.addEventListener("keydown", () => { pointed = false; });
+  themeMenu.addEventListener("change", () => { if (pointed) themeMenu.blur(); pointed = false; });
   draw();
   reflect();
   /* Whether there's room left of the playground, up to the navigation's
