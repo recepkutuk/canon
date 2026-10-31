@@ -88,7 +88,7 @@
 /* ---------------------------------------------------------------------- */
 /* The lead at a size between the page's name and its text. */
 .ref-l-why { margin-block-start: 4rem; padding-block-start: 0; border-block-start: 0; }
-.ref-l-lead, .ref-l-look .ref-l-label h2 { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: var(--ref-text-lg); font-weight: 500; line-height: var(--ref-text-lg-lh); letter-spacing: -0.015em; }
+.ref-l-lead, .ref-l-titled .ref-l-label h2 { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: var(--ref-text-lg); font-weight: 500; line-height: var(--ref-text-lg-lh); letter-spacing: -0.015em; }
 .ref-l-beliefs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: l-belief; }
 .ref-l-beliefs li { counter-increment: l-belief; }
 .ref-l-beliefs li::before { content: counter(l-belief, decimal-leading-zero); display: block; margin-block-end: 0.5rem; color: var(--l-accent); font-size: var(--ref-text-xs); line-height: var(--ref-text-xs-lh); font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -99,20 +99,21 @@
    --line, and counts them, --lines), then the
    beliefs follow one by one. Hidden at once; only the way in is animated. */
 .ref-l-word { display: inline-block; }
-/* What it is and how it looks enters the same way: its title, then its
-   text, the playground, the note and the last line, one by one. */
-:is(.ref-l-why, .ref-l-look):not([data-waiting]) .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--line, 0) * 140ms); }
+/* The sections titled as the lead (.ref-l-titled: What it is and how it
+   looks, Without JavaScript) enter the same way: the title, then what
+   follows it, one by one. */
+:is(.ref-l-why, .ref-l-titled):not([data-waiting]) .ref-l-word { transition: opacity 0.7s var(--l-ease) calc(var(--line, 0) * 140ms), translate 0.8s var(--l-ease) calc(var(--line, 0) * 140ms); }
 .ref-l-why:not([data-waiting]) .ref-l-beliefs li { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.5s + var(--i) * 120ms); }
 .ref-l-beliefs li:nth-child(1) { --i: 0; }
 .ref-l-beliefs li:nth-child(2) { --i: 1; }
 .ref-l-beliefs li:nth-child(3) { --i: 2; }
 .ref-l-beliefs li:nth-child(4) { --i: 3; }
-:is(.ref-l-why, .ref-l-look)[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
-.ref-l-look:not([data-waiting]) > div > * { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms); }
-.ref-l-look > div > :nth-child(2) { --i: 1; }
-.ref-l-look > div > :nth-child(3) { --i: 2; }
-.ref-l-look > div > :nth-child(4) { --i: 3; }
-.ref-l-look[data-waiting] > div > * { opacity: 0; translate: 0 0.75rem; }
+:is(.ref-l-why, .ref-l-titled)[data-waiting] .ref-l-word { opacity: 0; translate: 0 0.625rem; }
+.ref-l-titled:not([data-waiting]) > div > * { transition: opacity 0.6s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms), translate 0.7s var(--l-ease) calc(var(--lines, 1) * 140ms + 0.3s + var(--i, 0) * 120ms); }
+.ref-l-titled > div > :nth-child(2) { --i: 1; }
+.ref-l-titled > div > :nth-child(3) { --i: 2; }
+.ref-l-titled > div > :nth-child(4) { --i: 3; }
+.ref-l-titled[data-waiting] > div > * { opacity: 0; translate: 0 0.75rem; }
 .ref-l-why[data-waiting] .ref-l-beliefs li { opacity: 0; translate: 0 0.75rem; }
 @media (max-width: 40rem) {
   .ref-l-beliefs { grid-template-columns: minmax(0, 1fr); }
@@ -127,9 +128,9 @@
    by their shade and not by lines; teal is their accent.
    The window floats a little over the page. Side by side where both fit;
    else one over the other. */
-/* Its title as Why Canon's lead, without a rule over it, so more room
-   above it. */
-.ref-l-look { margin-block-start: 6rem; padding-block-start: 0; border-block-start: 0; }
+/* Sections titled as Why Canon's lead (.ref-l-titled): no rule over
+   them, so more room above. */
+.ref-l-titled { margin-block-start: 6rem; padding-block-start: 0; border-block-start: 0; }
 .ref-l-look > div { container-type: inline-size; }
 .ref-l-pg {
   --ins-accent: var(--l-teal);
@@ -224,8 +225,6 @@
 /* ---------------------------------------------------------------------- */
 /* Without JavaScript: a cell for each component                           */
 /* ---------------------------------------------------------------------- */
-.ref-l-figure { margin: 0 0 0.5rem; font-size: var(--ref-text-md); line-height: var(--ref-text-md-lh); font-weight: 600; letter-spacing: -0.015em; }
-.ref-l-figure > span { font-variant-numeric: tabular-nums; }
 .ref-landing [data-tier="T0"] { --l-tier: color-mix(in srgb, var(--ref-fg) 70%, var(--ref-bg)); }
 .ref-landing [data-tier="T1"] { --l-tier: color-mix(in srgb, var(--ref-fg) 42%, var(--ref-bg)); }
 .ref-landing [data-tier="T2"] { --l-tier: color-mix(in srgb, var(--ref-fg) 20%, var(--ref-bg)); }
@@ -280,7 +279,7 @@
 /* Wide: the sections further apart, the names at heading size. */
 @media (min-width: 64rem) {
   .ref-l-why { margin-block-start: 6.5rem; }
-  .ref-l-look { margin-block-start: 8.5rem; }
+  .ref-l-titled { margin-block-start: 8.5rem; }
   .ref-l-names { font-size: var(--ref-heading-sm); line-height: var(--ref-heading-sm-lh); }
 }
 @media (max-width: 48rem) {
@@ -291,5 +290,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .ref-l-try { animation: none; }
-  .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li, .ref-l-look .ref-l-word, .ref-l-look > div > * { transition: none; }
+  .ref-l-squares > span, .ref-l-names a, .ref-l-why .ref-l-word, .ref-l-why .ref-l-beliefs li, .ref-l-titled .ref-l-word, .ref-l-titled > div > * { transition: none; }
 }

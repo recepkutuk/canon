@@ -261,7 +261,8 @@
   /* An entrance that plays once, as a section comes into view: its lead
      line by line, then what follows it (CSS). The lead's words are wrapped
      so their lines can be told apart, numbered as they wrap at that
-     moment. Why Canon has it, and What it is and how it looks. */
+     moment. Why Canon has it, What it is and how it looks, and Without
+     JavaScript. */
   const rise = (section, lead) => {
     /* Read whole: screen readers get the text once, plainly; the wrapped
        words are only seen. */
@@ -296,6 +297,8 @@
   };
   const why = document.querySelector(".ref-l-why");
   rise(why, why.querySelector(".ref-l-lead"));
+  const tiersSection = document.querySelector(".ref-l-tiers");
+  rise(tiersSection, tiersSection.querySelector("h2"));
 
   /* ------------------------------------------------------------------ */
   /* What it is and how it looks                                         */
