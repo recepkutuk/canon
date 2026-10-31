@@ -87,7 +87,7 @@
 /* ---------------------------------------------------------------------- */
 /* The lead at a size between the page's name and its text. */
 .ref-l-why { margin-block-start: 3.5rem; padding-block-start: 0; border-block-start: 0; }
-.ref-l-lead { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 1.375rem; font-weight: 500; line-height: 1.45; letter-spacing: -0.015em; }
+.ref-l-lead, .ref-l-look .ref-l-label h2 { max-inline-size: 42rem; margin: 0.25rem 0 0; color: var(--ref-fg); font-size: 1.375rem; font-weight: 500; line-height: 1.45; letter-spacing: -0.015em; }
 .ref-l-beliefs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3rem; margin: 2.5rem 0 0; padding: 0; list-style: none; counter-reset: l-belief; }
 .ref-l-beliefs li { counter-increment: l-belief; }
 .ref-l-beliefs li::before { content: counter(l-belief, decimal-leading-zero); display: block; margin-block-end: 0.5rem; color: var(--l-accent); font-size: 0.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -116,8 +116,10 @@
 /* One card: what the button is beside how the theme draws it, and the
    markup across the bottom. Side by side where both fit; else one over the
    other. */
+/* Its title as Why Canon's lead, without a rule over it. */
+.ref-l-look { padding-block-start: 0; border-block-start: 0; }
 .ref-l-look > div { container-type: inline-size; }
-.ref-l-pg { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-areas: "controls preview" "source source"; margin-block-start: 4.25rem; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); }
+.ref-l-pg { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-areas: "controls preview" "source source"; margin-block-start: 3rem; border: 1px solid var(--ref-line); border-radius: 1rem; background-color: var(--ref-bg); }
 .ref-l-pg-controls { grid-area: controls; min-inline-size: 0; border-inline-end: 1px solid var(--ref-line); }
 .ref-l-pg-preview { grid-area: preview; display: grid; grid-template-rows: auto 1fr; min-inline-size: 0; }
 .ref-l-pg > .ref-l-source { grid-area: source; border-block-start: 1px solid var(--ref-line); }
@@ -130,7 +132,7 @@
 }
 /* "Try me", handwritten, over the card's corner, its arrow reaching in.
    Bobbing, as on Canon's first page; still with reduced motion. */
-.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 0.75rem); inset-inline-start: -2.5rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
+.ref-l-try { position: absolute; z-index: 1; inset-block-end: calc(100% - 1.75rem); inset-inline-start: -3rem; inline-size: 4rem; block-size: 4rem; background-color: var(--l-accent); mask: url("assets/try-me.svg") center / contain no-repeat; rotate: 18deg; animation: ref-l-try 1s ease-in-out infinite alternate; pointer-events: none; }
 .ref-l-pg:has(> .ref-l-pg-controls[hidden]) > .ref-l-try { display: none; }
 @keyframes ref-l-try { to { translate: 0 0.5rem; } }
 

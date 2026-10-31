@@ -302,10 +302,12 @@
      come its markup, what they add typed in, and the button. The
      theme is a page of its own: the button alone, with that theme's
      stylesheet and nothing else of the docs, in the docs' color scheme. The
-     theme choice swaps the stylesheet and leaves the markup as it is. */
+     theme choice swaps the stylesheet and leaves the markup as it is. The
+     button takes the pointer and focus, so its hover, pressed and focus
+     looks show; it does nothing. */
   const look = document.querySelector(".ref-l-look");
   const source = look.querySelector(".ref-l-source > code");
-  const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme", tabIndex: -1 });
+  const view = Object.assign(document.createElement("iframe"), { className: "ref-l-view", title: "The button, in the chosen theme" });
   look.querySelector(".ref-l-host").after(view);
   const lookDocument = view.contentDocument;
   lookDocument.open();
@@ -317,7 +319,7 @@
       <link rel="stylesheet" href="../css/canon/canon.css">
       <style>body { display: grid; place-items: center; min-block-size: 100vh; margin: 0; background-color: var(--canon-theme-page-bg); }</style>
     </head>
-    <body inert></body>
+    <body></body>
     </html>`);
   lookDocument.close();
   const scheme = () => { lookDocument.documentElement.style.colorScheme = document.documentElement.style.colorScheme; };
