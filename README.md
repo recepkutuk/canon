@@ -97,10 +97,10 @@ Each component's specification gives its tier, from T0 to T3: what it does with 
 
 | Tier | Components | What it needs |
 | --- | ---: | --- |
-| T0 | 49 | HTML and CSS only |
-| T1 | 7 | The browser's own popovers and dialogs |
-| T2 | 11 | Plain controls, more with canon.js |
-| T3 | 1 | Needs JavaScript: the command palette's search |
+| T0 | 49 | HTML and CSS |
+| T1 | 7 | Browser features |
+| T2 | 11 | Better with JavaScript |
+| T3 | 1 | Needs JavaScript |
 
 ## Components
 
