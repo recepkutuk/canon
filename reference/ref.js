@@ -192,6 +192,11 @@
     T2: "Works without JavaScript, and canon.js adds more: keyboard, live values, behavior.",
     T3: "Needs JavaScript.",
   };
+  /* A page's own words for a tier, where the general ones would promise
+     more than works without canon.js. */
+  const tierNotes = {
+    "data-table.html": { T2: "Without JavaScript, a plain Table: rows, row selection and row actions work. Sorting, search, filters, paging and the columns panel need canon.js." },
+  };
 
   /* Other words people search a page by. */
   const keywords = { Stat: "KPI metric", "Stack / Cluster / Grid": "layout spacing gap columns" };
@@ -298,7 +303,7 @@
       tiers[page].split("/").forEach((tier, i) => {
         const id = `ref-tier-${i}`;
         holder.insertAdjacentHTML("beforeend", `<button type="button" class="ref-tier" interestfor="${id}" aria-describedby="${id}"><span class="canon-tag" data-size="sm"><span class="canon-tag-label">${tier}</span></span></button>`);
-        document.body.insertAdjacentHTML("beforeend", `<div class="canon-tooltip" id="${id}" popover="hint" role="tooltip" data-placement="block-end">${tier}: ${tierMeaning[tier]}</div>`);
+        document.body.insertAdjacentHTML("beforeend", `<div class="canon-tooltip" id="${id}" popover="hint" role="tooltip" data-placement="block-end">${tier}: ${tierNotes[page]?.[tier] ?? tierMeaning[tier]}</div>`);
       });
       title.append(" ", holder);
     }

@@ -96,6 +96,8 @@ The system is called **Canon**: the body of work accepted as authoritative withi
 - **T2**: works without JS, enhanced with JS
 - **T3**: requires JS
 
+Without canon.js a component shows nothing that only canon.js can work: core hides such controls under `@media (scripting: none)` (command buttons, the Data Table's search, panel buttons, export and select-all, the Split Pane's resize cursor), so a page whose script doesn't load has no dead controls. Where a T2 component keeps only its plain base without canon.js (the Data Table: a Table), its tier line says so.
+
 ## Components
 
 Each links to its specification; the reference pages (`reference/<component>.html`) show them working.

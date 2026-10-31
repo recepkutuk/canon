@@ -37,6 +37,14 @@
   :where(.canon-split-pane-handle[aria-orientation="horizontal"]) {
     cursor: row-resize;
   }
+  /* Without scripting the handle can't resize: only the line between the
+     panes, without the resize cursor or a pointer's grip. */
+  @media (scripting: none) {
+    :where(.canon-split-pane-handle) {
+      cursor: auto !important;
+      pointer-events: none !important;
+    }
+  }
   :where(.canon-split-pane[data-state="resizing"]) {
     user-select: none;
   }

@@ -294,4 +294,21 @@
   :where(.canon-data-table:not([aria-busy="true"])) :where(tbody[data-canon-skeleton]) {
     display: none;
   }
+
+  /* Without scripting it is a Table, and what only canon.js can do isn't
+     shown, so there are no dead controls: the search field (unless a form
+     sends it), the Filter and Columns buttons, the Export items and a menu
+     of nothing else, and the select-all checkbox (its column keeps its
+     width). Row checkboxes, row actions and the bulk row still work.
+     Important, so no theme's display brings them back. */
+  @media (scripting: none) {
+    :where(.canon-data-table-toolbar) :where(.canon-text-input:has(> input[type="search"])):not(:where(form *)),
+    :where(.canon-data-table-toolbar) :where([data-panel], [data-export]),
+    :where(.canon-data-table-toolbar) :where([popovertarget]:has(+ .canon-menu > [data-export]):not(:has(+ .canon-menu > .canon-menu-item:not([data-export])))) {
+      display: none !important;
+    }
+    :where(.canon-data-table) :where(th[data-column="select"]) :where(.canon-choice) {
+      visibility: hidden !important;
+    }
+  }
 }

@@ -71,7 +71,7 @@ The top of a page: what it is, what state it's in, and what you can do here. It 
   - Enter or leaving the field keeps the change; Escape drops it. Enter and Escape bring focus back to the button.
   - `canon-edit` fires on the heading first (`detail.value`, `detail.previous`, cancelable). Cancel it to keep the old name, for example when saving fails. An empty or unchanged value changes nothing.
   - The heading and its button are `data-editing` (hidden) meanwhile.
-- Without JavaScript nothing folds (the actions go under the title when narrow), the whole header sticks, and the rename button does nothing.
+- Without JavaScript nothing folds (the actions go under the title when narrow), the whole header sticks, and the rename button is hidden, like every Canon command button.
 
 ## Accessibility
 

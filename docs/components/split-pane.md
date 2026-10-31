@@ -40,7 +40,7 @@ Two panes side by side (a list and its record), or one over the other (a query a
 
 ## Core
 
-- A grid: the first pane `--canon-split-size` of the box, the handle, the second pane the rest. Without canon.js, half each.
+- A grid: the first pane `--canon-split-size` of the box, the handle, the second pane the rest. Without canon.js, half each, and the handle is only the line between them: no resize cursor, nothing to drag (`@media (scripting: none)`).
 - Each pane scrolls on its own; neither grows past the box.
 - While dragging, nothing in the panes is selected or catches the pointer.
 

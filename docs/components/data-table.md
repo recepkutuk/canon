@@ -1,6 +1,6 @@
 # Data Table
 
-Tier: **T2** (without canon.js it is a [Table](table.md): rows, checkboxes and buttons work; sorting, select-all, pinning, paging, search, filters and the columns panel don't)
+Tier: **T2**, narrowly: without canon.js it is a plain [Table](table.md), whose rows, row checkboxes and row actions work. Everything that makes it a data table needs canon.js: sorting, search, filters, paging, select-all, the columns panel, pinning, the bulk bar and export.
 
 A Table people work with: search and filter it, sort it, select rows, act on a row, edit a value in its cell, choose and pin its columns, page through it, export it, and see where it stands while it loads or when there's nothing to show. Editing cells has its own page: [Data Table: editing cells](data-table-editing.md).
 
@@ -116,7 +116,7 @@ A Table people work with: search and filter it, sort it, select rows, act on a r
 - **Truncated cells** show their full text as a tooltip (`title`) while cut; the full text is in the page, so screen readers read it all.
 - **Rows the app adds or replaces** are marked, pinned, and (with `data-local`) sorted, filtered and paged again.
 - **Editing cells** (`data-edit` on a header): see [Data Table: editing cells](data-table-editing.md).
-- **Without canon.js** it is a Table: checkboxes submit with a form, buttons and menus work, headers don't sort, the search field and the panel buttons do nothing.
+- **Without canon.js** it is a Table: row checkboxes submit with a form, row buttons and menus work, the bulk actions are a row under the table, headers don't sort and, with `data-local`, every row shows. What only canon.js can do isn't shown (`@media (scripting: none)`), so there are no dead controls: the search field (unless it is in a `<form>` that sends it), the Filter and Columns buttons, the Export items (and a menu holding only them), and the select-all checkbox.
 
 ## States
 
