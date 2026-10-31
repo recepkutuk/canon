@@ -299,7 +299,7 @@
   /* ------------------------------------------------------------------ */
 
   /* A small playground. The controls say what the button is; from them
-     come its markup, shown with what they add marked, and the button. The
+     come its markup, what they add typed in, and the button. The
      theme is a page of its own: the button alone, with that theme's
      stylesheet and nothing else of the docs, in the docs' color scheme. The
      theme choice swaps the stylesheet and leaves the markup as it is. */
@@ -355,23 +355,59 @@
   const label = "Save";
   const token = (kind, text) => `<span class="t-${kind}">${text}</span>`;
   const attribute = ([name, value]) => `${token("a", name)}=${token("s", `&quot;${value}&quot;`)}`;
-  const draw = () => {
-    const attributes = added();
-    /* The markup: each added attribute on a line of its own, marked. */
-    const open = `${token("p", "&lt;")}${token("t", "button")} ${attribute(["type", "button"])} ${attribute(["class", "canon-button"])}`;
-    const lines = attributes.length
-      ? [open, ...attributes.map((each, i) => `        <mark class="ref-l-mark">${attribute(each)}</mark>${i === attributes.length - 1 ? token("p", "&gt;") : ""}`)]
-      : [`${open}${token("p", "&gt;")}`];
-    lines.push(`  ${token("p", "&lt;")}${token("t", "span")} ${attribute(["class", "canon-button-label"])}${token("p", "&gt;")}${label}${token("p", "&lt;/")}${token("t", "span")}${token("p", "&gt;")}`);
-    lines.push(`${token("p", "&lt;/")}${token("t", "button")}${token("p", "&gt;")}`);
-    source.innerHTML = lines.join("\n");
-    /* The button, from the same attributes. */
+  /* An attribute as far as it's typed: its name, then = and its value. */
+  const partly = ({ name, text, typed }) => {
+    const shown = text.slice(0, typed);
+    const value = shown.slice(name.length + 1).replaceAll('"', "&quot;");
+    return `${token("a", shown.slice(0, name.length))}${shown.length > name.length ? "=" : ""}${value ? token("s", value) : ""}`;
+  };
+  /* The attributes as written so far, each with how much of it is typed. */
+  let written = [];
+  /* The markup: the opening tag on one line, its attributes side by side,
+     wrapping between them under the first; the caret after the one being
+     typed. */
+  const write = (typing) => {
+    const fixed = `${token("p", "&lt;")}${token("t", "button")} ${attribute(["type", "button"])} ${attribute(["class", "canon-button"])}`;
+    const typed = written.filter((each) => each.typed > 0).map((each) =>
+      ` <span class="ref-l-attr">${partly(each)}${each === typing ? '<span class="ref-l-caret"></span>' : ""}</span>`).join("");
+    source.innerHTML = `<span class="ref-l-open">${fixed}${typed}${token("p", "&gt;")}</span>`
+      + `<span class="ref-l-line">  ${token("p", "&lt;")}${token("t", "span")} ${attribute(["class", "canon-button-label"])}${token("p", "&gt;")}${label}${token("p", "&lt;/")}${token("t", "span")}${token("p", "&gt;")}</span>\n`
+      + `${token("p", "&lt;/")}${token("t", "button")}${token("p", "&gt;")}`;
+  };
+  /* The button, from the attributes. */
+  const build = () => {
     const button = lookDocument.createElement("button");
     button.type = "button";
     button.className = "canon-button";
-    for (const [name, value] of attributes) button.setAttribute(name, value);
+    for (const { name, value } of written) button.setAttribute(name, value);
     button.append(Object.assign(lookDocument.createElement("span"), { className: "canon-button-label", textContent: label }));
     lookDocument.body.replaceChildren(button);
+  };
+  /* What changed is typed in, letter by letter: a new attribute whole, a
+     new value from its quote; one gone goes at once. The playground takes
+     no pointer while it types, and the button follows once it's written.
+     With reduced motion, all at once. */
+  let typing = 0;
+  const draw = () => {
+    clearInterval(typing);
+    written = added().map(([name, value]) => {
+      const text = `${name}="${value}"`;
+      const before = written.find((each) => each.name === name);
+      const typed = !before ? 0 : before.value === value ? text.length : name.length + 2;
+      return { name, value, text, typed: still.matches ? text.length : typed };
+    });
+    const next = () => written.find((each) => each.typed < each.text.length);
+    if (!next()) { look.removeAttribute("data-typing"); write(); build(); return; }
+    look.setAttribute("data-typing", "");
+    write(next());
+    typing = setInterval(() => {
+      const each = next();
+      if (each) { each.typed += 1; write(next() ?? each); return; }
+      clearInterval(typing);
+      look.removeAttribute("data-typing");
+      write();
+      build();
+    }, 28);
   };
   /* The new stylesheet goes in beside the old, which leaves once it's in,
      so the button never shows unstyled. Only the last one chosen stays. */

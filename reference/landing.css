@@ -153,7 +153,7 @@
   .ref-l-pg-theme > .ref-ins-seg { inline-size: max-content; grid-auto-columns: 4.75rem; }
 }
 
-/* The markup the controls write; what they add is marked. */
+/* The markup the controls write. */
 .ref-l-source {
   --t-text: light-dark(#3f3f46, #d4d4d8);
   --t-punct: light-dark(#71717a, #a1a1aa);
@@ -170,12 +170,18 @@
   color: var(--t-text);
   font: 0.75rem/1.8 var(--l-mono);
 }
-.ref-l-source code { display: block; min-inline-size: max-content; padding: 0; background: none; font-size: inherit; white-space: pre; }
+.ref-l-source code { display: block; padding: 0; background: none; font-size: inherit; white-space: pre-wrap; }
+/* The opening tag wraps between its attributes, under the first. */
+.ref-l-open { display: block; padding-inline-start: 8ch; text-indent: -8ch; }
+.ref-l-attr { white-space: nowrap; }
+.ref-l-line { white-space: pre; }
+/* Where the next letter goes, while one is typed in. */
+.ref-l-caret { display: inline-block; inline-size: 1.5px; block-size: 1.2em; margin-inline-start: 1px; vertical-align: text-bottom; background-color: var(--l-accent); }
+.ref-l-look[data-typing] .ref-l-pg { pointer-events: none; }
 .ref-l-source .t-p { color: var(--t-punct); }
 .ref-l-source .t-t { color: var(--t-tag); }
 .ref-l-source .t-a { color: var(--t-attr); }
 .ref-l-source .t-s { color: var(--t-string); }
-.ref-l-mark { margin-inline: -0.25rem; padding: 0.125rem 0.25rem; border-radius: 0.25rem; background-color: color-mix(in srgb, var(--l-accent) 16%, transparent); box-shadow: inset 0 -1.5px var(--l-accent); color: inherit; }
 
 /* The button alone, in the rest of its side: in the page without
    JavaScript, else in a page of its own with the chosen theme. */
