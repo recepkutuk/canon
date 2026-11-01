@@ -127,7 +127,7 @@ Canon is for teams with:
 Canon is not:
 
 - **A JavaScript component library.** There's nothing to import or call, and no build step. Your framework or server renders the HTML.
-- **Utility classes.** Markup says what a thing is (`data-intent`), never how it looks: no "outline", "rounded" or "blue".
+- **Styled in the markup.** Markup says what a thing is (`data-intent`), never how it looks: no "outline", "rounded" or "blue".
 - **An app framework.** No routing, data loading or state. canon.js keeps the interface honest; saving and fetching are your app's.
 - **For marketing sites.** Tables, forms, records and dashboards. Hero sections and pricing tables are out of scope.
 
