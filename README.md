@@ -113,7 +113,7 @@ Each component's specification gives its tier, from T0 to T3: what it does with 
 | T2 | 11 | Better with JavaScript |
 | T3 | 1 | Needs JavaScript |
 
-## Who it's for.
+## Who it's for
 
 Canon is for teams with:
 
