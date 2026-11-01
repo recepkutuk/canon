@@ -18,6 +18,11 @@
   --canon-debug: light-dark(#f59e0b, #fbbf24);   /* amber-500 / amber-400 */
 }
 
+/* Everything below stops at a container marked data-canon-debug="off"
+   (display-only markup, like a page's decoration): nothing inside it is
+   outlined or warned about. */
+@scope (:root) to ([data-canon-debug="off"]) {
+
 /* ---------------------------------------------------------------------- */
 /* Button                                                                 */
 /* ---------------------------------------------------------------------- */
@@ -2052,3 +2057,5 @@ button[command="--canon-toggle-password"]:not([aria-pressed]) {
   outline: 2px solid var(--canon-debug) !important;
   outline-offset: 2px !important;
 }
+
+}   /* @scope */

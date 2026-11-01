@@ -14,6 +14,9 @@
  * again; a dismissed floating warning comes back when what it reports
  * changes; and removing canon.debug.css removes them.
  *
+ * A container marked data-canon-debug="off" is left out: nothing inside it
+ * is checked.
+ *
  * Load with <script src="canon.debug.js" defer>.
  */
 (() => {
@@ -78,7 +81,7 @@
       let elements;
       try { elements = document.querySelectorAll(rule.selector); } catch { continue; }
       for (const element of elements) {
-        if (element.closest(".canon-debug-alert")) continue;
+        if (element.closest('.canon-debug-alert, [data-canon-debug="off"]')) continue;
         const conditions = split(rule.selector).filter((part) => {
           try { return element.matches(part); } catch { return false; }
         });
