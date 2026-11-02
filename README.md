@@ -1,4 +1,4 @@
-![Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.](.github/cover.png)
+![Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.](reference/assets/cover.png)
 
 # Canon
 
