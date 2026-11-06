@@ -10,6 +10,8 @@ Component library for internal tools: tables, forms, records.
 
 Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both.
 
+![Canon — write the markup once, switch between six themes](./reference/assets/canon-demo.gif)
+
 ## Start
 
 Two lines, then the markup each component's page shows. There's no build step, so take them from a CDN:
