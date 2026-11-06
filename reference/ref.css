@@ -217,14 +217,21 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-example[data-flush] > :not(dialog, [popover]) { border: 0 !important; border-radius: 0 !important; max-inline-size: none; margin-block: 0 !important; }
 /* Several in one frame: a line between them. */
 .ref-example[data-flush] > :not(dialog, [popover]) ~ :not(dialog, [popover]) { border-block-start: 1px solid var(--ref-line) !important; }
-/* Show HTML (ref.js): a toggle tucked under a frame, opening its markup. The frame keeps its space
-   below for the toggle's row. */
-.ref-example:has(+ .ref-source, + .canon-debug-report + .ref-source) { margin-block-end: 0.5rem; }
-.ref-source { margin-block: 0 1.75rem; }
-.ref-source-toggle [data-icon="chevron-down"] { transition: rotate 150ms ease; }
-.ref-source-toggle[aria-expanded="true"] [data-icon="chevron-down"] { rotate: 180deg; }
-.ref-source > .canon-code-block { margin-block-start: 0.5rem; --canon-code-block-max-height: 28rem; }
-@media (prefers-reduced-motion: reduce) { .ref-source-toggle [data-icon="chevron-down"] { transition: none; } }
+/* Preview / HTML (ref.js): the frame and its markup in one box, a bar on top choosing which shows.
+   The box takes the frame's edge and spacing; the frame inside keeps only its padding. */
+.ref-demo { margin-block: 1.25rem 1.75rem; border: 1px solid var(--ref-line); border-radius: 0.75rem; }
+.ref-demo-bar { display: flex; justify-content: flex-end; padding: 0.5rem; border-block-end: 1px solid var(--ref-line); }
+.ref-demo > .ref-example { margin: 0; border: 0; border-radius: 0 0 calc(0.75rem - 1px) calc(0.75rem - 1px); }
+.ref-demo > .ref-example + .canon-debug-report { margin: 0; padding: 0.75rem 1rem; }
+.ref-demo-code { padding: 1rem; }
+.ref-demo-code > .canon-code-block { --canon-code-block-max-height: 32rem; }
+/* One view at a time. */
+.ref-demo[data-view="preview"] > .ref-demo-code,
+.ref-demo[data-view="html"] > :not(.ref-demo-bar, .ref-demo-code) { display: none; }
+/* A resizable frame: the box follows its width, the bar and code with it. */
+.ref-demo:has(> .ref-example[data-resizable]) { inline-size: fit-content; max-inline-size: 100%; }
+.ref-demo[data-view="html"]:has(> .ref-example[data-resizable]) { inline-size: auto; }
+.ref-demo > .ref-example[data-resizable] { max-inline-size: 100%; }
 /* Frames inside a preview are quieter: a solid line, not a dashed one. */
 .ref-example :is(.ref-shell-frame, .ref-split-frame, .ref-top-bar-frame, .ref-page-header-frame, .ref-section-demo, .ref-sidebar, .ref-resizable, .ref-shell-box) { border-style: solid; border-color: var(--ref-line); }
 

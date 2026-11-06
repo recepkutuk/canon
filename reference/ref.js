@@ -243,6 +243,29 @@
     walk(document.getElementById("ref-theme").sheet.cssRules);
     return found.join(" ");
   };
+  /* The docs' own controls inside the content (an example's Preview / HTML
+     switch) stay Canon's, like the rest of the docs' chrome: the theme's
+     rules stop at them, and Canon's tokens and type are set on them again
+     so they don't inherit the theme's. */
+  const chrome = ".ref-demo-bar";
+  const canonRoot = () => {
+    const found = [];
+    const walk = (rules) => {
+      for (const rule of rules) {
+        if (rule instanceof CSSImportRule) {
+          if (rule.href.endsWith("canon.core.css")) walk(rule.styleSheet.cssRules);
+        }
+        else if (rule instanceof CSSLayerBlockRule) walk(rule.cssRules);
+        else if (rule.selectorText === ":root" || rule.selectorText === ":where(:root)") {
+          for (const name of rule.style) {
+            if (name.startsWith("--") || name.startsWith("font-")) found.push(`${name}: ${rule.style.getPropertyValue(name)};`);
+          }
+        }
+      }
+    };
+    walk(document.getElementById("ref-theme").sheet.cssRules);
+    return found.join(" ");
+  };
   /* The theme's stylesheet, its one canon.theme block in an @scope (which adds
      no specificity, so its rules meet Canon's as they would on a page of its
      own) and its URLs made absolute. A theme is built on canon.css, already here. */
@@ -261,7 +284,7 @@
     const open = "@layer canon.theme {";
     const at = text.indexOf(open);
     const rules = text.slice(at + open.length, text.lastIndexOf("}")).replaceAll(":root", ":scope");
-    style.textContent = `${text.slice(0, at)}\n@layer canon.theme { @scope (${themedContent}) { :scope { ${derivedTokens()} color: var(--canon-theme-ink); } ${rules} } }`;
+    style.textContent = `${text.slice(0, at)}\n@layer canon.theme { @scope (${themedContent}) to (${chrome}) { :scope { ${derivedTokens()} color: var(--canon-theme-ink); } ${rules} } ${themedContent} ${chrome} { ${canonRoot()} color: var(--canon-theme-ink); } }`;
   };
   /* Held back until its theme is in, so the page doesn't flash Canon's. */
   if (chosenTheme !== "canon") document.write(`<style id="ref-theme-hold">.ref-page { visibility: hidden; }</style>`);
@@ -656,7 +679,7 @@
       if (shown.length && shown.every((child) => child.matches(pageLike))) frame.setAttribute("data-flush", "");
     }
 
-    /* Show HTML: under each frame, the markup its demos are written in,
+    /* Preview / HTML: on each frame, the markup its demos are written in,
        to read and copy. It comes from the page's source, not the live
        page, which canon.js has already enhanced. The docs' own scaffolding
        (ref-* boxes, captions, the matrices' headers) is left out. Served
@@ -739,23 +762,35 @@
             const code = clean(runs[at]);
             if (!code.trim()) return;
             const id = `ref-source-${++count}`;
-            const panel = document.createElement("div");
-            panel.className = "ref-source";
-            panel.innerHTML = `
-              <button type="button" class="canon-button ref-source-toggle" data-emphasis="minimal" data-intent="neutral" data-size="sm"
-                      aria-expanded="false" aria-controls="${id}">
-                <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
-                <span class="canon-button-label">HTML</span>
-              </button>
-              <div class="canon-code-block" id="${id}" hidden>
-                <pre><code id="${id}-code"></code></pre>
-                <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm"
-                        commandfor="${id}-code" command="--canon-copy">
-                  <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
-                  <span class="canon-button-label">Copy HTML</span>
-                </button>
+            /* The frame and its code share a box, a Segmented Control at its
+               top choosing which one shows (the same demo, seen two ways). */
+            const demo = document.createElement("div");
+            demo.className = "ref-demo";
+            demo.dataset.view = "preview";
+            demo.innerHTML = `
+              <div class="ref-demo-bar">
+                <div class="canon-segmented" role="radiogroup" aria-label="Show" data-size="sm">
+                  <label class="canon-segmented-option">
+                    <input type="radio" name="${id}" value="preview" checked>
+                    <span class="canon-segmented-label">Preview</span>
+                  </label>
+                  <label class="canon-segmented-option">
+                    <input type="radio" name="${id}" value="html">
+                    <span class="canon-segmented-label">HTML</span>
+                  </label>
+                </div>
+              </div>
+              <div class="ref-demo-code">
+                <div class="canon-code-block">
+                  <pre><code id="${id}-code"></code></pre>
+                  <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm"
+                          commandfor="${id}-code" command="--canon-copy">
+                    <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+                    <span class="canon-button-label">Copy HTML</span>
+                  </button>
+                </div>
               </div>`;
-            const output = panel.querySelector("code");
+            const output = demo.querySelector("code");
             /* The highlighter wraps its tokens in a <pre><code> of its own:
                the Code Block has one. */
             if (highlight) {
@@ -765,14 +800,14 @@
               if (inner) output.innerHTML = inner.innerHTML;
               else output.textContent = code;
             } else output.textContent = code;
-            const toggle = panel.querySelector(".ref-source-toggle");
-            const block = panel.querySelector(".canon-code-block");
-            toggle.addEventListener("click", () => {
-              const expanded = toggle.getAttribute("aria-expanded") !== "true";
-              toggle.setAttribute("aria-expanded", String(expanded));
-              block.hidden = !expanded;
+            demo.querySelector(".ref-demo-bar").addEventListener("change", (event) => {
+              demo.dataset.view = event.target.value;
             });
-            frame.after(panel);
+            /* The contract check's report, if it's in already, stays with
+               its frame. */
+            const report = frame.nextElementSibling?.matches(".canon-debug-report") ? frame.nextElementSibling : null;
+            frame.before(demo);
+            demo.querySelector(".ref-demo-bar").after(frame, ...(report ? [report] : []));
           });
         });
       }).catch(() => {});
