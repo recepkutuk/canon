@@ -217,6 +217,14 @@ body[data-view="playground"] { grid-template-columns: 16rem minmax(0, 1fr) 17rem
 .ref-example[data-flush] > :not(dialog, [popover]) { border: 0 !important; border-radius: 0 !important; max-inline-size: none; margin-block: 0 !important; }
 /* Several in one frame: a line between them. */
 .ref-example[data-flush] > :not(dialog, [popover]) ~ :not(dialog, [popover]) { border-block-start: 1px solid var(--ref-line) !important; }
+/* Show HTML (ref.js): a toggle tucked under a frame, opening its markup. The frame keeps its space
+   below for the toggle's row. */
+.ref-example:has(+ .ref-source, + .canon-debug-report + .ref-source) { margin-block-end: 0.5rem; }
+.ref-source { margin-block: 0 1.75rem; }
+.ref-source-toggle [data-icon="chevron-down"] { transition: rotate 150ms ease; }
+.ref-source-toggle[aria-expanded="true"] [data-icon="chevron-down"] { rotate: 180deg; }
+.ref-source > .canon-code-block { margin-block-start: 0.5rem; --canon-code-block-max-height: 28rem; }
+@media (prefers-reduced-motion: reduce) { .ref-source-toggle [data-icon="chevron-down"] { transition: none; } }
 /* Frames inside a preview are quieter: a solid line, not a dashed one. */
 .ref-example :is(.ref-shell-frame, .ref-split-frame, .ref-top-bar-frame, .ref-page-header-frame, .ref-section-demo, .ref-sidebar, .ref-resizable, .ref-shell-box) { border-style: solid; border-color: var(--ref-line); }
 

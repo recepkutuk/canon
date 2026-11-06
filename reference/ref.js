@@ -587,21 +587,29 @@
     /* Prose, and what reads as part of it (.ref-plain: a code sample, a
        table of facts), stays out of the frames. */
     const prose = (node) => node.matches("h2, h3, p.ref-note, script, template, style, .ref-plain") && !node.matches(".ref-example");
-    for (const section of document.querySelectorAll(".ref-page .ref-section")) {
-      let frame = null;
+    /* A section's runs of demos, each a frame's content. The same on the
+       live page and on its source (Show HTML, below). */
+    const runsOf = (section) => {
+      const runs = [];
+      let run = null;
       for (const node of [...section.children]) {
         if (prose(node)) {
-          if (!node.matches("script, template, style")) frame = null;
+          if (!node.matches("script, template, style")) run = null;
           continue;
         }
-        if (!frame) {
-          frame = document.createElement("div");
-          frame.className = "ref-example";
-          node.before(frame);
-        }
-        frame.append(node);
+        if (!run) runs.push(run = []);
+        run.push(node);
       }
-    }
+      return runs;
+    };
+    /* Each section's frames with the demos they hold, in order. */
+    const framed = [...document.querySelectorAll(".ref-page .ref-section")].map((section) => runsOf(section).map((run) => {
+      const frame = document.createElement("div");
+      frame.className = "ref-example";
+      run[0].before(frame);
+      frame.append(...run);
+      return { frame, run };
+    }));
     /* A resizable demo alone in its frame: the frame is what you drag,
        with its padding, not a box in it. A .ref-resizable box gives way to
        its content, the frame starting at the box's width (inline, or its
@@ -646,6 +654,128 @@
       /* Closed dialogs and popovers take no place. */
       const shown = [...frame.children].filter((child) => !child.matches("dialog, [popover]"));
       if (shown.length && shown.every((child) => child.matches(pageLike))) frame.setAttribute("data-flush", "");
+    }
+
+    /* Show HTML: under each frame, the markup its demos are written in,
+       to read and copy. It comes from the page's source, not the live
+       page, which canon.js has already enhanced. The docs' own scaffolding
+       (ref-* boxes, captions, the matrices' headers) is left out. Served
+       pages only: there's no source to fetch from a file. */
+    if (location.protocol.startsWith("http") && framed.some((frames) => frames.length)) {
+      const sourceHtml = fetch(location.href, { cache: "force-cache" })
+        .then((response) => (response.ok ? response.text() : Promise.reject(new Error(response.statusText))))
+        .then((text) => new DOMParser().parseFromString(text, "text/html"));
+      const highlighter = twinkleplop.then(({ language }) => language()).catch(() => null);
+
+      const voids = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
+      const booleans = new Set(["hidden", "disabled", "checked", "selected", "readonly", "required", "multiple", "open", "autofocus", "inert", "novalidate", "formnovalidate", "popover", "defer", "async", "controls", "loop", "muted", "playsinline", "reversed", "default", "allowfullscreen"]);
+      const text = (value) => value.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
+      const attributes = (element) => [...element.attributes]
+        .map(({ name, value }) => (value === "" && booleans.has(name) ? name : `${name}="${value.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"`))
+        .map((attribute) => ` ${attribute}`).join("");
+      /* An empty SVG shape closes itself (<path … />), as SVG is written. */
+      const shut = (element) => element.namespaceURI === "http://www.w3.org/2000/svg" && !element.childNodes.length;
+      const open = (element) => `<${element.localName}${attributes(element)}${shut(element) ? " /" : ""}>`;
+      const close = (element) => (voids.has(element.localName) || shut(element) ? "" : `</${element.localName}>`);
+      /* On one line: an element's content run together, spaces collapsed. */
+      const inline = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) return text(node.data.replace(/\s+/g, " "));
+        if (node.nodeType === Node.COMMENT_NODE) return `<!--${node.data}-->`;
+        if (node.nodeType !== Node.ELEMENT_NODE) return "";
+        const content = node.localName === "template" ? node.content.childNodes : node.childNodes;
+        return `${open(node)}${[...content].map(inline).join("").trim()}${close(node)}`;
+      };
+      /* An element per line, indented by nesting. One with no elements in
+         it, or with text between them (a sentence with a link), stays on
+         one line; <pre> and <textarea> keep their text as written. */
+      const lines = (node, depth) => {
+        const pad = "  ".repeat(depth);
+        if (node.nodeType === Node.TEXT_NODE) return node.data.trim() ? [pad + text(node.data.trim().replace(/\s+/g, " "))] : [];
+        if (node.nodeType === Node.COMMENT_NODE) return [`${pad}<!--${node.data}-->`];
+        if (node.nodeType !== Node.ELEMENT_NODE) return [];
+        if (node.matches("pre, textarea")) return `${pad}${open(node)}${node.innerHTML}${close(node)}`.split("\n");
+        const children = [...(node.localName === "template" ? node.content.childNodes : node.childNodes)];
+        const elements = children.filter((child) => child.nodeType === Node.ELEMENT_NODE);
+        const sentence = children.some((child) => child.nodeType === Node.TEXT_NODE && child.data.trim());
+        if (!elements.length || sentence) return [pad + inline(node)];
+        return [pad + open(node), ...children.flatMap((child) => lines(child, depth + 1)), pad + close(node)];
+      };
+      /* The docs' scaffolding out of a copy of the demos: a box that's only
+         ref-* classes gives way to what's in it, or goes when nothing in
+         it is a component or a control (a caption); a matrix gives way to
+         its cells; ref-* classes and the contract check's switch leave the
+         rest. */
+      const real = "[class*='canon-'], input, select, textarea, button, a[href], table, dialog, details, form, fieldset, label, progress, meter, output, img, svg";
+      const scaffold = (element) => element.classList.length && [...element.classList].every((name) => name.startsWith("ref-"));
+      const clean = (run) => {
+        const holder = document.createElement("div");
+        holder.append(...run.map((node) => node.cloneNode(true)));
+        for (const element of [...holder.querySelectorAll("*")].reverse()) {
+          element.removeAttribute("data-canon-debug");
+          if (scaffold(element)) {
+            if (element.localName === "table") element.replaceWith(...[...element.querySelectorAll("td")].flatMap((cell) => [...cell.childNodes]));
+            else if (element.matches(real) || element.querySelector(real)) element.replaceWith(...element.childNodes);
+            else element.remove();
+          } else if (element.classList.length) {
+            element.classList.remove(...[...element.classList].filter((name) => name.startsWith("ref-")));
+            if (!element.classList.length) element.removeAttribute("class");
+          }
+        }
+        return [...holder.childNodes].flatMap((node) => lines(node, 0)).join("\n");
+      };
+      const shape = (run) => run.filter((node) => node.nodeType === Node.ELEMENT_NODE).map((node) => node.localName).join(" ");
+
+      sourceHtml.then(async (source) => {
+        const highlight = await highlighter;
+        const sections = [...source.querySelectorAll(".ref-page .ref-section")];
+        if (sections.length !== framed.length) return;
+        let count = 0;
+        framed.forEach((frames, index) => {
+          const runs = runsOf(sections[index]);
+          if (runs.length !== frames.length) return;
+          frames.forEach(({ frame, run }, at) => {
+            /* The live demos must still be the ones written. */
+            if (shape(runs[at]) !== shape(run)) return;
+            const code = clean(runs[at]);
+            if (!code.trim()) return;
+            const id = `ref-source-${++count}`;
+            const panel = document.createElement("div");
+            panel.className = "ref-source";
+            panel.innerHTML = `
+              <button type="button" class="canon-button ref-source-toggle" data-emphasis="minimal" data-intent="neutral" data-size="sm"
+                      aria-expanded="false" aria-controls="${id}">
+                <span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span>
+                <span class="canon-button-label">HTML</span>
+              </button>
+              <div class="canon-code-block" id="${id}" hidden>
+                <pre><code id="${id}-code"></code></pre>
+                <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm"
+                        commandfor="${id}-code" command="--canon-copy">
+                  <span class="canon-icon" data-icon="copy" aria-hidden="true"></span>
+                  <span class="canon-button-label">Copy HTML</span>
+                </button>
+              </div>`;
+            const output = panel.querySelector("code");
+            /* The highlighter wraps its tokens in a <pre><code> of its own:
+               the Code Block has one. */
+            if (highlight) {
+              const painted = document.createElement("template");
+              painted.innerHTML = highlight(code);
+              const inner = painted.content.querySelector("code");
+              if (inner) output.innerHTML = inner.innerHTML;
+              else output.textContent = code;
+            } else output.textContent = code;
+            const toggle = panel.querySelector(".ref-source-toggle");
+            const block = panel.querySelector(".canon-code-block");
+            toggle.addEventListener("click", () => {
+              const expanded = toggle.getAttribute("aria-expanded") !== "true";
+              toggle.setAttribute("aria-expanded", String(expanded));
+              block.hidden = !expanded;
+            });
+            frame.after(panel);
+          });
+        });
+      }).catch(() => {});
     }
 
     /* ------------------------------------------------------------------ */
