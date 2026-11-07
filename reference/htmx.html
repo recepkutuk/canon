@@ -211,7 +211,7 @@
   <!-- ============================================================ -->
   <section class="ref-section" id="tables">
     <h2>Tables and pages</h2>
-    <p class="ref-note">A Table with Pagination stays plain links: each page is a real address, and works without JavaScript. <code>hx-boost</code> on the Pagination fetches the next page, takes only the table's part of it and updates the address, so Back and Forward work too.</p>
+    <p class="ref-note">A Table with Pagination stays plain links: each page is a real address, and works without JavaScript. <code>hx-boost</code> on the Pagination fetches the next page, takes only the table's part of it and updates the address, so Back and Forward work too (see <a href="#history">Back and Forward</a>).</p>
     <div class="canon-code-block ref-plain">
       <div class="canon-code-block-header">
         <span class="canon-code-block-title">Page</span>
@@ -238,6 +238,23 @@
 &lt;/div&gt;</code></pre>
     </div>
     <p class="ref-note">The server marks the current page (<code>aria-current="page"</code>), as it would for a full page. A <a href="data-table.html">Data Table</a> sorts, searches and filters the rows it has; for rows the server pages, use a Table and Pagination like this.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="history">
+    <h2>Back and Forward</h2>
+    <p class="ref-note">When htmx changes the address (<code>hx-boost</code>, <code>hx-push-url</code>), it keeps a copy of each page for Back and Forward. That copy was made after canon.js had set up its components, and canon.js would set them up a second time. Turn the copies off, and Back fetches the page from your server, as written:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Once, in the layout</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-history" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Once, in the layout</span></button>
+      </div>
+      <pre><code id="htmx-history" data-lang="html">&lt;script&gt;
+  /* Back and Forward ask the server again, instead of restoring a copy
+     of the page canon.js had already set up. */
+  htmx.config.historyCacheSize = 0;
+&lt;/script&gt;</code></pre>
+    </div>
   </section>
 
   <!-- ============================================================ -->
