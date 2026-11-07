@@ -1,0 +1,128 @@
+# Canon
+
+> Component library for internal tools (tables, forms, records) in accessible plain HTML. The markup is the contract: elements and attributes say what each thing is, a theme decides how it looks, and an optional script (canon.js) adds behavior. Two files from a CDN, no build step, no client framework.
+
+Use Canon for back-office screens, admin panels, dashboards and record pages whose HTML a server or framework writes: Django, Rails, Laravel or Go templates, htmx, or a React app that renders the same elements. It suits teams with a back end and no front-end team, several stacks that should share components, a brand or several to follow, and tools that must last years. 67 of its 68 components work without JavaScript.
+
+Canon is not a JavaScript component library (there is nothing to import or call), not an app framework (no routing, data loading or state) and not for marketing sites (no hero sections or pricing tables).
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/css/canon/canon.css">
+<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/js/canon.js" defer></script>
+```
+
+## Start here
+
+- [Writing Canon markup](https://recepkutuk.github.io/canon/docs/markup-rules.md): the rules every page follows, for people and AI assistants writing Canon's HTML
+- [Decisions](https://recepkutuk.github.io/canon/docs/decisions.md): what Canon is for, how its markup speaks, how its CSS and JavaScript are built
+- [Getting started](https://recepkutuk.github.io/canon/reference/getting-started.html): adding Canon to a page or an app
+- [Themes](https://recepkutuk.github.io/canon/reference/themes.html): one markup, several looks
+- [Build](https://recepkutuk.github.io/canon/reference/build.html): a canon.css and canon.js with only the components an app uses
+
+## Layout
+
+- [App Shell](https://recepkutuk.github.io/canon/docs/components/app-shell.md): The frame of an app's pages: a Sidebar the full height at the start, a Top Bar over the content, and the page's `<main>`.
+- [Page Header](https://recepkutuk.github.io/canon/docs/components/page-header.md): The top of a page: what it is, what state it's in, and what you can do here.
+- [Section](https://recepkutuk.github.io/canon/docs/components/section.md): A titled part of a page: billing details, payment terms, a settings group.
+- [Separator](https://recepkutuk.github.io/canon/docs/components/separator.md): A line between things, optionally with a word or two in it ("or").
+- [Sidebar](https://recepkutuk.github.io/canon/docs/components/sidebar.md): The column beside an app's pages: the app's name, its main links, and what belongs at the bottom (help, settings).
+- [Split Pane](https://recepkutuk.github.io/canon/docs/components/split-pane.md): Two panes side by side (a list and its record), or one over the other (a query and its results), and a handle that shares the room between them.
+- [Stack, Cluster and Grid](https://recepkutuk.github.io/canon/docs/components/stack.md): The space between components.
+- [Toolbar](https://recepkutuk.github.io/canon/docs/components/toolbar.md): A row of controls that act on one thing, such as a text editor's formatting: Buttons, Button Groups, Selects, menu buttons and vertical Separators.
+- [Top Bar](https://recepkutuk.github.io/canon/docs/components/top-bar.md): The bar over an app's pages: the sidebar's toggle and search at the start; the app's own actions and the account at the end.
+
+## Actions
+
+- [Button](https://recepkutuk.github.io/canon/docs/components/button.md): An action (`<button>`), or a link that looks like one (`<a>`).
+- [Button Group](https://recepkutuk.github.io/canon/docs/components/button-group.md): Related buttons joined in one row: text styles, alignment, actions on one thing.
+- [Link](https://recepkutuk.github.io/canon/docs/components/link.md): Text that goes somewhere: in a sentence ("see how payouts work"), or on its own ("View all invoices").
+- [Segmented Control](https://recepkutuk.github.io/canon/docs/components/segmented-control.md): One value from a few, as joined segments: a view (Day, Week, Month), a period (Monthly, Yearly), an alignment.
+- [Split Button](https://recepkutuk.github.io/canon/docs/components/split-button.md): A button with a menu beside it: the action people usually want one click away, its variations one more ("Add", or add from a template, import…).
+- [Toggle Chip](https://recepkutuk.github.io/canon/docs/components/toggle-chip.md): Options you turn on and off, drawn as chips: quick filters (Remote, Full-time), interests, categories.
+
+## Forms
+
+- [Checkbox](https://recepkutuk.github.io/canon/docs/components/checkbox.md): Select any number of options; the choice takes effect on submit.
+- [Radio](https://recepkutuk.github.io/canon/docs/components/radio.md): Select exactly one option of a group.
+- [Switch](https://recepkutuk.github.io/canon/docs/components/switch.md): An on/off setting that takes effect immediately, without a submit.
+- [The choice anatomy](https://recepkutuk.github.io/canon/docs/components/choice.md): Not a component: the markup that Checkbox (`checkbox.md`), Radio (`radio.md`) and Switch (`switch.md`) share, the way text input, textarea and select share Field's box.
+- [Color Picker](https://recepkutuk.github.io/canon/docs/components/color-picker.md): Pick any color: a native `<input type="color">` in a box that shows it.
+- [Combobox](https://recepkutuk.github.io/canon/docs/components/combobox.md): Pick one or several options from a list.
+- [Date](https://recepkutuk.github.io/canon/docs/components/date.md): One date: a native `<input type="date">` in a `.canon-date` box, Text Input's frame.
+- [Field](https://recepkutuk.github.io/canon/docs/components/field.md): A form control with its label, description and messages: every box (text input, select, combobox, date, color, swatches, code, slider…) sits in a field the same way.
+- [Fieldset](https://recepkutuk.github.io/canon/docs/components/fieldset.md): Groups choices (checkboxes, radios, switches) or fields under one question.
+- [Form Layout](https://recepkutuk.github.io/canon/docs/components/form-layout.md): How a whole form is arranged: the space between what it holds, sections with a title, fields side by side, a settings layout with the sections' titles beside their fields, questions that appear after a choice, and the buttons at the end.
+- [Form Repeater](https://recepkutuk.github.io/canon/docs/components/form-repeater.md): A list of items people add to and remove, each a row of fields: team members, line items, links.
+- [Input OTP](https://recepkutuk.github.io/canon/docs/components/input-otp.md): A one-time code: one native text input in a `.canon-otp` box, its `maxlength` the code's length.
+- [Label](https://recepkutuk.github.io/canon/docs/components/label.md): What a control is called, with everything that goes with the name: a required marker, "(optional)", an info button with a tooltip, and a description.
+- [Number Input](https://recepkutuk.github.io/canon/docs/components/number-input.md): A count people nudge up and down: guests, seats, retries.
+- [Password](https://recepkutuk.github.io/canon/docs/components/password.md): A password box with show / hide, and, when people choose a new password, a strength meter and the rules it must meet.
+- [Range Slider](https://recepkutuk.github.io/canon/docs/components/range-slider.md): Pick a from–to range on one track: a price range, working hours, a severity band.
+- [Rich Text](https://recepkutuk.github.io/canon/docs/components/rich-text.md): A Textarea for formatted text: headings, emphasis, links, lists.
+- [Save Bar](https://recepkutuk.github.io/canon/docs/components/save-bar.md): Save and Discard in reach while someone edits, and whether there's anything to save: the last thing in an edit form, sticking to the bottom of the window while the form goes on below.
+- [Select](https://recepkutuk.github.io/canon/docs/components/select.md): Pick one option from a list.
+- [Slider](https://recepkutuk.github.io/canon/docs/components/slider.md): Pick a value from a continuous or stepped range.
+- [Swatches](https://recepkutuk.github.io/canon/docs/components/swatches.md): Pick one color from a few: a radio group drawn as colored circles.
+- [Text Input](https://recepkutuk.github.io/canon/docs/components/text-input.md): A one-line text box around a text-like `<input>` (`text`, `email`, `search`, `url`, `tel`; passwords are Password).
+- [Textarea](https://recepkutuk.github.io/canon/docs/components/textarea.md): Text over several lines: a native `<textarea>` in a box that looks like a Text Input.
+- [Time](https://recepkutuk.github.io/canon/docs/components/time.md): A time of day: when a meeting starts, a shift ends, a report runs.
+
+## Data display
+
+- [Accordion](https://recepkutuk.github.io/canon/docs/components/accordion.md): Parts of a page that open one by one, under rows that name them: a settings page's advanced options, a record's less-used details, a help page's questions.
+- [Avatar](https://recepkutuk.github.io/canon/docs/components/avatar.md): A person, team or bot, shown as a photo, initials or an icon, optionally with a status dot, a badge and a count.
+- [Avatar Group](https://recepkutuk.github.io/canon/docs/components/avatar-group.md): Several avatars in a row (members, reviewers, people online), usually ending with a count of the rest.
+- [Card](https://recepkutuk.github.io/canon/docs/components/card.md): A framed box: one thing (a customer, a project) or one part of a page (billing details, a settings group), set apart.
+- [Code Block](https://recepkutuk.github.io/canon/docs/components/code-block.md): Code people read or copy: an API request, a webhook's payload, a config file, a log excerpt, an embed snippet.
+- [Data Table](https://recepkutuk.github.io/canon/docs/components/data-table.md): A Table people work with: search and filter it, sort it, select rows, act on a row, edit a value in its cell, choose and pin its columns, page through it, export it, and see where it stands while it loads or when there's nothing to show.
+- [Description List](https://recepkutuk.github.io/canon/docs/components/description-list.md): Facts about one thing, as terms and their values: a record's details, a profile, an invoice's totals, a settings overview.
+- [Empty State](https://recepkutuk.github.io/canon/docs/components/empty-state.md): What a view shows when it has no content: nothing yet, nothing matching a search or filters, or an error, and what to do next.
+- [Filter Bar](https://recepkutuk.github.io/canon/docs/components/filter-bar.md): Narrows a list (cards, search results, a feed): a search field, facets (a button opening the choices for one thing: Team, Date posted, Salary), quick Toggle Chips, Clear all and the number of results.
+- [Kbd](https://recepkutuk.github.io/canon/docs/components/kbd.md): A keyboard key or shortcut, shown as a small key cap: in running text, in a tooltip, or as a button's or tag's accessory.
+- [Stat](https://recepkutuk.github.io/canon/docs/components/stat.md): One number that matters, with what it measures and how it moved: revenue this month, open invoices, average response time.
+- [Status Indicator](https://recepkutuk.github.io/canon/docs/components/status.md): Where something stands, in a word and a dot: Draft, Sent, Paid, Overdue.
+- [Table](https://recepkutuk.github.io/canon/docs/components/table.md): Rows and columns of data, read across and down: a native `<table>` in a frame.
+- [Tag](https://recepkutuk.github.io/canon/docs/components/tag.md): A short label in a chip: a category ("Design"), a status ("Active"), a person ("Ada Lovelace").
+
+## Navigation
+
+- [Breadcrumb](https://recepkutuk.github.io/canon/docs/components/breadcrumb.md): The trail of pages above the current one, each a link back up.
+- [Command Palette](https://recepkutuk.github.io/canon/docs/components/command-palette.md): A search box for the whole app: press ⌘K (Ctrl+K), type a few letters, and go to a page or run an action without looking through menus.
+- [Menubar](https://recepkutuk.github.io/canon/docs/components/menubar.md): A row of menus, as at the top of a desktop app: File, Edit, View.
+- [Nav List](https://recepkutuk.github.io/canon/docs/components/nav-list.md): The links of a sidebar: the main way around an app (Inbox, Projects, Settings), or a settings page's sections (Profile, Account, Billing).
+- [Pagination](https://recepkutuk.github.io/canon/docs/components/pagination.md): Moving through a long list a page at a time: numbered pages, a compact "Page 2 of 30", or a table footer with rows per page.
+- [Tabs](https://recepkutuk.github.io/canon/docs/components/tabs.md): The parts of one page or record, one shown at a time: a record's Overview, Payments and Activity; a settings page's General, Billing and Members.
+
+## Overlays
+
+- [Dialog](https://recepkutuk.github.io/canon/docs/components/dialog.md): A task over the page that has to be finished or dismissed before going on: editing an event, confirming a deletion.
+- [Drawer](https://recepkutuk.github.io/canon/docs/components/drawer.md): A Dialog that slides in from the side of the window: filters or a record's details, the app's navigation on a phone.
+- [Menu](https://recepkutuk.github.io/canon/docs/components/menu.md): A list of actions that opens from a button, or where people right-click: commands, settings to turn on and off, a choice among a few.
+- [Popover](https://recepkutuk.github.io/canon/docs/components/popover.md): A panel a button opens over the page, for a short task beside it: editing a link, picking a color, a few words of help.
+- [Tooltip](https://recepkutuk.github.io/canon/docs/components/tooltip.md): A short text that appears next to a button or link while the pointer rests on it or it has keyboard focus.
+
+## Feedback
+
+- [Alert](https://recepkutuk.github.io/canon/docs/components/alert.md): A message in the page that stays while it's true: "This invoice is overdue", "2 fields need attention", "Changes apply to new invoices only".
+- [Banner](https://recepkutuk.github.io/canon/docs/components/banner.md): A message about the whole app, not one page: "Maintenance tonight, 22:00–23:00", "Viewing as Ana Duarte", "The last payment failed".
+- [Skeleton](https://recepkutuk.github.io/canon/docs/components/skeleton.md): Shapes that stand in for content while it loads, in its layout, so the page doesn't jump when it arrives.
+- [Spinner](https://recepkutuk.github.io/canon/docs/components/spinner.md): Something is working, and how long it will take isn't known: a panel waiting for an answer, a "Loading more…" row, "Checking availability…" beside a field.
+- [Toast](https://recepkutuk.github.io/canon/docs/components/toast.md): Short news about what just happened ("Invoice saved", "Link copied"), in a corner of the window for a few seconds, sometimes with one thing to do about it ("Undo").
+
+## Parts other components hold
+
+- [Count](https://recepkutuk.github.io/canon/docs/components/count.md): A number that says how many: unread messages, notifications, items waiting.
+- [The choice anatomy](https://recepkutuk.github.io/canon/docs/components/choice.md): Not a component: the markup that Checkbox (`checkbox.md`), Radio (`radio.md`) and Switch (`switch.md`) share, the way text input, textarea and select share Field's box.
+- [Data Table editing](https://recepkutuk.github.io/canon/docs/components/data-table-editing.md): Changing a value where it's shown, without opening the record: a target, an owner, a status, a date.
+
+## Patterns
+
+- [List → Detail → Edit](https://recepkutuk.github.io/canon/reference/list-detail-edit.html): Most of an internal tool: find a record in a list, open it, change it, save.
+- [Master–Detail](https://recepkutuk.github.io/canon/reference/master-detail.html): Going through many records, one after another: the list on one side, the one you're on beside it.
+- [Settings Page](https://recepkutuk.github.io/canon/reference/settings-page.html): Where an app's settings live: a list of their parts beside the one that's open, fields that save together, switches that take effect at once, and what can't be undone kept apart at the end.
+- [Sign-in Page](https://recepkutuk.github.io/canon/reference/sign-in-page.html): Getting into an app, and back in when something goes wrong: signing in (with a second step), creating an account, and resetting a password, with every state on the way.
+
+## Optional
+
+- [Everything in one file](https://recepkutuk.github.io/canon/llms-full.txt): the markup rules, the decisions and every specification
+- [Source](https://github.com/recepkutuk/canon): MIT licensed; npm package canon-ui

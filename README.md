@@ -148,6 +148,8 @@ Canon is an homage to that page. It asks the same of the things internal tools a
 - [Components](https://recepkutuk.github.io/canon/reference/components.html)
 - [Themes](https://recepkutuk.github.io/canon/reference/themes.html)
 - [Build](https://recepkutuk.github.io/canon/reference/build.html)
+- [Writing Canon markup](docs/markup-rules.md): the rules in one page, for people and AI assistants
+- [llms.txt](https://recepkutuk.github.io/canon/llms.txt): the docs indexed for AI tools, and [llms-full.txt](https://recepkutuk.github.io/canon/llms-full.txt), all of them in one file
 
 ## License
 

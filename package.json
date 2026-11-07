@@ -6,6 +6,7 @@
     "accessibility",
     "components",
     "css",
+    "docs/markup-rules.md",
     "design-system",
     "html",
     "internal-tools",
@@ -29,7 +30,8 @@
     "licenses",
     "src",
     "THIRD-PARTY-NOTICES.md",
-    "tools"
+    "tools",
+    "!tools/site.mjs"
   ],
   "exports": {
     ".": "./js/canon.js",
