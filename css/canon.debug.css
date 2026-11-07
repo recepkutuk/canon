@@ -786,7 +786,8 @@ input[data-match]:not(.canon-password > input) {
   outline-offset: 2px;
 }
 
-.canon-choice:has(> [aria-invalid="true"]):not(:has(> .canon-choice-message[data-intent="danger"])) {
+/* In a group, the fieldset's danger message speaks for its choices. */
+.canon-choice:has(> [aria-invalid="true"]):not(:has(> .canon-choice-message[data-intent="danger"])):not(.canon-fieldset:has(> .canon-fieldset-message[data-intent="danger"]) > .canon-choice) {
   --canon-contract: "Choice: checkbox, radio, switch";
   --canon-contract-reason: "An invalid choice needs a danger message.";
   outline: 2px dashed var(--canon-debug);
