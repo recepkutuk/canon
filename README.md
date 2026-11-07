@@ -10,6 +10,8 @@ Component library for internal tools: tables, forms, records.
 
 Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both.
 
+It's made for the admin screens and back-office tools a server already renders: Django, Rails, Laravel or Go templates, htmx, or any framework that writes HTML. No front-end team, build step or client framework needed.
+
 ## Start
 
 Two lines, then the markup each component's page shows. There's no build step, so take them from a CDN:
@@ -55,6 +57,15 @@ npx canon-ui build --only core,data,date
 ```
 
 `npx canon-ui build --list` shows the bundles and the components.
+
+## Who it's for
+
+Canon is for teams with:
+
+- **A back end and no front-end team.** Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.
+- **Several stacks.** A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.
+- **A brand to follow, or several.** One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.
+- **Tools that must last years.** Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.
 
 ## Why Canon
 
@@ -112,15 +123,6 @@ Each component's specification gives its tier, from T0 to T3: what it does with 
 | T1 | 7 | Browser features |
 | T2 | 11 | Better with JavaScript |
 | T3 | 1 | Needs JavaScript |
-
-## Who it's for
-
-Canon is for teams with:
-
-- **A back end and no front-end team.** Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.
-- **Several stacks.** A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.
-- **A brand to follow, or several.** One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.
-- **Tools that must last years.** Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.
 
 ## What Canon leaves to others, on purpose.
 

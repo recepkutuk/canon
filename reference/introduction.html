@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Canon · Introduction</title>
+  <meta name="description" content="Canon is a component library for internal tools: tables, forms and records in accessible plain HTML, for the admin screens that Django, Rails, Laravel, Go or htmx already render. No build step.">
+  <meta property="og:description" content="Canon is a component library for internal tools: tables, forms and records in accessible plain HTML, for the admin screens that Django, Rails, Laravel, Go or htmx already render. No build step.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Canon">
   <meta property="og:title" content="Canon · Introduction">
-  <meta property="og:description" content="Canon: 68 accessible, plain-HTML components and 4 patterns for internal tools.">
   <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/introduction.html">
   <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
   <meta property="og:image:width" content="1664">
   <meta property="og:image:height" content="968">
   <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="description" content="Canon: 68 accessible, plain-HTML components and 4 patterns for internal tools.">
   <script src="ref.js"></script>
   <link rel="stylesheet" href="ref.css">
   <link rel="stylesheet" href="landing.css">
@@ -50,13 +50,27 @@
   <!-- Why Canon: what it believes, in a lead and four lines; untitled, no rule over it. -->
   <section class="ref-l-row ref-l-why" aria-label="Why Canon">
     <div>
-      <p class="ref-l-lead">Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both.</p>
+      <p class="ref-l-lead">Canon builds tables, forms and dialogs once, in plain HTML: the browser does the work, a theme decides the look, and the markup outlives both. Made for the admin screens that Django, Rails, Laravel, Go or htmx already render.</p>
       <ol class="ref-l-beliefs">
         <li><h3>Write it once, keep it</h3><p>A <code>&lt;button&gt;</code> written today still works in ten years. Canon is unopinionated about your stack and your look: it's markup, so it works with whatever renders it and outlives the framework of the moment.</p></li>
         <li><h3>Accessible by nature</h3><p>This is where Canon is opinionated: names, roles, focus and keys are part of each component's markup. No one has to remember them, and no theme can lose them.</p></li>
         <li><h3>Less JavaScript every year</h3><p>Browsers keep doing more on their own. Canon uses what they do, and its script steps back as they catch up.</p></li>
         <li><h3>Works the way you expect</h3><p>A table should read like a table, a form should never lose what was typed, and the keyboard should always work.</p></li>
       </ol>
+    </div>
+  </section>
+
+  <!-- Where it pays off: situations, each a fact. -->
+  <section class="ref-l-row ref-l-not ref-l-for ref-l-titled ref-l-enters" aria-labelledby="l-for">
+    <header class="ref-l-label"><h2 id="l-for">Who it's for</h2></header>
+    <div>
+      <p class="ref-l-text">Canon is for teams with:</p>
+      <dl>
+      <div><dt>A back end and no front-end team</dt><dd>Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.</dd></div>
+      <div><dt>Several stacks</dt><dd>A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.</dd></div>
+      <div><dt>A brand to follow, or several</dt><dd>One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.</dd></div>
+      <div><dt>Tools that must last years</dt><dd>Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.</dd></div>
+    </dl>
     </div>
   </section>
 
@@ -198,20 +212,6 @@
           <div data-tier="T3"><dt><span class="ref-l-tier-code">T3</span> <span class="ref-l-tier-name">Needs JavaScript</span></dt><dd>1 component</dd></div>
         </dl>
       </div>
-    </div>
-  </section>
-
-  <!-- Where it pays off: situations, each a fact. -->
-  <section class="ref-l-row ref-l-not ref-l-for ref-l-titled ref-l-enters" aria-labelledby="l-for">
-    <header class="ref-l-label"><h2 id="l-for">Who it's for</h2></header>
-    <div>
-      <p class="ref-l-text">Canon is for teams with:</p>
-      <dl>
-      <div><dt>A back end and no front-end team</dt><dd>Django, Rails, Laravel and Go templates already write HTML, and that's all Canon needs: two lines in the page, no build step, no client framework.</dd></div>
-      <div><dt>Several stacks</dt><dd>A React app, a server-rendered admin and an old internal tool write the same elements and attributes, and get the same components.</dd></div>
-      <div><dt>A brand to follow, or several</dt><dd>One stylesheet decides the look. A rebrand, a client's colors or a new design system is a new theme; the pages stay as they are.</dd></div>
-      <div><dt>Tools that must last years</dt><dd>Plain HTML has no framework version to keep up with, and a script that fails to load doesn't take the screens with it.</dd></div>
-    </dl>
     </div>
   </section>
 

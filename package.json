@@ -1,16 +1,22 @@
 {
   "name": "canon-ui",
   "version": "0.2.0",
-  "description": "Component library for internal tools: tables, forms, records, in accessible plain HTML.",
+  "description": "Component library for internal tools and admin screens: tables, forms, records, in accessible plain HTML. No build step; works with any server (Django, Rails, Laravel, Go, htmx).",
   "keywords": [
     "accessibility",
     "components",
     "css",
-    "docs/markup-rules.md",
     "design-system",
     "html",
     "internal-tools",
-    "themes"
+    "admin-panel",
+    "themes",
+    "htmx",
+    "django",
+    "rails",
+    "laravel",
+    "server-rendered",
+    "no-build"
   ],
   "license": "MIT",
   "author": "Recep Kütük",
@@ -24,6 +30,7 @@
   },
   "files": [
     "css",
+    "docs/markup-rules.md",
     "!css/canon.debug.css",
     "i18n",
     "js/canon.js",

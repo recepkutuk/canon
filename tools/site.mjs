@@ -9,6 +9,9 @@
  *   llms-full.txt  the same documents in one file
  *   sitemap.xml    every reference page, with when it last changed
  *
+ * and gives every reference page a description for search results and
+ * shared links (<meta name="description"> and og:description), from the
+ * note under its title.
  *   node tools/site.mjs
  *
  * The groups and their order come from docs/decisions.md's Components
@@ -145,8 +148,27 @@ const sitemap = [
   "",
 ].join("\n");
 
+/* Each reference page's description: its note's first sentence, then
+   what Canon is; the Introduction, what Canon is and who it's for. */
+const about = "Canon: accessible plain-HTML components for admin screens and internal tools.";
+const introDescription = "Canon is a component library for internal tools: tables, forms and records in accessible plain HTML, for the admin screens that Django, Rails, Laravel, Go or htmx already render. No build step.";
+const attribute = (text) => text.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+let described = 0;
+for (const name of pages) {
+  const path = `reference/${name}`;
+  const html = read(path);
+  const note = pageNote(path).replace(/`/g, "");
+  const description = name === "introduction.html" ? introDescription : note ? `${note} ${about}` : about;
+  const tags = `  <meta name="description" content="${attribute(description)}">\n  <meta property="og:description" content="${attribute(description)}">\n`;
+  const cleaned = html.replace(/^\s*<meta (name="description"|property="og:description")[^>]*>\n/gm, "");
+  const updated = cleaned.replace(/(<title>[^<]*<\/title>\n)/, `$1${tags}`);
+  if (updated === cleaned) continue;
+  if (updated !== html) writeFileSync(join(root, path), updated);
+  described++;
+}
+
 writeFileSync(join(root, "llms.txt"), llms);
 writeFileSync(join(root, "llms-full.txt"), full);
 writeFileSync(join(root, "sitemap.xml"), sitemap);
 const count = groups.reduce((total, { items }) => total + items.length, 0);
-console.log(`llms.txt: ${groups.length} groups, ${count} entries · llms-full.txt: ${documents.length} documents · sitemap.xml: ${pages.length} pages`);
+console.log(`llms.txt: ${groups.length} groups, ${count} entries · llms-full.txt: ${documents.length} documents · sitemap.xml: ${pages.length} pages · descriptions: ${described} pages`);
