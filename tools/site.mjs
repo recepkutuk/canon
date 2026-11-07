@@ -104,6 +104,7 @@ const llms = [
   `- [Themes](${site}reference/themes.html): one markup, several looks`,
   `- [Build](${site}reference/build.html): a canon.css and canon.js with only the components an app uses`,
   `- [With htmx](${site}reference/htmx.html): forms checked by the server, toasts it sends, dialogs and tables that load what they show`,
+  `- [With Django](${site}reference/django.html): every form rendered as Canon's Fields, errors, messages as toasts, lists with pages`,
   "",
   ...groups.flatMap(({ name, items }) => [
     `## ${name}`,

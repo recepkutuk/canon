@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · With Django</title>
+  <meta name="description" content="Canon in a Django app: static files, every form rendered as Canon's Fields, errors, messages as toasts, and lists with pages. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:description" content="Canon in a Django app: static files, every form rendered as Canon's Fields, errors, messages as toasts, and lists with pages. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Canon">
+  <meta property="og:title" content="Canon · With Django">
+  <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/django.html">
+  <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
+  <meta property="og:image:width" content="1664">
+  <meta property="og:image:height" content="968">
+  <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>With Django</h1>
+  <p class="ref-note">Canon in a Django app: static files, every form rendered as Canon's Fields, errors, messages as toasts, and lists with pages. For adding Canon to a page, start with <a href="getting-started.html">Getting started</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="setup">
+    <h2>Set up</h2>
+    <p class="ref-note">Canon is two files, so they go with your static files. Take them from the npm package (keep the <code>css</code> folder whole: a stylesheet finds its icons and fonts beside it):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-copy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Terminal</span></button>
+      </div>
+      <pre><code id="dj-copy">npm i canon-ui
+mkdir -p static/canon/js
+cp -R node_modules/canon-ui/css static/canon/
+cp node_modules/canon-ui/js/canon.js static/canon/js/</code></pre>
+    </div>
+    <p class="ref-note">Then link them in your base template:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/base.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-static" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/base.html</span></button>
+      </div>
+      <pre><code id="dj-static" data-lang="html">{% load static %}
+&lt;link rel=&quot;stylesheet&quot; href=&quot;{% static &#x27;canon/css/canon/canon.css&#x27; %}&quot;&gt;
+&lt;script src=&quot;{% static &#x27;canon/js/canon.js&#x27; %}&quot; defer&gt;&lt;/script&gt;</code></pre>
+    </div>
+    <p class="ref-note">Or link both from a CDN, as <a href="getting-started.html">Getting started</a> shows. Either way there's nothing to build and nothing to add to <code>INSTALLED_APPS</code> for Canon itself.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="forms">
+    <h2>Every form in Canon's markup</h2>
+    <p class="ref-note">Django renders forms through templates, so one form renderer gives every form Canon's markup: <code>{{ form }}</code> comes out as Canon's Fields, with nothing to change in your forms. It takes Django 5.2 or later.</p>
+    <p class="ref-note">The renderer names two templates and adds the one attribute Django doesn't write: a Field's text boxes carry a <code>placeholder</code>, even an empty one, so themes can tell when a box is empty.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">myapp/renderers.py</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-renderer" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy myapp/renderers.py</span></button>
+      </div>
+      <pre><code id="dj-renderer">from django.forms import BoundField
+from django.forms.renderers import TemplatesSetting
+
+
+class CanonBoundField(BoundField):
+    def build_widget_attrs(self, attrs, widget=None):
+        attrs = super().build_widget_attrs(attrs, widget)
+        widget = widget or self.field.widget
+        if getattr(widget, &quot;input_type&quot;, None) in {&quot;text&quot;, &quot;email&quot;, &quot;url&quot;, &quot;tel&quot;, &quot;search&quot;, &quot;number&quot;, &quot;password&quot;} or self.widget_type == &quot;textarea&quot;:
+            attrs.setdefault(&quot;placeholder&quot;, &quot;&quot;)
+        return attrs
+
+
+class CanonRenderer(TemplatesSetting):
+    form_template_name = &quot;canon/form.html&quot;
+    field_template_name = &quot;canon/field.html&quot;
+    bound_field_class = CanonBoundField</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">settings.py</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-settings" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy settings.py</span></button>
+      </div>
+      <pre><code id="dj-settings">INSTALLED_APPS = [
+    # …
+    &quot;django.forms&quot;,
+]
+
+FORM_RENDERER = &quot;myapp.renderers.CanonRenderer&quot;</code></pre>
+    </div>
+    <p class="ref-note">The field template writes each kind of field as its Canon component: a Text Input, Textarea, Select, Date or Password in a Field; a checkbox as a Checkbox; radios and checkbox groups as a Fieldset. Django already puts <code>aria-invalid</code> and <code>aria-describedby</code> on the control, pointing at <code>id_&lt;name&gt;_helptext</code> and <code>id_&lt;name&gt;_error</code>, so the description and the message take those ids.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/canon/field.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-field" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/canon/field.html</span></button>
+      </div>
+      <pre><code id="dj-field" data-lang="html">{% if field.use_fieldset %}
+&lt;fieldset class=&quot;canon-fieldset&quot;{% if field.aria_describedby %} aria-describedby=&quot;{{ field.aria_describedby }}&quot;{% endif %}&gt;
+  &lt;legend class=&quot;canon-fieldset-legend&quot;&gt;{{ field.label }}&lt;/legend&gt;
+  {% if field.help_text %}&lt;p class=&quot;canon-fieldset-hint&quot; id=&quot;{{ field.auto_id }}_helptext&quot;&gt;{{ field.help_text }}&lt;/p&gt;{% endif %}
+  {% for option in field %}
+  &lt;div class=&quot;canon-choice&quot;&gt;
+    {{ option.tag }}
+    &lt;label class=&quot;canon-choice-label&quot; for=&quot;{{ option.id_for_label }}&quot;&gt;{{ option.choice_label }}&lt;/label&gt;
+  &lt;/div&gt;
+  {% endfor %}
+  &lt;p class=&quot;canon-fieldset-message&quot; id=&quot;{{ field.auto_id }}_error&quot;{% if field.errors %} data-intent=&quot;danger&quot;{% endif %}&gt;{{ field.errors|join:&quot; &quot; }}&lt;/p&gt;
+&lt;/fieldset&gt;
+{% elif field.widget_type == &quot;checkbox&quot; %}
+&lt;div class=&quot;canon-choice&quot;&gt;
+  {{ field }}
+  &lt;label class=&quot;canon-choice-label&quot; for=&quot;{{ field.id_for_label }}&quot;&gt;{{ field.label }}&lt;/label&gt;
+  &lt;p class=&quot;canon-choice-message&quot; id=&quot;{{ field.auto_id }}_error&quot;{% if field.errors %} data-intent=&quot;danger&quot;{% endif %}&gt;{{ field.errors|join:&quot; &quot; }}&lt;/p&gt;
+&lt;/div&gt;
+{% else %}
+&lt;div class=&quot;canon-field&quot;&gt;
+  &lt;div class=&quot;canon-label&quot;&gt;
+    &lt;label class=&quot;canon-label-text&quot; for=&quot;{{ field.id_for_label }}&quot;&gt;{{ field.label }}{% if not field.field.required %} &lt;span class=&quot;canon-label-optional&quot;&gt;(optional)&lt;/span&gt;{% endif %}&lt;/label&gt;
+    {% if field.help_text %}&lt;p class=&quot;canon-label-description&quot; id=&quot;{{ field.auto_id }}_helptext&quot;&gt;{{ field.help_text }}&lt;/p&gt;{% endif %}
+  &lt;/div&gt;
+  {% if field.widget_type == &quot;textarea&quot; %}
+  &lt;div class=&quot;canon-textarea&quot;&gt;{{ field }}&lt;/div&gt;
+  {% elif field.widget_type == &quot;select&quot; or field.widget_type == &quot;selectmultiple&quot; %}
+  &lt;div class=&quot;canon-select&quot;&gt;{{ field }}&lt;/div&gt;
+  {% elif field.widget_type == &quot;date&quot; %}
+  &lt;div class=&quot;canon-date&quot;&gt;{{ field }}&lt;/div&gt;
+  {% elif field.widget_type == &quot;password&quot; %}
+  &lt;div class=&quot;canon-password&quot;&gt;
+    {{ field }}
+    &lt;button type=&quot;button&quot; class=&quot;canon-button&quot; data-emphasis=&quot;minimal&quot; data-display=&quot;icon&quot; aria-pressed=&quot;false&quot; commandfor=&quot;{{ field.id_for_label }}&quot; command=&quot;--canon-toggle-password&quot;&gt;
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;eye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;canon-button-label&quot;&gt;Show password&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  {% else %}
+  &lt;div class=&quot;canon-text-input&quot;&gt;{{ field }}&lt;/div&gt;
+  {% endif %}
+  &lt;p class=&quot;canon-field-message&quot; id=&quot;{{ field.auto_id }}_error&quot;{% if field.errors %} data-intent=&quot;danger&quot;{% endif %}&gt;{{ field.errors|join:&quot; &quot; }}&lt;/p&gt;
+&lt;/div&gt;
+{% endif %}</code></pre>
+    </div>
+    <p class="ref-note">The form template puts errors about the whole form in a danger Alert at the top, then the fields:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/canon/form.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-form" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/canon/form.html</span></button>
+      </div>
+      <pre><code id="dj-form" data-lang="html">{% if form.non_field_errors %}
+&lt;div class=&quot;canon-alert&quot; data-intent=&quot;danger&quot; role=&quot;alert&quot;&gt;
+  &lt;p class=&quot;canon-alert-title&quot;&gt;{{ form.non_field_errors|join:&quot; &quot; }}&lt;/p&gt;
+&lt;/div&gt;
+{% endif %}
+{% for field in form.hidden_fields %}{{ field }}{% endfor %}
+{% for field in form.visible_fields %}{{ field.as_field_group }}{% endfor %}</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="using">
+    <h2>Using it</h2>
+    <p class="ref-note">Write the form as always. A <code>canon-form</code> spaces its fields:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/invoices/edit.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-use" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/invoices/edit.html</span></button>
+      </div>
+      <pre><code id="dj-use" data-lang="html">&lt;form class=&quot;canon-form&quot; method=&quot;post&quot;&gt;
+  {% csrf_token %}
+  {{ form }}
+  &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;
+    &lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    </div>
+    <p class="ref-note">To arrange fields yourself, render them one at a time. A <a href="form-layout.html">Form Layout</a> row puts two side by side:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Template</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-row" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Template</span></button>
+      </div>
+      <pre><code id="dj-row" data-lang="html">&lt;div class=&quot;canon-form-row&quot;&gt;
+  {{ form.first_name.as_field_group }}
+  {{ form.last_name.as_field_group }}
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">Django's <code>DateInput</code> is a text box by default. Give it <code>type="date"</code> and it becomes a Canon Date, with its calendar:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">forms.py</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-date" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy forms.py</span></button>
+      </div>
+      <pre><code id="dj-date">due = forms.DateField(widget=forms.DateInput(attrs={&quot;type&quot;: &quot;date&quot;}))</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="errors">
+    <h2>Errors</h2>
+    <p class="ref-note">A form sent back with errors needs nothing more: Django marks each wrong control, and the field template shows its message as a danger one. An email field after a failed submit:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Rendered</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-rendered" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Rendered</span></button>
+      </div>
+      <pre><code id="dj-rendered" data-lang="html">&lt;div class=&quot;canon-field&quot;&gt;
+  &lt;div class=&quot;canon-label&quot;&gt;
+    &lt;label class=&quot;canon-label-text&quot; for=&quot;id_email&quot;&gt;Email&lt;/label&gt;
+    &lt;p class=&quot;canon-label-description&quot; id=&quot;id_email_helptext&quot;&gt;Where the invoice is sent.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;canon-text-input&quot;&gt;&lt;input type=&quot;email&quot; name=&quot;email&quot; value=&quot;nope&quot; maxlength=&quot;320&quot; required aria-invalid=&quot;true&quot; aria-describedby=&quot;id_email_helptext id_email_error&quot; placeholder=&quot;&quot; id=&quot;id_email&quot;&gt;&lt;/div&gt;
+  &lt;p class=&quot;canon-field-message&quot; id=&quot;id_email_error&quot; data-intent=&quot;danger&quot;&gt;Enter a valid email address.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">What people typed comes back in the form, so nothing is lost. The browser's own checks (<code>required</code>, <code>type="email"</code>) still run first, and canon.js shows their messages in the same place, so most mistakes are caught before the form is sent.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="messages">
+    <h2>Messages as toasts</h2>
+    <p class="ref-note">Django's messages framework says what happened after a redirect ("Invoice saved"). Canon shows that as a <a href="toast.html">Toast</a>. First, name the levels as Canon's intents:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">settings.py</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-tags" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy settings.py</span></button>
+      </div>
+      <pre><code id="dj-tags">from django.contrib import messages
+
+MESSAGE_TAGS = {messages.ERROR: &quot;danger&quot;, messages.DEBUG: &quot;info&quot;}</code></pre>
+    </div>
+    <p class="ref-note">Then, at the end of the base template, hand each message to canon.js:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/base.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-messages" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/base.html</span></button>
+      </div>
+      <pre><code id="dj-messages" data-lang="html">{% if messages %}
+&lt;ul id=&quot;messages&quot; hidden&gt;
+  {% for message in messages %}&lt;li data-intent=&quot;{{ message.level_tag }}&quot;&gt;{{ message }}&lt;/li&gt;{% endfor %}
+&lt;/ul&gt;
+&lt;script&gt;
+  addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+    for (const message of document.querySelectorAll(&quot;#messages li&quot;)) {
+      document.dispatchEvent(new CustomEvent(&quot;canon-toast&quot;, {
+        detail: { intent: message.dataset.intent, title: message.textContent },
+      }));
+    }
+  });
+&lt;/script&gt;
+{% endif %}</code></pre>
+    </div>
+    <p class="ref-note">A toast needs JavaScript. A message people must read even without it (a save that failed) belongs in the page, as an <a href="alert.html">Alert</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pages">
+    <h2>Lists and pages</h2>
+    <p class="ref-note">Django's <code>Paginator</code> gives the page; Canon's <a href="pagination.html">Pagination</a> shows it. With <code>data-pages</code> and <code>data-page</code>, canon.js draws the page numbers and fits them to the room. The list written inside is what shows without JavaScript: Previous, "Page 4 of 10", Next.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/canon/pagination.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/canon/pagination.html</span></button>
+      </div>
+      <pre><code id="dj-pagination" data-lang="html">&lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot;
+     data-pages=&quot;{{ page_obj.paginator.num_pages }}&quot; data-page=&quot;{{ page_obj.number }}&quot; data-href=&quot;?page={page}&quot;&gt;
+  &lt;ol&gt;
+    &lt;li&gt;{% if page_obj.has_previous %}&lt;a class=&quot;canon-pagination-prev&quot; href=&quot;?page={{ page_obj.previous_page_number }}&quot; rel=&quot;prev&quot;&gt;{% else %}&lt;a class=&quot;canon-pagination-prev&quot; aria-disabled=&quot;true&quot;&gt;{% endif %}
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+    &lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span class=&quot;canon-pagination-current&quot;&gt;Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;{% if page_obj.has_next %}&lt;a class=&quot;canon-pagination-next&quot; href=&quot;?page={{ page_obj.next_page_number }}&quot; rel=&quot;next&quot;&gt;{% else %}&lt;a class=&quot;canon-pagination-next&quot; aria-disabled=&quot;true&quot;&gt;{% endif %}
+      &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">views.py</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-view" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy views.py</span></button>
+      </div>
+      <pre><code id="dj-view">from django.core.paginator import Paginator
+
+def invoice_list(request):
+    page_obj = Paginator(Invoice.objects.order_by(&quot;-issued&quot;), 25).get_page(request.GET.get(&quot;page&quot;))
+    return render(request, &quot;invoices/list.html&quot;, {&quot;page_obj&quot;: page_obj})</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/invoices/list.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-list" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/invoices/list.html</span></button>
+      </div>
+      <pre><code id="dj-list" data-lang="html">&lt;table class=&quot;canon-table&quot;&gt;
+  &lt;thead&gt;…&lt;/thead&gt;
+  &lt;tbody&gt;
+    {% for invoice in page_obj %}
+    &lt;tr&gt;&lt;td&gt;{{ invoice.number }}&lt;/td&gt;&lt;td&gt;{{ invoice.customer }}&lt;/td&gt;&lt;td data-align=&quot;end&quot;&gt;{{ invoice.total }}&lt;/td&gt;&lt;/tr&gt;
+    {% endfor %}
+  &lt;/tbody&gt;
+&lt;/table&gt;
+{% include &quot;canon/pagination.html&quot; %}</code></pre>
+    </div>
+    <p class="ref-note"><code>data-href</code> is the pattern for every page's link. If the list's address carries filters too, write them into it, so a new page keeps them.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="htmx">
+    <h2>With htmx</h2>
+    <p class="ref-note">Django and htmx are a common pair. Everything on <a href="htmx.html">With htmx</a> applies; Django adds one thing, its CSRF token on every request htmx sends:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">templates/base.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="dj-csrf" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy templates/base.html</span></button>
+      </div>
+      <pre><code id="dj-csrf" data-lang="html">&lt;body hx-headers=&#x27;{&quot;X-CSRFToken&quot;: &quot;{{ csrf_token }}&quot;}&#x27;&gt;</code></pre>
+    </div>
+    <p class="ref-note">Partials are the same templates: a view that answers htmx renders <code>canon/field.html</code>, a form or a table on its own, and canon.js sets it up when it lands.</p>
+  </section>
+
+</main>
+</body>
+</html>

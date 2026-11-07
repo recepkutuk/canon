@@ -6081,7 +6081,7 @@ Moving through a long list a page at a time: numbered pages, a compact "Page 2 o
 | `.canon-pagination-jump` | no | After the list: a `<form>` with a `<label>` ("Go to page") and a [Text Input](text-input.md) `type="number"` named `page`. |
 
 - **Nowhere to go:** on the first page, Previous (and First) is a link without `href`, `aria-disabled="true"` (a disabled `<button>` in an app); on the last page, Next and Last. They stay, so the row doesn't move.
-- **Which pages to show** is the author's when writing them: the first and last, a few around the current one, gaps between. canon.js draws the same with `data-pages`.
+- **Which pages to show** is the author's when writing them: the first and last, a few around the current one, gaps between. canon.js draws the same with `data-pages`. A list written inside such a pagination is what shows without JavaScript (Previous, "Page 2 of 30", Next is enough); canon.js draws over it.
 - **Table footer:** a summary or rows-per-page select before the list sends the list to the far end of the row; the row wraps when narrow.
 - **Not tabs, not steps:** pages are the same list cut in parts. Views of different content are Tabs; a sequence to complete is Steps.
 

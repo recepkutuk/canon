@@ -19,6 +19,7 @@ Canon is not a JavaScript component library (there is nothing to import or call)
 - [Themes](https://recepkutuk.github.io/canon/reference/themes.html): one markup, several looks
 - [Build](https://recepkutuk.github.io/canon/reference/build.html): a canon.css and canon.js with only the components an app uses
 - [With htmx](https://recepkutuk.github.io/canon/reference/htmx.html): forms checked by the server, toasts it sends, dialogs and tables that load what they show
+- [With Django](https://recepkutuk.github.io/canon/reference/django.html): every form rendered as Canon's Fields, errors, messages as toasts, lists with pages
 
 ## Layout
 

@@ -29,6 +29,7 @@
     Components: "components.html",
     Build: "build.html",
     "With htmx": "htmx.html",
+    "With Django": "django.html",
     Button: "button.html",
     "Button Group": "button-group.html",
     "Split Button": "split-button.html",
@@ -103,7 +104,7 @@
     Separator: "separator.html",
   };
   const components = {
-    Guide: ["Introduction", "Getting started", "Themes", "Components", "Build", "With htmx"],
+    Guide: ["Introduction", "Getting started", "Themes", "Components", "Build", "With htmx", "With Django"],
     Layout: ["App Shell", "Page Header", "Section", "Separator", "Sidebar", "Split Pane", "Stack / Cluster / Grid", "Toolbar", "Top Bar"],
     Actions: ["Button", "Button Group", "Link", "Segmented Control", "Split Button", "Toggle Chip"],
     Forms: ["Checkbox", "Color Picker", "Combobox", "Date family", "Field", "Fieldset", "File / Dropzone", "Form Layout", "Form Repeater", "Input OTP", "Label", "Number Input", "Password", "Radio", "Range Slider", "Rich Text", "Save Bar", "Select", "Slider", "Swatches", "Switch", "Text Input", "Textarea", "Time"],
