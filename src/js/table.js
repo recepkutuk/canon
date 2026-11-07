@@ -8,7 +8,6 @@
   /* ------------------------------------------------------------------ */
 
   const tableFrames = new WeakSet();
-  let tableCount = 0;
 
   const setUpTable = (frame) => {
     const table = frame.querySelector(":scope > table");
@@ -32,7 +31,7 @@
         frame.removeAttribute("aria-labelledby");
         if (!scrolls) return;
         if (table.caption) {
-          table.caption.id ||= `canon-table-${++tableCount}-caption`;
+          table.caption.id ||= `${uniqueName("canon-table")}-caption`;
           frame.setAttribute("aria-labelledby", table.caption.id);
         } else if (table.hasAttribute("aria-labelledby")) frame.setAttribute("aria-labelledby", table.getAttribute("aria-labelledby"));
         else if (table.hasAttribute("aria-label")) frame.setAttribute("aria-label", table.getAttribute("aria-label"));

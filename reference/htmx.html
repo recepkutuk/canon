@@ -243,15 +243,15 @@
   <!-- ============================================================ -->
   <section class="ref-section" id="history">
     <h2>Back and Forward</h2>
-    <p class="ref-note">When htmx changes the address (<code>hx-boost</code>, <code>hx-push-url</code>), it keeps a copy of each page for Back and Forward. That copy was made after canon.js had set up its components, and canon.js would set them up a second time. Turn the copies off, and Back fetches the page from your server, as written:</p>
+    <p class="ref-note">When htmx changes the address (<code>hx-boost</code>, <code>hx-push-url</code>), it keeps a copy of each page for Back and Forward, with what canon.js had drawn in it. canon.js takes its drawn parts out of the copy and sets up each component again, once, so a Combobox still has one list and a Pagination one row of pages. There's nothing to configure.</p>
+    <p class="ref-note">A copy shows the page as it was when people left it. For the server's latest instead (a list that may have changed meanwhile), turn the copies off, and Back fetches the page again:</p>
     <div class="canon-code-block ref-plain">
       <div class="canon-code-block-header">
         <span class="canon-code-block-title">Once, in the layout</span>
         <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-history" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Once, in the layout</span></button>
       </div>
       <pre><code id="htmx-history" data-lang="html">&lt;script&gt;
-  /* Back and Forward ask the server again, instead of restoring a copy
-     of the page canon.js had already set up. */
+  /* Back and Forward ask the server again, instead of restoring a copy. */
   htmx.config.historyCacheSize = 0;
 &lt;/script&gt;</code></pre>
     </div>

@@ -138,13 +138,14 @@
     const anchor = anchorOf(popup, event);
     if (!anchor) return;
     if (anchorPositioning) {
-      if (!popup.style.positionAnchor && ["auto", "normal"].includes(getComputedStyle(popup).positionAnchor)) {
+      /* One a copy of the page was given before this page load goes. */
+      if (staleAnchor(popup.style.positionAnchor)) popup.style.removeProperty("position-anchor");
+      if (!popup.style.positionAnchor &&["auto", "normal"].includes(getComputedStyle(popup).positionAnchor)) {
         let name = anchorNames.get(anchor);
         if (!name) {
-          name = `--canon-anchor-${++anchorCount}`;
+          name = `--${uniqueName("canon-anchor")}`;
           anchorNames.set(anchor, name);
-          const own = anchor.style.anchorName;
-          anchor.style.anchorName = own && own !== "none" ? `${own}, ${name}` : name;
+          addAnchorName(anchor, name);
         }
         popup.style.positionAnchor = name;
       }

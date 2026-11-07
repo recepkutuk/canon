@@ -45,6 +45,9 @@
   ].filter(Boolean);
   const hasReveals = typeof syncReveals === "function";
 
+  /* Copies of parts canon.js made (a page restored from a history
+     snapshot, a region cloned) go first; the set-ups make them again. */
+  clearCopies(document);
   for (const setUp of setUps) setUp(document);
   new MutationObserver((records) => {
     const counted = new Set();
@@ -72,6 +75,7 @@
       }
       for (const node of record.addedNodes) {
         if (node.nodeType !== 1) continue;
+        if (clearCopies(node)) continue;
         for (const setUp of setUps) setUp(node);
         if (hasReveals && (node.matches(".canon-form-reveal") || node.querySelector(".canon-form-reveal"))) syncReveals(node.parentElement ?? document);
         if (typeof openAlert === "function" && node.matches(".canon-alert[role], .canon-banner[role]")) openAlert(node);

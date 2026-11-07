@@ -39,7 +39,6 @@
 
   const comboboxSelect = ".canon-combobox > select";
   const comboboxes = new WeakSet();
-  let comboboxCount = 0;
 
   /* Folded text, with the index of the original character behind each
      of its characters (folding can change the length). */
@@ -101,7 +100,7 @@
     if (comboboxes.has(select)) return;
     comboboxes.add(select);
     const box = select.parentElement;
-    const id = `canon-combobox-${++comboboxCount}`;
+    const id = uniqueName("canon-combobox");
     const multiple = select.multiple;
     const inline = box.dataset.search === "inline";
     const searchable = inline || box.dataset.search === "list";
@@ -191,7 +190,7 @@
 
     /* The box is the popup's anchor. */
     const anchor = `--${id}`;
-    box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+    addAnchorName(box, anchor);
     popup.style.positionAnchor = anchor;
     popupAnchors.set(popup, box);
 
@@ -202,7 +201,7 @@
     if (trigger) parts.push(trigger);
     else if (!multiple) parts.push(input);
     else parts.push(value);
-    select.after(...parts, popup);
+    select.after(...[...parts, popup].map(made));
 
     /* The select's label and description name the box's control, the
        popup and the list. */

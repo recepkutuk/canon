@@ -17,14 +17,13 @@
   /* ------------------------------------------------------------------ */
 
   const palettes = new WeakSet();
-  let paletteCount = 0;
   const setUpCommandPalette = (palette) => {
     if (palettes.has(palette)) return;
     const input = palette.querySelector(":scope > .canon-command-search > input");
     const list = palette.querySelector(":scope > .canon-command-list");
     if (!input || !list) return;
     palettes.add(palette);
-    const id = palette.id || `canon-command-${++paletteCount}`;
+    const id = palette.id || uniqueName("canon-command");
     const say = (key, fallback, values) => (values ? fill(text(palette, key, fallback), values) : text(palette, key, fallback));
     let observer = null;
     const quietly = (fn) => {
@@ -109,7 +108,7 @@
       if (!empty && words.length) {
         empty = document.createElement("p");
         empty.className = "canon-command-empty";
-        list.after(empty);
+        list.after(made(empty));
       }
       if (empty) {
         empty.hidden = visible.length > 0 || !words.length;

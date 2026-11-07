@@ -30,7 +30,7 @@
       ticker = fromMarkup(`<span class="canon-number-ticker" aria-hidden="true"><span class="canon-number-ticker-from"></span><span class="canon-number-ticker-to"></span></span>`);
       ticker.firstElementChild.textContent = from;
       ticker.lastElementChild.textContent = to;
-      input.after(ticker);
+      input.after(made(ticker));
       /* Over the input's text: inside its border, measured from the box's
          padding edge (where the box, or the input, has the frame). */
       const boxRect = box.getBoundingClientRect();

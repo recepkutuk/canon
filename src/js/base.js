@@ -58,8 +58,10 @@
   /* One shared, visually hidden live region for announcements. */
   let liveRegion;
   const announce = (text) => {
-    if (!liveRegion) {
-      liveRegion = document.createElement("div");
+    /* Made again where the page's body was replaced (a page restored
+       from a history snapshot). */
+    if (!liveRegion?.isConnected) {
+      liveRegion = made(document.createElement("div"));
       liveRegion.setAttribute("aria-live", "polite");
       liveRegion.style.cssText =
         "position:absolute;inline-size:1px;block-size:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap";
@@ -155,9 +157,64 @@
   document.addEventListener("keydown", () => { lastInput = "keyboard"; }, true);
   document.addEventListener("pointerdown", () => { lastInput = "pointer"; }, true);
 
+  /* Parts canon.js makes (a Combobox's trigger and list, a drawn
+     Pagination, a Date's calendar) carry data-canon-made. A copy of
+     enhanced markup (a page restored from a history snapshot, a region
+     cloned) has copies of them that nothing works: they go before the
+     set-ups run, which make the parts again. A part that holds what the
+     page wrote (a Data Table's sort button, around its header's text) is
+     data-canon-made="wrap": its copy gives the content back. */
+  const madeParts = new WeakSet();
+  const made = (element, kind = "") => {
+    element.setAttribute("data-canon-made", kind);
+    madeParts.add(element);
+    return element;
+  };
+  const clearCopy = (element) => {
+    if (element.getAttribute("data-canon-made") === "wrap") element.replaceWith(...element.childNodes);
+    else element.remove();
+  };
+  /* Whether root itself was one. */
+  const clearCopies = (root) => {
+    if (root.matches?.("[data-canon-made]") && !madeParts.has(root)) {
+      clearCopy(root);
+      return true;
+    }
+    for (const element of root.querySelectorAll?.("[data-canon-made]") ?? []) if (!madeParts.has(element)) clearCopy(element);
+    return false;
+  };
+
+  /* A name for an id (or an anchor) that nothing in the page uses yet,
+     not even a copy restored from before this page load: canon-date-3,
+     where canon-date-3 and canon-date-3-… are free. */
+  const nameCounts = new Map();
+  const nameTaken = (name) => Boolean(document.querySelector(`[id="${name}"], [id^="${name}-"], [style*="--${name};"], [style*="--${name},"]`));
+  /* What those names look like on what the page wrote (a label canon.js
+     named for a Combobox: canon-combobox-3-label). */
+  const madeId = /^canon-[a-z-]+-\d+(?:-|$)/;
+  const uniqueName = (prefix) => {
+    let name;
+    do {
+      const count = (nameCounts.get(prefix) ?? 0) + 1;
+      nameCounts.set(prefix, count);
+      name = `${prefix}-${count}`;
+    } while (nameTaken(name));
+    return name;
+  };
+
+  /* An anchor-name added to an element's own; ones canon.js gave a copy
+     of it before this page load go. */
+  const ownAnchors = new Set();
+  const anchorNamesOf = (element) => (element.style.anchorName && element.style.anchorName !== "none" ? element.style.anchorName.split(/\s*,\s*/) : []);
+  const staleAnchor = (name) => name.startsWith("--canon-") && !ownAnchors.has(name);
+  const addAnchorName = (element, name) => {
+    ownAnchors.add(name);
+    const names = anchorNamesOf(element).filter((each) => each !== name && !staleAnchor(each));
+    element.style.anchorName = [...names, name].join(", ");
+  };
+
   /* Named anchors made for popups and tooltips (see Popover anchors). */
   const anchorNames = new WeakMap();
-  let anchorCount = 0;
 
   /* What --canon-clear does on a Filter Bar (see Filter Bar). */
   const filterBarClears = new WeakMap();

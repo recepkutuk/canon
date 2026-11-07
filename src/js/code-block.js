@@ -15,7 +15,6 @@
   };
 
   const codeBlocks = new WeakSet();
-  let codeBlockCount = 0;
 
   const setUpCodeBlock = (block) => {
     const pre = block.querySelector(":scope > pre");
@@ -41,7 +40,7 @@
         if (!scrolls) return;
         const title = block.querySelector(":scope > .canon-code-block-header > .canon-code-block-title");
         if (title) {
-          title.id ||= `canon-code-block-${++codeBlockCount}-title`;
+          title.id ||= `${uniqueName("canon-code-block")}-title`;
           pre.setAttribute("aria-labelledby", title.id);
         } else pre.setAttribute("aria-label", text(pre, "code", "Code"));
       }

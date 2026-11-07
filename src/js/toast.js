@@ -139,7 +139,7 @@
     toast.style.setProperty("--canon-toast-index", "0");
     toast.style.setProperty("--canon-toast-offset", `${below}px`);
     box.style.setProperty("--canon-toaster-count", String(staying.length + 1));
-    box.append(toast);
+    box.append(made(toast));
     /* Over a modal dialog opened since: shown again, so it is on top. */
     if (box.matches(":popover-open") && document.querySelector("dialog:modal")) box.hidePopover();
     if (!box.matches(":popover-open")) box.showPopover();

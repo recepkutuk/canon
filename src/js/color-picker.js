@@ -14,7 +14,6 @@
   /* ------------------------------------------------------------------ */
 
   const colorBoxes = new WeakSet();
-  let colorCount = 0;
   const nativeAlpha = "alpha" in HTMLInputElement.prototype;
 
   /* Any CSS color to { r, g, b, a } (0-255, alpha 0-1), through a canvas;
@@ -65,10 +64,10 @@
   };
 
   const setUpColor = (box) => {
-    const input = box.querySelector(":scope > input[type='color']");
+    const input = box.querySelector(":scope > input:is([type='color'], [data-canon-type='color'])");
     if (!input || colorBoxes.has(box)) return;
     colorBoxes.add(box);
-    const id = `canon-color-${++colorCount}`;
+    const id = uniqueName("canon-color");
     const alpha = input.hasAttribute("alpha");
     /* data-inline: the picker in place of the box, always shown. */
     const inline = box.hasAttribute("data-inline");
@@ -84,6 +83,7 @@
        the browser can't keep alpha), the browser's hex without. */
     const initial = parseColor(input.getAttribute("value") ?? input.value) ?? parseColor(input.value) ?? { r: 0, g: 0, b: 0, a: 1 };
     if (alpha && !nativeAlpha) {
+      input.dataset.canonType = "color";
       input.type = "text";
       input.readOnly = true;
       input.setAttribute("autocomplete", "off");
@@ -96,7 +96,7 @@
 
     /* The swatch the box shows (the input covers it, transparent). */
     const swatch = make("span", "canon-color-swatch", { "aria-hidden": "true" });
-    input.after(swatch);
+    input.after(made(swatch));
 
     /* The popover. */
     const popup = make("div", "canon-color-popup", inline ? { id: `${id}-popup`, role: "group" } : { id: `${id}-popup`, popover: "auto", role: "dialog" });
@@ -150,13 +150,13 @@
       }
       popup.append(make("hr", "canon-separator", { "data-size": "sm" }), caption, group);
     }
-    if (inline) box.after(popup);
-    else box.append(popup);
+    if (inline) box.after(made(popup));
+    else box.append(made(popup));
 
     /* Named like the input; anchored to the box. */
     if (!inline) {
       const anchor = `--${id}`;
-      box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+      addAnchorName(box, anchor);
       popup.style.positionAnchor = anchor;
       popupAnchors.set(popup, box);
     }

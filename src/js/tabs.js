@@ -79,7 +79,7 @@
     /* Folding: the More button, made when first needed. */
     let more = null;
     const makeMore = () => {
-      const id = `canon-fold-${++foldCount}`;
+      const id = uniqueName("canon-fold");
       const button = fromMarkup(`<button type="button" class="canon-tabs-more" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-tab-label"></span><span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span></button>`);
       button.querySelector(".canon-tab-label").textContent = text(list, "more", "More");
       const menu = foldMenu(id, () => tabs().filter((tab) => tab.hasAttribute("data-folded")).map((tab) => {
@@ -100,6 +100,8 @@
         return item;
       }));
       menu.setAttribute("aria-labelledby", button.id);
+      made(button);
+      made(menu);
       if (inPage) list.after(button, menu);
       else list.append(button, menu);
       setUpMenu(menu);

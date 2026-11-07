@@ -40,19 +40,18 @@ mkdir -p vendor/assets/canon/js
 cp -R node_modules/canon-ui/css vendor/assets/canon/
 cp node_modules/canon-ui/js/canon.js vendor/assets/canon/js/</code></pre>
     </div>
-    <p class="ref-note">Then link them in the layout, with one more line for Turbo:</p>
+    <p class="ref-note">Then link them in the layout:</p>
     <div class="canon-code-block ref-plain">
       <div class="canon-code-block-header">
         <span class="canon-code-block-title">app/views/layouts/application.html.erb</span>
         <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-head" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/layouts/application.html.erb</span></button>
       </div>
       <pre><code id="rb-head" data-lang="html">&lt;%= csrf_meta_tags %&gt;
-&lt;meta name=&quot;turbo-cache-control&quot; content=&quot;no-cache&quot;&gt;
 &lt;%= stylesheet_link_tag &quot;css/canon/canon&quot; %&gt;
 &lt;%= javascript_include_tag &quot;js/canon&quot;, defer: true %&gt;
 &lt;%= javascript_importmap_tags %&gt;</code></pre>
     </div>
-    <p class="ref-note"><strong>Turbo's page cache, off.</strong> On Back and Forward, Turbo shows a copy of the page it kept, made after canon.js had set up its components, and canon.js would set them up a second time. <code>turbo-cache-control</code> set to <code>no-cache</code> fetches the page again instead, so every page comes from your server as written. Turbo still makes every other visit without a reload.</p>
+    <p class="ref-note"><strong>Back and Forward.</strong> Turbo shows the copy of the page it kept, with what canon.js had drawn in it. canon.js takes its drawn parts out of the copy and sets up each component again, once, so a Combobox still has one list and a Pagination one row of pages. Turbo's page cache can stay on.</p>
     <p class="ref-note">Or link both files from a CDN, as <a href="getting-started.html">Getting started</a> shows. Either way there's nothing to build and no gem to add.</p>
   </section>
 

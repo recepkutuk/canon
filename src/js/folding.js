@@ -10,12 +10,11 @@
   /* things get data-folded.                                             */
   /* ------------------------------------------------------------------ */
 
-  let foldCount = 0;
 
   /* A menu of what folded, filled each time it opens (so it is never
      out of date). */
   const foldMenu = (id, fill) => {
-    const menu = fromMarkup(`<div class="canon-menu" id="${id}" popover role="menu"></div>`);
+    const menu = made(fromMarkup(`<div class="canon-menu" id="${id}" popover role="menu"></div>`));
     menu.addEventListener("beforetoggle", (event) => {
       if (event.newState === "open") menu.replaceChildren(...fill());
     });
@@ -41,9 +40,9 @@
           return;
         }
         if (more) return;
-        const id = `canon-fold-${++foldCount}`;
+        const id = uniqueName("canon-fold");
         const label = text(host, "more-pages", "More pages");
-        more = fromMarkup(`<li><button type="button" class="canon-breadcrumb-more" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-visually-hidden"></span></button></li>`);
+        more = made(fromMarkup(`<li><button type="button" class="canon-breadcrumb-more" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-visually-hidden"></span></button></li>`));
         more.querySelector(".canon-visually-hidden").textContent = label;
         const menu = foldMenu(id, () => items().filter((li) => li.hasAttribute("data-folded")).flatMap((li) => {
           const own = li.querySelector(".canon-menu");
@@ -83,8 +82,8 @@
           return;
         }
         if (more) return;
-        const id = `canon-fold-${++foldCount}`;
-        const button = fromMarkup(`<button type="button" class="canon-button" data-display="icon" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label"></span></button>`);
+        const id = uniqueName("canon-fold");
+        const button = made(fromMarkup(`<button type="button" class="canon-button" data-display="icon" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label"></span></button>`));
         button.querySelector(".canon-button-label").textContent = text(host, "more", "More");
         for (const attribute of ["data-emphasis", "data-intent", "data-size"]) {
           if (all[0].hasAttribute(attribute)) button.setAttribute(attribute, all[0].getAttribute(attribute));

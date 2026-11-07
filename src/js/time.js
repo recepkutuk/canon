@@ -15,7 +15,6 @@
   /* ------------------------------------------------------------------ */
 
   const timeBoxes = new WeakSet();
-  let timeCount = 0;
 
   /* The language's clock: 12 or 24 hours, and its day periods. */
   const clockOf = (lang) => {
@@ -79,7 +78,7 @@
       group.append(cell);
     });
     for (const literal of group.querySelectorAll(".canon-time-literal")) literal.setAttribute("aria-hidden", "true");
-    input.after(group);
+    input.after(made(group));
     input.tabIndex = -1;
     input.setAttribute("aria-hidden", "true");
     const order = types.map((type) => values[type]);
@@ -355,7 +354,7 @@
     const inputs = [...box.querySelectorAll(":scope > input[type='time']")].slice(0, 2);
     if (!inputs.length || timeBoxes.has(box)) return;
     timeBoxes.add(box);
-    const id = `canon-time-${++timeCount}`;
+    const id = uniqueName("canon-time");
     const [input, endInput] = inputs;
     const ranged = !!endInput;
     const lang = langOf(box);
@@ -381,7 +380,7 @@
       arrow.className = "canon-icon canon-time-arrow";
       arrow.dataset.icon = "arrow-forward";
       arrow.setAttribute("aria-hidden", "true");
-      box.querySelector(":scope > .canon-time-segments").after(arrow);
+      box.querySelector(":scope > .canon-time-segments").after(made(arrow));
     }
 
     /* Validity: an incomplete time, a range's end before its start (the

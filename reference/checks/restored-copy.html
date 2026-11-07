@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check: restored copies</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; margin-block: 1rem 2rem; }
+    td, th { padding: 0.25rem 0.75rem; text-align: start; border-block-end: 1px solid #ddd; vertical-align: top; }
+    .pass { color: #0a7d32; font-weight: 600; }
+    .fail { color: #b00020; font-weight: 600; }
+    iframe { inline-size: 1200px; block-size: 800px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>Is a restored copy set up once?</h1>
+  <p>Each reference page loads below. Its body is copied (<code>cloneNode(true)</code>) and the copy put in its place, twice, as a page restored from a history snapshot is. Every part canon.js makes must be there as many times as before, with no id twice, and the components must still work.</p>
+  <p><button type="button" id="run">Run</button> <span id="summary"></span></p>
+  <h2>Parts</h2>
+  <table id="parts"><thead><tr><th>Page</th><th>Parts made</th><th>Result</th></tr></thead><tbody></tbody></table>
+  <h2>Working after the copy</h2>
+  <table id="works"><thead><tr><th>Component</th><th>Check</th><th>Result</th></tr></thead><tbody></tbody></table>
+  <iframe id="frame" title="Page under check"></iframe>
+  <script>
+    const pages = new URLSearchParams(location.search).get("pages")?.split(",") ?? ["accordion", "alert", "app-shell", "avatar-group", "avatar", "banner", "breadcrumb", "button-group", "button", "card", "checkbox",
+      "code-block", "color-picker", "combobox", "command-palette", "data-table", "date", "description-list", "dialog", "drawer", "empty-state",
+      "field", "fieldset", "filter-bar", "form-layout", "form-repeater", "input-otp", "kbd", "label", "link", "list-detail-edit", "master-detail",
+      "menu", "menubar", "nav-list", "number-input", "page-header", "pagination", "password", "popover", "radio", "range-slider", "rich-text",
+      "save-bar", "section", "segmented-control", "select", "separator", "settings-page", "sidebar", "sign-in-page", "skeleton", "slider",
+      "spinner", "split-button", "split-pane", "stack", "stat", "status", "swatches", "switch", "table", "tabs", "tag", "text-input", "textarea",
+      "time", "toast", "toggle-chip", "toolbar", "tooltip", "top-bar"];
+    const parts = [".canon-combobox-trigger", ".canon-combobox-popup", ".canon-combobox-tags", ".canon-pagination > ol", ".canon-date-segments",
+      ".canon-date-button", ".canon-calendar", ".canon-date-strip", ".canon-time-segments", ".canon-color-swatch", ".canon-color-popup",
+      ".canon-rich-toolbar", ".canon-rich-area", ".canon-otp-cells", ".canon-swatches-toggle", ".canon-data-table-sort",
+      ".canon-data-table-filter", ".canon-data-table-edit-hint", ".canon-data-table-bulk-count", ".canon-data-table-edit",
+      "[data-canon-made]:not([id^='canon-fold-'], .canon-breadcrumb-more, [data-canon-made] *)"];
+    /* What folds to fit can fold differently at the same width (a header
+       right at its limit): those parts are checked per host instead, at
+       most one More each. */
+    const moreTwice = () => {
+      const hosts = new Map();
+      for (const more of frame.contentDocument.querySelectorAll(".canon-tabs-more, [data-canon-made][id^='canon-fold-'][id$='-button'], .canon-breadcrumb-more")) {
+        const host = more.closest(".canon-tabs, .canon-tabs-list, .canon-page-header-actions, .canon-top-bar, .canon-breadcrumb ol, nav") ?? more.parentElement;
+        hosts.set(host, (hosts.get(host) ?? 0) + 1);
+      }
+      return [...hosts.values()].filter((n) => n > 1).length;
+    };
+    const frame = document.getElementById("frame");
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    /* Measured again (a narrower frame, then back), so what folds to fit
+       is compared at the same width. */
+    const settle = async () => {
+      frame.style.inlineSize = "1180px";
+      await wait(250);
+      frame.style.inlineSize = "";
+      await wait(400);
+    };
+    const load = (page) => new Promise((resolve) => {
+      frame.onload = () => wait(400).then(settle).then(resolve);
+      frame.src = `../${page}.html`;
+    });
+    const row = (table, cells, ok) => {
+      const tr = document.createElement("tr");
+      for (const cell of cells) tr.append(Object.assign(document.createElement("td"), { textContent: cell }));
+      tr.append(Object.assign(document.createElement("td"), { textContent: ok ? "pass" : "FAIL", className: ok ? "pass" : "fail" }));
+      document.querySelector(`#${table} tbody`).append(tr);
+      return ok;
+    };
+    /* The page's body copied into its place, twice. */
+    const restore = async () => {
+      const doc = frame.contentDocument;
+      for (let i = 0; i < 2; i++) {
+        frame.contentDocument.body.replaceWith(doc.body.cloneNode(true));
+        await wait(400);
+      }
+      await settle();
+    };
+    const countNow = () => Object.fromEntries(parts.map((part) => [part, frame.contentDocument.querySelectorAll(part).length]));
+    /* Once they stop changing (what folds to fit settles). */
+    const counts = async () => {
+      let last = JSON.stringify(countNow());
+      for (let i = 0; i < 10; i++) {
+        await wait(300);
+        const now = JSON.stringify(countNow());
+        if (now === last) break;
+        last = now;
+      }
+      return JSON.parse(last);
+    };
+    const twice = () => {
+      const seen = new Map();
+      for (const element of frame.contentDocument.querySelectorAll("[id]")) seen.set(element.id, (seen.get(element.id) ?? 0) + 1);
+      return [...seen].filter(([, n]) => n > 1).map(([id]) => id);
+    };
+
+    /* What each component does once restored: [page, component, check, test(doc) → true]. */
+    const works = [
+      ["combobox", "Combobox", "the trigger opens its list; an option picks", async (doc) => {
+        const trigger = doc.querySelector(".canon-combobox:not([data-search]) > .canon-combobox-trigger");
+        trigger.click();
+        await wait(200);
+        const popup = doc.getElementById(trigger.getAttribute("popovertarget"));
+        const open = popup.matches(":popover-open");
+        const option = [...popup.querySelectorAll(".canon-combobox-option:not([hidden])")].at(-1);
+        option.click();
+        await wait(100);
+        return open && trigger.textContent.includes(option.textContent.trim());
+      }],
+      ["select", "Select", "a select still changes", async (doc) => {
+        const select = doc.querySelector(".canon-select > select");
+        select.selectedIndex = select.options.length - 1;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        return select.selectedIndex === select.options.length - 1;
+      }],
+      ["date", "Date", "the button opens the calendar", async (doc) => {
+        const button = doc.querySelector(".canon-date-button");
+        button.click();
+        await wait(200);
+        return doc.querySelector(".canon-calendar:popover-open") !== null;
+      }],
+      ["date", "Date", "typing a day reaches the input", async (doc) => {
+        const box = doc.querySelector(".canon-date:not([data-strip], [data-inline])");
+        const input = box.querySelector(":scope > input");
+        const spin = box.querySelector(".canon-date-segments [role='spinbutton']");
+        spin.focus();
+        spin.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp", bubbles: true }));
+        await wait(50);
+        return spin.getAttribute("aria-valuenow") !== null && box.querySelectorAll(":scope > .canon-date-segments").length === box.querySelectorAll(":scope > input").length;
+      }],
+      ["time", "Time", "one set of cells per input; the arrows step", async (doc) => {
+        const box = doc.querySelector(".canon-time");
+        const cell = box.querySelector(".canon-time-segments [role='spinbutton']");
+        const before = cell.getAttribute("aria-valuenow");
+        cell.focus();
+        cell.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp", bubbles: true }));
+        await wait(50);
+        return box.querySelectorAll(":scope > .canon-time-segments").length === box.querySelectorAll(":scope > input").length && cell.getAttribute("aria-valuenow") !== before;
+      }],
+      ["number-input", "Number Input", "Up steps the input", async (doc) => {
+        const box = doc.querySelector(".canon-number");
+        const input = box.querySelector("input");
+        const up = box.querySelector("[command='--canon-step-up']");
+        const before = input.value;
+        up.click();
+        await wait(50);
+        return input.value !== before;
+      }],
+      ["pagination", "Pagination", "Next moves to the next page", async (doc) => {
+        const nav = [...doc.querySelectorAll(".canon-pagination[data-pages]")].find((each) => !each.hasAttribute("data-href") && each.querySelector(".canon-pagination-next:enabled"));
+        const before = nav.dataset.page ?? "1";
+        nav.querySelector(".canon-pagination-next").click();
+        await wait(100);
+        return nav.querySelectorAll(":scope > ol").length === 1 && nav.dataset.page !== before;
+      }],
+      ["data-table", "Data Table", "a header sorts", async (doc) => {
+        const button = doc.querySelector(".canon-data-table .canon-data-table-sort");
+        const head = button.closest("th");
+        const before = head.getAttribute("aria-sort");
+        button.click();
+        await wait(100);
+        return head.querySelectorAll(".canon-data-table-sort").length === 1 && head.getAttribute("aria-sort") !== before;
+      }],
+      ["tabs", "Tabs", "a click chooses a tab", async (doc) => {
+        const list = doc.querySelector(".canon-tabs-list[role='tablist']");
+        const tab = [...list.querySelectorAll(".canon-tab")].find((each) => each.getAttribute("aria-selected") !== "true" && each.getAttribute("aria-disabled") !== "true");
+        tab.click();
+        await wait(50);
+        return tab.getAttribute("aria-selected") === "true";
+      }],
+      ["tooltip", "Tooltip", "no anchor name on two elements", async (doc) => {
+        const names = [...doc.querySelectorAll("[style*='anchor-name']")].flatMap((element) => element.style.anchorName.split(/\s*,\s*/));
+        return names.length === new Set(names).size;
+      }],
+      ["color-picker", "Color Picker", "the box opens its picker", async (doc) => {
+        const box = doc.querySelector(".canon-color:not([data-inline])");
+        const popup = box.querySelector(":scope > .canon-color-popup");
+        box.querySelector(":scope > input").click();
+        await wait(200);
+        return box.querySelectorAll(":scope > .canon-color-swatch").length === 1 && popup.matches(":popover-open");
+      }],
+      ["rich-text", "Rich Text", "typing in the area writes the textarea", async (doc) => {
+        const box = doc.querySelector(".canon-textarea[data-rich]");
+        const area = box.querySelector(".canon-rich-area");
+        area.focus();
+        area.innerHTML = "<p>Restored</p>";
+        area.dispatchEvent(new InputEvent("input", { bubbles: true }));
+        await wait(100);
+        return box.querySelectorAll(":scope > .canon-rich-toolbar").length === 1 && box.querySelector("textarea").value.includes("Restored");
+      }],
+      ["form-repeater", "Form Repeater", "Add adds one item, its parts made once", async (doc) => {
+        const repeater = doc.querySelector(".canon-repeater");
+        const before = repeater.querySelectorAll(":scope > .canon-repeater-item").length;
+        repeater.querySelector(":scope > [command='--canon-add']").click();
+        await wait(300);
+        const items = repeater.querySelectorAll(":scope > .canon-repeater-item");
+        const last = items[items.length - 1];
+        const ids = [...last.querySelectorAll("[id]")].map((element) => element.id);
+        const clash = ids.some((id) => doc.querySelectorAll(`[id="${id}"]`).length > 1);
+        const made = [...last.querySelectorAll(".canon-combobox, .canon-date, .canon-select")].every((box) => box.querySelectorAll(":scope > [data-canon-made]:is(.canon-combobox-trigger, .canon-date-button)").length <= 1);
+        return items.length === before + 1 && !clash && made;
+      }],
+      ["input-otp", "Input OTP", "one set of cells", async (doc) => [...doc.querySelectorAll(".canon-otp")].every((box) => box.querySelectorAll(".canon-otp-cells").length === 1)],
+      ["swatches", "Swatches", "one More colors button", async (doc) => [...doc.querySelectorAll(".canon-swatches[data-collapse]")].every((group) => group.querySelectorAll(":scope > .canon-swatches-toggle").length === 1)],
+    ];
+
+    document.getElementById("run").addEventListener("click", async () => {
+      for (const table of ["parts", "works"]) document.querySelector(`#${table} tbody`).replaceChildren();
+      let failed = 0;
+      for (const page of pages) {
+        await load(page);
+        const before = await counts();
+        const clashes = twice();
+        await restore();
+        const after = await counts();
+        const changed = parts.filter((part) => before[part] !== after[part]).map((part) => `${part} ${before[part]} → ${after[part]}`);
+        const newClashes = twice().filter((id) => !clashes.includes(id)).map((id) => `#${id} twice`);
+        const doubled = moreTwice();
+        const problems = [...changed, ...newClashes, ...(doubled ? [`${doubled} with two More buttons`] : [])];
+        if (!row("parts", [page, problems.length ? problems.join("; ") : String(before[parts.at(-1)])], !problems.length)) failed++;
+      }
+      for (const [page, name, check, test] of works) {
+        await load(page);
+        await restore();
+        let ok = false;
+        let note = check;
+        try { ok = await test(frame.contentDocument); } catch (error) { note += ` (${error.message})`; }
+        if (!row("works", [name, note], ok)) failed++;
+      }
+      document.getElementById("summary").textContent = failed ? `${failed} failed` : "All pass";
+    });
+  </script>
+</body>
+</html>

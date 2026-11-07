@@ -59,7 +59,6 @@
   /* ------------------------------------------------------------------ */
 
   const spotlights = new WeakSet();
-  let spotlightCount = 0;
   const avatarName = (avatar) =>
     avatar.querySelector(":scope > .canon-avatar-fallback[aria-label]")?.getAttribute("aria-label")
     || avatar.getAttribute("aria-label")
@@ -72,8 +71,8 @@
     spotlights.add(host);
     const group = host.matches(".canon-avatar-group");
     const avatars = () => (group ? [...host.children].filter((child) => child.matches(".canon-avatar")) : [host]);
-    const id = `canon-spotlight-${++spotlightCount}`;
-    let made = null;
+    const id = uniqueName("canon-spotlight");
+    let nameTip = null;
     let shown = null;
     let showTimer = null;
     let hideTimer = null;
@@ -105,13 +104,13 @@
     const tipFor = (avatar) => {
       const own = avatar.getAttribute("interestfor") && document.getElementById(avatar.getAttribute("interestfor"));
       if (own) return own;
-      if (!made) {
-        made = fromMarkup(`<div class="canon-tooltip" popover="manual" aria-hidden="true"></div>`);
-        made.id = `${id}-tip`;
-        host.after(made);
+      if (!nameTip) {
+        nameTip = fromMarkup(`<div class="canon-tooltip" popover="manual" aria-hidden="true"></div>`);
+        nameTip.id = `${id}-tip`;
+        host.after(made(nameTip));
       }
-      made.textContent = avatarName(avatar);
-      return made.textContent ? made : null;
+      nameTip.textContent = avatarName(avatar);
+      return nameTip.textContent ? nameTip : null;
     };
     const hide = () => {
       clearTimeout(showTimer);
@@ -128,6 +127,7 @@
       if (!tip) return;
       /* The name moves to this avatar (others may hold more names). */
       const name = `--${id}`;
+      ownAnchors.add(name);
       const namesOf = (each) => (each.style.anchorName && each.style.anchorName !== "none" ? each.style.anchorName.split(/\s*,\s*/) : []);
       for (const each of avatars()) {
         if (each === avatar || !namesOf(each).includes(name)) continue;
