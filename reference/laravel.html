@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · With Laravel</title>
+  <meta name="description" content="Canon in a Laravel app: its files in public/, Blade components for every form part, errors, flash messages as toasts, and the paginator drawing Canon's Pagination. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:description" content="Canon in a Laravel app: its files in public/, Blade components for every form part, errors, flash messages as toasts, and the paginator drawing Canon's Pagination. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Canon">
+  <meta property="og:title" content="Canon · With Laravel">
+  <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/laravel.html">
+  <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
+  <meta property="og:image:width" content="1664">
+  <meta property="og:image:height" content="968">
+  <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>With Laravel</h1>
+  <p class="ref-note">Canon in a Laravel app: its files in <code>public/</code>, Blade components for every form part, errors, flash messages as toasts, and the paginator drawing Canon's Pagination. For adding Canon to a page, start with <a href="getting-started.html">Getting started</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="setup">
+    <h2>Set up</h2>
+    <p class="ref-note">Canon is two files, and <code>public/</code> serves them as they are. Take them from the npm package (keep the <code>css</code> folder whole: a stylesheet finds its icons and fonts beside it):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-copy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Terminal</span></button>
+      </div>
+      <pre><code id="lv-copy">npm i canon-ui
+mkdir -p public/canon/js
+cp -R node_modules/canon-ui/css public/canon/
+cp node_modules/canon-ui/js/canon.js public/canon/js/</code></pre>
+    </div>
+    <p class="ref-note">Then link them in your layout:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/layout.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-head" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/layout.blade.php</span></button>
+      </div>
+      <pre><code id="lv-head" data-lang="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{ asset(&#x27;canon/css/canon/canon.css&#x27;) }}&quot;&gt;
+&lt;script src=&quot;{{ asset(&#x27;canon/js/canon.js&#x27;) }}&quot; defer&gt;&lt;/script&gt;</code></pre>
+    </div>
+    <p class="ref-note">Or link both from a CDN, as <a href="getting-started.html">Getting started</a> shows. Either way there's nothing to build and no package to add.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="fields">
+    <h2>Fields as Blade components</h2>
+    <p class="ref-note">Three anonymous components write Canon's form parts. A field takes its name, label and kind, and finds its own error (<code>$errors</code>) and old value (<code>old()</code>), so a form sent back keeps what was typed:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/components/canon/field.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-field" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/components/canon/field.blade.php</span></button>
+      </div>
+      <pre><code id="lv-field" data-lang="html">@props([
+    &#x27;name&#x27;,
+    &#x27;label&#x27;,
+    &#x27;type&#x27; =&gt; &#x27;text&#x27;,
+    &#x27;hint&#x27; =&gt; null,
+    &#x27;value&#x27; =&gt; null,
+    &#x27;options&#x27; =&gt; [],
+    &#x27;required&#x27; =&gt; false,
+    &#x27;id&#x27; =&gt; null,
+])
+@php
+    $id ??= $name;
+    $error = $errors-&gt;first($name);
+    $describedBy = trim(($hint ? &quot;{$id}-hint &quot; : &#x27;&#x27;) . &quot;{$id}-error&quot;);
+    $current = old($name, $value);
+@endphp
+&lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;
+        &lt;label class=&quot;canon-label-text&quot; for=&quot;{{ $id }}&quot;&gt;{{ $label }}@unless ($required) &lt;span class=&quot;canon-label-optional&quot;&gt;(optional)&lt;/span&gt;@endunless&lt;/label&gt;
+        @if ($hint)
+            &lt;p class=&quot;canon-label-description&quot; id=&quot;{{ $id }}-hint&quot;&gt;{{ $hint }}&lt;/p&gt;
+        @endif
+    &lt;/div&gt;
+    @switch($type)
+        @case(&#x27;textarea&#x27;)
+            &lt;div class=&quot;canon-textarea&quot;&gt;
+                &lt;textarea id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; placeholder @required($required) aria-describedby=&quot;{{ $describedBy }}&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;{{ $current }}&lt;/textarea&gt;
+            &lt;/div&gt;
+            @break
+        @case(&#x27;select&#x27;)
+            &lt;div class=&quot;canon-select&quot;&gt;
+                &lt;select id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; @required($required) aria-describedby=&quot;{{ $describedBy }}&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;
+                    @foreach ($options as $optionValue =&gt; $optionLabel)
+                        &lt;option value=&quot;{{ $optionValue }}&quot; @selected((string) $current === (string) $optionValue)&gt;{{ $optionLabel }}&lt;/option&gt;
+                    @endforeach
+                &lt;/select&gt;
+            &lt;/div&gt;
+            @break
+        @case(&#x27;date&#x27;)
+            &lt;div class=&quot;canon-date&quot;&gt;
+                &lt;input type=&quot;date&quot; id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; value=&quot;{{ $current }}&quot; @required($required) aria-describedby=&quot;{{ $describedBy }}&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;
+            &lt;/div&gt;
+            @break
+        @case(&#x27;password&#x27;)
+            &lt;div class=&quot;canon-password&quot;&gt;
+                &lt;input type=&quot;password&quot; id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; placeholder @required($required) aria-describedby=&quot;{{ $describedBy }}&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;
+                &lt;button type=&quot;button&quot; class=&quot;canon-button&quot; data-emphasis=&quot;minimal&quot; data-display=&quot;icon&quot; aria-pressed=&quot;false&quot; commandfor=&quot;{{ $id }}&quot; command=&quot;--canon-toggle-password&quot;&gt;
+                    &lt;span class=&quot;canon-icon&quot; data-icon=&quot;eye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                    &lt;span class=&quot;canon-button-label&quot;&gt;Show password&lt;/span&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+            @break
+        @default
+            &lt;div class=&quot;canon-text-input&quot;&gt;
+                &lt;input type=&quot;{{ $type }}&quot; id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; value=&quot;{{ $current }}&quot; placeholder @required($required) aria-describedby=&quot;{{ $describedBy }}&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;
+            &lt;/div&gt;
+    @endswitch
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;{{ $id }}-error&quot; @if ($error) data-intent=&quot;danger&quot; @endif&gt;{{ $error }}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">It writes a Text Input, Textarea, Select, Date or Password in a Field, ties the description and message to the control (<code>aria-describedby</code>, <code>aria-invalid</code>), adds the empty <code>placeholder</code> Canon's text boxes need, and says "(optional)" unless the field is <code>required</code>. A Checkbox and radios in a Fieldset:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/components/canon/checkbox.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-checkbox" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/components/canon/checkbox.blade.php</span></button>
+      </div>
+      <pre><code id="lv-checkbox" data-lang="html">@props([&#x27;name&#x27;, &#x27;label&#x27;, &#x27;id&#x27; =&gt; null, &#x27;checked&#x27; =&gt; false])
+@php
+    $id ??= $name;
+    $error = $errors-&gt;first($name);
+@endphp
+&lt;div class=&quot;canon-choice&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;{{ $id }}&quot; name=&quot;{{ $name }}&quot; value=&quot;1&quot; @checked(old($name, $checked)) aria-describedby=&quot;{{ $id }}-error&quot; @if ($error) aria-invalid=&quot;true&quot; @endif {{ $attributes }}&gt;
+    &lt;label class=&quot;canon-choice-label&quot; for=&quot;{{ $id }}&quot;&gt;{{ $label }}&lt;/label&gt;
+    &lt;p class=&quot;canon-choice-message&quot; id=&quot;{{ $id }}-error&quot; @if ($error) data-intent=&quot;danger&quot; @endif&gt;{{ $error }}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/components/canon/radios.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-radios" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/components/canon/radios.blade.php</span></button>
+      </div>
+      <pre><code id="lv-radios" data-lang="html">@props([&#x27;name&#x27;, &#x27;legend&#x27;, &#x27;options&#x27;, &#x27;hint&#x27; =&gt; null, &#x27;value&#x27; =&gt; null, &#x27;required&#x27; =&gt; false])
+@php
+    $error = $errors-&gt;first($name);
+    $current = old($name, $value);
+@endphp
+&lt;fieldset class=&quot;canon-fieldset&quot; aria-describedby=&quot;{{ trim(($hint ? &quot;{$name}-hint &quot; : &#x27;&#x27;) . &quot;{$name}-error&quot;) }}&quot;&gt;
+    &lt;legend class=&quot;canon-fieldset-legend&quot;&gt;{{ $legend }}&lt;/legend&gt;
+    @if ($hint)
+        &lt;p class=&quot;canon-fieldset-hint&quot; id=&quot;{{ $name }}-hint&quot;&gt;{{ $hint }}&lt;/p&gt;
+    @endif
+    @foreach ($options as $optionValue =&gt; $optionLabel)
+        &lt;div class=&quot;canon-choice&quot;&gt;
+            &lt;input type=&quot;radio&quot; id=&quot;{{ $name }}-{{ $optionValue }}&quot; name=&quot;{{ $name }}&quot; value=&quot;{{ $optionValue }}&quot; @checked((string) $current === (string) $optionValue) @required($required) @if ($error) aria-invalid=&quot;true&quot; @endif&gt;
+            &lt;label class=&quot;canon-choice-label&quot; for=&quot;{{ $name }}-{{ $optionValue }}&quot;&gt;{{ $optionLabel }}&lt;/label&gt;
+        &lt;/div&gt;
+    @endforeach
+    &lt;p class=&quot;canon-fieldset-message&quot; id=&quot;{{ $name }}-error&quot; @if ($error) data-intent=&quot;danger&quot; @endif&gt;{{ $error }}&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="using">
+    <h2>Using them</h2>
+    <p class="ref-note">Each field is one tag. A <code>canon-form</code> spaces them:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/invoices/create.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-create" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/invoices/create.blade.php</span></button>
+      </div>
+      <pre><code id="lv-create" data-lang="html">@extends(&#x27;layout&#x27;)
+
+@section(&#x27;content&#x27;)
+&lt;h1&gt;New invoice&lt;/h1&gt;
+&lt;form class=&quot;canon-form&quot; method=&quot;post&quot; action=&quot;{{ route(&#x27;invoices.store&#x27;) }}&quot; novalidate&gt;
+    @csrf
+    &lt;x-canon.field name=&quot;customer&quot; label=&quot;Customer&quot; required /&gt;
+    &lt;x-canon.field name=&quot;email&quot; type=&quot;email&quot; label=&quot;Email&quot; hint=&quot;Where the invoice is sent.&quot; required /&gt;
+    &lt;x-canon.field name=&quot;status&quot; type=&quot;select&quot; label=&quot;Status&quot; :options=&quot;[&#x27;draft&#x27; =&gt; &#x27;Draft&#x27;, &#x27;sent&#x27; =&gt; &#x27;Sent&#x27;, &#x27;paid&#x27; =&gt; &#x27;Paid&#x27;]&quot; /&gt;
+    &lt;x-canon.field name=&quot;due&quot; type=&quot;date&quot; label=&quot;Due&quot; required /&gt;
+    &lt;x-canon.field name=&quot;notes&quot; type=&quot;textarea&quot; label=&quot;Notes&quot; /&gt;
+    &lt;x-canon.field name=&quot;portal_password&quot; type=&quot;password&quot; label=&quot;Portal password&quot; /&gt;
+    &lt;x-canon.radios name=&quot;channel&quot; legend=&quot;Channel&quot; hint=&quot;How the invoice reaches them.&quot; :options=&quot;[&#x27;email&#x27; =&gt; &#x27;Email&#x27;, &#x27;post&#x27; =&gt; &#x27;Post&#x27;]&quot; required /&gt;
+    &lt;x-canon.checkbox name=&quot;reminders&quot; label=&quot;Send reminders when overdue&quot; /&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;&lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;&lt;/button&gt;
+&lt;/form&gt;
+@endsection</code></pre>
+    </div>
+    <p class="ref-note">Extra attributes go to the control: <code>&lt;x-canon.field name="zip" label="Postcode" autocomplete="postal-code" /&gt;</code>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="errors">
+    <h2>Errors</h2>
+    <p class="ref-note"><code>validate()</code> sends a form with errors back with its messages and what was typed, and the components show them:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/Http/Controllers/InvoiceController.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-store" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/Http/Controllers/InvoiceController.php</span></button>
+      </div>
+      <pre><code id="lv-store">public function store(Request $request)
+{
+    $data = $request-&gt;validate([
+        &#x27;customer&#x27; =&gt; &#x27;required&#x27;,
+        &#x27;email&#x27; =&gt; &#x27;required|email&#x27;,
+        &#x27;due&#x27; =&gt; &#x27;required|date&#x27;,
+        &#x27;channel&#x27; =&gt; &#x27;required|in:email,post&#x27;,
+    ]);
+
+    Invoice::create($data);
+
+    return redirect()-&gt;route(&#x27;invoices.index&#x27;)-&gt;with(&#x27;status&#x27;, &quot;Invoice for {$data[&#x27;customer&#x27;]} saved.&quot;);
+}</code></pre>
+    </div>
+    <p class="ref-note">An email field after a failed save:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Rendered</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-rendered" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Rendered</span></button>
+      </div>
+      <pre><code id="lv-rendered" data-lang="html">&lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;
+        &lt;label class=&quot;canon-label-text&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+        &lt;p class=&quot;canon-label-description&quot; id=&quot;email-hint&quot;&gt;Where the invoice is sent.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;canon-text-input&quot;&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; value=&quot;nope&quot; placeholder required aria-describedby=&quot;email-hint email-error&quot; aria-invalid=&quot;true&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;email-error&quot; data-intent=&quot;danger&quot;&gt;The email field must be a valid email address.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The browser's own checks (<code>required</code>, <code>type="email"</code>) run first unless the form has <code>novalidate</code>, and canon.js shows their messages in the same place.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="flash">
+    <h2>Flash messages as toasts</h2>
+    <p class="ref-note">A redirect's status ("Invoice saved") shows as a <a href="toast.html">Toast</a>. At the end of the layout:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/layout.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-flash" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/layout.blade.php</span></button>
+      </div>
+      <pre><code id="lv-flash" data-lang="html">@if (session(&#x27;status&#x27;))
+    &lt;p id=&quot;status&quot; data-intent=&quot;success&quot; hidden&gt;{{ session(&#x27;status&#x27;) }}&lt;/p&gt;
+    &lt;script&gt;
+        addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+            const status = document.getElementById(&quot;status&quot;);
+            document.dispatchEvent(new CustomEvent(&quot;canon-toast&quot;, {
+                detail: { intent: status.dataset.intent, title: status.textContent },
+            }));
+        });
+    &lt;/script&gt;
+@endif</code></pre>
+    </div>
+    <p class="ref-note">A toast needs JavaScript. A message people must read even without it (a save that failed) belongs in the page, as an <a href="alert.html">Alert</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pages">
+    <h2>Lists and pages</h2>
+    <p class="ref-note">Laravel's paginator draws its links with a view, so one view makes every <code>links()</code> Canon's <a href="pagination.html">Pagination</a>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/Providers/AppServiceProvider.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-provider" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/Providers/AppServiceProvider.php</span></button>
+      </div>
+      <pre><code id="lv-provider">&lt;?php
+
+namespace App\Providers;
+
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        Paginator::defaultView(&#x27;canon.pagination&#x27;);
+    }
+}</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/canon/pagination.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/canon/pagination.blade.php</span></button>
+      </div>
+      <pre><code id="lv-pagination" data-lang="html">@php
+    $pattern = preg_replace(&#x27;/(&#x27; . preg_quote($paginator-&gt;getPageName(), &#x27;/&#x27;) . &#x27;=)1$/&#x27;, &#x27;$1{page}&#x27;, $paginator-&gt;url(1));
+@endphp
+&lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot;
+     data-pages=&quot;{{ $paginator-&gt;lastPage() }}&quot; data-page=&quot;{{ $paginator-&gt;currentPage() }}&quot; data-href=&quot;{{ $pattern }}&quot;&gt;
+    &lt;ol&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-prev&quot; @if ($paginator-&gt;onFirstPage()) aria-disabled=&quot;true&quot; @else href=&quot;{{ $paginator-&gt;previousPageUrl() }}&quot; rel=&quot;prev&quot; @endif&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;span class=&quot;canon-pagination-current&quot;&gt;Page {{ $paginator-&gt;currentPage() }} of {{ $paginator-&gt;lastPage() }}&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-next&quot; @if ($paginator-&gt;hasMorePages()) href=&quot;{{ $paginator-&gt;nextPageUrl() }}&quot; rel=&quot;next&quot; @else aria-disabled=&quot;true&quot; @endif&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+    <p class="ref-note">With <code>data-pages</code> and <code>data-page</code>, canon.js draws the page numbers and fits them to the room; the list written inside is what shows without JavaScript: Previous, "Page 4 of 10", Next. <code>data-href</code> is the paginator's own link with <code>{page}</code> in it, so with <code>withQueryString()</code> every page keeps the list's filters.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/Http/Controllers/InvoiceController.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-index" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/Http/Controllers/InvoiceController.php</span></button>
+      </div>
+      <pre><code id="lv-index">public function index()
+{
+    return view(&#x27;invoices.index&#x27;, [
+        &#x27;invoices&#x27; =&gt; Invoice::latest(&#x27;issued_on&#x27;)-&gt;paginate(25)-&gt;withQueryString(),
+    ]);
+}</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/invoices/index.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-list" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/invoices/index.blade.php</span></button>
+      </div>
+      <pre><code id="lv-list" data-lang="html">&lt;table class=&quot;canon-table&quot;&gt;
+    &lt;thead&gt;…&lt;/thead&gt;
+    &lt;tbody&gt;
+        @foreach ($invoices as $invoice)
+            &lt;tr&gt;&lt;td&gt;{{ $invoice-&gt;number }}&lt;/td&gt;&lt;td&gt;{{ $invoice-&gt;customer }}&lt;/td&gt;&lt;td data-align=&quot;end&quot;&gt;{{ $invoice-&gt;total }}&lt;/td&gt;&lt;/tr&gt;
+        @endforeach
+    &lt;/tbody&gt;
+&lt;/table&gt;
+{{ $invoices-&gt;links() }}</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="htmx">
+    <h2>With htmx</h2>
+    <p class="ref-note">Everything on <a href="htmx.html">With htmx</a> applies; Laravel adds its CSRF token to every request htmx sends:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">resources/views/layout.blade.php</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="lv-csrf" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy resources/views/layout.blade.php</span></button>
+      </div>
+      <pre><code id="lv-csrf" data-lang="html">&lt;body hx-headers=&#x27;{&quot;X-CSRF-TOKEN&quot;: &quot;{{ csrf_token() }}&quot;}&#x27;&gt;</code></pre>
+    </div>
+    <p class="ref-note">Partials are the same components: a route that answers htmx renders a field, a form or a table on its own, and canon.js sets it up when it lands.</p>
+  </section>
+
+</main>
+</body>
+</html>
