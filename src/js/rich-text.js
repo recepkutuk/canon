@@ -151,7 +151,7 @@
     if (!textarea || richBoxes.has(box)) return;
     richBoxes.add(box);
     const label = (key, fallback) => text(box, `rich-${key}`, fallback);
-    const id = textarea.id || `canon-rich-${Math.random().toString(36).slice(2, 8)}`;
+    const id = textarea.id || uniqueName("canon-rich");
     const tools = new Set((box.dataset.tools || richDefault).split(/\s+/).flatMap((tool) => (tool === "all" ? richTools : [tool])));
     const make = (tag, className, attributes = {}) => {
       const element = document.createElement(tag);
@@ -359,8 +359,8 @@
       single.dataset.emphasis ??= "low";
       single.dataset.intent ??= "neutral";
     }
-    if (toolbar.children.length) box.prepend(toolbar);
-    box.append(area);
+    if (toolbar.children.length) box.prepend(made(toolbar));
+    box.append(made(area));
 
     /* The textarea: hidden, still the value; its focus (the label, a failed
        check) goes to the area. */

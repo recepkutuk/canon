@@ -42,6 +42,9 @@
   const emptied = (item) => {
     const copy = item.cloneNode(true);
     copy.removeAttribute("role");
+    /* Ids canon.js gave its parts (a label named for a Combobox), on a page
+       restored from a copy. */
+    for (const element of copy.querySelectorAll("[id]")) if (madeId.test(element.id)) element.removeAttribute("id");
     for (const input of copy.querySelectorAll("input")) {
       input.removeAttribute("value");
       input.removeAttribute("checked");

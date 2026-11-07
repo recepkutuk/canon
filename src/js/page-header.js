@@ -70,7 +70,7 @@
     input.setAttribute("aria-label", name || previous);
     target.setAttribute("data-editing", "");
     source.setAttribute("data-editing", "");
-    target.after(input);
+    target.after(made(input));
     input.focus();
     input.select();
     let done = false;

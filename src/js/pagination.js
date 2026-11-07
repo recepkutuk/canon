@@ -103,7 +103,7 @@
         return item;
       };
 
-      const fresh = document.createElement("ol");
+      const fresh = made(document.createElement("ol"));
       const ends = nav.hasAttribute("data-ends");
       const before = s.page > 1 ? s.page - 1 : null;
       const after = s.page < s.pages ? s.page + 1 : null;

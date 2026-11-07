@@ -28,7 +28,7 @@
     toggle.tabIndex = -1;
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", text(group, "more-colors", "More colors"));
-    group.append(toggle);
+    group.append(made(toggle));
     /* Ready once the closed state has painted: opening and closing
        animate, setting up doesn't. */
     requestAnimationFrame(() => requestAnimationFrame(() => toggle.setAttribute("data-state", "ready")));

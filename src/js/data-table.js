@@ -14,7 +14,6 @@
   /* ------------------------------------------------------------------ */
 
   const dataTables = new WeakSet();
-  let dataTableCount = 0;
 
   const setUpDataTable = (box) => {
     const frame = box.querySelector(":scope > .canon-table");
@@ -95,7 +94,7 @@
       button.type = "button";
       button.className = "canon-data-table-sort";
       button.append(...cell.childNodes);
-      cell.append(button);
+      cell.append(made(button, "wrap"));
       button.addEventListener("click", () => {
         const next = { ascending: "descending", descending: "none" }[cell.getAttribute("aria-sort")] ?? "ascending";
         const event = new CustomEvent("canon-sort", {
@@ -171,7 +170,7 @@
       const count = element(`<span class="canon-data-table-bulk-count" role="status"></span>`);
       const all = element(`<button type="button" class="canon-link canon-data-table-bulk-all" hidden></button>`);
       const line = element(`<hr class="canon-separator" aria-orientation="vertical">`);
-      bar.prepend(clear, count, all, line);
+      bar.prepend(...[clear, count, all, line].map(made));
       clear.addEventListener("click", () => {
         allRemote = false;
         for (const row of rows()) {
@@ -339,7 +338,7 @@
         });
         skeleton.append(row);
       }
-      table.append(skeleton);
+      table.append(made(skeleton));
       announce(text(box, "data-table-loading", "Loading"));
     };
 
@@ -480,7 +479,7 @@
       cell.querySelector(".canon-button:not([data-clear-filters])")?.setAttribute("data-clear-filters", "");
       row.append(cell);
       message.append(row);
-      table.append(message);
+      table.append(made(message));
     };
     const clearAll = () => {
       filters = [];
@@ -510,7 +509,7 @@
 
     /* Popovers canon.js draws live in the data table, after the table. */
     let popoverCount = 0;
-    const tableId = box.id || `canon-data-table-${++dataTableCount}`;
+    const tableId = box.id || uniqueName("canon-data-table");
     const makePopover = (className, label) => {
       const popover = document.createElement("div");
       popover.className = `canon-popover ${className}`;
@@ -518,7 +517,7 @@
       popover.popover = "auto";
       popover.setAttribute("role", "dialog");
       popover.setAttribute("aria-label", label);
-      box.append(popover);
+      box.append(made(popover));
       return popover;
     };
     const element = (html) => {
@@ -585,7 +584,7 @@
       const button = element(`<button type="button" class="canon-data-table-filter" aria-haspopup="dialog" aria-expanded="false" hidden><span class="canon-visually-hidden"></span></button>`);
       button.firstElementChild.textContent = say("data-table-edit-column-filter", "Edit the {column} filter", { column: headLabel(head) });
       button.setAttribute("popovertarget", columnPopover(head).id);
-      head.append(button);
+      head.append(made(button));
     };
 
     /* Chips: one per filter, under the toolbar; a chip opens its filter, its
@@ -603,6 +602,7 @@
         chips.setAttribute("role", "group");
         chips.setAttribute("aria-label", say("data-table-filters", "Filters"));
         const after = toolbar();
+        made(chips);
         if (after) after.after(chips);
         else box.prepend(chips);
       }
@@ -927,11 +927,11 @@
     const batch = () => !!form?.querySelector(".canon-save-bar");
     const editHint = document.createElement("span");
     editHint.className = "canon-data-table-edit-hint";
-    const editId = box.id || `canon-data-table-${++dataTableCount}`;
+    const editId = box.id || uniqueName("canon-data-table");
     editHint.id = `${editId}-edit-hint`;
     editHint.hidden = true;
     editHint.textContent = say("data-table-edit", "Edit");
-    box.append(editHint);
+    box.append(made(editHint));
     const editColumn = (cell) => {
       const head = headers()[cell.cellIndex];
       return head?.hasAttribute("data-edit") && head.dataset.edit !== "none" && head.dataset.column !== "select" && cell.parentElement.parentElement !== table.tHead ? head : null;
@@ -969,8 +969,8 @@
           shown.className = "canon-data-table-value";
           const field = fieldOf(cell);
           shown.append(...[...cell.childNodes].filter((node) => node !== field));
-          button.append(shown);
-          cell.prepend(button);
+          button.append(made(shown, "wrap"));
+          cell.prepend(made(button, "wrap"));
           describeEdit(cell);
           nameEdit(cell);
         }
@@ -1063,11 +1063,12 @@
       if (!editMessage) {
         editMessage = fromMarkup(`<div class="canon-tooltip" popover="manual" role="tooltip" data-placement="block-end inline-start"></div>`);
         editMessage.id = `${editId}-edit-message`;
-        box.append(editMessage);
+        box.append(made(editMessage));
       }
       editMessage.textContent = message;
       /* Anchored to the editor by a name of its own (kept beside the box's). */
       const name = `--${editId}-editor`;
+      ownAnchors.add(name);
       const names = anchor.style.anchorName && anchor.style.anchorName !== "none" ? anchor.style.anchorName.split(/\s*,\s*/) : [];
       if (!names.includes(name)) anchor.style.anchorName = [...names, name].join(", ");
       editMessage.style.positionAnchor = name;
@@ -1088,9 +1089,9 @@
       clearFailed(cell);
       cell.dataset.state = "failed";
       const tip = fromMarkup(`<div class="canon-tooltip" popover="hint" role="tooltip"></div>`);
-      tip.id = `${editId}-failed-${++dataTableCount}`;
+      tip.id = uniqueName(`${editId}-failed`);
       tip.textContent = message;
-      box.append(tip);
+      box.append(made(tip));
       failedTips.set(cell, tip);
       editButton(cell)?.setAttribute("interestfor", tip.id);
       describeEdit(cell, tip);
@@ -1186,7 +1187,7 @@
       cell.style.setProperty("--canon-edit-inline-size", `${cell.getBoundingClientRect().width}px`);
       quietly(() => {
         cell.dataset.state = "editing";
-        cell.append(editor);
+        cell.append(made(editor));
       });
       editing = { cell, head, editor, control, previous };
       const session = editing;

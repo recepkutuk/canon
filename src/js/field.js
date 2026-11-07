@@ -55,7 +55,7 @@
       mirror = document.createElement("div");
       mirror.className = "canon-limit-mirror";
       mirror.setAttribute("aria-hidden", "true");
-      control.before(mirror);
+      control.before(made(mirror));
       mirrors.set(control, mirror);
       control.addEventListener("scroll", () => {
         mirror.scrollTop = control.scrollTop;

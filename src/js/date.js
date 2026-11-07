@@ -82,9 +82,8 @@
      and years) and a grid; with a range, a column of presets. Its owner
      says what is chosen and what can't be, and takes the picks: one date
      (isSelected, pick) or a range (range.get, range.set, range.done). */
-  let calendarCount = 0;
   const makeCalendar = (owner, { lang, weekStart, months = 1, header = "zoom", isUnavailable, isWeekdayOff, bounds, isSelected, pick, range, week, presets = [] }) => {
-    const id = `canon-calendar-${++calendarCount}`;
+    const id = uniqueName("canon-calendar");
     const label = (key, fallback) => text(owner, key, fallback);
     const format = (options) => new Intl.DateTimeFormat(lang, options);
     const formats = {
@@ -574,7 +573,6 @@
   };
 
   const dateBoxes = new WeakSet();
-  let dateCount = 0;
 
   /* The field's parts: day, month and year in the language's order, with
      its separators (10.10.2025, 10/10/2025, 2025-10-10). */
@@ -680,7 +678,7 @@
     const days = document.createElement("div");
     days.className = "canon-date-strip-days";
     strip.append(previous, days, next);
-    box.after(strip);
+    box.after(made(strip));
 
     const today = () => makeDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     const weekOf = (date) => addDays(date, -((isoWeekday(date) - weekStart + 7) % 7));
@@ -832,7 +830,7 @@
     const found = [...box.querySelectorAll(":scope > input:is([type='date'], [type='week'])")];
     if (!found.length || dateBoxes.has(box)) return;
     dateBoxes.add(box);
-    const id = `canon-date-${++dateCount}`;
+    const id = uniqueName("canon-date");
     /* A week (<input type="week">: 2025-W42), a date, or a range of two
        dates. Browsers without week inputs make it a text input; canon.js
        draws it the same and checks min and max itself. */
@@ -942,7 +940,7 @@
 
     if (inline) {
       popup.setAttribute("role", "group");
-      box.after(popup);
+      box.after(made(popup));
       calendar.show(shown());
       /* The label's click lands on a hidden input: go to the calendar. */
       for (const each of inputs) each.addEventListener("click", () => calendar.focus({ focusVisible: false }));
@@ -985,7 +983,7 @@
         arrow.className = "canon-icon canon-date-arrow";
         arrow.dataset.icon = "arrow-forward";
         arrow.setAttribute("aria-hidden", "true");
-        box.querySelector(":scope > .canon-date-segments").after(arrow);
+        box.querySelector(":scope > .canon-date-segments").after(made(arrow));
       }
       /* A press on the box outside the fields: the first one. */
       box.addEventListener("mousedown", (event) => {
@@ -1013,9 +1011,9 @@
         : label(ranged ? "choose-dates" : "choose-date", ranged ? "Choose dates" : "Choose date");
       trigger.append(glyph, buttonName);
       trigger.popoverTargetElement = popup;
-      box.append(trigger, popup);
+      box.append(made(trigger), made(popup));
       const anchor = `--${id}`;
-      box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+      addAnchorName(box, anchor);
       popup.style.positionAnchor = anchor;
       popupAnchors.set(popup, box);
 
@@ -1136,7 +1134,7 @@
       hint.textContent = placeholderText;
       group.append(hint);
     }
-    input.after(group);
+    input.after(made(group));
     input.tabIndex = -1;
     input.setAttribute("aria-hidden", "true");
 

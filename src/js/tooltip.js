@@ -11,10 +11,9 @@
   const nameAnchor = (source, target) => {
     let name = anchorNames.get(source);
     if (!name) {
-      name = `--canon-anchor-${++anchorCount}`;
+      name = `--${uniqueName("canon-anchor")}`;
       anchorNames.set(source, name);
-      const own = source.style.anchorName;
-      source.style.anchorName = own && own !== "none" ? `${own}, ${name}` : name;
+      addAnchorName(source, name);
     }
     target.style.setProperty("--canon-tooltip-anchor", name);
     popupAnchors.set(target, source);

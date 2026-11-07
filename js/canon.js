@@ -58,8 +58,10 @@
   /* One shared, visually hidden live region for announcements. */
   let liveRegion;
   const announce = (text) => {
-    if (!liveRegion) {
-      liveRegion = document.createElement("div");
+    /* Made again where the page's body was replaced (a page restored
+       from a history snapshot). */
+    if (!liveRegion?.isConnected) {
+      liveRegion = made(document.createElement("div"));
       liveRegion.setAttribute("aria-live", "polite");
       liveRegion.style.cssText =
         "position:absolute;inline-size:1px;block-size:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap";
@@ -155,9 +157,64 @@
   document.addEventListener("keydown", () => { lastInput = "keyboard"; }, true);
   document.addEventListener("pointerdown", () => { lastInput = "pointer"; }, true);
 
+  /* Parts canon.js makes (a Combobox's trigger and list, a drawn
+     Pagination, a Date's calendar) carry data-canon-made. A copy of
+     enhanced markup (a page restored from a history snapshot, a region
+     cloned) has copies of them that nothing works: they go before the
+     set-ups run, which make the parts again. A part that holds what the
+     page wrote (a Data Table's sort button, around its header's text) is
+     data-canon-made="wrap": its copy gives the content back. */
+  const madeParts = new WeakSet();
+  const made = (element, kind = "") => {
+    element.setAttribute("data-canon-made", kind);
+    madeParts.add(element);
+    return element;
+  };
+  const clearCopy = (element) => {
+    if (element.getAttribute("data-canon-made") === "wrap") element.replaceWith(...element.childNodes);
+    else element.remove();
+  };
+  /* Whether root itself was one. */
+  const clearCopies = (root) => {
+    if (root.matches?.("[data-canon-made]") && !madeParts.has(root)) {
+      clearCopy(root);
+      return true;
+    }
+    for (const element of root.querySelectorAll?.("[data-canon-made]") ?? []) if (!madeParts.has(element)) clearCopy(element);
+    return false;
+  };
+
+  /* A name for an id (or an anchor) that nothing in the page uses yet,
+     not even a copy restored from before this page load: canon-date-3,
+     where canon-date-3 and canon-date-3-… are free. */
+  const nameCounts = new Map();
+  const nameTaken = (name) => Boolean(document.querySelector(`[id="${name}"], [id^="${name}-"], [style*="--${name};"], [style*="--${name},"]`));
+  /* What those names look like on what the page wrote (a label canon.js
+     named for a Combobox: canon-combobox-3-label). */
+  const madeId = /^canon-[a-z-]+-\d+(?:-|$)/;
+  const uniqueName = (prefix) => {
+    let name;
+    do {
+      const count = (nameCounts.get(prefix) ?? 0) + 1;
+      nameCounts.set(prefix, count);
+      name = `${prefix}-${count}`;
+    } while (nameTaken(name));
+    return name;
+  };
+
+  /* An anchor-name added to an element's own; ones canon.js gave a copy
+     of it before this page load go. */
+  const ownAnchors = new Set();
+  const anchorNamesOf = (element) => (element.style.anchorName && element.style.anchorName !== "none" ? element.style.anchorName.split(/\s*,\s*/) : []);
+  const staleAnchor = (name) => name.startsWith("--canon-") && !ownAnchors.has(name);
+  const addAnchorName = (element, name) => {
+    ownAnchors.add(name);
+    const names = anchorNamesOf(element).filter((each) => each !== name && !staleAnchor(each));
+    element.style.anchorName = [...names, name].join(", ");
+  };
+
   /* Named anchors made for popups and tooltips (see Popover anchors). */
   const anchorNames = new WeakMap();
-  let anchorCount = 0;
 
   /* What --canon-clear does on a Filter Bar (see Filter Bar). */
   const filterBarClears = new WeakMap();
@@ -262,7 +319,7 @@
       ticker = fromMarkup(`<span class="canon-number-ticker" aria-hidden="true"><span class="canon-number-ticker-from"></span><span class="canon-number-ticker-to"></span></span>`);
       ticker.firstElementChild.textContent = from;
       ticker.lastElementChild.textContent = to;
-      input.after(ticker);
+      input.after(made(ticker));
       /* Over the input's text: inside its border, measured from the box's
          padding edge (where the box, or the input, has the frame). */
       const boxRect = box.getBoundingClientRect();
@@ -389,7 +446,6 @@
   /* ------------------------------------------------------------------ */
 
   const tableFrames = new WeakSet();
-  let tableCount = 0;
 
   const setUpTable = (frame) => {
     const table = frame.querySelector(":scope > table");
@@ -413,7 +469,7 @@
         frame.removeAttribute("aria-labelledby");
         if (!scrolls) return;
         if (table.caption) {
-          table.caption.id ||= `canon-table-${++tableCount}-caption`;
+          table.caption.id ||= `${uniqueName("canon-table")}-caption`;
           frame.setAttribute("aria-labelledby", table.caption.id);
         } else if (table.hasAttribute("aria-labelledby")) frame.setAttribute("aria-labelledby", table.getAttribute("aria-labelledby"));
         else if (table.hasAttribute("aria-label")) frame.setAttribute("aria-label", table.getAttribute("aria-label"));
@@ -447,7 +503,6 @@
   };
 
   const codeBlocks = new WeakSet();
-  let codeBlockCount = 0;
 
   const setUpCodeBlock = (block) => {
     const pre = block.querySelector(":scope > pre");
@@ -473,7 +528,7 @@
         if (!scrolls) return;
         const title = block.querySelector(":scope > .canon-code-block-header > .canon-code-block-title");
         if (title) {
-          title.id ||= `canon-code-block-${++codeBlockCount}-title`;
+          title.id ||= `${uniqueName("canon-code-block")}-title`;
           pre.setAttribute("aria-labelledby", title.id);
         } else pre.setAttribute("aria-label", text(pre, "code", "Code"));
       }
@@ -505,7 +560,6 @@
   /* ------------------------------------------------------------------ */
 
   const dataTables = new WeakSet();
-  let dataTableCount = 0;
 
   const setUpDataTable = (box) => {
     const frame = box.querySelector(":scope > .canon-table");
@@ -586,7 +640,7 @@
       button.type = "button";
       button.className = "canon-data-table-sort";
       button.append(...cell.childNodes);
-      cell.append(button);
+      cell.append(made(button, "wrap"));
       button.addEventListener("click", () => {
         const next = { ascending: "descending", descending: "none" }[cell.getAttribute("aria-sort")] ?? "ascending";
         const event = new CustomEvent("canon-sort", {
@@ -662,7 +716,7 @@
       const count = element(`<span class="canon-data-table-bulk-count" role="status"></span>`);
       const all = element(`<button type="button" class="canon-link canon-data-table-bulk-all" hidden></button>`);
       const line = element(`<hr class="canon-separator" aria-orientation="vertical">`);
-      bar.prepend(clear, count, all, line);
+      bar.prepend(...[clear, count, all, line].map(made));
       clear.addEventListener("click", () => {
         allRemote = false;
         for (const row of rows()) {
@@ -830,7 +884,7 @@
         });
         skeleton.append(row);
       }
-      table.append(skeleton);
+      table.append(made(skeleton));
       announce(text(box, "data-table-loading", "Loading"));
     };
 
@@ -971,7 +1025,7 @@
       cell.querySelector(".canon-button:not([data-clear-filters])")?.setAttribute("data-clear-filters", "");
       row.append(cell);
       message.append(row);
-      table.append(message);
+      table.append(made(message));
     };
     const clearAll = () => {
       filters = [];
@@ -1001,7 +1055,7 @@
 
     /* Popovers canon.js draws live in the data table, after the table. */
     let popoverCount = 0;
-    const tableId = box.id || `canon-data-table-${++dataTableCount}`;
+    const tableId = box.id || uniqueName("canon-data-table");
     const makePopover = (className, label) => {
       const popover = document.createElement("div");
       popover.className = `canon-popover ${className}`;
@@ -1009,7 +1063,7 @@
       popover.popover = "auto";
       popover.setAttribute("role", "dialog");
       popover.setAttribute("aria-label", label);
-      box.append(popover);
+      box.append(made(popover));
       return popover;
     };
     const element = (html) => {
@@ -1076,7 +1130,7 @@
       const button = element(`<button type="button" class="canon-data-table-filter" aria-haspopup="dialog" aria-expanded="false" hidden><span class="canon-visually-hidden"></span></button>`);
       button.firstElementChild.textContent = say("data-table-edit-column-filter", "Edit the {column} filter", { column: headLabel(head) });
       button.setAttribute("popovertarget", columnPopover(head).id);
-      head.append(button);
+      head.append(made(button));
     };
 
     /* Chips: one per filter, under the toolbar; a chip opens its filter, its
@@ -1094,6 +1148,7 @@
         chips.setAttribute("role", "group");
         chips.setAttribute("aria-label", say("data-table-filters", "Filters"));
         const after = toolbar();
+        made(chips);
         if (after) after.after(chips);
         else box.prepend(chips);
       }
@@ -1418,11 +1473,11 @@
     const batch = () => !!form?.querySelector(".canon-save-bar");
     const editHint = document.createElement("span");
     editHint.className = "canon-data-table-edit-hint";
-    const editId = box.id || `canon-data-table-${++dataTableCount}`;
+    const editId = box.id || uniqueName("canon-data-table");
     editHint.id = `${editId}-edit-hint`;
     editHint.hidden = true;
     editHint.textContent = say("data-table-edit", "Edit");
-    box.append(editHint);
+    box.append(made(editHint));
     const editColumn = (cell) => {
       const head = headers()[cell.cellIndex];
       return head?.hasAttribute("data-edit") && head.dataset.edit !== "none" && head.dataset.column !== "select" && cell.parentElement.parentElement !== table.tHead ? head : null;
@@ -1460,8 +1515,8 @@
           shown.className = "canon-data-table-value";
           const field = fieldOf(cell);
           shown.append(...[...cell.childNodes].filter((node) => node !== field));
-          button.append(shown);
-          cell.prepend(button);
+          button.append(made(shown, "wrap"));
+          cell.prepend(made(button, "wrap"));
           describeEdit(cell);
           nameEdit(cell);
         }
@@ -1554,11 +1609,12 @@
       if (!editMessage) {
         editMessage = fromMarkup(`<div class="canon-tooltip" popover="manual" role="tooltip" data-placement="block-end inline-start"></div>`);
         editMessage.id = `${editId}-edit-message`;
-        box.append(editMessage);
+        box.append(made(editMessage));
       }
       editMessage.textContent = message;
       /* Anchored to the editor by a name of its own (kept beside the box's). */
       const name = `--${editId}-editor`;
+      ownAnchors.add(name);
       const names = anchor.style.anchorName && anchor.style.anchorName !== "none" ? anchor.style.anchorName.split(/\s*,\s*/) : [];
       if (!names.includes(name)) anchor.style.anchorName = [...names, name].join(", ");
       editMessage.style.positionAnchor = name;
@@ -1579,9 +1635,9 @@
       clearFailed(cell);
       cell.dataset.state = "failed";
       const tip = fromMarkup(`<div class="canon-tooltip" popover="hint" role="tooltip"></div>`);
-      tip.id = `${editId}-failed-${++dataTableCount}`;
+      tip.id = uniqueName(`${editId}-failed`);
       tip.textContent = message;
-      box.append(tip);
+      box.append(made(tip));
       failedTips.set(cell, tip);
       editButton(cell)?.setAttribute("interestfor", tip.id);
       describeEdit(cell, tip);
@@ -1677,7 +1733,7 @@
       cell.style.setProperty("--canon-edit-inline-size", `${cell.getBoundingClientRect().width}px`);
       quietly(() => {
         cell.dataset.state = "editing";
-        cell.append(editor);
+        cell.append(made(editor));
       });
       editing = { cell, head, editor, control, previous };
       const session = editing;
@@ -1998,7 +2054,7 @@
         return item;
       };
 
-      const fresh = document.createElement("ol");
+      const fresh = made(document.createElement("ol"));
       const ends = nav.hasAttribute("data-ends");
       const before = s.page > 1 ? s.page - 1 : null;
       const after = s.page < s.pages ? s.page + 1 : null;
@@ -2377,14 +2433,13 @@
   /* ------------------------------------------------------------------ */
 
   const palettes = new WeakSet();
-  let paletteCount = 0;
   const setUpCommandPalette = (palette) => {
     if (palettes.has(palette)) return;
     const input = palette.querySelector(":scope > .canon-command-search > input");
     const list = palette.querySelector(":scope > .canon-command-list");
     if (!input || !list) return;
     palettes.add(palette);
-    const id = palette.id || `canon-command-${++paletteCount}`;
+    const id = palette.id || uniqueName("canon-command");
     const say = (key, fallback, values) => (values ? fill(text(palette, key, fallback), values) : text(palette, key, fallback));
     let observer = null;
     const quietly = (fn) => {
@@ -2469,7 +2524,7 @@
       if (!empty && words.length) {
         empty = document.createElement("p");
         empty.className = "canon-command-empty";
-        list.after(empty);
+        list.after(made(empty));
       }
       if (empty) {
         empty.hidden = visible.length > 0 || !words.length;
@@ -2658,12 +2713,11 @@
   /* things get data-folded.                                             */
   /* ------------------------------------------------------------------ */
 
-  let foldCount = 0;
 
   /* A menu of what folded, filled each time it opens (so it is never
      out of date). */
   const foldMenu = (id, fill) => {
-    const menu = fromMarkup(`<div class="canon-menu" id="${id}" popover role="menu"></div>`);
+    const menu = made(fromMarkup(`<div class="canon-menu" id="${id}" popover role="menu"></div>`));
     menu.addEventListener("beforetoggle", (event) => {
       if (event.newState === "open") menu.replaceChildren(...fill());
     });
@@ -2689,9 +2743,9 @@
           return;
         }
         if (more) return;
-        const id = `canon-fold-${++foldCount}`;
+        const id = uniqueName("canon-fold");
         const label = text(host, "more-pages", "More pages");
-        more = fromMarkup(`<li><button type="button" class="canon-breadcrumb-more" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-visually-hidden"></span></button></li>`);
+        more = made(fromMarkup(`<li><button type="button" class="canon-breadcrumb-more" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-visually-hidden"></span></button></li>`));
         more.querySelector(".canon-visually-hidden").textContent = label;
         const menu = foldMenu(id, () => items().filter((li) => li.hasAttribute("data-folded")).flatMap((li) => {
           const own = li.querySelector(".canon-menu");
@@ -2731,8 +2785,8 @@
           return;
         }
         if (more) return;
-        const id = `canon-fold-${++foldCount}`;
-        const button = fromMarkup(`<button type="button" class="canon-button" data-display="icon" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label"></span></button>`);
+        const id = uniqueName("canon-fold");
+        const button = made(fromMarkup(`<button type="button" class="canon-button" data-display="icon" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-icon" data-icon="more" aria-hidden="true"></span><span class="canon-button-label"></span></button>`));
         button.querySelector(".canon-button-label").textContent = text(host, "more", "More");
         for (const attribute of ["data-emphasis", "data-intent", "data-size"]) {
           if (all[0].hasAttribute(attribute)) button.setAttribute(attribute, all[0].getAttribute(attribute));
@@ -2981,7 +3035,7 @@
     /* Folding: the More button, made when first needed. */
     let more = null;
     const makeMore = () => {
-      const id = `canon-fold-${++foldCount}`;
+      const id = uniqueName("canon-fold");
       const button = fromMarkup(`<button type="button" class="canon-tabs-more" id="${id}-button" popovertarget="${id}" aria-haspopup="menu" aria-expanded="false"><span class="canon-tab-label"></span><span class="canon-icon" data-icon="chevron-down" aria-hidden="true"></span></button>`);
       button.querySelector(".canon-tab-label").textContent = text(list, "more", "More");
       const menu = foldMenu(id, () => tabs().filter((tab) => tab.hasAttribute("data-folded")).map((tab) => {
@@ -3002,6 +3056,8 @@
         return item;
       }));
       menu.setAttribute("aria-labelledby", button.id);
+      made(button);
+      made(menu);
       if (inPage) list.after(button, menu);
       else list.append(button, menu);
       setUpMenu(menu);
@@ -3269,7 +3325,7 @@
     toast.style.setProperty("--canon-toast-index", "0");
     toast.style.setProperty("--canon-toast-offset", `${below}px`);
     box.style.setProperty("--canon-toaster-count", String(staying.length + 1));
-    box.append(toast);
+    box.append(made(toast));
     /* Over a modal dialog opened since: shown again, so it is on top. */
     if (box.matches(":popover-open") && document.querySelector("dialog:modal")) box.hidePopover();
     if (!box.matches(":popover-open")) box.showPopover();
@@ -3373,7 +3429,7 @@
     input.setAttribute("aria-label", name || previous);
     target.setAttribute("data-editing", "");
     source.setAttribute("data-editing", "");
-    target.after(input);
+    target.after(made(input));
     input.focus();
     input.select();
     let done = false;
@@ -4116,7 +4172,7 @@
     if (!textarea || richBoxes.has(box)) return;
     richBoxes.add(box);
     const label = (key, fallback) => text(box, `rich-${key}`, fallback);
-    const id = textarea.id || `canon-rich-${Math.random().toString(36).slice(2, 8)}`;
+    const id = textarea.id || uniqueName("canon-rich");
     const tools = new Set((box.dataset.tools || richDefault).split(/\s+/).flatMap((tool) => (tool === "all" ? richTools : [tool])));
     const make = (tag, className, attributes = {}) => {
       const element = document.createElement(tag);
@@ -4324,8 +4380,8 @@
       single.dataset.emphasis ??= "low";
       single.dataset.intent ??= "neutral";
     }
-    if (toolbar.children.length) box.prepend(toolbar);
-    box.append(area);
+    if (toolbar.children.length) box.prepend(made(toolbar));
+    box.append(made(area));
 
     /* The textarea: hidden, still the value; its focus (the label, a failed
        check) goes to the area. */
@@ -5066,7 +5122,6 @@
   /* ------------------------------------------------------------------ */
 
   const spotlights = new WeakSet();
-  let spotlightCount = 0;
   const avatarName = (avatar) =>
     avatar.querySelector(":scope > .canon-avatar-fallback[aria-label]")?.getAttribute("aria-label")
     || avatar.getAttribute("aria-label")
@@ -5079,8 +5134,8 @@
     spotlights.add(host);
     const group = host.matches(".canon-avatar-group");
     const avatars = () => (group ? [...host.children].filter((child) => child.matches(".canon-avatar")) : [host]);
-    const id = `canon-spotlight-${++spotlightCount}`;
-    let made = null;
+    const id = uniqueName("canon-spotlight");
+    let nameTip = null;
     let shown = null;
     let showTimer = null;
     let hideTimer = null;
@@ -5112,13 +5167,13 @@
     const tipFor = (avatar) => {
       const own = avatar.getAttribute("interestfor") && document.getElementById(avatar.getAttribute("interestfor"));
       if (own) return own;
-      if (!made) {
-        made = fromMarkup(`<div class="canon-tooltip" popover="manual" aria-hidden="true"></div>`);
-        made.id = `${id}-tip`;
-        host.after(made);
+      if (!nameTip) {
+        nameTip = fromMarkup(`<div class="canon-tooltip" popover="manual" aria-hidden="true"></div>`);
+        nameTip.id = `${id}-tip`;
+        host.after(made(nameTip));
       }
-      made.textContent = avatarName(avatar);
-      return made.textContent ? made : null;
+      nameTip.textContent = avatarName(avatar);
+      return nameTip.textContent ? nameTip : null;
     };
     const hide = () => {
       clearTimeout(showTimer);
@@ -5135,6 +5190,7 @@
       if (!tip) return;
       /* The name moves to this avatar (others may hold more names). */
       const name = `--${id}`;
+      ownAnchors.add(name);
       const namesOf = (each) => (each.style.anchorName && each.style.anchorName !== "none" ? each.style.anchorName.split(/\s*,\s*/) : []);
       for (const each of avatars()) {
         if (each === avatar || !namesOf(each).includes(name)) continue;
@@ -5438,7 +5494,7 @@
       mirror = document.createElement("div");
       mirror.className = "canon-limit-mirror";
       mirror.setAttribute("aria-hidden", "true");
-      control.before(mirror);
+      control.before(made(mirror));
       mirrors.set(control, mirror);
       control.addEventListener("scroll", () => {
         mirror.scrollTop = control.scrollTop;
@@ -5695,7 +5751,6 @@
 
   const comboboxSelect = ".canon-combobox > select";
   const comboboxes = new WeakSet();
-  let comboboxCount = 0;
 
   /* Folded text, with the index of the original character behind each
      of its characters (folding can change the length). */
@@ -5757,7 +5812,7 @@
     if (comboboxes.has(select)) return;
     comboboxes.add(select);
     const box = select.parentElement;
-    const id = `canon-combobox-${++comboboxCount}`;
+    const id = uniqueName("canon-combobox");
     const multiple = select.multiple;
     const inline = box.dataset.search === "inline";
     const searchable = inline || box.dataset.search === "list";
@@ -5847,7 +5902,7 @@
 
     /* The box is the popup's anchor. */
     const anchor = `--${id}`;
-    box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+    addAnchorName(box, anchor);
     popup.style.positionAnchor = anchor;
     popupAnchors.set(popup, box);
 
@@ -5858,7 +5913,7 @@
     if (trigger) parts.push(trigger);
     else if (!multiple) parts.push(input);
     else parts.push(value);
-    select.after(...parts, popup);
+    select.after(...[...parts, popup].map(made));
 
     /* The select's label and description name the box's control, the
        popup and the list. */
@@ -6535,7 +6590,7 @@
     toggle.tabIndex = -1;
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", text(group, "more-colors", "More colors"));
-    group.append(toggle);
+    group.append(made(toggle));
     /* Ready once the closed state has painted: opening and closing
        animate, setting up doesn't. */
     requestAnimationFrame(() => requestAnimationFrame(() => toggle.setAttribute("data-state", "ready")));
@@ -6597,7 +6652,6 @@
   /* ------------------------------------------------------------------ */
 
   const colorBoxes = new WeakSet();
-  let colorCount = 0;
   const nativeAlpha = "alpha" in HTMLInputElement.prototype;
 
   /* Any CSS color to { r, g, b, a } (0-255, alpha 0-1), through a canvas;
@@ -6648,10 +6702,10 @@
   };
 
   const setUpColor = (box) => {
-    const input = box.querySelector(":scope > input[type='color']");
+    const input = box.querySelector(":scope > input:is([type='color'], [data-canon-type='color'])");
     if (!input || colorBoxes.has(box)) return;
     colorBoxes.add(box);
-    const id = `canon-color-${++colorCount}`;
+    const id = uniqueName("canon-color");
     const alpha = input.hasAttribute("alpha");
     /* data-inline: the picker in place of the box, always shown. */
     const inline = box.hasAttribute("data-inline");
@@ -6667,6 +6721,7 @@
        the browser can't keep alpha), the browser's hex without. */
     const initial = parseColor(input.getAttribute("value") ?? input.value) ?? parseColor(input.value) ?? { r: 0, g: 0, b: 0, a: 1 };
     if (alpha && !nativeAlpha) {
+      input.dataset.canonType = "color";
       input.type = "text";
       input.readOnly = true;
       input.setAttribute("autocomplete", "off");
@@ -6679,7 +6734,7 @@
 
     /* The swatch the box shows (the input covers it, transparent). */
     const swatch = make("span", "canon-color-swatch", { "aria-hidden": "true" });
-    input.after(swatch);
+    input.after(made(swatch));
 
     /* The popover. */
     const popup = make("div", "canon-color-popup", inline ? { id: `${id}-popup`, role: "group" } : { id: `${id}-popup`, popover: "auto", role: "dialog" });
@@ -6733,13 +6788,13 @@
       }
       popup.append(make("hr", "canon-separator", { "data-size": "sm" }), caption, group);
     }
-    if (inline) box.after(popup);
-    else box.append(popup);
+    if (inline) box.after(made(popup));
+    else box.append(made(popup));
 
     /* Named like the input; anchored to the box. */
     if (!inline) {
       const anchor = `--${id}`;
-      box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+      addAnchorName(box, anchor);
       popup.style.positionAnchor = anchor;
       popupAnchors.set(popup, box);
     }
@@ -7046,7 +7101,7 @@
       for (let j = 0; j < size; j++) slots.push(group.appendChild(make("canon-otp-cell")));
       cells.append(group);
     });
-    input.after(cells);
+    input.after(made(cells));
 
     /* The caret's cell: a filled one is selected (typing replaces it);
        past the value, the caret waits at the end. */
@@ -7170,6 +7225,9 @@
   const emptied = (item) => {
     const copy = item.cloneNode(true);
     copy.removeAttribute("role");
+    /* Ids canon.js gave its parts (a label named for a Combobox), on a page
+       restored from a copy. */
+    for (const element of copy.querySelectorAll("[id]")) if (madeId.test(element.id)) element.removeAttribute("id");
     for (const input of copy.querySelectorAll("input")) {
       input.removeAttribute("value");
       input.removeAttribute("checked");
@@ -7431,9 +7489,8 @@
      and years) and a grid; with a range, a column of presets. Its owner
      says what is chosen and what can't be, and takes the picks: one date
      (isSelected, pick) or a range (range.get, range.set, range.done). */
-  let calendarCount = 0;
   const makeCalendar = (owner, { lang, weekStart, months = 1, header = "zoom", isUnavailable, isWeekdayOff, bounds, isSelected, pick, range, week, presets = [] }) => {
-    const id = `canon-calendar-${++calendarCount}`;
+    const id = uniqueName("canon-calendar");
     const label = (key, fallback) => text(owner, key, fallback);
     const format = (options) => new Intl.DateTimeFormat(lang, options);
     const formats = {
@@ -7923,7 +7980,6 @@
   };
 
   const dateBoxes = new WeakSet();
-  let dateCount = 0;
 
   /* The field's parts: day, month and year in the language's order, with
      its separators (10.10.2025, 10/10/2025, 2025-10-10). */
@@ -8029,7 +8085,7 @@
     const days = document.createElement("div");
     days.className = "canon-date-strip-days";
     strip.append(previous, days, next);
-    box.after(strip);
+    box.after(made(strip));
 
     const today = () => makeDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     const weekOf = (date) => addDays(date, -((isoWeekday(date) - weekStart + 7) % 7));
@@ -8181,7 +8237,7 @@
     const found = [...box.querySelectorAll(":scope > input:is([type='date'], [type='week'])")];
     if (!found.length || dateBoxes.has(box)) return;
     dateBoxes.add(box);
-    const id = `canon-date-${++dateCount}`;
+    const id = uniqueName("canon-date");
     /* A week (<input type="week">: 2025-W42), a date, or a range of two
        dates. Browsers without week inputs make it a text input; canon.js
        draws it the same and checks min and max itself. */
@@ -8291,7 +8347,7 @@
 
     if (inline) {
       popup.setAttribute("role", "group");
-      box.after(popup);
+      box.after(made(popup));
       calendar.show(shown());
       /* The label's click lands on a hidden input: go to the calendar. */
       for (const each of inputs) each.addEventListener("click", () => calendar.focus({ focusVisible: false }));
@@ -8334,7 +8390,7 @@
         arrow.className = "canon-icon canon-date-arrow";
         arrow.dataset.icon = "arrow-forward";
         arrow.setAttribute("aria-hidden", "true");
-        box.querySelector(":scope > .canon-date-segments").after(arrow);
+        box.querySelector(":scope > .canon-date-segments").after(made(arrow));
       }
       /* A press on the box outside the fields: the first one. */
       box.addEventListener("mousedown", (event) => {
@@ -8362,9 +8418,9 @@
         : label(ranged ? "choose-dates" : "choose-date", ranged ? "Choose dates" : "Choose date");
       trigger.append(glyph, buttonName);
       trigger.popoverTargetElement = popup;
-      box.append(trigger, popup);
+      box.append(made(trigger), made(popup));
       const anchor = `--${id}`;
-      box.style.anchorName = box.style.anchorName && box.style.anchorName !== "none" ? `${box.style.anchorName}, ${anchor}` : anchor;
+      addAnchorName(box, anchor);
       popup.style.positionAnchor = anchor;
       popupAnchors.set(popup, box);
 
@@ -8485,7 +8541,7 @@
       hint.textContent = placeholderText;
       group.append(hint);
     }
-    input.after(group);
+    input.after(made(group));
     input.tabIndex = -1;
     input.setAttribute("aria-hidden", "true");
 
@@ -8728,7 +8784,6 @@
   /* ------------------------------------------------------------------ */
 
   const timeBoxes = new WeakSet();
-  let timeCount = 0;
 
   /* The language's clock: 12 or 24 hours, and its day periods. */
   const clockOf = (lang) => {
@@ -8792,7 +8847,7 @@
       group.append(cell);
     });
     for (const literal of group.querySelectorAll(".canon-time-literal")) literal.setAttribute("aria-hidden", "true");
-    input.after(group);
+    input.after(made(group));
     input.tabIndex = -1;
     input.setAttribute("aria-hidden", "true");
     const order = types.map((type) => values[type]);
@@ -9068,7 +9123,7 @@
     const inputs = [...box.querySelectorAll(":scope > input[type='time']")].slice(0, 2);
     if (!inputs.length || timeBoxes.has(box)) return;
     timeBoxes.add(box);
-    const id = `canon-time-${++timeCount}`;
+    const id = uniqueName("canon-time");
     const [input, endInput] = inputs;
     const ranged = !!endInput;
     const lang = langOf(box);
@@ -9094,7 +9149,7 @@
       arrow.className = "canon-icon canon-time-arrow";
       arrow.dataset.icon = "arrow-forward";
       arrow.setAttribute("aria-hidden", "true");
-      box.querySelector(":scope > .canon-time-segments").after(arrow);
+      box.querySelector(":scope > .canon-time-segments").after(made(arrow));
     }
 
     /* Validity: an incomplete time, a range's end before its start (the
@@ -9341,6 +9396,9 @@
   ].filter(Boolean);
   const hasReveals = typeof syncReveals === "function";
 
+  /* Copies of parts canon.js made (a page restored from a history
+     snapshot, a region cloned) go first; the set-ups make them again. */
+  clearCopies(document);
   for (const setUp of setUps) setUp(document);
   new MutationObserver((records) => {
     const counted = new Set();
@@ -9368,6 +9426,7 @@
       }
       for (const node of record.addedNodes) {
         if (node.nodeType !== 1) continue;
+        if (clearCopies(node)) continue;
         for (const setUp of setUps) setUp(node);
         if (hasReveals && (node.matches(".canon-form-reveal") || node.querySelector(".canon-form-reveal"))) syncReveals(node.parentElement ?? document);
         if (typeof openAlert === "function" && node.matches(".canon-alert[role], .canon-banner[role]")) openAlert(node);
@@ -9388,10 +9447,9 @@
   const nameAnchor = (source, target) => {
     let name = anchorNames.get(source);
     if (!name) {
-      name = `--canon-anchor-${++anchorCount}`;
+      name = `--${uniqueName("canon-anchor")}`;
       anchorNames.set(source, name);
-      const own = source.style.anchorName;
-      source.style.anchorName = own && own !== "none" ? `${own}, ${name}` : name;
+      addAnchorName(source, name);
     }
     target.style.setProperty("--canon-tooltip-anchor", name);
     popupAnchors.set(target, source);
@@ -9546,13 +9604,14 @@
     const anchor = anchorOf(popup, event);
     if (!anchor) return;
     if (anchorPositioning) {
-      if (!popup.style.positionAnchor && ["auto", "normal"].includes(getComputedStyle(popup).positionAnchor)) {
+      /* One a copy of the page was given before this page load goes. */
+      if (staleAnchor(popup.style.positionAnchor)) popup.style.removeProperty("position-anchor");
+      if (!popup.style.positionAnchor &&["auto", "normal"].includes(getComputedStyle(popup).positionAnchor)) {
         let name = anchorNames.get(anchor);
         if (!name) {
-          name = `--canon-anchor-${++anchorCount}`;
+          name = `--${uniqueName("canon-anchor")}`;
           anchorNames.set(anchor, name);
-          const own = anchor.style.anchorName;
-          anchor.style.anchorName = own && own !== "none" ? `${own}, ${name}` : name;
+          addAnchorName(anchor, name);
         }
         popup.style.positionAnchor = name;
       }

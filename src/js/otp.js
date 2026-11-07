@@ -33,7 +33,7 @@
       for (let j = 0; j < size; j++) slots.push(group.appendChild(make("canon-otp-cell")));
       cells.append(group);
     });
-    input.after(cells);
+    input.after(made(cells));
 
     /* The caret's cell: a filled one is selected (typing replaces it);
        past the value, the caret waits at the end. */
