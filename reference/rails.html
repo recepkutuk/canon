@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · With Rails</title>
+  <meta name="description" content="Canon in a Rails app: the asset pipeline and Turbo, a form builder that writes every form in Canon's markup, errors, flash messages as toasts, and lists with pages. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:description" content="Canon in a Rails app: the asset pipeline and Turbo, a form builder that writes every form in Canon's markup, errors, flash messages as toasts, and lists with pages. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Canon">
+  <meta property="og:title" content="Canon · With Rails">
+  <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/rails.html">
+  <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
+  <meta property="og:image:width" content="1664">
+  <meta property="og:image:height" content="968">
+  <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>With Rails</h1>
+  <p class="ref-note">Canon in a Rails app: the asset pipeline and Turbo, a form builder that writes every form in Canon's markup, errors, flash messages as toasts, and lists with pages. For adding Canon to a page, start with <a href="getting-started.html">Getting started</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="setup">
+    <h2>Set up</h2>
+    <p class="ref-note">Canon is two files, and the asset pipeline serves them like your own. Take them from the npm package (keep the <code>css</code> folder whole: a stylesheet finds its icons and fonts beside it):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-copy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Terminal</span></button>
+      </div>
+      <pre><code id="rb-copy">npm i canon-ui
+mkdir -p vendor/assets/canon/js
+cp -R node_modules/canon-ui/css vendor/assets/canon/
+cp node_modules/canon-ui/js/canon.js vendor/assets/canon/js/</code></pre>
+    </div>
+    <p class="ref-note">Then link them in the layout, with one more line for Turbo:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/views/layouts/application.html.erb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-head" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/layouts/application.html.erb</span></button>
+      </div>
+      <pre><code id="rb-head" data-lang="html">&lt;%= csrf_meta_tags %&gt;
+&lt;meta name=&quot;turbo-cache-control&quot; content=&quot;no-cache&quot;&gt;
+&lt;%= stylesheet_link_tag &quot;css/canon/canon&quot; %&gt;
+&lt;%= javascript_include_tag &quot;js/canon&quot;, defer: true %&gt;
+&lt;%= javascript_importmap_tags %&gt;</code></pre>
+    </div>
+    <p class="ref-note"><strong>Turbo's page cache, off.</strong> On Back and Forward, Turbo shows a copy of the page it kept, made after canon.js had set up its components, and canon.js would set them up a second time. <code>turbo-cache-control</code> set to <code>no-cache</code> fetches the page again instead, so every page comes from your server as written. Turbo still makes every other visit without a reload.</p>
+    <p class="ref-note">Or link both files from a CDN, as <a href="getting-started.html">Getting started</a> shows. Either way there's nothing to build and no gem to add.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="forms">
+    <h2>Every form in Canon's markup</h2>
+    <p class="ref-note">A form builder gives every <code>form_with</code> Canon's markup. First, stop Rails wrapping fields that have errors in a <code>&lt;div class="field_with_errors"&gt;</code>: Canon marks them itself, and the wrapper would break a Field's structure.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">config/initializers/canon.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-initializer" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy config/initializers/canon.rb</span></button>
+      </div>
+      <pre><code id="rb-initializer"># Canon marks invalid fields itself (aria-invalid and a message), so Rails
+# shouldn&#x27;t wrap them in a &lt;div class=&quot;field_with_errors&quot;&gt;.
+ActionView::Base.field_error_proc = -&gt;(html_tag, _instance) { html_tag }</code></pre>
+    </div>
+    <p class="ref-note">The builder writes each field as its Canon component: a Text Input, Textarea, Select, Date or Password in a Field, a Checkbox, radios in a Fieldset, and errors about the whole record in a danger Alert. It ties the label, description and message to the control (<code>aria-describedby</code>, <code>aria-invalid</code>), adds the empty <code>placeholder</code> Canon's text boxes need, and reads presence validations: those fields are <code>required</code>, the others say "(optional)".</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/form_builders/canon_form_builder.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-builder" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/form_builders/canon_form_builder.rb</span></button>
+      </div>
+      <pre><code id="rb-builder"># Canon&#x27;s markup for Rails forms: each field as its Canon component, its
+# label, description and error message tied to the control.
+class CanonFormBuilder &lt; ActionView::Helpers::FormBuilder
+  # A Field: label, optional description, the box, and a message.
+  #   f.field :email, as: :email_field, hint: &quot;Where the invoice is sent.&quot;
+  #   f.field :status, as: :select, choices: [[&quot;Draft&quot;, &quot;draft&quot;], [&quot;Sent&quot;, &quot;sent&quot;]]
+  def field(method, as: :text_field, label: nil, hint: nil, choices: nil, **options)
+    id = field_id(method)
+    control = options.merge(control_attributes(method, hint))
+    control[:placeholder] ||= &quot;&quot; if %i[text_field email_field url_field telephone_field search_field number_field password_field text_area].include?(as)
+    control[:required] = true if required?(method)
+
+    @template.tag.div(class: &quot;canon-field&quot;) do
+      @template.safe_join([
+        @template.tag.div(class: &quot;canon-label&quot;) do
+          @template.safe_join([
+            label(method, class: &quot;canon-label-text&quot;) { label_text(method, label, optional: !required?(method)) },
+            (@template.tag.p(hint, class: &quot;canon-label-description&quot;, id: &quot;#{id}_hint&quot;) if hint)
+          ].compact)
+        end,
+        box(as, method, choices, control),
+        message(method, &quot;canon-field-message&quot;)
+      ])
+    end
+  end
+
+  # A Checkbox: the control, its label after it, and a message. Rails&#x27;
+  # hidden &quot;0&quot; (so unchecking is sent too) goes before it, outside: a
+  # Choice holds only its checkbox, label and message.
+  def check(method, label: nil, **options)
+    @template.safe_join([
+      hidden_field(method, value: &quot;0&quot;, id: nil),
+      @template.tag.div(class: &quot;canon-choice&quot;) do
+        @template.safe_join([
+          check_box(method, options.merge(control_attributes(method, nil), include_hidden: false)),
+          label(method, label, class: &quot;canon-choice-label&quot;),
+          message(method, &quot;canon-choice-message&quot;)
+        ])
+      end
+    ])
+  end
+
+  # Radios in a Fieldset: the legend, an optional hint, one Radio each,
+  # and the group&#x27;s message.
+  def radios(method, choices, legend:, hint: nil)
+    id = field_id(method)
+    described = [(&quot;#{id}_hint&quot; if hint), &quot;#{id}_error&quot;].compact.join(&quot; &quot;)
+    @template.tag.fieldset(class: &quot;canon-fieldset&quot;, aria: { describedby: described }) do
+      @template.safe_join([
+        @template.tag.legend(legend, class: &quot;canon-fieldset-legend&quot;),
+        (@template.tag.p(hint, class: &quot;canon-fieldset-hint&quot;, id: &quot;#{id}_hint&quot;) if hint),
+        *choices.map do |text, value|
+          @template.tag.div(class: &quot;canon-choice&quot;) do
+            @template.safe_join([
+              radio_button(method, value, required: required?(method), aria: { invalid: (true if errors?(method)) }),
+              label(method, text, value: value, class: &quot;canon-choice-label&quot;)
+            ])
+          end
+        end,
+        message(method, &quot;canon-fieldset-message&quot;)
+      ].compact)
+    end
+  end
+
+  # Errors about the whole record, in a danger Alert.
+  def base_errors
+    messages = object&amp;.errors&amp;.full_messages_for(:base) || []
+    return if messages.empty?
+    @template.tag.div(class: &quot;canon-alert&quot;, data: { intent: &quot;danger&quot; }, role: &quot;alert&quot;) do
+      @template.tag.p(messages.join(&quot; &quot;), class: &quot;canon-alert-title&quot;)
+    end
+  end
+
+  private
+
+  def box(as, method, choices, control)
+    case as
+    when :text_area then @template.tag.div(text_area(method, control), class: &quot;canon-textarea&quot;)
+    when :select then @template.tag.div(select(method, choices, {}, control), class: &quot;canon-select&quot;)
+    when :date_field then @template.tag.div(date_field(method, control), class: &quot;canon-date&quot;)
+    when :password_field
+      @template.tag.div(class: &quot;canon-password&quot;) do
+        @template.safe_join([
+          password_field(method, control),
+          @template.tag.button(type: &quot;button&quot;, class: &quot;canon-button&quot;, data: { emphasis: &quot;minimal&quot;, display: &quot;icon&quot; },
+                               aria: { pressed: false }, commandfor: field_id(method), command: &quot;--canon-toggle-password&quot;) do
+            @template.safe_join([
+              @template.tag.span(class: &quot;canon-icon&quot;, data: { icon: &quot;eye&quot; }, aria: { hidden: true }),
+              @template.tag.span(&quot;Show password&quot;, class: &quot;canon-button-label&quot;)
+            ])
+          end
+        ])
+      end
+    else @template.tag.div(public_send(as, method, control), class: &quot;canon-text-input&quot;)
+    end
+  end
+
+  def control_attributes(method, hint)
+    id = field_id(method)
+    described = [(&quot;#{id}_hint&quot; if hint), &quot;#{id}_error&quot;].compact.join(&quot; &quot;)
+    { aria: { describedby: described, invalid: (true if errors?(method)) } }
+  end
+
+  def message(method, css_class)
+    text = object&amp;.errors&amp;.full_messages_for(method)&amp;.join(&quot; &quot;)
+    @template.tag.p(text, class: css_class, id: &quot;#{field_id(method)}_error&quot;, data: { intent: (&quot;danger&quot; if errors?(method)) })
+  end
+
+  def label_text(method, text, optional:)
+    text ||= method.to_s.humanize
+    return text unless optional
+    @template.safe_join([text, &quot; &quot;, @template.tag.span(&quot;(optional)&quot;, class: &quot;canon-label-optional&quot;)])
+  end
+
+  def errors?(method) = object&amp;.errors&amp;.include?(method)
+
+  def required?(method)
+    object.class.respond_to?(:validators_on) &amp;&amp;
+      object.class.validators_on(method).any?(ActiveModel::Validations::PresenceValidator)
+  end
+end</code></pre>
+    </div>
+    <p class="ref-note">Make it every form's builder:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/controllers/application_controller.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-app-controller" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/controllers/application_controller.rb</span></button>
+      </div>
+      <pre><code id="rb-app-controller">class ApplicationController &lt; ActionController::Base
+  default_form_builder CanonFormBuilder
+end</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="using">
+    <h2>Using it</h2>
+    <p class="ref-note">Each field is one line, the field's kind in <code>as:</code>. A <code>canon-form</code> spaces them:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/views/invoices/new.html.erb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-new" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/invoices/new.html.erb</span></button>
+      </div>
+      <pre><code id="rb-new" data-lang="html">&lt;h1&gt;New invoice&lt;/h1&gt;
+&lt;%= form_with model: @invoice, url: invoices_path, class: &quot;canon-form&quot;, html: { novalidate: true } do |f| %&gt;
+  &lt;%= f.base_errors %&gt;
+  &lt;%= f.field :customer %&gt;
+  &lt;%= f.field :email, as: :email_field, hint: &quot;Where the invoice is sent.&quot; %&gt;
+  &lt;%= f.field :status, as: :select, choices: [[&quot;Draft&quot;, &quot;draft&quot;], [&quot;Sent&quot;, &quot;sent&quot;], [&quot;Paid&quot;, &quot;paid&quot;]] %&gt;
+  &lt;%= f.field :due, as: :date_field %&gt;
+  &lt;%= f.field :notes, as: :text_area %&gt;
+  &lt;%= f.field :portal_password, as: :password_field %&gt;
+  &lt;%= f.radios :channel, [[&quot;Email&quot;, &quot;email&quot;], [&quot;Post&quot;, &quot;post&quot;]], legend: &quot;Channel&quot;, hint: &quot;How the invoice reaches them.&quot; %&gt;
+  &lt;%= f.check :reminders, label: &quot;Send reminders when overdue&quot; %&gt;
+  &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;&lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;&lt;/button&gt;
+&lt;% end %&gt;</code></pre>
+    </div>
+    <p class="ref-note">Checkboxes keep Rails' hidden <code>0</code>, so unchecking one is sent too; the builder puts it before the Checkbox, outside it.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="errors">
+    <h2>Errors</h2>
+    <p class="ref-note">Validations are the errors. With these:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/models/invoice.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-model" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/models/invoice.rb</span></button>
+      </div>
+      <pre><code id="rb-model">class Invoice &lt; ApplicationRecord
+  validates :customer, :email, :channel, :due, presence: true
+  validates :email, format: { with: /@/ }, allow_blank: true
+  validate { errors.add(:base, &quot;Globex has no payment on record.&quot;) if customer == &quot;Globex&quot; &amp;&amp; status == &quot;paid&quot; }
+end</code></pre>
+    </div>
+    <p class="ref-note">render the form again with status 422, as Turbo expects of a form with errors:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/controllers/invoices_controller.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-create" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/controllers/invoices_controller.rb</span></button>
+      </div>
+      <pre><code id="rb-create">def create
+  @invoice = Invoice.new(invoice_params)
+  if @invoice.save
+    redirect_to invoices_path, notice: &quot;Invoice for #{@invoice.customer} saved.&quot;
+  else
+    render :new, status: :unprocessable_entity
+  end
+end</code></pre>
+    </div>
+    <p class="ref-note">Each wrong field comes back marked, with its message, and what people typed. An email field after a failed save:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Rendered</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-rendered" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Rendered</span></button>
+      </div>
+      <pre><code id="rb-rendered" data-lang="html">&lt;div class=&quot;canon-field&quot;&gt;
+  &lt;div class=&quot;canon-label&quot;&gt;
+    &lt;label class=&quot;canon-label-text&quot; for=&quot;invoice_email&quot;&gt;Email&lt;/label&gt;
+    &lt;p class=&quot;canon-label-description&quot; id=&quot;invoice_email_hint&quot;&gt;Where the invoice is sent.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;canon-text-input&quot;&gt;&lt;input aria-describedby=&quot;invoice_email_hint invoice_email_error&quot; aria-invalid=&quot;true&quot; placeholder=&quot;&quot; required=&quot;required&quot; type=&quot;email&quot; value=&quot;nope&quot; name=&quot;invoice[email]&quot; id=&quot;invoice_email&quot;&gt;&lt;/div&gt;
+  &lt;p class=&quot;canon-field-message&quot; id=&quot;invoice_email_error&quot; data-intent=&quot;danger&quot;&gt;Email is invalid&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The browser's own checks (<code>required</code>, <code>type="email"</code>) run first unless the form has <code>novalidate</code>, and canon.js shows their messages in the same place.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="flash">
+    <h2>Flash messages as toasts</h2>
+    <p class="ref-note">A redirect's notice ("Invoice saved") shows as a <a href="toast.html">Toast</a>. The layout writes the flash into the page, hidden:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/views/layouts/application.html.erb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-flash" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/layouts/application.html.erb</span></button>
+      </div>
+      <pre><code id="rb-flash" data-lang="html">&lt;% if flash.any? %&gt;
+  &lt;ul class=&quot;flash&quot; hidden&gt;
+    &lt;% flash.each do |type, message| %&gt;
+      &lt;li data-intent=&quot;&lt;%= type == &quot;alert&quot; ? &quot;danger&quot; : &quot;success&quot; %&gt;&quot;&gt;&lt;%= message %&gt;&lt;/li&gt;
+    &lt;% end %&gt;
+  &lt;/ul&gt;
+&lt;% end %&gt;</code></pre>
+    </div>
+    <p class="ref-note">and a few lines hand it to canon.js after each visit, Turbo's included:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/javascript/application.js</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-toasts" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/javascript/application.js</span></button>
+      </div>
+      <pre><code id="rb-toasts">// Flash messages as Canon toasts, on the first load and after each Turbo visit.
+addEventListener(&quot;turbo:load&quot;, () =&gt; {
+  for (const message of document.querySelectorAll(&quot;.flash li&quot;)) {
+    document.dispatchEvent(new CustomEvent(&quot;canon-toast&quot;, {
+      detail: { intent: message.dataset.intent, title: message.textContent },
+    }));
+  }
+  document.querySelector(&quot;.flash&quot;)?.remove();
+});</code></pre>
+    </div>
+    <p class="ref-note">A toast needs JavaScript. A message people must read even without it (a save that failed) belongs in the page, as an <a href="alert.html">Alert</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="pages">
+    <h2>Lists and pages</h2>
+    <p class="ref-note">Rails has no paginator of its own, and a page is a few lines of arithmetic:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/controllers/invoices_controller.rb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-index" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/controllers/invoices_controller.rb</span></button>
+      </div>
+      <pre><code id="rb-index">PER_PAGE = 25
+
+def index
+  @pages = [(Invoice.count / PER_PAGE.to_f).ceil, 1].max
+  @page = params.fetch(:page, 1).to_i.clamp(1, @pages)
+  @invoices = Invoice.order(issued_on: :desc).offset((@page - 1) * PER_PAGE).limit(PER_PAGE)
+end</code></pre>
+    </div>
+    <p class="ref-note">Canon's <a href="pagination.html">Pagination</a> shows it. With <code>data-pages</code> and <code>data-page</code>, canon.js draws the page numbers and fits them to the room; the list written inside is what shows without JavaScript: Previous, "Page 4 of 10", Next.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/views/canon/_pagination.html.erb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/canon/_pagination.html.erb</span></button>
+      </div>
+      <pre><code id="rb-pagination" data-lang="html">&lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot; data-pages=&quot;&lt;%= pages %&gt;&quot; data-page=&quot;&lt;%= page %&gt;&quot; data-href=&quot;?page={page}&quot;&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;%= tag.a class: &quot;canon-pagination-prev&quot;, href: (&quot;?page=#{page - 1}&quot; if page &gt; 1), rel: (&quot;prev&quot; if page &gt; 1), aria: { disabled: (true if page == 1) } do %&gt;
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+    &lt;% end %&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span class=&quot;canon-pagination-current&quot;&gt;Page &lt;%= page %&gt; of &lt;%= pages %&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%= tag.a class: &quot;canon-pagination-next&quot;, href: (&quot;?page=#{page + 1}&quot; if page &lt; pages), rel: (&quot;next&quot; if page &lt; pages), aria: { disabled: (true if page == pages) } do %&gt;
+      &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;% end %&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">app/views/invoices/index.html.erb</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="rb-list" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy app/views/invoices/index.html.erb</span></button>
+      </div>
+      <pre><code id="rb-list" data-lang="html">&lt;table class=&quot;canon-table&quot;&gt;
+  &lt;thead&gt;…&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;% @invoices.each do |invoice| %&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;%= invoice.number %&gt;&lt;/td&gt;&lt;td&gt;&lt;%= invoice.customer %&gt;&lt;/td&gt;&lt;td data-align=&quot;end&quot;&gt;&lt;%= invoice.total %&gt;&lt;/td&gt;&lt;/tr&gt;
+    &lt;% end %&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;%= render &quot;canon/pagination&quot;, page: @page, pages: @pages %&gt;</code></pre>
+    </div>
+    <p class="ref-note">If the list's address carries filters too, write them into <code>data-href</code> and the links, so a new page keeps them.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="turbo">
+    <h2>Turbo Frames and Streams</h2>
+    <p class="ref-note">canon.js watches the page, so HTML that a Turbo Frame or Stream puts in is set up when it lands: a Combobox gets its list, a Date its calendar. Render the same partials and the same builder; there's nothing to call. For pages that htmx updates instead, see <a href="htmx.html">With htmx</a>.</p>
+  </section>
+
+</main>
+</body>
+</html>
