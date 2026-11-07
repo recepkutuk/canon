@@ -58,7 +58,9 @@
       return true;
     };
 
-    let list = null;
+    /* A list written in the markup (the pages without JavaScript) is the
+       one drawn over. */
+    let list = nav.querySelector(":scope > ol");
     let siblings = null;
 
     const render = (fit) => {
