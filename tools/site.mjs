@@ -103,6 +103,7 @@ const llms = [
   `- [Getting started](${site}reference/getting-started.html): adding Canon to a page or an app`,
   `- [Themes](${site}reference/themes.html): one markup, several looks`,
   `- [Build](${site}reference/build.html): a canon.css and canon.js with only the components an app uses`,
+  `- [With htmx](${site}reference/htmx.html): forms checked by the server, toasts it sends, dialogs and tables that load what they show`,
   "",
   ...groups.flatMap(({ name, items }) => [
     `## ${name}`,

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · With htmx</title>
+  <meta name="description" content="Canon in pages that htmx updates: forms checked by the server, toasts it sends, dialogs and tables that load what they show. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:description" content="Canon in pages that htmx updates: forms checked by the server, toasts it sends, dialogs and tables that load what they show. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Canon">
+  <meta property="og:title" content="Canon · With htmx">
+  <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/htmx.html">
+  <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
+  <meta property="og:image:width" content="1664">
+  <meta property="og:image:height" content="968">
+  <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>With htmx</h1>
+  <p class="ref-note">Canon in pages that htmx updates: forms checked by the server, toasts it sends, dialogs and tables that load what they show. For adding Canon to a page, start with <a href="getting-started.html">Getting started</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="setup">
+    <h2>Set up</h2>
+    <p class="ref-note">htmx swaps HTML into the page, and Canon is HTML, so the two need nothing between them: no extension, no wrapper, no build step. Load Canon as usual, then htmx:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-setup" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy index.html</span></button>
+      </div>
+      <pre><code id="htmx-setup" data-lang="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/css/canon/canon.css&quot;&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/js/canon.js&quot; defer&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+    </div>
+    <p class="ref-note">Every other page here applies as it is. What follows is what changes when the server sends parts of the page instead of whole pages.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="swaps">
+    <h2>Swapped-in HTML just works</h2>
+    <p class="ref-note">canon.js watches the page, so whatever htmx swaps in is set up the moment it lands: a Combobox gets its list, a Number Input its steppers, a Table its column widths. There's nothing to call after a swap.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Page</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-swap" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Page</span></button>
+      </div>
+      <pre><code id="htmx-swap" data-lang="html">&lt;button type=&quot;button&quot; class=&quot;canon-button&quot; hx-get=&quot;/invoices/2041/status&quot; hx-target=&quot;#status&quot;&gt;
+  &lt;span class=&quot;canon-button-label&quot;&gt;Change status&lt;/span&gt;
+&lt;/button&gt;
+&lt;div id=&quot;status&quot;&gt;&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The server answers with plain Canon markup:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Response</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-swap-response" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Response</span></button>
+      </div>
+      <pre><code id="htmx-swap-response" data-lang="html">&lt;div class=&quot;canon-combobox&quot;&gt;
+  &lt;select id=&quot;invoice-status&quot; name=&quot;status&quot; aria-label=&quot;Status&quot;&gt;
+    &lt;option value=&quot;draft&quot;&gt;Draft&lt;/option&gt;
+    &lt;option value=&quot;sent&quot; selected&gt;Sent&lt;/option&gt;
+    &lt;option value=&quot;paid&quot;&gt;Paid&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">Responses are written exactly as the component pages show, so a partial your server renders for htmx is the same markup it renders into a full page.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="busy">
+    <h2>Show that it's working</h2>
+    <p class="ref-note">A Button with <code>aria-busy="true"</code> shows that it's working: the theme draws its spinner. htmx marks requests with a class of its own, so one listener turns that into Canon's attribute, for every request on the page. It's the only script this page asks for.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Once, in the layout</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-busy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Once, in the layout</span></button>
+      </div>
+      <pre><code id="htmx-busy" data-lang="html">&lt;script&gt;
+  /* While a request runs, its button (or a Combobox&#x27;s select) is busy:
+     the theme draws a spinner, and the button can&#x27;t be pressed again. */
+  document.addEventListener(&quot;htmx:beforeRequest&quot;, (event) =&gt; {
+    const { elt, requestConfig } = event.detail;
+    const busy = requestConfig.triggeringEvent?.submitter ?? elt;
+    if (!busy.matches(&quot;.canon-button, .canon-combobox select&quot;)) return;
+    busy.setAttribute(&quot;aria-busy&quot;, &quot;true&quot;);
+    if (busy.matches(&quot;.canon-button&quot;)) busy.setAttribute(&quot;aria-disabled&quot;, &quot;true&quot;);
+    requestConfig.canonBusy = busy;
+  });
+  document.addEventListener(&quot;htmx:afterRequest&quot;, (event) =&gt; {
+    const busy = event.detail.requestConfig.canonBusy;
+    busy?.removeAttribute(&quot;aria-busy&quot;);
+    busy?.removeAttribute(&quot;aria-disabled&quot;);
+  });
+&lt;/script&gt;</code></pre>
+    </div>
+    <p class="ref-note">A form's submit button is the one marked, also when Enter sends it. A Combobox's select shows "Loading…" in its list while its options come.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="forms">
+    <h2>Forms and their errors</h2>
+    <p class="ref-note">Let the server check the form and send it back. On success, the next state; with errors, the same form with each wrong field marked: <code>aria-invalid="true"</code> on the control, and its message with <code>data-intent="danger"</code>. Every value comes back as typed, so nothing is lost.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Form</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-form" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Form</span></button>
+      </div>
+      <pre><code id="htmx-form" data-lang="html">&lt;form id=&quot;invoice&quot; hx-post=&quot;/invoices&quot; hx-swap=&quot;outerHTML&quot;&gt;
+  &lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;&lt;label class=&quot;canon-label-text&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;&lt;/div&gt;
+    &lt;div class=&quot;canon-text-input&quot;&gt;
+      &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; aria-describedby=&quot;email-message&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;email-message&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;
+    &lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    </div>
+    <p class="ref-note">Sent back with an error:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Response (422)</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-form-error" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Response (422)</span></button>
+      </div>
+      <pre><code id="htmx-form-error" data-lang="html">&lt;form id=&quot;invoice&quot; hx-post=&quot;/invoices&quot; hx-swap=&quot;outerHTML&quot;&gt;
+  &lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;&lt;label class=&quot;canon-label-text&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;&lt;/div&gt;
+    &lt;div class=&quot;canon-text-input&quot;&gt;
+      &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; value=&quot;ap@globex&quot; aria-describedby=&quot;email-message&quot; aria-invalid=&quot;true&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;email-message&quot; data-intent=&quot;danger&quot;&gt;No account uses this address.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;
+    &lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+    </div>
+    <p class="ref-note">htmx swaps only 2xx responses by default. Answer a form with errors with a 200, or let 422 swap too:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Once, in the layout</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-422" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Once, in the layout</span></button>
+      </div>
+      <pre><code id="htmx-422" data-lang="html">&lt;script&gt;
+  /* Swap 422 responses too: a form sent back with its errors. */
+  htmx.config.responseHandling = [
+    { code: &quot;204&quot;, swap: false },
+    { code: &quot;[23]..&quot;, swap: true },
+    { code: &quot;422&quot;, swap: true },
+    { code: &quot;[45]..&quot;, swap: false, error: true },
+  ];
+&lt;/script&gt;</code></pre>
+    </div>
+    <p class="ref-note">The browser's own checks (<code>required</code>, <code>type="email"</code>) still come first: htmx doesn't send a form the browser finds invalid, and canon.js shows the browser's message in the field. The server's errors are for what only it knows.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="toasts">
+    <h2>Toasts from the server</h2>
+    <p class="ref-note">A Toast shows when a <code>canon-toast</code> event reaches the document, and htmx fires one for each name in an <code>HX-Trigger</code> response header. So the server can say what happened, with no script:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Response header</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-toast" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Response header</span></button>
+      </div>
+      <pre><code id="htmx-toast">HX-Trigger: {&quot;canon-toast&quot;: {&quot;intent&quot;: &quot;success&quot;, &quot;title&quot;: &quot;Invoice saved&quot;, &quot;description&quot;: &quot;Sent to ap@globex.com.&quot;}}</code></pre>
+    </div>
+    <p class="ref-note">It takes what a toast shows: <code>intent</code>, <code>title</code>, <code>description</code>, <code>emphasis</code>, <code>timer</code> and <code>duration</code>. A toast with an action (Undo) needs a function to call, so it's shown from the page's script instead: see <a href="toast.html">Toast</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="dialogs">
+    <h2>Dialogs that load what they show</h2>
+    <p class="ref-note">One button opens the Dialog and asks for its content: <code>command="show-modal"</code> opens it at once, and htmx fills its body when the server answers. A Skeleton stands in until then.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Page</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-dialog" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Page</span></button>
+      </div>
+      <pre><code id="htmx-dialog" data-lang="html">&lt;button type=&quot;button&quot; class=&quot;canon-button&quot; commandfor=&quot;edit-invoice&quot; command=&quot;show-modal&quot;
+        hx-get=&quot;/invoices/2041/edit&quot; hx-target=&quot;#edit-invoice-body&quot;&gt;
+  &lt;span class=&quot;canon-button-label&quot;&gt;Edit&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;dialog class=&quot;canon-dialog&quot; id=&quot;edit-invoice&quot; aria-labelledby=&quot;edit-invoice-title&quot;&gt;
+  &lt;header class=&quot;canon-dialog-header&quot;&gt;
+    &lt;h2 class=&quot;canon-dialog-title&quot; id=&quot;edit-invoice-title&quot;&gt;Edit invoice&lt;/h2&gt;
+    &lt;button type=&quot;button&quot; class=&quot;canon-button&quot; data-emphasis=&quot;minimal&quot; data-intent=&quot;neutral&quot; data-display=&quot;icon&quot;
+            commandfor=&quot;edit-invoice&quot; command=&quot;close&quot;&gt;
+      &lt;span class=&quot;canon-icon&quot; data-icon=&quot;close&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;span class=&quot;canon-button-label&quot;&gt;Close&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;canon-dialog-body&quot; id=&quot;edit-invoice-body&quot;&gt;
+    &lt;div class=&quot;canon-skeleton&quot; data-shape=&quot;text&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+    </div>
+    <p class="ref-note">Without JavaScript the button still opens the dialog. Put what it needs inside, or make the button a link to the editing page.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="tables">
+    <h2>Tables and pages</h2>
+    <p class="ref-note">A Table with Pagination stays plain links: each page is a real address, and works without JavaScript. <code>hx-boost</code> on the Pagination fetches the next page, takes only the table's part of it and updates the address, so Back and Forward work too.</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Page</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Page</span></button>
+      </div>
+      <pre><code id="htmx-pagination" data-lang="html">&lt;div id=&quot;invoices&quot;&gt;
+  &lt;table class=&quot;canon-table&quot;&gt;…this page&#x27;s rows…&lt;/table&gt;
+  &lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot;
+       hx-boost=&quot;true&quot; hx-target=&quot;#invoices&quot; hx-select=&quot;#invoices&quot; hx-swap=&quot;outerHTML&quot;&gt;
+    &lt;ol&gt;
+      &lt;li&gt;&lt;a class=&quot;canon-pagination-prev&quot; href=&quot;/invoices?page=1&quot; rel=&quot;prev&quot;&gt;
+        &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+        &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+      &lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/invoices?page=1&quot; aria-label=&quot;Page 1&quot;&gt;1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/invoices?page=2&quot; aria-label=&quot;Page 2&quot; aria-current=&quot;page&quot;&gt;2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/invoices?page=3&quot; aria-label=&quot;Page 3&quot;&gt;3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a class=&quot;canon-pagination-next&quot; href=&quot;/invoices?page=3&quot; rel=&quot;next&quot;&gt;
+        &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+        &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+      &lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The server marks the current page (<code>aria-current="page"</code>), as it would for a full page. A <a href="data-table.html">Data Table</a> sorts, searches and filters the rows it has; for rows the server pages, use a Table and Pagination like this.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="combobox">
+    <h2>Options from the server</h2>
+    <p class="ref-note">A Combobox with <code>data-filter="none"</code> leaves the options to the app. It fires <code>canon-search</code> on its select when the list opens and as people type, with what they typed in <code>event.detail.query</code>. htmx can take that event as its trigger:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Field</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-combobox" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Field</span></button>
+      </div>
+      <pre><code id="htmx-combobox" data-lang="html">&lt;div class=&quot;canon-combobox&quot; data-search=&quot;list&quot; data-filter=&quot;none&quot;&gt;
+  &lt;select id=&quot;country&quot; name=&quot;country&quot; aria-label=&quot;Country&quot;
+          hx-get=&quot;/countries&quot; hx-trigger=&quot;canon-search&quot; hx-vals=&#x27;js:{q: event.detail.query}&#x27; hx-swap=&quot;innerHTML&quot;&gt;
+    &lt;option value=&quot;&quot; hidden&gt;Choose a country&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The server answers with the options that match. htmx sends the select's value along with the query, so the answer can keep the chosen option, or it's lost:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Response</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="htmx-combobox-response" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Response</span></button>
+      </div>
+      <pre><code id="htmx-combobox-response" data-lang="html">&lt;option value=&quot;&quot; hidden&gt;Choose a country&lt;/option&gt;
+&lt;option value=&quot;fi&quot;&gt;Finland&lt;/option&gt;
+&lt;option value=&quot;ie&quot; selected&gt;Ireland&lt;/option&gt;</code></pre>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

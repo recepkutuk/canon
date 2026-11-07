@@ -28,6 +28,7 @@
     Themes: "themes.html",
     Components: "components.html",
     Build: "build.html",
+    "With htmx": "htmx.html",
     Button: "button.html",
     "Button Group": "button-group.html",
     "Split Button": "split-button.html",
@@ -102,7 +103,7 @@
     Separator: "separator.html",
   };
   const components = {
-    Guide: ["Introduction", "Getting started", "Themes", "Components", "Build"],
+    Guide: ["Introduction", "Getting started", "Themes", "Components", "Build", "With htmx"],
     Layout: ["App Shell", "Page Header", "Section", "Separator", "Sidebar", "Split Pane", "Stack / Cluster / Grid", "Toolbar", "Top Bar"],
     Actions: ["Button", "Button Group", "Link", "Segmented Control", "Split Button", "Toggle Chip"],
     Forms: ["Checkbox", "Color Picker", "Combobox", "Date family", "Field", "Fieldset", "File / Dropzone", "Form Layout", "Form Repeater", "Input OTP", "Label", "Number Input", "Password", "Radio", "Range Slider", "Rich Text", "Save Bar", "Select", "Slider", "Swatches", "Switch", "Text Input", "Textarea", "Time"],
@@ -810,6 +811,23 @@
             demo.querySelector(".ref-demo-bar").after(frame, ...(report ? [report] : []));
           });
         });
+      }).catch(() => {});
+    }
+
+    /* Code blocks written as plain text, marked data-lang="html" (the
+       guides): highlighted on every page. The highlighter wraps its tokens
+       in a <pre><code> of its own; the block has one. */
+    const plainBlocks = document.querySelectorAll(".ref-page .canon-code-block code[data-lang='html']");
+    if (plainBlocks.length) {
+      twinkleplop.then(({ language }) => {
+        const markup = language();
+        for (const code of plainBlocks) {
+          if (code.children.length) continue;
+          const painted = document.createElement("template");
+          painted.innerHTML = markup(code.textContent);
+          const inner = painted.content.querySelector("code");
+          if (inner) code.innerHTML = inner.innerHTML;
+        }
       }).catch(() => {});
     }
 
