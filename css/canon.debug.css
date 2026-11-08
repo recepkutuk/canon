@@ -1072,7 +1072,7 @@ button[interestfor]:disabled {
   outline-offset: 2px;
 }
 
-.canon-tooltip[data-placement]:not([data-placement="top"], [data-placement="top-start"], [data-placement="top-end"], [data-placement="bottom"], [data-placement="bottom-start"], [data-placement="bottom-end"], [data-placement="start"], [data-placement="end"]) {
+.canon-tooltip[data-placement]:not([data-placement="block-start"], [data-placement="block-end"], [data-placement="inline-start"], [data-placement="inline-end"], [data-placement="block-start inline-start"], [data-placement="block-start inline-end"], [data-placement="block-end inline-start"], [data-placement="block-end inline-end"]) {
   --canon-contract: "Tooltip";
   --canon-contract-reason: "Unknown values.";
   outline: 2px dashed var(--canon-debug);
@@ -1104,12 +1104,12 @@ button[interestfor]:disabled {
 /* App Shell · Sidebar · Top Bar                                          */
 /* ---------------------------------------------------------------------- */
 
-.canon-app-shell > :not(.canon-sidebar, .canon-top-bar, main, dialog, [popover]),
+.canon-app-shell > :not(.canon-sidebar, .canon-top-bar, main, dialog, [popover], template, script),
 .canon-app-shell:not(:has(> main)),
 .canon-app-shell > .canon-sidebar ~ .canon-sidebar,
 .canon-app-shell > .canon-top-bar ~ .canon-top-bar {
   --canon-contract: "App Shell · Sidebar · Top Bar";
-  --canon-contract-reason: "The shell: a Sidebar, a Top Bar, the <main> (and closed dialogs or popovers, which take no place).";
+  --canon-contract-reason: "The shell: a Sidebar, a Top Bar, the <main> (and closed dialogs or popovers, templates and scripts, which take no place).";
   outline: 2px dashed var(--canon-debug);
   outline-offset: 2px;
 }

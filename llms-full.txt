@@ -833,7 +833,7 @@ Source: https://recepkutuk.github.io/canon/docs/components/stack.md
 
 Tier: **T0**
 
-The space between components. Canon's components never set the space around themselves: what sits next to what, and how far apart, is a container's job. These three are those containers, and an app writes no spacing CSS of its own.
+The space between components. Canon's components never set the space around themselves: what sits next to what, and how far apart, is a container's job. These three are those containers, and an app writes no spacing CSS between components. The page's own margins are the one exception: an app pads its `<main>` (see [Writing Canon markup](../markup-rules.md)).
 
 - **Stack:** things one under another, a steady gap apart: a page's sections, cards in a column, a form above a table.
 - **Cluster:** things in a row that wrap when they run out of room: tags, a few buttons, a page's facts ("Draft · Edited 2 hours ago · Ada").
