@@ -11,7 +11,8 @@
  *
  * Not checkable in CSS: whether aria-describedby actually points at the hint
  * and message ids, or interestfor at a tooltip (selectors can't compare
- * attribute values between elements).
+ * attribute values between elements). Whether an icon has an image is
+ * computed: canon.debug.js marks one that has none (data-canon-debug-icon).
  */
 
 :root {
@@ -22,6 +23,19 @@
    (display-only markup, like a page's decoration): nothing inside it is
    outlined or warned about. */
 @scope (:root) to ([data-canon-debug="off"]) {
+
+/* ---------------------------------------------------------------------- */
+/* Icon                                                                   */
+/* ---------------------------------------------------------------------- */
+
+/* A name the theme draws no image for (marked by canon.debug.js): a name
+   that isn't in the list, or a theme's or app's icon that isn't loaded. */
+.canon-icon[data-canon-debug-icon] {
+  --canon-contract: "Icon";
+  --canon-contract-reason: "No icon has this name, so it draws nothing. Use a name from docs/icons.md, or add the icon in your CSS.";
+  outline: 2px dashed var(--canon-debug);
+  outline-offset: 2px;
+}
 
 /* ---------------------------------------------------------------------- */
 /* Button                                                                 */

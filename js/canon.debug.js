@@ -9,7 +9,9 @@
  * an example) takes the warnings about everything inside it, as blocks
  * right after it, each naming its element (pointing at one marks the
  * element). Elsewhere a warning floats under its element, in the top layer.
- * Either way the markup being checked is never touched. They follow the
+ * Either way the markup being checked is never touched, apart from two
+ * attributes of the check's own: data-canon-debug-target on the element
+ * a warning points at, and data-canon-debug-icon on an icon with no image. They follow the
  * page: an element that changes, appears, opens or goes away is checked
  * again; a dismissed floating warning comes back when what it reports
  * changes; and removing canon.debug.css removes them.
@@ -74,8 +76,20 @@
     return `${name}="${element.getAttribute(name)}" isn't a known value (${values.join(", ")}).`;
   };
 
+  /* Icons with no image: a theme draws each name it knows with
+     --canon-theme-icon, an app can add more the same way. One with none
+     gets data-canon-debug-icon, which canon.debug.css outlines; the name
+     itself is left as written. */
+  const markIcons = () => {
+    for (const icon of document.querySelectorAll(".canon-icon[data-icon]")) {
+      if (icon.closest('.canon-debug-alert, [data-canon-debug="off"]')) continue;
+      icon.toggleAttribute("data-canon-debug-icon", !getComputedStyle(icon).getPropertyValue("--canon-theme-icon").trim());
+    }
+  };
+
   /* Each outlined element: the contracts it breaks, the reasons, the conditions. */
   const findBreaches = () => {
+    markIcons();
     const breaches = new Map();
     for (const rule of contractRules()) {
       let elements;
@@ -251,6 +265,7 @@
   new MutationObserver((records) => {
     if (records.every((record) => ours(record.target)
       || record.attributeName === "data-canon-debug-target"
+      || record.attributeName === "data-canon-debug-icon"
       || (record.type === "childList" && [...record.addedNodes, ...record.removedNodes].every(ours)))) return;
     schedule();
   }).observe(document.documentElement, { subtree: true, childList: true, attributes: true });

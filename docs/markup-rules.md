@@ -35,7 +35,7 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## Indicators come from attributes
 
 - Don't write chevrons, spinners or external-link icons. The theme draws them from the attribute that declares the behavior: `aria-haspopup="menu"` gives a chevron, `aria-busy="true"` a spinner, `target="_blank"` the external mark.
-- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use only the names in [the icon list](icons.md): a name that isn't there draws nothing. Directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
+- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use a name from [the icon list](icons.md), or add one in your CSS as it shows: a name with no image draws nothing, and the contract check outlines it. Directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
 
 ## Accessibility is part of the markup
 
