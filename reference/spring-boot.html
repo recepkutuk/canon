@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canon · With Spring Boot</title>
+  <meta name="description" content="Canon in a Spring Boot app: its files in static/, Thymeleaf fragments or jte templates for every form part, errors from Bean Validation, flash attributes as toasts, and Spring Data pages drawn as Canon's Pagination. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:description" content="Canon in a Spring Boot app: its files in static/, Thymeleaf fragments or jte templates for every form part, errors from Bean Validation, flash attributes as toasts, and Spring Data pages drawn as Canon's Pagination. Canon: accessible plain-HTML components for admin screens and internal tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Canon">
+  <meta property="og:title" content="Canon · With Spring Boot">
+  <meta property="og:url" content="https://recepkutuk.github.io/canon/reference/spring-boot.html">
+  <meta property="og:image" content="https://recepkutuk.github.io/canon/reference/assets/cover.png">
+  <meta property="og:image:width" content="1664">
+  <meta property="og:image:height" content="968">
+  <meta property="og:image:alt" content="Canon's logo in a grid of its components: segmented control, avatars, switch, button, number input, code input, time input, slider, tag and swatches.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="ref.js"></script>
+  <link rel="stylesheet" href="ref.css">
+  <link rel="stylesheet" href="../i18n/ar.css">
+  <script src="../js/canon.js" defer></script>
+</head>
+<body>
+<main class="ref-page">
+
+  <h1>With Spring Boot</h1>
+  <p class="ref-note">Canon in a Spring Boot app: its files in <code>static/</code>, Thymeleaf fragments or jte templates for every form part, errors from Bean Validation, flash attributes as toasts, and Spring Data pages drawn as Canon's Pagination. For adding Canon to a page, start with <a href="getting-started.html">Getting started</a>.</p>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="setup">
+    <h2>Set up</h2>
+    <p class="ref-note">Canon is two files, and Spring Boot serves <code>src/main/resources/static/</code> as it is. Take them from the npm package (keep the <code>css</code> folder whole: a stylesheet finds its icons and fonts beside it):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Terminal</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-copy" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Terminal</span></button>
+      </div>
+      <pre><code id="sb-copy">npm i canon-ui
+mkdir -p src/main/resources/static/canon/js
+cp -R node_modules/canon-ui/css src/main/resources/static/canon/
+cp node_modules/canon-ui/js/canon.js src/main/resources/static/canon/js/</code></pre>
+    </div>
+    <p class="ref-note">The layouts below link them as <code>/canon/css/canon/canon.css</code> and <code>/canon/js/canon.js</code>. Or link both from a CDN, as <a href="getting-started.html">Getting started</a> shows. Either way there's nothing to build and no dependency to add.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="controller">
+    <h2>The controller</h2>
+    <p class="ref-note">Thymeleaf and jte share everything on the Java side. A form object with Bean Validation (<code>spring-boot-starter-validation</code>):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/InvoiceForm.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-form" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/InvoiceForm.java</span></button>
+      </div>
+      <pre><code id="sb-form">public class InvoiceForm {
+
+    @NotBlank
+    private String customer;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    private String status = &quot;draft&quot;;
+
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate due;
+
+    private String notes;
+
+    private String portalPassword;
+
+    @NotBlank
+    private String channel;
+
+    private boolean reminders;
+
+    // getters and setters, and toInvoice()
+}</code></pre>
+    </div>
+    <p class="ref-note">A select's or radios' choices are a list of <code>Option</code>s, in the order they show:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/Option.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-option" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/Option.java</span></button>
+      </div>
+      <pre><code id="sb-option">public record Option(String value, String label) {
+}</code></pre>
+    </div>
+    <p class="ref-note"><code>@Valid</code> checks the form; with errors, the controller shows the form again with what was typed, and otherwise redirects with a flash attribute:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/InvoiceController.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-controller" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/InvoiceController.java</span></button>
+      </div>
+      <pre><code id="sb-controller">@Controller
+@RequestMapping(&quot;/invoices&quot;)
+public class InvoiceController {
+
+    private final InvoiceRepository invoices;
+
+    public InvoiceController(InvoiceRepository invoices) {
+        this.invoices = invoices;
+    }
+
+    @ModelAttribute(&quot;statuses&quot;)
+    List&lt;Option&gt; statuses() {
+        return List.of(new Option(&quot;draft&quot;, &quot;Draft&quot;), new Option(&quot;sent&quot;, &quot;Sent&quot;), new Option(&quot;paid&quot;, &quot;Paid&quot;));
+    }
+
+    @ModelAttribute(&quot;channels&quot;)
+    List&lt;Option&gt; channels() {
+        return List.of(new Option(&quot;email&quot;, &quot;Email&quot;), new Option(&quot;post&quot;, &quot;Post&quot;));
+    }
+
+    @GetMapping
+    String index(@PageableDefault(size = 25, sort = &quot;issuedOn&quot;, direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+        model.addAttribute(&quot;invoices&quot;, invoices.findAll(pageable));
+        return &quot;invoices/index&quot;;
+    }
+
+    @GetMapping(&quot;/new&quot;)
+    String create(Model model) {
+        model.addAttribute(&quot;invoice&quot;, new InvoiceForm());
+        return &quot;invoices/create&quot;;
+    }
+
+    @PostMapping
+    String store(@Valid @ModelAttribute(&quot;invoice&quot;) InvoiceForm invoice, BindingResult result, RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            return &quot;invoices/create&quot;;
+        }
+
+        invoices.save(invoice.toInvoice());
+
+        redirect.addFlashAttribute(&quot;status&quot;, &quot;Invoice for &quot; + invoice.getCustomer() + &quot; saved.&quot;);
+        return &quot;redirect:/invoices&quot;;
+    }
+}</code></pre>
+    </div>
+    <p class="ref-note">Canon's <a href="pagination.html">Pagination</a> counts pages from 1, so Spring Data does too:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/application.properties</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-props" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/application.properties</span></button>
+      </div>
+      <pre><code id="sb-props">spring.data.web.pageable.one-indexed-parameters=true</code></pre>
+    </div>
+    <p class="ref-note">A page's links keep the list's filters: <code>PageLinks</code> writes this request's address with another <code>page</code> in it, or with <code>{page}</code>, the pattern canon.js fills in. Thymeleaf templates call it as a bean (<code>@pageLinks</code>); jte templates make their own:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/PageLinks.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-pagelinks" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/PageLinks.java</span></button>
+      </div>
+      <pre><code id="sb-pagelinks">@Component
+public class PageLinks {
+
+    /** This request&#x27;s address with another page. */
+    public String href(int page) {
+        return withPage(String.valueOf(page));
+    }
+
+    /** This request&#x27;s address with {page} for the page: Pagination&#x27;s data-href. */
+    public String pattern() {
+        return withPage(&quot;{page}&quot;);
+    }
+
+    private static String withPage(String page) {
+        return &quot;?&quot; + ServletUriComponentsBuilder.fromCurrentRequest()
+                .replaceQueryParam(&quot;page&quot;, page)
+                .build()
+                .getQuery();
+    }
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="thymeleaf">
+    <h2>With Thymeleaf</h2>
+    <p class="ref-note">A layout takes each page's title and content, and links Canon:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/layout.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-layout" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/layout.html</span></button>
+      </div>
+      <pre><code id="sb-th-layout" data-lang="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; th:fragment=&quot;layout(title, content)&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;title th:replace=&quot;${title}&quot;&gt;App&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; th:href=&quot;@{/canon/css/canon/canon.css}&quot;&gt;
+    &lt;script th:src=&quot;@{/canon/js/canon.js}&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;main th:replace=&quot;${content}&quot;&gt;&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <h3>Fields as fragments</h3>
+    <p class="ref-note">Three fragments write Canon's form parts. They're called with named parameters, so each one leaves out what it doesn't need. A field binds to the form's <code>th:object</code> with <code>th:field</code>, which writes its name and value (what was typed, after a failed save) and marks the selected option; <code>#fields</code> finds its errors:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/canon.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-field" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/canon.html</span></button>
+      </div>
+      <pre><code id="sb-th-field" data-lang="html">&lt;!--/* A Field: name and label; type, hint, options, required and id if needed. */--&gt;
+&lt;div class=&quot;canon-field&quot; th:fragment=&quot;field&quot;
+     th:with=&quot;id=${id ?: name}, type=${type ?: &#x27;text&#x27;}, error=${#fields.hasErrors(name)},
+              describedBy=${(hint != null ? id + &#x27;-hint &#x27; : &#x27;&#x27;) + id + &#x27;-error&#x27;}&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;
+        &lt;label class=&quot;canon-label-text&quot; th:for=&quot;${id}&quot;&gt;[[${label}]]&lt;th:block th:unless=&quot;${required}&quot;&gt; &lt;span class=&quot;canon-label-optional&quot;&gt;(optional)&lt;/span&gt;&lt;/th:block&gt;&lt;/label&gt;
+        &lt;p class=&quot;canon-label-description&quot; th:if=&quot;${hint}&quot; th:id=&quot;${id + &#x27;-hint&#x27;}&quot; th:text=&quot;${hint}&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;th:block th:switch=&quot;${type}&quot;&gt;
+        &lt;div class=&quot;canon-textarea&quot; th:case=&quot;&#x27;textarea&#x27;&quot;&gt;
+            &lt;textarea th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; placeholder th:required=&quot;${required}&quot; th:aria-describedby=&quot;${describedBy}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;canon-select&quot; th:case=&quot;&#x27;select&#x27;&quot;&gt;
+            &lt;select th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; th:required=&quot;${required}&quot; th:aria-describedby=&quot;${describedBy}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+                &lt;option th:each=&quot;option : ${options}&quot; th:value=&quot;${option.value()}&quot; th:text=&quot;${option.label()}&quot;&gt;&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;canon-date&quot; th:case=&quot;&#x27;date&#x27;&quot;&gt;
+            &lt;input type=&quot;date&quot; th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; th:required=&quot;${required}&quot; th:aria-describedby=&quot;${describedBy}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;canon-password&quot; th:case=&quot;&#x27;password&#x27;&quot;&gt;
+            &lt;input type=&quot;password&quot; th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; placeholder th:required=&quot;${required}&quot; th:aria-describedby=&quot;${describedBy}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;canon-button&quot; data-emphasis=&quot;minimal&quot; data-display=&quot;icon&quot; aria-pressed=&quot;false&quot; th:commandfor=&quot;${id}&quot; command=&quot;--canon-toggle-password&quot;&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;eye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;canon-button-label&quot;&gt;Show password&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;canon-text-input&quot; th:case=&quot;*&quot;&gt;
+            &lt;input th:type=&quot;${type}&quot; th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; placeholder th:required=&quot;${required}&quot; th:aria-describedby=&quot;${describedBy}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/th:block&gt;
+    &lt;p class=&quot;canon-field-message&quot; th:id=&quot;${id + &#x27;-error&#x27;}&quot; th:data-intent=&quot;${error} ? &#x27;danger&#x27;&quot; th:text=&quot;${#strings.listJoin(#fields.errors(name), &#x27; &#x27;)}&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">It writes a Text Input, Textarea, Select, Date or Password in a Field, ties the description and message to the control (<code>aria-describedby</code>, <code>aria-invalid</code>), adds the empty <code>placeholder</code> Canon's text boxes need, and says "(optional)" unless the field is <code>required</code>. A Checkbox and radios in a Fieldset, in the same file:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/canon.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-choices" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/canon.html</span></button>
+      </div>
+      <pre><code id="sb-th-choices" data-lang="html">&lt;!--/* A Checkbox: name and label; id if needed. */--&gt;
+&lt;div class=&quot;canon-choice&quot; th:fragment=&quot;checkbox&quot; th:with=&quot;id=${id ?: name}, error=${#fields.hasErrors(name)}&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; th:id=&quot;${id}&quot; th:field=&quot;*{__${name}__}&quot; th:aria-describedby=&quot;${id + &#x27;-error&#x27;}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+    &lt;label class=&quot;canon-choice-label&quot; th:for=&quot;${id}&quot; th:text=&quot;${label}&quot;&gt;&lt;/label&gt;
+    &lt;p class=&quot;canon-choice-message&quot; th:id=&quot;${id + &#x27;-error&#x27;}&quot; th:data-intent=&quot;${error} ? &#x27;danger&#x27;&quot; th:text=&quot;${#strings.listJoin(#fields.errors(name), &#x27; &#x27;)}&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!--/* Radios in a Fieldset: name, legend and options; hint and required if needed. */--&gt;
+&lt;fieldset class=&quot;canon-fieldset&quot; th:fragment=&quot;radios&quot; th:with=&quot;error=${#fields.hasErrors(name)}&quot;
+          th:aria-describedby=&quot;${(hint != null ? name + &#x27;-hint &#x27; : &#x27;&#x27;) + name + &#x27;-error&#x27;}&quot;&gt;
+    &lt;legend class=&quot;canon-fieldset-legend&quot; th:text=&quot;${legend}&quot;&gt;&lt;/legend&gt;
+    &lt;p class=&quot;canon-fieldset-hint&quot; th:if=&quot;${hint}&quot; th:id=&quot;${name + &#x27;-hint&#x27;}&quot; th:text=&quot;${hint}&quot;&gt;&lt;/p&gt;
+    &lt;div class=&quot;canon-choice&quot; th:each=&quot;option : ${options}&quot;&gt;
+        &lt;input type=&quot;radio&quot; th:id=&quot;${name + &#x27;-&#x27; + option.value()}&quot; th:field=&quot;*{__${name}__}&quot; th:value=&quot;${option.value()}&quot; th:required=&quot;${required}&quot; th:aria-invalid=&quot;${error} ? &#x27;true&#x27;&quot;&gt;
+        &lt;label class=&quot;canon-choice-label&quot; th:for=&quot;${name + &#x27;-&#x27; + option.value()}&quot; th:text=&quot;${option.label()}&quot;&gt;&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;canon-fieldset-message&quot; th:id=&quot;${name + &#x27;-error&#x27;}&quot; th:data-intent=&quot;${error} ? &#x27;danger&#x27;&quot; th:text=&quot;${#strings.listJoin(#fields.errors(name), &#x27; &#x27;)}&quot;&gt;&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+    </div>
+    <p class="ref-note"><code>th:field</code> adds a hidden <code>_reminders</code> input after a checkbox, so an unchecked box binds as <code>false</code>; Canon's Checkbox doesn't mind it.</p>
+    <h3>Using them</h3>
+    <p class="ref-note">Each field is one element. A <code>canon-form</code> spaces them:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/invoices/create.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-create" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/invoices/create.html</span></button>
+      </div>
+      <pre><code id="sb-th-create" data-lang="html">&lt;!DOCTYPE html&gt;
+&lt;html th:replace=&quot;~{layout :: layout(~{::title}, ~{::main})}&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;title&gt;New invoice&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main&gt;
+    &lt;h1&gt;New invoice&lt;/h1&gt;
+    &lt;form class=&quot;canon-form&quot; method=&quot;post&quot; th:action=&quot;@{/invoices}&quot; th:object=&quot;${invoice}&quot; novalidate&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;customer&#x27;, label=&#x27;Customer&#x27;, required=true)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;email&#x27;, type=&#x27;email&#x27;, label=&#x27;Email&#x27;, hint=&#x27;Where the invoice is sent.&#x27;, required=true)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;status&#x27;, type=&#x27;select&#x27;, label=&#x27;Status&#x27;, options=${statuses})}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;due&#x27;, type=&#x27;date&#x27;, label=&#x27;Due&#x27;, required=true)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;notes&#x27;, type=&#x27;textarea&#x27;, label=&#x27;Notes&#x27;)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: field(name=&#x27;portalPassword&#x27;, type=&#x27;password&#x27;, label=&#x27;Portal password&#x27;)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: radios(name=&#x27;channel&#x27;, legend=&#x27;Channel&#x27;, hint=&#x27;How the invoice reaches them.&#x27;, options=${channels}, required=true)}&quot;&gt;&lt;/div&gt;
+        &lt;div th:replace=&quot;~{canon :: checkbox(name=&#x27;reminders&#x27;, label=&#x27;Send reminders when overdue&#x27;)}&quot;&gt;&lt;/div&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;&lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <p class="ref-note">With Spring Security, <code>th:action</code> adds the CSRF token to the form.</p>
+    <h3>Flash messages as toasts</h3>
+    <p class="ref-note">A redirect's flash attribute ("Invoice saved") shows as a <a href="toast.html">Toast</a>. At the end of the layout's <code>body</code>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/layout.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-flash" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/layout.html</span></button>
+      </div>
+      <pre><code id="sb-th-flash" data-lang="html">&lt;th:block th:if=&quot;${status}&quot;&gt;
+    &lt;p id=&quot;status&quot; data-intent=&quot;success&quot; hidden th:text=&quot;${status}&quot;&gt;&lt;/p&gt;
+    &lt;script&gt;
+        addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+            const status = document.getElementById(&quot;status&quot;);
+            document.dispatchEvent(new CustomEvent(&quot;canon-toast&quot;, {
+                detail: { intent: status.dataset.intent, title: status.textContent },
+            }));
+        });
+    &lt;/script&gt;
+&lt;/th:block&gt;</code></pre>
+    </div>
+    <h3>Lists and pages</h3>
+    <p class="ref-note">One fragment draws a Spring Data <code>Page</code> as Canon's <a href="pagination.html">Pagination</a>. It calls <code>PageLinks</code> in <code>th:with</code>: Thymeleaf 3.1 doesn't let <code>th:href</code> or <code>th:data-*</code> call a bean:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/canon.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/canon.html</span></button>
+      </div>
+      <pre><code id="sb-th-pagination" data-lang="html">&lt;!--/* Pagination for a Spring Data Page. */--&gt;
+&lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot; th:fragment=&quot;pagination(page)&quot;
+     th:with=&quot;current=${page.number + 1}, pages=${page.totalPages &gt; 0 ? page.totalPages : 1},
+              pattern=${@pageLinks.pattern()},
+              previous=${page.hasPrevious() ? @pageLinks.href(current - 1) : null},
+              next=${page.hasNext() ? @pageLinks.href(current + 1) : null}&quot;
+     th:data-pages=&quot;${pages}&quot; th:data-page=&quot;${current}&quot; th:data-href=&quot;${pattern}&quot;&gt;
+    &lt;ol&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-prev&quot; th:attr=&quot;href=${previous}&quot; th:rel=&quot;${previous} ? &#x27;prev&#x27;&quot; th:aria-disabled=&quot;${previous} ? null : &#x27;true&#x27;&quot;&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;span class=&quot;canon-pagination-current&quot; th:text=&quot;|Page ${current} of ${pages}|&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-next&quot; th:attr=&quot;href=${next}&quot; th:rel=&quot;${next} ? &#x27;next&#x27;&quot; th:aria-disabled=&quot;${next} ? null : &#x27;true&#x27;&quot;&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/invoices/index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-index" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/invoices/index.html</span></button>
+      </div>
+      <pre><code id="sb-th-index" data-lang="html">&lt;div th:fragment=&quot;list&quot;&gt;
+    &lt;table class=&quot;canon-table&quot;&gt;
+        &lt;thead&gt;…&lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr th:each=&quot;invoice : ${invoices}&quot;&gt;
+                &lt;td th:text=&quot;${invoice.number}&quot;&gt;&lt;/td&gt;&lt;td th:text=&quot;${invoice.customer}&quot;&gt;&lt;/td&gt;&lt;td data-align=&quot;end&quot; th:text=&quot;${invoice.total}&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;nav th:replace=&quot;~{canon :: pagination(${invoices})}&quot;&gt;&lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="jte">
+    <h2>With jte</h2>
+    <p class="ref-note">A layout, with jte's Spring Boot starter and templates in <code>src/main/jte/</code>. The page's flash attribute comes in as <code>status</code>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/layout.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-layout" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/layout.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-layout" data-lang="html">@import gg.jte.Content
+
+@param String title
+@param Content content
+@param String status = null
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;title&gt;${title}&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/canon/css/canon/canon.css&quot;&gt;
+    &lt;script src=&quot;/canon/js/canon.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;main&gt;${content}&lt;/main&gt;
+    @if(status != null)
+        &lt;p id=&quot;status&quot; data-intent=&quot;success&quot; hidden&gt;${status}&lt;/p&gt;
+        &lt;script&gt;
+            addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+                const status = document.getElementById(&quot;status&quot;);
+                document.dispatchEvent(new CustomEvent(&quot;canon-toast&quot;, {
+                    detail: { intent: status.dataset.intent, title: status.textContent },
+                }));
+            });
+        &lt;/script&gt;
+    @endif
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <h3>Fields as templates</h3>
+    <p class="ref-note">jte has no form binding, so its templates read the form's <code>BindingResult</code>: <code>getFieldValue()</code> is what was typed after a failed save (or the form's own value), and <code>getFieldError()</code> its error. A template names what it takes, and the <code>BindingResult</code>'s name in the model isn't one it can, so the controller hands it over as <code>form</code>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/InvoiceController.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-controller" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/InvoiceController.java</span></button>
+      </div>
+      <pre><code id="sb-jte-controller">@GetMapping(&quot;/new&quot;)
+String create(Model model) {
+    model.addAttribute(&quot;form&quot;, new BeanPropertyBindingResult(new InvoiceForm(), &quot;invoice&quot;));
+    return &quot;invoices/create&quot;;
+}
+
+@PostMapping
+String store(@Valid @ModelAttribute(&quot;invoice&quot;) InvoiceForm invoice, BindingResult result, Model model, RedirectAttributes redirect) {
+    if (result.hasErrors()) {
+        model.addAttribute(&quot;form&quot;, result);
+        return &quot;invoices/create&quot;;
+    }
+
+    // as above
+}</code></pre>
+    </div>
+    <p class="ref-note">Three templates write Canon's form parts, with the same markup as Thymeleaf's fragments. Parameters with a default can be left out:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/canon/field.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-field" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/canon/field.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-field" data-lang="html">@import java.util.List
+@import org.springframework.validation.Errors
+@import org.springframework.validation.FieldError
+@import com.example.Option
+
+@param Errors form
+@param String name
+@param String label
+@param String type = &quot;text&quot;
+@param String hint = null
+@param List&lt;Option&gt; options = List.of()
+@param boolean required = false
+@param String id = null
+
+!{String fieldId = id != null ? id : name;}
+!{FieldError error = form.getFieldError(name);}
+!{Object value = form.getFieldValue(name);}
+!{String current = value != null ? value.toString() : null;}
+!{String describedBy = (hint != null ? fieldId + &quot;-hint &quot; : &quot;&quot;) + fieldId + &quot;-error&quot;;}
+!{String invalid = error != null ? &quot;true&quot; : null;}
+&lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;
+        &lt;label class=&quot;canon-label-text&quot; for=&quot;${fieldId}&quot;&gt;${label}@if(!required) &lt;span class=&quot;canon-label-optional&quot;&gt;(optional)&lt;/span&gt;@endif&lt;/label&gt;
+        @if(hint != null)
+            &lt;p class=&quot;canon-label-description&quot; id=&quot;${fieldId}-hint&quot;&gt;${hint}&lt;/p&gt;
+        @endif
+    &lt;/div&gt;
+    @if(type.equals(&quot;textarea&quot;))
+        &lt;div class=&quot;canon-textarea&quot;&gt;
+            &lt;textarea id=&quot;${fieldId}&quot; name=&quot;${name}&quot; placeholder required=&quot;${required}&quot; aria-describedby=&quot;${describedBy}&quot; aria-invalid=&quot;${invalid}&quot;&gt;${current}&lt;/textarea&gt;
+        &lt;/div&gt;
+    @elseif(type.equals(&quot;select&quot;))
+        &lt;div class=&quot;canon-select&quot;&gt;
+            &lt;select id=&quot;${fieldId}&quot; name=&quot;${name}&quot; required=&quot;${required}&quot; aria-describedby=&quot;${describedBy}&quot; aria-invalid=&quot;${invalid}&quot;&gt;
+                @for(var option : options)
+                    &lt;option value=&quot;${option.value()}&quot; selected=&quot;${option.value().equals(current)}&quot;&gt;${option.label()}&lt;/option&gt;
+                @endfor
+            &lt;/select&gt;
+        &lt;/div&gt;
+    @elseif(type.equals(&quot;date&quot;))
+        &lt;div class=&quot;canon-date&quot;&gt;
+            &lt;input type=&quot;date&quot; id=&quot;${fieldId}&quot; name=&quot;${name}&quot; value=&quot;${current}&quot; required=&quot;${required}&quot; aria-describedby=&quot;${describedBy}&quot; aria-invalid=&quot;${invalid}&quot;&gt;
+        &lt;/div&gt;
+    @elseif(type.equals(&quot;password&quot;))
+        &lt;div class=&quot;canon-password&quot;&gt;
+            &lt;input type=&quot;password&quot; id=&quot;${fieldId}&quot; name=&quot;${name}&quot; placeholder required=&quot;${required}&quot; aria-describedby=&quot;${describedBy}&quot; aria-invalid=&quot;${invalid}&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;canon-button&quot; data-emphasis=&quot;minimal&quot; data-display=&quot;icon&quot; aria-pressed=&quot;false&quot; commandfor=&quot;${fieldId}&quot; command=&quot;--canon-toggle-password&quot;&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;eye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;canon-button-label&quot;&gt;Show password&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+    @else
+        &lt;div class=&quot;canon-text-input&quot;&gt;
+            &lt;input type=&quot;${type}&quot; id=&quot;${fieldId}&quot; name=&quot;${name}&quot; value=&quot;${current}&quot; placeholder required=&quot;${required}&quot; aria-describedby=&quot;${describedBy}&quot; aria-invalid=&quot;${invalid}&quot;&gt;
+        &lt;/div&gt;
+    @endif
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;${fieldId}-error&quot; data-intent=&quot;${error != null ? &quot;danger&quot; : null}&quot;&gt;${error != null ? error.getDefaultMessage() : null}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/canon/checkbox.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-checkbox" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/canon/checkbox.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-checkbox" data-lang="html">@import org.springframework.validation.Errors
+@import org.springframework.validation.FieldError
+
+@param Errors form
+@param String name
+@param String label
+@param String id = null
+
+!{String fieldId = id != null ? id : name;}
+!{FieldError error = form.getFieldError(name);}
+&lt;div class=&quot;canon-choice&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;${fieldId}&quot; name=&quot;${name}&quot; value=&quot;true&quot; checked=&quot;${&quot;true&quot;.equals(String.valueOf(form.getFieldValue(name)))}&quot; aria-describedby=&quot;${fieldId}-error&quot; aria-invalid=&quot;${error != null ? &quot;true&quot; : null}&quot;&gt;
+    &lt;label class=&quot;canon-choice-label&quot; for=&quot;${fieldId}&quot;&gt;${label}&lt;/label&gt;
+    &lt;p class=&quot;canon-choice-message&quot; id=&quot;${fieldId}-error&quot; data-intent=&quot;${error != null ? &quot;danger&quot; : null}&quot;&gt;${error != null ? error.getDefaultMessage() : null}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/canon/radios.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-radios" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/canon/radios.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-radios" data-lang="html">@import java.util.List
+@import org.springframework.validation.Errors
+@import org.springframework.validation.FieldError
+@import com.example.Option
+
+@param Errors form
+@param String name
+@param String legend
+@param List&lt;Option&gt; options
+@param String hint = null
+@param boolean required = false
+
+!{FieldError error = form.getFieldError(name);}
+!{String current = String.valueOf(form.getFieldValue(name));}
+!{String describedBy = (hint != null ? name + &quot;-hint &quot; : &quot;&quot;) + name + &quot;-error&quot;;}
+&lt;fieldset class=&quot;canon-fieldset&quot; aria-describedby=&quot;${describedBy}&quot;&gt;
+    &lt;legend class=&quot;canon-fieldset-legend&quot;&gt;${legend}&lt;/legend&gt;
+    @if(hint != null)
+        &lt;p class=&quot;canon-fieldset-hint&quot; id=&quot;${name}-hint&quot;&gt;${hint}&lt;/p&gt;
+    @endif
+    @for(var option : options)
+        &lt;div class=&quot;canon-choice&quot;&gt;
+            &lt;input type=&quot;radio&quot; id=&quot;${name}-${option.value()}&quot; name=&quot;${name}&quot; value=&quot;${option.value()}&quot; checked=&quot;${option.value().equals(current)}&quot; required=&quot;${required}&quot; aria-invalid=&quot;${error != null ? &quot;true&quot; : null}&quot;&gt;
+            &lt;label class=&quot;canon-choice-label&quot; for=&quot;${name}-${option.value()}&quot;&gt;${option.label()}&lt;/label&gt;
+        &lt;/div&gt;
+    @endfor
+    &lt;p class=&quot;canon-fieldset-message&quot; id=&quot;${name}-error&quot; data-intent=&quot;${error != null ? &quot;danger&quot; : null}&quot;&gt;${error != null ? error.getDefaultMessage() : null}&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+    </div>
+    <h3>Using them</h3>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/invoices/create.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-create" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/invoices/create.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-create" data-lang="html">@import java.util.List
+@import org.springframework.validation.BindingResult
+@import com.example.Option
+
+@param BindingResult form
+@param List&lt;Option&gt; statuses
+@param List&lt;Option&gt; channels
+
+@template.layout(title = &quot;New invoice&quot;, content = @`
+    &lt;h1&gt;New invoice&lt;/h1&gt;
+    &lt;form class=&quot;canon-form&quot; method=&quot;post&quot; action=&quot;/invoices&quot; novalidate&gt;
+        @template.canon.field(form = form, name = &quot;customer&quot;, label = &quot;Customer&quot;, required = true)
+        @template.canon.field(form = form, name = &quot;email&quot;, type = &quot;email&quot;, label = &quot;Email&quot;, hint = &quot;Where the invoice is sent.&quot;, required = true)
+        @template.canon.field(form = form, name = &quot;status&quot;, type = &quot;select&quot;, label = &quot;Status&quot;, options = statuses)
+        @template.canon.field(form = form, name = &quot;due&quot;, type = &quot;date&quot;, label = &quot;Due&quot;, required = true)
+        @template.canon.field(form = form, name = &quot;notes&quot;, type = &quot;textarea&quot;, label = &quot;Notes&quot;)
+        @template.canon.field(form = form, name = &quot;portalPassword&quot;, type = &quot;password&quot;, label = &quot;Portal password&quot;)
+        @template.canon.radios(form = form, name = &quot;channel&quot;, legend = &quot;Channel&quot;, hint = &quot;How the invoice reaches them.&quot;, options = channels, required = true)
+        @template.canon.checkbox(form = form, name = &quot;reminders&quot;, label = &quot;Send reminders when overdue&quot;)
+        &lt;button type=&quot;submit&quot; class=&quot;canon-button&quot; data-emphasis=&quot;high&quot;&gt;&lt;span class=&quot;canon-button-label&quot;&gt;Save&lt;/span&gt;&lt;/button&gt;
+    &lt;/form&gt;
+`)</code></pre>
+    </div>
+    <p class="ref-note">With Spring Security, a jte form writes its CSRF token itself. A helper finds the request's token:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/java/com/example/Csrf.java</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-csrf" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/java/com/example/Csrf.java</span></button>
+      </div>
+      <pre><code id="sb-csrf">public final class Csrf {
+
+    private Csrf() {
+    }
+
+    /** Spring Security&#x27;s CSRF token for this request. */
+    public static CsrfToken token() {
+        var request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        return (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+    }
+}</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/invoices/create.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-csrf-input" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/invoices/create.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-csrf-input" data-lang="html">@import com.example.Csrf
+…
+    &lt;form class=&quot;canon-form&quot; method=&quot;post&quot; action=&quot;/invoices&quot; novalidate&gt;
+        !{var csrf = Csrf.token();}
+        &lt;input type=&quot;hidden&quot; name=&quot;${csrf.getParameterName()}&quot; value=&quot;${csrf.getToken()}&quot;&gt;
+        …</code></pre>
+    </div>
+    <h3>Flash messages and pages</h3>
+    <p class="ref-note">The layout shows the flash attribute as a <a href="toast.html">Toast</a> when a page passes it on. A template draws a Spring Data <code>Page</code> as Canon's <a href="pagination.html">Pagination</a>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/canon/pagination.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-pagination" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/canon/pagination.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-pagination" data-lang="html">@import org.springframework.data.domain.Page
+@import com.example.PageLinks
+
+@param Page&lt;?&gt; page
+
+!{int current = page.getNumber() + 1;}
+!{int pages = Math.max(page.getTotalPages(), 1);}
+!{var links = new PageLinks();}
+&lt;nav class=&quot;canon-pagination&quot; aria-label=&quot;Pagination&quot; data-pages=&quot;${pages}&quot; data-page=&quot;${current}&quot; data-href=&quot;${links.pattern()}&quot;&gt;
+    &lt;ol&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-prev&quot; href=&quot;${page.hasPrevious() ? links.href(current - 1) : null}&quot; rel=&quot;${page.hasPrevious() ? &quot;prev&quot; : null}&quot; aria-disabled=&quot;${page.hasPrevious() ? null : &quot;true&quot;}&quot;&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Previous&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;span class=&quot;canon-pagination-current&quot;&gt;Page ${current} of ${pages}&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;
+            &lt;a class=&quot;canon-pagination-next&quot; href=&quot;${page.hasNext() ? links.href(current + 1) : null}&quot; rel=&quot;${page.hasNext() ? &quot;next&quot; : null}&quot; aria-disabled=&quot;${page.hasNext() ? null : &quot;true&quot;}&quot;&gt;
+                &lt;span class=&quot;canon-pagination-label&quot;&gt;Next&lt;/span&gt;
+                &lt;span class=&quot;canon-icon&quot; data-icon=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/invoices/index.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-index" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/invoices/index.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-index" data-lang="html">@import org.springframework.data.domain.Page
+@import com.example.Invoice
+
+@param Page&lt;Invoice&gt; invoices
+@param String status = null
+
+@template.layout(title = &quot;Invoices&quot;, status = status, content = @`
+    &lt;h1&gt;Invoices&lt;/h1&gt;
+    &lt;table class=&quot;canon-table&quot;&gt;
+        &lt;thead&gt;…&lt;/thead&gt;
+        &lt;tbody&gt;
+            @for(var invoice : invoices)
+                &lt;tr&gt;&lt;td&gt;${invoice.getNumber()}&lt;/td&gt;&lt;td&gt;${invoice.getCustomer()}&lt;/td&gt;&lt;td data-align=&quot;end&quot;&gt;${invoice.getTotal()}&lt;/td&gt;&lt;/tr&gt;
+            @endfor
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    @template.canon.pagination(page = invoices)
+`)</code></pre>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="errors">
+    <h2>Errors</h2>
+    <p class="ref-note">An email field after a failed save, from either engine (Thymeleaf writes <code>required="required"</code>, and the order of attributes may differ):</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">Rendered</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-rendered" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy Rendered</span></button>
+      </div>
+      <pre><code id="sb-rendered" data-lang="html">&lt;div class=&quot;canon-field&quot;&gt;
+    &lt;div class=&quot;canon-label&quot;&gt;
+        &lt;label class=&quot;canon-label-text&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+        &lt;p class=&quot;canon-label-description&quot; id=&quot;email-hint&quot;&gt;Where the invoice is sent.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;canon-text-input&quot;&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; value=&quot;nope&quot; placeholder required aria-describedby=&quot;email-hint email-error&quot; aria-invalid=&quot;true&quot;&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;canon-field-message&quot; id=&quot;email-error&quot; data-intent=&quot;danger&quot;&gt;must be a well-formed email address&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="ref-note">The browser's own checks (<code>required</code>, <code>type="email"</code>) run first unless the form has <code>novalidate</code>, and canon.js shows their messages in the same place. A toast needs JavaScript: a message people must read even without it (a save that failed) belongs in the page, as an <a href="alert.html">Alert</a>.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section class="ref-section" id="htmx">
+    <h2>With htmx</h2>
+    <p class="ref-note">Everything on <a href="htmx.html">With htmx</a> applies. With Thymeleaf, <a href="https://github.com/wimdeblauwe/htmx-spring-boot">htmx-spring-boot</a>'s dialect adds Spring Security's CSRF token to every <code>hx:post</code>, <code>hx:put</code>, <code>hx:patch</code> and <code>hx:delete</code>:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/resources/templates/invoices/index.html</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-th-htmx" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/resources/templates/invoices/index.html</span></button>
+      </div>
+      <pre><code id="sb-th-htmx" data-lang="html">&lt;button type=&quot;button&quot; class=&quot;canon-button&quot; hx:delete=&quot;@{/invoices/{id}(id=${invoice.id})}&quot; hx-target=&quot;closest tr&quot; hx-swap=&quot;outerHTML&quot;&gt;
+    &lt;span class=&quot;canon-button-label&quot;&gt;Delete&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+    </div>
+    <p class="ref-note">With jte, the layout sends the token with every request htmx makes:</p>
+    <div class="canon-code-block ref-plain">
+      <div class="canon-code-block-header">
+        <span class="canon-code-block-title">src/main/jte/layout.jte</span>
+        <button type="button" class="canon-button" data-emphasis="minimal" data-intent="neutral" data-display="icon" data-size="sm" commandfor="sb-jte-htmx" command="--canon-copy"><span class="canon-icon" data-icon="copy" aria-hidden="true"></span><span class="canon-button-label">Copy src/main/jte/layout.jte</span></button>
+      </div>
+      <pre><code id="sb-jte-htmx" data-lang="html">@import com.example.Csrf
+…
+!{var csrf = Csrf.token();}
+&lt;body hx-headers=&#x27;{&quot;${csrf.getHeaderName()}&quot;: &quot;${csrf.getToken()}&quot;}&#x27;&gt;</code></pre>
+    </div>
+    <p class="ref-note">Partials are the same templates: a handler that answers htmx renders a field, a form or a table on its own (with Thymeleaf, a fragment: <code>"invoices/index :: list"</code>), and canon.js sets it up when it lands.</p>
+  </section>
+
+</main>
+</body>
+</html>
