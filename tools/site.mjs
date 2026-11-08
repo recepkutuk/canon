@@ -137,6 +137,7 @@ const llms = [
   `- [With Django](${site}reference/django.html): every form rendered as Canon's Fields, errors, messages as toasts, lists with pages`,
   `- [With Rails](${site}reference/rails.html): the asset pipeline and Turbo, a form builder for Canon's markup, errors, flash messages as toasts, lists with pages`,
   `- [With Laravel](${site}reference/laravel.html): Blade components for every form part, errors, flash messages as toasts, the paginator drawing Canon's Pagination`,
+  `- [With Spring Boot](${site}reference/spring-boot.html): Thymeleaf fragments or jte templates for every form part, errors from Bean Validation, flash attributes as toasts, Spring Data pages drawn as Canon's Pagination`,
   "",
   ...groups.flatMap(({ name, items }) => [
     `## ${name}`,

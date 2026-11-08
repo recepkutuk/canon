@@ -23,6 +23,7 @@ Canon is not a JavaScript component library (there is nothing to import or call)
 - [With Django](https://recepkutuk.github.io/canon/reference/django.html): every form rendered as Canon's Fields, errors, messages as toasts, lists with pages
 - [With Rails](https://recepkutuk.github.io/canon/reference/rails.html): the asset pipeline and Turbo, a form builder for Canon's markup, errors, flash messages as toasts, lists with pages
 - [With Laravel](https://recepkutuk.github.io/canon/reference/laravel.html): Blade components for every form part, errors, flash messages as toasts, the paginator drawing Canon's Pagination
+- [With Spring Boot](https://recepkutuk.github.io/canon/reference/spring-boot.html): Thymeleaf fragments or jte templates for every form part, errors from Bean Validation, flash attributes as toasts, Spring Data pages drawn as Canon's Pagination
 
 ## Layout
 
