@@ -814,6 +814,8 @@
             demo.querySelector(".ref-demo-bar").after(frame, ...(report ? [report] : []));
           });
         });
+        /* Moving a frame closes the static popovers in it: they open again. */
+        document.dispatchEvent(new Event("ref-demos-framed"));
       }).catch(() => {});
     }
 
@@ -941,7 +943,8 @@
        moving an open popover closes it). Anchor positioning keeps the last
        placement that fit, so one opened off screen, or before a scroll or
        resize, may stay flipped. They (re)open when their anchor comes into
-       view and after each scroll or resize. */
+       view, after each scroll or resize, and once the examples are framed
+       with their HTML (which moves them, closing them). */
     const visible = new Set();
     const open = (anchor) => {
       const popover = document.getElementById(anchor.dataset.refOpens);
@@ -964,6 +967,7 @@
     };
     addEventListener("scrollend", reopen);
     addEventListener("resize", reopen);
+    document.addEventListener("ref-demos-framed", () => visible.forEach(open));
 
     /* ------------------------------------------------------------------ */
     /* Code in the notes                                                   */
