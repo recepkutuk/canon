@@ -16,7 +16,7 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## Copy the specification
 
 - **Write each component as its specification shows**, with every required element, in order. Don't invent elements, classes or wrappers.
-- **Start from the reference page's markup** (`reference/<component>.html`, the HTML under each example and in the Playground) and change the text and values.
+- **Start from the specification's own markup** (its Elements section), then change the text and values. Each component's reference page (`reference/<component>.html`) shows the same markup working, in every variant and state, with its HTML under each example.
 
 ## Say what it is, never how it looks
 
@@ -35,7 +35,7 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## Indicators come from attributes
 
 - Don't write chevrons, spinners or external-link icons. The theme draws them from the attribute that declares the behavior: `aria-haspopup="menu"` gives a chevron, `aria-busy="true"` a spinner, `target="_blank"` the external mark.
-- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use the names in Canon's stylesheet; directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
+- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use only the names in [the icon list](icons.md): a name that isn't there draws nothing. Directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
 
 ## Accessibility is part of the markup
 
@@ -53,7 +53,8 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 
 ## Layout belongs to containers
 
-- Components never set the space around themselves. Put them in a [Stack, Cluster or Grid](components/stack.md) with `data-gap` (in the theme's steps, never lengths), or in an App Shell, Section, Card or Form Layout.
+- Components never set the space around themselves. Put them in a [Stack, Cluster or Grid](components/stack.md) with `data-gap` (`none`, `sm`, `md`, `lg`, `xl`: the theme's steps, never lengths), or in an App Shell, Section, Card or Form Layout.
+- **The page's own margins are yours,** in an App Shell or not: pad your `<main>` in your CSS, and set `--canon-page-inset` to the same side padding, so a sticky Page Header reaches across it.
 - Don't add margins, widths or flex rules to `canon-` elements. Write layout CSS for your own containers, and app CSS without layers, which beats Canon's without specificity fights.
 
 ## Text is the author's

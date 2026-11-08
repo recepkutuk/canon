@@ -81,6 +81,7 @@ How a whole form is arranged: the space between what it holds, sections with a t
 - A reveal follows its choice in the DOM, so it is read and tabbed in order; hidden, it is out of the tab order (and, with canon.js, disabled).
 - Sticky actions must not cover the focused field: themes keep them short (one row of buttons).
 - Rows keep each field's own label; on narrow screens they stack in reading order.
+- **An error summary** after a submit that failed goes at the top of the form: a danger [Alert](alert.md) linking to each wrong field, which keeps its own message.
 
 ## Theme obligations
 
@@ -96,7 +97,6 @@ How a whole form is arranged: the space between what it holds, sections with a t
 | Labels beside their boxes (horizontal fields) | `data-label="start"` on the form ([Field](field.md#label-beside-the-box-author-hint)) |
 | A reveal driven by a select | If it comes up |
 | Multi-step forms | Wizard (pattern) |
-| An error summary at the top | With validation, if it comes up |
 
 ## Look
 

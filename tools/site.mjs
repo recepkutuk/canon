@@ -8,6 +8,7 @@
  *                  specification, by group
  *   llms-full.txt  the same documents in one file
  *   sitemap.xml    every reference page, with when it last changed
+ *   docs/icons.md  every icon name Canon's stylesheet draws
  *
  * and gives every reference page a description for search results and
  * shared links (<meta name="description"> and og:description), from the
@@ -29,6 +30,18 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(join(root, path), "utf8");
 const site = "https://recepkutuk.github.io/canon/";
 const { version } = JSON.parse(read("package.json"));
+
+/* docs/icons.md: every icon name Canon's stylesheet draws, so markup
+   (and the tools that write it) uses only names that exist. */
+const icons = [...new Set([...read("css/canon/canon.css").matchAll(/\[data-icon="([a-z0-9-]+)"\]/g)].map(([, name]) => name))].sort();
+writeFileSync(join(root, "docs/icons.md"), [
+  "# Icons",
+  "",
+  "The icon names Canon's stylesheet draws. Name one on a `canon-icon`: `<span class=\"canon-icon\" data-icon=\"trash\" aria-hidden=\"true\"></span>`. A name that isn't here draws nothing. Directional names are logical (`arrow-forward`, not arrow-right), so right-to-left pages mirror them. This list is written from the stylesheet; another theme may draw more.",
+  "",
+  ...icons.map((name) => `- \`${name}\``),
+  "",
+].join("\n"));
 
 /* A specification's line: its first paragraph's first sentence, links
    as plain text. Specifications that start with their elements have none. */
@@ -101,6 +114,7 @@ const llms = [
   "## Start here",
   "",
   `- [Writing Canon markup](${site}docs/markup-rules.md): the rules every page follows, for people and AI assistants writing Canon's HTML`,
+  `- [Icons](${site}docs/icons.md): every icon name; a name not listed draws nothing`,
   `- [Decisions](${site}docs/decisions.md): what Canon is for, how its markup speaks, how its CSS and JavaScript are built`,
   `- [Getting started](${site}reference/getting-started.html): adding Canon to a page or an app`,
   `- [Themes](${site}reference/themes.html): one markup, several looks`,
@@ -126,7 +140,7 @@ const llms = [
   "",
 ].join("\n");
 
-const documents = [...new Set(["docs/markup-rules.md", "docs/decisions.md", ...groups.flatMap(({ items }) => items.map(({ path }) => path)).filter((path) => path.endsWith(".md"))])];
+const documents = [...new Set(["docs/markup-rules.md", "docs/icons.md", "docs/decisions.md", ...groups.flatMap(({ items }) => items.map(({ path }) => path)).filter((path) => path.endsWith(".md"))])];
 const full = [
   ...intro,
   `Every document below is also at ${site} under its path. Links between them are relative to docs/.`,

@@ -35,7 +35,7 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## Copy the specification
 
 - **Write each component as its specification shows**, with every required element, in order. Don't invent elements, classes or wrappers.
-- **Start from the reference page's markup** (`reference/<component>.html`, the HTML under each example and in the Playground) and change the text and values.
+- **Start from the specification's own markup** (its Elements section), then change the text and values. Each component's reference page (`reference/<component>.html`) shows the same markup working, in every variant and state, with its HTML under each example.
 
 ## Say what it is, never how it looks
 
@@ -54,7 +54,7 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## Indicators come from attributes
 
 - Don't write chevrons, spinners or external-link icons. The theme draws them from the attribute that declares the behavior: `aria-haspopup="menu"` gives a chevron, `aria-busy="true"` a spinner, `target="_blank"` the external mark.
-- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use the names in Canon's stylesheet; directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
+- **Icons are named, not drawn:** `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. Use only the names in [the icon list](icons.md): a name that isn't there draws nothing. Directional ones are logical (`arrow-forward`, `arrow-back`), so right-to-left pages mirror them.
 
 ## Accessibility is part of the markup
 
@@ -72,7 +72,8 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 
 ## Layout belongs to containers
 
-- Components never set the space around themselves. Put them in a [Stack, Cluster or Grid](components/stack.md) with `data-gap` (in the theme's steps, never lengths), or in an App Shell, Section, Card or Form Layout.
+- Components never set the space around themselves. Put them in a [Stack, Cluster or Grid](components/stack.md) with `data-gap` (`none`, `sm`, `md`, `lg`, `xl`: the theme's steps, never lengths), or in an App Shell, Section, Card or Form Layout.
+- **The page's own margins are yours,** in an App Shell or not: pad your `<main>` in your CSS, and set `--canon-page-inset` to the same side padding, so a sticky Page Header reaches across it.
 - Don't add margins, widths or flex rules to `canon-` elements. Write layout CSS for your own containers, and app CSS without layers, which beats Canon's without specificity fights.
 
 ## Text is the author's
@@ -86,6 +87,90 @@ Any server or framework that writes HTML can use it. There is nothing to import 
 ## What Canon isn't for
 
 Marketing sites (hero sections, pricing tables, mega menus) and anything that needs a client-side framework's components. Use Canon for internal tools: tables, forms, records, dashboards and the shell around them.
+
+---
+
+Source: https://recepkutuk.github.io/canon/docs/icons.md
+
+# Icons
+
+The icon names Canon's stylesheet draws. Name one on a `canon-icon`: `<span class="canon-icon" data-icon="trash" aria-hidden="true"></span>`. A name that isn't here draws nothing. Directional names are logical (`arrow-forward`, not arrow-right), so right-to-left pages mirror them. This list is written from the stylesheet; another theme may draw more.
+
+- `align-center`
+- `align-end`
+- `align-justify`
+- `align-start`
+- `arrow-back`
+- `arrow-forward`
+- `baseline`
+- `bell`
+- `bold`
+- `book-user`
+- `building`
+- `calendar`
+- `chevron-down`
+- `chevron-left`
+- `chevron-right`
+- `chevron-up`
+- `chevrons-left`
+- `chevrons-right`
+- `circle-alert`
+- `circle-check`
+- `circle-help`
+- `close`
+- `copy`
+- `crown`
+- `download`
+- `eraser`
+- `external`
+- `eye`
+- `gauge`
+- `globe`
+- `grip-vertical`
+- `house`
+- `inbox`
+- `indent-decrease`
+- `indent-increase`
+- `info`
+- `italic`
+- `link`
+- `list`
+- `list-filter`
+- `list-ordered`
+- `loader`
+- `log-out`
+- `mail`
+- `minus`
+- `moon`
+- `more`
+- `panel-left-close`
+- `panel-left-open`
+- `pencil`
+- `pin`
+- `plus`
+- `receipt`
+- `redo`
+- `refresh`
+- `search`
+- `search-x`
+- `settings`
+- `sparkles`
+- `square-chevron-left`
+- `square-chevron-right`
+- `square-kanban`
+- `star`
+- `strikethrough`
+- `subscript`
+- `sun`
+- `superscript`
+- `table`
+- `tag`
+- `text-cursor`
+- `text-wrap`
+- `trash`
+- `underline`
+- `undo`
+- `user`
 
 ---
 
@@ -2777,6 +2862,7 @@ How a whole form is arranged: the space between what it holds, sections with a t
 - A reveal follows its choice in the DOM, so it is read and tabbed in order; hidden, it is out of the tab order (and, with canon.js, disabled).
 - Sticky actions must not cover the focused field: themes keep them short (one row of buttons).
 - Rows keep each field's own label; on narrow screens they stack in reading order.
+- **An error summary** after a submit that failed goes at the top of the form: a danger [Alert](alert.md) linking to each wrong field, which keeps its own message.
 
 ## Theme obligations
 
@@ -2792,7 +2878,6 @@ How a whole form is arranged: the space between what it holds, sections with a t
 | Labels beside their boxes (horizontal fields) | `data-label="start"` on the form ([Field](field.md#label-beside-the-box-author-hint)) |
 | A reveal driven by a select | If it comes up |
 | Multi-step forms | Wizard (pattern) |
-| An error summary at the top | With validation, if it comes up |
 
 ## Look
 
@@ -4843,7 +4928,7 @@ A Table people work with: search and filter it, sort it, select rows, act on a r
 | The actions column | no | Its header cell `data-column="actions"`: an empty `<td>`, or a `<th>` with a title. Each row's cell holds either a menu button (a minimal icon [Button](button.md), "Actions for Edwin Mueller", opening a [Menu](menu.md)) or a few buttons in a [Toolbar](toolbar.md) named for the row. |
 | A message row | no | One row, one cell, holding an [Empty State](empty-state.md): nothing yet, no results, or an error. canon.js spans it across the columns. |
 
-- **Statuses** are status [Tags](tag.md) (`data-intent`).
+- **Statuses** in a column, where every row has one, are [Status Indicators](status.md): the same words as a status [Tag](tag.md), lighter. A status Tag (`data-intent`) is for one that must stand out.
 - **Cells stay on one line**, so rows keep one height; `data-wrap="normal"` on a cell lets it wrap, `data-wrap="truncate"` cuts it with "…" (at `--canon-truncate`, 16rem), and `data-wrap="middle"` cuts plain text in its middle, keeping its end (its last third: at least 8 characters, and a file name's extension with the 5 before it), for file names, paths and ids that differ at the end. Don't cut numbers, amounts or dates: people compare them. `data-align` and `data-wrap` on a header apply to its whole column.
 - **One select column, one actions column**, at the start and the end of the row.
 

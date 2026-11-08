@@ -14,6 +14,7 @@ Canon is not a JavaScript component library (there is nothing to import or call)
 ## Start here
 
 - [Writing Canon markup](https://recepkutuk.github.io/canon/docs/markup-rules.md): the rules every page follows, for people and AI assistants writing Canon's HTML
+- [Icons](https://recepkutuk.github.io/canon/docs/icons.md): every icon name; a name not listed draws nothing
 - [Decisions](https://recepkutuk.github.io/canon/docs/decisions.md): what Canon is for, how its markup speaks, how its CSS and JavaScript are built
 - [Getting started](https://recepkutuk.github.io/canon/reference/getting-started.html): adding Canon to a page or an app
 - [Themes](https://recepkutuk.github.io/canon/reference/themes.html): one markup, several looks

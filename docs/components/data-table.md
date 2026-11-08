@@ -75,7 +75,7 @@ A Table people work with: search and filter it, sort it, select rows, act on a r
 | The actions column | no | Its header cell `data-column="actions"`: an empty `<td>`, or a `<th>` with a title. Each row's cell holds either a menu button (a minimal icon [Button](button.md), "Actions for Edwin Mueller", opening a [Menu](menu.md)) or a few buttons in a [Toolbar](toolbar.md) named for the row. |
 | A message row | no | One row, one cell, holding an [Empty State](empty-state.md): nothing yet, no results, or an error. canon.js spans it across the columns. |
 
-- **Statuses** are status [Tags](tag.md) (`data-intent`).
+- **Statuses** in a column, where every row has one, are [Status Indicators](status.md): the same words as a status [Tag](tag.md), lighter. A status Tag (`data-intent`) is for one that must stand out.
 - **Cells stay on one line**, so rows keep one height; `data-wrap="normal"` on a cell lets it wrap, `data-wrap="truncate"` cuts it with "…" (at `--canon-truncate`, 16rem), and `data-wrap="middle"` cuts plain text in its middle, keeping its end (its last third: at least 8 characters, and a file name's extension with the 5 before it), for file names, paths and ids that differ at the end. Don't cut numbers, amounts or dates: people compare them. `data-align` and `data-wrap` on a header apply to its whole column.
 - **One select column, one actions column**, at the start and the end of the row.
 
