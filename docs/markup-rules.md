@@ -7,8 +7,8 @@ The rules every page that uses Canon follows. They are short on purpose: for peo
 Two lines in the page, no build step:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/css/canon/canon.css">
-<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/js/canon.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.2.1/css/canon/canon.css">
+<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.2.1/js/canon.js" defer></script>
 ```
 
 Any server or framework that writes HTML can use it. There is nothing to import or call.

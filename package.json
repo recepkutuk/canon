@@ -1,6 +1,6 @@
 {
   "name": "canon-ui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Component library for internal tools and admin screens: tables, forms, records, in accessible plain HTML. No build step; works with any server (Django, Rails, Laravel, Go, htmx).",
   "keywords": [
     "accessibility",

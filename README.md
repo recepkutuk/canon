@@ -17,8 +17,8 @@ It's made for the admin screens and back-office tools a server already renders: 
 Two lines, then the markup each component's page shows. There's no build step, so take them from a CDN:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/css/canon/canon.css">
-<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.2.0/js/canon.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/canon-ui@0.2.1/css/canon/canon.css">
+<script src="https://cdn.jsdelivr.net/npm/canon-ui@0.2.1/js/canon.js" defer></script>
 ```
 
 Or install the package:
