@@ -11,14 +11,16 @@
  *
  * and gives every reference page a description for search results and
  * shared links (<meta name="description"> and og:description), from the
- * note under its title.
+ * note under its title; a component's page also links its specification
+ * as Markdown (<link rel="alternate" type="text/markdown">), for tools
+ * that read the page.
  *   node tools/site.mjs
  *
  * The groups and their order come from docs/decisions.md's Components
  * section; each component's line, from the first paragraph of its
  * specification. Run it after adding a component or a page.
  */
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -163,8 +165,11 @@ for (const name of pages) {
   const html = read(path);
   const note = pageNote(path).replace(/`/g, "");
   const description = name === "introduction.html" ? introDescription : note ? `${note} ${about}` : about;
-  const tags = `  <meta name="description" content="${attribute(description)}">\n  <meta property="og:description" content="${attribute(description)}">\n`;
-  const cleaned = html.replace(/^\s*<meta (name="description"|property="og:description")[^>]*>\n/gm, "");
+  const spec = `docs/components/${name.replace(/\.html$/, ".md")}`;
+  const title = html.match(/<h1>([^<]*)<\/h1>/)?.[1] ?? "";
+  const specLink = existsSync(join(root, spec)) ? `  <link rel="alternate" type="text/markdown" href="../${spec}" title="${attribute(title)} specification">\n` : "";
+  const tags = `  <meta name="description" content="${attribute(description)}">\n  <meta property="og:description" content="${attribute(description)}">\n${specLink}`;
+  const cleaned = html.replace(/^\s*<meta (name="description"|property="og:description")[^>]*>\n/gm, "").replace(/^\s*<link rel="alternate" type="text\/markdown"[^>]*>\n/gm, "");
   const updated = cleaned.replace(/(<title>[^<]*<\/title>\n)/, `$1${tags}`);
   if (updated === cleaned) continue;
   if (updated !== html) writeFileSync(join(root, path), updated);
