@@ -39,7 +39,9 @@ try {
   texts = await fetchAll(sourcesFor(orders, resolveModules(manifest, null).wanted));
 } catch {
   summary.textContent = "Canon's sources couldn't be loaded. Reload the page to try again.";
+  list.replaceChildren();
   list.removeAttribute("aria-busy");
+  list.removeAttribute("aria-label");
   throw new Error("Build: the sources didn't load");
 }
 
@@ -67,6 +69,9 @@ const element = (tag, className, text) => {
   if (text !== undefined) made.textContent = text;
   return made;
 };
+
+/* The skeleton lines held their place while the sources loaded. */
+list.replaceChildren();
 
 /* A line per bundle: its checkbox and name, what it's for, how many
    components (a Tooltip names them), its size (what it adds). */
@@ -119,6 +124,7 @@ for (const bundle of bundles) {
   list.append(row);
 }
 list.removeAttribute("aria-busy");
+list.removeAttribute("aria-label");
 
 const setAll = (on) => {
   for (const bundle of optional) {

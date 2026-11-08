@@ -1338,6 +1338,38 @@ a code.ref-code .tok { color: inherit; }
   border: 1px solid var(--ref-line);
   border-radius: 0.75rem;
 }
+/* Loading: each line drawn as a skeleton of itself, as tall as it will
+   be (checkbox, name and what it's for; count and size), so nothing
+   moves when the bundles come. */
+.ref-build-skeleton-choice {
+  --_name: var(--canon-theme-label-line-height, 1.25rem);
+  --_hint: var(--canon-theme-label-description-line-height, 1rem);
+  display: flex;
+  flex: 1;
+  align-items: start;
+  gap: 0.75rem;
+  min-inline-size: 0;
+}
+.ref-build-skeleton-choice > [data-shape="square"] {
+  flex: none;
+  margin-block: calc((var(--_name) - var(--canon-icon-size)) / 2);
+}
+.ref-build-skeleton-lines {
+  display: grid;
+  flex: 1;
+  gap: var(--canon-theme-label-description-gap, 0.375rem);
+  min-inline-size: 0;
+}
+.ref-build-skeleton-lines > :first-child {
+  margin-block: calc((var(--_name) - 0.5rem) / 2);
+}
+.ref-build-skeleton-lines > :last-child {
+  margin-block: calc((var(--_hint) - 0.5rem) / 2);
+}
+.ref-build-end > .canon-skeleton,
+.ref-build-summary > .canon-skeleton {
+  margin-block: calc((var(--ref-text-sm-lh) - 0.5rem) / 2);
+}
 .ref-build-addon-core {
   background-color: light-dark(#fafafa, #111113);
 }
